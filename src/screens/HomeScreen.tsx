@@ -14,7 +14,10 @@ export const HomeScreen = ({ navigation }: Props) => {
       <ThemedText>홈 화면</ThemedText>
       <ToggleThemeButton />
       <ThemedButton onPress={() => navigation.navigate('Write')}>
-        상세 페이지로 이동
+        글쓰기 페이지로 이동
+      </ThemedButton>
+      <ThemedButton onPress={() => navigation.navigate('Profile')}>
+        프로필 페이지로 이동
       </ThemedButton>
     </ThemedSafeAreaView>
   );
@@ -25,5 +28,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    gap: 12,
   },
 });

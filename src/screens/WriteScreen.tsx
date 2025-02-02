@@ -1,13 +1,13 @@
-import { ThemedButton } from '@/components/common/ThemedButton';
 import { ThemedSafeAreaView } from '@/components/common/ThemedSafeAreaView';
-import { ThemedView } from '@/components/common/ThemedView.tsx';
+import { ThemedText } from '@/components/common/ThemedText';
 import { ContentInput } from '@/components/write/ContentInput.tsx';
 import { TitleInput } from '@/components/write/TitleInput.tsx';
 import { IEmotion, IJournal } from '@/types/entries';
 import { RootStackParamList } from '@/types/screens';
+import { formatDate } from '@/utils/common/formatDate';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import uuid from 'react-native-uuid';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Write'>;
@@ -26,7 +26,7 @@ export const WriteScreen = ({ navigation }: Props) => {
     date: new Date(),
     keywords: [],
   });
-
+  const { year, month, day } = formatDate(new Date());
   const titleInputHandler = (e: string) => {
     setNewJournal(prev => ({ ...prev, title: e }));
   };
@@ -37,18 +37,21 @@ export const WriteScreen = ({ navigation }: Props) => {
 
   return (
     <ThemedSafeAreaView style={styles.container}>
-      <ThemedButton onPress={() => navigation.goBack()}>뒤로가기</ThemedButton>
-      <TitleInput
-        value={newJournal.title}
-        onChangeText={titleInputHandler}
-        placeholder="오늘 당신의 감정을 기록하세요."
-      />
-      <ThemedView style={styles.contentInputBox}>
+      <View style={styles.dateBox}>
+        <ThemedText variant="secondary">{`${year}년 ${month}월 ${day}일`}</ThemedText>
+      </View>
+      <View style={styles.inputBox}>
+        <TitleInput
+          value={newJournal.title}
+          onChangeText={titleInputHandler}
+          placeholder="제목을 입력하세요."
+        />
         <ContentInput
           value={newJournal.content}
           onChangeText={contentInputHandler}
+          placeholder="오늘 당신의 감정을 기록하세요."
         />
-      </ThemedView>
+      </View>
     </ThemedSafeAreaView>
   );
 };
@@ -57,8 +60,14 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 24,
     paddingHorizontal: 24,
+    gap: 12,
   },
-  contentInputBox: {
+  dateBox: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  inputBox: {
     flex: 1,
+    gap: 12,
   },
 });

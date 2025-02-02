@@ -41,9 +41,9 @@ export const COLOR_THEMES = {
     },
     text: {
       primary: palette.grey[900],
-      secondary: palette.grey[800],
-      tertiary: palette.grey[700],
-      disabled: palette.grey[600],
+      secondary: palette.grey[700],
+      tertiary: palette.grey[500],
+      disabled: palette.grey[300],
     },
     button: {
       primary: palette.grey[800],
