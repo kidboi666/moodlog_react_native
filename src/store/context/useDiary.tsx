@@ -1,36 +1,82 @@
 import { IJournal } from '@/types/entries';
-import { DiaryStore } from '@/types/interfaces';
-import { createContext, PropsWithChildren, useState } from 'react';
+import { IDiaryStore } from '@/types/interfaces';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  createContext,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
-export const DiaryContext = createContext<DiaryStore>({
-  journals: [],
-  addJournal: (journal: IJournal) => {},
-  removeJournal: (id: string) => {},
-});
+export const DiaryContext = createContext<IDiaryStore | null>(null);
 
-function DiaryContextProvider({ children }: PropsWithChildren) {
+const DiaryContextProvider = ({ children }: PropsWithChildren) => {
   const [journals, setJournals] = useState<IJournal[]>([]);
 
-  const addJournal = (journal: IJournal) => {
-    if (!journals) {
-      return setJournals([journal]);
-    }
+  useEffect(() => {
+    const loadJournals = async () => {
+      try {
+        const savedJournals = await AsyncStorage.getItem('journals-storage');
+        if (savedJournals) {
+          setJournals(JSON.parse(savedJournals));
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const saveJournals = async () => {
+      try {
+        await AsyncStorage.setItem(
+          'journals-storage',
+          JSON.stringify(journals),
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    saveJournals();
+  }, [journals]);
+
+  const addJournal = useCallback((journal: IJournal) => {
     setJournals(prev => [...prev, journal]);
-  };
+  }, []);
 
-  const removeJournal = (id: string) => {
-    const nextJournals = journals.filter(journal => journal.id !== id);
-    setJournals(prev => nextJournals);
-  };
+  const removeJournal = useCallback((id: string) => {
+    setJournals(prev => prev.filter(journal => journal.id !== id));
+  }, []);
 
-  const state = {
-    journals,
-    addJournal,
-    removeJournal,
-  };
+  const updateJournal = useCallback((id: string, updateJournal: IJournal) => {
+    setJournals(prev =>
+      prev.map(journal => (journal.id === id ? updateJournal : journal)),
+    );
+  }, []);
+
+  const state = useMemo(
+    () => ({
+      journals,
+      addJournal,
+      removeJournal,
+      updateJournal,
+    }),
+    [addJournal, journals, removeJournal, updateJournal],
+  );
   return (
     <DiaryContext.Provider value={state}>{children}</DiaryContext.Provider>
   );
-}
+};
+
+export const useDiary = () => {
+  const context = useContext(DiaryContext);
+  if (!context) {
+    throw new Error('useDiary must be used within a DiaryProvider');
+  }
+  return context;
+};
 
 export default DiaryContextProvider;

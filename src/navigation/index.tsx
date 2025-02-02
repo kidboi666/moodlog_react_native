@@ -1,0 +1,29 @@
+import { HomeScreen } from '@/screens/HomeScreen';
+import { WriteScreen } from '@/screens/WriteScreen';
+
+import { RootStackParamList } from '@/types/screens';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+export const RootNavigator = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: true,
+        animation: 'fade_from_bottom',
+      }}>
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ title: 'Home' }}
+      />
+      <Stack.Screen
+        name="Write"
+        component={WriteScreen}
+        options={{ title: 'Write' }}
+      />
+    </Stack.Navigator>
+  );
+};

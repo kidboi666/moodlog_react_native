@@ -11,3 +11,8 @@ export enum EmotionLevel {
   HALF = 50,
   FULL = 100,
 }
+
+export enum Theme {
+  DARK = 'dark',
+  LIGHT = 'light',
+}

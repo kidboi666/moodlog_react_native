@@ -10,6 +10,7 @@ export interface IEmotion {
 export interface IJournal {
   id: string;
   date: Date;
+  title?: string;
   content: string;
   emotion: IEmotion;
   keywords?: string[];
