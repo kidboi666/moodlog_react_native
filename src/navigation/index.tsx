@@ -11,8 +11,7 @@ export const RootNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: true,
-        animation: 'fade_from_bottom',
+        headerShown: false,
       }}>
       <Stack.Screen
         name="Home"

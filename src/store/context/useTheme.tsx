@@ -15,7 +15,6 @@ const ThemeContext = createContext<IThemeStore>({
   colors: COLOR_THEMES.light,
   isDark: false,
   toggleTheme: () => {},
-  barStyle: 'light-content',
 });
 
 const ThemeContextProvider = ({ children }: PropsWithChildren) => {
@@ -27,25 +26,18 @@ const ThemeContextProvider = ({ children }: PropsWithChildren) => {
     [isDark],
   );
 
-  const barStyle = useMemo(
-    () => (isDark ? 'dark-content' : 'light-content'),
-    [isDark],
-  ) as IThemeStore['barStyle'];
-
-  const toggleTheme = useCallback((selectedTheme: boolean) => {
-    setIsDark(selectedTheme);
-  }, []);
+  const toggleTheme = useCallback(() => {
+    setIsDark(!isDark);
+  }, [isDark]);
 
   useEffect(() => {
     setIsDark(colorScheme === 'dark');
   }, [colorScheme]);
 
-  const value = useMemo(
-    () => ({ colors, isDark, toggleTheme, barStyle }),
-    [colors, isDark, toggleTheme, barStyle],
-  );
   return (
-    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value={{ colors, isDark, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
   );
 };
 

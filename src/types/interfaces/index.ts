@@ -13,7 +13,6 @@ export interface IDiaryStore {
 
 export interface IThemeStore {
   colors: TColors;
-  toggleTheme: (selectedTheme: boolean) => void;
+  toggleTheme: () => void;
   isDark: boolean;
-  barStyle: 'light-content' | 'dark-content';
 }

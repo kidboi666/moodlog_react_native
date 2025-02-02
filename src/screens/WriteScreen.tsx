@@ -1,3 +1,4 @@
+import { ThemedButton } from '@/components/common/ThemedButton';
 import { ThemedSafeAreaView } from '@/components/common/ThemedSafeAreaView';
 import { ThemedView } from '@/components/common/ThemedView.tsx';
 import { ContentInput } from '@/components/write/ContentInput.tsx';
@@ -36,6 +37,7 @@ export const WriteScreen = ({ navigation }: Props) => {
 
   return (
     <ThemedSafeAreaView style={styles.container}>
+      <ThemedButton onPress={() => navigation.goBack()}>뒤로가기</ThemedButton>
       <TitleInput
         value={newJournal.title}
         onChangeText={titleInputHandler}
