@@ -1,4 +1,4 @@
-import { ThemedSafeAreaView } from '@/components/common/ThemedSafeAreaView';
+import { Container } from '@/components/common/Container';
 import { ThemedText } from '@/components/common/ThemedText';
 import { ContentInput } from '@/components/write/ContentInput.tsx';
 import { TitleInput } from '@/components/write/TitleInput.tsx';
@@ -36,7 +36,7 @@ export const WriteScreen = ({ navigation }: Props) => {
   };
 
   return (
-    <ThemedSafeAreaView style={styles.container}>
+    <Container style={styles.container}>
       <View style={styles.dateBox}>
         <ThemedText variant="secondary">{`${year}년 ${month}월 ${day}일`}</ThemedText>
       </View>
@@ -52,7 +52,7 @@ export const WriteScreen = ({ navigation }: Props) => {
           placeholder="오늘 당신의 감정을 기록하세요."
         />
       </View>
-    </ThemedSafeAreaView>
+    </Container>
   );
 };
 

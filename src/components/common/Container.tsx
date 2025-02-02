@@ -6,7 +6,7 @@ import {
 
 interface Props extends SafeAreaViewProps {}
 
-export const ThemedSafeAreaView = ({ style, ...props }: Props) => {
+export const Container = ({ style, ...props }: Props) => {
   const { colors } = useTheme();
   return (
     <SafeAreaView

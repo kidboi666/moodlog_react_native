@@ -1,5 +1,5 @@
+import { Container } from '@/components/common/Container';
 import { ThemedButton } from '@/components/common/ThemedButton';
-import { ThemedSafeAreaView } from '@/components/common/ThemedSafeAreaView';
 import { ThemedText } from '@/components/common/ThemedText';
 import { ToggleThemeButton } from '@/components/theme/ToggleThemeButton';
 import { RootStackParamList } from '@/types/screens';
@@ -10,7 +10,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 export const HomeScreen = ({ navigation }: Props) => {
   return (
-    <ThemedSafeAreaView style={styles.container}>
+    <Container style={styles.container}>
       <ThemedText>홈 화면</ThemedText>
       <ToggleThemeButton />
       <ThemedButton onPress={() => navigation.navigate('Write')}>
@@ -19,7 +19,7 @@ export const HomeScreen = ({ navigation }: Props) => {
       <ThemedButton onPress={() => navigation.navigate('Profile')}>
         프로필 페이지로 이동
       </ThemedButton>
-    </ThemedSafeAreaView>
+    </Container>
   );
 };
 
