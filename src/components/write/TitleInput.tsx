@@ -8,6 +8,7 @@ export const TitleInput = ({ ...props }: TitleInputProps) => {
   const { colors } = useTheme();
   return (
     <TextInput
+      autoFocus={true}
       style={{
         height: 40,
         color: colors.text.secondary,
