@@ -1,5 +1,5 @@
+import { Button } from '@/components/common/Button';
 import { Container } from '@/components/common/Container';
-import { ThemedButton } from '@/components/common/ThemedButton';
 import { ThemedText } from '@/components/common/ThemedText';
 import { ToggleThemeButton } from '@/components/theme/ToggleThemeButton';
 import { RootStackParamList } from '@/types/screens';
@@ -13,12 +13,12 @@ export const HomeScreen = ({ navigation }: Props) => {
     <Container style={styles.container}>
       <ThemedText>홈 화면</ThemedText>
       <ToggleThemeButton />
-      <ThemedButton onPress={() => navigation.navigate('Write')}>
+      <Button onPress={() => navigation.navigate('Write')}>
         글쓰기 페이지로 이동
-      </ThemedButton>
-      <ThemedButton onPress={() => navigation.navigate('Profile')}>
+      </Button>
+      <Button onPress={() => navigation.navigate('Profile')}>
         프로필 페이지로 이동
-      </ThemedButton>
+      </Button>
     </Container>
   );
 };

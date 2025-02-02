@@ -27,6 +27,7 @@ const DiaryContextProvider = ({ children }: PropsWithChildren) => {
         console.log(error);
       }
     };
+    loadJournals();
   }, []);
 
   useEffect(() => {
@@ -43,17 +44,17 @@ const DiaryContextProvider = ({ children }: PropsWithChildren) => {
     saveJournals();
   }, [journals]);
 
-  const addJournal = useCallback((journal: IJournal) => {
-    setJournals(prev => [...prev, journal]);
+  const addJournal = useCallback((newJournal: IJournal) => {
+    setJournals(prev => [...prev, newJournal]);
   }, []);
 
   const removeJournal = useCallback((id: string) => {
     setJournals(prev => prev.filter(journal => journal.id !== id));
   }, []);
 
-  const updateJournal = useCallback((id: string, updateJournal: IJournal) => {
+  const updateJournal = useCallback((id: string, newJournal: IJournal) => {
     setJournals(prev =>
-      prev.map(journal => (journal.id === id ? updateJournal : journal)),
+      prev.map(journal => (journal.id === id ? newJournal : journal)),
     );
   }, []);
 

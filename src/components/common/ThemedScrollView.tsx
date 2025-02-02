@@ -13,3 +13,5 @@ export const ThemedScrollView = ({ style, ...props }: Props) => {
     />
   );
 };
+
+ThemedScrollView.displayName = 'ThemedScrollView';

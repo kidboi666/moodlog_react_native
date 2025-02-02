@@ -13,3 +13,5 @@ export const ThemedInput = ({ style, ...props }: ThemedInputProps) => {
     />
   );
 };
+
+ThemedInput.displayName = 'ThemedInput';

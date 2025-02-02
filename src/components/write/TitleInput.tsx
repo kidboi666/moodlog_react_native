@@ -9,11 +9,12 @@ export const TitleInput = ({ ...props }: TitleInputProps) => {
   return (
     <TextInput
       autoFocus={true}
+      placeholder="제목을 입력하세요."
+      placeholderTextColor={colors.text.placeholder}
       style={{
-        height: 40,
+        fontSize: 20,
+        paddingVertical: 8,
         color: colors.text.secondary,
-        borderBottomWidth: 1,
-        borderBottomColor: colors.text.disabled,
       }}
       {...props}
     />

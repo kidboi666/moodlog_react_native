@@ -13,3 +13,5 @@ export const ThemedStatusBar = () => {
     />
   );
 };
+
+ThemedStatusBar.displayName = 'ThemedStatusBar';

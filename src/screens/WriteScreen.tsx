@@ -1,6 +1,11 @@
 import { Container } from '@/components/common/Container';
+import { XStack, YStack } from '@/components/common/Stack';
 import { ThemedText } from '@/components/common/ThemedText';
+import { EmotionButton } from '@/components/emotion/EmotionButton';
+import { BackButton } from '@/components/navigation/BackButton';
+import { SaveButton } from '@/components/navigation/SaveButton';
 import { ContentInput } from '@/components/write/ContentInput.tsx';
+import { ContentLine } from '@/components/write/ContentLine';
 import { TitleInput } from '@/components/write/TitleInput.tsx';
 import { IEmotion, IJournal } from '@/types/entries';
 import { RootStackParamList } from '@/types/screens';
@@ -26,7 +31,8 @@ export const WriteScreen = ({ navigation }: Props) => {
     date: new Date(),
     keywords: [],
   });
-  const { year, month, day } = formatDate(new Date());
+  const { month, day } = formatDate(new Date());
+
   const titleInputHandler = (e: string) => {
     setNewJournal(prev => ({ ...prev, title: e }));
   };
@@ -37,21 +43,27 @@ export const WriteScreen = ({ navigation }: Props) => {
 
   return (
     <Container style={styles.container}>
-      <View style={styles.dateBox}>
-        <ThemedText variant="secondary">{`${year}년 ${month}월 ${day}일`}</ThemedText>
-      </View>
-      <View style={styles.inputBox}>
-        <TitleInput
-          value={newJournal.title}
-          onChangeText={titleInputHandler}
-          placeholder="제목을 입력하세요."
-        />
+      <XStack justifyCenter alignCenter style={styles.floatBox}>
+        <BackButton />
+        <XStack justifyCenter alignCenter spacing={8}>
+          <ThemedText variant="tertiary">{`${month}월 ${day}일`}</ThemedText>
+          <EmotionButton />
+        </XStack>
+        <SaveButton />
+      </XStack>
+      <YStack flex spacing={12}>
+        <View>
+          <TitleInput
+            value={newJournal.title}
+            onChangeText={titleInputHandler}
+          />
+          <ContentLine />
+        </View>
         <ContentInput
           value={newJournal.content}
           onChangeText={contentInputHandler}
-          placeholder="오늘 당신의 감정을 기록하세요."
         />
-      </View>
+      </YStack>
     </Container>
   );
 };
@@ -61,13 +73,11 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     paddingHorizontal: 24,
     gap: 12,
-  },
-  dateBox: {
-    width: '100%',
-    alignItems: 'center',
-  },
-  inputBox: {
     flex: 1,
-    gap: 12,
+  },
+  floatBox: {
+    width: '100%',
+    justifyContent: 'space-between',
+    paddingVertical: 12,
   },
 });

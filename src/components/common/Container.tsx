@@ -15,3 +15,5 @@ export const Container = ({ style, ...props }: Props) => {
     />
   );
 };
+
+Container.displayName = 'Container';

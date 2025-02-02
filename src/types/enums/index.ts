@@ -1,9 +1,8 @@
 export enum EmotionType {
-  HAPPY = '행복',
-  SAD = '슬픔',
-  ANGRY = '화남',
-  PEACE = '평온',
-  WORRY = '고민',
+  HAPPY = 'happy',
+  SAD = 'sad',
+  ANGRY = 'angry',
+  PEACE = 'peace',
 }
 
 export enum EmotionLevel {
