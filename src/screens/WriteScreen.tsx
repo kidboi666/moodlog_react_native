@@ -11,9 +11,8 @@ import { RootStackParamList } from '@/types/screens';
 import { formatDate } from '@/utils/common/formatDate';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
-import { View } from 'react-native';
 import uuid from 'react-native-uuid';
-import { XStack, YStack } from 'tamagui';
+import { View, XStack, YStack } from 'tamagui';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Write'>;
 
@@ -42,7 +41,7 @@ export const WriteScreen = ({ navigation }: Props) => {
   };
 
   return (
-    <Container pt={24} px={24} flex={1} gap={12}>
+    <Container px={24} flex={1} gap={12}>
       <XStack justify="space-between" items="center" width="100%" py={12}>
         <BackButton />
         <XStack justify="center" items="center" gap={12}>
@@ -52,7 +51,7 @@ export const WriteScreen = ({ navigation }: Props) => {
         <SaveButton />
       </XStack>
       <YStack flex={1} gap={12}>
-        <View>
+        <View width="100%">
           <TitleInput
             value={newJournal.title}
             onChangeText={titleInputHandler}

@@ -1,19 +1,12 @@
 import { useTheme } from '@/store/context/useTheme';
-import { memo, useMemo } from 'react';
-import { View, ViewProps } from 'react-native';
+import { View } from 'tamagui';
 
-interface Props extends ViewProps {}
-
-export const ContentLine = memo(({ style }: Props) => {
-  const { isDark } = useTheme();
-
-  const borderStyle = useMemo(
-    () => ({
-      borderBottomWidth: 1,
-      borderBottomColor: isDark ? '#424242' : '#E0E0E0',
-    }),
-    [isDark],
+export const ContentLine = () => {
+  const { theme } = useTheme();
+  return (
+    <View
+      borderWidth={1}
+      borderColor={theme === 'dark' ? '$color.grey800' : '$color.grey300'}
+    />
   );
-
-  return <View style={[borderStyle, style]} />;
-});
+};

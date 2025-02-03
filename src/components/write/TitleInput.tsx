@@ -1,21 +1,19 @@
 import { ThemedInputProps } from '@/components/common/ThemedInput.tsx';
-import { useTheme } from '@/store/context/useTheme';
-import { TextInput } from 'react-native';
+import { Input } from 'tamagui';
 
 interface TitleInputProps extends ThemedInputProps {}
 
 export const TitleInput = ({ ...props }: TitleInputProps) => {
-  const { colors } = useTheme();
   return (
-    <TextInput
+    <Input
       autoFocus={true}
+      borderWidth={0}
       placeholder="제목을 입력하세요."
-      placeholderTextColor={colors.text.placeholder}
-      style={{
-        fontSize: 20,
-        paddingVertical: 8,
-        color: colors.text.secondary,
-      }}
+      placeholderTextColor="$textPlaceholder"
+      fontSize={20}
+      py={8}
+      px={0}
+      color="$textSecondary"
       {...props}
     />
   );

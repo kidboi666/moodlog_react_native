@@ -1,5 +1,4 @@
 import { GetProps } from '@tamagui/core';
-import { memo } from 'react';
 import { Button as TamaguiButton, styled } from 'tamagui';
 
 const StyledButton = styled(TamaguiButton, {
@@ -22,11 +21,10 @@ const StyledButton = styled(TamaguiButton, {
         bg: 'transparent',
         borderWidth: 1,
         borderColor: '$buttonDisabled',
-        color: '$buttonTextPrimary',
+        color: '$textPrimary',
       },
       text: {
-        bg: 'transparent',
-        color: '$buttonTextPrimary',
+        color: '$textPrimary',
       },
     },
     size: {
@@ -55,19 +53,21 @@ const StyledButton = styled(TamaguiButton, {
 
 type Props = GetProps<typeof StyledButton>;
 
-export const Button = memo(
-  ({ variant = 'primary', size, disabled = false, ...props }: Props) => {
-    console.log(variant);
-    return (
-      <StyledButton
-        variant={variant}
-        size={size}
-        disabled={disabled}
-        pressStyle={{ opacity: 0.7 }}
-        {...props}
-      />
-    );
-  },
-);
+export const Button = ({
+  variant = 'primary',
+  size,
+  disabled = false,
+  ...props
+}: Props) => {
+  return (
+    <StyledButton
+      variant={variant}
+      size={size}
+      disabled={disabled}
+      pressStyle={{ opacity: 0.7 }}
+      {...props}
+    />
+  );
+};
 
 Button.displayName = 'ThemedButton';

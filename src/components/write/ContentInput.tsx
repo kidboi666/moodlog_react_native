@@ -1,49 +1,34 @@
-import { YStack } from '@/components/common/Stack';
-import { ThemedInputProps } from '@/components/common/ThemedInput.tsx';
-import { useTheme } from '@/store/context/useTheme';
 import React, { useRef } from 'react';
-import { Pressable, StyleSheet, TextInput, View } from 'react-native';
+import { Pressable } from 'react-native';
+import { Input, View, YStack } from 'tamagui';
 
-interface ContentInputProps extends ThemedInputProps {}
-
-export const ContentInput = ({ ...props }: ContentInputProps) => {
-  const ref = useRef<TextInput>(null);
-  const { colors } = useTheme();
+export const ContentInput = () => {
+  const ref = useRef<Input>(null);
 
   const handleFocusInput = () => {
     ref.current?.focus();
   };
 
   return (
-    <YStack style={styles.contentBox}>
-      <TextInput
+    <YStack flex={1}>
+      <Input
         multiline
         ref={ref}
-        style={{ color: colors.text.secondary }}
+        borderWidth={0}
+        px={0}
+        color="$textSecondary"
         placeholder="오늘 당신의 감정을 기록하세요."
-        placeholderTextColor={colors.text.placeholder}
-        {...props}
+        placeholderTextColor="$textPlaceholder"
       />
-      <View style={styles.contentEmptyBox}>
+      <View flex={1} height="100%">
         <Pressable
           onPress={handleFocusInput}
-          style={styles.contentEmptyInner}
+          style={{
+            flex: 1,
+            height: '100%',
+          }}
         />
       </View>
     </YStack>
   );
 };
-
-const styles = StyleSheet.create({
-  contentBox: {
-    flex: 1,
-  },
-  contentEmptyBox: {
-    flex: 1,
-    height: '100%',
-  },
-  contentEmptyInner: {
-    flex: 1,
-    height: '100%',
-  },
-});

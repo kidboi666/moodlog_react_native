@@ -11,6 +11,7 @@ type Props = Omit<ViewProps, keyof SafeAreaViewProps>;
 
 export const Container = ({ children, ...props }: PropsWithChildren<Props>) => {
   const { theme } = useTheme();
+
   return (
     <SafeAreaView
       style={{

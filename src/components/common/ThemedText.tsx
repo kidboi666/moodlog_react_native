@@ -1,5 +1,4 @@
 import { GetProps } from '@tamagui/core';
-import { memo } from 'react';
 import { styled, Text as TamaguiText } from 'tamagui';
 
 const StyledText = styled(TamaguiText, {
@@ -29,8 +28,8 @@ const StyledText = styled(TamaguiText, {
 
 type Props = GetProps<typeof StyledText>;
 
-export const Text = memo(({ variant = 'primary', ...props }: Props) => {
+export const Text = ({ variant = 'primary', ...props }: Props) => {
   return <StyledText variant={variant} {...props} />;
-});
+};
 
 Text.displayName = 'ThemedText';
