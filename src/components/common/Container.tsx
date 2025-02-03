@@ -1,3 +1,5 @@
+import { useTheme } from '@/store/context/useTheme';
+import { getToken } from '@tamagui/core';
 import { PropsWithChildren } from 'react';
 import {
   SafeAreaView,
@@ -8,9 +10,19 @@ import { View, ViewProps } from 'tamagui';
 type Props = Omit<ViewProps, keyof SafeAreaViewProps>;
 
 export const Container = ({ children, ...props }: PropsWithChildren<Props>) => {
+  const { theme } = useTheme();
   return (
-    <SafeAreaView style={{ backgroundColor: '$backgroundPrimary', flex: 1 }}>
-      <View {...props}>{children}</View>
+    <SafeAreaView
+      style={{
+        backgroundColor:
+          theme === 'dark'
+            ? getToken('$color.grey900')
+            : getToken('$color.grey100'),
+        flex: 1,
+      }}>
+      <View flex={1} bg="$bgPrimary" {...props}>
+        {children}
+      </View>
     </SafeAreaView>
   );
 };

@@ -119,9 +119,9 @@ export const config = createTamagui({
   themes: {
     light: {
       // Background colors
-      backgroundPrimary: tokens.color.grey100,
-      backgroundSecondary: tokens.color.grey200,
-      backgroundTertiary: tokens.color.grey300,
+      bgPrimary: tokens.color.grey100,
+      bgSecondary: tokens.color.grey200,
+      bgTertiary: tokens.color.grey300,
 
       // Text colors
       textPrimary: tokens.color.grey900,
@@ -151,9 +151,9 @@ export const config = createTamagui({
     },
     dark: {
       // Background colors
-      backgroundPrimary: tokens.color.grey900,
-      backgroundSecondary: tokens.color.grey800,
-      backgroundTertiary: tokens.color.grey700,
+      bgPrimary: tokens.color.grey900,
+      bgSecondary: tokens.color.grey800,
+      bgTertiary: tokens.color.grey700,
 
       // Text colors
       textPrimary: tokens.color.grey100,
