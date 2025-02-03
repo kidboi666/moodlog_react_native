@@ -1,6 +1,6 @@
 import { useTheme } from '@/store/context/useTheme';
 import { memo, useMemo } from 'react';
-import { Text, TextProps } from 'react-native';
+import { StyleSheet, Text, TextProps } from 'react-native';
 
 interface Props extends TextProps {
   variant?: 'primary' | 'secondary' | 'tertiary' | 'placeholder';
@@ -20,8 +20,14 @@ export const ThemedText = memo(
         }[variant]),
       [colors, variant],
     );
-    return <Text style={[{ ...textVariant }, style]} {...props} />;
+    return <Text style={[{ ...textVariant }, styles.font, style]} {...props} />;
   },
 );
+
+const styles = StyleSheet.create({
+  font: {
+    fontFamily: 'goorm-sans-regular',
+  },
+});
 
 ThemedText.displayName = 'ThemedText';
