@@ -1,10 +1,11 @@
+import { Button } from '@/components/common/Button';
 import { EmotionLevel, EmotionType } from '@/types/enums';
 import { useState } from 'react';
-import { Pressable, StyleSheet, View, ViewProps } from 'react-native';
+import { View, ViewProps } from 'react-native';
 
 interface Props extends ViewProps {}
 
-export const EmotionButton = ({ style }: Props) => {
+export const EmotionButton = () => {
   const [emotionType, setEmotionType] = useState<EmotionType>(
     EmotionType.HAPPY,
   );
@@ -13,17 +14,13 @@ export const EmotionButton = ({ style }: Props) => {
   );
   const emotionColor = {};
   return (
-    <Pressable style={[styles.container, style]}>
+    <Button
+      size="none"
+      width="$1.5"
+      height="$1"
+      rounded="$2"
+      bg="$color.blueLight">
       <View />
-    </Pressable>
+    </Button>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    width: 20,
-    height: 20,
-    backgroundColor: 'red',
-    borderRadius: 4,
-  },
-});

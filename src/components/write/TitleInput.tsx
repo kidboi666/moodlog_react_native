@@ -1,9 +1,6 @@
-import { ThemedInputProps } from '@/components/common/ThemedInput.tsx';
-import { Input } from 'tamagui';
+import { Input, InputProps } from 'tamagui';
 
-interface TitleInputProps extends ThemedInputProps {}
-
-export const TitleInput = ({ ...props }: TitleInputProps) => {
+export const TitleInput = ({ ...props }: InputProps) => {
   return (
     <Input
       autoFocus={true}

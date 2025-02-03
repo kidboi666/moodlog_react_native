@@ -1,7 +1,6 @@
-import { GetProps } from '@tamagui/core';
-import { styled, Text as TamaguiText } from 'tamagui';
+import { styled, Text } from 'tamagui';
 
-const StyledText = styled(TamaguiText, {
+export const StyledText = styled(Text, {
   name: 'ThemedText',
   color: '$textPrimary',
   fontFamily: '$body',
@@ -25,11 +24,3 @@ const StyledText = styled(TamaguiText, {
     variant: 'primary',
   },
 });
-
-type Props = GetProps<typeof StyledText>;
-
-export const Text = ({ variant = 'primary', ...props }: Props) => {
-  return <StyledText variant={variant} {...props} />;
-};
-
-Text.displayName = 'ThemedText';

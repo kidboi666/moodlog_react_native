@@ -1,5 +1,5 @@
 import { Container } from '@/components/common/Container';
-import { Text } from '@/components/common/ThemedText';
+import { Text } from '@/components/common/Text';
 import { EmotionButton } from '@/components/emotion/EmotionButton';
 import { BackButton } from '@/components/navigation/BackButton';
 import { SaveButton } from '@/components/navigation/SaveButton';
@@ -41,7 +41,7 @@ export const WriteScreen = ({ navigation }: Props) => {
   };
 
   return (
-    <Container px={24} flex={1} gap={12}>
+    <Container>
       <XStack justify="space-between" items="center" width="100%" py={12}>
         <BackButton />
         <XStack justify="center" items="center" gap={12}>

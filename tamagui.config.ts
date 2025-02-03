@@ -96,24 +96,24 @@ export const config = createTamagui({
       grey900: '#212121',
 
       // Red palette
-      redLight: '#FFCDD2',
+      redLight: '#ffb9c0',
       redMain: '#F44336',
       redDark: '#B71C1C',
 
       // Blue palette
-      blueLight: '#E3F2FD',
-      blueMain: '#2196F3',
-      blueDark: '#1976D2',
+      blueLight: '#bee5ff',
+      blueMain: '#7fc4fb',
+      blueDark: '#478acd',
 
       // Green palette
-      greenLight: '#E8F5E9',
-      greenMain: '#4CAF50',
-      greenDark: '#388E3C',
+      greenLight: '#b9ffbe',
+      greenMain: '#6cae6e',
+      greenDark: '#508e52',
 
       // Yellow palette
-      yellowLight: '#FFFDE7',
-      yellowMain: '#FFEB3B',
-      yellowDark: '#FBC02D',
+      yellowLight: '#fffab6',
+      yellowMain: '#d8d082',
+      yellowDark: '#dabe7a',
     },
   },
   themes: {

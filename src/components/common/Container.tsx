@@ -21,7 +21,7 @@ export const Container = ({ children, ...props }: PropsWithChildren<Props>) => {
             : getToken('$color.grey100'),
         flex: 1,
       }}>
-      <View flex={1} bg="$bgPrimary" {...props}>
+      <View flex={1} p="$4" bg="$bgPrimary" {...props}>
         {children}
       </View>
     </SafeAreaView>
