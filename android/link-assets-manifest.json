@@ -1,0 +1,17 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/goorm-sans-bold.ttf",
+      "sha1": "2b0f939ab5b2539ad8f857edf9b752beda41b074"
+    },
+    {
+      "path": "src/assets/fonts/goorm-sans-medium.ttf",
+      "sha1": "3ff800696ccbf164651b004064281881b7a4b84a"
+    },
+    {
+      "path": "src/assets/fonts/goorm-sans-regular.ttf",
+      "sha1": "4e23508eb5920a7f5b759a0eb5a1ea576e52f3d8"
+    }
+  ]
+}
