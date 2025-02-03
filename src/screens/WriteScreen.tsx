@@ -1,6 +1,5 @@
 import { Container } from '@/components/common/Container';
-import { XStack, YStack } from '@/components/common/Stack';
-import { ThemedText } from '@/components/common/ThemedText';
+import { Text } from '@/components/common/ThemedText';
 import { EmotionButton } from '@/components/emotion/EmotionButton';
 import { BackButton } from '@/components/navigation/BackButton';
 import { SaveButton } from '@/components/navigation/SaveButton';
@@ -12,8 +11,9 @@ import { RootStackParamList } from '@/types/screens';
 import { formatDate } from '@/utils/common/formatDate';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import uuid from 'react-native-uuid';
+import { XStack, YStack } from 'tamagui';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Write'>;
 
@@ -42,16 +42,16 @@ export const WriteScreen = ({ navigation }: Props) => {
   };
 
   return (
-    <Container style={styles.container}>
-      <XStack justifyCenter alignCenter style={styles.floatBox}>
+    <Container pt={24} px={24} flex={1} gap={12}>
+      <XStack justify="space-between" items="center" width="100%" py={12}>
         <BackButton />
-        <XStack justifyCenter alignCenter spacing={8}>
-          <ThemedText variant="tertiary">{`${month}월 ${day}일`}</ThemedText>
+        <XStack justify="center" items="center" gap={12}>
+          <Text variant="tertiary">{`${month}월 ${day}일`}</Text>
           <EmotionButton />
         </XStack>
         <SaveButton />
       </XStack>
-      <YStack flex spacing={12}>
+      <YStack flex={1} gap={12}>
         <View>
           <TitleInput
             value={newJournal.title}
@@ -67,17 +67,3 @@ export const WriteScreen = ({ navigation }: Props) => {
     </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 24,
-    paddingHorizontal: 24,
-    gap: 12,
-    flex: 1,
-  },
-  floatBox: {
-    width: '100%',
-    justifyContent: 'space-between',
-    paddingVertical: 12,
-  },
-});

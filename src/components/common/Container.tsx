@@ -1,18 +1,17 @@
-import { useTheme } from '@/store/context/useTheme';
+import { PropsWithChildren } from 'react';
 import {
   SafeAreaView,
   SafeAreaViewProps,
 } from 'react-native-safe-area-context';
+import { View, ViewProps } from 'tamagui';
 
-interface Props extends SafeAreaViewProps {}
+type Props = Omit<ViewProps, keyof SafeAreaViewProps>;
 
-export const Container = ({ style, ...props }: Props) => {
-  const { colors } = useTheme();
+export const Container = ({ children, ...props }: PropsWithChildren<Props>) => {
   return (
-    <SafeAreaView
-      style={[{ backgroundColor: colors.background.primary, flex: 1 }, style]}
-      {...props}
-    />
+    <SafeAreaView style={{ backgroundColor: '$backgroundPrimary', flex: 1 }}>
+      <View {...props}>{children}</View>
+    </SafeAreaView>
   );
 };
 

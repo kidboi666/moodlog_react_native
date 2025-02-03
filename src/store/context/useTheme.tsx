@@ -1,41 +1,34 @@
-import { COLOR_THEMES } from '@/constants/colors';
 import { IThemeStore } from '@/types/interfaces';
 import {
   createContext,
   PropsWithChildren,
-  useCallback,
   useContext,
   useEffect,
-  useMemo,
   useState,
 } from 'react';
 import { useColorScheme } from 'react-native';
 
 const ThemeContext = createContext<IThemeStore>({
-  colors: COLOR_THEMES.light,
-  isDark: false,
+  theme: 'light',
   toggleTheme: () => {},
 });
 
 const ThemeContextProvider = ({ children }: PropsWithChildren) => {
-  const [isDark, setIsDark] = useState<boolean>(false);
   const colorScheme = useColorScheme();
+  const [theme, setTheme] = useState<'dark' | 'light'>(colorScheme || 'light');
 
-  const colors = useMemo(
-    () => (isDark ? COLOR_THEMES.dark : COLOR_THEMES.light),
-    [isDark],
-  );
-
-  const toggleTheme = useCallback(() => {
-    setIsDark(!isDark);
-  }, [isDark]);
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
 
   useEffect(() => {
-    setIsDark(colorScheme === 'dark');
+    if (colorScheme) {
+      setTheme(colorScheme === 'dark' ? 'dark' : 'light');
+    }
   }, [colorScheme]);
 
   return (
-    <ThemeContext.Provider value={{ colors, isDark, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );

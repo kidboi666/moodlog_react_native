@@ -14,6 +14,9 @@
     "@react-navigation/native": "^7.0.14",
     "@react-navigation/native-stack": "^7.2.0",
     "@react-navigation/stack": "^7.1.1",
+    "@tamagui/config": "^1.123.8",
+    "@tamagui/core": "^1.123.8",
+    "@tamagui/static": "^1.123.8",
     "react": "18.3.1",
     "react-native": "0.77.0",
     "react-native-dev-menu": "^4.1.1",
@@ -24,6 +27,7 @@
     "react-native-screens": "^4.6.0",
     "react-native-uuid": "^2.0.3",
     "react-native-vector-icons": "^10.2.0",
+    "tamagui": "^1.123.8",
     "uuid": "^11.0.5"
   },
   "devDependencies": {
@@ -37,6 +41,7 @@
     "@react-native/eslint-config": "0.77.0",
     "@react-native/metro-config": "0.77.0",
     "@react-native/typescript-config": "0.77.0",
+    "@tamagui/babel-plugin": "^1.123.8",
     "@types/jest": "^29.5.13",
     "@types/react": "^18.2.6",
     "@types/react-test-renderer": "^18.0.0",

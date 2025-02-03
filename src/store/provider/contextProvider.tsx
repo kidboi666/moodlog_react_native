@@ -5,7 +5,7 @@ import { PropsWithChildren } from 'react';
 const ContextProvider = ({ children }: PropsWithChildren) => {
   return (
     <ThemeContextProvider>
-      <DiaryContextProvider>{children}</DiaryContextProvider>;
+      <DiaryContextProvider>{children}</DiaryContextProvider>
     </ThemeContextProvider>
   );
 };

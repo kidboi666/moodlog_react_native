@@ -1,4 +1,3 @@
-import { TColors } from '@/types/common';
 import { IJournal } from '@/types/entries';
 
 /**
@@ -12,7 +11,6 @@ export interface IDiaryStore {
 }
 
 export interface IThemeStore {
-  colors: TColors;
   toggleTheme: () => void;
-  isDark: boolean;
+  theme: 'dark' | 'light';
 }

@@ -1,33 +1,36 @@
-import { useTheme } from '@/store/context/useTheme';
-import { memo, useMemo } from 'react';
-import { StyleSheet, Text, TextProps } from 'react-native';
+import { GetProps } from '@tamagui/core';
+import { memo } from 'react';
+import { styled, Text as TamaguiText } from 'tamagui';
 
-interface Props extends TextProps {
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'placeholder';
-}
-
-export const ThemedText = memo(
-  ({ style, variant = 'primary', ...props }: Props) => {
-    const { colors } = useTheme();
-
-    const textVariant = useMemo(
-      () =>
-        ({
-          primary: { color: colors.text.primary },
-          secondary: { color: colors.text.secondary },
-          tertiary: { color: colors.text.tertiary },
-          placeholder: { color: colors.text.placeholder },
-        }[variant]),
-      [colors, variant],
-    );
-    return <Text style={[{ ...textVariant }, styles.font, style]} {...props} />;
-  },
-);
-
-const styles = StyleSheet.create({
-  font: {
-    fontFamily: 'goorm-sans-regular',
+const StyledText = styled(TamaguiText, {
+  name: 'ThemedText',
+  color: '$textPrimary',
+  fontFamily: '$body',
+  variants: {
+    variant: {
+      primary: {
+        color: '$textPrimary',
+      },
+      secondary: {
+        color: '$textSecondary',
+      },
+      tertiary: {
+        color: '$textTertiary',
+      },
+      placeholder: {
+        color: '$textPlaceholder',
+      },
+    },
+  } as const,
+  defaultVariants: {
+    variant: 'primary',
   },
 });
 
-ThemedText.displayName = 'ThemedText';
+type Props = GetProps<typeof StyledText>;
+
+export const Text = memo(({ variant = 'primary', ...props }: Props) => {
+  return <StyledText variant={variant} {...props} />;
+});
+
+Text.displayName = 'ThemedText';

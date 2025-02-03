@@ -1,18 +1,17 @@
 import { Button } from '@/components/common/Button';
 import { Container } from '@/components/common/Container';
-import { ThemedText } from '@/components/common/ThemedText';
-import { ToggleThemeButton } from '@/components/theme/ToggleThemeButton';
+import { Text } from '@/components/common/ThemedText';
+import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { RootStackParamList } from '@/types/screens';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { StyleSheet } from 'react-native';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 export const HomeScreen = ({ navigation }: Props) => {
   return (
-    <Container style={styles.container}>
-      <ThemedText>홈 화면</ThemedText>
-      <ToggleThemeButton />
+    <Container items="center" justify="center" gap={12}>
+      <Text>홈 화면</Text>
+      <ThemeToggle />
       <Button onPress={() => navigation.navigate('Write')}>
         글쓰기 페이지로 이동
       </Button>
@@ -22,12 +21,3 @@ export const HomeScreen = ({ navigation }: Props) => {
     </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 12,
-  },
-});

@@ -1,112 +1,71 @@
-import { useTheme } from '@/store/context/useTheme';
-import { memo, PropsWithChildren, useMemo } from 'react';
-import {
-  Platform,
-  Pressable,
-  PressableProps,
-  StyleProp,
-  Text,
-  TextStyle,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { GetProps } from '@tamagui/core';
+import { memo } from 'react';
+import { Button as TamaguiButton, styled } from 'tamagui';
 
-interface Props extends PressableProps {
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'outline' | 'text';
-  textStyle?: StyleProp<TextStyle>;
-  style?: StyleProp<ViewStyle>;
-  size?: 'sm' | 'md' | 'lg';
-}
+const StyledButton = styled(TamaguiButton, {
+  name: 'ThemedButton',
+  variants: {
+    variant: {
+      primary: {
+        bg: '$buttonPrimary',
+        color: '$buttonTextPrimary',
+      },
+      secondary: {
+        bg: '$buttonSecondary',
+        color: '$buttonTextSecondary',
+      },
+      tertiary: {
+        bg: '$buttonTertiary',
+        color: '$buttonTextTertiary',
+      },
+      outlined: {
+        bg: 'transparent',
+        borderWidth: 1,
+        borderColor: '$buttonDisabled',
+        color: '$buttonTextPrimary',
+      },
+      text: {
+        bg: 'transparent',
+        color: '$buttonTextPrimary',
+      },
+    },
+    size: {
+      sm: {
+        py: 6,
+        px: 12,
+        borderRadius: 6,
+      },
+      md: {
+        py: 8,
+        px: 16,
+        borderRadius: 8,
+      },
+      lg: {
+        py: 12,
+        px: 24,
+        borderRadius: 12,
+      },
+    },
+  } as const,
+  defaultVariants: {
+    variant: 'primary',
+    size: 'md',
+  },
+});
+
+type Props = GetProps<typeof StyledButton>;
 
 export const Button = memo(
-  ({
-    style,
-    textStyle,
-    children,
-    variant = 'primary',
-    size = 'md',
-    disabled = false,
-    ...props
-  }: PropsWithChildren<Props>) => {
-    const { colors } = useTheme();
-
-    const buttonVariant = useMemo(
-      () =>
-        ({
-          primary: {
-            backgroundColor: colors.button.primary,
-          },
-          secondary: {
-            backgroundColor: colors.button.secondary,
-          },
-          tertiary: {
-            backgroundColor: colors.button.tertiary,
-          },
-          outline: {
-            backgroundColor: 'transparent',
-            borderWidth: 1,
-            borderColor: colors.button.disabled,
-          },
-          text: {
-            backgroundColor: 'transparent',
-          },
-        }[variant]),
-      [colors, variant],
-    );
-
-    const buttonTextVariant = useMemo(() => {
-      return {
-        primary: { color: colors.buttonText.primary },
-        secondary: { color: colors.buttonText.secondary },
-        tertiary: { color: colors.buttonText.tertiary },
-        outline: { color: colors.buttonText.primary },
-        text: {},
-      }[variant];
-    }, [colors, variant]);
-
-    const buttonSizes = useMemo(
-      () =>
-        ({
-          sm: {
-            paddingVertical: 6,
-            paddingHorizontal: 12,
-            borderRadius: 6,
-          },
-          md: {
-            paddingVertical: 8,
-            paddingHorizontal: 16,
-            borderRadius: 8,
-          },
-          lg: {
-            paddingVertical: 12,
-            paddingHorizontal: 24,
-            borderRadius: 12,
-          },
-        }[size]),
-      [size],
-    );
-
+  ({ variant = 'primary', size, disabled = false, ...props }: Props) => {
+    console.log(variant);
     return (
-      <Pressable
-        style={({ pressed }) => [
-          Platform.select({
-            ios: { opacity: pressed ? 0.7 : 1 },
-            android: {},
-          }),
-          buttonVariant,
-          buttonSizes,
-          style,
-        ]}
-        android_ripple={{
-          color: 'rgba(0, 0, 0, 0.2)',
-          borderless: false,
-        }}
+      <StyledButton
+        variant={variant}
+        size={size}
         disabled={disabled}
-        {...props}>
-        <View>
-          <Text style={[{ ...buttonTextVariant }, textStyle]}>{children}</Text>
-        </View>
-      </Pressable>
+        pressStyle={{ opacity: 0.7 }}
+        {...props}
+      />
     );
   },
 );
