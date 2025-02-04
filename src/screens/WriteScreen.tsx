@@ -1,6 +1,5 @@
 import { Container } from '@/components/common/Container';
 import { Text } from '@/components/common/Text';
-import { EmotionButton } from '@/components/emotion/EmotionButton';
 import { BackButton } from '@/components/navigation/BackButton';
 import { SaveButton } from '@/components/navigation/SaveButton';
 import { ContentInput } from '@/components/write/ContentInput.tsx';
@@ -46,7 +45,6 @@ export const WriteScreen = ({ navigation }: Props) => {
         <BackButton />
         <XStack justify="center" items="center" gap={12}>
           <Text variant="tertiary">{`${month}월 ${day}일`}</Text>
-          <EmotionButton />
         </XStack>
         <SaveButton />
       </XStack>

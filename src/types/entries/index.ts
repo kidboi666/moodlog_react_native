@@ -1,6 +1,5 @@
 import { Nullable } from '@/types/common';
 import { EmotionLevel, EmotionType } from '@/types/enums';
-import { StatusBarStyle } from 'react-native';
 
 export interface IEmotion {
   type: Nullable<EmotionType>;
@@ -14,17 +13,4 @@ export interface IJournal {
   content: string;
   emotion: IEmotion;
   keywords?: string[];
-}
-
-export interface ITheme {
-  isDarkMode: boolean;
-  colors: {
-    background: {
-      backgroundColor: string;
-    };
-    text: {
-      color: string;
-    };
-  };
-  barStyle: StatusBarStyle;
 }

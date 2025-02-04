@@ -1,5 +1,5 @@
 import DiaryContextProvider from '@/store/context/useDiary';
-import ThemeContextProvider from '@/store/context/useTheme';
+import ThemeContextProvider from '@/store/context/useThemeCtx';
 import { PropsWithChildren } from 'react';
 
 const ContextProvider = ({ children }: PropsWithChildren) => {

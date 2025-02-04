@@ -1,7 +1,7 @@
-import { MenuButton } from '@/components/navigation/MenuButton';
-import { useTheme } from '@/store/context/useTheme';
+import { Button } from '@/components/common/Button';
+import { useThemeCtx } from '@/store/context/useThemeCtx';
 
 export const ThemeToggle = () => {
-  const { toggleTheme } = useTheme();
-  return <MenuButton onPress={toggleTheme}>테마 변경 하기</MenuButton>;
+  const { toggleTheme } = useThemeCtx();
+  return <Button onPress={toggleTheme}>테마 변경 하기</Button>;
 };

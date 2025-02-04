@@ -1,20 +1,20 @@
-import { useTheme } from '@/store/context/useTheme';
-import { getToken } from '@tamagui/core';
+import { useThemeCtx } from '@/store/context/useThemeCtx';
 import React from 'react';
 import { StatusBar } from 'react-native';
+import { styled } from 'tamagui';
+
+const StyledStatusBar = styled(StatusBar, {
+  bg: '$bgPrimary',
+});
 
 export const ThemedStatusBar = () => {
-  const { theme } = useTheme();
+  const { theme } = useThemeCtx();
 
   return (
     <StatusBar
-      backgroundColor={
-        theme === 'dark'
-          ? getToken('$color.grey900')
-          : getToken('$color.grey100')
-      }
+      backgroundColor="transparent"
       barStyle={theme === 'dark' ? 'light-content' : 'dark-content'}
-      translucent={true}
+      translucent
     />
   );
 };

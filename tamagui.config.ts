@@ -1,9 +1,20 @@
 import { defaultConfig } from '@tamagui/config/v4';
-import { createTamagui, createTokens } from '@tamagui/core';
-import { createFont } from 'tamagui';
+import { createFont, createTamagui, createTokens } from 'tamagui';
 
 const tokens = createTokens({
+  ...defaultConfig.tokens,
   color: {
+    // Grey scale
+    beige100: '#FFFFFF',
+    beige200: '#FDFCF9',
+    beige300: '#FCF9F4',
+    beige400: '#FBF8F0',
+    beige500: '#E8E2D5',
+    beige600: '#C4BAA7',
+    beige700: '#998F7C',
+    beige800: '#6D6557',
+    beige900: '#403C34',
+
     // Grey scale
     grey100: '#F5F5F5',
     grey200: '#EEEEEE',
@@ -15,27 +26,104 @@ const tokens = createTokens({
     grey800: '#424242',
     grey900: '#212121',
 
-    // Red palette
-    redLight: '#FFCDD2',
-    redMain: '#F44336',
-    redDark: '#B71C1C',
+    // Red scale
+    red100: '#FFE5E7',
+    red200: '#FFCCD0',
+    red300: '#FFB3B9',
+    red400: '#FF9AA2',
+    red500: '#FF818B',
+    red600: '#FF6874',
+    red700: '#FF4F5D',
+    red800: '#FF3646',
+    red900: '#FF1D2F',
 
-    // Blue palette
-    blueLight: '#E3F2FD',
-    blueMain: '#2196F3',
-    blueDark: '#1976D2',
+    // Blue scale
+    blue100: '#E5F4FF',
+    blue200: '#CCE9FF',
+    blue300: '#B3DEFF',
+    blue400: '#9AD3FF',
+    blue500: '#81C8FF',
+    blue600: '#68BDFF',
+    blue700: '#4FB2FF',
+    blue800: '#36A7FF',
+    blue900: '#1D9CFF',
 
-    // Green palette
-    greenLight: '#E8F5E9',
-    greenMain: '#4CAF50',
-    greenDark: '#388E3C',
+    // Green scale
+    green100: '#E5FFE7',
+    green200: '#CCFFD0',
+    green300: '#B3FFB9',
+    green400: '#9AFFA2',
+    green500: '#81FF8B',
+    green600: '#68FF74',
+    green700: '#4FFF5D',
+    green800: '#36FF46',
+    green900: '#1DFF2F',
 
-    // Yellow palette
-    yellowLight: '#FFFDE7',
-    yellowMain: '#FFEB3B',
-    yellowDark: '#FBC02D',
-  },
+    // Yellow scale
+    yellow100: '#FFFDE5',
+    yellow200: '#FFFBCC',
+    yellow300: '#FFF9B3',
+    yellow400: '#FFF79A',
+    yellow500: '#FFF581',
+    yellow600: '#FFF368',
+    yellow700: '#FFF14F',
+    yellow800: '#FFEF36',
+    yellow900: '#FFED1D',
+
+    white: '#ffffff',
+    black: '#000000',
+  } as const,
 });
+
+const darkTheme = {
+  // Background colors
+  bgPrimary: tokens.color.beige900,
+  bgSecondary: tokens.color.beige800,
+  bgTertiary: tokens.color.beige700,
+
+  // Text colors
+  textPrimary: tokens.color.beige100,
+  textSecondary: tokens.color.beige300,
+  textTertiary: tokens.color.beige500,
+  textPlaceholder: tokens.color.beige800,
+
+  // Button colors
+  buttonPrimary: tokens.color.beige200,
+  buttonSecondary: tokens.color.beige400,
+  buttonTertiary: tokens.color.beige600,
+  buttonDisabled: tokens.color.beige800,
+
+  // Button text colors
+  buttonTextPrimary: tokens.color.beige900,
+  buttonTextSecondary: tokens.color.beige800,
+  buttonTextTertiary: tokens.color.beige700,
+  buttonTextDisabled: tokens.color.beige600,
+};
+
+const lightTheme = {
+  // Background colors
+  bgPrimary: tokens.color.beige400,
+  bgSecondary: tokens.color.beige200,
+  bgTertiary: tokens.color.beige300,
+
+  // Text colors
+  textPrimary: tokens.color.beige900,
+  textSecondary: tokens.color.beige700,
+  textTertiary: tokens.color.beige500,
+  textPlaceholder: tokens.color.beige400,
+
+  // Button colors
+  buttonPrimary: tokens.color.beige900,
+  buttonSecondary: tokens.color.beige600,
+  buttonTertiary: tokens.color.beige400,
+  buttonDisabled: tokens.color.beige300,
+
+  // Button text colors
+  buttonTextPrimary: tokens.color.beige100,
+  buttonTextSecondary: tokens.color.beige200,
+  buttonTextTertiary: tokens.color.beige300,
+  buttonTextDisabled: tokens.color.beige400,
+};
 
 const bodyFont = createFont({
   family: 'goorm-sans',
@@ -81,106 +169,11 @@ export const config = createTamagui({
     heading: bodyFont,
     body: bodyFont,
   },
-  tokens: {
-    ...defaultConfig.tokens,
-    color: {
-      // Grey scale
-      grey100: '#F5F5F5',
-      grey200: '#EEEEEE',
-      grey300: '#E0E0E0',
-      grey400: '#BDBDBD',
-      grey500: '#9E9E9E',
-      grey600: '#757575',
-      grey700: '#616161',
-      grey800: '#424242',
-      grey900: '#212121',
-
-      // Red palette
-      redLight: '#ffb9c0',
-      redMain: '#F44336',
-      redDark: '#B71C1C',
-
-      // Blue palette
-      blueLight: '#bee5ff',
-      blueMain: '#7fc4fb',
-      blueDark: '#478acd',
-
-      // Green palette
-      greenLight: '#b9ffbe',
-      greenMain: '#6cae6e',
-      greenDark: '#508e52',
-
-      // Yellow palette
-      yellowLight: '#fffab6',
-      yellowMain: '#d8d082',
-      yellowDark: '#dabe7a',
-    },
-  },
+  tokens,
   themes: {
-    light: {
-      // Background colors
-      bgPrimary: tokens.color.grey100,
-      bgSecondary: tokens.color.grey200,
-      bgTertiary: tokens.color.grey300,
-
-      // Text colors
-      textPrimary: tokens.color.grey900,
-      textSecondary: tokens.color.grey700,
-      textTertiary: tokens.color.grey500,
-      textPlaceholder: tokens.color.grey400,
-
-      // Button colors
-      buttonPrimary: tokens.color.grey800,
-      buttonSecondary: tokens.color.grey600,
-      buttonTertiary: tokens.color.grey400,
-      buttonDisabled: tokens.color.grey300,
-
-      // Button text colors
-      buttonTextPrimary: tokens.color.grey100,
-      buttonTextSecondary: tokens.color.grey200,
-      buttonTextTertiary: tokens.color.grey300,
-      buttonTextDisabled: tokens.color.grey400,
-
-      // Common colors
-      primary: tokens.color.blueMain,
-      secondary: tokens.color.greenMain,
-      error: tokens.color.redMain,
-      warning: tokens.color.yellowMain,
-      info: tokens.color.blueMain,
-      success: tokens.color.greenMain,
-    },
-    dark: {
-      // Background colors
-      bgPrimary: tokens.color.grey900,
-      bgSecondary: tokens.color.grey800,
-      bgTertiary: tokens.color.grey700,
-
-      // Text colors
-      textPrimary: tokens.color.grey100,
-      textSecondary: tokens.color.grey300,
-      textTertiary: tokens.color.grey500,
-      textPlaceholder: tokens.color.grey800,
-
-      // Button colors
-      buttonPrimary: tokens.color.grey200,
-      buttonSecondary: tokens.color.grey400,
-      buttonTertiary: tokens.color.grey600,
-      buttonDisabled: tokens.color.grey800,
-
-      // Button text colors
-      buttonTextPrimary: tokens.color.grey900,
-      buttonTextSecondary: tokens.color.grey800,
-      buttonTextTertiary: tokens.color.grey700,
-      buttonTextDisabled: tokens.color.grey600,
-
-      // Common colors
-      primary: tokens.color.blueMain,
-      secondary: tokens.color.greenMain,
-      error: tokens.color.redMain,
-      warning: tokens.color.yellowMain,
-      info: tokens.color.blueMain,
-      success: tokens.color.greenMain,
-    },
+    ...defaultConfig.themes,
+    light: lightTheme,
+    dark: darkTheme,
   },
 });
 
