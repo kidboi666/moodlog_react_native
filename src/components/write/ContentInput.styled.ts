@@ -6,7 +6,6 @@ export const Container = styled(YStack, {
 
 export const ContentInput = styled(Input, {
   fontFamily: '$body',
-  fontSize: '$6',
   placeholderTextColor: '$placeholder',
   color: '$text',
 });

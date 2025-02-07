@@ -1,6 +1,7 @@
 import { defaultConfig } from '@tamagui/config/v4';
 import { createFont, createTamagui, createTokens } from 'tamagui';
 import { darkTheme, lightTheme, palette } from '@/constants/colors';
+import { createAnimations } from '@tamagui/animations-react-native';
 
 const tokens = createTokens({
   ...defaultConfig.tokens,
@@ -61,6 +62,23 @@ const bodyFont = createFont({
   letterSpacing: {
     4: 0, // normal
     8: -1, // tight
+  },
+});
+
+const animations = createAnimations({
+  fast: {
+    damping: 20,
+    mass: 1.2,
+    stiffness: 250,
+  },
+  medium: {
+    damping: 10,
+    mass: 0.9,
+    stiffness: 100,
+  },
+  slow: {
+    damping: 20,
+    stiffness: 60,
   },
 });
 

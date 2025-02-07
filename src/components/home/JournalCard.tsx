@@ -1,19 +1,19 @@
 import { Button, Card, Circle, XStack, YStack } from 'tamagui';
 import { Text } from '@/components/common/Text';
-import { ChevronRight } from '@tamagui/lucide-icons';
+import { ChevronRight, Delete } from '@tamagui/lucide-icons';
+import { IJournal } from '@/types/entries';
 
 interface Props {
-  title: string;
-  content: string;
-  emotion: string;
+  journal: IJournal;
+  onDelete: (journalId: string) => void;
 }
 
-export const JournalCard = ({ title, content, emotion }: Props) => {
+export const JournalCard = ({ journal, onDelete }: Props) => {
   return (
     <Card
       unstyled
       animation="medium"
-      bg="$beige200"
+      bg="$grey200"
       size="$4"
       pressStyle={{
         scale: 0.95,
@@ -21,13 +21,18 @@ export const JournalCard = ({ title, content, emotion }: Props) => {
     >
       <Card.Header padded>
         <XStack items="center" justify="space-between" gap={12}>
-          <Circle size="$2" bg={emotion as any} />
+          <Circle size="$2" bg={journal.emotion as any} />
           <YStack flex={1}>
-            <Text>{title}</Text>
-            <Text>{content}</Text>
+            <Text>{journal.title}</Text>
+            <Text>{journal.content}</Text>
           </YStack>
           <XStack>
             <Button chromeless icon={<ChevronRight />} />
+            <Button
+              onPress={() => onDelete(journal.id)}
+              chromeless
+              icon={<Delete />}
+            />
           </XStack>
         </XStack>
       </Card.Header>

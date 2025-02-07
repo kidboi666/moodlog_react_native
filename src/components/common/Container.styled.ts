@@ -9,7 +9,7 @@ export const View = styled(SafeAreaView, {
 });
 
 export const GradientContainer = styled(LinearGradient, {
-  colors: ['#E8E2D5', '#FBF8F0'],
+  colors: ['#FBF8F0', '#FDFCF9'],
   p: '$4',
   pb: '$7',
   start: [0, 0.7],

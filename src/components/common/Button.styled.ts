@@ -23,6 +23,12 @@ export const ButtonFrame = styled(View, {
   pressStyle: { scale: 0.95, opacity: 0.9 },
 
   variants: {
+    outlined: {
+      true: {
+        bg: 'transparent',
+        color: '$text',
+      },
+    },
     size: {
       '...size': (name, { tokens }) => {
         return {

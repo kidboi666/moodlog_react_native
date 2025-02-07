@@ -7,7 +7,6 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useMemo,
   useState,
 } from 'react';
 
@@ -58,17 +57,12 @@ const DiaryContextProvider = ({ children }: PropsWithChildren) => {
     );
   }, []);
 
-  const state = useMemo(
-    () => ({
-      journals,
-      addJournal,
-      removeJournal,
-      updateJournal,
-    }),
-    [addJournal, journals, removeJournal, updateJournal],
-  );
   return (
-    <DiaryContext.Provider value={state}>{children}</DiaryContext.Provider>
+    <DiaryContext.Provider
+      value={{ journals, addJournal, removeJournal, updateJournal }}
+    >
+      {children}
+    </DiaryContext.Provider>
   );
 };
 

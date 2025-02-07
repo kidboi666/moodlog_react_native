@@ -99,7 +99,7 @@ export const darkTheme = {
 } as const;
 
 export const lightTheme = {
-  background: palette.beige400,
+  background: '#fff',
   text: palette.beige900,
   placeholder: palette.beige600,
   buttonBackground: palette.beige900,
