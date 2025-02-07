@@ -1,6 +1,6 @@
-import { Button, Card, View, XStack, YStack } from 'tamagui';
+import { Button, Card, Circle, XStack, YStack } from 'tamagui';
 import { Text } from '@/components/common/Text';
-import { FileEdit, X } from '@tamagui/lucide-icons';
+import { ChevronRight } from '@tamagui/lucide-icons';
 
 interface Props {
   title: string;
@@ -13,24 +13,21 @@ export const JournalCard = ({ title, content, emotion }: Props) => {
     <Card
       unstyled
       animation="medium"
+      bg="$beige200"
       size="$4"
       pressStyle={{
         scale: 0.95,
-        backgroundColor: '$color.beige800',
       }}
     >
       <Card.Header padded>
-        <XStack items="center" gap={8}>
-          <View width="$2" height="$2" bg={emotion as any} rounded="$4" />
+        <XStack items="center" justify="space-between" gap={12}>
+          <Circle size="$2" bg={emotion as any} />
           <YStack flex={1}>
-            <Text fontFamily="$body" color="$textPrimary" fontSize="$4">
-              {title}
-            </Text>
+            <Text>{title}</Text>
             <Text>{content}</Text>
           </YStack>
           <XStack>
-            <Button icon={<FileEdit />}></Button>
-            <Button icon={<X />}></Button>
+            <Button chromeless icon={<ChevronRight />} />
           </XStack>
         </XStack>
       </Card.Header>

@@ -5,13 +5,10 @@ import { X } from '@tamagui/lucide-icons';
 export const BackButton = () => {
   const router = useRouter();
   return (
-    <Button
-      icon={<X size="$1" />}
-      variant="secondary"
-      size="sm"
-      items="center"
-      justify="center"
-      onPress={() => router.back()}
-    ></Button>
+    <Button onPress={() => router.back()}>
+      <Button.Icon>
+        <X size="$1" />
+      </Button.Icon>
+    </Button>
   );
 };

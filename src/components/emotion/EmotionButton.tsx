@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { View, ViewProps } from 'react-native';
-import { Button } from '../common/Button';
-import { EmotionLevel, EmotionType } from '@/src/types/enums';
+import { ViewProps } from 'react-native';
+import { EmotionLevel, EmotionType } from '@/types/enums';
+import { Button } from '@/components/common/Button';
 
 interface Props extends ViewProps {}
 
@@ -13,15 +13,5 @@ export const EmotionButton = () => {
     EmotionLevel.ZERO,
   );
   const emotionColor = {};
-  return (
-    <Button
-      size="none"
-      width="$1.5"
-      height="$1"
-      rounded="$2"
-      bg="$color.blueLight"
-    >
-      <View />
-    </Button>
-  );
+  return <Button></Button>;
 };

@@ -4,6 +4,24 @@ import { darkTheme, lightTheme, palette } from '@/constants/colors';
 
 const tokens = createTokens({
   ...defaultConfig.tokens,
+  size: {
+    ...defaultConfig.tokens.size,
+    sm: 38,
+    md: 46,
+    lg: 60,
+  },
+  space: {
+    ...defaultConfig.tokens.space,
+    sm: 15,
+    md: 20,
+    lg: 25,
+  },
+  radius: {
+    ...defaultConfig.tokens.radius,
+    sm: 4,
+    md: 8,
+    lg: 12,
+  },
   color: { ...palette } as const,
 });
 
@@ -54,6 +72,7 @@ export const config = createTamagui({
   },
   tokens,
   themes: {
+    ...defaultConfig.themes,
     light: lightTheme,
     dark: darkTheme,
   },

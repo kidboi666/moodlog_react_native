@@ -90,57 +90,19 @@ export const Colors = {
 };
 
 export const darkTheme = {
-  // Backgrounds
-  bgPrimary: palette.beige900,
-  bgSecondary: palette.beige800,
-  bgTertiary: palette.beige700,
-
-  // Texts
-  textPrimary: palette.beige200,
-  textSecondary: palette.beige500,
-  textTertiary: palette.beige600,
-  textPlaceholder: palette.beige500,
-
-  // Buttons
-  buttonPrimary: palette.beige200,
-  buttonSecondary: palette.beige400,
-  buttonTertiary: palette.beige600,
-  buttonDisabled: palette.beige800,
-
-  // Button texts
-  buttonTextPrimary: palette.beige900,
-  buttonTextSecondary: palette.beige800,
-  buttonTextTertiary: palette.beige700,
-  buttonTextDisabled: palette.beige600,
-
-  // Lines
-  line: palette.beige800,
+  background: palette.beige900,
+  text: palette.beige200,
+  placeholder: palette.beige500,
+  buttonBackground: palette.beige200,
+  buttonText: palette.beige900,
+  separator: palette.beige800,
 } as const;
 
 export const lightTheme = {
-  // Backgrounds
-  bgPrimary: palette.beige500,
-  bgSecondary: palette.beige200,
-  bgTertiary: palette.beige300,
-
-  // Texts
-  textPrimary: palette.beige900,
-  textSecondary: palette.beige800,
-  textTertiary: palette.beige600,
-  textPlaceholder: palette.beige600,
-
-  // Buttons
-  buttonPrimary: palette.beige900,
-  buttonSecondary: palette.beige600,
-  buttonTertiary: palette.beige400,
-  buttonDisabled: palette.beige300,
-
-  // Button texts
-  buttonTextPrimary: palette.beige100,
-  buttonTextSecondary: palette.beige200,
-  buttonTextTertiary: palette.beige300,
-  buttonTextDisabled: palette.beige400,
-
-  // Lines
-  line: palette.beige600,
+  background: palette.beige400,
+  text: palette.beige900,
+  placeholder: palette.beige600,
+  buttonBackground: palette.beige900,
+  buttonText: palette.beige100,
+  separator: palette.beige500,
 } as const;

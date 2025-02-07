@@ -30,7 +30,9 @@ export default function ProfileScreen() {
         </Card.Header>
         <Card.Footer padded>
           <XStack flex={1} />
-          <Button>Purchase</Button>
+          <Button>
+            <Button.Text>Purchase</Button.Text>
+          </Button>
         </Card.Footer>
       </Card>
     </Container>

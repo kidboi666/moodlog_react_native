@@ -1,13 +1,8 @@
-import { GetProps, styled, Text as TamaguiText, TextProps } from 'tamagui';
+import { GetProps, TextProps } from 'tamagui';
+import * as S from './Text.styled';
 
-const StyledText = styled(TamaguiText, {
-  name: 'ThemedText',
-  color: '$textPrimary',
-  fontFamily: '$body',
-});
-
-type Props = GetProps<typeof StyledText> & TextProps;
+type Props = GetProps<typeof S.Text> & TextProps;
 
 export const Text = ({ ...props }: Props) => {
-  return <StyledText {...props} />;
+  return <S.Text {...props} />;
 };
