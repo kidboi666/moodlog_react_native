@@ -1,9 +1,15 @@
-import * as S from './TitleInput.styled';
+import { Input } from 'tamagui';
 
 export const TitleInput = ({ ...props }) => {
   return (
-    <S.TitleInput
+    <Input
+      unstyled
+      fontSize="$6"
+      borderWidth={0}
+      px={0}
+      py="$4"
       autoFocus={true}
+      placeholderTextColor="$placeholder"
       placeholder="제목을 입력하세요."
       {...props}
     />

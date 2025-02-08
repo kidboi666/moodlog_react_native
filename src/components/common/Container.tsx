@@ -1,15 +1,23 @@
-import { ViewProps } from 'tamagui';
+import { styled, View, YStackProps } from 'tamagui';
 import { PropsWithChildren } from 'react';
-import { SafeAreaViewProps } from 'react-native-safe-area-context';
-import * as S from './Container.styled';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-type Props = Omit<ViewProps, keyof SafeAreaViewProps>;
+const SafeAreaViewContainer = styled(SafeAreaView, {
+  bg: '$background',
+  height: '100%',
+  p: '$4',
+  flex: 1,
+});
+
+interface Props extends YStackProps {}
 
 export const Container = ({ children, ...props }: PropsWithChildren<Props>) => {
   return (
-    <S.View {...props}>
-      <S.GradientContainer>{children}</S.GradientContainer>
-    </S.View>
+    <SafeAreaViewContainer>
+      <View flex={1} {...props}>
+        {children}
+      </View>
+    </SafeAreaViewContainer>
   );
 };
 

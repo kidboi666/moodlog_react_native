@@ -1,22 +1,24 @@
 import { Tabs } from 'expo-router';
 import { Home, PersonStanding, Plus } from '@tamagui/lucide-icons';
 import { View } from 'tamagui';
-import * as S from '@/components/tabs/tabs.styled';
+import { WriteTabButton } from '@/components/tabs/WriteTabButton';
+import { CommonTabButton } from '@/components/tabs/CommonTabButton';
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
+        tabBarHideOnKeyboard: true,
         tabBarStyle: {
-          backgroundColor: '#FBF8F0',
+          backgroundColor: 'transparent',
           borderTopWidth: 0,
           elevation: 0,
           shadowOpacity: 0,
           position: 'absolute',
         },
-        tabBarActiveTintColor: '$color.red700',
-        tabBarInactiveTintColor: '$color.beige800',
+        tabBarActiveTintColor: '$red11',
+        tabBarInactiveTintColor: '$black',
       }}
     >
       <Tabs.Screen
@@ -24,11 +26,11 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarButton: props => (
-            <S.AnimatedTabButton onPress={props.onPress}>
+            <CommonTabButton onPress={props.onPress}>
               {props.children}
-            </S.AnimatedTabButton>
+            </CommonTabButton>
           ),
-          tabBarIcon: ({ color, focused, size }) => (
+          tabBarIcon: ({ color, size }) => (
             <Home color={color as any} size={size} />
           ),
           tabBarLabel: () => null,
@@ -40,15 +42,13 @@ export default function TabLayout() {
           title: 'Write',
           tabBarButton: props => (
             <View flex={1}>
-              <S.WriteTabButton onPress={props.onPress}>
+              <WriteTabButton onPress={props.onPress}>
                 <Plus
                   color={
-                    props.accessibilityState?.selected
-                      ? '$color.red700'
-                      : '$color.beige200'
+                    props.accessibilityState?.selected ? '$red11' : '$gray7'
                   }
                 />
-              </S.WriteTabButton>
+              </WriteTabButton>
             </View>
           ),
           tabBarLabel: () => null,
@@ -59,11 +59,11 @@ export default function TabLayout() {
         options={{
           title: 'Profile',
           tabBarButton: props => (
-            <S.AnimatedTabButton onPress={props.onPress}>
+            <CommonTabButton onPress={props.onPress}>
               {props.children}
-            </S.AnimatedTabButton>
+            </CommonTabButton>
           ),
-          tabBarIcon: ({ color, focused, size }) => (
+          tabBarIcon: ({ color, size }) => (
             <PersonStanding color={color as any} size={size} />
           ),
           tabBarLabel: () => null,

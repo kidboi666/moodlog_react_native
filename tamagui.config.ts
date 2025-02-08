@@ -1,99 +1,38 @@
 import { defaultConfig } from '@tamagui/config/v4';
-import { createFont, createTamagui, createTokens } from 'tamagui';
-import { darkTheme, lightTheme, palette } from '@/constants/colors';
-import { createAnimations } from '@tamagui/animations-react-native';
+import { createTamagui, createTokens } from 'tamagui';
+import { color, radius, size, space, themes, zIndex } from '@tamagui/themes';
 
 const tokens = createTokens({
-  ...defaultConfig.tokens,
-  size: {
-    ...defaultConfig.tokens.size,
-    sm: 38,
-    md: 46,
-    lg: 60,
-  },
-  space: {
-    ...defaultConfig.tokens.space,
-    sm: 15,
-    md: 20,
-    lg: 25,
-  },
-  radius: {
-    ...defaultConfig.tokens.radius,
-    sm: 4,
-    md: 8,
-    lg: 12,
-  },
-  color: { ...palette } as const,
-});
-
-const bodyFont = createFont({
-  family: 'goorm Sans',
-  face: {
-    400: { normal: './assets/fonts/goorm-sans-regular.ttf' },
-    500: { normal: './assets/fonts/goorm-sans-medium.ttf' },
-    700: { normal: './assets/fonts/goorm-sans-bold.ttf' },
-  },
-  size: {
-    1: 12,
-    2: 14,
-    3: 16,
-    4: 18,
-    5: 20,
-    6: 24,
-    7: 28,
-    8: 32,
-    9: 36,
-  },
-  lineHeight: {
-    1: 16,
-    2: 20,
-    3: 24,
-    4: 28,
-    5: 32,
-    6: 36,
-    7: 40,
-    8: 44,
-  },
-  weight: {
-    4: '400',
-    5: '500',
-    7: '700',
-  },
-  letterSpacing: {
-    4: 0, // normal
-    8: -1, // tight
-  },
-});
-
-const animations = createAnimations({
-  fast: {
-    damping: 20,
-    mass: 1.2,
-    stiffness: 250,
-  },
-  medium: {
-    damping: 10,
-    mass: 0.9,
-    stiffness: 100,
-  },
-  slow: {
-    damping: 20,
-    stiffness: 60,
-  },
+  color,
+  radius,
+  size,
+  space,
+  zIndex,
+  // size: {
+  //   ...defaultConfig.tokens.size,
+  //   sm: 38,
+  //   md: 46,
+  //   lg: 60,
+  // },
+  // space: {
+  //   ...defaultConfig.tokens.space,
+  //   sm: 15,
+  //   md: 20,
+  //   lg: 25,
+  // },
+  // radius: {
+  //   ...defaultConfig.tokens.radius,
+  //   sm: 4,
+  //   md: 8,
+  //   lg: 12,
+  // },
+  // color: { ...palette } as const,
 });
 
 export const config = createTamagui({
   ...defaultConfig,
-
-  fonts: {
-    body: bodyFont,
-  },
+  themes,
   tokens,
-  themes: {
-    ...defaultConfig.themes,
-    light: lightTheme,
-    dark: darkTheme,
-  },
 });
 
 export default config;

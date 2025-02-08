@@ -1,5 +1,4 @@
-import { Button, Card, Circle, XStack, YStack } from 'tamagui';
-import { Text } from '@/components/common/Text';
+import { Button, Card, Circle, Text, XStack, YStack } from 'tamagui';
 import { ChevronRight, Delete } from '@tamagui/lucide-icons';
 import { IJournal } from '@/types/entries';
 
@@ -13,7 +12,7 @@ export const JournalCard = ({ journal, onDelete }: Props) => {
     <Card
       unstyled
       animation="medium"
-      bg="$grey200"
+      bg="$gray3"
       size="$4"
       pressStyle={{
         scale: 0.95,
