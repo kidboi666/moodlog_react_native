@@ -14,7 +14,7 @@ import { ChevronDown } from '@tamagui/lucide-icons';
 import React from 'react';
 
 interface Props extends ButtonProps {
-  selectedEmotion: IEmotion;
+  selectedEmotion?: IEmotion;
   onChangeEmotion: (emotion: IEmotion) => void;
 }
 
@@ -83,7 +83,7 @@ export const EmotionPicker = ({
           {...props}
         >
           Select Emotion
-          {selectedEmotion.type && selectedEmotion.level && (
+          {selectedEmotion?.type && selectedEmotion?.level && (
             <Square
               size="$1"
               bg={emotionTheme[selectedEmotion.type][selectedEmotion.level]}

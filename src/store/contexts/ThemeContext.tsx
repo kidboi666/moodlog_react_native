@@ -1,14 +1,8 @@
-import {
-  createContext,
-  PropsWithChildren,
-  useCallback,
-  useContext,
-  useState,
-} from 'react';
+import { createContext, PropsWithChildren, useCallback, useState } from 'react';
 import { IThemeStore } from '@/types/interfaces';
 import { Theme } from 'tamagui';
 
-const ThemeContext = createContext<IThemeStore | null>(null);
+export const ThemeContext = createContext<IThemeStore | null>(null);
 
 export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
   const [theme, setTheme] = useState<'dark' | 'light'>('light');
@@ -22,12 +16,4 @@ export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
       <Theme name={theme}>{children}</Theme>
     </ThemeContext.Provider>
   );
-};
-
-export const useThemeContext = () => {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useThemeContext must be used within a DiaryProvider');
-  }
-  return context;
 };

@@ -1,15 +1,23 @@
-import { Separator } from 'tamagui';
+import {
+  Button,
+  H1,
+  ScrollView,
+  Separator,
+  View,
+  XStack,
+  YStack,
+} from 'tamagui';
 import { JournalCard } from '@/components/home/JournalCard';
 import { FlatList } from 'react-native';
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { useDiary } from '@/store/useDiary';
-import { HomeFlatListHeaderContent } from '@/components/home/HomeFlatListHeaderContent';
-import { Container } from '@/components/share/Container';
+import { useJournal } from '@/store/hooks/useJournal';
+import { Container } from '@/components/shared/Container';
+import { CurrentDate } from '@/components/shared/Date';
 
 export default function HomeScreen() {
   const [selectedMenu, setSelectedMenu] = useState<'month' | 'week'>('month');
-  const { journals, removeJournal } = useDiary();
+  const { journals, removeJournal } = useJournal();
   const [key, setKey] = useState(0);
 
   useFocusEffect(
@@ -27,16 +35,37 @@ export default function HomeScreen() {
         opacity: 0,
       }}
     >
+      <YStack gap="$2">
+        <H1 fontWeight="800">Hello John!</H1>
+        <CurrentDate />
+        <View>
+          <ScrollView horizontal>
+            <XStack gap="$4">
+              <Button
+                animation="medium"
+                onPress={() => setSelectedMenu('month')}
+                themeInverse={selectedMenu === 'month'}
+              >
+                Month
+              </Button>
+              <Button
+                animation="medium"
+                onPress={() => setSelectedMenu('week')}
+                themeInverse={selectedMenu === 'week'}
+              >
+                Week
+              </Button>
+            </XStack>
+          </ScrollView>
+        </View>
+      </YStack>
       <FlatList
         data={journals}
-        ListHeaderComponent={() => (
-          <HomeFlatListHeaderContent
-            selectedMenu={selectedMenu}
-            setSelectedMenu={setSelectedMenu}
-          />
-        )}
+        contentContainerStyle={{
+          paddingVertical: 18,
+        }}
         ItemSeparatorComponent={() => (
-          <Separator borderColor="transparent" my="$3" />
+          <Separator borderColor="transparent" mb="$4" />
         )}
         renderItem={itemData => (
           <JournalCard journal={itemData.item} onDelete={removeJournal} />

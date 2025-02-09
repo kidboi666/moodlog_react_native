@@ -1,10 +1,14 @@
-import { ThemeToggle } from '@/components/ThemeToggle';
-import { HeaderContainer } from '@/components/share/HeaderContainer';
+import { ThemeToggle } from '@/components/shared/ThemeToggle';
+import { HeaderContainer } from '@/components/shared/HeaderContainer';
+import { View, XStack } from 'tamagui';
 
 export const HomeHeader = () => {
   return (
     <HeaderContainer>
-      <ThemeToggle />
+      <XStack>
+        <View flex={1} />
+        <ThemeToggle />
+      </XStack>
     </HeaderContainer>
   );
 };

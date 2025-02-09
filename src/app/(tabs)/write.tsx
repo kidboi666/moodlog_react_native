@@ -1,24 +1,20 @@
 import { ContentInput } from '@/components/write/ContentInput';
 import { Button, Form, Separator, XStack, YStack } from 'tamagui';
 import React, { useCallback, useState } from 'react';
-import { useDiary } from '@/store/useDiary';
-import { Calendar, Check } from '@tamagui/lucide-icons';
-import { CurrentDate } from '@/components/share/Date';
-import { Container } from '@/components/share/Container';
+import { useJournal } from '@/store/hooks/useJournal';
+import { Check } from '@tamagui/lucide-icons';
+import { Container } from '@/components/shared/Container';
 import { useFocusEffect } from 'expo-router';
+import { CalendarPicker } from '@/components/write/CalendarPicker';
 
 export default function WriteScreen() {
-  const {
-    journals,
-    addJournal,
-    draftJournal,
-    updateDraftEmotion,
-    updateDraftContent,
-  } = useDiary();
+  const { addJournal, draft, updateDraftContent } = useJournal();
   const [key, setKey] = useState(0);
 
   const handleSubmit = () => {
-    addJournal(draftJournal);
+    if (draft?.emotion) {
+      addJournal(draft);
+    }
   };
 
   useFocusEffect(
@@ -30,38 +26,30 @@ export default function WriteScreen() {
   return (
     <Container
       key={key}
+      animation="medium"
       enterStyle={{
         y: 100,
         opacity: 0,
       }}
     >
       <YStack flex={1} gap="$3">
-        <Button
-          unstyled
-          pl="$0.5"
-          icon={Calendar}
-          items="center"
-          flexDirection="row"
-        >
-          <CurrentDate />
-        </Button>
+        <CalendarPicker />
         <XStack flex={1} gap="$4" ml="$2">
           <Separator vertical />
           <Form onSubmit={handleSubmit} gap="$4" flex={1}>
             <ContentInput
-              value={draftJournal.content}
+              value={draft.content}
               onChangeText={updateDraftContent}
             />
-
-            <Form.Trigger asChild disabled={!draftJournal.content}>
+            <Form.Trigger asChild disabled={!draft?.content || !draft?.emotion}>
               <Button
                 bg="$background"
                 themeInverse
                 self="flex-end"
-                disabled={!draftJournal.content}
+                disabled={!draft.content}
                 icon={Check}
                 color="$color"
-                opacity={!draftJournal.content ? 0.5 : 1}
+                opacity={!draft.content ? 0.5 : 1}
               >
                 Submit
               </Button>

@@ -1,16 +1,15 @@
-import { Nullable } from '../common';
 import { EmotionLevel, EmotionType } from '../enums';
 
-export interface IEmotion {
-  type: Nullable<EmotionType>;
-  level: Nullable<EmotionLevel>;
-}
+export type IEmotion = {
+  type: EmotionType;
+  level: EmotionLevel;
+};
 
-export interface IJournal {
+export type IJournal = {
   id: string;
-  createdAt: string;
-  title?: string;
   content: string;
   emotion: IEmotion;
-  keywords?: string[];
-}
+  createdAt: string;
+};
+
+export type IDraft = {} & Partial<Pick<IJournal, 'content' | 'emotion'>>;

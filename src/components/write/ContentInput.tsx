@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Button, Input, InputProps, View, YStack } from 'tamagui';
-import { useThemeContext } from '@/store/useThemeContext';
+import { useThemeContext } from '@/store/hooks/useThemeContext';
 
 export const ContentInput = ({ ...props }: InputProps) => {
   const { theme } = useThemeContext();

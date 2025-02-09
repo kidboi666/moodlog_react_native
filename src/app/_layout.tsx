@@ -3,8 +3,8 @@ import { SplashScreen, Stack } from 'expo-router';
 import { RootProvider } from '@/providers/RootProvider';
 import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
-import { StatusBar } from '@/components/share/StatusBar';
-import { useThemeContext } from '@/store/useThemeContext';
+import { StatusBar } from '@/components/shared/StatusBar';
+import { useThemeContext } from '@/store/hooks/useThemeContext';
 import {
   DarkTheme,
   DefaultTheme,

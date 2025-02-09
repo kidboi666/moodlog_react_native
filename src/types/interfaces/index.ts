@@ -1,12 +1,12 @@
-import { IEmotion, IJournal } from '../entries';
+import { IDraft, IEmotion, IJournal } from '../entries';
 
 /**
  * Store
  */
-export interface IDiaryStore {
+export interface IJournalStore {
   journals: IJournal[];
-  draftJournal: IJournal;
-  addJournal: (journal: IJournal) => void;
+  draft: IDraft;
+  addJournal: (journal: IDraft) => void;
   removeJournal: (id: string) => void;
   updateJournals: (id: string, updateJournal: IJournal) => void;
   updateDraftEmotion: (emotion: IEmotion) => void;

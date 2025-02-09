@@ -1,6 +1,7 @@
-import { Button, Card, Circle, Text, XStack, YStack } from 'tamagui';
-import { ChevronRight, Delete } from '@tamagui/lucide-icons';
+import { Button, Square, Text, XStack } from 'tamagui';
+import { Delete } from '@tamagui/lucide-icons';
 import { IJournal } from '@/types/entries';
+import { emotionTheme } from '@/constants/themes';
 
 interface Props {
   journal: IJournal;
@@ -9,32 +10,29 @@ interface Props {
 
 export const JournalCard = ({ journal, onDelete }: Props) => {
   return (
-    <Card
-      unstyled
+    <XStack
       animation="medium"
       bg="$gray3"
-      size="$4"
+      elevation="$1"
+      rounded="$4"
+      items="center"
+      gap="$4"
+      p="$4"
       pressStyle={{
         scale: 0.95,
       }}
     >
-      <Card.Header padded>
-        <XStack items="center" justify="space-between" gap={12}>
-          <Circle size="$2" bg={journal.emotion as any} />
-          <YStack flex={1}>
-            <Text>{journal.title}</Text>
-            <Text>{journal.content}</Text>
-          </YStack>
-          <XStack>
-            <Button chromeless icon={<ChevronRight />} />
-            <Button
-              onPress={() => onDelete(journal.id)}
-              chromeless
-              icon={<Delete />}
-            />
-          </XStack>
-        </XStack>
-      </Card.Header>
-    </Card>
+      <Square
+        size="$1.5"
+        rounded="$3"
+        borderWidth={2}
+        borderColor="$gray5"
+        bg={emotionTheme[journal.emotion.type][journal.emotion.level]}
+      />
+      <Text color="$gray11" flex={1} numberOfLines={2}>
+        {journal.content}
+      </Text>
+      <Button onPress={() => onDelete(journal.id)} chromeless icon={Delete} />
+    </XStack>
   );
 };

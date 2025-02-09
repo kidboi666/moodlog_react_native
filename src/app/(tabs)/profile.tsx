@@ -1,4 +1,4 @@
-import { Container } from '@/components/share/Container';
+import { Container } from '@/components/shared/Container';
 import { Avatar, Button, Card, H2, Paragraph, XStack } from 'tamagui';
 import { useCallback, useState } from 'react';
 import { useFocusEffect } from 'expo-router';
@@ -15,6 +15,7 @@ export default function ProfileScreen() {
   return (
     <Container
       key={key}
+      animation="medium"
       enterStyle={{
         x: 300,
         opacity: 0,

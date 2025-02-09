@@ -1,29 +1,20 @@
-import { IEmotion, IJournal } from '@/types/entries';
-import { IDiaryStore } from '@/types/interfaces';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   createContext,
   PropsWithChildren,
   useCallback,
-  useContext,
   useEffect,
   useState,
 } from 'react';
+import { IJournalStore } from '@/types/interfaces';
+import { IDraft, IEmotion, IJournal } from '@/types/entries';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { uuid } from 'expo-modules-core';
 
-const DiaryContext = createContext<IDiaryStore | null>(null);
+export const JournalContext = createContext<IJournalStore | null>(null);
 
-export const DiaryContextProvider = ({ children }: PropsWithChildren) => {
+export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   const [journals, setJournals] = useState<IJournal[]>([]);
-  const [draftJournal, setDraftJournal] = useState<IJournal>({
-    id: '',
-    createdAt: '',
-    content: '',
-    emotion: {
-      type: null,
-      level: null,
-    },
-    keywords: [],
-  });
+  const [draft, setDraft] = useState<IDraft>({});
 
   useEffect(() => {
     const loadJournals = async () => {
@@ -53,8 +44,17 @@ export const DiaryContextProvider = ({ children }: PropsWithChildren) => {
     saveJournals();
   }, [journals]);
 
-  const addJournal = useCallback((newJournal: IJournal) => {
-    setJournals(prev => [...prev, newJournal]);
+  const addJournal = useCallback((draft: IDraft) => {
+    if (draft.content && draft.emotion) {
+      const newJournal = {
+        id: uuid.v4(),
+        content: draft.content,
+        emotion: draft.emotion,
+        createdAt: new Date().toISOString(),
+      };
+      setJournals(prev => [...prev, newJournal]);
+      setDraft({});
+    }
   }, []);
 
   const removeJournal = useCallback((id: string) => {
@@ -68,18 +68,18 @@ export const DiaryContextProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   const updateDraftEmotion = useCallback((emotion: IEmotion) => {
-    setDraftJournal(prev => ({ ...prev, emotion }));
+    setDraft(prev => ({ ...prev, emotion }));
   }, []);
 
   const updateDraftContent = useCallback((content: string) => {
-    setDraftJournal(prev => ({ ...prev, content: content }));
+    setDraft(prev => ({ ...prev, content }));
   }, []);
 
   return (
-    <DiaryContext.Provider
+    <JournalContext.Provider
       value={{
         journals,
-        draftJournal,
+        draft,
         addJournal,
         removeJournal,
         updateJournals,
@@ -88,14 +88,6 @@ export const DiaryContextProvider = ({ children }: PropsWithChildren) => {
       }}
     >
       {children}
-    </DiaryContext.Provider>
+    </JournalContext.Provider>
   );
-};
-
-export const useDiary = () => {
-  const context = useContext(DiaryContext);
-  if (!context) {
-    throw new Error('useDiary must be used within a DiaryProvider');
-  }
-  return context;
 };
