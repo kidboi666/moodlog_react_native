@@ -8,7 +8,7 @@ export interface IEmotion {
 
 export interface IJournal {
   id: string;
-  date: Date;
+  createdAt: string;
   title?: string;
   content: string;
   emotion: IEmotion;

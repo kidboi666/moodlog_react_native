@@ -6,9 +6,9 @@ export enum EmotionType {
 }
 
 export enum EmotionLevel {
-  ZERO = 0,
-  HALF = 50,
-  FULL = 100,
+  ZERO = 'zero',
+  HALF = 'half',
+  FULL = 'full',
 }
 
 export enum Theme {

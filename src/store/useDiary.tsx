@@ -1,4 +1,4 @@
-import { IJournal } from '@/types/entries';
+import { IEmotion, IJournal } from '@/types/entries';
 import { IDiaryStore } from '@/types/interfaces';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
@@ -10,10 +10,20 @@ import {
   useState,
 } from 'react';
 
-export const DiaryContext = createContext<IDiaryStore | null>(null);
+const DiaryContext = createContext<IDiaryStore | null>(null);
 
-const DiaryContextProvider = ({ children }: PropsWithChildren) => {
+export const DiaryContextProvider = ({ children }: PropsWithChildren) => {
   const [journals, setJournals] = useState<IJournal[]>([]);
+  const [draftJournal, setDraftJournal] = useState<IJournal>({
+    id: '',
+    createdAt: '',
+    content: '',
+    emotion: {
+      type: null,
+      level: null,
+    },
+    keywords: [],
+  });
 
   useEffect(() => {
     const loadJournals = async () => {
@@ -51,15 +61,31 @@ const DiaryContextProvider = ({ children }: PropsWithChildren) => {
     setJournals(prev => prev.filter(journal => journal.id !== id));
   }, []);
 
-  const updateJournal = useCallback((id: string, newJournal: IJournal) => {
+  const updateJournals = useCallback((id: string, newJournal: IJournal) => {
     setJournals(prev =>
       prev.map(journal => (journal.id === id ? newJournal : journal)),
     );
   }, []);
 
+  const updateDraftEmotion = useCallback((emotion: IEmotion) => {
+    setDraftJournal(prev => ({ ...prev, emotion }));
+  }, []);
+
+  const updateDraftContent = useCallback((content: string) => {
+    setDraftJournal(prev => ({ ...prev, content: content }));
+  }, []);
+
   return (
     <DiaryContext.Provider
-      value={{ journals, addJournal, removeJournal, updateJournal }}
+      value={{
+        journals,
+        draftJournal,
+        addJournal,
+        removeJournal,
+        updateJournals,
+        updateDraftEmotion,
+        updateDraftContent,
+      }}
     >
       {children}
     </DiaryContext.Provider>
@@ -73,5 +99,3 @@ export const useDiary = () => {
   }
   return context;
 };
-
-export default DiaryContextProvider;

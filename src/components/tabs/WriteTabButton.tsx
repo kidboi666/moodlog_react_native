@@ -1,13 +1,8 @@
 import { Button, ButtonProps } from 'tamagui';
-import { PropsWithChildren } from 'react';
 
-export const WriteTabButton = ({
-  children,
-  onPress,
-}: PropsWithChildren<ButtonProps>) => {
+export const WriteTabButton = ({ ...props }: ButtonProps) => {
   return (
     <Button
-      onPress={onPress}
       unstyled
       rounded="$8"
       animation="quick"
@@ -22,8 +17,7 @@ export const WriteTabButton = ({
       shadowRadius={3}
       pressStyle={{ scale: 0.85, opacity: 0.9 }}
       enterStyle={{ scale: 0.9, opacity: 0, y: 10 }}
-    >
-      {children}
-    </Button>
+      {...props}
+    />
   );
 };

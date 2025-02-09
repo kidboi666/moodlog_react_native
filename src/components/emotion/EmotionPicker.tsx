@@ -1,11 +1,19 @@
-import { Button, Popover, Square, Text, XStack, YStack } from 'tamagui';
+import {
+  Button,
+  ButtonProps,
+  Popover,
+  Square,
+  Text,
+  XStack,
+  YStack,
+} from 'tamagui';
 import { EmotionLevel, EmotionType } from '@/types/enums';
 import { IEmotion } from '@/types/entries';
 import { emotionTheme } from '@/constants/themes';
 import { ChevronDown } from '@tamagui/lucide-icons';
 import React from 'react';
 
-interface Props {
+interface Props extends ButtonProps {
   selectedEmotion: IEmotion;
   onChangeEmotion: (emotion: IEmotion) => void;
 }
@@ -16,7 +24,7 @@ const EmotionPickerBase = ({
   emotionType,
 }: Props & { emotionType: EmotionType }) => {
   return (
-    <XStack gap="$4" justify="space-between" width="$16">
+    <XStack gap="$4" justify="space-between" items="center" width="$16">
       <Text>{emotionType.toString().toUpperCase()}</Text>
 
       <XStack gap="$2">
@@ -58,11 +66,31 @@ const EmotionPickerBase = ({
   );
 };
 
-export const EmotionPicker = ({ selectedEmotion, onChangeEmotion }: Props) => {
+export const EmotionPicker = ({
+  selectedEmotion,
+  onChangeEmotion,
+  ...props
+}: Props) => {
   return (
     <Popover size="$4" placement="bottom">
       <Popover.Trigger asChild>
-        <Button icon={ChevronDown}>Select Emotion</Button>
+        <Button
+          unstyled
+          flexDirection="row"
+          gap="$1"
+          items="center"
+          icon={ChevronDown}
+          {...props}
+        >
+          Select Emotion
+          {selectedEmotion.type && selectedEmotion.level && (
+            <Square
+              size="$1"
+              bg={emotionTheme[selectedEmotion.type][selectedEmotion.level]}
+              rounded="$3"
+            />
+          )}
+        </Button>
       </Popover.Trigger>
       <Popover.Content
         borderWidth={1}

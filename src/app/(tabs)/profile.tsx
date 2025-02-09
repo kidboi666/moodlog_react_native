@@ -1,4 +1,4 @@
-import { Container } from '@/components/common/Container';
+import { Container } from '@/components/share/Container';
 import { Avatar, Button, Card, H2, Paragraph, XStack } from 'tamagui';
 import { useCallback, useState } from 'react';
 import { useFocusEffect } from 'expo-router';
@@ -11,10 +11,10 @@ export default function ProfileScreen() {
       setKey(prev => prev + 1);
     }, []),
   );
+
   return (
     <Container
       key={key}
-      animation="quick"
       enterStyle={{
         x: 300,
         opacity: 0,
@@ -34,18 +34,20 @@ export default function ProfileScreen() {
         animation="medium"
         size="$4"
         scale={0.9}
+        bg="$gray5"
         borderColor="$gray4"
-        bg="$gray4"
-        pressStyle={{ scale: 0.875, bg: '$green4' }}
+        pressStyle={{ scale: 0.95, bg: '$green4' }}
         bordered
       >
         <Card.Header padded>
-          <H2>Jack</H2>
-          <Paragraph>Now available</Paragraph>
+          <H2 color="$gray12">Jack</H2>
+          <Paragraph color="$gray11">Now available</Paragraph>
         </Card.Header>
         <Card.Footer padded>
           <XStack flex={1} />
-          <Button>Purchase</Button>
+          <Button animation="medium" bg="$color" color="$background">
+            Purchase
+          </Button>
         </Card.Footer>
       </Card>
     </Container>

@@ -284,23 +284,23 @@ export const lightTheme = {
 
 export const emotionTheme = {
   angry: {
-    zero: '$red4',
-    half: '$red7',
+    zero: '$red5',
+    half: '$red8',
     full: '$red10',
   },
   peace: {
-    zero: '$green4',
-    half: '$green7',
+    zero: '$green5',
+    half: '$green8',
     full: '$green10',
   },
   happy: {
-    zero: '$yellow4',
+    zero: '$yellow5',
     half: '$yellow7',
     full: '$yellow10',
   },
   sad: {
-    zero: '$blue4',
-    half: '$blue7',
+    zero: '$blue5',
+    half: '$blue8',
     full: '$blue10',
   },
 } as const;

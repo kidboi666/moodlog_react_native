@@ -1,15 +1,15 @@
 import '../../tamagui-web.css';
-
-import { useEffect } from 'react';
-import { StatusBar, useColorScheme } from 'react-native';
-import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { RootProvider } from '@/providers/RootProvider';
-
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
+import { useFonts } from 'expo-font';
+import { useEffect } from 'react';
+import { StatusBar } from '@/components/share/StatusBar';
+import { useThemeContext } from '@/store/useThemeContext';
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from '@react-navigation/native';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -20,11 +20,9 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [fontLoaded, fontError] = useFonts({
-    'goorm-sans-regular': require('../assets/fonts/goorm-sans-regular.ttf'),
-    'goorm-sans-medium': require('../assets/fonts/goorm-sans-medium.ttf'),
-    'goorm-sans-bold': require('../assets/fonts/goorm-sans-bold.ttf'),
+    Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
+    InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
   });
 
   useEffect(() => {
@@ -37,14 +35,19 @@ export default function RootLayout() {
   if (!fontLoaded && !fontError) {
     return null;
   }
-
   return (
     <RootProvider>
-      <StatusBar
-        backgroundColor="transparent"
-        translucent
-        barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
-      />
+      <RootLayoutNav />
+    </RootProvider>
+  );
+}
+
+function RootLayoutNav() {
+  const { theme } = useThemeContext();
+
+  return (
+    <ThemeProvider value={theme === 'dark' ? DarkTheme : DefaultTheme}>
+      <StatusBar />
       <Stack>
         <Stack.Screen
           name="(tabs)"
@@ -53,6 +56,6 @@ export default function RootLayout() {
           }}
         />
       </Stack>
-    </RootProvider>
+    </ThemeProvider>
   );
 }

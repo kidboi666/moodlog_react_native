@@ -1,38 +1,19 @@
 import { defaultConfig } from '@tamagui/config/v4';
-import { createTamagui, createTokens } from 'tamagui';
-import { color, radius, size, space, themes, zIndex } from '@tamagui/themes';
+import { createTamagui } from 'tamagui';
+import { themes, tokens } from '@tamagui/themes';
+import { createInterFont } from '@tamagui/font-inter';
 
-const tokens = createTokens({
-  color,
-  radius,
-  size,
-  space,
-  zIndex,
-  // size: {
-  //   ...defaultConfig.tokens.size,
-  //   sm: 38,
-  //   md: 46,
-  //   lg: 60,
-  // },
-  // space: {
-  //   ...defaultConfig.tokens.space,
-  //   sm: 15,
-  //   md: 20,
-  //   lg: 25,
-  // },
-  // radius: {
-  //   ...defaultConfig.tokens.radius,
-  //   sm: 4,
-  //   md: 8,
-  //   lg: 12,
-  // },
-  // color: { ...palette } as const,
-});
+const headingFont = createInterFont();
+const bodyFont = createInterFont();
 
 export const config = createTamagui({
   ...defaultConfig,
   themes,
   tokens,
+  fonts: {
+    heading: headingFont,
+    body: bodyFont,
+  },
 });
 
 export default config;

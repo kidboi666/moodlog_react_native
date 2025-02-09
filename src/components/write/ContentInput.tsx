@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
-import { Button, Input, View, YStack } from 'tamagui';
+import { Button, Input, InputProps, View, YStack } from 'tamagui';
+import { useThemeContext } from '@/store/useThemeContext';
 
-export const ContentInput = ({ ...props }) => {
-  // @TODO any type
-  const ref = useRef<any>(null);
+export const ContentInput = ({ ...props }: InputProps) => {
+  const { theme } = useThemeContext();
+  const ref = useRef<Input>(null);
 
   const handleFocusInput = () => {
     ref.current?.focus();
@@ -12,11 +13,12 @@ export const ContentInput = ({ ...props }) => {
   return (
     <YStack flex={1}>
       <Input
-        multiline
         unstyled
+        multiline
         ref={ref}
-        placeholder="오늘 당신의 감정을 기록하세요."
-        placeholderTextColor="$placeholder"
+        color="$color"
+        placeholder="How are you feeling today?"
+        placeholderTextColor="$gray7"
         {...props}
       />
       <View flex={1} height="100%">

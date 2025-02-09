@@ -1,11 +1,11 @@
 import { Separator } from 'tamagui';
-import { Container } from '@/components/common/Container';
 import { JournalCard } from '@/components/home/JournalCard';
 import { FlatList } from 'react-native';
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { useDiary } from '@/store/useDiary';
-import { HomeHeader } from '@/components/home/HomeHeader';
+import { HomeFlatListHeaderContent } from '@/components/home/HomeFlatListHeaderContent';
+import { Container } from '@/components/share/Container';
 
 export default function HomeScreen() {
   const [selectedMenu, setSelectedMenu] = useState<'month' | 'week'>('month');
@@ -21,7 +21,7 @@ export default function HomeScreen() {
   return (
     <Container
       key={key}
-      animation="quick"
+      animation="medium"
       enterStyle={{
         x: -300,
         opacity: 0,
@@ -30,7 +30,7 @@ export default function HomeScreen() {
       <FlatList
         data={journals}
         ListHeaderComponent={() => (
-          <HomeHeader
+          <HomeFlatListHeaderContent
             selectedMenu={selectedMenu}
             setSelectedMenu={setSelectedMenu}
           />
