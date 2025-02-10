@@ -1,9 +1,7 @@
 import React, { useRef } from 'react';
 import { Button, Input, InputProps, View, YStack } from 'tamagui';
-import { useThemeContext } from '@/store/hooks/useThemeContext';
 
 export const ContentInput = ({ ...props }: InputProps) => {
-  const { theme } = useThemeContext();
   const ref = useRef<Input>(null);
 
   const handleFocusInput = () => {

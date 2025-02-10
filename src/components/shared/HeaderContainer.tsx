@@ -11,6 +11,7 @@ export const HeaderContainer = ({ ...props }: SafeAreaViewProps) => {
       style={{
         backgroundColor: theme.background.val,
         width: '100%',
+        padding: 16,
       }}
       edges={['top']}
       {...props}

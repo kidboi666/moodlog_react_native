@@ -32,6 +32,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
+          animation: 'shift',
           header: () => <HomeHeader />,
           tabBarButton: props => (
             <CommonTabButton onPress={props.onPress}>
@@ -48,7 +49,8 @@ export default function TabLayout() {
         name="write"
         options={{
           title: 'Write',
-          header: ({ navigation }) => <WriteHeader navigation={navigation} />,
+          animation: 'none',
+          header: () => <WriteHeader />,
           tabBarStyle: {
             display: 'none',
           },
@@ -70,6 +72,7 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: 'Profile',
+          animation: 'shift',
           header: () => <HomeHeader />,
           tabBarButton: props => (
             <CommonTabButton onPress={props.onPress}>

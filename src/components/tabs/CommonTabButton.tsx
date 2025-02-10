@@ -5,6 +5,8 @@ export const CommonTabButton = ({ ...props }: ButtonProps) => {
     <Button
       unstyled
       animation="quick"
+      justify="center"
+      items="center"
       flex={1}
       p="$3"
       pressStyle={{ scale: 0.85 }}

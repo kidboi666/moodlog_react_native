@@ -37,7 +37,7 @@ export default function HomeScreen() {
     >
       <YStack gap="$2">
         <H1 fontWeight="800">Hello John!</H1>
-        <CurrentDate />
+        <CurrentDate timestamp={Date.now()} />
         <View>
           <ScrollView horizontal>
             <XStack gap="$4">

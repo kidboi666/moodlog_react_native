@@ -4,12 +4,15 @@ import { RootProvider } from '@/providers/RootProvider';
 import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
 import { StatusBar } from '@/components/shared/StatusBar';
+import * as NavigationBar from 'expo-navigation-bar';
 import { useThemeContext } from '@/store/hooks/useThemeContext';
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from '@react-navigation/native';
+import { Platform } from 'react-native';
+import { useTheme } from 'tamagui';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -43,10 +46,20 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const { theme } = useThemeContext();
+  const { currentTheme } = useThemeContext();
+  const theme = useTheme();
+  const bg = theme.background.val;
 
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      NavigationBar.setBackgroundColorAsync(bg);
+      NavigationBar.setButtonStyleAsync(
+        currentTheme === 'dark' ? 'light' : 'dark',
+      );
+    }
+  }, [currentTheme]);
   return (
-    <ThemeProvider value={theme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={currentTheme === 'dark' ? DarkTheme : DefaultTheme}>
       <StatusBar />
       <Stack>
         <Stack.Screen

@@ -45,12 +45,13 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   }, [journals]);
 
   const addJournal = useCallback((draft: IDraft) => {
-    if (draft.content && draft.emotion) {
+    if (draft.content && draft.emotion && draft.localDate) {
       const newJournal = {
         id: uuid.v4(),
         content: draft.content,
         emotion: draft.emotion,
         createdAt: new Date().toISOString(),
+        localDate: draft.localDate,
       };
       setJournals(prev => [...prev, newJournal]);
       setDraft({});
@@ -65,6 +66,10 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     setJournals(prev =>
       prev.map(journal => (journal.id === id ? newJournal : journal)),
     );
+  }, []);
+
+  const updateDraftLocalDate = useCallback((date: string) => {
+    setDraft(prev => ({ ...prev, localDate: date }));
   }, []);
 
   const updateDraftEmotion = useCallback((emotion: IEmotion) => {
@@ -83,6 +88,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         addJournal,
         removeJournal,
         updateJournals,
+        updateDraftLocalDate,
         updateDraftEmotion,
         updateDraftContent,
       }}

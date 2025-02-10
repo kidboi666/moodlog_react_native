@@ -30,6 +30,11 @@ const EmotionPickerBase = ({
       <XStack gap="$2">
         <Button
           unstyled
+          animation="medium"
+          pressStyle={{
+            scale: 0.95,
+            opacity: 0.5,
+          }}
           onPress={() =>
             onChangeEmotion({
               type: emotionType,
@@ -41,6 +46,11 @@ const EmotionPickerBase = ({
         </Button>
         <Button
           unstyled
+          animation="medium"
+          pressStyle={{
+            scale: 0.95,
+            opacity: 0.5,
+          }}
           onPress={() =>
             onChangeEmotion({
               type: emotionType,
@@ -52,6 +62,11 @@ const EmotionPickerBase = ({
         </Button>
         <Button
           unstyled
+          animation="medium"
+          pressStyle={{
+            scale: 0.95,
+            opacity: 0.5,
+          }}
           onPress={() =>
             onChangeEmotion({
               type: emotionType,
@@ -76,20 +91,25 @@ export const EmotionPicker = ({
       <Popover.Trigger asChild>
         <Button
           unstyled
+          animation="quick"
           flexDirection="row"
           gap="$1"
           items="center"
           icon={ChevronDown}
+          pressStyle={{
+            scale: 0.95,
+            opacity: 0.5,
+          }}
           {...props}
         >
           Select Emotion
-          {selectedEmotion?.type && selectedEmotion?.level && (
-            <Square
-              size="$1"
-              bg={emotionTheme[selectedEmotion.type][selectedEmotion.level]}
-              rounded="$3"
-            />
-          )}
+          {/*{selectedEmotion?.type && selectedEmotion?.level && (*/}
+          {/*  <Square*/}
+          {/*    size="$1"*/}
+          {/*    bg={emotionTheme[selectedEmotion.type][selectedEmotion.level]}*/}
+          {/*    rounded="$3"*/}
+          {/*  />*/}
+          {/*)}*/}
         </Button>
       </Popover.Trigger>
       <Popover.Content

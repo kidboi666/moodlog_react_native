@@ -2,12 +2,22 @@ import { Calendar } from 'react-native-calendars';
 import { Calendar as CalendarIcon } from '@tamagui/lucide-icons';
 import { Button, Popover, Text, useTheme } from 'tamagui';
 import { CurrentDate } from '@/components/shared/Date';
-import React, { useState } from 'react';
+import React from 'react';
+import { useThemeContext } from '@/store/hooks/useThemeContext';
+import { useJournal } from '@/store/hooks/useJournal';
 
 export const CalendarPicker = () => {
+  const { currentTheme } = useThemeContext();
   const theme = useTheme();
-  const [selectedDate, setSelectedDate] = useState();
-  const today = new Date().toISOString().split('T')[0];
+  const { updateDraftLocalDate, draft } = useJournal();
+
+  const transformSnakeTime = (time: number) => {
+    return new Date(time).toISOString().split('T')[0];
+  };
+
+  const handleChangeDate = (date: number) => {
+    updateDraftLocalDate(transformSnakeTime(date));
+  };
 
   return (
     <Popover placement="bottom-start">
@@ -19,7 +29,11 @@ export const CalendarPicker = () => {
           items="center"
           flexDirection="row"
         >
-          <CurrentDate />
+          <CurrentDate
+            timestamp={
+              draft?.localDate ? draft.localDate : new Date().getTime()
+            }
+          />
         </Button>
       </Popover.Trigger>
       <Popover.Content
@@ -39,8 +53,19 @@ export const CalendarPicker = () => {
         flexDirection="column"
       >
         <Calendar
-          current={today}
+          key={currentTheme}
+          current={transformSnakeTime(new Date().getTime())}
           enableSwipeMonths
+          onDayPress={day => handleChangeDate(day.timestamp)}
+          markedDates={
+            draft.localDate && {
+              [draft.localDate]: {
+                selected: true,
+                disabledTouchEvent: true,
+                selectedDotColor: 'red',
+              },
+            }
+          }
           renderArrow={direction => (
             <Text style={{ color: theme.blue10.val, fontSize: 20 }}>
               {direction === 'left' ? '<' : '>'}

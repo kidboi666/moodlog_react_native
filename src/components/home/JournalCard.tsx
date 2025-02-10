@@ -13,8 +13,9 @@ export const JournalCard = ({ journal, onDelete }: Props) => {
     <XStack
       animation="medium"
       bg="$gray3"
-      elevation="$1"
       rounded="$4"
+      borderWidth={1}
+      borderColor="$color6"
       items="center"
       gap="$4"
       p="$4"

@@ -3,14 +3,13 @@ import { useThemeContext } from '@/store/hooks/useThemeContext';
 import { Moon, Sun } from '@tamagui/lucide-icons';
 
 export const ThemeToggle = ({ ...props }: ButtonProps) => {
-  const { theme, toggleTheme } = useThemeContext();
+  const { currentTheme, toggleTheme } = useThemeContext();
 
   return (
     <Button
-      unstyled
       size="$4"
       justify="center"
-      icon={theme === 'dark' ? <Sun /> : <Moon />}
+      icon={currentTheme === 'dark' ? <Sun /> : <Moon />}
       onPress={() => toggleTheme()}
       {...props}
     />

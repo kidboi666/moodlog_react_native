@@ -2,12 +2,12 @@ import { StatusBar as RNStatusBar } from 'react-native';
 import { useThemeContext } from '@/store/hooks/useThemeContext';
 
 export const StatusBar = () => {
-  const { theme } = useThemeContext();
+  const { currentTheme } = useThemeContext();
   return (
     <RNStatusBar
       backgroundColor="transparent"
       translucent
-      barStyle={theme === 'dark' ? 'light-content' : 'dark-content'}
+      barStyle={currentTheme === 'dark' ? 'light-content' : 'dark-content'}
     />
   );
 };

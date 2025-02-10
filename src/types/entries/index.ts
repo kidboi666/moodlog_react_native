@@ -10,6 +10,9 @@ export type IJournal = {
   content: string;
   emotion: IEmotion;
   createdAt: string;
+  localDate: string;
 };
 
-export type IDraft = {} & Partial<Pick<IJournal, 'content' | 'emotion'>>;
+export type IDraft = {} & Partial<
+  Pick<IJournal, 'content' | 'emotion' | 'localDate'>
+>;
