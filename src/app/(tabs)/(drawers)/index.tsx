@@ -14,11 +14,13 @@ import { CurrentDate } from '@/components/shared/Date';
 import { FlatList } from 'react-native';
 import { JournalCard } from '@/components/home/JournalCard';
 import { Container } from '@/components/shared/Container';
+import { useToastController } from '@tamagui/toast';
 
 export default function HomeScreen() {
   const [selectedMenu, setSelectedMenu] = useState<'month' | 'week'>('month');
   const { journals, removeJournal } = useJournalContext();
   const [key, setKey] = useState(0);
+  const toast = useToastController();
 
   useFocusEffect(
     useCallback(() => {
@@ -29,43 +31,42 @@ export default function HomeScreen() {
   return (
     <Container
       key={key}
-      animation="medium"
       enterStyle={{
         x: -300,
         opacity: 0,
       }}
     >
-      <YStack gap="$2">
-        <H1 fontWeight="800">Home</H1>
-        <CurrentDate timestamp={Date.now()} />
-        <View>
-          <ScrollView horizontal>
-            <XStack gap="$4">
-              <Button
-                animation="medium"
-                onPress={() => setSelectedMenu('month')}
-                themeInverse={selectedMenu === 'month'}
-              >
-                Month
-              </Button>
-              <Button
-                animation="medium"
-                onPress={() => setSelectedMenu('week')}
-                themeInverse={selectedMenu === 'week'}
-              >
-                Week
-              </Button>
-            </XStack>
-          </ScrollView>
-        </View>
-      </YStack>
       <FlatList
         data={journals}
-        contentContainerStyle={{
-          paddingVertical: 18,
-        }}
+        ListHeaderComponent={() => (
+          <YStack gap="$2" mb="$4">
+            <H1 fontWeight="800">Home</H1>
+            <CurrentDate timestamp={Date.now()} />
+            <View>
+              <ScrollView horizontal>
+                <XStack gap="$4">
+                  <Button
+                    animation="medium"
+                    onPress={() => setSelectedMenu('month')}
+                    themeInverse={selectedMenu === 'month'}
+                  >
+                    Month
+                  </Button>
+                  <Button
+                    animation="medium"
+                    onPress={() => setSelectedMenu('week')}
+                    themeInverse={selectedMenu === 'week'}
+                  >
+                    Week
+                  </Button>
+                  <Button onPress={() => toast.show('sdf')}>토스트</Button>
+                </XStack>
+              </ScrollView>
+            </View>
+          </YStack>
+        )}
         ItemSeparatorComponent={() => (
-          <Separator borderColor="$gray3" mb="$4" mx="$4" />
+          <Separator borderColor="$gray5" mb="$4" mx="$2" />
         )}
         renderItem={itemData => (
           <JournalCard journal={itemData.item} onDelete={removeJournal} />

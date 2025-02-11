@@ -9,6 +9,7 @@ import { useThemeContext } from '@/store/hooks/useThemeContext';
 import { Platform } from 'react-native';
 import { useTheme } from 'tamagui';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { CurrentToast } from '@/components/CurrentToast';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -65,6 +66,7 @@ function RootLayoutNav() {
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="+not-found" />
       </Stack>
+      <CurrentToast />
     </GestureHandlerRootView>
   );
 }

@@ -9,12 +9,16 @@ import { IJournalStore } from '@/types/interfaces';
 import { IDraft, IEmotion, IJournal } from '@/types/entries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { uuid } from 'expo-modules-core';
+import { useToastController } from '@tamagui/toast';
+import { useRouter } from 'expo-router';
 
 export const JournalContext = createContext<IJournalStore | null>(null);
 
 export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   const [journals, setJournals] = useState<IJournal[]>([]);
   const [draft, setDraft] = useState<IDraft>({});
+  const toast = useToastController();
+  const router = useRouter();
 
   useEffect(() => {
     const loadJournals = async () => {
@@ -55,6 +59,10 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
       };
       setJournals(prev => [...prev, newJournal]);
       setDraft({});
+      toast.show('Successfully saved!', {
+        message: 'Save Journal!',
+      });
+      router.push('/');
     }
   }, []);
 

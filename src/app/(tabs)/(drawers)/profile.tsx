@@ -15,7 +15,6 @@ export default function ProfileScreen() {
   return (
     <Container
       key={key}
-      animation="medium"
       enterStyle={{
         x: 300,
         opacity: 0,

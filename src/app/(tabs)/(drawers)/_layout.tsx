@@ -1,11 +1,8 @@
 import { DrawerContent } from '@/components/drawers/DrawerContent';
 import { HomeHeader } from '@/components/headers/HomeHeader';
 import { Drawer } from 'expo-router/drawer';
-import { useTheme } from 'tamagui';
 
 export default function HomeLayout() {
-  const theme = useTheme();
-
   return (
     <Drawer
       drawerContent={props => <DrawerContent {...props} />}

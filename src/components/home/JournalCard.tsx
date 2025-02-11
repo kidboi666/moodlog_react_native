@@ -1,4 +1,4 @@
-import { Button, SizableText, Square, Text, XStack, YStack } from 'tamagui';
+import { Button, Square, Text, XStack, YStack } from 'tamagui';
 import { Delete } from '@tamagui/lucide-icons';
 import { IJournal } from '@/types/entries';
 import { emotionTheme } from '@/constants/themes';
@@ -18,22 +18,19 @@ export const JournalCard = ({ journal, onDelete }: Props) => {
       borderWidth={0}
       items="center"
       gap="$4"
-      p="$4"
+      pb="$4"
       onPressIn={() => setIsRotate(true)}
       onPressOut={() => setIsRotate(false)}
       pressStyle={{
         scale: 0.98,
       }}
     >
-      <YStack>
+      <YStack px="$4" rotate={isRotate ? '0deg' : '10deg'} animation="medium">
         <Square
           size="$1"
-          animation="medium"
           rounded="$3"
-          rotate={isRotate ? '15deg' : '0deg'}
           bg={emotionTheme[journal.emotion.type][journal.emotion.level]}
         />
-        <SizableText size="$1">{journal.emotion.type}</SizableText>
       </YStack>
       <Text color="$gray11" flex={1} numberOfLines={2}>
         {journal.content}

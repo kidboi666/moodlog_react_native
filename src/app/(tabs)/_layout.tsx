@@ -1,5 +1,5 @@
 import { Tabs, usePathname, useRouter } from 'expo-router';
-import { Button } from 'tamagui';
+import { AnimatePresence, Button } from 'tamagui';
 import { Plus } from '@tamagui/lucide-icons';
 import { WriteHeader } from '@/components/headers/WriteHeader'; // expo 아이콘 사용
 
@@ -31,19 +31,31 @@ export default function TabsLayout() {
         options={{
           headerShown: true,
           header: () => <WriteHeader />,
-          tabBarButton: props =>
-            isWritePage ? null : (
-              <Button
-                icon={Plus}
-                position="absolute"
-                b="$4"
-                r="$4"
-                size="$6"
-                elevate
-                themeInverse
-                onPress={() => router.push('/write')}
-              />
-            ),
+          tabBarButton: props => (
+            <AnimatePresence>
+              {!isWritePage && (
+                <Button
+                  icon={Plus}
+                  animation="medium"
+                  position="absolute"
+                  b="$4"
+                  r="$4"
+                  size="$6"
+                  elevate
+                  themeInverse
+                  onPress={() => router.push('/write')}
+                  enterStyle={{
+                    scale: 0,
+                    opacity: 0,
+                  }}
+                  exitStyle={{
+                    scale: 0,
+                    opacity: 0,
+                  }}
+                />
+              )}
+            </AnimatePresence>
+          ),
         }}
       />
     </Tabs>

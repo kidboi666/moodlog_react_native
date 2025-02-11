@@ -4,7 +4,6 @@ import { Button, YStack } from 'tamagui';
 export default function Settings() {
   return (
     <Container
-      animation="medium"
       enterStyle={{
         x: -300,
         opacity: 0,

@@ -3,6 +3,7 @@ import { ContextProvider } from '@/providers/ContextProvider';
 import { ToastProvider } from '@/providers/ToastProvider';
 import { TamaguiBaseProvider } from '@/providers/TamaguiProvider';
 import { useColorScheme } from 'react-native';
+import { CurrentToast } from '@/components/CurrentToast';
 
 export const RootProvider = ({
   children,
@@ -12,11 +13,14 @@ export const RootProvider = ({
 
   return (
     <TamaguiBaseProvider colorScheme={colorScheme} {...rest}>
-      <ContextProvider>
+      <ToastProvider>
         <PortalProvider>
-          <ToastProvider>{children}</ToastProvider>
+          <ContextProvider>
+            {children}
+            <CurrentToast />
+          </ContextProvider>
         </PortalProvider>
-      </ContextProvider>
+      </ToastProvider>
     </TamaguiBaseProvider>
   );
 };

@@ -1,8 +1,18 @@
 import { useTheme, View, YStackProps } from 'tamagui';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { NewWriteButton } from '@/components/write/NewWriteButton';
 
 export const Container = ({ children, ...props }: YStackProps) => {
+  return (
+    <View flex={1} {...props} animation="medium" bg="$background" px="$4">
+      {children}
+    </View>
+  );
+};
+
+export const ContainerWithSafeAreaView = ({
+  children,
+  ...props
+}: YStackProps) => {
   const theme = useTheme();
 
   return (
@@ -12,7 +22,7 @@ export const Container = ({ children, ...props }: YStackProps) => {
         flex: 1,
         paddingHorizontal: 16,
       }}
-      edges={['bottom']}
+      edges={['top']}
     >
       <View flex={1} {...props} bg="transparent">
         {children}
@@ -21,17 +31,4 @@ export const Container = ({ children, ...props }: YStackProps) => {
   );
 };
 
-export const ContainerWithNewWriteButton = ({
-  children,
-  ...props
-}: YStackProps) => {
-  return (
-    <Container {...props}>
-      {children}
-      <NewWriteButton />
-    </Container>
-  );
-};
-
 Container.displayName = 'Container';
-ContainerWithNewWriteButton.displayName = 'ContainerWithNewWriteButton';
