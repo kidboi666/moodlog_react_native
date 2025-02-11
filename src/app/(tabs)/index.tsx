@@ -36,7 +36,7 @@ export default function HomeScreen() {
       }}
     >
       <YStack gap="$2">
-        <H1 fontWeight="800">Hello John!</H1>
+        <H1 fontWeight="800">Home</H1>
         <CurrentDate timestamp={Date.now()} />
         <View>
           <ScrollView horizontal>
@@ -65,7 +65,7 @@ export default function HomeScreen() {
           paddingVertical: 18,
         }}
         ItemSeparatorComponent={() => (
-          <Separator borderColor="transparent" mb="$4" />
+          <Separator borderColor="$gray3" mb="$4" mx="$4" />
         )}
         renderItem={itemData => (
           <JournalCard journal={itemData.item} onDelete={removeJournal} />

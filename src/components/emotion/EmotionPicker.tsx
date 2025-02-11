@@ -103,13 +103,13 @@ export const EmotionPicker = ({
           {...props}
         >
           Select Emotion
-          {/*{selectedEmotion?.type && selectedEmotion?.level && (*/}
-          {/*  <Square*/}
-          {/*    size="$1"*/}
-          {/*    bg={emotionTheme[selectedEmotion.type][selectedEmotion.level]}*/}
-          {/*    rounded="$3"*/}
-          {/*  />*/}
-          {/*)}*/}
+          {selectedEmotion?.type && selectedEmotion?.level && (
+            <Square
+              size="$1"
+              bg={emotionTheme[selectedEmotion.type][selectedEmotion.level]}
+              rounded="$3"
+            />
+          )}
         </Button>
       </Popover.Trigger>
       <Popover.Content
