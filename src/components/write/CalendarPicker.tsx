@@ -3,13 +3,11 @@ import { Calendar as CalendarIcon } from '@tamagui/lucide-icons';
 import { Button, Popover, Text, useTheme } from 'tamagui';
 import { CurrentDate } from '@/components/shared/Date';
 import React from 'react';
-import { useThemeContext } from '@/store/hooks/useThemeContext';
-import { useJournal } from '@/store/hooks/useJournal';
+import { useJournalContext } from '@/store/hooks/useJournalContext';
 
 export const CalendarPicker = () => {
-  const { currentTheme } = useThemeContext();
   const theme = useTheme();
-  const { updateDraftLocalDate, draft } = useJournal();
+  const { updateDraftLocalDate, draft } = useJournalContext();
 
   const transformSnakeTime = (time: number) => {
     return new Date(time).toISOString().split('T')[0];
@@ -53,7 +51,6 @@ export const CalendarPicker = () => {
         flexDirection="column"
       >
         <Calendar
-          key={currentTheme}
           current={transformSnakeTime(new Date().getTime())}
           enableSwipeMonths
           onDayPress={day => handleChangeDate(day.timestamp)}

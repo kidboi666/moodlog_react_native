@@ -18,3 +18,10 @@ export interface IThemeStore {
   toggleTheme: () => void;
   currentTheme: 'dark' | 'light';
 }
+
+export interface IDrawerStore {
+  isDrawerOpen: boolean;
+  toggleDrawer: () => void;
+  openDrawer: () => void;
+  closeDrawer: () => void;
+}

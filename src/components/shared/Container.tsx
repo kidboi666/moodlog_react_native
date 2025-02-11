@@ -1,11 +1,10 @@
 import { useTheme, View, YStackProps } from 'tamagui';
-import { PropsWithChildren } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { NewWriteButton } from '@/components/write/NewWriteButton';
 
-interface Props extends YStackProps {}
-
-export const Container = ({ children, ...props }: PropsWithChildren<Props>) => {
+export const Container = ({ children, ...props }: YStackProps) => {
   const theme = useTheme();
+
   return (
     <SafeAreaView
       style={{
@@ -22,4 +21,17 @@ export const Container = ({ children, ...props }: PropsWithChildren<Props>) => {
   );
 };
 
+export const ContainerWithNewWriteButton = ({
+  children,
+  ...props
+}: YStackProps) => {
+  return (
+    <Container {...props}>
+      {children}
+      <NewWriteButton />
+    </Container>
+  );
+};
+
 Container.displayName = 'Container';
+ContainerWithNewWriteButton.displayName = 'ContainerWithNewWriteButton';

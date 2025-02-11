@@ -1,14 +1,14 @@
 import { ContentInput } from '@/components/write/ContentInput';
 import { Button, Form, Separator, XStack, YStack } from 'tamagui';
 import React, { useCallback, useState } from 'react';
-import { useJournal } from '@/store/hooks/useJournal';
+import { useJournalContext } from '@/store/hooks/useJournalContext';
 import { Check } from '@tamagui/lucide-icons';
 import { Container } from '@/components/shared/Container';
 import { useFocusEffect } from 'expo-router';
 import { CalendarPicker } from '@/components/write/CalendarPicker';
 
 export default function WriteScreen() {
-  const { addJournal, draft, updateDraftContent } = useJournal();
+  const { addJournal, draft, updateDraftContent } = useJournalContext();
   const [key, setKey] = useState(0);
 
   const handleSubmit = () => {

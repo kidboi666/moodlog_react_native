@@ -7,17 +7,17 @@ import {
   XStack,
   YStack,
 } from 'tamagui';
-import { JournalCard } from '@/components/home/JournalCard';
-import { FlatList } from 'react-native';
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { useJournal } from '@/store/hooks/useJournal';
-import { Container } from '@/components/shared/Container';
+import { useJournalContext } from '@/store/hooks/useJournalContext';
 import { CurrentDate } from '@/components/shared/Date';
+import { FlatList } from 'react-native';
+import { JournalCard } from '@/components/home/JournalCard';
+import { Container } from '@/components/shared/Container';
 
 export default function HomeScreen() {
   const [selectedMenu, setSelectedMenu] = useState<'month' | 'week'>('month');
-  const { journals, removeJournal } = useJournal();
+  const { journals, removeJournal } = useJournalContext();
   const [key, setKey] = useState(0);
 
   useFocusEffect(

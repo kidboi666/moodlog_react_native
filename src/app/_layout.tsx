@@ -6,13 +6,9 @@ import { useEffect } from 'react';
 import { StatusBar } from '@/components/shared/StatusBar';
 import * as NavigationBar from 'expo-navigation-bar';
 import { useThemeContext } from '@/store/hooks/useThemeContext';
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from '@react-navigation/native';
 import { Platform } from 'react-native';
 import { useTheme } from 'tamagui';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -48,27 +44,27 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const { currentTheme } = useThemeContext();
   const theme = useTheme();
-  const bg = theme.background.val;
 
   useEffect(() => {
     if (Platform.OS === 'android') {
-      NavigationBar.setBackgroundColorAsync(bg);
+      NavigationBar.setBackgroundColorAsync(theme.background.val);
       NavigationBar.setButtonStyleAsync(
         currentTheme === 'dark' ? 'light' : 'dark',
       );
     }
   }, [currentTheme]);
+
   return (
-    <ThemeProvider value={currentTheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <StatusBar />
-      <Stack>
-        <Stack.Screen
-          name="(tabs)"
-          options={{
-            headerShown: false,
-          }}
-        />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="+not-found" />
       </Stack>
-    </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }

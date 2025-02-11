@@ -1,91 +1,49 @@
-import { Tabs } from 'expo-router';
-import { Home, PersonStanding, Plus } from '@tamagui/lucide-icons';
-import { useTheme } from 'tamagui';
-import { WriteTabButton } from '@/components/tabs/WriteTabButton';
-import { CommonTabButton } from '@/components/tabs/CommonTabButton';
-import { WriteHeader } from '@/components/headers/WriteHeader';
-import { HomeHeader } from '@/components/headers/HomeHeader';
-import { VariableColorVal } from '@tamagui/web';
+import { Tabs, usePathname, useRouter } from 'expo-router';
+import { Button } from 'tamagui';
+import { Plus } from '@tamagui/lucide-icons';
+import { WriteHeader } from '@/components/headers/WriteHeader'; // expo 아이콘 사용
 
-export default function TabLayout() {
-  const theme = useTheme();
+export default function TabsLayout() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const isWritePage = pathname.startsWith('/write');
   return (
     <Tabs
+      initialRouteName="(drawers)"
       screenOptions={{
-        headerShown: true,
-        headerTitleStyle: { display: 'none' },
-        headerStyle: {
-          borderWidth: 0,
-        },
+        headerShown: false,
         tabBarStyle: {
-          backgroundColor: 'transparent',
+          height: 0,
           borderTopWidth: 0,
-          elevation: 0,
-          shadowOpacity: 0,
+          backgroundColor: 'transparent',
           position: 'absolute',
         },
-        tabBarActiveTintColor: theme.red11.val,
-        tabBarInactiveTintColor: theme.gray11.val,
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="(drawers)"
         options={{
-          title: 'Home',
-          animation: 'shift',
-          header: () => <HomeHeader />,
-          tabBarButton: props => (
-            <CommonTabButton onPress={props.onPress}>
-              {props.children}
-            </CommonTabButton>
-          ),
-          tabBarIcon: ({ color, size }) => (
-            <Home color={color as keyof VariableColorVal} size={size} />
-          ),
-          tabBarLabel: () => null,
+          tabBarButton: () => null,
         }}
       />
       <Tabs.Screen
         name="write"
         options={{
-          title: 'Write',
-          animation: 'none',
+          headerShown: true,
           header: () => <WriteHeader />,
-          tabBarStyle: {
-            display: 'none',
-          },
-          tabBarButton: props => (
-            <WriteTabButton
-              icon={
-                <Plus
-                  color={theme.background.val as keyof VariableColorVal}
-                  size="$1"
-                />
-              }
-              onPress={props.onPress}
-            />
-          ),
-          tabBarLabel: () => null,
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'Profile',
-          animation: 'shift',
-          header: () => <HomeHeader />,
-          tabBarButton: props => (
-            <CommonTabButton onPress={props.onPress}>
-              {props.children}
-            </CommonTabButton>
-          ),
-          tabBarIcon: ({ color, size }) => (
-            <PersonStanding
-              color={color as keyof VariableColorVal}
-              size={size}
-            />
-          ),
-          tabBarLabel: () => null,
+          tabBarButton: props =>
+            isWritePage ? null : (
+              <Button
+                icon={Plus}
+                position="absolute"
+                b="$4"
+                r="$4"
+                size="$6"
+                elevate
+                themeInverse
+                onPress={() => router.push('/write')}
+              />
+            ),
         }}
       />
     </Tabs>

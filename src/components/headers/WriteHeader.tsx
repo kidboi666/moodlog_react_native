@@ -2,13 +2,13 @@ import { ChevronLeft } from '@tamagui/lucide-icons';
 import { Button, XStack } from 'tamagui';
 import { EmotionPicker } from '@/components/emotion/EmotionPicker';
 import React from 'react';
-import { useJournal } from '@/store/hooks/useJournal';
+import { useJournalContext } from '@/store/hooks/useJournalContext';
 import { ThemeToggle } from '@/components/shared/ThemeToggle';
 import { HeaderContainer } from '@/components/shared/HeaderContainer';
 import { useRouter } from 'expo-router';
 
 export const WriteHeader = () => {
-  const { updateDraftEmotion, draft } = useJournal();
+  const { updateDraftEmotion, draft } = useJournalContext();
   const router = useRouter();
   return (
     <HeaderContainer>

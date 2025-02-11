@@ -1,7 +1,7 @@
-import { Container } from '@/components/shared/Container';
 import { Avatar, Button, Card, H2, Paragraph, XStack } from 'tamagui';
 import { useCallback, useState } from 'react';
 import { useFocusEffect } from 'expo-router';
+import { Container } from '@/components/shared/Container';
 
 export default function ProfileScreen() {
   const [key, setKey] = useState(0);
