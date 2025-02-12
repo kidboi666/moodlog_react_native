@@ -40,7 +40,8 @@ export default function TabsLayout() {
                   position="absolute"
                   b="$4"
                   r="$4"
-                  size="$6"
+                  fontSize="$2"
+                  size="$5"
                   elevate
                   themeInverse
                   onPress={() => router.push('/write')}
@@ -52,7 +53,12 @@ export default function TabsLayout() {
                     scale: 0,
                     opacity: 0,
                   }}
-                />
+                  pressStyle={{
+                    scale: 0.95,
+                  }}
+                >
+                  New Journal
+                </Button>
               )}
             </AnimatePresence>
           ),

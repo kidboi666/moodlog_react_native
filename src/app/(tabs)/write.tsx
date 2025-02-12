@@ -3,7 +3,7 @@ import { Button, Form, Separator, XStack, YStack } from 'tamagui';
 import React, { useCallback, useState } from 'react';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
 import { Check } from '@tamagui/lucide-icons';
-import { Container } from '@/components/shared/Container';
+import { ContainerWithSafeAreaView } from '@/components/shared/Container';
 import { useFocusEffect } from 'expo-router';
 import { CalendarPicker } from '@/components/write/CalendarPicker';
 
@@ -24,9 +24,9 @@ export default function WriteScreen() {
   );
 
   return (
-    <Container
+    <ContainerWithSafeAreaView
       key={key}
-      animation="medium"
+      edges={['bottom']}
       enterStyle={{
         y: 100,
         opacity: 0,
@@ -44,6 +44,7 @@ export default function WriteScreen() {
             <Form.Trigger asChild disabled={!draft?.content || !draft?.emotion}>
               <Button
                 bg="$background"
+                animation="medium"
                 themeInverse
                 self="flex-end"
                 disabled={!draft.content}
@@ -57,6 +58,6 @@ export default function WriteScreen() {
           </Form>
         </XStack>
       </YStack>
-    </Container>
+    </ContainerWithSafeAreaView>
   );
 }

@@ -14,7 +14,7 @@ export const WriteHeader = () => {
     <HeaderContainer>
       <XStack width="100%">
         <Button
-          size="$4"
+          size="$2"
           justify="center"
           icon={ChevronLeft}
           onPress={() => router.back()}

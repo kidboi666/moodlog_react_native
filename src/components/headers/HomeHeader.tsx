@@ -9,7 +9,11 @@ export const HomeHeader = ({ navigation }) => {
   return (
     <HeaderContainer>
       <XStack>
-        <Button icon={Menu} onPress={() => toggleDrawer(navigation)} />
+        <Button
+          size="$2"
+          icon={Menu}
+          onPress={() => toggleDrawer(navigation)}
+        />
         <View flex={1} />
         <ThemeToggle />
       </XStack>

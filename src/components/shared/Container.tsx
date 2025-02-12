@@ -1,5 +1,5 @@
 import { useTheme, View, YStackProps } from 'tamagui';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Edge, SafeAreaView } from 'react-native-safe-area-context';
 
 export const Container = ({ children, ...props }: YStackProps) => {
   return (
@@ -9,10 +9,15 @@ export const Container = ({ children, ...props }: YStackProps) => {
   );
 };
 
+interface Props extends YStackProps {
+  edges: Edge[];
+}
+
 export const ContainerWithSafeAreaView = ({
   children,
+  edges,
   ...props
-}: YStackProps) => {
+}: Props) => {
   const theme = useTheme();
 
   return (
@@ -22,9 +27,9 @@ export const ContainerWithSafeAreaView = ({
         flex: 1,
         paddingHorizontal: 16,
       }}
-      edges={['top']}
+      edges={[...edges]}
     >
-      <View flex={1} {...props} bg="transparent">
+      <View flex={1} {...props} animation="medium" bg="transparent">
         {children}
       </View>
     </SafeAreaView>

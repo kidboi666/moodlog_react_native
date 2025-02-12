@@ -1,20 +1,19 @@
-import {
-  SafeAreaView,
-  SafeAreaViewProps,
-} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from 'tamagui';
+import { PropsWithChildren } from 'react';
 
-export const HeaderContainer = ({ ...props }: SafeAreaViewProps) => {
+export const HeaderContainer = ({ children }: PropsWithChildren) => {
   const theme = useTheme();
   return (
     <SafeAreaView
       style={{
         backgroundColor: theme.background.val,
         width: '100%',
-        padding: 16,
+        padding: 18,
       }}
       edges={['top']}
-      {...props}
-    />
+    >
+      {children}
+    </SafeAreaView>
   );
 };
