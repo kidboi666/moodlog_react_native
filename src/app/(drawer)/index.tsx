@@ -9,10 +9,10 @@ import {
 } from 'tamagui';
 import { useState } from 'react';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
-import { CurrentDate } from '@/components/shared/Date';
+import { CurrentDate } from '@/components/Date';
 import { FlatList } from 'react-native';
-import { JournalCard } from '@/components/home/JournalCard';
-import { Container } from '@/components/shared/Container';
+import { JournalCard } from '@/components/JournalCard';
+import { Container } from '@/components/Container';
 import { useToastController } from '@tamagui/toast';
 
 export default function HomeScreen() {

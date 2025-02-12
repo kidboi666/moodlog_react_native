@@ -1,8 +1,8 @@
-import { DrawerContent } from '@/components/drawers/DrawerContent';
-import { HomeHeader } from '@/components/headers/HomeHeader';
+import { DrawerContent } from '@/components/DrawerContent';
+import { HomeHeader } from '@/components/HomeHeader';
 import { Drawer } from 'expo-router/drawer';
 import React from 'react';
-import { Floating } from '@/components/shared/Floating';
+import { Floating } from '@/components/Floating';
 
 export default function HomeLayout() {
   return (

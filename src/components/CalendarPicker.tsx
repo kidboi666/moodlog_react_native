@@ -1,7 +1,7 @@
 import { Calendar } from 'react-native-calendars';
 import { Calendar as CalendarIcon } from '@tamagui/lucide-icons';
 import { Button, Popover, Text, useTheme } from 'tamagui';
-import { CurrentDate } from '@/components/shared/Date';
+import { CurrentDate } from '@/components/Date';
 import React, { useEffect } from 'react';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
 

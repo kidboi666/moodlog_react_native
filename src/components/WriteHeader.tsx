@@ -1,8 +1,8 @@
 import { Button, XStack } from 'tamagui';
-import { EmotionPicker } from '@/components/emotion/EmotionPicker';
+import { EmotionPicker } from '@/components/EmotionPicker';
 import React from 'react';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
-import { HeaderContainer } from '@/components/shared/HeaderContainer';
+import { HeaderContainer } from '@/components/HeaderContainer';
 import { X } from '@tamagui/lucide-icons';
 import { useRouter } from 'expo-router';
 

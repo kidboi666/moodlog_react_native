@@ -1,4 +1,4 @@
-import { HeaderContainer } from '@/components/shared/HeaderContainer';
+import { HeaderContainer } from '@/components/HeaderContainer';
 import { Button, View, XStack } from 'tamagui';
 import { Menu } from '@tamagui/lucide-icons';
 import { useDrawerContext } from '@/store/hooks/useDrawerContext';

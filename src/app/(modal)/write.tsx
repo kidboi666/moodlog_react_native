@@ -1,10 +1,10 @@
-import { ContentInput } from '@/components/write/ContentInput';
+import { ContentInput } from '@/components/ContentInput';
 import { Button, Form, Separator, XStack, YStack } from 'tamagui';
 import React from 'react';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
 import { Check } from '@tamagui/lucide-icons';
-import { ContainerWithSafeAreaView } from '@/components/shared/Container';
-import { CalendarPicker } from '@/components/write/CalendarPicker';
+import { ContainerWithSafeAreaView } from '@/components/Container';
+import { CalendarPicker } from '@/components/CalendarPicker';
 
 export default function WriteScreen() {
   const { addJournal, draft, updateDraftContent } = useJournalContext();

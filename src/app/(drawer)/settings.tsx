@@ -1,4 +1,4 @@
-import { Container } from '@/components/shared/Container';
+import { Container } from '@/components/Container';
 import { Label, Switch, XStack, YStack } from 'tamagui';
 import { useThemeContext } from '@/store/hooks/useThemeContext';
 
