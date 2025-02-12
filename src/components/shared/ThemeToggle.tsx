@@ -7,7 +7,7 @@ export const ThemeToggle = ({ ...props }: ButtonProps) => {
 
   return (
     <Button
-      size="$2"
+      size="$3"
       justify="center"
       icon={currentTheme === 'dark' ? <Sun /> : <Moon />}
       onPress={() => toggleTheme()}

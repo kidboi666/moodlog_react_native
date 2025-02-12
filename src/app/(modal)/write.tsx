@@ -1,15 +1,13 @@
 import { ContentInput } from '@/components/write/ContentInput';
 import { Button, Form, Separator, XStack, YStack } from 'tamagui';
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
 import { Check } from '@tamagui/lucide-icons';
 import { ContainerWithSafeAreaView } from '@/components/shared/Container';
-import { useFocusEffect } from 'expo-router';
 import { CalendarPicker } from '@/components/write/CalendarPicker';
 
 export default function WriteScreen() {
   const { addJournal, draft, updateDraftContent } = useJournalContext();
-  const [key, setKey] = useState(0);
 
   const handleSubmit = () => {
     if (draft?.emotion) {
@@ -17,21 +15,8 @@ export default function WriteScreen() {
     }
   };
 
-  useFocusEffect(
-    useCallback(() => {
-      setKey(prev => prev + 1);
-    }, []),
-  );
-
   return (
-    <ContainerWithSafeAreaView
-      key={key}
-      edges={['bottom']}
-      enterStyle={{
-        y: 100,
-        opacity: 0,
-      }}
-    >
+    <ContainerWithSafeAreaView edges={['bottom']}>
       <YStack flex={1} gap="$3">
         <CalendarPicker />
         <XStack flex={1} gap="$4" ml="$2">

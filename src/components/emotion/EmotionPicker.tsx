@@ -10,7 +10,7 @@ import {
 import { EmotionLevel, EmotionType } from '@/types/enums';
 import { IEmotion } from '@/types/entries';
 import { emotionTheme } from '@/constants/themes';
-import { ChevronDown } from '@tamagui/lucide-icons';
+import { Check, ChevronDown } from '@tamagui/lucide-icons';
 import React from 'react';
 
 interface Props extends ButtonProps {
@@ -28,54 +28,42 @@ const EmotionPickerBase = ({
       <Text>{emotionType.toString().toUpperCase()}</Text>
 
       <XStack gap="$2">
-        <Button
-          unstyled
-          animation="medium"
-          pressStyle={{
-            scale: 0.95,
-            opacity: 0.5,
-          }}
-          onPress={() =>
-            onChangeEmotion({
-              type: emotionType,
-              level: EmotionLevel.ZERO,
-            })
-          }
-        >
-          <Square rounded="$6" size="$4" bg={emotionTheme[emotionType].zero} />
-        </Button>
-        <Button
-          unstyled
-          animation="medium"
-          pressStyle={{
-            scale: 0.95,
-            opacity: 0.5,
-          }}
-          onPress={() =>
-            onChangeEmotion({
-              type: emotionType,
-              level: EmotionLevel.HALF,
-            })
-          }
-        >
-          <Square rounded="$6" size="$4" bg={emotionTheme[emotionType].half} />
-        </Button>
-        <Button
-          unstyled
-          animation="medium"
-          pressStyle={{
-            scale: 0.95,
-            opacity: 0.5,
-          }}
-          onPress={() =>
-            onChangeEmotion({
-              type: emotionType,
-              level: EmotionLevel.FULL,
-            })
-          }
-        >
-          <Square rounded="$6" size="$4" bg={emotionTheme[emotionType].full} />
-        </Button>
+        {Object.values(EmotionLevel).map(level => (
+          <Button
+            key={emotionType + level}
+            unstyled
+            animation="medium"
+            justify="center"
+            items="center"
+            pressStyle={{
+              scale: 0.95,
+              opacity: 0.5,
+            }}
+            onPress={() =>
+              onChangeEmotion({
+                type: emotionType,
+                level,
+              })
+            }
+            icon={
+              selectedEmotion?.type === emotionType &&
+              selectedEmotion?.level === level ? (
+                <Check
+                  position="absolute"
+                  z="$1"
+                  color={level === EmotionLevel.ZERO ? '$gray10' : '$gray4'}
+                  size="$1"
+                />
+              ) : null
+            }
+          >
+            <Square
+              rounded="$6"
+              size="$4"
+              bg={emotionTheme[emotionType][level]}
+            />
+          </Button>
+        ))}
       </XStack>
     </XStack>
   );
@@ -90,9 +78,9 @@ export const EmotionPicker = ({
     <Popover size="$4" placement="bottom">
       <Popover.Trigger asChild>
         <Button
-          unstyled
           animation="quick"
           flexDirection="row"
+          size="$3"
           gap="$1"
           items="center"
           icon={ChevronDown}
@@ -117,7 +105,10 @@ export const EmotionPicker = ({
         borderColor="$borderColor"
         enterStyle={{ y: -10, opacity: 0 }}
         exitStyle={{ y: -10, opacity: 0 }}
-        elevate
+        elevation="$1"
+        style={{
+          zIndex: 99999,
+        }}
         animation={[
           'quick',
           {

@@ -2,7 +2,7 @@ import { Calendar } from 'react-native-calendars';
 import { Calendar as CalendarIcon } from '@tamagui/lucide-icons';
 import { Button, Popover, Text, useTheme } from 'tamagui';
 import { CurrentDate } from '@/components/shared/Date';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
 
 export const CalendarPicker = () => {
@@ -16,6 +16,12 @@ export const CalendarPicker = () => {
   const handleChangeDate = (date: number) => {
     updateDraftLocalDate(transformSnakeTime(date));
   };
+
+  useEffect(() => {
+    if (!draft.localDate) {
+      handleChangeDate(Date.now());
+    }
+  }, []);
 
   return (
     <Popover placement="bottom-start">
@@ -39,7 +45,7 @@ export const CalendarPicker = () => {
         borderColor="$borderColor"
         enterStyle={{ y: -10, opacity: 0 }}
         exitStyle={{ y: -10, opacity: 0 }}
-        elevate
+        elevation="$1"
         animation={[
           'quick',
           {

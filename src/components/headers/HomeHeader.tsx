@@ -1,4 +1,3 @@
-import { ThemeToggle } from '@/components/shared/ThemeToggle';
 import { HeaderContainer } from '@/components/shared/HeaderContainer';
 import { Button, View, XStack } from 'tamagui';
 import { Menu } from '@tamagui/lucide-icons';
@@ -10,12 +9,11 @@ export const HomeHeader = ({ navigation }) => {
     <HeaderContainer>
       <XStack>
         <Button
-          size="$2"
+          size="$3"
           icon={Menu}
           onPress={() => toggleDrawer(navigation)}
         />
         <View flex={1} />
-        <ThemeToggle />
       </XStack>
     </HeaderContainer>
   );

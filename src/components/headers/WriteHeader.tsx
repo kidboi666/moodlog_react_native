@@ -1,10 +1,9 @@
-import { ChevronLeft } from '@tamagui/lucide-icons';
 import { Button, XStack } from 'tamagui';
 import { EmotionPicker } from '@/components/emotion/EmotionPicker';
 import React from 'react';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
-import { ThemeToggle } from '@/components/shared/ThemeToggle';
 import { HeaderContainer } from '@/components/shared/HeaderContainer';
+import { X } from '@tamagui/lucide-icons';
 import { useRouter } from 'expo-router';
 
 export const WriteHeader = () => {
@@ -12,21 +11,20 @@ export const WriteHeader = () => {
   const router = useRouter();
   return (
     <HeaderContainer>
-      <XStack width="100%">
+      <XStack justify="center">
         <Button
-          size="$2"
-          justify="center"
-          icon={ChevronLeft}
+          size="$3"
+          position="absolute"
+          l={0}
+          icon={X}
           onPress={() => router.back()}
         />
-        <XStack flex={1} items="center" gap="$2" justify="center">
-          <EmotionPicker
-            selectedEmotion={draft?.emotion}
-            onChangeEmotion={updateDraftEmotion}
-            justify="center"
-          />
-        </XStack>
-        <ThemeToggle self="flex-end" />
+
+        <EmotionPicker
+          selectedEmotion={draft?.emotion}
+          onChangeEmotion={updateDraftEmotion}
+          self="center"
+        />
       </XStack>
     </HeaderContainer>
   );

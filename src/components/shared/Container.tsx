@@ -1,9 +1,16 @@
 import { useTheme, View, YStackProps } from 'tamagui';
 import { Edge, SafeAreaView } from 'react-native-safe-area-context';
+import { CONTAINER_SPACING } from '@/constants/size';
 
 export const Container = ({ children, ...props }: YStackProps) => {
   return (
-    <View flex={1} {...props} animation="medium" bg="$background" px="$4">
+    <View
+      flex={1}
+      {...props}
+      animation="medium"
+      bg="$background"
+      px={CONTAINER_SPACING}
+    >
       {children}
     </View>
   );
@@ -25,7 +32,7 @@ export const ContainerWithSafeAreaView = ({
       style={{
         backgroundColor: theme.background.val,
         flex: 1,
-        paddingHorizontal: 16,
+        paddingHorizontal: CONTAINER_SPACING,
       }}
       edges={[...edges]}
     >

@@ -62,7 +62,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
       toast.show('Successfully saved!', {
         message: 'Save Journal!',
       });
-      router.push('/');
+      router.replace('/');
     }
   }, []);
 

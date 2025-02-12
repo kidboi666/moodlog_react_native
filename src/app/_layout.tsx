@@ -2,7 +2,7 @@ import '../../tamagui-web.css';
 import { SplashScreen, Stack } from 'expo-router';
 import { RootProvider } from '@/providers/RootProvider';
 import { useFonts } from 'expo-font';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar } from '@/components/shared/StatusBar';
 import * as NavigationBar from 'expo-navigation-bar';
 import { useThemeContext } from '@/store/hooks/useThemeContext';
@@ -10,10 +10,16 @@ import { Platform } from 'react-native';
 import { useTheme } from 'tamagui';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { CurrentToast } from '@/components/CurrentToast';
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from '@react-navigation/native';
+import { WriteHeader } from '@/components/headers/WriteHeader';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: '(drawer)',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -57,16 +63,25 @@ function RootLayoutNav() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <StatusBar />
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <CurrentToast />
+      <ThemeProvider value={currentTheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <StatusBar />
+        <Stack>
+          <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="(modal)/write"
+            options={{
+              headerShown: true,
+              header: () => <WriteHeader />,
+              presentation: 'card',
+              animation: 'fade_from_bottom',
+              gestureEnabled: true,
+              gestureDirection: 'vertical',
+            }}
+          />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+        <CurrentToast />
+      </ThemeProvider>
     </GestureHandlerRootView>
   );
 }

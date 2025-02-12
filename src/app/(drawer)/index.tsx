@@ -7,8 +7,7 @@ import {
   XStack,
   YStack,
 } from 'tamagui';
-import { useFocusEffect } from 'expo-router';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
 import { CurrentDate } from '@/components/shared/Date';
 import { FlatList } from 'react-native';
@@ -19,23 +18,10 @@ import { useToastController } from '@tamagui/toast';
 export default function HomeScreen() {
   const [selectedMenu, setSelectedMenu] = useState<'month' | 'week'>('month');
   const { journals, removeJournal } = useJournalContext();
-  const [key, setKey] = useState(0);
   const toast = useToastController();
 
-  useFocusEffect(
-    useCallback(() => {
-      setKey(prev => prev + 1);
-    }, []),
-  );
-
   return (
-    <Container
-      key={key}
-      enterStyle={{
-        x: -300,
-        opacity: 0,
-      }}
-    >
+    <Container>
       <FlatList
         data={journals}
         ListHeaderComponent={() => (
