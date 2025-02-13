@@ -4,11 +4,12 @@ interface Props extends TextProps {
   timestamp?: string | number;
   localDate?: string;
 }
+
 export const CurrentDate = ({ timestamp, localDate, ...props }: Props) => {
   if (localDate) {
     const [year, month, day] = localDate.split('-');
     return (
-      <Paragraph {...props}>
+      <Paragraph color="$gray11" {...props}>
         {year}. {month}. {day}.
       </Paragraph>
     );
@@ -20,7 +21,7 @@ export const CurrentDate = ({ timestamp, localDate, ...props }: Props) => {
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
     return (
-      <Paragraph {...props}>
+      <Paragraph color="$gray9" {...props}>
         {year}. {month}. {day}.
       </Paragraph>
     );
@@ -32,7 +33,7 @@ export const CurrentDate = ({ timestamp, localDate, ...props }: Props) => {
   const day = today.getDate().toString().padStart(2, '0');
 
   return (
-    <Paragraph {...props}>
+    <Paragraph color="$gray9" {...props}>
       {year}. {month}. {day}.
     </Paragraph>
   );

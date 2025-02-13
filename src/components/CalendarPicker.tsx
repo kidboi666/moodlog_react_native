@@ -5,7 +5,11 @@ import { CurrentDate } from '@/components/Date';
 import React, { useEffect } from 'react';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
 
-export const CalendarPicker = () => {
+interface Props {
+  time?: string;
+}
+
+export const CalendarPicker = ({ time }: Props) => {
   const theme = useTheme();
   const { updateDraftLocalDate, draft } = useJournalContext();
 
@@ -33,11 +37,7 @@ export const CalendarPicker = () => {
           items="center"
           flexDirection="row"
         >
-          <CurrentDate
-            timestamp={
-              draft?.localDate ? draft.localDate : new Date().getTime()
-            }
-          />
+          <CurrentDate localDate={time ? time : draft?.localDate} />
         </Button>
       </Popover.Trigger>
       <Popover.Content

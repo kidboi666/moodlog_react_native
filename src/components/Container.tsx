@@ -1,6 +1,7 @@
 import { useTheme, View, YStackProps } from 'tamagui';
 import { Edge, SafeAreaView } from 'react-native-safe-area-context';
 import { CONTAINER_SPACING } from '@/constants/size';
+import { LinearGradient } from '@tamagui/linear-gradient';
 
 export const Container = ({ children, ...props }: YStackProps) => {
   return (
@@ -43,4 +44,24 @@ export const ContainerWithSafeAreaView = ({
   );
 };
 
+export const ContainerWithLinearGradient = ({ children, edges, ...props }) => {
+  const theme = useTheme();
+
+  return (
+    <LinearGradient flex={1} {...props} animation="medium">
+      <SafeAreaView
+        style={{
+          backgroundColor: 'transparent',
+          flex: 1,
+          paddingHorizontal: CONTAINER_SPACING,
+        }}
+        edges={[...edges]}
+      >
+        {children}
+      </SafeAreaView>
+    </LinearGradient>
+  );
+};
+
 Container.displayName = 'Container';
+ContainerWithSafeAreaView.displayName = 'ContainerWithSafeAreaView';

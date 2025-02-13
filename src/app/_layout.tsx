@@ -16,6 +16,7 @@ import {
   ThemeProvider,
 } from '@react-navigation/native';
 import { WriteHeader } from '@/components/WriteHeader';
+import JournalHeader from '@/components/JournalHeader';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -85,12 +86,12 @@ function RootLayoutNav() {
             }}
           />
           <Stack.Screen
-            name="(modal)/[journal]"
+            name="(modal)/[journalId]"
             options={{
               headerShown: true,
-              header: () => <WriteHeader />,
-              presentation: 'card',
-              animation: 'fade_from_bottom',
+              header: ({ route }) => <JournalHeader route={route} />,
+              presentation: 'modal',
+              animation: 'slide_from_bottom',
               gestureEnabled: true,
               gestureDirection: 'vertical',
             }}

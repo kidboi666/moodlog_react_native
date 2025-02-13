@@ -1,8 +1,8 @@
-import { Button, Square, Text, XStack, YStack } from 'tamagui';
-import { Delete } from '@tamagui/lucide-icons';
+import { Paragraph, View, XStack, YStack, ZStack } from 'tamagui';
 import { IJournal } from '@/types/entries';
+import { Link } from 'expo-router';
+import { CurrentDate } from '@/components/Date';
 import { emotionTheme } from '@/constants/themes';
-import { useState } from 'react';
 
 interface Props {
   journal: IJournal;
@@ -10,32 +10,50 @@ interface Props {
 }
 
 export const JournalCard = ({ journal, onDelete }: Props) => {
-  const [isRotate, setIsRotate] = useState<boolean>(false);
   return (
-    <XStack
-      animation="medium"
-      rounded="$4"
-      borderWidth={0}
-      items="center"
-      gap="$4"
-      pb="$4"
-      onPressIn={() => setIsRotate(true)}
-      onPressOut={() => setIsRotate(false)}
-      pressStyle={{
-        scale: 0.98,
+    <Link
+      asChild
+      href={{
+        pathname: '/(modal)/[journalId]',
+        params: { journalId: journal.id },
       }}
     >
-      <YStack px="$4" rotate={isRotate ? '0deg' : '10deg'} animation="medium">
-        <Square
-          size="$1"
-          rounded="$3"
-          bg={emotionTheme[journal.emotion.type][journal.emotion.level]}
-        />
-      </YStack>
-      <Text color="$gray11" flex={1} numberOfLines={2}>
-        {journal.content}
-      </Text>
-      <Button onPress={() => onDelete(journal.id)} chromeless icon={Delete} />
-    </XStack>
+      <XStack
+        animation="medium"
+        bg="$gray5"
+        rounded="$4"
+        p="$4"
+        pressStyle={{
+          scale: 0.98,
+        }}
+        enterStyle={{
+          scale: 0,
+        }}
+        borderWidth={0}
+        items="center"
+        gap="$4"
+      >
+        <YStack flex={1}>
+          <Paragraph color="$gray12" flex={1} numberOfLines={2}>
+            {journal.content.trim()}
+          </Paragraph>
+          <CurrentDate localDate={journal.localDate} />
+        </YStack>
+        <View position="absolute" r="$4" t={0}>
+          <ZStack>
+            <View
+              bg={emotionTheme[journal.emotion.type][journal.emotion.level]}
+              width="$1"
+              z="$1"
+              height="$3"
+              position="absolute"
+              r={0}
+              t={0}
+              borderBottomLeftRadius="$4"
+            />
+          </ZStack>
+        </View>
+      </XStack>
+    </Link>
   );
 };
