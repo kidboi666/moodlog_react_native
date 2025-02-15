@@ -49,6 +49,7 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
   return (
     <ContainerWithSafeAreaView edges={['top', 'bottom']}>
       <Button
+        unstyled
         p="$2"
         animation="quick"
         rounded="$2"
@@ -60,7 +61,8 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
         icon={<X size="$1" />}
         onPress={() => navigation.closeDrawer()}
         pressStyle={{
-          bg: '$background',
+          scale: 0.9,
+          opacity: 0.5,
         }}
       />
       <View flex={1} height="100%">

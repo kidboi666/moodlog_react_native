@@ -13,11 +13,19 @@ export const WriteHeader = () => {
     <HeaderContainer>
       <XStack justify="center">
         <Button
+          unstyled
           size="$3"
+          animation="quick"
+          p="$2"
           position="absolute"
           l={0}
-          icon={X}
+          color="$gray11"
+          icon={<X size="$1" />}
           onPress={() => router.back()}
+          pressStyle={{
+            scale: 0.9,
+            opacity: 0.5,
+          }}
         />
 
         <EmotionPicker

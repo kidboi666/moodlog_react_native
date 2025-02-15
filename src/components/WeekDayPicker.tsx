@@ -1,4 +1,4 @@
-import { Button, H1, Text, XStack, YStack } from 'tamagui';
+import { Button, H1, Text, View, XStack, YStack } from 'tamagui';
 import { WEEK_DAY } from '@/constants/date';
 import { WeekDayValue } from '@/types/common';
 import { useState } from 'react';
@@ -29,6 +29,7 @@ export const WeekDayPicker = () => {
       date.month,
       date.date + 1,
     ).getTime();
+    console.log(date);
     console.log(transformISODate(timeStamp));
     updateSelectedJournals(transformISODate(timeStamp));
   };
@@ -48,45 +49,51 @@ export const WeekDayPicker = () => {
       }}
     >
       <H1 fontWeight="800" color="$gray1">
-        {(currentDate.getMonth() + 1).toString().padStart(2, '0')}{' '}
         {Object.values(WEEK_DAY)[new Date().getDay()]}.
       </H1>
       <XStack flex={1} justify="space-between" rounded="$4">
         {Object.values(WEEK_DAY).map((day, i) => {
           const date = currentDate.getDate() - currentDate.getDay() + i;
-          // @TODO 왜 렌더링되는 date값과 함수로 넘어가는 date값이 다를까
           const month = currentDate.getMonth();
+
           return (
             <Button
               animation="quick"
               key={day}
               bg={selectedDate.day === day ? '$background' : 'transparent'}
-              flexDirection="column"
               p="$3"
-              items="center"
               rounded="$4"
               unstyled
               pressStyle={{
                 scale: 0.9,
               }}
-              onPress={() => {
-                console.log(date);
-                handleSelectedDate({ day, date, month });
-              }}
+              onPress={() => handleSelectedDate({ day, date, month })}
             >
-              <Text
-                fontSize="$2"
-                color={selectedDate.day === day ? '$gray12' : '$gray9'}
-              >
-                {day}
-              </Text>
-              <Text
-                fontSize="$5"
-                fontWeight="800"
-                color={selectedDate.day === day ? '$gray12' : '$gray6'}
-              >
-                {date}
-              </Text>
+              <YStack gap="$2" items="center">
+                <Text
+                  fontSize="$2"
+                  color={selectedDate.day === day ? '$gray12' : '$gray9'}
+                >
+                  {day}
+                </Text>
+                <Text
+                  fontSize="$5"
+                  fontWeight="800"
+                  color={selectedDate.day === day ? '$gray12' : '$gray6'}
+                >
+                  {date}
+                </Text>
+                {currentDate.getDate() === date && (
+                  <View
+                    position="absolute"
+                    width="$0.5"
+                    height="$0.5"
+                    bg={selectedDate.day === day ? '$gray12' : '$gray1'}
+                    rounded="$1"
+                    b={-8}
+                  />
+                )}
+              </YStack>
             </Button>
           );
         })}

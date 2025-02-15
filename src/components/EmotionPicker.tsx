@@ -81,11 +81,15 @@ export const EmotionPicker = ({
           animation="quick"
           flexDirection="row"
           size="$3"
+          unstyled
           gap="$1"
+          bg="transparent"
+          borderWidth={0}
+          p="$2"
           items="center"
           icon={ChevronDown}
           pressStyle={{
-            scale: 0.95,
+            scale: 0.9,
             opacity: 0.5,
           }}
           {...props}
