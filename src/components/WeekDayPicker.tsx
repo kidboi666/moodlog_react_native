@@ -29,8 +29,6 @@ export const WeekDayPicker = () => {
       date.month,
       date.date + 1,
     ).getTime();
-    console.log(date);
-    console.log(transformISODate(timeStamp));
     updateSelectedJournals(transformISODate(timeStamp));
   };
 

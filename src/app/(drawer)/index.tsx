@@ -4,6 +4,7 @@ import { FlatList } from 'react-native';
 import { JournalCard } from '@/components/JournalCard';
 import { Container } from '@/components/Container';
 import { WeekDayPicker } from '@/components/WeekDayPicker';
+import { EmptyJournal } from '@/components/EmptyJournal';
 
 export default function HomeScreen() {
   const { removeJournal, selectedJournals } = useJournalContext();
@@ -16,9 +17,10 @@ export default function HomeScreen() {
         ItemSeparatorComponent={() => (
           <Separator borderColor="transparent" mb="$4" mx="$2" />
         )}
-        renderItem={({ item }) => (
-          <JournalCard journal={item} onDelete={removeJournal} />
+        renderItem={({ item, index }) => (
+          <JournalCard journal={item} onDelete={removeJournal} index={index} />
         )}
+        ListEmptyComponent={EmptyJournal}
       />
     </Container>
   );
