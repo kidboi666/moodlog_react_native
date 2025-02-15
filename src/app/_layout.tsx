@@ -15,8 +15,8 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from '@react-navigation/native';
-import { WriteHeader } from '@/components/WriteHeader';
-import JournalHeader from '@/components/JournalHeader';
+import { WriteHeader } from '@/components/headers/WriteHeader';
+import JournalHeader from '@/components/headers/JournalHeader';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -28,8 +28,10 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [fontLoaded, fontError] = useFonts({
-    Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
-    InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
+    'Pretendard-Bold': require('../assets/fonts/Pretendard-Bold.ttf'),
+    'Pretendard-Medium': require('../assets/fonts/Pretendard-Medium.ttf'),
+    'Pretendard-Regular': require('../assets/fonts/Pretendard-Regular.ttf'),
+    'Pretendard-SemiBold': require('../assets/fonts/Pretendard-SemiBold.ttf'),
   });
 
   useEffect(() => {

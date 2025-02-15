@@ -16,7 +16,6 @@ export const Floating = () => {
     <AnimatePresence>
       {!isWritePage && (
         <View
-          animation="medium"
           position="absolute"
           b={insets.bottom}
           r="$4"
@@ -27,9 +26,6 @@ export const Floating = () => {
           exitStyle={{
             scale: 0,
             opacity: 0,
-          }}
-          pressStyle={{
-            scale: 0.95,
           }}
         >
           {(draft.content || draft.emotion?.type) && (
@@ -46,11 +42,14 @@ export const Floating = () => {
           )}
           <Button
             icon={Plus}
-            animation="medium"
+            animation="quick"
             fontSize="$2"
             size="$6"
             themeInverse
             onPress={() => router.push('/(modal)/write')}
+            pressStyle={{
+              scale: 0.9,
+            }}
           >
             New Journal
           </Button>

@@ -1,46 +1,96 @@
-import { Button, Text, XStack } from 'tamagui';
+import { Button, H1, Text, XStack, YStack } from 'tamagui';
+import { WEEK_DAY } from '@/constants/date';
+import { WeekDayValue } from '@/types/common';
 import { useState } from 'react';
-
-const WEEK_DAY = {
-  mon: 'Mon',
-  tue: 'Tue',
-  wed: 'Wed',
-  thu: 'Thu',
-  fri: 'Fri',
-  sat: 'Sat',
-  sun: 'Sun',
-};
+import { transformISODate } from '@/utils/common/transformSnakeTime';
+import { useJournalContext } from '@/store/hooks/useJournalContext';
 
 export const WeekDayPicker = () => {
-  const [selectedDay, setSelectedDay] = useState<keyof typeof WEEK_DAY>();
-  const handleSelectedDay = day => {
-    setSelectedDay(day);
+  const { updateSelectedJournals } = useJournalContext();
+  const [selectedDate, setSelectedDate] = useState<{
+    month: number;
+    date: number;
+    day: WeekDayValue;
+  }>({
+    month: new Date().getMonth(),
+    date: new Date().getDate(),
+    day: Object.values(WEEK_DAY)[new Date().getDay()],
+  });
+
+  const handleSelectedDate = (date: {
+    day: WeekDayValue;
+    date: number;
+    month: number;
+  }) => {
+    setSelectedDate(date);
+
+    const timeStamp = new Date(
+      new Date().getFullYear(),
+      date.month,
+      date.date + 1,
+    ).getTime();
+    console.log(transformISODate(timeStamp));
+    updateSelectedJournals(transformISODate(timeStamp));
   };
+
+  const currentDate = new Date();
+
   return (
-    <XStack flex={1} justify="space-between" py="$2" rounded="$4">
-      {Object.values(WEEK_DAY).map((day, i) => (
-        <Button
-          animation="medium"
-          key={day}
-          bg={selectedDay === day ? '$background' : 'transparent'}
-          flexDirection="column"
-          p="$3"
-          items="center"
-          rounded="$4"
-          unstyled
-          pressStyle={{
-            scale: 0.95,
-          }}
-          onPress={() => handleSelectedDay(day)}
-        >
-          <Text fontSize="$2" color="$gray9">
-            {day}
-          </Text>
-          <Text fontSize="$5" fontWeight="800" color="$gray11">
-            {i + 10}
-          </Text>
-        </Button>
-      ))}
-    </XStack>
+    <YStack
+      animation="medium"
+      gap="$2"
+      mb="$4"
+      p="$4"
+      bg="$gray12"
+      rounded="$8"
+      enterStyle={{
+        y: -300,
+      }}
+    >
+      <H1 fontWeight="800" color="$gray1">
+        {(currentDate.getMonth() + 1).toString().padStart(2, '0')}{' '}
+        {Object.values(WEEK_DAY)[new Date().getDay()]}.
+      </H1>
+      <XStack flex={1} justify="space-between" rounded="$4">
+        {Object.values(WEEK_DAY).map((day, i) => {
+          const date = currentDate.getDate() - currentDate.getDay() + i;
+          // @TODO 왜 렌더링되는 date값과 함수로 넘어가는 date값이 다를까
+          const month = currentDate.getMonth();
+          return (
+            <Button
+              animation="quick"
+              key={day}
+              bg={selectedDate.day === day ? '$background' : 'transparent'}
+              flexDirection="column"
+              p="$3"
+              items="center"
+              rounded="$4"
+              unstyled
+              pressStyle={{
+                scale: 0.9,
+              }}
+              onPress={() => {
+                console.log(date);
+                handleSelectedDate({ day, date, month });
+              }}
+            >
+              <Text
+                fontSize="$2"
+                color={selectedDate.day === day ? '$gray12' : '$gray9'}
+              >
+                {day}
+              </Text>
+              <Text
+                fontSize="$5"
+                fontWeight="800"
+                color={selectedDate.day === day ? '$gray12' : '$gray6'}
+              >
+                {date}
+              </Text>
+            </Button>
+          );
+        })}
+      </XStack>
+    </YStack>
   );
 };

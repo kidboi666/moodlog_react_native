@@ -5,6 +5,7 @@ import { IDraft, IEmotion, IJournal } from '../entries';
  */
 export interface IJournalStore {
   journals: IJournal[];
+  selectedJournals: IJournal[];
   draft: IDraft;
   addJournal: (journal: IDraft) => void;
   removeJournal: (id: string) => void;
@@ -12,6 +13,7 @@ export interface IJournalStore {
   updateDraftLocalDate: (date: string) => void;
   updateDraftEmotion: (emotion: IEmotion) => void;
   updateDraftContent: (content: string) => void;
+  updateSelectedJournals: (date: string) => void;
 }
 
 export interface IThemeStore {

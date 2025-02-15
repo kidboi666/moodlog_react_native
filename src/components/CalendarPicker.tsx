@@ -1,9 +1,10 @@
 import { Calendar } from 'react-native-calendars';
 import { Calendar as CalendarIcon } from '@tamagui/lucide-icons';
 import { Button, Popover, Text, useTheme } from 'tamagui';
-import { CurrentDate } from '@/components/Date';
+import { CurrentDate } from '@/components/CurrentDate';
 import React, { useEffect } from 'react';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
+import { transformISODate } from '@/utils/common/transformSnakeTime';
 
 interface Props {
   time?: string;
@@ -13,12 +14,8 @@ export const CalendarPicker = ({ time }: Props) => {
   const theme = useTheme();
   const { updateDraftLocalDate, draft } = useJournalContext();
 
-  const transformSnakeTime = (time: number) => {
-    return new Date(time).toISOString().split('T')[0];
-  };
-
   const handleChangeDate = (date: number) => {
-    updateDraftLocalDate(transformSnakeTime(date));
+    updateDraftLocalDate(transformISODate(date));
   };
 
   useEffect(() => {
@@ -57,7 +54,7 @@ export const CalendarPicker = ({ time }: Props) => {
         flexDirection="column"
       >
         <Calendar
-          current={transformSnakeTime(new Date().getTime())}
+          current={transformISODate(new Date().getTime())}
           enableSwipeMonths
           onDayPress={day => handleChangeDate(day.timestamp)}
           markedDates={

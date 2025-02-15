@@ -9,9 +9,16 @@ export const HomeHeader = ({ navigation }) => {
     <HeaderContainer>
       <XStack>
         <Button
-          size="$3"
-          icon={Menu}
+          p="$2"
+          animation="quick"
+          bg="transparent"
+          rounded="$2"
+          color="$gray11"
+          icon={<Menu size="$1" />}
           onPress={() => toggleDrawer(navigation)}
+          pressStyle={{
+            bg: '$background',
+          }}
         />
         <View flex={1} />
       </XStack>

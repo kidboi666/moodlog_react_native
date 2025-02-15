@@ -16,6 +16,7 @@ export const JournalContext = createContext<IJournalStore | null>(null);
 
 export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   const [journals, setJournals] = useState<IJournal[]>([]);
+  const [selectedJournals, setSelectedJournals] = useState<IJournal[]>([]);
   const [draft, setDraft] = useState<IDraft>({});
   const toast = useToastController();
   const router = useRouter();
@@ -88,10 +89,21 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     setDraft(prev => ({ ...prev, content }));
   }, []);
 
+  const updateSelectedJournals = useCallback(
+    (date: string) => {
+      const selectedJournals =
+        journals.filter(journal => journal.localDate === date) || [];
+      setSelectedJournals(selectedJournals);
+      console.log(date);
+    },
+    [journals],
+  );
+
   return (
     <JournalContext.Provider
       value={{
         journals,
+        selectedJournals,
         draft,
         addJournal,
         removeJournal,
@@ -99,6 +111,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         updateDraftLocalDate,
         updateDraftEmotion,
         updateDraftContent,
+        updateSelectedJournals,
       }}
     >
       {children}

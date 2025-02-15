@@ -1,5 +1,5 @@
 import { DrawerContent } from '@/components/DrawerContent';
-import { HomeHeader } from '@/components/HomeHeader';
+import { HomeHeader } from '@/components/headers/HomeHeader';
 import { Drawer } from 'expo-router/drawer';
 import React from 'react';
 import { Floating } from '@/components/Floating';

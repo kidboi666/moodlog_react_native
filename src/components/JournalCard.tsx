@@ -1,8 +1,7 @@
-import { Paragraph, View, XStack, YStack, ZStack } from 'tamagui';
+import { Paragraph, XStack, YStack } from 'tamagui';
 import { IJournal } from '@/types/entries';
 import { Link } from 'expo-router';
-import { CurrentDate } from '@/components/Date';
-import { emotionTheme } from '@/constants/themes';
+import { CurrentDateWithoutYear } from '@/components/CurrentDateWithoutYear';
 
 interface Props {
   journal: IJournal;
@@ -20,8 +19,8 @@ export const JournalCard = ({ journal, onDelete }: Props) => {
     >
       <XStack
         animation="medium"
-        bg="$gray5"
-        rounded="$4"
+        bg="$gray7"
+        rounded="$8"
         p="$4"
         pressStyle={{
           scale: 0.98,
@@ -29,7 +28,6 @@ export const JournalCard = ({ journal, onDelete }: Props) => {
         enterStyle={{
           scale: 0,
         }}
-        borderWidth={0}
         items="center"
         gap="$4"
       >
@@ -37,22 +35,8 @@ export const JournalCard = ({ journal, onDelete }: Props) => {
           <Paragraph color="$gray12" flex={1} numberOfLines={2}>
             {journal.content.trim()}
           </Paragraph>
-          <CurrentDate localDate={journal.localDate} />
+          <CurrentDateWithoutYear localDate={journal.localDate} />
         </YStack>
-        <View position="absolute" r="$4" t={0}>
-          <ZStack>
-            <View
-              bg={emotionTheme[journal.emotion.type][journal.emotion.level]}
-              width="$1"
-              z="$1"
-              height="$3"
-              position="absolute"
-              r={0}
-              t={0}
-              borderBottomLeftRadius="$4"
-            />
-          </ZStack>
-        </View>
       </XStack>
     </Link>
   );
