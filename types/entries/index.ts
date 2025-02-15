@@ -1,4 +1,4 @@
-import { EmotionLevel, EmotionType } from '../enums';
+import { EmotionLevel, EmotionType } from '@/types/enums';
 
 export type IEmotion = {
   type: EmotionType;

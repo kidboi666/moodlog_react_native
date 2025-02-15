@@ -1,7 +1,7 @@
 import { Paragraph, XStack, YStack } from 'tamagui';
 import { IJournal } from '@/types/entries';
 import { Link } from 'expo-router';
-import { CurrentDateWithoutYear } from '@/components/CurrentDateWithoutYear';
+import { CurrentDateWithoutYear } from './CurrentDateWithoutYear';
 import { useEffect, useState } from 'react';
 
 interface Props {
@@ -11,7 +11,8 @@ interface Props {
 
 export const JournalCard = ({ journal, index }: Props) => {
   const [show, setShow] = useState(false);
-  const [firstLine, ...restLines] = journal.content.split('\n');
+  const [firstLine, ...restLines] = journal.content.trim().split('\n');
+
   useEffect(() => {
     const time = setTimeout(() => {
       setShow(true);

@@ -1,6 +1,6 @@
 import { useJournalContext } from '@/store/hooks/useJournalContext';
 import { useRouter } from 'expo-router';
-import { HeaderContainer } from '@/components/HeaderContainer';
+import { HeaderContainer } from '../HeaderContainer';
 import { Button, Square, Text, XStack, YStack } from 'tamagui';
 import { X } from '@tamagui/lucide-icons';
 import React, { useEffect, useState } from 'react';

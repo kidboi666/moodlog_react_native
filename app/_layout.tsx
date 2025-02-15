@@ -1,4 +1,4 @@
-import '../../tamagui-web.css';
+import '../tamagui-web.css';
 import { SplashScreen, Stack } from 'expo-router';
 import { RootProvider } from '@/providers/RootProvider';
 import { useFonts } from 'expo-font';
@@ -82,18 +82,18 @@ function RootLayoutNav() {
               headerShown: true,
               header: () => <WriteHeader />,
               presentation: 'card',
-              animation: 'slide_from_bottom',
+              animation: 'default',
               gestureEnabled: true,
               gestureDirection: 'vertical',
             }}
           />
           <Stack.Screen
-            name="(modal)/[journalId]"
+            name="(modal)/[journalId]/index"
             options={{
               headerShown: true,
               header: ({ route }) => <JournalHeader route={route} />,
               presentation: 'modal',
-              animation: 'slide_from_bottom',
+              animation: 'default',
               gestureEnabled: true,
               gestureDirection: 'vertical',
             }}

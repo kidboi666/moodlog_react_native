@@ -64,7 +64,7 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
           rounded="$2"
           bg="transparent"
           self="flex-start"
-          mb="$4"
+          mb="$3"
           color="$gray11"
           icon={<X size="$1" />}
           onPress={() => navigation.closeDrawer()}

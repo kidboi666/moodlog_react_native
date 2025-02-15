@@ -1,4 +1,4 @@
-import { AnimatePresence, Button, View } from 'tamagui';
+import { AnimatePresence, Button, Circle, View } from 'tamagui';
 import { Plus } from '@tamagui/lucide-icons';
 import React from 'react';
 import { usePathname, useRouter } from 'expo-router';
@@ -28,18 +28,6 @@ export const Floating = () => {
             opacity: 0,
           }}
         >
-          {(draft.content || draft.emotion?.type) && (
-            <View
-              position="absolute"
-              l="$2.5"
-              t="$2.5"
-              z="$3"
-              rounded={'$4'}
-              bg="$green11"
-              width={12}
-              height={12}
-            />
-          )}
           <Button
             icon={Plus}
             animation="quick"
@@ -52,6 +40,16 @@ export const Floating = () => {
             }}
           >
             New Journal
+            {(draft.content || draft.emotion?.type) && (
+              <Circle
+                position="absolute"
+                l="$2.5"
+                t="$2.5"
+                rounded="$4"
+                bg="$green11"
+                size="$0.75"
+              />
+            )}
           </Button>
         </View>
       )}

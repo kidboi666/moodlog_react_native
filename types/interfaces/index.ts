@@ -1,4 +1,4 @@
-import { IDraft, IEmotion, IJournal } from '../entries';
+import { IDraft, IEmotion, IJournal } from '@/types/entries';
 
 /**
  * Store
