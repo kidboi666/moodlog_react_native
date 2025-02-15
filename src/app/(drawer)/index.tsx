@@ -5,9 +5,11 @@ import { JournalCard } from '@/components/JournalCard';
 import { Container } from '@/components/Container';
 import { WeekDayPicker } from '@/components/WeekDayPicker';
 import { EmptyJournal } from '@/components/EmptyJournal';
+import { Floating } from '@/components/Floating';
+import React from 'react';
 
 export default function HomeScreen() {
-  const { removeJournal, selectedJournals } = useJournalContext();
+  const { selectedJournals } = useJournalContext();
   return (
     <Container>
       <FlatList
@@ -18,10 +20,11 @@ export default function HomeScreen() {
           <Separator borderColor="transparent" mb="$4" mx="$2" />
         )}
         renderItem={({ item, index }) => (
-          <JournalCard journal={item} onDelete={removeJournal} index={index} />
+          <JournalCard journal={item} index={index} />
         )}
         ListEmptyComponent={EmptyJournal}
       />
+      <Floating />
     </Container>
   );
 }

@@ -9,7 +9,6 @@ export const HeaderContainer = ({ children }) => {
     <SafeAreaView
       style={{
         backgroundColor: theme.background.val,
-        width: '100%',
         padding: CONTAINER_SPACING,
       }}
       edges={['top']}

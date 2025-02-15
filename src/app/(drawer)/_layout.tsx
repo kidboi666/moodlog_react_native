@@ -2,7 +2,6 @@ import { DrawerContent } from '@/components/DrawerContent';
 import { HomeHeader } from '@/components/headers/HomeHeader';
 import { Drawer } from 'expo-router/drawer';
 import React from 'react';
-import { Floating } from '@/components/Floating';
 
 export default function HomeLayout() {
   return (
@@ -33,7 +32,6 @@ export default function HomeLayout() {
           }}
         />
       </Drawer>
-      <Floating />
     </>
   );
 }

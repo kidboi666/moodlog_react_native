@@ -1,13 +1,15 @@
-import { Paragraph, ScrollView, View } from 'tamagui';
+import { Paragraph, ScrollView, useTheme, View } from 'tamagui';
 import React, { useEffect, useState } from 'react';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
-import { ContainerWithSafeAreaView } from '@/components/Container';
+import { Container } from '@/components/Container';
 import { useLocalSearchParams } from 'expo-router';
 import { IJournal } from '@/types/entries';
 import { CurrentDate } from '@/components/CurrentDate';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function JournalPage() {
   const { journals } = useJournalContext();
+  const theme = useTheme();
   const [journal, setJournal] = useState<IJournal>();
   const { journalId } = useLocalSearchParams();
 
@@ -19,12 +21,17 @@ export default function JournalPage() {
   if (!journal) return null;
 
   return (
-    <ContainerWithSafeAreaView p="$4" edges={['bottom']}>
-      <ScrollView flex={1}>
-        <CurrentDate mb="$4" localDate={journal.localDate} />
-        <Paragraph fontWeight="300">{journal.content}</Paragraph>
-        <View height="$10" />
-      </ScrollView>
-    </ContainerWithSafeAreaView>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: theme.background.val }}
+      edges={['bottom']}
+    >
+      <Container>
+        <ScrollView flex={1}>
+          <CurrentDate my="$4" localDate={journal.localDate} />
+          <Paragraph fontWeight="300">{journal.content}</Paragraph>
+          <View height="$10" />
+        </ScrollView>
+      </Container>
+    </SafeAreaView>
   );
 }
