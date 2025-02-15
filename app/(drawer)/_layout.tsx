@@ -25,12 +25,6 @@ export default function HomeLayout() {
             title: 'Profile',
           }}
         />
-        <Drawer.Screen
-          name="settings"
-          options={{
-            title: 'Settings',
-          }}
-        />
       </Drawer>
     </>
   );

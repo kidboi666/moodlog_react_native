@@ -21,34 +21,6 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   const toast = useToastController();
   const router = useRouter();
 
-  useEffect(() => {
-    const loadJournals = async () => {
-      try {
-        const savedJournals = await AsyncStorage.getItem('journals-storage');
-        if (savedJournals) {
-          setJournals(JSON.parse(savedJournals));
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    loadJournals();
-  }, []);
-
-  useEffect(() => {
-    const saveJournals = async () => {
-      try {
-        await AsyncStorage.setItem(
-          'journals-storage',
-          JSON.stringify(journals),
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    saveJournals();
-  }, [journals]);
-
   const addJournal = useCallback((draft: IDraft) => {
     if (draft.content && draft.emotion && draft.localDate) {
       const newJournal = {
@@ -94,10 +66,37 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
       const selectedJournals =
         journals.filter(journal => journal.localDate === date) || [];
       setSelectedJournals(selectedJournals);
-      console.log(date);
     },
     [journals],
   );
+
+  useEffect(() => {
+    const loadJournals = async () => {
+      try {
+        const savedJournals = await AsyncStorage.getItem('journals-storage');
+        if (savedJournals) {
+          setJournals(JSON.parse(savedJournals));
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    void loadJournals();
+  }, []);
+
+  useEffect(() => {
+    const saveJournals = async () => {
+      try {
+        await AsyncStorage.setItem(
+          'journals-storage',
+          JSON.stringify(journals),
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    void saveJournals();
+  }, [journals]);
 
   return (
     <JournalContext.Provider

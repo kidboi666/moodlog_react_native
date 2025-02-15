@@ -23,11 +23,18 @@ export default function JournalHeader({ route }) {
     <HeaderContainer>
       <XStack justify="center">
         <Button
-          size="$3"
+          unstyled
+          animation="quick"
           position="absolute"
+          p="$2"
+          color="$gray11"
           l={0}
-          icon={X}
+          icon={<X size="$1" />}
           onPress={() => router.back()}
+          pressStyle={{
+            opacity: 0.5,
+            scale: 0.9,
+          }}
         />
         <XStack gap="$2" items="center">
           <Square
