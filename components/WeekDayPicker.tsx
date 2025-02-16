@@ -58,7 +58,7 @@ export const WeekDayPicker = () => {
             <Button
               animation="quick"
               key={day}
-              bg={selectedDate.day === day ? '$background' : 'transparent'}
+              bg={selectedDate.day === day ? '$gray5' : 'transparent'}
               p="$3"
               rounded="$4"
               unstyled

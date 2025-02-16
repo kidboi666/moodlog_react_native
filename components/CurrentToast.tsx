@@ -1,8 +1,10 @@
 import { Toast, useToastState } from '@tamagui/toast';
 import { isWeb, YStack } from 'tamagui';
+import { useThemeContext } from '@/store/hooks/useThemeContext';
 
 export function CurrentToast() {
   const currentToast = useToastState();
+  const { currentTheme } = useThemeContext();
 
   if (!currentToast || currentToast.isHandledNatively) return null;
   return (
@@ -13,7 +15,7 @@ export function CurrentToast() {
       enterStyle={{ opacity: 0, scale: 0.5, y: -25 }}
       exitStyle={{ opacity: 0, scale: 1, y: -20 }}
       y={isWeb ? '$12' : '$3'}
-      theme="dark"
+      theme={currentTheme === 'dark' ? 'light' : 'dark'}
       rounded="$6"
       animation="quick"
     >

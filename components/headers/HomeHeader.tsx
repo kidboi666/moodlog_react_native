@@ -2,6 +2,7 @@ import { HeaderContainer } from '../HeaderContainer';
 import { Button, View, XStack } from 'tamagui';
 import { Menu } from '@tamagui/lucide-icons';
 import { useDrawerContext } from '@/store/hooks/useDrawerContext';
+import { PressStyle } from '@/constants/styles';
 
 export const HomeHeader = ({ navigation }) => {
   const { toggleDrawer } = useDrawerContext();
@@ -16,10 +17,7 @@ export const HomeHeader = ({ navigation }) => {
           color="$gray11"
           icon={<Menu size="$1" />}
           onPress={() => toggleDrawer(navigation)}
-          pressStyle={{
-            opacity: 0.5,
-            scale: 0.9,
-          }}
+          pressStyle={PressStyle}
         />
         <View flex={1} />
       </XStack>

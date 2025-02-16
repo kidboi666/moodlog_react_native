@@ -1,10 +1,10 @@
 import { Calendar } from 'react-native-calendars';
-import { Calendar as CalendarIcon } from '@tamagui/lucide-icons';
+import { CalendarDays } from '@tamagui/lucide-icons';
 import { Button, Popover, Text, useTheme } from 'tamagui';
-import { CurrentDate } from './CurrentDate';
 import React, { useEffect } from 'react';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
 import { transformISODate } from '@/utils/common/transformSnakeTime';
+import { CurrentDate } from '@/components/CurrentDate';
 
 interface Props {
   time?: string;
@@ -26,16 +26,18 @@ export const CalendarPicker = ({ time }: Props) => {
 
   return (
     <Popover placement="bottom-start">
-      <Popover.Trigger>
+      <Popover.Trigger asChild>
         <Button
           unstyled
-          pl="$0.5"
-          icon={CalendarIcon}
-          items="center"
-          flexDirection="row"
-        >
-          <CurrentDate localDate={time ? time : draft?.localDate} />
-        </Button>
+          animation="quick"
+          p="$2"
+          color="$gray11"
+          icon={<CalendarDays size="$1" />}
+          pressStyle={{
+            opacity: 0.5,
+            scale: 0.95,
+          }}
+        />
       </Popover.Trigger>
       <Popover.Content
         borderWidth={1}
@@ -53,6 +55,8 @@ export const CalendarPicker = ({ time }: Props) => {
         ]}
         flexDirection="column"
       >
+        <CurrentDate localDate={time ? time : draft?.localDate} />
+
         <Calendar
           current={transformISODate(new Date().getTime())}
           enableSwipeMonths

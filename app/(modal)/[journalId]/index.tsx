@@ -6,12 +6,14 @@ import { useLocalSearchParams } from 'expo-router';
 import { IJournal } from '@/types/entries';
 import { CurrentDate } from '@/components/CurrentDate';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useAppContext } from '@/store/hooks/useAppContext';
 
 export default function JournalPage() {
-  const { journals } = useJournalContext();
-  const theme = useTheme();
-  const [journal, setJournal] = useState<IJournal>();
   const { journalId } = useLocalSearchParams();
+  const [journal, setJournal] = useState<IJournal>();
+  const theme = useTheme();
+  const { journals } = useJournalContext();
+  const { fontSize } = useAppContext();
 
   useEffect(() => {
     const selectedJournal = journals.find(item => item.id === journalId);
@@ -28,7 +30,9 @@ export default function JournalPage() {
       <Container>
         <ScrollView flex={1}>
           <CurrentDate my="$4" localDate={journal.localDate} />
-          <Paragraph fontWeight="300">{journal.content}</Paragraph>
+          <Paragraph fontWeight="300" fontSize={fontSize}>
+            {journal.content}
+          </Paragraph>
           <View height="$10" />
         </ScrollView>
       </Container>

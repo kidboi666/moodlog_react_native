@@ -1,6 +1,7 @@
 import { Button, Text, YStack } from 'tamagui';
 import { Plus } from '@tamagui/lucide-icons';
 import { useRouter } from 'expo-router';
+import { EnterStyle, PressStyle } from '@/constants/styles';
 
 export const EmptyJournal = () => {
   const router = useRouter();
@@ -14,10 +15,7 @@ export const EmptyJournal = () => {
       bg="$gray5"
       rounded="$8"
       gap="$4"
-      enterStyle={{
-        scale: 0.85,
-        opacity: 0,
-      }}
+      enterStyle={EnterStyle}
     >
       <Text fontWeight="800" fontSize="$9" text="center">
         Your story is waiting to be told.
@@ -32,10 +30,7 @@ export const EmptyJournal = () => {
         color="$gray1"
         icon={<Plus size="$1" />}
         onPress={() => router.push('/(modal)/write')}
-        pressStyle={{
-          scale: 0.9,
-          opacity: 0.5,
-        }}
+        pressStyle={PressStyle}
       />
     </YStack>
   );

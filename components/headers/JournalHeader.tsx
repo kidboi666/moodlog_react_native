@@ -2,15 +2,18 @@ import { useJournalContext } from '@/store/hooks/useJournalContext';
 import { useRouter } from 'expo-router';
 import { HeaderContainer } from '../HeaderContainer';
 import { Button, Square, Text, XStack, YStack } from 'tamagui';
-import { X } from '@tamagui/lucide-icons';
+import { ALargeSmall, X } from '@tamagui/lucide-icons';
 import React, { useEffect, useState } from 'react';
 import { IJournal } from '@/types/entries';
 import { emotionTheme } from '@/constants/themes';
+import { useAppContext } from '@/store/hooks/useAppContext';
+import { PressStyle } from '@/constants/styles';
 
 export default function JournalHeader({ route }) {
-  const { journals } = useJournalContext();
-  const [journal, setJournal] = useState<IJournal>();
   const router = useRouter();
+  const [journal, setJournal] = useState<IJournal>();
+  const { journals } = useJournalContext();
+  const { onChangeFontSize } = useAppContext();
 
   useEffect(() => {
     const journal = journals.find(item => item.id === route.params.journalId);
@@ -21,11 +24,10 @@ export default function JournalHeader({ route }) {
 
   return (
     <HeaderContainer>
-      <XStack justify="center">
+      <XStack justify="space-between">
         <Button
           unstyled
           animation="quick"
-          position="absolute"
           p="$2"
           color="$gray11"
           l={0}
@@ -49,6 +51,15 @@ export default function JournalHeader({ route }) {
             </Text>
           </YStack>
         </XStack>
+        <Button
+          unstyled
+          color="$gray11"
+          p="$2"
+          icon={<ALargeSmall size="$1" />}
+          animation="quick"
+          onPress={onChangeFontSize}
+          pressStyle={PressStyle}
+        />
       </XStack>
     </HeaderContainer>
   );

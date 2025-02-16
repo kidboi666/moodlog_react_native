@@ -1,4 +1,5 @@
 import { IDraft, IEmotion, IJournal } from '@/types/entries';
+import { ViewFontSize } from '@/types/enums';
 
 /**
  * Store
@@ -26,4 +27,10 @@ export interface IDrawerStore {
   toggleDrawer: () => void;
   openDrawer: () => void;
   closeDrawer: () => void;
+}
+
+export interface IAppStore {
+  fontSize: ViewFontSize;
+  language: any;
+  onChangeFontSize: () => void;
 }

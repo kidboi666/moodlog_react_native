@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Button, Input, InputProps, View, YStack } from 'tamagui';
 
-export const ContentInput = ({ ...props }: InputProps) => {
+export const ContentInput = ({ fontSize, ...props }: InputProps) => {
   const ref = useRef<Input>(null);
 
   const handleFocusInput = () => {
@@ -13,6 +13,7 @@ export const ContentInput = ({ ...props }: InputProps) => {
       <Input
         unstyled
         multiline
+        fontSize={fontSize}
         ref={ref}
         color="$color"
         placeholder="How are you feeling today?"

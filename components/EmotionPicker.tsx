@@ -12,6 +12,7 @@ import { IEmotion } from '@/types/entries';
 import { emotionTheme } from '@/constants/themes';
 import { Check, ChevronDown } from '@tamagui/lucide-icons';
 import React from 'react';
+import { EnterStyle, PressStyle } from '@/constants/styles';
 
 interface Props extends ButtonProps {
   selectedEmotion?: IEmotion;
@@ -35,10 +36,7 @@ const EmotionPickerBase = ({
             animation="medium"
             justify="center"
             items="center"
-            pressStyle={{
-              scale: 0.95,
-              opacity: 0.5,
-            }}
+            pressStyle={PressStyle}
             onPress={() =>
               onChangeEmotion({
                 type: emotionType,
@@ -78,28 +76,27 @@ export const EmotionPicker = ({
     <Popover size="$4" placement="bottom">
       <Popover.Trigger asChild>
         <Button
+          unstyled
           animation="quick"
           flexDirection="row"
-          size="$3"
-          unstyled
           gap="$1"
-          bg="transparent"
           borderWidth={0}
           p="$2"
+          color="$gray11"
           items="center"
-          icon={ChevronDown}
-          pressStyle={{
-            scale: 0.9,
-            opacity: 0.5,
-          }}
+          icon={<ChevronDown size="$1" />}
+          pressStyle={PressStyle}
+          fontSize="$5"
           {...props}
         >
           Select Emotion
           {selectedEmotion?.type && selectedEmotion?.level && (
             <Square
+              animation="quick"
               size="$1"
               bg={emotionTheme[selectedEmotion.type][selectedEmotion.level]}
               rounded="$3"
+              enterStyle={EnterStyle}
             />
           )}
         </Button>

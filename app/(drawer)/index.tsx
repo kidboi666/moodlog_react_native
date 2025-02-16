@@ -6,10 +6,16 @@ import { Container } from '@/components/Container';
 import { WeekDayPicker } from '@/components/WeekDayPicker';
 import { EmptyJournal } from '@/components/EmptyJournal';
 import { Floating } from '@/components/Floating';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function HomeScreen() {
-  const { selectedJournals } = useJournalContext();
+  const { journals, selectedJournals, updateSelectedJournals } =
+    useJournalContext();
+
+  useEffect(() => {
+    updateSelectedJournals(new Date().toISOString().split('T')[0]);
+  }, [journals]);
+
   return (
     <Container>
       <FlatList
