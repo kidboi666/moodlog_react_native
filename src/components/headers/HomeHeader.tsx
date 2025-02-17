@@ -10,9 +10,7 @@ export const HomeHeader = ({ navigation }) => {
         <Button
           p="$2"
           unstyled
-          animation="quick"
           rounded="$2"
-          color="$gray12"
           icon={<Menu size="$1" />}
           onPress={() => navigation.toggleDrawer()}
           pressStyle={PressStyle}
@@ -21,8 +19,6 @@ export const HomeHeader = ({ navigation }) => {
         <Button
           unstyled
           p="$2"
-          animation="quick"
-          color="$gray12"
           icon={<LayoutGrid size="$1" />}
           onPress={() => null}
           pressStyle={PressStyle}

@@ -39,7 +39,7 @@ export const JournalCard = ({ journal, index }: Props) => {
         pl="$3"
         items="center"
         gap="$3"
-        animation="medium"
+        animation="quick"
         enterStyle={EnterStyle}
         pressStyle={PressStyle}
       >

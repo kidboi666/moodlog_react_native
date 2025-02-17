@@ -33,9 +33,9 @@ export default function JournalPage() {
   return (
     <Container flexDirection="row" gap="$3" pl={0}>
       <View
-        width="$1"
+        width="3%"
         height="100%"
-        rounded="$4"
+        borderTopRightRadius="$4"
         bg={emotionTheme[journal.emotion.type][journal.emotion.level]}
       />
       <ScrollView flex={1}>
@@ -52,7 +52,7 @@ export default function JournalPage() {
           <Paragraph fontWeight="300" fontSize={fontSize}>
             {journal.content}
           </Paragraph>
-          <View height="$10" />
+          <View height="$8" />
         </YStack>
       </ScrollView>
     </Container>

@@ -18,6 +18,7 @@ import { useThemeContext } from '@/store/hooks/useThemeContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Container } from './Container';
 import { CONTAINER_SPACING } from '@/constants/size';
+import { PressStyle } from '@/constants/styles';
 
 const iconList = {
   index: (focused, theme) => (
@@ -60,18 +61,13 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
         <Button
           unstyled
           p="$2"
-          animation="quick"
           rounded="$2"
           bg="transparent"
           self="flex-start"
           mb="$3"
-          color="$gray12"
           icon={<X size="$1" />}
           onPress={() => navigation.closeDrawer()}
-          pressStyle={{
-            scale: 0.9,
-            opacity: 0.5,
-          }}
+          pressStyle={PressStyle}
         />
         <View flex={1} height="100%">
           {state.routes.map((route, i) => (

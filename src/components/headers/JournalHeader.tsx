@@ -33,9 +33,7 @@ export default function JournalHeader({ route }) {
         <XStack justify="space-between">
           <Button
             unstyled
-            animation="quick"
             p="$2"
-            color="$gray11"
             l={0}
             icon={<ChevronLeft size="$1" />}
             onPress={() => router.back()}
@@ -51,16 +49,13 @@ export default function JournalHeader({ route }) {
           <XStack>
             <Button
               unstyled
-              color="$gray11"
               p="$2"
-              animation="quick"
               icon={<Trash2 size="$1" />}
               pressStyle={PressStyle}
               onPress={() => modalRef.current?.present()}
             />
             <Button
               unstyled
-              color="$gray11"
               p="$2"
               icon={<ALargeSmall size="$1" />}
               animation="quick"
