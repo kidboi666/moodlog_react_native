@@ -1,6 +1,5 @@
 import { ContentInput } from '@/components/ContentInput';
 import { Button, Form, Separator, useTheme, XStack, YStack } from 'tamagui';
-import React from 'react';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
 import { Check } from '@tamagui/lucide-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -13,7 +12,8 @@ export default function WriteScreen() {
   const theme = useTheme();
   const { fontSize } = useAppContext();
   const toast = useToastController();
-  const { addJournal, draft, updateDraftContent } = useJournalContext();
+  const { addJournal, draft, updateDraftContent, updateDraftTitle } =
+    useJournalContext();
 
   const handleSubmit = () => {
     if (!draft.emotion?.type) {
@@ -36,8 +36,10 @@ export default function WriteScreen() {
             <Form onSubmit={handleSubmit} gap="$4" flex={1}>
               <ContentInput
                 fontSize={fontSize}
-                value={draft.content}
-                onChangeText={updateDraftContent}
+                contentValue={draft.content}
+                titleValue={draft.title}
+                onChangeContentText={updateDraftContent}
+                onChangeTitleText={updateDraftTitle}
               />
               <Form.Trigger
                 asChild
@@ -46,6 +48,7 @@ export default function WriteScreen() {
                 {draft.content && (
                   <Button
                     bg="$background"
+                    mb="$2"
                     animation="quick"
                     themeInverse
                     self="flex-end"

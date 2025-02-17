@@ -1,4 +1,4 @@
-import { WEEK_DAY } from '@/src/constants/date';
+import { WEEK_DAY } from '@/constants/date';
 
 export type Nullable<T> = T | null;
 

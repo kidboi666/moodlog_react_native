@@ -6,6 +6,7 @@ import {
 import { forwardRef, PropsWithChildren } from 'react';
 import { useTheme } from 'tamagui';
 import { CONTAINER_SPACING } from '@/constants/size';
+import { Keyboard } from 'react-native';
 
 export const BottomModal = forwardRef<BottomSheetModal, PropsWithChildren>(
   ({ children }, ref) => {
@@ -15,9 +16,10 @@ export const BottomModal = forwardRef<BottomSheetModal, PropsWithChildren>(
         ref={ref}
         enablePanDownToClose
         index={0}
+        onChange={() => Keyboard.dismiss()}
         snapPoints={['50%']}
         backgroundStyle={{
-          backgroundColor: theme.gray7.val,
+          backgroundColor: theme.background.val,
         }}
         handleIndicatorStyle={{
           backgroundColor: theme.gray12.val,
@@ -34,7 +36,7 @@ export const BottomModal = forwardRef<BottomSheetModal, PropsWithChildren>(
         <BottomSheetView
           style={{
             paddingHorizontal: CONTAINER_SPACING,
-            paddingBottom: CONTAINER_SPACING * 2,
+            paddingBottom: CONTAINER_SPACING * 4,
           }}
         >
           {children}

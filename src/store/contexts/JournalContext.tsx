@@ -22,9 +22,10 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   const router = useRouter();
 
   const addJournal = useCallback((draft: IDraft) => {
-    if (draft.content && draft.emotion && draft.localDate) {
+    if (draft.content && draft.emotion && draft.localDate && draft.title) {
       const newJournal = {
         id: uuid.v4(),
+        title: draft.title,
         content: draft.content,
         emotion: draft.emotion,
         createdAt: new Date().toISOString(),
@@ -59,6 +60,10 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
 
   const updateDraftContent = useCallback((content: string) => {
     setDraft(prev => ({ ...prev, content }));
+  }, []);
+
+  const updateDraftTitle = useCallback((title: string) => {
+    setDraft(prev => ({ ...prev, title }));
   }, []);
 
   const updateSelectedJournals = useCallback(
@@ -110,6 +115,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         updateDraftLocalDate,
         updateDraftEmotion,
         updateDraftContent,
+        updateDraftTitle,
         updateSelectedJournals,
       }}
     >

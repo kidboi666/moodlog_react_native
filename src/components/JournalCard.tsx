@@ -1,10 +1,11 @@
-import { Paragraph, View, XStack, YStack } from 'tamagui';
+import { Button, Paragraph, View, XStack, YStack } from 'tamagui';
 import { IJournal } from '@/types/entries';
 import { Link } from 'expo-router';
 import { CurrentDateWithoutYear } from './CurrentDateWithoutYear';
 import { useEffect, useState } from 'react';
 import { EnterStyle, PressStyle } from '@/constants/styles';
 import { emotionTheme } from '@/constants/themes';
+import { ChevronRight } from '@tamagui/lucide-icons';
 
 interface Props {
   journal: IJournal;
@@ -13,7 +14,6 @@ interface Props {
 
 export const JournalCard = ({ journal, index }: Props) => {
   const [show, setShow] = useState(false);
-  const [firstLine, ...restLines] = journal.content.trim().split('\n');
 
   useEffect(() => {
     const time = setTimeout(() => {
@@ -51,15 +51,16 @@ export const JournalCard = ({ journal, index }: Props) => {
         />
         <YStack flex={1} gap="$4">
           <Paragraph fontWeight="800" fontSize="$6">
-            {firstLine.trim()}
+            {journal.title.trim()}
           </Paragraph>
-          {restLines.length > 0 && (
+          {journal.content.length > 0 && (
             <Paragraph color="$gray12" flex={1} numberOfLines={4}>
-              {restLines}
+              {journal.content}
             </Paragraph>
           )}
           <CurrentDateWithoutYear localDate={journal.localDate} fontSize="$2" />
         </YStack>
+        <Button unstyled icon={<ChevronRight size="$1" />} />
       </XStack>
     </Link>
   );

@@ -3,7 +3,7 @@ import { EmotionPicker } from '../EmotionPicker';
 import React from 'react';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
 import { HeaderContainer } from '../HeaderContainer';
-import { ALargeSmall, X } from '@tamagui/lucide-icons';
+import { ALargeSmall, ChevronLeft } from '@tamagui/lucide-icons';
 import { useRouter } from 'expo-router';
 import { CalendarPicker } from '@/components/CalendarPicker';
 import { PressStyle } from '@/constants/styles';
@@ -11,7 +11,8 @@ import { useAppContext } from '@/store/hooks/useAppContext';
 
 export const WriteHeader = () => {
   const router = useRouter();
-  const { updateDraftEmotion, draft } = useJournalContext();
+  const { updateDraftEmotion, draft, updateDraftLocalDate } =
+    useJournalContext();
   const { onChangeFontSize } = useAppContext();
 
   return (
@@ -21,8 +22,8 @@ export const WriteHeader = () => {
           unstyled
           animation="quick"
           p="$2"
-          color="$gray11"
-          icon={<X size="$1" />}
+          color="$gray12"
+          icon={<ChevronLeft size="$1" />}
           onPress={() => router.back()}
           pressStyle={PressStyle}
         />
@@ -33,12 +34,15 @@ export const WriteHeader = () => {
           self="center"
         />
         <XStack>
-          <CalendarPicker />
+          <CalendarPicker
+            localDate={draft?.localDate}
+            onChangeLocalDate={updateDraftLocalDate}
+          />
           <Button
             unstyled
             animation="quick"
             p="$2"
-            color="$gray11"
+            color="$gray12"
             icon={<ALargeSmall size="$1" />}
             pressStyle={PressStyle}
             onPress={onChangeFontSize}

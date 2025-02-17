@@ -5,10 +5,10 @@ export const Container = ({ children, ...props }: YStackProps) => {
   return (
     <View
       flex={1}
-      {...props}
       animation="medium"
       bg="$background"
       px={CONTAINER_SPACING}
+      {...props}
     >
       {children}
     </View>

@@ -82,7 +82,7 @@ export const EmotionPicker = ({
           gap="$1"
           borderWidth={0}
           p="$2"
-          color="$gray11"
+          color="$gray12"
           items="center"
           icon={<ChevronDown size="$1" />}
           pressStyle={PressStyle}

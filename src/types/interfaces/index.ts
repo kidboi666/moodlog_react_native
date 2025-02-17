@@ -1,6 +1,5 @@
 import { IDraft, IEmotion, IJournal } from '@/types/entries';
 import { ViewFontSize } from '@/types/enums';
-import { ReactNode } from 'react';
 
 /**
  * Store
@@ -15,6 +14,7 @@ export interface IJournalStore {
   updateDraftLocalDate: (date: string) => void;
   updateDraftEmotion: (emotion: IEmotion) => void;
   updateDraftContent: (content: string) => void;
+  updateDraftTitle: (title: string) => void;
   updateSelectedJournals: (date: string) => void;
 }
 
@@ -30,9 +30,7 @@ export interface IAppStore {
 }
 
 // TODO any
-export interface IBottomSheetModalStore {
-  content: any;
-  setContent: (content: any) => void;
-  ref: any;
-  onOpenModal: (params: ReactNode) => void;
+export interface IBottomModalStore {
+  modalRef: any;
+  openModal: () => void;
 }

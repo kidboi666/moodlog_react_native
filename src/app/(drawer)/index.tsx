@@ -5,7 +5,6 @@ import { JournalCard } from '@/components/JournalCard';
 import { Container } from '@/components/Container';
 import { WeekDayPicker } from '@/components/WeekDayPicker';
 import { EmptyJournal } from '@/components/EmptyJournal';
-import { Floating } from '@/components/Floating';
 import React, { useEffect } from 'react';
 
 export default function HomeScreen() {
@@ -30,7 +29,6 @@ export default function HomeScreen() {
         )}
         ListEmptyComponent={EmptyJournal}
       />
-      <Floating />
     </Container>
   );
 }

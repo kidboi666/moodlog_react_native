@@ -1,93 +1,89 @@
-import { Calendar } from 'react-native-calendars';
-import { CalendarDays } from '@tamagui/lucide-icons';
-import { Button, Popover, Text, useTheme } from 'tamagui';
+import { Calendar, CalendarUtils } from 'react-native-calendars';
+import { CalendarDays, ChevronLeft, ChevronRight } from '@tamagui/lucide-icons';
+import { Button, useTheme } from 'tamagui';
 import React, { useEffect } from 'react';
-import { useJournalContext } from '@/store/hooks/useJournalContext';
-import { CurrentDate } from '@/components/CurrentDate';
-import { transformISODate } from '@/utils/common/date';
+import { BottomModal } from '@/components/modals/BottomModal';
+import { PressStyle } from '@/constants/styles';
+import { useBottomModalContext } from '@/store/hooks/useBottomModalContext';
 
 interface Props {
-  time?: string;
+  localDate?: string;
+  onChangeLocalDate: (date: string) => void;
 }
 
-export const CalendarPicker = ({ time }: Props) => {
+export const CalendarPicker = ({ localDate, onChangeLocalDate }: Props) => {
   const theme = useTheme();
-  const { updateDraftLocalDate, draft } = useJournalContext();
-
-  const handleChangeDate = (date: number) => {
-    updateDraftLocalDate(transformISODate(date));
-  };
+  const { modalRef, openModal } = useBottomModalContext();
 
   useEffect(() => {
-    if (!draft.localDate) {
-      handleChangeDate(Date.now());
+    if (!localDate) {
+      onChangeLocalDate(
+        CalendarUtils.getCalendarDateString(new Date().getTime()),
+      );
     }
   }, []);
-
   return (
-    <Popover placement="bottom-start">
-      <Popover.Trigger asChild>
-        <Button
-          unstyled
-          animation="quick"
-          p="$2"
-          color="$gray11"
-          icon={<CalendarDays size="$1" />}
-          pressStyle={{
-            opacity: 0.5,
-            scale: 0.95,
-          }}
-        />
-      </Popover.Trigger>
-      <Popover.Content
-        borderWidth={1}
-        borderColor="$borderColor"
-        enterStyle={{ y: -10, opacity: 0 }}
-        exitStyle={{ y: -10, opacity: 0 }}
-        elevation="$1"
-        animation={[
-          'quick',
-          {
-            opacity: {
-              overshootClamping: true,
-            },
-          },
-        ]}
-        flexDirection="column"
-      >
-        <CurrentDate localDate={time ? time : draft?.localDate} />
-
+    <>
+      <Button
+        unstyled
+        animation="quick"
+        p="$2"
+        color="$gray12"
+        icon={<CalendarDays size="$1" />}
+        onPress={openModal}
+        pressStyle={PressStyle}
+      />
+      <BottomModal ref={modalRef}>
         <Calendar
-          current={transformISODate(new Date().getTime())}
+          key={localDate}
+          current={CalendarUtils.getCalendarDateString(new Date().getTime())}
           enableSwipeMonths
-          onDayPress={day => handleChangeDate(day.timestamp)}
+          maxDate={CalendarUtils.getCalendarDateString(new Date())}
+          onDayPress={day =>
+            onChangeLocalDate(
+              CalendarUtils.getCalendarDateString(day.timestamp),
+            )
+          }
+          futureScrollRange={1}
           markedDates={
-            draft.localDate && {
-              [draft.localDate]: {
+            localDate && {
+              [localDate]: {
                 selected: true,
                 disabledTouchEvent: true,
-                selectedDotColor: 'red',
               },
             }
           }
           renderArrow={direction => (
-            <Text style={{ color: theme.blue10.val, fontSize: 20 }}>
-              {direction === 'left' ? '<' : '>'}
-            </Text>
+            <Button
+              unstyled
+              p="$3"
+              color="$gray11"
+              rounded="$8"
+              icon={
+                direction === 'left' ? (
+                  <ChevronLeft size="$1" />
+                ) : (
+                  <ChevronRight size="$1" />
+                )
+              }
+            />
           )}
           theme={{
             backgroundColor: theme.background.val,
+            monthTextColor: theme.gray11.val,
             calendarBackground: theme.background.val,
-            selectedDayBackgroundColor: '#00adf5',
-            selectedDayTextColor: '#ffffff',
-            todayTextColor: theme.gray1.val,
-            todayBackgroundColor: theme.blue10.val,
-            mondayTextColor: theme.color.val,
-            dayTextColor: theme.blue10.val,
+            selectedDayBackgroundColor: theme.gray8.val,
+            selectedDayTextColor: theme.gray12.val,
+            todayTextColor: theme.gray11.val,
+            textDayFontWeight: '500',
+            textDayFontSize: 14,
+            weekVerticalMargin: 12,
+            todayBackgroundColor: theme.gray5.val,
+            dayTextColor: theme.gray11.val,
             textDisabledColor: theme.gray7.val,
           }}
         />
-      </Popover.Content>
-    </Popover>
+      </BottomModal>
+    </>
   );
 };

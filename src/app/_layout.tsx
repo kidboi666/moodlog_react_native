@@ -1,5 +1,5 @@
 import '../../tamagui-web.css';
-import { SplashScreen, Stack } from 'expo-router';
+import { Stack } from 'expo-router';
 import { RootProvider } from '@/providers/RootProvider';
 import { useFonts } from 'expo-font';
 import React, { useEffect } from 'react';
@@ -8,6 +8,7 @@ import * as NavigationBar from 'expo-navigation-bar';
 import { useThemeContext } from '@/store/hooks/useThemeContext';
 import { Platform } from 'react-native';
 import { useTheme } from 'tamagui';
+import * as SplashScreen from 'expo-splash-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { CurrentToast } from '@/components/CurrentToast';
 import {
@@ -18,6 +19,7 @@ import {
 import { WriteHeader } from '@/components/headers/WriteHeader';
 import JournalHeader from '@/components/headers/JournalHeader';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { Floating } from '@/components/Floating';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -26,6 +28,11 @@ export const unstable_settings = {
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+SplashScreen.setOptions({
+  duration: 1000,
+  fade: true,
+});
 
 export default function RootLayout() {
   const [fontLoaded, fontError] = useFonts({
@@ -90,7 +97,7 @@ function RootLayoutNav() {
                 presentation: 'card',
                 animation: 'default',
                 gestureEnabled: true,
-                gestureDirection: 'vertical',
+                gestureDirection: 'horizontal',
               }}
             />
             <Stack.Screen
@@ -101,13 +108,13 @@ function RootLayoutNav() {
                 presentation: 'card',
                 animation: 'default',
                 gestureEnabled: true,
-                gestureDirection: 'vertical',
+                gestureDirection: 'horizontal',
               }}
             />
-
             <Stack.Screen name="+not-found" />
           </Stack>
           <CurrentToast />
+          <Floating />
         </ThemeProvider>
       </BottomSheetModalProvider>
     </GestureHandlerRootView>

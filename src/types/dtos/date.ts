@@ -1,4 +1,4 @@
-import { WeekDayValue } from '@/src/types/common';
+import { WeekDayValue } from '@/types/common';
 
 export type SelectedDate = {
   date: number;

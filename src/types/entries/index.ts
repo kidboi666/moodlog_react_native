@@ -1,4 +1,4 @@
-import { EmotionLevel, EmotionType } from '@/src/types/enums';
+import { EmotionLevel, EmotionType } from '@/types/enums';
 
 export type IEmotion = {
   type: EmotionType;
@@ -7,6 +7,7 @@ export type IEmotion = {
 
 export type IJournal = {
   id: string;
+  title: string;
   content: string;
   emotion: IEmotion;
   createdAt: string;
@@ -14,5 +15,5 @@ export type IJournal = {
 };
 
 export type IDraft = {} & Partial<
-  Pick<IJournal, 'content' | 'emotion' | 'localDate'>
+  Pick<IJournal, 'title' | 'content' | 'emotion' | 'localDate'>
 >;
