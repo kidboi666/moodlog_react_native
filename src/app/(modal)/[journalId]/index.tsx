@@ -1,13 +1,20 @@
-import { H1, Paragraph, ScrollView, useTheme, View } from 'tamagui';
+import {
+  H1,
+  Paragraph,
+  ScrollView,
+  Text,
+  useTheme,
+  View,
+  XStack,
+  YStack,
+} from 'tamagui';
 import React, { useEffect, useState } from 'react';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
 import { Container } from '@/components/Container';
 import { useLocalSearchParams } from 'expo-router';
 import { IJournal } from '@/types/entries';
-import { CurrentDate } from '@/components/CurrentDate';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppContext } from '@/store/hooks/useAppContext';
-import { CONTAINER_SPACING } from '@/constants/size';
+import { emotionTheme } from '@/constants/themes';
 
 export default function JournalPage() {
   const { journalId } = useLocalSearchParams();
@@ -24,24 +31,30 @@ export default function JournalPage() {
   if (!journal) return null;
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: theme.background.val,
-        paddingHorizontal: CONTAINER_SPACING,
-      }}
-      edges={['bottom']}
-    >
-      <Container>
-        <ScrollView flex={1}>
-          <CurrentDate mt="$4" localDate={journal.localDate} />
-          <H1 my="$4">{journal.title}</H1>
+    <Container flexDirection="row" gap="$3" pl={0}>
+      <View
+        width="$1"
+        height="100%"
+        rounded="$4"
+        bg={emotionTheme[journal.emotion.type][journal.emotion.level]}
+      />
+      <ScrollView flex={1}>
+        <YStack>
+          <XStack gap="$2">
+            <YStack>
+              <Text fontSize="$2">{journal.emotion.type.toUpperCase()}</Text>
+              <Text fontSize="$2" color="$gray10">
+                {journal.emotion.level.toUpperCase()}
+              </Text>
+            </YStack>
+          </XStack>
+          <H1 mb="$6">{journal.title}</H1>
           <Paragraph fontWeight="300" fontSize={fontSize}>
             {journal.content}
           </Paragraph>
           <View height="$10" />
-        </ScrollView>
-      </Container>
-    </SafeAreaView>
+        </YStack>
+      </ScrollView>
+    </Container>
   );
 }

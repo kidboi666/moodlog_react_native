@@ -50,9 +50,11 @@ export const JournalCard = ({ journal, index }: Props) => {
           bg={emotionTheme[journal.emotion.type][journal.emotion.level]}
         />
         <YStack flex={1} gap="$4">
-          <Paragraph fontWeight="800" fontSize="$6">
-            {journal.title.trim()}
-          </Paragraph>
+          {journal.title && (
+            <Paragraph fontWeight="800" fontSize="$6">
+              {journal.title.trim()}
+            </Paragraph>
+          )}
           {journal.content.length > 0 && (
             <Paragraph color="$gray12" flex={1} numberOfLines={4}>
               {journal.content}
