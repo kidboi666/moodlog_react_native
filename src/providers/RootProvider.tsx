@@ -7,6 +7,7 @@ import { JournalContextProvider } from '@/store/contexts/JournalContext';
 import { AppContextProvider } from '@/store/contexts/AppContext';
 import { BottomModalContextProvider } from '@/store/contexts/BottomModalContext';
 import { UserContextProvider } from '@/store/contexts/UserContext';
+import { StepProgressContextProvider } from '@/store/contexts/PageProgressContext';
 
 export const RootProvider = ({
   children,
@@ -22,7 +23,11 @@ export const RootProvider = ({
             <JournalContextProvider>
               <BottomModalContextProvider>
                 <AppContextProvider>
-                  <UserContextProvider>{children}</UserContextProvider>
+                  <UserContextProvider>
+                    <StepProgressContextProvider>
+                      {children}
+                    </StepProgressContextProvider>
+                  </UserContextProvider>
                 </AppContextProvider>
               </BottomModalContextProvider>
             </JournalContextProvider>

@@ -54,3 +54,11 @@ export type IUserStore = WithState<
   },
   LoadingState
 >;
+
+export interface IStepProgressStore {
+  totalSteps: number;
+  currentStep: number;
+  onChangeNextStep: () => void;
+  onChangePreviousStep: () => void;
+  initialStep: (totalSteps: number) => void;
+}
