@@ -10,7 +10,7 @@ import {
 } from 'tamagui';
 import { ISODateString } from '@/types/dtos/date';
 import { CALENDAR_SCROLL_SIZE } from '@/constants/size';
-import { EnterStyle } from '@/constants/styles';
+import { ENTER_STYLE } from '@/constants/styles';
 import { IDateCounts } from '@/types/entries';
 import { CalendarUtils } from 'react-native-calendars';
 import {
@@ -58,7 +58,7 @@ export const HorizontalCalendar = ({
   return (
     <XStack
       animation="quick"
-      enterStyle={EnterStyle}
+      enterStyle={ENTER_STYLE}
       flex={1}
       justify="center"
       rounded="$4"

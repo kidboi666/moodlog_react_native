@@ -3,7 +3,7 @@ import { CalendarDays, ChevronLeft, ChevronRight } from '@tamagui/lucide-icons';
 import { Button, useTheme } from 'tamagui';
 import React, { useEffect } from 'react';
 import { BottomModal } from '@/components/modals/BottomModal';
-import { PressStyle } from '@/constants/styles';
+import { PRESS_STYLE } from '@/constants/styles';
 import { useBottomModalContext } from '@/store/hooks/useBottomModalContext';
 
 interface Props {
@@ -31,7 +31,7 @@ export const CalendarPicker = ({ localDate, onChangeLocalDate }: Props) => {
         color="$gray12"
         icon={<CalendarDays size="$1" />}
         onPress={openModal}
-        pressStyle={PressStyle}
+        pressStyle={PRESS_STYLE}
       />
       <BottomModal ref={modalRef}>
         <Calendar

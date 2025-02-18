@@ -6,7 +6,7 @@ import { ALargeSmall, ChevronLeft, Trash2 } from '@tamagui/lucide-icons';
 import React, { useEffect, useRef, useState } from 'react';
 import { IJournal } from '@/types/entries';
 import { useAppContext } from '@/store/hooks/useAppContext';
-import { PressStyle } from '@/constants/styles';
+import { PRESS_STYLE } from '@/constants/styles';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { BottomModal } from '@/components/modals/BottomModal';
 import { DeleteJournalModal } from '@/components/modals/contents/DeleteJournalModal';
@@ -51,7 +51,7 @@ export default function JournalHeader({ route }) {
               unstyled
               p="$2"
               icon={<Trash2 size="$1" />}
-              pressStyle={PressStyle}
+              pressStyle={PRESS_STYLE}
               onPress={() => modalRef.current?.present()}
             />
             <Button
@@ -60,7 +60,7 @@ export default function JournalHeader({ route }) {
               icon={<ALargeSmall size="$1" />}
               animation="quick"
               onPress={onChangeFontSize}
-              pressStyle={PressStyle}
+              pressStyle={PRESS_STYLE}
             />
           </XStack>
         </XStack>

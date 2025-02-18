@@ -1,13 +1,4 @@
-import {
-  H1,
-  Paragraph,
-  ScrollView,
-  Text,
-  useTheme,
-  View,
-  XStack,
-  YStack,
-} from 'tamagui';
+import { H1, Paragraph, ScrollView, Text, View, XStack, YStack } from 'tamagui';
 import React, { useEffect, useState } from 'react';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
 import { Container } from '@/components/Container';
@@ -19,7 +10,6 @@ import { emotionTheme } from '@/constants/themes';
 export default function JournalPage() {
   const { journalId } = useLocalSearchParams();
   const [journal, setJournal] = useState<IJournal>();
-  const theme = useTheme();
   const { journals } = useJournalContext();
   const { fontSize } = useAppContext();
 

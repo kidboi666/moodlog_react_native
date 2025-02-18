@@ -3,7 +3,7 @@ import { IJournal } from '@/types/entries';
 import { Link } from 'expo-router';
 import { CurrentDateWithoutYear } from './CurrentDateWithoutYear';
 import { useEffect, useState } from 'react';
-import { EnterStyle, PressStyle } from '@/constants/styles';
+import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
 import { emotionTheme } from '@/constants/themes';
 import { ChevronRight } from '@tamagui/lucide-icons';
 
@@ -40,8 +40,8 @@ export const JournalCard = ({ journal, index }: Props) => {
         items="center"
         gap="$3"
         animation="quick"
-        enterStyle={EnterStyle}
-        pressStyle={PressStyle}
+        enterStyle={ENTER_STYLE}
+        pressStyle={PRESS_STYLE}
       >
         <View
           width="$0.5"

@@ -28,7 +28,10 @@ export interface IThemeStore {
 export interface IAppStore {
   fontSize: ViewFontSize;
   language: any;
+  isFirstLaunch: boolean;
   onChangeFontSize: () => void;
+  setIsFirstLaunch: (isFirstLaunch: boolean) => void;
+  checkFirstLaunch: () => void;
 }
 
 // TODO any

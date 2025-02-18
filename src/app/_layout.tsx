@@ -1,5 +1,5 @@
 import '../../tamagui-web.css';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { RootProvider } from '@/providers/RootProvider';
 import { useFonts } from 'expo-font';
 import React, { useEffect } from 'react';
@@ -19,7 +19,7 @@ import {
 import { WriteHeader } from '@/components/headers/WriteHeader';
 import JournalHeader from '@/components/headers/JournalHeader';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { Floating } from '@/components/Floating';
+import { useAppContext } from '@/store/hooks/useAppContext';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -62,6 +62,8 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const { currentTheme } = useThemeContext();
   const theme = useTheme();
+  const { isFirstLaunch } = useAppContext();
+  const router = useRouter();
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -71,6 +73,11 @@ function RootLayoutNav() {
       );
     }
   }, [currentTheme]);
+  useEffect(() => {
+    if (isFirstLaunch) {
+      router.replace('/(onboarding)');
+    }
+  }, []);
 
   return (
     <GestureHandlerRootView
@@ -111,10 +118,17 @@ function RootLayoutNav() {
                 gestureDirection: 'horizontal',
               }}
             />
+            <Stack.Screen
+              name="(onboarding)"
+              options={{
+                headerShown: false,
+                presentation: 'modal',
+                animation: 'fade',
+              }}
+            />
             <Stack.Screen name="+not-found" />
           </Stack>
           <CurrentToast />
-          <Floating />
         </ThemeProvider>
       </BottomSheetModalProvider>
     </GestureHandlerRootView>

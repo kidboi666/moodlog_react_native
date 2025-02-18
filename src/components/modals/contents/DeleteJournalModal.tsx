@@ -1,7 +1,7 @@
 import { Button, Text, YStack } from 'tamagui';
 import React from 'react';
 import { useBottomSheetModal } from '@gorhom/bottom-sheet';
-import { PressStyle } from '@/constants/styles';
+import { PRESS_STYLE } from '@/constants/styles';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
 import { useRouter } from 'expo-router';
 
@@ -32,7 +32,7 @@ export const DeleteJournalModal = ({ journalId }: Props) => {
             router.back();
             dismissAll();
           }}
-          pressStyle={PressStyle}
+          pressStyle={PRESS_STYLE}
         >
           Delete
         </Button>
@@ -40,7 +40,7 @@ export const DeleteJournalModal = ({ journalId }: Props) => {
           animation="quick"
           fontWeight="800"
           onPress={() => dismissAll()}
-          pressStyle={PressStyle}
+          pressStyle={PRESS_STYLE}
         >
           Cancel
         </Button>

@@ -6,7 +6,7 @@ import { HeaderContainer } from '../HeaderContainer';
 import { ALargeSmall, ChevronLeft } from '@tamagui/lucide-icons';
 import { useRouter } from 'expo-router';
 import { CalendarPicker } from '@/components/CalendarPicker';
-import { PressStyle } from '@/constants/styles';
+import { PRESS_STYLE } from '@/constants/styles';
 import { useAppContext } from '@/store/hooks/useAppContext';
 
 export const WriteHeader = () => {
@@ -25,7 +25,7 @@ export const WriteHeader = () => {
           color="$gray12"
           icon={<ChevronLeft size="$1" />}
           onPress={() => router.back()}
-          pressStyle={PressStyle}
+          pressStyle={PRESS_STYLE}
         />
 
         <EmotionPicker
@@ -44,7 +44,7 @@ export const WriteHeader = () => {
             p="$2"
             color="$gray12"
             icon={<ALargeSmall size="$1" />}
-            pressStyle={PressStyle}
+            pressStyle={PRESS_STYLE}
             onPress={onChangeFontSize}
           />
         </XStack>

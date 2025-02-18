@@ -5,7 +5,7 @@ import { useJournalContext } from '@/store/hooks/useJournalContext';
 import { ISODateString } from '@/types/dtos/date';
 import { HorizontalCalendar } from '@/components/HorizontalCalendar';
 import { CalendarDays, CalendarRange } from '@tamagui/lucide-icons';
-import { PressStyle } from '@/constants/styles';
+import { PRESS_STYLE } from '@/constants/styles';
 import { useThemeContext } from '@/store/hooks/useThemeContext';
 import { VerticalCalendar } from '@/components/VerticalCalendar';
 import { CalendarUtils } from 'react-native-calendars';
@@ -71,7 +71,7 @@ export const WeekDayPicker = () => {
               <CalendarDays size="$1" />
             )
           }
-          pressStyle={PressStyle}
+          pressStyle={PRESS_STYLE}
           onPress={() =>
             setVariation(prev =>
               prev === 'horizontal' ? 'vertical' : 'horizontal',

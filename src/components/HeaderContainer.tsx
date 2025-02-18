@@ -1,24 +1,24 @@
-import {
-  SafeAreaView,
-  SafeAreaViewProps,
-} from 'react-native-safe-area-context';
-import { useTheme } from 'tamagui';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { View, ViewProps } from 'tamagui';
 import { CONTAINER_SPACING } from '@/constants/size';
 
-export const HeaderContainer = ({ children, style }: SafeAreaViewProps) => {
-  const theme = useTheme();
+export const HeaderContainer = ({ children, ...props }: ViewProps) => {
+  const insets = useSafeAreaInsets();
   return (
-    <SafeAreaView
-      style={[
-        {
-          backgroundColor: theme.background.val,
-          padding: CONTAINER_SPACING,
-        },
-        style,
-      ]}
-      edges={['top']}
-    >
+    <View mt={insets.top} p={CONTAINER_SPACING} {...props}>
       {children}
-    </SafeAreaView>
+    </View>
+    // <SafeAreaView
+    //   style={[
+    //     {
+    //       backgroundColor: theme.background.val,
+    //       padding: CONTAINER_SPACING,
+    //     },
+    //     style,
+    //   ]}
+    //   edges={['top']}
+    // >
+    //   {children}
+    // </SafeAreaView>
   );
 };

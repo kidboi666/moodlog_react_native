@@ -5,15 +5,10 @@ import { JournalCard } from '@/components/JournalCard';
 import { Container } from '@/components/Container';
 import { WeekDayPicker } from '@/components/WeekDayPicker';
 import { EmptyJournal } from '@/components/EmptyJournal';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 export default function HomeScreen() {
-  const { journals, selectedJournals, updateSelectedJournals } =
-    useJournalContext();
-
-  useEffect(() => {
-    updateSelectedJournals(new Date().toISOString().split('T')[0]);
-  }, [journals]);
+  const { selectedJournals } = useJournalContext();
 
   return (
     <Container>

@@ -5,7 +5,7 @@ import { Check } from '@tamagui/lucide-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Container } from '@/components/Container';
 import { useToastController } from '@tamagui/toast';
-import { EnterStyle, PressStyle } from '@/constants/styles';
+import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
 import { useAppContext } from '@/store/hooks/useAppContext';
 
 export default function WriteScreen() {
@@ -56,8 +56,8 @@ export default function WriteScreen() {
                     icon={Check}
                     color="$color"
                     opacity={!draft.content ? 0.5 : 1}
-                    pressStyle={PressStyle}
-                    enterStyle={{ ...EnterStyle, y: -10 }}
+                    pressStyle={PRESS_STYLE}
+                    enterStyle={{ ...ENTER_STYLE, y: -10 }}
                   />
                 )}
               </Form.Trigger>

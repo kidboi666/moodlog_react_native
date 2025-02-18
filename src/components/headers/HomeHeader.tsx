@@ -1,7 +1,7 @@
 import { HeaderContainer } from '../HeaderContainer';
 import { Button, View, XStack } from 'tamagui';
 import { LayoutGrid, Menu } from '@tamagui/lucide-icons';
-import { PressStyle } from '@/constants/styles';
+import { PRESS_STYLE } from '@/constants/styles';
 
 export const HomeHeader = ({ navigation }) => {
   return (
@@ -13,7 +13,7 @@ export const HomeHeader = ({ navigation }) => {
           rounded="$2"
           icon={<Menu size="$1" />}
           onPress={() => navigation.toggleDrawer()}
-          pressStyle={PressStyle}
+          pressStyle={PRESS_STYLE}
         />
         <View flex={1} />
         <Button
@@ -21,7 +21,7 @@ export const HomeHeader = ({ navigation }) => {
           p="$2"
           icon={<LayoutGrid size="$1" />}
           onPress={() => null}
-          pressStyle={PressStyle}
+          pressStyle={PRESS_STYLE}
         />
       </XStack>
     </HeaderContainer>

@@ -4,7 +4,7 @@ import React from 'react';
 import { usePathname, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
-import { EnterStyle } from '@/constants/styles';
+import { ENTER_STYLE } from '@/constants/styles';
 
 export const Floating = () => {
   const { draft } = useJournalContext();
@@ -28,7 +28,7 @@ export const Floating = () => {
           bg="$gray1"
           themeInverse
           onPress={() => router.push('/(modal)/write')}
-          enterStyle={EnterStyle}
+          enterStyle={ENTER_STYLE}
           pressStyle={{
             scale: 0.9,
           }}

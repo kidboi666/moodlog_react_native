@@ -1,4 +1,4 @@
-import { EnterStyle } from '@/constants/styles';
+import { ENTER_STYLE } from '@/constants/styles';
 import { Calendar, CalendarUtils } from 'react-native-calendars';
 import { CustomDayComponent } from '@/components/CustomDayComponent';
 import { useTheme, View } from 'tamagui';
@@ -23,7 +23,7 @@ export const VerticalCalendar = ({
 }: Props) => {
   const theme = useTheme();
   return (
-    <View animation="quick" flex={1} enterStyle={EnterStyle}>
+    <View animation="quick" flex={1} enterStyle={ENTER_STYLE}>
       <Calendar
         dayComponent={({ date, state, marking }) => (
           <CustomDayComponent
