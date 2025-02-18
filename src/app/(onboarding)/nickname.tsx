@@ -1,6 +1,8 @@
 import { Container } from '@/components/Container';
-import { Button, Form, H1, H2, Input, View, YStack } from 'tamagui';
+import { Button, Form, H2, H3, Input, YStack } from 'tamagui';
 import { useState } from 'react';
+import { FadeIn } from '@/components/FadeIn';
+import { PARAGRAPH_DELAY } from '@/constants/styles';
 
 export default function NicknameScreen() {
   const [nickname, setNickname] = useState('');
@@ -11,32 +13,23 @@ export default function NicknameScreen() {
 
   return (
     <Container>
-      <YStack flex={1} gap="$12">
-        <View
-          animation="bouncy"
-          bg="$gray12"
-          items="center"
-          justify="space-evenly"
-          rounded="$8"
-          p="$3"
-          flex={1}
-          enterStyle={{
-            y: -300,
-          }}
-        >
-          <H1 color="$gray1" text="center">
-            Your story starts here
-          </H1>
-          <H2 color="$gray1" text="center">
-            what name will you write it under?
-          </H2>
-        </View>
-        <Form gap="$4" flex={1}>
-          <Input
-            value={nickname}
-            onChangeText={handleChangeNicknameInput}
-            placeholder="Enter your story name"
-          />
+      <Form flex={1}>
+        <YStack flex={1} gap="$6">
+          <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
+            <H2>Your story starts here</H2>
+          </FadeIn>
+          <FadeIn delay={PARAGRAPH_DELAY.SECOND}>
+            <H3 color="$gray11">what name will you write it under?</H3>
+          </FadeIn>
+          <FadeIn delay={PARAGRAPH_DELAY.THIRD}>
+            <Input
+              value={nickname}
+              onChangeText={handleChangeNicknameInput}
+              placeholder="Enter your story name"
+            />
+          </FadeIn>
+        </YStack>
+        <FadeIn delay={PARAGRAPH_DELAY.THIRD}>
           <Form.Trigger asChild>
             <Button
               themeInverse
@@ -46,8 +39,8 @@ export default function NicknameScreen() {
               Submit
             </Button>
           </Form.Trigger>
-        </Form>
-      </YStack>
+        </FadeIn>
+      </Form>
     </Container>
   );
 }
