@@ -8,6 +8,7 @@ import { CalendarDays, CalendarRange } from '@tamagui/lucide-icons';
 import { PressStyle } from '@/constants/styles';
 import { useThemeContext } from '@/store/hooks/useThemeContext';
 import { VerticalCalendar } from '@/components/VerticalCalendar';
+import { CalendarUtils } from 'react-native-calendars';
 
 export const WeekDayPicker = () => {
   const [variation, setVariation] = useState<'horizontal' | 'vertical'>(
@@ -18,13 +19,14 @@ export const WeekDayPicker = () => {
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
   const [selectedDate, setSelectedDate] = useState<ISODateString>(
-    `${currentYear}-${currentMonth + 1}-${currentDate.getDate()}`,
+    CalendarUtils.getCalendarDateString(currentDate),
   );
-  const { updateSelectedJournals, getDateCountsForMonth } = useJournalContext();
+  const { updateSelectedJournals, journals, getDateCountsForMonth } =
+    useJournalContext();
 
   const dateCounts = useMemo(
     () => getDateCountsForMonth(currentYear, currentMonth + 1),
-    [],
+    [journals],
   );
 
   const dates: ISODateString[] = useMemo(() => {
@@ -39,7 +41,6 @@ export const WeekDayPicker = () => {
     (date: ISODateString) => {
       setSelectedDate(date);
       updateSelectedJournals(date);
-      console.log(date);
     },
     [currentYear, currentMonth, updateSelectedJournals],
   );
@@ -90,7 +91,8 @@ export const WeekDayPicker = () => {
       )}
       {variation === 'vertical' && (
         <VerticalCalendar
-          onSelectedDate={handleSelectedDate}
+          onChangeSelectedDate={handleSelectedDate}
+          dateCounts={dateCounts}
           selectedDate={selectedDate}
           currentYear={currentYear}
           currentMonth={currentMonth}

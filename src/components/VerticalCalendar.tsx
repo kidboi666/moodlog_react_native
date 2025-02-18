@@ -1,16 +1,26 @@
 import { EnterStyle } from '@/constants/styles';
 import { Calendar, CalendarUtils } from 'react-native-calendars';
 import { CustomDayComponent } from '@/components/CustomDayComponent';
-import { WEEK_DAY } from '@/constants/date';
 import { useTheme, View } from 'tamagui';
 import React from 'react';
+import { ISODateString } from '@/types/dtos/date';
+import { IDateCounts } from '@/types/entries';
+
+interface Props {
+  onChangeSelectedDate: (date: ISODateString) => void;
+  selectedDate: ISODateString;
+  currentYear: number;
+  dateCounts: IDateCounts;
+  currentMonth: number;
+}
 
 export const VerticalCalendar = ({
-  onSelectedDate,
+  onChangeSelectedDate,
   selectedDate,
   currentYear,
+  dateCounts,
   currentMonth,
-}) => {
+}: Props) => {
   const theme = useTheme();
   return (
     <View animation="quick" flex={1} enterStyle={EnterStyle}>
@@ -19,12 +29,10 @@ export const VerticalCalendar = ({
           <CustomDayComponent
             date={date}
             state={state}
+            dateCounts={dateCounts}
             marking={marking}
             onPress={() => {
-              onSelectedDate({
-                date: date.day,
-                day: WEEK_DAY[new Date(date.timestamp).getDay()],
-              });
+              onChangeSelectedDate(date?.dateString);
             }}
           />
         )}
@@ -32,10 +40,8 @@ export const VerticalCalendar = ({
         maxDate={CalendarUtils.getCalendarDateString(new Date())}
         customHeader={() => null}
         markedDates={
-          selectedDate.date && {
-            [CalendarUtils.getCalendarDateString(
-              new Date(currentYear, currentMonth, selectedDate.date),
-            )]: {
+          selectedDate && {
+            [selectedDate]: {
               selected: true,
               disabledTouchEvent: true,
             },

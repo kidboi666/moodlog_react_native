@@ -1,5 +1,6 @@
 import { IDateCounts, IDraft, IEmotion, IJournal } from '@/types/entries';
 import { ViewFontSize } from '@/types/enums';
+import { ISODateString } from '@/types/dtos/date';
 
 /**
  * Store
@@ -16,7 +17,7 @@ export interface IJournalStore {
   updateDraftEmotion: (emotion: IEmotion) => void;
   updateDraftContent: (content: string) => void;
   updateDraftTitle: (title: string) => void;
-  updateSelectedJournals: (date: string) => void;
+  updateSelectedJournals: (date: ISODateString) => void;
 }
 
 export interface IThemeStore {

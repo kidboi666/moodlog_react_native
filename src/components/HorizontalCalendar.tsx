@@ -17,6 +17,7 @@ import {
   getDateInISODateString,
   getDayInISODateString,
 } from '@/utils/common/date';
+import { DateCountDot } from '@/components/DateCountDot';
 
 interface Props {
   dates: ISODateString[];
@@ -91,42 +92,35 @@ export const HorizontalCalendar = ({
                 borderColor="$gray1"
                 onPress={() => onChangeSelectedDate(date)}
               >
-                <YStack gap="$2" items="center">
-                  <Text
-                    fontSize="$2"
-                    color={
-                      selectedDate === date
-                        ? (theme.gray12.val as any)
-                        : (theme.gray9.val as any)
-                    }
-                  >
-                    {getDayInISODateString(date)}
-                  </Text>
-                  <Text
-                    fontSize="$5"
-                    fontWeight="800"
-                    color={
-                      selectedDate === date
-                        ? (theme.gray12.val as any)
-                        : (theme.gray6.val as any)
-                    }
-                  >
-                    {getDateInISODateString(date)}
-                  </Text>
-                  {isToday && (
-                    <View
-                      position="absolute"
-                      width="$0.5"
-                      height="$0.5"
-                      bg={
+                <YStack items="center">
+                  <YStack gap="$2" items="center">
+                    <Text
+                      fontSize="$2"
+                      color={
                         selectedDate === date
                           ? (theme.gray12.val as any)
-                          : (theme.gray1.val as any)
+                          : (theme.gray9.val as any)
                       }
-                      rounded="$1"
-                      b={-8}
-                    />
-                  )}
+                    >
+                      {getDayInISODateString(date)}
+                    </Text>
+                    <Text
+                      fontSize="$5"
+                      fontWeight="800"
+                      color={
+                        selectedDate === date
+                          ? (theme.gray12.val as any)
+                          : (theme.gray6.val as any)
+                      }
+                    >
+                      {getDateInISODateString(date)}
+                    </Text>
+                  </YStack>
+                  <DateCountDot
+                    dateCounts={dateCounts}
+                    dateString={date}
+                    isSelected={selectedDate === date}
+                  />
                 </YStack>
               </Button>
             );
