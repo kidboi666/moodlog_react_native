@@ -8,17 +8,22 @@ import {
   XStack,
   YStack,
 } from 'tamagui';
-import { SelectedDate } from '@/types/dtos/date';
+import { ISODateString } from '@/types/dtos/date';
 import { CALENDAR_SCROLL_SIZE } from '@/constants/size';
 import { EnterStyle } from '@/constants/styles';
 import { IDateCounts } from '@/types/entries';
+import { CalendarUtils } from 'react-native-calendars';
+import {
+  getDateInISODateString,
+  getDayInISODateString,
+} from '@/utils/common/date';
 
 interface Props {
-  dates: SelectedDate[];
-  selectedDate: SelectedDate;
+  dates: ISODateString[];
+  selectedDate: ISODateString;
   currentDate: Date;
   dateCounts: IDateCounts;
-  onChangeSelectedDate: (item: SelectedDate) => void;
+  onChangeSelectedDate: (date: ISODateString) => void;
 }
 
 export const HorizontalCalendar = ({
@@ -35,9 +40,7 @@ export const HorizontalCalendar = ({
     let timeout: NodeJS.Timeout;
 
     if (dates.length > 0) {
-      const selectedIndex = dates.findIndex(
-        date => date.date === selectedDate.date,
-      );
+      const selectedIndex = dates.findIndex(date => date === selectedDate);
       timeout = setTimeout(() => {
         if (selectedIndex !== -1 && scrollViewRef.current) {
           scrollViewRef.current.scrollTo({
@@ -70,12 +73,13 @@ export const HorizontalCalendar = ({
           snapToInterval={CALENDAR_SCROLL_SIZE}
         >
           {dates.map(date => {
-            const isToday = date.date === currentDate.getDate();
+            const isToday =
+              date === CalendarUtils.getCalendarDateString(currentDate);
             return (
               <Button
-                key={date.date}
+                key={date}
                 bg={
-                  selectedDate.date === date.date
+                  selectedDate === date
                     ? (theme.gray5.val as any)
                     : 'transparent'
                 }
@@ -85,34 +89,29 @@ export const HorizontalCalendar = ({
                 unstyled
                 borderWidth={isToday ? 1 : 0}
                 borderColor="$gray1"
-                onPress={() =>
-                  onChangeSelectedDate({
-                    day: date.day,
-                    date: date.date,
-                  })
-                }
+                onPress={() => onChangeSelectedDate(date)}
               >
                 <YStack gap="$2" items="center">
                   <Text
                     fontSize="$2"
                     color={
-                      selectedDate.date === date.date
+                      selectedDate === date
                         ? (theme.gray12.val as any)
                         : (theme.gray9.val as any)
                     }
                   >
-                    {date.day}
+                    {getDayInISODateString(date)}
                   </Text>
                   <Text
                     fontSize="$5"
                     fontWeight="800"
                     color={
-                      selectedDate.date === date.date
+                      selectedDate === date
                         ? (theme.gray12.val as any)
                         : (theme.gray6.val as any)
                     }
                   >
-                    {date.date}
+                    {getDateInISODateString(date)}
                   </Text>
                   {isToday && (
                     <View
@@ -120,7 +119,7 @@ export const HorizontalCalendar = ({
                       width="$0.5"
                       height="$0.5"
                       bg={
-                        selectedDate.day === date.day
+                        selectedDate === date
                           ? (theme.gray12.val as any)
                           : (theme.gray1.val as any)
                       }

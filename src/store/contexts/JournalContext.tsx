@@ -11,6 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { uuid } from 'expo-modules-core';
 import { useToastController } from '@tamagui/toast';
 import { useRouter } from 'expo-router';
+import { ISODateString } from '@/types/dtos/date';
 
 export const JournalContext = createContext<IJournalStore | null>(null);
 
@@ -90,7 +91,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   const updateSelectedJournals = useCallback(
-    (date: string) => {
+    (date: ISODateString) => {
       const selectedJournals =
         journals.filter(journal => journal.localDate === date) || [];
       setSelectedJournals(selectedJournals);

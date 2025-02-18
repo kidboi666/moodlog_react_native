@@ -1,12 +1,11 @@
 import { Button, H1, XStack, YStack } from 'tamagui';
-import { MONTHS, WEEK_DAY } from '@/constants/date';
+import { MONTHS } from '@/constants/date';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useJournalContext } from '@/store/hooks/useJournalContext';
-import { SelectedDate } from '@/types/dtos/date';
+import { ISODateString } from '@/types/dtos/date';
 import { HorizontalCalendar } from '@/components/HorizontalCalendar';
 import { CalendarDays, CalendarRange } from '@tamagui/lucide-icons';
 import { PressStyle } from '@/constants/styles';
-import { CalendarUtils } from 'react-native-calendars';
 import { useThemeContext } from '@/store/hooks/useThemeContext';
 import { VerticalCalendar } from '@/components/VerticalCalendar';
 
@@ -18,41 +17,29 @@ export const WeekDayPicker = () => {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
-  const currentDay = currentDate.getDate();
-  const [selectedDate, setSelectedDate] = useState<SelectedDate>({
-    date: currentDate.getDate(),
-    day: Object.values(WEEK_DAY)[currentDay],
-  });
-  const { updateSelectedJournals, journals, getDateCountsForMonth } =
-    useJournalContext();
+  const [selectedDate, setSelectedDate] = useState<ISODateString>(
+    `${currentYear}-${currentMonth + 1}-${currentDate.getDate()}`,
+  );
+  const { updateSelectedJournals, getDateCountsForMonth } = useJournalContext();
 
   const dateCounts = useMemo(
     () => getDateCountsForMonth(currentYear, currentMonth + 1),
     [],
   );
 
-  const dates = useMemo(() => {
+  const dates: ISODateString[] = useMemo(() => {
     const lastDate = new Date(currentYear, currentMonth, 0).getDate();
 
     return Array.from({ length: lastDate }, (_, i) => {
-      const date = new Date(currentYear, currentMonth, i + 1);
-      return {
-        date: i + 1,
-        day: Object.values(WEEK_DAY)[date.getDay()],
-      };
+      return `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${i + 1}` as ISODateString;
     });
   }, [currentYear, currentMonth]);
 
   const handleSelectedDate = useCallback(
-    (date: SelectedDate) => {
+    (date: ISODateString) => {
       setSelectedDate(date);
-
-      const timeStamp = new Date(
-        currentYear,
-        currentMonth,
-        date.date + 1,
-      ).getTime();
-      updateSelectedJournals(CalendarUtils.getCalendarDateString(timeStamp));
+      updateSelectedJournals(date);
+      console.log(date);
     },
     [currentYear, currentMonth, updateSelectedJournals],
   );
