@@ -12,13 +12,15 @@ import { uuid } from 'expo-modules-core';
 import { useToastController } from '@tamagui/toast';
 import { useRouter } from 'expo-router';
 import { ISODateString } from '@/types/dtos/date';
+import { Nullable } from '@/types/utils';
 
-export const JournalContext = createContext<IJournalStore | null>(null);
+export const JournalContext = createContext<Nullable<IJournalStore>>(null);
 
 export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   const [journals, setJournals] = useState<IJournal[]>([]);
   const [selectedJournals, setSelectedJournals] = useState<IJournal[]>([]);
   const [draft, setDraft] = useState<IDraft>({});
+  const [isLoading, setIsLoading] = useState(false);
   const toast = useToastController();
   const router = useRouter();
 
@@ -102,12 +104,15 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     const loadJournals = async () => {
       try {
+        setIsLoading(true);
         const savedJournals = await AsyncStorage.getItem('journals-storage');
         if (savedJournals) {
           setJournals(JSON.parse(savedJournals));
         }
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     void loadJournals();
@@ -116,12 +121,15 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     const saveJournals = async () => {
       try {
+        setIsLoading(true);
         await AsyncStorage.setItem(
           'journals-storage',
           JSON.stringify(journals),
         );
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     void saveJournals();
@@ -134,6 +142,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         selectedJournals,
         draft,
         addJournal,
+        isLoading,
         getDateCountsForMonth,
         removeJournal,
         updateJournals,
