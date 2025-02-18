@@ -10,7 +10,6 @@ import { ISODateString } from '@/types/dtos/date';
 import { RefObject } from 'react';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { LoadingState, Nullable, WithState } from 'src/types/utils';
-import { UserInfo } from '@/types/dtos/user';
 
 export type IJournalStore = WithState<
   {
@@ -50,7 +49,7 @@ export type IUserStore = WithState<
   {
     userInfo: Nullable<IUserInfo>;
     isInitialUser: boolean;
-    signUp: (params: UserInfo) => void;
+    signUp: (userName: string) => void;
   },
   LoadingState
 >;
@@ -58,7 +57,8 @@ export type IUserStore = WithState<
 export interface IStepProgressStore {
   totalSteps: number;
   currentStep: number;
-  onChangeNextStep: () => void;
-  onChangePreviousStep: () => void;
-  initialStep: (totalSteps: number) => void;
+  goToNextStep: () => void;
+  goToPrevStep: () => void;
+  isLastStep: boolean;
+  progress: number;
 }

@@ -1,21 +1,19 @@
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { View, ViewProps } from 'tamagui';
 import { CONTAINER_SPACING } from '@/constants/size';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export const Container = ({ children, ...props }: ViewProps) => {
+export const DrawerContainer = ({ children, ...props }: ViewProps) => {
   const insets = useSafeAreaInsets();
 
   return (
     <View
       flex={1}
-      bg="$background"
-      p={CONTAINER_SPACING}
+      mt={insets.top}
       mb={insets.bottom}
+      p={CONTAINER_SPACING}
       {...props}
     >
       {children}
     </View>
   );
 };
-
-Container.displayName = 'Container';

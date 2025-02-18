@@ -1,19 +1,30 @@
-import { Container } from '@/components/Container';
+import { Container } from '@/components/containers/Container';
 import { Button, Form, H2, H3, Input, YStack } from 'tamagui';
 import { useState } from 'react';
 import { FadeIn } from '@/components/FadeIn';
 import { PARAGRAPH_DELAY } from '@/constants/styles';
+import { useUser } from '@/store/hooks/useUser';
+import { useRouter } from 'expo-router';
 
 export default function NicknameScreen() {
-  const [nickname, setNickname] = useState('');
+  const { signUp } = useUser();
+  const router = useRouter();
+  const [userName, setUserName] = useState('');
 
-  const handleChangeNicknameInput = (nickname: string) => {
-    setNickname(nickname);
+  const handleChangeUserNameInput = (userName: string) => {
+    setUserName(userName);
+  };
+
+  const handleSubmit = () => {
+    if (!userName) return;
+
+    signUp(userName);
+    router.push('/(onboarding)/signup');
   };
 
   return (
     <Container>
-      <Form flex={1}>
+      <Form onSubmit={handleSubmit} flex={1}>
         <YStack flex={1} gap="$6">
           <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
             <H2>Your story starts here</H2>
@@ -23,9 +34,9 @@ export default function NicknameScreen() {
           </FadeIn>
           <FadeIn delay={PARAGRAPH_DELAY.THIRD}>
             <Input
-              value={nickname}
-              onChangeText={handleChangeNicknameInput}
-              placeholder="Enter your story name"
+              value={userName}
+              onChangeText={handleChangeUserNameInput}
+              placeholder="Enter your name"
             />
           </FadeIn>
         </YStack>
@@ -33,8 +44,8 @@ export default function NicknameScreen() {
           <Form.Trigger asChild>
             <Button
               themeInverse
-              disabled={!nickname}
-              opacity={!nickname ? 0.2 : 1}
+              disabled={!userName}
+              opacity={!userName ? 0.2 : 1}
             >
               Submit
             </Button>

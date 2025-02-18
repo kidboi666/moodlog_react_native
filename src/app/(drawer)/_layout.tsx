@@ -3,8 +3,10 @@ import { HomeHeader } from '@/components/headers/HomeHeader';
 import { Drawer } from 'expo-router/drawer';
 import React from 'react';
 import { Floating } from '@/components/Floating';
+import { useTheme } from 'tamagui';
 
 export default function HomeLayout() {
+  const theme = useTheme();
   return (
     <>
       <Drawer

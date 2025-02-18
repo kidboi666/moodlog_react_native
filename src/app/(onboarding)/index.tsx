@@ -1,13 +1,21 @@
 import { Button, H1, H2, H3, XStack, YStack } from 'tamagui';
 import { useRouter } from 'expo-router';
 import { ArrowRight } from '@tamagui/lucide-icons';
-import { Container } from '@/components/Container';
+import { Container } from '@/components/containers/Container';
 import { ShakeHand } from '@/components/ShakeHand';
 import { FadeIn } from '@/components/FadeIn';
 import { PARAGRAPH_DELAY } from '@/constants/styles';
+import { useStepProgress } from '@/store/hooks/useStepProgress';
+import { useUser } from '@/store/hooks/useUser';
 
 export default function WelcomeScreen() {
   const router = useRouter();
+  const { userInfo } = useUser();
+  const { goToNextStep } = useStepProgress();
+  const handleClickNextButton = () => {
+    goToNextStep();
+    router.push('/(onboarding)/nickname');
+  };
 
   return (
     <Container>
@@ -36,7 +44,7 @@ export default function WelcomeScreen() {
           themeInverse
           size="$5"
           iconAfter={<ArrowRight size="$1" />}
-          onPress={() => router.push('/(onboarding)/nickname')}
+          onPress={handleClickNextButton}
         >
           Next
         </Button>

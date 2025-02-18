@@ -1,5 +1,5 @@
 import { Avatar, Button, Card, H2, Paragraph, XStack } from 'tamagui';
-import { Container } from '@/components/Container';
+import { Container } from '@/components/containers/Container';
 
 export default function ProfileScreen() {
   return (

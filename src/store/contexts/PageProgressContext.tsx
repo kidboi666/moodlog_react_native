@@ -5,40 +5,46 @@ import { IStepProgressStore } from '@/types/store';
 export const StepProgressContext =
   createContext<Nullable<IStepProgressStore>>(null);
 
+interface Props {
+  initialStep?: number;
+  totalSteps: number;
+}
+
 export const StepProgressContextProvider = ({
   children,
-}: PropsWithChildren) => {
-  const [totalSteps, setTotalSteps] = useState(0);
-  const [currentStep, setCurrentStep] = useState(0);
+  initialStep = 0,
+  totalSteps,
+}: PropsWithChildren<Props>) => {
+  const [currentStep, setCurrentStep] = useState(initialStep);
 
-  const handleChangeNextStep = useCallback(() => {
-    if (currentStep + 1 < totalSteps) {
+  const goToNextStep = useCallback(() => {
+    if (currentStep + 1 < totalSteps - 1) {
       setCurrentStep(prev => prev + 1);
     } else {
       setCurrentStep(0);
     }
   }, [currentStep, totalSteps]);
 
-  const handleChangePreviousStep = useCallback(() => {
-    if (currentStep - 1 > 0) {
+  const goToPrevStep = useCallback(() => {
+    if (currentStep - 1 >= 0) {
       setCurrentStep(prev => prev - 1);
     } else {
-      setCurrentStep(totalSteps);
+      setCurrentStep(totalSteps - 1);
     }
   }, [currentStep, totalSteps]);
 
-  const initialStep = useCallback((totalSteps: number) => {
-    setTotalSteps(totalSteps);
-  }, []);
+  const isLastStep = currentStep === totalSteps - 1;
+  const progress = totalSteps > 1 ? (currentStep / totalSteps) * 100 : 0;
 
   return (
     <StepProgressContext.Provider
       value={{
         totalSteps,
         currentStep,
-        onChangeNextStep: handleChangeNextStep,
-        onChangePreviousStep: handleChangePreviousStep,
-        initialStep,
+        goToNextStep,
+        goToPrevStep,
+        isLastStep,
+        progress,
       }}
     >
       {children}

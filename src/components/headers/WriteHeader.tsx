@@ -2,7 +2,7 @@ import { Button, XStack } from 'tamagui';
 import { EmotionPicker } from '../EmotionPicker';
 import React from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
-import { HeaderContainer } from '../HeaderContainer';
+import { HeaderContainer } from '../containers/HeaderContainer';
 import { ALargeSmall, ChevronLeft } from '@tamagui/lucide-icons';
 import { useRouter } from 'expo-router';
 import { CalendarPicker } from '@/components/CalendarPicker';

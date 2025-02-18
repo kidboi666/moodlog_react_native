@@ -7,7 +7,7 @@ import { StatusBar } from '@/components/StatusBar';
 import * as NavigationBar from 'expo-navigation-bar';
 import { useAppTheme } from '@/store/hooks/useAppTheme';
 import { Platform } from 'react-native';
-import { useTheme } from 'tamagui';
+import { Spinner, useTheme } from 'tamagui';
 import * as SplashScreen from 'expo-splash-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { CurrentToast } from '@/components/CurrentToast';
@@ -43,10 +43,18 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (fontLoaded || fontError) {
-      // Hide the splash screen after the fonts have loaded (or an error was returned) and the UI is ready.
-      SplashScreen.hideAsync();
+    async function prepare() {
+      try {
+        if (fontLoaded || fontError) {
+          await new Promise(resolve => setTimeout(resolve, 100));
+          await SplashScreen.hideAsync();
+        }
+      } catch (e) {
+        console.warn(e);
+      }
     }
+
+    prepare();
   }, [fontLoaded, fontError]);
 
   if (!fontLoaded && !fontError) {
@@ -62,7 +70,7 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const { currentTheme } = useAppTheme();
   const theme = useTheme();
-  const { isInitialUser } = useUser();
+  const { isInitialUser, isLoading } = useUser();
   const router = useRouter();
 
   useEffect(() => {
@@ -75,10 +83,29 @@ function RootLayoutNav() {
   }, [currentTheme]);
 
   useEffect(() => {
+    if (isLoading) return;
+
     if (!isInitialUser) {
       router.replace('/(onboarding)');
+    } else {
+      router.replace('/(drawer)');
     }
-  }, []);
+  }, [isInitialUser, isLoading]);
+
+  if (isLoading) {
+    return (
+      <GestureHandlerRootView
+        style={{
+          flex: 1,
+          backgroundColor: theme.background.val,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Spinner size="large" />
+      </GestureHandlerRootView>
+    );
+  }
 
   return (
     <GestureHandlerRootView
@@ -89,13 +116,7 @@ function RootLayoutNav() {
           value={currentTheme === 'dark' ? DarkTheme : DefaultTheme}
         >
           <StatusBar />
-          <Stack
-            screenOptions={{
-              contentStyle: {
-                backgroundColor: theme.background.val,
-              },
-            }}
-          >
+          <Stack screenOptions={{}}>
             <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
             <Stack.Screen
               name="(modal)/write"
@@ -123,7 +144,7 @@ function RootLayoutNav() {
               name="(onboarding)"
               options={{
                 headerShown: false,
-                presentation: 'modal',
+                presentation: 'card',
                 animation: 'fade',
               }}
             />

@@ -1,6 +1,6 @@
 import { useJournal } from '@/store/hooks/useJournal';
 import { useRouter } from 'expo-router';
-import { HeaderContainer } from '../HeaderContainer';
+import { HeaderContainer } from '../containers/HeaderContainer';
 import { Button, useTheme, XStack } from 'tamagui';
 import { ALargeSmall, ChevronLeft, Trash2 } from '@tamagui/lucide-icons';
 import React, { useEffect, useRef, useState } from 'react';

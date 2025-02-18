@@ -7,7 +7,6 @@ import {
 } from 'react';
 import { IUserStore } from 'src/types/store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { UserInfo } from '@/types/dtos/user';
 import { uuid } from 'expo-modules-core';
 import { IUserInfo } from '@/types/entries';
 import { Nullable } from 'src/types/utils';
@@ -44,12 +43,13 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
     void loadUserData();
   }, []);
 
-  const signUp = async (params: UserInfo) => {
+  const signUp = async (userName: string) => {
     try {
       setIsLoading(true);
       const newUser = {
+        ...userInfo,
         id: uuid.v4(),
-        ...params,
+        userName: userName,
       };
       await AsyncStorage.setItem('userinfo-storage', JSON.stringify(newUser));
       setUserInfo(newUser);
