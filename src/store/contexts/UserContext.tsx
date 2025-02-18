@@ -5,12 +5,12 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { IUserStore } from '@/types/interfaces';
+import { IUserStore } from 'src/types/store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UserInfo } from '@/types/dtos/user';
 import { uuid } from 'expo-modules-core';
 import { IUserInfo } from '@/types/entries';
-import { Nullable } from '@/types/common';
+import { Nullable } from 'src/types/utils';
 
 export const UserContext = createContext<Nullable<IUserStore>>(null);
 

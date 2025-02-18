@@ -1,7 +1,7 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { createContext, useRef } from 'react';
 import { Keyboard } from 'react-native';
-import { IBottomModalStore } from '@/types/interfaces';
+import { IBottomModalStore } from 'src/types/store';
 
 export const BottomModalContext = createContext<IBottomModalStore | null>(null);
 

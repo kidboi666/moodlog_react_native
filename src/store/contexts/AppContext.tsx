@@ -1,5 +1,5 @@
 import { createContext, PropsWithChildren, useState } from 'react';
-import { IAppStore } from '@/types/interfaces';
+import { IAppStore } from 'src/types/store';
 import { ViewFontSize } from '@/types/enums';
 
 /**

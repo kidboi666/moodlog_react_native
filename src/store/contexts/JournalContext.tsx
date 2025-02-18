@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { IJournalStore } from '@/types/interfaces';
+import { IJournalStore } from 'src/types/store';
 import { IDateCounts, IDraft, IEmotion, IJournal } from '@/types/entries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { uuid } from 'expo-modules-core';

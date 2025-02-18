@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { IThemeStore } from '@/types/interfaces';
+import { IThemeStore } from 'src/types/store';
 import { Theme } from 'tamagui';
 import { useColorScheme } from 'react-native';
 
