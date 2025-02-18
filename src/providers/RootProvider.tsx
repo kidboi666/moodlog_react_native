@@ -6,6 +6,7 @@ import { ThemeContextProvider } from '@/store/contexts/ThemeContext';
 import { JournalContextProvider } from '@/store/contexts/JournalContext';
 import { AppContextProvider } from '@/store/contexts/AppContext';
 import { BottomModalContextProvider } from '@/store/contexts/BottomModalContext';
+import { UserContextProvider } from '@/store/contexts/UserContext';
 
 export const RootProvider = ({
   children,
@@ -20,7 +21,9 @@ export const RootProvider = ({
           <PortalProvider>
             <JournalContextProvider>
               <BottomModalContextProvider>
-                <AppContextProvider>{children}</AppContextProvider>
+                <AppContextProvider>
+                  <UserContextProvider>{children}</UserContextProvider>
+                </AppContextProvider>
               </BottomModalContextProvider>
             </JournalContextProvider>
           </PortalProvider>

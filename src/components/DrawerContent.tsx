@@ -14,7 +14,7 @@ import {
 } from '@react-navigation/drawer';
 import { useRouter } from 'expo-router';
 import { Home, PersonStanding, Settings, Sun, X } from '@tamagui/lucide-icons';
-import { useThemeContext } from '@/store/hooks/useThemeContext';
+import { useAppTheme } from '@/store/hooks/useAppTheme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Container } from './Container';
 import { CONTAINER_SPACING } from '@/constants/size';
@@ -37,7 +37,7 @@ const iconList = {
 
 export const DrawerContent = (props: DrawerContentComponentProps) => {
   const { state, navigation, descriptors } = props;
-  const { currentTheme, toggleTheme } = useThemeContext();
+  const { currentTheme, toggleTheme } = useAppTheme();
   const router = useRouter();
   const theme = useTheme();
 

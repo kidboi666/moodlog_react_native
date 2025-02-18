@@ -1,8 +1,8 @@
 import { StatusBar as RNStatusBar } from 'react-native';
-import { useThemeContext } from '@/store/hooks/useThemeContext';
+import { useAppTheme } from '@/store/hooks/useAppTheme';
 
 export const StatusBar = () => {
-  const { currentTheme } = useThemeContext();
+  const { currentTheme } = useAppTheme();
   return (
     <RNStatusBar
       backgroundColor="transparent"

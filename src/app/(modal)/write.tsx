@@ -1,19 +1,19 @@
 import { ContentInput } from '@/components/ContentInput';
 import { Button, Form, Separator, useTheme, XStack, YStack } from 'tamagui';
-import { useJournalContext } from '@/store/hooks/useJournalContext';
+import { useJournal } from '@/store/hooks/useJournal';
 import { Check } from '@tamagui/lucide-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Container } from '@/components/Container';
 import { useToastController } from '@tamagui/toast';
 import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
-import { useAppContext } from '@/store/hooks/useAppContext';
+import { useApp } from '@/store/hooks/useApp';
 
 export default function WriteScreen() {
   const theme = useTheme();
-  const { fontSize } = useAppContext();
+  const { fontSize } = useApp();
   const toast = useToastController();
   const { addJournal, draft, updateDraftContent, updateDraftTitle } =
-    useJournalContext();
+    useJournal();
 
   const handleSubmit = () => {
     if (!draft.emotion?.type) {

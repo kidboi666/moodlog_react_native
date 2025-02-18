@@ -3,11 +3,11 @@ import { Plus } from '@tamagui/lucide-icons';
 import React from 'react';
 import { usePathname, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useJournalContext } from '@/store/hooks/useJournalContext';
+import { useJournal } from '@/store/hooks/useJournal';
 import { ENTER_STYLE } from '@/constants/styles';
 
 export const Floating = () => {
-  const { draft } = useJournalContext();
+  const { draft } = useJournal();
   const router = useRouter();
   const pathname = usePathname();
   const isWritePage = pathname.startsWith('/write');

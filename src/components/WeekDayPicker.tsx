@@ -1,12 +1,12 @@
 import { Button, H1, XStack, YStack } from 'tamagui';
 import { MONTHS } from '@/constants/date';
 import React, { useCallback, useMemo, useState } from 'react';
-import { useJournalContext } from '@/store/hooks/useJournalContext';
+import { useJournal } from '@/store/hooks/useJournal';
 import { ISODateString } from '@/types/dtos/date';
 import { HorizontalCalendar } from '@/components/HorizontalCalendar';
 import { CalendarDays, CalendarRange } from '@tamagui/lucide-icons';
 import { PRESS_STYLE } from '@/constants/styles';
-import { useThemeContext } from '@/store/hooks/useThemeContext';
+import { useAppTheme } from '@/store/hooks/useAppTheme';
 import { VerticalCalendar } from '@/components/VerticalCalendar';
 import { CalendarUtils } from 'react-native-calendars';
 
@@ -14,7 +14,7 @@ export const WeekDayPicker = () => {
   const [variation, setVariation] = useState<'horizontal' | 'vertical'>(
     'horizontal',
   );
-  const { currentTheme } = useThemeContext();
+  const { currentTheme } = useAppTheme();
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
@@ -22,7 +22,7 @@ export const WeekDayPicker = () => {
     CalendarUtils.getCalendarDateString(currentDate),
   );
   const { updateSelectedJournals, journals, getDateCountsForMonth } =
-    useJournalContext();
+    useJournal();
 
   const dateCounts = useMemo(
     () => getDateCountsForMonth(currentYear, currentMonth + 1),

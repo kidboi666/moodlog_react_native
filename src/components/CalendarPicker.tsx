@@ -4,7 +4,7 @@ import { Button, useTheme } from 'tamagui';
 import React, { useEffect } from 'react';
 import { BottomModal } from '@/components/modals/BottomModal';
 import { PRESS_STYLE } from '@/constants/styles';
-import { useBottomModalContext } from '@/store/hooks/useBottomModalContext';
+import { useBottomModal } from '@/store/hooks/useBottomModal';
 
 interface Props {
   localDate?: string;
@@ -13,7 +13,7 @@ interface Props {
 
 export const CalendarPicker = ({ localDate, onChangeLocalDate }: Props) => {
   const theme = useTheme();
-  const { modalRef, openModal } = useBottomModalContext();
+  const { modalRef, openModal } = useBottomModal();
 
   useEffect(() => {
     if (!localDate) {

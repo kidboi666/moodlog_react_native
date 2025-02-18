@@ -1,9 +1,9 @@
 import { Button, ButtonProps } from 'tamagui';
-import { useThemeContext } from '@/store/hooks/useThemeContext';
+import { useAppTheme } from '@/store/hooks/useAppTheme';
 import { Moon, Sun } from '@tamagui/lucide-icons';
 
 export const ThemeToggle = ({ ...props }: ButtonProps) => {
-  const { currentTheme, toggleTheme } = useThemeContext();
+  const { currentTheme, toggleTheme } = useAppTheme();
 
   return (
     <Button

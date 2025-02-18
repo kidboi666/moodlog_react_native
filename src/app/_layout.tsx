@@ -5,7 +5,7 @@ import { useFonts } from 'expo-font';
 import React, { useEffect } from 'react';
 import { StatusBar } from '@/components/StatusBar';
 import * as NavigationBar from 'expo-navigation-bar';
-import { useThemeContext } from '@/store/hooks/useThemeContext';
+import { useAppTheme } from '@/store/hooks/useAppTheme';
 import { Platform } from 'react-native';
 import { useTheme } from 'tamagui';
 import * as SplashScreen from 'expo-splash-screen';
@@ -19,7 +19,7 @@ import {
 import { WriteHeader } from '@/components/headers/WriteHeader';
 import JournalHeader from '@/components/headers/JournalHeader';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { useAppContext } from '@/store/hooks/useAppContext';
+import { useUser } from '@/store/hooks/useUser';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -60,9 +60,9 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const { currentTheme } = useThemeContext();
+  const { currentTheme } = useAppTheme();
   const theme = useTheme();
-  const { isFirstLaunch } = useAppContext();
+  const { isInitialUser } = useUser();
   const router = useRouter();
 
   useEffect(() => {
@@ -73,8 +73,9 @@ function RootLayoutNav() {
       );
     }
   }, [currentTheme]);
+
   useEffect(() => {
-    if (isFirstLaunch) {
+    if (!isInitialUser) {
       router.replace('/(onboarding)');
     }
   }, []);

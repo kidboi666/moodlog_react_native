@@ -1,19 +1,18 @@
 import { Button, XStack } from 'tamagui';
 import { EmotionPicker } from '../EmotionPicker';
 import React from 'react';
-import { useJournalContext } from '@/store/hooks/useJournalContext';
+import { useJournal } from '@/store/hooks/useJournal';
 import { HeaderContainer } from '../HeaderContainer';
 import { ALargeSmall, ChevronLeft } from '@tamagui/lucide-icons';
 import { useRouter } from 'expo-router';
 import { CalendarPicker } from '@/components/CalendarPicker';
 import { PRESS_STYLE } from '@/constants/styles';
-import { useAppContext } from '@/store/hooks/useAppContext';
+import { useApp } from '@/store/hooks/useApp';
 
 export const WriteHeader = () => {
   const router = useRouter();
-  const { updateDraftEmotion, draft, updateDraftLocalDate } =
-    useJournalContext();
-  const { onChangeFontSize } = useAppContext();
+  const { updateDraftEmotion, draft, updateDraftLocalDate } = useJournal();
+  const { onChangeFontSize } = useApp();
 
   return (
     <HeaderContainer>

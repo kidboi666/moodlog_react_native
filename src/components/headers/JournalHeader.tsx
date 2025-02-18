@@ -1,11 +1,11 @@
-import { useJournalContext } from '@/store/hooks/useJournalContext';
+import { useJournal } from '@/store/hooks/useJournal';
 import { useRouter } from 'expo-router';
 import { HeaderContainer } from '../HeaderContainer';
 import { Button, useTheme, XStack } from 'tamagui';
 import { ALargeSmall, ChevronLeft, Trash2 } from '@tamagui/lucide-icons';
 import React, { useEffect, useRef, useState } from 'react';
 import { IJournal } from '@/types/entries';
-import { useAppContext } from '@/store/hooks/useAppContext';
+import { useApp } from '@/store/hooks/useApp';
 import { PRESS_STYLE } from '@/constants/styles';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { BottomModal } from '@/components/modals/BottomModal';
@@ -17,8 +17,8 @@ export default function JournalHeader({ route }) {
   const theme = useTheme();
   const modalRef = useRef<BottomSheetModal>(null);
   const [journal, setJournal] = useState<IJournal>();
-  const { journals } = useJournalContext();
-  const { onChangeFontSize } = useAppContext();
+  const { journals } = useJournal();
+  const { onChangeFontSize } = useApp();
 
   useEffect(() => {
     const journal = journals.find(item => item.id === route.params.journalId);

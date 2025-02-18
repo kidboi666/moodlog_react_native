@@ -2,7 +2,7 @@ import { Button, Text, YStack } from 'tamagui';
 import React from 'react';
 import { useBottomSheetModal } from '@gorhom/bottom-sheet';
 import { PRESS_STYLE } from '@/constants/styles';
-import { useJournalContext } from '@/store/hooks/useJournalContext';
+import { useJournal } from '@/store/hooks/useJournal';
 import { useRouter } from 'expo-router';
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 export const DeleteJournalModal = ({ journalId }: Props) => {
   const { dismissAll } = useBottomSheetModal();
   const router = useRouter();
-  const { removeJournal } = useJournalContext();
+  const { removeJournal } = useJournal();
   return (
     <YStack gap="$4">
       <Text text="center" fontSize="$5" fontWeight="500">

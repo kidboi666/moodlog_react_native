@@ -21,3 +21,11 @@ export type IDraft = {} & Partial<
 export type IDateCounts = {
   [date: string]: number;
 };
+
+export type IUserInfo = {
+  id: string;
+  userName: string;
+  age?: number;
+  email?: string;
+  provider?: string;
+};

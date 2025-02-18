@@ -1,11 +1,11 @@
 import { Button, Text, View, XStack, YStack } from 'tamagui';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useAppContext } from '@/store/hooks/useAppContext';
+import { useApp } from '@/store/hooks/useApp';
 
 export default function SignupScreen() {
   const router = useRouter();
-  const { setIsFirstLaunch } = useAppContext();
+  const { setIsFirstLaunch } = useApp();
 
   const handleComplete = async (withSignup: boolean) => {
     try {

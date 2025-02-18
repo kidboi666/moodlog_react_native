@@ -1,10 +1,10 @@
 import { Toast, useToastState } from '@tamagui/toast';
 import { isWeb, YStack } from 'tamagui';
-import { useThemeContext } from '@/store/hooks/useThemeContext';
+import { useAppTheme } from '@/store/hooks/useAppTheme';
 
 export function CurrentToast() {
   const currentToast = useToastState();
-  const { currentTheme } = useThemeContext();
+  const { currentTheme } = useAppTheme();
 
   if (!currentToast || currentToast.isHandledNatively) return null;
   return (

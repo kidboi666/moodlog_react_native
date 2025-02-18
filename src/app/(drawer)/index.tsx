@@ -1,5 +1,5 @@
 import { Separator } from 'tamagui';
-import { useJournalContext } from '@/store/hooks/useJournalContext';
+import { useJournal } from '@/store/hooks/useJournal';
 import { FlatList } from 'react-native';
 import { JournalCard } from '@/components/JournalCard';
 import { Container } from '@/components/Container';
@@ -8,7 +8,7 @@ import { EmptyJournal } from '@/components/EmptyJournal';
 import React from 'react';
 
 export default function HomeScreen() {
-  const { selectedJournals } = useJournalContext();
+  const { selectedJournals } = useJournal();
 
   return (
     <Container>

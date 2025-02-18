@@ -1,17 +1,17 @@
 import { H1, Paragraph, ScrollView, Text, View, XStack, YStack } from 'tamagui';
 import React, { useEffect, useState } from 'react';
-import { useJournalContext } from '@/store/hooks/useJournalContext';
+import { useJournal } from '@/store/hooks/useJournal';
 import { Container } from '@/components/Container';
 import { useLocalSearchParams } from 'expo-router';
 import { IJournal } from '@/types/entries';
-import { useAppContext } from '@/store/hooks/useAppContext';
+import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
 
 export default function JournalPage() {
   const { journalId } = useLocalSearchParams();
   const [journal, setJournal] = useState<IJournal>();
-  const { journals } = useJournalContext();
-  const { fontSize } = useAppContext();
+  const { journals } = useJournal();
+  const { fontSize } = useApp();
 
   useEffect(() => {
     const selectedJournal = journals.find(item => item.id === journalId);

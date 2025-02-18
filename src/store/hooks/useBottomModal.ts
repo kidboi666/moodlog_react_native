@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 import { BottomModalContext } from '@/store/contexts/BottomModalContext';
 
-export const useBottomModalContext = () => {
+export const useBottomModal = () => {
   const context = useContext(BottomModalContext);
   if (!context) {
     throw new Error(
-      'useBottomModalContext must be used within a BottomModalContextProvider',
+      'useBottomModal must be used within a BottomModalContextProvider',
     );
   }
   return context;
