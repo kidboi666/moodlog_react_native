@@ -14,3 +14,7 @@ export const getWeekNumberInMonth = (date = new Date()) => {
   const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
   return Math.ceil((date.getDate() + firstDayOfMonth.getDay() + 1) / 7);
 };
+
+export const getMonthKey = (year: number, month: number) => {
+  return `${year}-${String(month).padStart(2, '0')}`;
+};

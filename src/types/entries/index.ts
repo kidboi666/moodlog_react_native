@@ -11,9 +11,13 @@ export type IJournal = {
   content: string;
   emotion: IEmotion;
   createdAt: string;
-  localDate: string;
+  localDate: string; // YYYY-MM-DD
 };
 
 export type IDraft = {} & Partial<
   Pick<IJournal, 'title' | 'content' | 'emotion' | 'localDate'>
 >;
+
+export type IDateCounts = {
+  [date: string]: number;
+};

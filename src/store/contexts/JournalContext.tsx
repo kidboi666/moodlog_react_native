@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react';
 import { IJournalStore } from '@/types/interfaces';
-import { IDraft, IEmotion, IJournal } from '@/types/entries';
+import { IDateCounts, IDraft, IEmotion, IJournal } from '@/types/entries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { uuid } from 'expo-modules-core';
 import { useToastController } from '@tamagui/toast';
@@ -31,14 +31,37 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         createdAt: new Date().toISOString(),
         localDate: draft.localDate,
       };
+
       setJournals(prev => [...prev, newJournal]);
       setDraft({});
+
       toast.show('Successfully saved!', {
         message: 'Save Journal!',
       });
       router.replace('/');
     }
   }, []);
+
+  const getDateCountsForMonth = useCallback(
+    (year: number, month: number) => {
+      const lastDay = new Date(year, month, 0).getDate();
+      const counts: IDateCounts = {};
+
+      for (let day = 1; day <= lastDay; day++) {
+        const dateKey = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+        counts[dateKey] = 0;
+      }
+
+      journals.forEach(journal => {
+        if (counts.hasOwnProperty(journal.localDate)) {
+          counts[journal.localDate]++;
+        }
+      });
+
+      return counts;
+    },
+    [journals],
+  );
 
   const removeJournal = useCallback((id: string) => {
     setJournals(prev => prev.filter(journal => journal.id !== id));
@@ -110,6 +133,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         selectedJournals,
         draft,
         addJournal,
+        getDateCountsForMonth,
         removeJournal,
         updateJournals,
         updateDraftLocalDate,

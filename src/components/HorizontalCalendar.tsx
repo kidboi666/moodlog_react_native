@@ -11,15 +11,18 @@ import {
 import { SelectedDate } from '@/types/dtos/date';
 import { CALENDAR_SCROLL_SIZE } from '@/constants/size';
 import { EnterStyle } from '@/constants/styles';
+import { IDateCounts } from '@/types/entries';
 
 interface Props {
   dates: SelectedDate[];
   selectedDate: SelectedDate;
   currentDate: Date;
+  dateCounts: IDateCounts;
   onChangeSelectedDate: (item: SelectedDate) => void;
 }
 
 export const HorizontalCalendar = ({
+  dateCounts,
   dates,
   selectedDate,
   currentDate,

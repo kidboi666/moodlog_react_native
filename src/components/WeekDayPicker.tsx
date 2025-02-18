@@ -23,7 +23,13 @@ export const WeekDayPicker = () => {
     date: currentDate.getDate(),
     day: Object.values(WEEK_DAY)[currentDay],
   });
-  const { updateSelectedJournals } = useJournalContext();
+  const { updateSelectedJournals, journals, getDateCountsForMonth } =
+    useJournalContext();
+
+  const dateCounts = useMemo(
+    () => getDateCountsForMonth(currentYear, currentMonth + 1),
+    [],
+  );
 
   const dates = useMemo(() => {
     const lastDate = new Date(currentYear, currentMonth, 0).getDate();
@@ -89,6 +95,7 @@ export const WeekDayPicker = () => {
         <HorizontalCalendar
           key={currentTheme}
           dates={dates}
+          dateCounts={dateCounts}
           selectedDate={selectedDate}
           currentDate={currentDate}
           onChangeSelectedDate={handleSelectedDate}

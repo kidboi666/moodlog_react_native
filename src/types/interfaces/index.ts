@@ -1,4 +1,4 @@
-import { IDraft, IEmotion, IJournal } from '@/types/entries';
+import { IDateCounts, IDraft, IEmotion, IJournal } from '@/types/entries';
 import { ViewFontSize } from '@/types/enums';
 
 /**
@@ -10,6 +10,7 @@ export interface IJournalStore {
   draft: IDraft;
   addJournal: (journal: IDraft) => void;
   removeJournal: (id: string) => void;
+  getDateCountsForMonth: (year: number, month: number) => IDateCounts;
   updateJournals: (id: string, updateJournal: IJournal) => void;
   updateDraftLocalDate: (date: string) => void;
   updateDraftEmotion: (emotion: IEmotion) => void;
