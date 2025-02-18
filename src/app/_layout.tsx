@@ -116,7 +116,16 @@ function RootLayoutNav() {
           value={currentTheme === 'dark' ? DarkTheme : DefaultTheme}
         >
           <StatusBar />
-          <Stack screenOptions={{}}>
+          <Stack
+            screenOptions={{
+              contentStyle: {
+                backgroundColor: theme.background.val,
+              },
+              headerStyle: {
+                backgroundColor: theme.background.val,
+              },
+            }}
+          >
             <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
             <Stack.Screen
               name="(modal)/write"

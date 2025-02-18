@@ -33,36 +33,44 @@ export const JournalCard = ({ journal, index }: Props) => {
       }}
     >
       <XStack
-        bg="$gray5"
-        rounded="$8"
-        p="$4"
-        pl="$3"
-        items="center"
-        gap="$3"
+        gap="$4"
         animation="quick"
         enterStyle={ENTER_STYLE}
         pressStyle={PRESS_STYLE}
       >
         <View
-          width="$0.5"
+          width="$0.75"
           height="100%"
           rounded="$8"
           bg={emotionTheme[journal.emotion.type][journal.emotion.level]}
         />
-        <YStack flex={1} gap="$4">
-          {journal.title && (
-            <Paragraph fontWeight="800" fontSize="$6">
-              {journal.title.trim()}
-            </Paragraph>
-          )}
-          {journal.content.length > 0 && (
-            <Paragraph color="$gray12" flex={1} numberOfLines={4}>
-              {journal.content}
-            </Paragraph>
-          )}
-          <CurrentDateWithoutYear localDate={journal.localDate} fontSize="$2" />
-        </YStack>
-        <Button unstyled icon={<ChevronRight size="$1" />} />
+        <XStack
+          flex={1}
+          bg="$gray5"
+          rounded="$8"
+          p="$4"
+          pl="$3"
+          items="center"
+          gap="$3"
+        >
+          <YStack flex={1} gap="$4">
+            {journal.title && (
+              <Paragraph fontWeight="800" fontSize="$6">
+                {journal.title.trim()}
+              </Paragraph>
+            )}
+            {journal.content.length > 0 && (
+              <Paragraph color="$gray12" flex={1} numberOfLines={4}>
+                {journal.content}
+              </Paragraph>
+            )}
+            <CurrentDateWithoutYear
+              localDate={journal.localDate}
+              fontSize="$2"
+            />
+          </YStack>
+          <Button unstyled icon={<ChevronRight size="$1" />} />
+        </XStack>
       </XStack>
     </Link>
   );

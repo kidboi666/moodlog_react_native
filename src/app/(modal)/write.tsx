@@ -1,5 +1,5 @@
 import { ContentInput } from '@/components/ContentInput';
-import { Button, Form, Separator, useTheme, XStack, YStack } from 'tamagui';
+import { Button, Form, Separator, XStack, YStack } from 'tamagui';
 import { useJournal } from '@/store/hooks/useJournal';
 import { Check } from '@tamagui/lucide-icons';
 import { Container } from '@/components/containers/Container';
@@ -8,7 +8,6 @@ import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
 import { useApp } from '@/store/hooks/useApp';
 
 export default function WriteScreen() {
-  const theme = useTheme();
   const { fontSize } = useApp();
   const toast = useToastController();
   const { addJournal, draft, updateDraftContent, updateDraftTitle } =

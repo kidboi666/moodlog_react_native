@@ -14,6 +14,7 @@ export default function HomeLayout() {
         screenOptions={{
           headerShown: true,
           header: ({ navigation }) => <HomeHeader navigation={navigation} />,
+          sceneStyle: { backgroundColor: theme.background.val },
         }}
       >
         <Drawer.Screen
