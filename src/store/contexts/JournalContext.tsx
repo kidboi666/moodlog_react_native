@@ -13,6 +13,7 @@ import { useToastController } from '@tamagui/toast';
 import { useRouter } from 'expo-router';
 import { ISODateString } from '@/types/dtos/date';
 import { Nullable } from '@/types/utils';
+import { STORAGE_KEY } from '@/constants/storage';
 
 export const JournalContext = createContext<Nullable<IJournalStore>>(null);
 
@@ -105,12 +106,25 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     const loadJournals = async () => {
       try {
         setIsLoading(true);
-        const savedJournals = await AsyncStorage.getItem('journals-storage');
-        if (savedJournals) {
-          setJournals(JSON.parse(savedJournals));
+        const savedJournals = await AsyncStorage.getItem(STORAGE_KEY.JOURNALS);
+        if (!savedJournals) {
+          const backupJournals = await AsyncStorage.getItem(STORAGE_KEY.BACKUP);
+          if (backupJournals) {
+            setJournals(JSON.parse(backupJournals));
+            toast.show('Restored from backup', {
+              message: 'Your data has been restored',
+            });
+            return;
+          }
         }
+
+        setJournals(JSON.parse(savedJournals || '[]'));
       } catch (error) {
-        console.log(error);
+        console.error('Load error:', error);
+        toast.show('Error loading journals', {
+          message: 'Please try again later',
+          type: 'error',
+        });
       } finally {
         setIsLoading(false);
       }
@@ -122,12 +136,32 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     const saveJournals = async () => {
       try {
         setIsLoading(true);
+
+        if (!Array.isArray(journals)) {
+          throw new Error('Journals is not an array');
+        }
+
         await AsyncStorage.setItem(
           'journals-storage',
           JSON.stringify(journals),
         );
+
+        if (journals.length > 0) {
+          await AsyncStorage.setItem(
+            STORAGE_KEY.BACKUP,
+            JSON.stringify(journals),
+          );
+        }
       } catch (error) {
-        console.log(error);
+        const savedJournals = await AsyncStorage.getItem(STORAGE_KEY.JOURNALS);
+        if (savedJournals) {
+          setJournals(JSON.parse(savedJournals));
+        }
+
+        toast.show('Error saving journals', {
+          message: 'Your data has been restored',
+          type: 'error',
+        });
       } finally {
         setIsLoading(false);
       }

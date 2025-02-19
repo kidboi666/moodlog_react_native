@@ -70,7 +70,7 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const { currentTheme } = useAppTheme();
   const theme = useTheme();
-  const { isInitialUser } = useUser();
+  const { isInitialUser, isLoading } = useUser();
   const router = useRouter();
 
   useEffect(() => {
@@ -89,6 +89,8 @@ function RootLayoutNav() {
       router.replace('/(drawer)');
     }
   }, [isInitialUser]);
+
+  if (isLoading) return null;
 
   return (
     <GestureHandlerRootView

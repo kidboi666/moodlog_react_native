@@ -23,14 +23,14 @@ export const JournalCard = ({ journal, index }: Props) => {
         }}
       >
         <XStack
-          gap="$4"
           animation="quick"
           enterStyle={ENTER_STYLE}
           pressStyle={PRESS_STYLE}
         >
           <View
             width="$0.75"
-            height="100%"
+            my="auto"
+            height="75%"
             rounded="$8"
             bg={emotionTheme[journal.emotion.type][journal.emotion.level]}
           />
