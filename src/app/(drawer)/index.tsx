@@ -10,7 +10,7 @@ export default function HomeScreen() {
   const { selectedJournals } = useJournal();
 
   return (
-    <Container gap="$4">
+    <Container>
       <FlatList
         data={selectedJournals}
         ListHeaderComponent={HomeHeaderWithCalendar}
