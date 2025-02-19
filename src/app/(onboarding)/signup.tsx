@@ -1,55 +1,31 @@
-import { Button, Text, View, XStack, YStack } from 'tamagui';
-import { useRouter } from 'expo-router';
+import { Button, H1, H3, Text, View, YStack } from 'tamagui';
+import { useUser } from '@/store/hooks/useUser';
+import { Container } from '@/components/containers/Container';
 
 export default function SignupScreen() {
-  const router = useRouter();
+  const { setIsInitialUser } = useUser();
 
-  const handleComplete = async (withSignup: boolean) => {
-    try {
-      if (withSignup) {
-        router.push('/auth/signup');
-      } else {
-        // 로컬 모드로 시작
-        router.replace('/');
-      }
-    } catch (error) {
-      console.error('Failed to complete (onboarding):', error);
-    }
+  const handleComplete = async () => {
+    setIsInitialUser(true);
   };
 
   return (
-    <View flex={1} justify="center" p="$4">
-      <YStack gap="$4">
-        <Text fontFamily="$heading" fontSize="$6" text="center" mb="$4">
-          Take Your Experience Further
-        </Text>
-        <Text fontSize="$4" text="center" color="$gray11">
-          Sign up to unlock additional features:
-        </Text>
-        <YStack gap="$2" mt="$4">
-          <Text color="$gray11">• Sync across devices</Text>
-          <Text color="$gray11">• Secure backup</Text>
-          <Text color="$gray11">• Advanced statistics</Text>
+    <Container edges={['bottom']}>
+      <YStack gap="$4" flex={1}>
+        <H1>Take Your Experience Further</H1>
+        <YStack bg="$gray12" p="$5" gap="$4" rounded="$8">
+          <H3 color="$gray1">Sign up to unlock additional features:</H3>
+          <YStack gap="$2">
+            <Text color="$gray2">• Sync across devices</Text>
+            <Text color="$gray2">• Secure backup</Text>
+            <Text color="$gray2">• Advanced statistics</Text>
+          </YStack>
         </YStack>
-        <XStack gap="$4" mt="$8">
-          <Button
-            flex={1}
-            size="$4"
-            onPress={() => handleComplete(false)}
-            bg="$gray5"
-          >
-            Stay Local
-          </Button>
-          <Button
-            flex={1}
-            theme="active"
-            size="$4"
-            onPress={() => handleComplete(true)}
-          >
-            with Google
-          </Button>
-        </XStack>
+        <View flex={1} />
+        <Button themeInverse onPress={handleComplete}>
+          Alright
+        </Button>
       </YStack>
-    </View>
+    </Container>
   );
 }
