@@ -53,7 +53,6 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
       };
       await AsyncStorage.setItem('userinfo-storage', JSON.stringify(newUser));
       setUserInfo(newUser);
-      setIsInitialUser(true);
     } catch (err) {
       console.error('Failed to save user data', err);
     } finally {
@@ -67,6 +66,7 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
       signUp,
       userInfo,
       isLoading,
+      setIsInitialUser,
     }),
     [isInitialUser, userInfo, isLoading],
   );

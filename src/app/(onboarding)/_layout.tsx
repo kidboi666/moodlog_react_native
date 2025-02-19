@@ -15,6 +15,7 @@ export default function OnboardingLayout() {
           contentStyle: {
             backgroundColor: theme.background.val,
           },
+          animation: 'fade',
         }}
       >
         <Stack.Screen

@@ -18,7 +18,7 @@ export const StepProgressContextProvider = ({
   const [currentStep, setCurrentStep] = useState(initialStep);
 
   const goToNextStep = useCallback(() => {
-    if (currentStep + 1 < totalSteps - 1) {
+    if (currentStep + 1 < totalSteps) {
       setCurrentStep(prev => prev + 1);
     } else {
       setCurrentStep(0);

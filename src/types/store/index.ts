@@ -7,7 +7,7 @@ import {
 } from '@/types/entries';
 import { ViewFontSize } from '@/types/enums';
 import { ISODateString } from '@/types/dtos/date';
-import { RefObject } from 'react';
+import { Dispatch, RefObject, SetStateAction } from 'react';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { LoadingState, Nullable, WithState } from 'src/types/utils';
 
@@ -37,6 +37,8 @@ export interface IThemeStore {
 export interface IAppStore {
   fontSize: ViewFontSize;
   language: any;
+  users: any[];
+  removeUser: () => void;
   onChangeFontSize: () => void;
 }
 
@@ -47,6 +49,7 @@ export interface IBottomModalStore {
 
 export type IUserStore = WithState<
   {
+    setIsInitialUser: Dispatch<SetStateAction<boolean>>;
     userInfo: Nullable<IUserInfo>;
     isInitialUser: boolean;
     signUp: (userName: string) => void;

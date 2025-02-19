@@ -7,7 +7,7 @@ import { StatusBar } from '@/components/StatusBar';
 import * as NavigationBar from 'expo-navigation-bar';
 import { useAppTheme } from '@/store/hooks/useAppTheme';
 import { Platform } from 'react-native';
-import { Spinner, useTheme } from 'tamagui';
+import { useTheme } from 'tamagui';
 import * as SplashScreen from 'expo-splash-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { CurrentToast } from '@/components/CurrentToast';
@@ -20,6 +20,7 @@ import { WriteHeader } from '@/components/headers/WriteHeader';
 import JournalHeader from '@/components/headers/JournalHeader';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useUser } from '@/store/hooks/useUser';
+import { useApp } from '@/store/hooks/useApp';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -70,8 +71,12 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const { currentTheme } = useAppTheme();
   const theme = useTheme();
-  const { isInitialUser, isLoading } = useUser();
+  const { isInitialUser } = useUser();
+  const { users } = useApp();
   const router = useRouter();
+
+  console.log('users:', users);
+  console.log('isInitialUser:', isInitialUser);
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -83,29 +88,12 @@ function RootLayoutNav() {
   }, [currentTheme]);
 
   useEffect(() => {
-    if (isLoading) return;
-
     if (!isInitialUser) {
       router.replace('/(onboarding)');
     } else {
       router.replace('/(drawer)');
     }
-  }, [isInitialUser, isLoading]);
-
-  if (isLoading) {
-    return (
-      <GestureHandlerRootView
-        style={{
-          flex: 1,
-          backgroundColor: theme.background.val,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Spinner size="large" />
-      </GestureHandlerRootView>
-    );
-  }
+  }, [isInitialUser]);
 
   return (
     <GestureHandlerRootView
@@ -153,8 +141,6 @@ function RootLayoutNav() {
               name="(onboarding)"
               options={{
                 headerShown: false,
-                presentation: 'card',
-                animation: 'fade',
               }}
             />
             <Stack.Screen name="+not-found" />

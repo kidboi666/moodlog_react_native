@@ -5,11 +5,13 @@ import { FadeIn } from '@/components/FadeIn';
 import { PARAGRAPH_DELAY } from '@/constants/styles';
 import { useUser } from '@/store/hooks/useUser';
 import { useRouter } from 'expo-router';
+import { useStepProgress } from '@/store/hooks/useStepProgress';
 
 export default function NicknameScreen() {
   const { signUp } = useUser();
   const router = useRouter();
   const [userName, setUserName] = useState('');
+  const { goToNextStep } = useStepProgress();
 
   const handleChangeUserNameInput = (userName: string) => {
     setUserName(userName);
@@ -18,12 +20,13 @@ export default function NicknameScreen() {
   const handleSubmit = () => {
     if (!userName) return;
 
+    goToNextStep();
     signUp(userName);
     router.push('/(onboarding)/signup');
   };
 
   return (
-    <Container>
+    <Container edges={['bottom']}>
       <Form onSubmit={handleSubmit} flex={1}>
         <YStack flex={1} gap="$6">
           <FadeIn delay={PARAGRAPH_DELAY.FIRST}>

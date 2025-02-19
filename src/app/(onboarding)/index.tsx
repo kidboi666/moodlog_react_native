@@ -17,7 +17,7 @@ export default function WelcomeScreen() {
   };
 
   return (
-    <Container>
+    <Container edges={['bottom']}>
       <YStack flex={1}>
         <YStack flex={1} gap="$6">
           <XStack gap="$2">
