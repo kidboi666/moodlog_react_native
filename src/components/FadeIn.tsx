@@ -11,7 +11,7 @@ export const FadeIn = ({ delay = 1000, children, ...props }: Props) => {
 
   return (
     <View
-      animation="quick"
+      animation="medium"
       enterStyle={ENTER_STYLE}
       opacity={isVisible ? 1 : 0}
       {...props}

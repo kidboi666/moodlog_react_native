@@ -17,6 +17,7 @@ import { Home, PersonStanding, Settings, Sun, X } from '@tamagui/lucide-icons';
 import { useAppTheme } from '@/store/hooks/useAppTheme';
 import { PRESS_STYLE } from '@/constants/styles';
 import { DrawerContainer } from '@/components/containers/DrawerContainer';
+import { DevButtonsWithDrawerContext } from '@/components/DevButtonsWithDrawerContext';
 
 const iconList = {
   index: (focused, theme) => (
@@ -77,6 +78,8 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
             onPress={() => handleNavigation(route.name)}
           />
         ))}
+
+        {__DEV__ && <DevButtonsWithDrawerContext />}
       </View>
 
       <DrawerItem

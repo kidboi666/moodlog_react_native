@@ -20,7 +20,6 @@ import { WriteHeader } from '@/components/headers/WriteHeader';
 import JournalHeader from '@/components/headers/JournalHeader';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useUser } from '@/store/hooks/useUser';
-import { useApp } from '@/store/hooks/useApp';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -72,11 +71,7 @@ function RootLayoutNav() {
   const { currentTheme } = useAppTheme();
   const theme = useTheme();
   const { isInitialUser } = useUser();
-  const { users } = useApp();
   const router = useRouter();
-
-  console.log('users:', users);
-  console.log('isInitialUser:', isInitialUser);
 
   useEffect(() => {
     if (Platform.OS === 'android') {

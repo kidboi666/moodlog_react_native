@@ -37,8 +37,6 @@ export interface IThemeStore {
 export interface IAppStore {
   fontSize: ViewFontSize;
   language: any;
-  users: any[];
-  removeUser: () => void;
   onChangeFontSize: () => void;
 }
 
