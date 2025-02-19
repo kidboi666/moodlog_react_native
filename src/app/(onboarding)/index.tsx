@@ -6,12 +6,11 @@ import { ShakeHand } from '@/components/ShakeHand';
 import { FadeIn } from '@/components/FadeIn';
 import { PARAGRAPH_DELAY } from '@/constants/styles';
 import { useStepProgress } from '@/store/hooks/useStepProgress';
-import { useUser } from '@/store/hooks/useUser';
 
 export default function WelcomeScreen() {
   const router = useRouter();
-  const { userInfo } = useUser();
   const { goToNextStep } = useStepProgress();
+
   const handleClickNextButton = () => {
     goToNextStep();
     router.push('/(onboarding)/nickname');

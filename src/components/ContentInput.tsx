@@ -40,6 +40,7 @@ export const ContentInput = ({
         unstyled
         fontSize="$9"
         my="$2"
+        color="$color"
         ref={firstInputRef}
         onSubmitEditing={handleFirstLineSubmit}
         placeholder="How are you feeling today?"

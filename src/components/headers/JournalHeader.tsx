@@ -1,7 +1,7 @@
 import { useJournal } from '@/store/hooks/useJournal';
 import { useRouter } from 'expo-router';
 import { HeaderContainer } from '../containers/HeaderContainer';
-import { Button, useTheme, XStack } from 'tamagui';
+import { Button, useTheme, View, XStack } from 'tamagui';
 import { ALargeSmall, ChevronLeft, Trash2 } from '@tamagui/lucide-icons';
 import React, { useEffect, useRef, useState } from 'react';
 import { IJournal } from '@/types/entries';
@@ -31,17 +31,17 @@ export default function JournalHeader({ route }) {
     <>
       <HeaderContainer>
         <XStack justify="space-between">
-          <Button
-            unstyled
-            p="$2"
-            l={0}
-            icon={<ChevronLeft size="$1" />}
-            onPress={() => router.back()}
-            pressStyle={{
-              opacity: 0.5,
-              scale: 0.9,
-            }}
-          />
+          <XStack>
+            <Button
+              unstyled
+              p="$2"
+              l={0}
+              icon={<ChevronLeft size="$1" />}
+              onPress={() => router.back()}
+              pressStyle={PRESS_STYLE}
+            />
+            <View width="$3" />
+          </XStack>
           <XStack gap="$2" items="center">
             <CurrentDate localDate={journal.localDate} />
           </XStack>

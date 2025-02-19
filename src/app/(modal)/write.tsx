@@ -1,11 +1,13 @@
 import { ContentInput } from '@/components/ContentInput';
-import { Button, Form, Separator, XStack, YStack } from 'tamagui';
+import { Button, Form, View } from 'tamagui';
 import { useJournal } from '@/store/hooks/useJournal';
 import { Check } from '@tamagui/lucide-icons';
 import { Container } from '@/components/containers/Container';
 import { useToastController } from '@tamagui/toast';
 import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
 import { useApp } from '@/store/hooks/useApp';
+import { emotionTheme } from '@/constants/themes';
+import React from 'react';
 
 export default function WriteScreen() {
   const { fontSize } = useApp();
@@ -23,38 +25,44 @@ export default function WriteScreen() {
   };
 
   return (
-    <Container>
-      <YStack flex={1} gap="$3">
-        <XStack flex={1} gap="$4" ml="$2">
-          <Separator vertical />
-          <Form onSubmit={handleSubmit} gap="$4" flex={1}>
-            <ContentInput
-              fontSize={fontSize}
-              contentValue={draft.content}
-              titleValue={draft.title}
-              onChangeContentText={updateDraftContent}
-              onChangeTitleText={updateDraftTitle}
+    <Container flexDirection="row" gap="$3" pl={0}>
+      {draft.emotion ? (
+        <View
+          width="3%"
+          height="100%"
+          borderTopRightRadius="$4"
+          bg={emotionTheme[draft.emotion?.type][draft.emotion?.level]}
+        />
+      ) : (
+        <View width="3%" height="100%" borderTopRightRadius="$4" bg="$gray8" />
+      )}
+
+      <Form onSubmit={handleSubmit} gap="$4" flex={1}>
+        <ContentInput
+          fontSize={fontSize}
+          contentValue={draft.content}
+          titleValue={draft.title}
+          onChangeContentText={updateDraftContent}
+          onChangeTitleText={updateDraftTitle}
+        />
+        <Form.Trigger asChild disabled={!draft?.content || !draft?.emotion}>
+          {draft.content && (
+            <Button
+              bg="$background"
+              mb="$2"
+              animation="quick"
+              themeInverse
+              self="flex-end"
+              disabled={!draft.content}
+              icon={Check}
+              color="$color"
+              opacity={!draft.content ? 0.5 : 1}
+              pressStyle={PRESS_STYLE}
+              enterStyle={{ ...ENTER_STYLE, y: -10 }}
             />
-            <Form.Trigger asChild disabled={!draft?.content || !draft?.emotion}>
-              {draft.content && (
-                <Button
-                  bg="$background"
-                  mb="$2"
-                  animation="quick"
-                  themeInverse
-                  self="flex-end"
-                  disabled={!draft.content}
-                  icon={Check}
-                  color="$color"
-                  opacity={!draft.content ? 0.5 : 1}
-                  pressStyle={PRESS_STYLE}
-                  enterStyle={{ ...ENTER_STYLE, y: -10 }}
-                />
-              )}
-            </Form.Trigger>
-          </Form>
-        </XStack>
-      </YStack>
+          )}
+        </Form.Trigger>
+      </Form>
     </Container>
   );
 }

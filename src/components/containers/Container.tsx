@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 export const Container = ({ children, ...props }: ViewProps) => {
   const insets = useSafeAreaInsets();
   return (
-    <View flex={1} p={CONTAINER_SPACING} mb={insets.bottom} {...props}>
+    <View flex={1} px={CONTAINER_SPACING} {...props}>
       {children}
     </View>
   );

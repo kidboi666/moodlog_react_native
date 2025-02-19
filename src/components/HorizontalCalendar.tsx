@@ -84,7 +84,7 @@ export const HorizontalCalendar = ({
                     ? (theme.gray5.val as any)
                     : 'transparent'
                 }
-                p="$3"
+                py="$3"
                 width={CALENDAR_SCROLL_SIZE}
                 rounded="$4"
                 unstyled
