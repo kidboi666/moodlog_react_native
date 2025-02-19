@@ -6,7 +6,6 @@ import { ISODateString } from '@/types/dtos/date';
 import { HorizontalCalendar } from '@/components/HorizontalCalendar';
 import { CalendarDays, CalendarRange } from '@tamagui/lucide-icons';
 import { PRESS_STYLE } from '@/constants/styles';
-import { useAppTheme } from '@/store/hooks/useAppTheme';
 import { VerticalCalendar } from '@/components/VerticalCalendar';
 import { CalendarUtils } from 'react-native-calendars';
 
@@ -14,7 +13,6 @@ export const WeekDayPicker = () => {
   const [variation, setVariation] = useState<'horizontal' | 'vertical'>(
     'horizontal',
   );
-  const { currentTheme } = useAppTheme();
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
@@ -81,7 +79,6 @@ export const WeekDayPicker = () => {
       </XStack>
       {variation === 'horizontal' && (
         <HorizontalCalendar
-          key={currentTheme}
           dates={dates}
           dateCounts={dateCounts}
           selectedDate={selectedDate}

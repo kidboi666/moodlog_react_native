@@ -14,6 +14,7 @@ import { useRouter } from 'expo-router';
 import { ISODateString } from '@/types/dtos/date';
 import { Nullable } from '@/types/utils';
 import { STORAGE_KEY } from '@/constants/storage';
+import { CalendarUtils } from 'react-native-calendars';
 
 export const JournalContext = createContext<Nullable<IJournalStore>>(null);
 
@@ -168,6 +169,16 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     };
     void saveJournals();
   }, [journals]);
+
+  useEffect(() => {
+    const initializeSelectedJournals = () => {
+      updateSelectedJournals(CalendarUtils.getCalendarDateString(new Date()));
+    };
+
+    if (journals.length >= 0 && !isLoading) {
+      initializeSelectedJournals();
+    }
+  }, [journals, isLoading, updateSelectedJournals]);
 
   return (
     <JournalContext.Provider

@@ -13,8 +13,12 @@ export const BottomModalContextProvider = ({ children }) => {
     modalRef.current?.present();
   };
 
+  const closeModal = () => {
+    modalRef.current?.dismiss();
+  };
+
   return (
-    <BottomModalContext.Provider value={{ modalRef, openModal }}>
+    <BottomModalContext.Provider value={{ modalRef, openModal, closeModal }}>
       {children}
     </BottomModalContext.Provider>
   );

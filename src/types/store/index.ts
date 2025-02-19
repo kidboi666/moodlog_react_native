@@ -43,6 +43,7 @@ export interface IAppStore {
 export interface IBottomModalStore {
   modalRef: RefObject<BottomSheetModal>;
   openModal: () => void;
+  closeModal: () => void;
 }
 
 export type IUserStore = WithState<

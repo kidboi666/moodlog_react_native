@@ -14,8 +14,8 @@ export const HeaderContainer = ({
   const insets = useSafeAreaInsets();
 
   const safeAreaMargins = {
-    ...(edges?.includes('top') && { mt: insets.top }),
-    ...(edges?.includes('bottom') && { mb: insets.bottom }),
+    mt: edges.includes('top') ? insets.top : 0,
+    mb: edges.includes('bottom') ? insets.bottom : 0,
   };
 
   return (

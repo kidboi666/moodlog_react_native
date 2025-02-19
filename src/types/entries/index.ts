@@ -28,4 +28,5 @@ export type IUserInfo = {
   age?: number;
   email?: string;
   provider?: string;
+  avatarUrl?: string;
 };

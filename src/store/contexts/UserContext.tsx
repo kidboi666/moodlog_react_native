@@ -20,6 +20,7 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
     email: '',
     provider: '',
     age: 0,
+    avatarUrl: '',
   });
   const [isInitialUser, setIsInitialUser] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);

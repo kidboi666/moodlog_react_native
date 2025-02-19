@@ -16,6 +16,9 @@ export const BottomModal = forwardRef<BottomSheetModal, PropsWithChildren>(
         ref={ref}
         enablePanDownToClose
         index={0}
+        keyboardBehavior="extend"
+        keyboardBlurBehavior="restore"
+        android_keyboardInputMode="adjustResize"
         onChange={() => Keyboard.dismiss()}
         snapPoints={['50%']}
         backgroundStyle={{
