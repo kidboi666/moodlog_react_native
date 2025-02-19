@@ -2,12 +2,12 @@ import { Button, XStack } from 'tamagui';
 import { EmotionPicker } from '../EmotionPicker';
 import React from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
-import { HeaderContainer } from '../containers/HeaderContainer';
 import { ALargeSmall, ChevronLeft } from '@tamagui/lucide-icons';
 import { useRouter } from 'expo-router';
 import { CalendarPicker } from '@/components/CalendarPicker';
 import { PRESS_STYLE } from '@/constants/styles';
 import { useApp } from '@/store/hooks/useApp';
+import { HeaderContainer } from '@/components/containers/HeaderContainer';
 
 export const WriteHeader = () => {
   const router = useRouter();
@@ -27,12 +27,12 @@ export const WriteHeader = () => {
           pressStyle={PRESS_STYLE}
         />
 
-        <EmotionPicker
-          selectedEmotion={draft?.emotion}
-          onChangeEmotion={updateDraftEmotion}
-          self="center"
-        />
         <XStack>
+          <EmotionPicker
+            selectedEmotion={draft?.emotion}
+            onChangeEmotion={updateDraftEmotion}
+            self="center"
+          />
           <CalendarPicker
             localDate={draft?.localDate}
             onChangeLocalDate={updateDraftLocalDate}

@@ -9,13 +9,14 @@ import { HOME_HEADER_LINE_HEIGHT } from '@/constants/size';
 
 export const HomeHeaderWithCalendar = () => {
   const { userInfo } = useUser();
+
   return (
     <YStack gap="$3">
       <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
         <XStack gap="$2" items="flex-end">
           <H1 lineHeight={HOME_HEADER_LINE_HEIGHT}>Hello</H1>
           <H2 lineHeight={HOME_HEADER_LINE_HEIGHT}>{userInfo?.userName}</H2>
-          <ShakeHand />
+          <ShakeHand duration={3000} />
         </XStack>
       </FadeIn>
       <WeekDayPicker />

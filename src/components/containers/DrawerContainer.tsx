@@ -10,7 +10,7 @@ export const DrawerContainer = ({ children, ...props }: ViewProps) => {
       flex={1}
       mt={insets.top}
       mb={insets.bottom}
-      p={CONTAINER_SPACING}
+      px={CONTAINER_SPACING}
       {...props}
     >
       {children}

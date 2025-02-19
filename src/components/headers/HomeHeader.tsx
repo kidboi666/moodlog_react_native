@@ -1,7 +1,7 @@
-import { HeaderContainer } from '../containers/HeaderContainer';
 import { Button, View, XStack } from 'tamagui';
 import { LayoutGrid, Menu } from '@tamagui/lucide-icons';
 import { PRESS_STYLE } from '@/constants/styles';
+import { HeaderContainer } from '@/components/containers/HeaderContainer';
 
 export const HomeHeader = ({ navigation }) => {
   return (

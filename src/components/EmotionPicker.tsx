@@ -10,9 +10,9 @@ import {
 import { EmotionLevel, EmotionType } from '@/types/enums';
 import { IEmotion } from '@/types/entries';
 import { emotionTheme } from '@/constants/themes';
-import { Check, ChevronDown } from '@tamagui/lucide-icons';
+import { Check, Grid2x2Plus } from '@tamagui/lucide-icons';
 import React from 'react';
-import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
+import { PRESS_STYLE } from '@/constants/styles';
 
 interface Props extends ButtonProps {
   selectedEmotion?: IEmotion;
@@ -84,22 +84,11 @@ export const EmotionPicker = ({
           p="$2"
           color="$gray12"
           items="center"
-          icon={<ChevronDown size="$1" />}
+          icon={<Grid2x2Plus size="$1" />}
           pressStyle={PRESS_STYLE}
           fontSize="$5"
           {...props}
-        >
-          Select Emotion
-          {selectedEmotion?.type && selectedEmotion?.level && (
-            <Square
-              animation="quick"
-              size="$1"
-              bg={emotionTheme[selectedEmotion.type][selectedEmotion.level]}
-              rounded="$3"
-              enterStyle={ENTER_STYLE}
-            />
-          )}
-        </Button>
+        />
       </Popover.Trigger>
       <Popover.Content
         borderWidth={1}

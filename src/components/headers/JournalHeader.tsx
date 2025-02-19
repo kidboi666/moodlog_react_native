@@ -1,6 +1,5 @@
 import { useJournal } from '@/store/hooks/useJournal';
 import { useRouter } from 'expo-router';
-import { HeaderContainer } from '../containers/HeaderContainer';
 import { Button, useTheme, View, XStack } from 'tamagui';
 import { ALargeSmall, ChevronLeft, Trash2 } from '@tamagui/lucide-icons';
 import React, { useEffect, useRef, useState } from 'react';
@@ -11,6 +10,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { BottomModal } from '@/components/modals/BottomModal';
 import { DeleteJournalModal } from '@/components/modals/contents/DeleteJournalModal';
 import { CurrentDate } from '@/components/CurrentDate';
+import { HeaderContainer } from '@/components/containers/HeaderContainer';
 
 export default function JournalHeader({ route }) {
   const router = useRouter();

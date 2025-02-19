@@ -20,17 +20,19 @@ export default function WelcomeScreen() {
     <Container edges={['bottom']}>
       <YStack flex={1}>
         <YStack flex={1} gap="$6">
-          <XStack gap="$2">
-            <H1>Hello!</H1>
-            <ShakeHand />
-          </XStack>
           <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
-            <H3 color="$gray11" mb="$4">
-              Welcome to Your Daily Journey
-            </H3>
+            <XStack gap="$2">
+              <H1>Hello!</H1>
+              <ShakeHand />
+            </XStack>
           </FadeIn>
           <FadeIn delay={PARAGRAPH_DELAY.SECOND}>
-            <H3 color="$gray11">Every day is a new page in your story</H3>
+            <YStack gap="$6">
+              <H3 color="$gray11" mb="$4">
+                Welcome to Your Daily Journey
+              </H3>
+              <H3 color="$gray11">Every day is a new page in your story</H3>
+            </YStack>
           </FadeIn>
         </YStack>
         <FadeIn delay={PARAGRAPH_DELAY.THIRD}>

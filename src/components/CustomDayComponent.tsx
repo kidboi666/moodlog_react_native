@@ -38,7 +38,6 @@ export const CustomDayComponent = ({
         borderColor={isToday ? '$gray6' : 'transparent'}
         onPress={onPress}
         disabled={isDisabled}
-        elevate
       >
         <YStack items="center">
           <Text

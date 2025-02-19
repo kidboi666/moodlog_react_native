@@ -1,17 +1,20 @@
 import { ContentInput } from '@/components/ContentInput';
-import { Button, Form, View } from 'tamagui';
+import { Button, ScrollView, View } from 'tamagui';
 import { useJournal } from '@/store/hooks/useJournal';
 import { Check } from '@tamagui/lucide-icons';
 import { Container } from '@/components/containers/Container';
 import { useToastController } from '@tamagui/toast';
-import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
 import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
 import React from 'react';
+import { PRESS_STYLE } from '@/constants/styles';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { KeyboardAvoidingView } from 'react-native';
 
 export default function WriteScreen() {
   const { fontSize } = useApp();
   const toast = useToastController();
+  const insets = useSafeAreaInsets();
   const { addJournal, draft, updateDraftContent, updateDraftTitle } =
     useJournal();
 
@@ -25,44 +28,49 @@ export default function WriteScreen() {
   };
 
   return (
-    <Container flexDirection="row" gap="$3" pl={0}>
-      {draft.emotion ? (
-        <View
-          width="3%"
-          height="100%"
-          borderTopRightRadius="$4"
-          bg={emotionTheme[draft.emotion?.type][draft.emotion?.level]}
-        />
-      ) : (
-        <View width="3%" height="100%" borderTopRightRadius="$4" bg="$gray8" />
-      )}
+    <KeyboardAvoidingView style={{ flex: 1 }}>
+      <Container flexDirection="row" gap="$3" pl={0}>
+        {draft.emotion ? (
+          <View
+            width="3%"
+            height="100%"
+            borderTopRightRadius="$4"
+            bg={emotionTheme[draft.emotion?.type][draft.emotion?.level]}
+          />
+        ) : (
+          <View
+            width="3%"
+            height="100%"
+            borderTopRightRadius="$4"
+            bg="$gray8"
+          />
+        )}
 
-      <Form onSubmit={handleSubmit} gap="$4" flex={1}>
-        <ContentInput
-          fontSize={fontSize}
-          contentValue={draft.content}
-          titleValue={draft.title}
-          onChangeContentText={updateDraftContent}
-          onChangeTitleText={updateDraftTitle}
+        <ScrollView flex={1}>
+          <ContentInput
+            fontSize={fontSize}
+            contentValue={draft.content}
+            titleValue={draft.title}
+            onChangeContentText={updateDraftContent}
+            onChangeTitleText={updateDraftTitle}
+          />
+        </ScrollView>
+        <Button
+          bg="$background"
+          animation="quick"
+          themeInverse
+          position="absolute"
+          r="$2"
+          b={insets.bottom}
+          icon={Check}
+          z={200}
+          color="$color"
+          disabled={!draft?.content}
+          opacity={!draft.content ? 0.5 : 1}
+          pressStyle={PRESS_STYLE}
+          onPress={handleSubmit}
         />
-        <Form.Trigger asChild disabled={!draft?.content || !draft?.emotion}>
-          {draft.content && (
-            <Button
-              bg="$background"
-              mb="$2"
-              animation="quick"
-              themeInverse
-              self="flex-end"
-              disabled={!draft.content}
-              icon={Check}
-              color="$color"
-              opacity={!draft.content ? 0.5 : 1}
-              pressStyle={PRESS_STYLE}
-              enterStyle={{ ...ENTER_STYLE, y: -10 }}
-            />
-          )}
-        </Form.Trigger>
-      </Form>
-    </Container>
+      </Container>
+    </KeyboardAvoidingView>
   );
 }

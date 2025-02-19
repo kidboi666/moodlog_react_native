@@ -35,6 +35,7 @@ export const ContentInput = ({
   return (
     <YStack flex={1}>
       <Input
+        width="100%"
         value={titleValue}
         onChangeText={onChangeTitleText}
         unstyled
@@ -52,15 +53,15 @@ export const ContentInput = ({
         unstyled
         multiline
         fontSize={fontSize}
-        flex={isFocused ? 1 : 0}
         ref={secondInputRef}
+        scrollEnabled={false}
         pb="$4"
         color="$color"
         verticalAlign="top"
         {...props}
       />
       {!isFocused && (
-        <View flex={1}>
+        <View flex={1} bg="$blue2">
           <Button unstyled flex={1} onPress={handleFocusInput} />
         </View>
       )}
