@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, H3, Input, Text, XStack, YStack } from 'tamagui';
 import { IUserInfo } from '@/types/entries';
 import { useUser } from '@/store/hooks/useUser';

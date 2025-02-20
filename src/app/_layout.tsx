@@ -2,7 +2,7 @@ import '../../tamagui-web.css';
 import { Stack, useRouter } from 'expo-router';
 import { RootProvider } from '@/providers/RootProvider';
 import { useFonts } from 'expo-font';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { StatusBar } from '@/components/StatusBar';
 import * as NavigationBar from 'expo-navigation-bar';
 import { useAppTheme } from '@/store/hooks/useAppTheme';
@@ -28,11 +28,6 @@ export const unstable_settings = {
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
-
-SplashScreen.setOptions({
-  duration: 1000,
-  fade: true,
-});
 
 export default function RootLayout() {
   const [fontLoaded, fontError] = useFonts({
@@ -83,10 +78,12 @@ function RootLayoutNav() {
   }, [currentTheme]);
 
   useEffect(() => {
-    if (!isInitialUser) {
-      router.replace('/(onboarding)');
-    } else {
+    if (isLoading) return;
+
+    if (isInitialUser) {
       router.replace('/(drawer)');
+    } else {
+      router.replace('/(onboarding)');
     }
   }, [isInitialUser]);
 
@@ -111,6 +108,12 @@ function RootLayoutNav() {
               },
             }}
           >
+            <Stack.Screen
+              name="(onboarding)"
+              options={{
+                headerShown: false,
+              }}
+            />
             <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
             <Stack.Screen
               name="(modal)/write"
@@ -132,12 +135,6 @@ function RootLayoutNav() {
                 animation: 'default',
                 gestureEnabled: true,
                 gestureDirection: 'horizontal',
-              }}
-            />
-            <Stack.Screen
-              name="(onboarding)"
-              options={{
-                headerShown: false,
               }}
             />
             <Stack.Screen name="+not-found" />

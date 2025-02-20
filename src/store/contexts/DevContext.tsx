@@ -1,6 +1,8 @@
 import { Nullable } from '@/types/utils';
 import { createContext, PropsWithChildren, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { STORAGE_KEY } from '@/constants/storage';
+import { dummyJournals } from '../../../dummy';
 
 export const DevContext = createContext<
   Nullable<{
@@ -8,6 +10,8 @@ export const DevContext = createContext<
     onClearUserStorage: () => void;
     isJournalStorageCleared: boolean;
     onClearJournalStorage: () => void;
+    onClearStorage: () => void;
+    insertDummyData: () => void;
   }>
 >(null);
 
@@ -18,14 +22,29 @@ export const DevContextProvider = ({ children }: PropsWithChildren) => {
 
   const handleClearUserStorage = async () => {
     console.log('Clearing user storage...');
-    await AsyncStorage.removeItem('userinfo-storage');
+    await AsyncStorage.removeItem(STORAGE_KEY.USER_INFO);
     setIsStorageCleared(true);
   };
 
   const handleClearJournalStorage = async () => {
     console.log('Clearing journal storage...');
-    await AsyncStorage.removeItem('journal-storage');
+    await AsyncStorage.removeItem(STORAGE_KEY.JOURNALS);
     setIsJournalStorageCleared(true);
+  };
+
+  const handleClearStorage = async () => {
+    console.log('Clearing storage...');
+    await AsyncStorage.clear();
+    setIsStorageCleared(true);
+    setIsJournalStorageCleared(true);
+  };
+
+  const insertDummyData = async () => {
+    console.log('Inserting dummy data...');
+    await AsyncStorage.setItem(
+      STORAGE_KEY.JOURNALS,
+      JSON.stringify(dummyJournals),
+    );
   };
 
   return (
@@ -35,6 +54,8 @@ export const DevContextProvider = ({ children }: PropsWithChildren) => {
         onClearUserStorage: handleClearUserStorage,
         isJournalStorageCleared,
         onClearJournalStorage: handleClearJournalStorage,
+        onClearStorage: handleClearStorage,
+        insertDummyData,
       }}
     >
       {children}

@@ -1,17 +1,23 @@
-import { Button, H1, View } from 'tamagui';
+import { Button, H2, ScrollView, YStack } from 'tamagui';
 import { useDev } from '@/store/hooks/useDev';
-import { useUser } from '@/store/hooks/useUser';
 
 export const DevButtonsWithDrawerContext = () => {
-  const { onClearUserStorage, onClearJournalStorage } = useDev();
-  const { setIsInitialUser } = useUser();
+  const {
+    onClearUserStorage,
+    onClearJournalStorage,
+    onClearStorage,
+    insertDummyData,
+  } = useDev();
 
   return (
-    <View>
-      <H1>DEV</H1>
-      <Button onPress={onClearUserStorage}>Clear User Storage</Button>
-      <Button onPress={onClearJournalStorage}>Clear Journal Storage</Button>
-      <Button onPress={() => setIsInitialUser(false)}>Set Initial User</Button>
-    </View>
+    <ScrollView>
+      <H2 mb="$4">Development</H2>
+      <YStack gap="$4">
+        <Button onPress={onClearUserStorage}>Clear User Storage</Button>
+        <Button onPress={onClearJournalStorage}>Clear Journal Storage</Button>
+        <Button onPress={onClearStorage}>Clear Storage</Button>
+        <Button onPress={insertDummyData}>Insert Dummy Data</Button>
+      </YStack>
+    </ScrollView>
   );
 };

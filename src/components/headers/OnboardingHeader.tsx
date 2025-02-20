@@ -6,7 +6,7 @@ export const OnboardingHeader = () => {
   const { currentStep, totalSteps } = useStepProgress();
 
   return (
-    <HeaderContainer>
+    <HeaderContainer py="$4">
       <XStack justify="center">
         <XStack gap="$2">
           {Array.from({ length: totalSteps }, (_, i) => (

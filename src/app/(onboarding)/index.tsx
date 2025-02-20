@@ -9,11 +9,13 @@ import { useStepProgress } from '@/store/hooks/useStepProgress';
 
 export default function WelcomeScreen() {
   const router = useRouter();
-  const { goToNextStep } = useStepProgress();
+  const { currentStep, goToNextStep } = useStepProgress();
 
   const handleClickNextButton = () => {
-    goToNextStep();
-    router.push('/(onboarding)/nickname');
+    if (currentStep === 0) {
+      goToNextStep();
+      router.push('/(onboarding)/nickname');
+    }
   };
 
   return (
@@ -43,6 +45,7 @@ export default function WelcomeScreen() {
         <Button
           mt="$8"
           themeInverse
+          self="flex-end"
           size="$5"
           iconAfter={<ArrowRight size="$1" />}
           onPress={handleClickNextButton}

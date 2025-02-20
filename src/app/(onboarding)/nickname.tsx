@@ -1,60 +1,70 @@
 import { Container } from '@/components/containers/Container';
-import { Button, Form, H2, H3, Input, YStack } from 'tamagui';
-import { useState } from 'react';
+import { Button, H2, H3, Input, XStack, YStack } from 'tamagui';
 import { FadeIn } from '@/components/FadeIn';
 import { PARAGRAPH_DELAY } from '@/constants/styles';
 import { useUser } from '@/store/hooks/useUser';
 import { useRouter } from 'expo-router';
 import { useStepProgress } from '@/store/hooks/useStepProgress';
+import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
 
 export default function NicknameScreen() {
-  const { signUp } = useUser();
+  const { draftUserName, onChangeDraftUserName } = useUser();
   const router = useRouter();
-  const [userName, setUserName] = useState('');
-  const { goToNextStep } = useStepProgress();
+  const { currentStep, goToPrevStep, goToNextStep } = useStepProgress();
 
-  const handleChangeUserNameInput = (userName: string) => {
-    setUserName(userName);
+  const handlePrevStep = () => {
+    if (currentStep === 1) {
+      goToPrevStep();
+      router.back();
+    }
   };
 
-  const handleSubmit = () => {
-    if (!userName) return;
-
-    goToNextStep();
-    signUp(userName);
-    router.push('/(onboarding)/signup');
+  const handleNextStep = () => {
+    if (!draftUserName) return;
+    if (currentStep === 1) {
+      goToNextStep();
+      router.push('/(onboarding)/signup');
+    }
   };
 
   return (
     <Container edges={['bottom']}>
-      <Form onSubmit={handleSubmit} flex={1}>
-        <YStack flex={1} gap="$6">
-          <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
-            <H2>Your story starts here</H2>
-          </FadeIn>
-          <FadeIn delay={PARAGRAPH_DELAY.SECOND}>
-            <H3 color="$gray11">what name will you write it under?</H3>
-          </FadeIn>
-          <FadeIn delay={PARAGRAPH_DELAY.THIRD}>
-            <Input
-              value={userName}
-              onChangeText={handleChangeUserNameInput}
-              placeholder="Enter your name"
-            />
-          </FadeIn>
-        </YStack>
-        <FadeIn delay={PARAGRAPH_DELAY.THIRD}>
-          <Form.Trigger asChild>
-            <Button
-              themeInverse
-              disabled={!userName}
-              opacity={!userName ? 0.2 : 1}
-            >
-              Submit
-            </Button>
-          </Form.Trigger>
+      <YStack flex={1} gap="$6">
+        <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
+          <H2>Your story starts here</H2>
         </FadeIn>
-      </Form>
+        <FadeIn delay={PARAGRAPH_DELAY.SECOND}>
+          <H3 color="$gray11">what name will you write it under?</H3>
+        </FadeIn>
+        <FadeIn delay={PARAGRAPH_DELAY.THIRD}>
+          <Input
+            value={draftUserName}
+            onChangeText={onChangeDraftUserName}
+            placeholder="Enter your name"
+          />
+        </FadeIn>
+      </YStack>
+      <FadeIn delay={PARAGRAPH_DELAY.THIRD}>
+        <XStack justify="space-between">
+          <Button
+            size="$5"
+            icon={<ArrowLeft size="$1" />}
+            onPress={handlePrevStep}
+          >
+            Prev
+          </Button>
+          <Button
+            themeInverse
+            size="$5"
+            disabled={!draftUserName}
+            opacity={!draftUserName ? 0.2 : 1}
+            onPress={handleNextStep}
+            iconAfter={<ArrowRight size="$1" />}
+          >
+            Next
+          </Button>
+        </XStack>
+      </FadeIn>
     </Container>
   );
 }

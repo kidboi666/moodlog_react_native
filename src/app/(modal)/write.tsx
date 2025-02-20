@@ -6,7 +6,6 @@ import { Container } from '@/components/containers/Container';
 import { useToastController } from '@tamagui/toast';
 import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
-import React from 'react';
 import { PRESS_STYLE } from '@/constants/styles';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { KeyboardAvoidingView } from 'react-native';

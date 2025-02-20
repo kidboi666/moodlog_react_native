@@ -5,6 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./public/images/icon.png",
+    "newArcEnabled": true,
     "scheme": "moodlog",
     "userInterfaceStyle": "automatic",
     "assetBundlePatterns": [
@@ -49,7 +50,8 @@
             "newArchEnabled": true
           }
         }
-      ]
+      ],
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true

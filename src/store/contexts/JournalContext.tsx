@@ -143,7 +143,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         }
 
         await AsyncStorage.setItem(
-          'journals-storage',
+          STORAGE_KEY.JOURNALS,
           JSON.stringify(journals),
         );
 

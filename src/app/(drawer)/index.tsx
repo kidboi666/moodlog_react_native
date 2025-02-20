@@ -22,6 +22,9 @@ export default function HomeScreen() {
           <JournalCard journal={item} index={index} />
         )}
         ListEmptyComponent={EmptyJournal}
+        contentContainerStyle={{
+          paddingBottom: 80,
+        }}
       />
     </Container>
   );

@@ -19,24 +19,24 @@ export default function OnboardingLayout() {
         }}
       >
         <Stack.Screen
-          name="(onboarding)/index"
+          name="index"
           options={{
             animation: 'fade',
             gestureEnabled: false,
           }}
         />
         <Stack.Screen
-          name="(onboarding)/nickname"
+          name="nickname"
           options={{
             animation: 'fade',
-            gestureEnabled: true,
+            gestureEnabled: false,
           }}
         />
         <Stack.Screen
-          name="(onboarding)/signup"
+          name="signup"
           options={{
             animation: 'fade',
-            gestureEnabled: true,
+            gestureEnabled: false,
           }}
         />
       </Stack>

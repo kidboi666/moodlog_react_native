@@ -1,14 +1,26 @@
-import { Button, H1, H3, Paragraph, View, YStack } from 'tamagui';
+import { Button, H1, H3, Paragraph, View, XStack, YStack } from 'tamagui';
 import { useUser } from '@/store/hooks/useUser';
 import { Container } from '@/components/containers/Container';
 import { FadeIn } from '@/components/FadeIn';
 import { PARAGRAPH_DELAY } from '@/constants/styles';
+import { useRouter } from 'expo-router';
+import { useStepProgress } from '@/store/hooks/useStepProgress';
+import { ArrowLeft } from '@tamagui/lucide-icons';
 
 export default function SignupScreen() {
-  const { setIsInitialUser } = useUser();
+  const router = useRouter();
+  const { goToPrevStep, currentStep } = useStepProgress();
+  const { draftUserName, signUp } = useUser();
 
-  const handleComplete = async () => {
-    setIsInitialUser(true);
+  const handlePrevStep = () => {
+    if (currentStep === 2) {
+      goToPrevStep();
+      router.back();
+    }
+  };
+
+  const handleSubmit = (userName: string) => {
+    signUp(userName);
   };
 
   return (
@@ -25,13 +37,27 @@ export default function SignupScreen() {
               <Paragraph color="$gray2">• Secure backup</Paragraph>
               <Paragraph color="$gray2">• Advanced statistics</Paragraph>
             </YStack>
+            <Button>Access</Button>
           </YStack>
         </FadeIn>
         <View flex={1} />
         <FadeIn delay={PARAGRAPH_DELAY.FOURTH}>
-          <Button themeInverse onPress={handleComplete}>
-            Alright
-          </Button>
+          <XStack justify="space-between">
+            <Button
+              size="$5"
+              onPress={handlePrevStep}
+              icon={<ArrowLeft size="$1" />}
+            >
+              Prev
+            </Button>
+            <Button
+              size="$5"
+              themeInverse
+              onPress={() => handleSubmit(draftUserName)}
+            >
+              Alright
+            </Button>
+          </XStack>
         </FadeIn>
       </YStack>
     </Container>
