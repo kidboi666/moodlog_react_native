@@ -33,7 +33,7 @@ export const WeekDayPicker = () => {
     const lastDate = new Date(currentYear, currentMonth, 0).getDate();
 
     return Array.from({ length: lastDate }, (_, i) => {
-      return `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${i + 1}` as ISODateString;
+      return `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${(i + 1).toString().padStart(2, '0')}` as ISODateString;
     });
   }, [currentYear, currentMonth]);
 

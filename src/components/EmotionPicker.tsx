@@ -13,6 +13,7 @@ import { emotionTheme } from '@/constants/themes';
 import { Check, Grid2x2Plus } from '@tamagui/lucide-icons';
 import React from 'react';
 import { PRESS_STYLE } from '@/constants/styles';
+import { useTranslation } from 'react-i18next';
 
 interface Props extends ButtonProps {
   selectedEmotion?: IEmotion;
@@ -24,9 +25,11 @@ const EmotionPickerBase = ({
   onChangeEmotion,
   emotionType,
 }: Props & { emotionType: EmotionType }) => {
+  const { t } = useTranslation();
+
   return (
     <XStack gap="$4" justify="space-between" items="center" width="$16">
-      <Text>{emotionType.toString().toUpperCase()}</Text>
+      <Text>{t(`emotion.${emotionType}`)}</Text>
 
       <XStack gap="$2">
         {Object.values(EmotionLevel).map(level => (

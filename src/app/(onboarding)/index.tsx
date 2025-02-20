@@ -26,21 +26,21 @@ export default function WelcomeScreen() {
         <YStack flex={1} gap="$6">
           <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
             <XStack gap="$2">
-              <H1>{t('onboarding.page.index.title')}</H1>
+              <H1>{t('onboarding.index.title')}</H1>
               <ShakeHand />
             </XStack>
           </FadeIn>
           <FadeIn delay={PARAGRAPH_DELAY.SECOND}>
             <YStack gap="$6">
               <H3 color="$gray11" mb="$4">
-                {t('onboarding.page.index.description')}
+                {t('onboarding.index.description')}
               </H3>
-              <H3 color="$gray11">{t('onboarding.page.index.description2')}</H3>
+              <H3 color="$gray11">{t('onboarding.index.description2')}</H3>
             </YStack>
           </FadeIn>
         </YStack>
         <FadeIn delay={PARAGRAPH_DELAY.THIRD}>
-          <H2>{t('onboarding.page.index.go')}</H2>
+          <H2>{t('onboarding.index.go')}</H2>
         </FadeIn>
       </YStack>
       <FadeIn delay={PARAGRAPH_DELAY.FOURTH}>

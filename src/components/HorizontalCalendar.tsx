@@ -1,13 +1,5 @@
 import { useEffect, useRef } from 'react';
-import {
-  Button,
-  ScrollView,
-  Text,
-  useTheme,
-  View,
-  XStack,
-  YStack,
-} from 'tamagui';
+import { Button, ScrollView, Text, View, XStack, YStack } from 'tamagui';
 import { ISODateString } from '@/types/dtos/date';
 import { CALENDAR_SCROLL_SIZE } from '@/constants/size';
 import { ENTER_STYLE } from '@/constants/styles';
@@ -35,9 +27,15 @@ export const HorizontalCalendar = ({
   currentDate,
   onChangeSelectedDate,
 }: Props) => {
-  const theme = useTheme();
   const { t } = useTranslation();
   const scrollViewRef = useRef<ScrollView>(null);
+
+  const handleChangeSelectedDate = (date: ISODateString) => {
+    console.log(date);
+    if (CalendarUtils.getCalendarDateString(currentDate) >= date) {
+      onChangeSelectedDate(date);
+    }
+  };
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -78,31 +76,25 @@ export const HorizontalCalendar = ({
           {dates.map(date => {
             const isToday =
               date === CalendarUtils.getCalendarDateString(currentDate);
+            const isFuture =
+              date > CalendarUtils.getCalendarDateString(currentDate);
             return (
               <Button
                 key={date}
-                bg={
-                  selectedDate === date
-                    ? (theme.gray5.val as any)
-                    : 'transparent'
-                }
+                bg={selectedDate === date ? '$gray5' : 'transparent'}
                 py="$3"
                 width={CALENDAR_SCROLL_SIZE}
                 rounded="$4"
                 unstyled
                 borderWidth={isToday ? 1 : 0}
                 borderColor="$gray1"
-                onPress={() => onChangeSelectedDate(date)}
+                onPress={() => handleChangeSelectedDate(date)}
               >
                 <YStack items="center">
                   <YStack gap="$2" items="center">
                     <Text
                       fontSize="$2"
-                      color={
-                        selectedDate === date
-                          ? (theme.gray12.val as any)
-                          : (theme.gray9.val as any)
-                      }
+                      color={selectedDate === date ? '$gray12' : '$gray9'}
                     >
                       {t(`calendar.days.${getDayInISODateString(date)}`)}
                     </Text>
@@ -110,9 +102,11 @@ export const HorizontalCalendar = ({
                       fontSize="$5"
                       fontWeight="800"
                       color={
-                        selectedDate === date
-                          ? (theme.gray12.val as any)
-                          : (theme.gray6.val as any)
+                        isFuture
+                          ? '$gray11'
+                          : selectedDate === date
+                            ? '$gray12'
+                            : '$gray6'
                       }
                     >
                       {getDateInISODateString(date)}

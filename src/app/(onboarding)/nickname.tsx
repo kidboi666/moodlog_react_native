@@ -33,16 +33,16 @@ export default function NicknameScreen() {
     <Container edges={['bottom']}>
       <YStack flex={1} gap="$6">
         <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
-          <H2>{t('onboarding.page.nickname.title')}</H2>
+          <H2>{t('onboarding.nickname.title')}</H2>
         </FadeIn>
         <FadeIn delay={PARAGRAPH_DELAY.SECOND}>
-          <H3 color="$gray11">{t('onboarding.page.nickname.description')}</H3>
+          <H3 color="$gray11">{t('onboarding.nickname.description')}</H3>
         </FadeIn>
         <FadeIn delay={PARAGRAPH_DELAY.THIRD}>
           <Input
             value={draftUserName}
             onChangeText={onChangeDraftUserName}
-            placeholder={t('onboarding.page.nickname.placeholder')}
+            placeholder={t('onboarding.nickname.placeholder')}
           />
         </FadeIn>
       </YStack>

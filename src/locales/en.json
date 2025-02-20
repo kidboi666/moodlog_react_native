@@ -1,9 +1,26 @@
 {
   "hello": "Hello!",
   "greeting": "{{name}}.",
-  "howAreYou": "How are you today?",
+  "howAreYou": "How are you feeling today?",
   "fallback": {
     "journal": "Your story is waiting to be told."
+  },
+  "placeholder": {
+    "journal": "Write your story here."
+  },
+  "toast": {
+    "warn": {
+      "emotion": {
+        "title": "Please select an emotion intensity!",
+        "message": "No emotion intensity selected"
+      }
+    }
+  },
+  "emotion": {
+    "happy": "Happy",
+    "sad": "Sad",
+    "angry": "Angry",
+    "peace": "Peace"
   },
   "calendar": {
     "days": {
@@ -40,56 +57,7 @@
     "back": "Back",
     "next": "Next",
     "prev": "Prev",
-    "submit": "Submit",
-    "add": "Add",
-    "remove": "Remove",
-    "create": "Create",
-    "copy": "Copy",
-    "paste": "Paste",
-    "import": "Import",
-    "export": "Export",
-    "download": "Download",
-    "upload": "Upload",
-    "login": "Login",
-    "register": "Register",
-    "signup": "Sign up",
-    "logout": "Logout",
-    "search": "Search",
-    "clear": "Clear",
-    "refresh": "Refresh",
-    "settings": "Settings",
-    "help": "Help",
-    "more": "More",
-    "view": "View",
-    "preview": "Preview",
-    "print": "Print",
-    "share": "Share",
-    "send": "Send",
-    "copyLink": "Copy link",
-    "open": "Open",
-    "close": "Close",
-    "backToTop": "Back to top",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "readMore": "Read more",
-    "readLess": "Read less",
-    "loadMore": "Load more",
-    "loadMoreComments": "Load more comments",
-    "loadMoreReplies": "Load more replies",
-    "loadMoreThreads": "Load more threads",
-    "loadMorePosts": "Load more posts",
-    "loadMoreMessages": "Load more messages",
-    "loadMoreNotifications": "Load more notifications",
-    "loadMoreActivities": "Load more activities",
-    "loadMoreEvents": "Load more events",
-    "loadMoreItems": "Load more items",
-    "loadMoreData": "Load more data",
-    "loadMoreResults": "Load more results",
-    "loadMoreQuestions": "Load more questions",
-    "loadMoreAnswers": "Load more answers",
-    "loadMoreQuizzes": "Load more quizzes",
-    "loadMoreExams": "Load more exams",
-    "loadMoreAssignments": "Load more assignments"
+    "submit": "Submit"
   },
   "auth": {
     "login": "Login",
@@ -97,32 +65,24 @@
     "signup": "Sign up"
   },
   "onboarding": {
-    "button": {
-      "next": "Next",
-      "prev": "Prev",
-      "access": "Sign up",
-      "alright": "Alright"
+    "index": {
+      "title": "Hello!",
+      "description": "Welcome to Your Daily Journey",
+      "description2": "Every day is a new page in your story",
+      "go": "Let's write it together."
     },
-    "page": {
-      "index": {
-        "title": "Hello!",
-        "description": "Welcome to Your Daily Journey",
-        "description2": "Every day is a new page in your story",
-        "go": "Let's write it together."
-      },
-      "nickname": {
-        "title": "Your story starts here",
-        "description": "what name will you write it under?",
-        "placeholder": "Enter your nickname"
-      },
-      "signup": {
-        "title": "Take Your Experience Further",
-        "ota": "Sign up to unlock additional features:",
-        "benefits": {
-          "1": "Sync across devices",
-          "2": "Secure backup",
-          "3": "Advanced statistics"
-        }
+    "nickname": {
+      "title": "Your story starts here",
+      "description": "what name will you write it under?",
+      "placeholder": "Enter your nickname"
+    },
+    "signup": {
+      "title": "Take Your Experience Further",
+      "ota": "Sign up to unlock additional features:",
+      "benefits": {
+        "1": "Sync across devices",
+        "2": "Secure backup",
+        "3": "Advanced statistics"
       }
     }
   }

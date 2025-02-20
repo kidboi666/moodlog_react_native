@@ -9,18 +9,21 @@ import { emotionTheme } from '@/constants/themes';
 import { PRESS_STYLE } from '@/constants/styles';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { KeyboardAvoidingView } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 export default function WriteScreen() {
   const { fontSize } = useApp();
   const toast = useToastController();
   const insets = useSafeAreaInsets();
+  const { t } = useTranslation();
   const { addJournal, draft, updateDraftContent, updateDraftTitle } =
     useJournal();
 
   const handleSubmit = () => {
     if (!draft.emotion?.type) {
-      toast.show('Select the emotional intensity!', {
-        message: 'No emotional intensity selected',
+      toast.show(t('toast.warn.emotion.title'), {
+        message: t('toast.warn.emotion.message'),
+        duration: 2000,
       });
     }
     addJournal(draft);

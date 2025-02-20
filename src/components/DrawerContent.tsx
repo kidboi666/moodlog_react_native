@@ -18,6 +18,7 @@ import { useAppTheme } from '@/store/hooks/useAppTheme';
 import { PRESS_STYLE } from '@/constants/styles';
 import { DrawerContainer } from '@/components/containers/DrawerContainer';
 import { DevButtonsWithDrawerContext } from '@/components/DevButtonsWithDrawerContext';
+import { useTranslation } from 'react-i18next';
 
 const iconList = {
   index: (focused, theme) => (
@@ -39,6 +40,7 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
   const { currentTheme, toggleTheme } = useAppTheme();
   const router = useRouter();
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const handleNavigation = (routeName: string) => {
     if (routeName.toLowerCase() === 'index') {

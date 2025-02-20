@@ -5,6 +5,23 @@
   "fallback": {
     "journal": "당신의 이야기를 기다리고 있어요."
   },
+  "placeholder": {
+    "journal": "당신의 이야기를 들려주세요."
+  },
+  "toast": {
+    "warn": {
+      "emotion": {
+        "title": "감정 강도를 선택해주세요!",
+        "message": "선택된 감정 강도가 없습니다"
+      }
+    }
+  },
+  "emotion": {
+    "happy": "행복",
+    "sad": "슬픔",
+    "angry": "화남",
+    "peace": "평온"
+  },
   "calendar": {
     "days": {
       "mon": "월",
@@ -40,56 +57,7 @@
     "back": "뒤로",
     "next": "다음",
     "prev": "이전",
-    "submit": "제출",
-    "add": "추가",
-    "remove": "삭제",
-    "create": "생성",
-    "copy": "복사",
-    "paste": "붙여넣기",
-    "import": "가져오기",
-    "export": "내보내기",
-    "download": "다운로드",
-    "upload": "업로드",
-    "login": "로그인",
-    "register": "회원가입",
-    "signup": "가입하기",
-    "logout": "로그아웃",
-    "search": "검색",
-    "clear": "초기화",
-    "refresh": "새로고침",
-    "settings": "설정",
-    "help": "도움말",
-    "more": "더보기",
-    "view": "보기",
-    "preview": "미리보기",
-    "print": "인쇄",
-    "share": "공유",
-    "send": "보내기",
-    "copyLink": "링크 복사",
-    "open": "열기",
-    "close": "닫기",
-    "backToTop": "맨 위로",
-    "expand": "펼치기",
-    "collapse": "접기",
-    "readMore": "더 보기",
-    "readLess": "접기",
-    "loadMore": "더 불러오기",
-    "loadMoreComments": "댓글 더 불러오기",
-    "loadMoreReplies": "답글 더 불러오기",
-    "loadMoreThreads": "스레드 더 불러오기",
-    "loadMorePosts": "게시글 더 불러오기",
-    "loadMoreMessages": "메시지 더 불러오기",
-    "loadMoreNotifications": "알림 더 불러오기",
-    "loadMoreActivities": "활동 더 불러오기",
-    "loadMoreEvents": "이벤트 더 불러오기",
-    "loadMoreItems": "항목 더 불러오기",
-    "loadMoreData": "데이터 더 불러오기",
-    "loadMoreResults": "결과 더 불러오기",
-    "loadMoreQuestions": "질문 더 불러오기",
-    "loadMoreAnswers": "답변 더 불러오기",
-    "loadMoreQuizzes": "퀴즈 더 불러오기",
-    "loadMoreExams": "시험 더 불러오기",
-    "loadMoreAssignments": "과제 더 불러오기"
+    "submit": "제출"
   },
   "auth": {
     "login": "로그인",

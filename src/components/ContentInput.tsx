@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Button, Input, InputProps, View, YStack } from 'tamagui';
+import { useTranslation } from 'react-i18next';
 
 interface Props extends InputProps {
   contentValue?: string;
@@ -19,6 +20,7 @@ export const ContentInput = ({
   const [isFocused, setIsFocused] = useState(false);
   const firstInputRef = useRef<Input>(null);
   const secondInputRef = useRef<Input>(null);
+  const { t } = useTranslation();
 
   const handleFocusInput = () => {
     if (titleValue) {
@@ -40,11 +42,12 @@ export const ContentInput = ({
         onChangeText={onChangeTitleText}
         unstyled
         fontSize="$9"
+        fontWeight="700"
         my="$2"
         color="$color"
         ref={firstInputRef}
         onSubmitEditing={handleFirstLineSubmit}
-        placeholder="How are you feeling today?"
+        placeholder={t('placeholder.journal')}
         placeholderTextColor="$gray7"
       />
       <Input
