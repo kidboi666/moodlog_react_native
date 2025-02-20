@@ -17,7 +17,7 @@ export const HomeHeaderWithCalendar = () => {
       <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
         <XStack gap="$2" items="flex-end">
           <H2 lineHeight={HOME_HEADER_LINE_HEIGHT}>{t('hello')}</H2>
-          <ShakeHand duration={3000} />
+          <ShakeHand duration={2000} />
         </XStack>
         <H3>{t('greeting', { name: userInfo?.userName })}</H3>
       </FadeIn>

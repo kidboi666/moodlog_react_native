@@ -28,6 +28,12 @@ export default function HomeLayout() {
             title: 'Profile',
           }}
         />
+        <Drawer.Screen
+          name="setting"
+          options={{
+            title: 'Setting',
+          }}
+        />
       </Drawer>
       <Floating />
     </>

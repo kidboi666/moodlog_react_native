@@ -12,8 +12,9 @@ export const AppContextProvider = ({ children }: PropsWithChildren) => {
   const [fontSize, setFontSize] = useState<ViewFontSize>(ViewFontSize.SMALL);
   const [language, setLanguage] = useState('en-US');
 
-  const handleLanguageChange = (language: any) => {};
-
+  const handleLanguageChange = (language: any) => {
+    setLanguage(language);
+  };
   const handleFontSizeChange = () => {
     switch (fontSize) {
       case ViewFontSize.MEDIUM:
@@ -36,6 +37,7 @@ export const AppContextProvider = ({ children }: PropsWithChildren) => {
         fontSize,
         language,
         onChangeFontSize: handleFontSizeChange,
+        onChangeLanguage: handleLanguageChange,
       }}
     >
       {children}

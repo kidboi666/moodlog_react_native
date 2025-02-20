@@ -10,8 +10,7 @@ export const EmptyJournal = () => {
   return (
     <YStack
       animation="quick"
-      py="$6"
-      px="$4"
+      p="$6"
       justify="center"
       items="center"
       bg="$gray5"
@@ -20,7 +19,7 @@ export const EmptyJournal = () => {
       enterStyle={ENTER_STYLE}
     >
       <Text fontWeight="800" fontSize="$9" text="center">
-        {t('fallback.journal')}
+        {t('fallback.journal')} ✏️
       </Text>
       <Button
         unstyled

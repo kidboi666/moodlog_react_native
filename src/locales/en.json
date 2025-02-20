@@ -16,6 +16,18 @@
       }
     }
   },
+  "setting": {
+    "theme": {
+      "title": "Dark mode",
+      "light": "Light Theme",
+      "dark": "Dark Theme"
+    },
+    "language": {
+      "title": "Language",
+      "en": "English",
+      "ko": "한국어"
+    }
+  },
   "emotion": {
     "title": "Select how you're feeling right now.",
     "happy": "Happy",

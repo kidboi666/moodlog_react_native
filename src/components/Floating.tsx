@@ -39,7 +39,7 @@ export const Floating = () => {
               l="$2.5"
               t="$2.5"
               rounded="$4"
-              bg="$green11"
+              bg="$green9"
               size="$0.75"
             />
           )}

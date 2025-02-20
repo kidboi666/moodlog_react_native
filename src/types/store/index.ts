@@ -38,6 +38,7 @@ export interface IAppStore {
   fontSize: ViewFontSize;
   language: any;
   onChangeFontSize: () => void;
+  onChangeLanguage: (language: any) => void;
 }
 
 export interface IBottomModalStore {
