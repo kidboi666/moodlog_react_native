@@ -17,6 +17,7 @@
     }
   },
   "emotion": {
+    "title": "Select how you're feeling right now.",
     "happy": "Happy",
     "sad": "Sad",
     "angry": "Angry",

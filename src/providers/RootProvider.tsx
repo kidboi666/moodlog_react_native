@@ -5,7 +5,6 @@ import { useColorScheme } from 'react-native';
 import { ThemeContextProvider } from '@/store/contexts/ThemeContext';
 import { JournalContextProvider } from '@/store/contexts/JournalContext';
 import { AppContextProvider } from '@/store/contexts/AppContext';
-import { BottomModalContextProvider } from '@/store/contexts/BottomModalContext';
 import { UserContextProvider } from '@/store/contexts/UserContext';
 import { DevContextProvider } from '@/store/contexts/DevContext';
 
@@ -21,13 +20,11 @@ export const RootProvider = ({
         <ToastProvider>
           <PortalProvider>
             <JournalContextProvider>
-              <BottomModalContextProvider>
-                <AppContextProvider>
-                  <UserContextProvider>
-                    <DevContextProvider>{children}</DevContextProvider>
-                  </UserContextProvider>
-                </AppContextProvider>
-              </BottomModalContextProvider>
+              <AppContextProvider>
+                <UserContextProvider>
+                  <DevContextProvider>{children}</DevContextProvider>
+                </UserContextProvider>
+              </AppContextProvider>
             </JournalContextProvider>
           </PortalProvider>
         </ToastProvider>

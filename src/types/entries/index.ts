@@ -1,4 +1,5 @@
 import { EmotionLevel, EmotionType } from '@/types/enums';
+import { ISODateString } from '@/types/dtos/date';
 
 export type IEmotion = {
   type: EmotionType;
@@ -11,7 +12,7 @@ export type IJournal = {
   content: string;
   emotion: IEmotion;
   createdAt: string;
-  localDate: string; // YYYY-MM-DD
+  localDate: ISODateString; // YYYY-MM-DD
 };
 
 export type IDraft = {} & Partial<

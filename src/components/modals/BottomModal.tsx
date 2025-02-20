@@ -1,6 +1,7 @@
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
+  BottomSheetModalProps,
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
 import { forwardRef, PropsWithChildren } from 'react';
@@ -8,43 +9,47 @@ import { useTheme } from 'tamagui';
 import { CONTAINER_SPACING } from '@/constants/size';
 import { Keyboard } from 'react-native';
 
-export const BottomModal = forwardRef<BottomSheetModal, PropsWithChildren>(
-  ({ children }, ref) => {
-    const theme = useTheme();
-    return (
-      <BottomSheetModal
-        ref={ref}
-        enablePanDownToClose
-        index={0}
-        keyboardBehavior="extend"
-        keyboardBlurBehavior="restore"
-        android_keyboardInputMode="adjustResize"
-        onChange={() => Keyboard.dismiss()}
-        snapPoints={['50%']}
-        backgroundStyle={{
-          backgroundColor: theme.background.val,
+interface Props extends BottomSheetModalProps {}
+
+export const BottomModal = forwardRef<
+  BottomSheetModal,
+  PropsWithChildren<Props>
+>(({ children, ...props }, ref) => {
+  const theme = useTheme();
+  return (
+    <BottomSheetModal
+      ref={ref}
+      enablePanDownToClose
+      enableDynamicSizing
+      index={0}
+      keyboardBehavior="extend"
+      keyboardBlurBehavior="restore"
+      android_keyboardInputMode="adjustResize"
+      onChange={() => Keyboard.dismiss()}
+      backgroundStyle={{
+        backgroundColor: theme.background.val,
+      }}
+      handleIndicatorStyle={{
+        backgroundColor: theme.gray12.val,
+      }}
+      backdropComponent={props => (
+        <BottomSheetBackdrop
+          {...props}
+          appearsOnIndex={0}
+          disappearsOnIndex={-1}
+          pressBehavior="close"
+        />
+      )}
+      {...props}
+    >
+      <BottomSheetView
+        style={{
+          padding: CONTAINER_SPACING * 2,
+          paddingBottom: CONTAINER_SPACING * 4,
         }}
-        handleIndicatorStyle={{
-          backgroundColor: theme.gray12.val,
-        }}
-        backdropComponent={props => (
-          <BottomSheetBackdrop
-            {...props}
-            appearsOnIndex={0}
-            disappearsOnIndex={-1}
-            pressBehavior="close"
-          />
-        )}
       >
-        <BottomSheetView
-          style={{
-            paddingHorizontal: CONTAINER_SPACING,
-            paddingBottom: CONTAINER_SPACING * 4,
-          }}
-        >
-          {children}
-        </BottomSheetView>
-      </BottomSheetModal>
-    );
-  },
-);
+        {children}
+      </BottomSheetView>
+    </BottomSheetModal>
+  );
+});

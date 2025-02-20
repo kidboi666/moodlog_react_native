@@ -27,13 +27,6 @@ export const JournalCard = ({ journal, index }: Props) => {
           enterStyle={ENTER_STYLE}
           pressStyle={PRESS_STYLE}
         >
-          <View
-            width="$0.75"
-            my="auto"
-            height="75%"
-            rounded="$8"
-            bg={emotionTheme[journal.emotion.type][journal.emotion.level]}
-          />
           <XStack
             flex={1}
             bg="$gray5"
@@ -43,6 +36,13 @@ export const JournalCard = ({ journal, index }: Props) => {
             items="center"
             gap="$3"
           >
+            <View
+              width="$0.75"
+              my="auto"
+              height="75%"
+              rounded="$8"
+              bg={emotionTheme[journal.emotion.type][journal.emotion.level]}
+            />
             <YStack flex={1} gap="$4">
               {journal.title && (
                 <Paragraph fontWeight="800" fontSize="$6">

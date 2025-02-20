@@ -1,10 +1,9 @@
 import { ENTER_STYLE } from '@/constants/styles';
-import { Calendar, CalendarUtils } from 'react-native-calendars';
-import { CustomDayComponent } from '@/components/CustomDayComponent';
 import { useTheme, View } from 'tamagui';
 import React from 'react';
 import { ISODateString } from '@/types/dtos/date';
 import { IDateCounts } from '@/types/entries';
+import { CalendarBase } from '@/components/CalendarBase';
 
 interface Props {
   onChangeSelectedDate: (date: ISODateString) => void;
@@ -24,38 +23,15 @@ export const VerticalCalendar = ({
   const theme = useTheme();
   return (
     <View animation="quick" flex={1} enterStyle={ENTER_STYLE}>
-      <Calendar
-        dayComponent={({ date, state, marking }) => (
-          <CustomDayComponent
-            date={date}
-            state={state}
-            dateCounts={dateCounts}
-            marking={marking}
-            onPress={() => {
-              onChangeSelectedDate(date?.dateString);
-            }}
-          />
-        )}
-        current={CalendarUtils.getCalendarDateString(new Date().getTime())}
-        maxDate={CalendarUtils.getCalendarDateString(new Date())}
-        customHeader={() => null}
-        markedDates={
-          selectedDate && {
-            [selectedDate]: {
-              selected: true,
-              disabledTouchEvent: true,
-            },
-          }
-        }
+      <CalendarBase
+        selectedDate={selectedDate}
+        dateCounts={dateCounts}
+        variant="default"
+        onChangeSelectedDate={onChangeSelectedDate}
         theme={{
-          monthTextColor: theme.gray11.val,
           calendarBackground: theme.gray12.val,
-          selectedDayBackgroundColor: theme.red1.val,
-          selectedDayTextColor: theme.gray11.val,
-          todayTextColor: theme.gray11.val,
-          todayBackgroundColor: theme.gray5.val,
-          dayTextColor: theme.gray1.val,
-          textDisabledColor: theme.gray11.val,
+          monthTextColor: theme.gray1.val,
+          textMonthFontWeight: '800',
         }}
       />
     </View>

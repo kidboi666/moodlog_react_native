@@ -35,8 +35,11 @@ const iconList = {
   ),
 };
 
-export const DrawerContent = (props: DrawerContentComponentProps) => {
-  const { state, navigation, descriptors } = props;
+export const DrawerContent = ({
+  state,
+  navigation,
+  descriptors,
+}: DrawerContentComponentProps) => {
   const { currentTheme, toggleTheme } = useAppTheme();
   const router = useRouter();
   const theme = useTheme();

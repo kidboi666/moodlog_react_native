@@ -1,17 +1,20 @@
-import { H1, Paragraph, ScrollView, Text, View, XStack, YStack } from 'tamagui';
-import { useEffect, useState } from 'react';
+import { H1, H3, Paragraph, ScrollView, View, XStack, YStack } from 'tamagui';
+import React, { useEffect, useState } from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
 import { Container } from '@/components/containers/Container';
 import { useLocalSearchParams } from 'expo-router';
 import { IJournal } from '@/types/entries';
 import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
+import { ENTER_STYLE } from '@/constants/styles';
+import { useTranslation } from 'react-i18next';
 
 export default function JournalPage() {
   const { journalId } = useLocalSearchParams();
   const [journal, setJournal] = useState<IJournal>();
   const { journals } = useJournal();
   const { fontSize } = useApp();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const selectedJournal = journals.find(item => item.id === journalId);
@@ -31,12 +34,17 @@ export default function JournalPage() {
       <ScrollView flex={1}>
         <YStack>
           <XStack gap="$2">
-            <YStack>
-              <Text fontSize="$2">{journal.emotion.type.toUpperCase()}</Text>
-              <Text fontSize="$2" color="$gray10">
-                {journal.emotion.level.toUpperCase()}
-              </Text>
-            </YStack>
+            <XStack
+              animation="bouncy"
+              gap="$2"
+              justify="center"
+              enterStyle={ENTER_STYLE}
+            >
+              <H3 color="$gray11">
+                {t(`emotion.level.${journal.emotion?.level}`)}
+              </H3>
+              <H3>{t(`emotion.type.${journal.emotion?.type}`)}</H3>
+            </XStack>
           </XStack>
           <H1 mb="$6">{journal.title}</H1>
           <Paragraph fontWeight="300" fontSize={fontSize}>

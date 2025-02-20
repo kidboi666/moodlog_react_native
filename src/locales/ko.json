@@ -6,7 +6,8 @@
     "journal": "당신의 이야기를 기다리고 있어요."
   },
   "placeholder": {
-    "journal": "당신의 이야기를 들려주세요."
+    "journal": "당신의 이야기를 들려주세요.",
+    "emotion": "지금 느끼고 있는 감정을 선택하세요."
   },
   "toast": {
     "warn": {
@@ -17,10 +18,17 @@
     }
   },
   "emotion": {
-    "happy": "행복",
-    "sad": "슬픔",
-    "angry": "화남",
-    "peace": "평온"
+    "type": {
+      "happy": "행복",
+      "sad": "슬픔",
+      "angry": "화남",
+      "peace": "평온"
+    },
+    "level": {
+      "zero": "약간",
+      "half": "적당히",
+      "full": "매우"
+    }
   },
   "calendar": {
     "days": {

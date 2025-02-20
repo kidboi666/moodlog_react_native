@@ -1,6 +1,6 @@
 import { useJournal } from '@/store/hooks/useJournal';
 import { useRouter } from 'expo-router';
-import { Button, useTheme, View, XStack } from 'tamagui';
+import { Button, View, XStack } from 'tamagui';
 import { ALargeSmall, ChevronLeft, Trash2 } from '@tamagui/lucide-icons';
 import React, { useEffect, useRef, useState } from 'react';
 import { IJournal } from '@/types/entries';
@@ -14,7 +14,6 @@ import { HeaderContainer } from '@/components/containers/HeaderContainer';
 
 export default function JournalHeader({ route }) {
   const router = useRouter();
-  const theme = useTheme();
   const modalRef = useRef<BottomSheetModal>(null);
   const [journal, setJournal] = useState<IJournal>();
   const { journals } = useJournal();

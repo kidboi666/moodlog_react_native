@@ -1,6 +1,20 @@
 import { View, XStack } from 'tamagui';
+import { IDateCounts } from '@/types/entries';
 
-export const DateCountDot = ({ dateCounts, dateString, isSelected }) => {
+interface Props {
+  dateCounts?: IDateCounts;
+  dateString: string;
+  isSelected?: boolean;
+  variant?: 'default' | 'contained';
+}
+
+export const DateCountDot = ({
+  dateCounts,
+  dateString,
+  isSelected,
+  variant = 'default',
+}: Props) => {
+  if (!dateCounts) return null;
   return (
     <XStack gap={2} position="absolute" b="$1">
       {Array.from({ length: dateCounts[dateString] }, (_, i) => {
@@ -10,9 +24,17 @@ export const DateCountDot = ({ dateCounts, dateString, isSelected }) => {
             key={i}
             width="$0.5"
             height="$0.5"
-            bg={isSelected ? '$gray12' : '$gray1'}
-            rounded="$1"
             b={-8}
+            rounded="$1"
+            bg={
+              variant === 'contained'
+                ? isSelected
+                  ? '$gray6'
+                  : '$gray12'
+                : isSelected
+                  ? '$gray12'
+                  : '$gray6'
+            }
           />
         );
       })}

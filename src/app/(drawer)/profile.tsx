@@ -4,8 +4,8 @@ import { IUserInfo } from '@/types/entries';
 import { useUser } from '@/store/hooks/useUser';
 import { Container } from '@/components/containers/Container';
 import { ProfileHeader } from '@/components/ProfileHeader';
-import { useBottomModal } from '@/store/hooks/useBottomModal';
 import { BottomModal } from '@/components/modals/BottomModal';
+import { useBottomModal } from '@/hooks/useBottomModal';
 
 interface Props {
   onUpdateProfile: (updatedInfo: IUserInfo) => void;
