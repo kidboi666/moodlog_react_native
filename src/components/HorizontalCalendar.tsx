@@ -18,6 +18,7 @@ import {
   getDayInISODateString,
 } from '@/utils/common/date';
 import { DateCountDot } from '@/components/DateCountDot';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   dates: ISODateString[];
@@ -35,6 +36,7 @@ export const HorizontalCalendar = ({
   onChangeSelectedDate,
 }: Props) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const scrollViewRef = useRef<ScrollView>(null);
 
   useEffect(() => {
@@ -102,7 +104,7 @@ export const HorizontalCalendar = ({
                           : (theme.gray9.val as any)
                       }
                     >
-                      {getDayInISODateString(date)}
+                      {t(`calendar.days.${getDayInISODateString(date)}`)}
                     </Text>
                     <Text
                       fontSize="$5"

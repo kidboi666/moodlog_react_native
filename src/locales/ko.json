@@ -1,0 +1,123 @@
+{
+  "hello": "안녕하세요!",
+  "greeting": "{{name}}님.",
+  "howAreYou": "오늘 기분은 어떠세요?",
+  "fallback": {
+    "journal": "당신의 이야기를 기다리고 있어요."
+  },
+  "calendar": {
+    "days": {
+      "mon": "월",
+      "tue": "화",
+      "wed": "수",
+      "thu": "목",
+      "fri": "금",
+      "sat": "토",
+      "sun": "일"
+    },
+    "months": {
+      "jan": "1월",
+      "feb": "2월",
+      "mar": "3월",
+      "apr": "4월",
+      "may": "5월",
+      "jun": "6월",
+      "jul": "7월",
+      "aug": "8월",
+      "sep": "9월",
+      "oct": "10월",
+      "nov": "11월",
+      "dec": "12월"
+    }
+  },
+  "button": {
+    "ok": "확인",
+    "cancel": "취소",
+    "confirm": "확인",
+    "delete": "삭제",
+    "edit": "수정",
+    "save": "저장",
+    "back": "뒤로",
+    "next": "다음",
+    "prev": "이전",
+    "submit": "제출",
+    "add": "추가",
+    "remove": "삭제",
+    "create": "생성",
+    "copy": "복사",
+    "paste": "붙여넣기",
+    "import": "가져오기",
+    "export": "내보내기",
+    "download": "다운로드",
+    "upload": "업로드",
+    "login": "로그인",
+    "register": "회원가입",
+    "signup": "가입하기",
+    "logout": "로그아웃",
+    "search": "검색",
+    "clear": "초기화",
+    "refresh": "새로고침",
+    "settings": "설정",
+    "help": "도움말",
+    "more": "더보기",
+    "view": "보기",
+    "preview": "미리보기",
+    "print": "인쇄",
+    "share": "공유",
+    "send": "보내기",
+    "copyLink": "링크 복사",
+    "open": "열기",
+    "close": "닫기",
+    "backToTop": "맨 위로",
+    "expand": "펼치기",
+    "collapse": "접기",
+    "readMore": "더 보기",
+    "readLess": "접기",
+    "loadMore": "더 불러오기",
+    "loadMoreComments": "댓글 더 불러오기",
+    "loadMoreReplies": "답글 더 불러오기",
+    "loadMoreThreads": "스레드 더 불러오기",
+    "loadMorePosts": "게시글 더 불러오기",
+    "loadMoreMessages": "메시지 더 불러오기",
+    "loadMoreNotifications": "알림 더 불러오기",
+    "loadMoreActivities": "활동 더 불러오기",
+    "loadMoreEvents": "이벤트 더 불러오기",
+    "loadMoreItems": "항목 더 불러오기",
+    "loadMoreData": "데이터 더 불러오기",
+    "loadMoreResults": "결과 더 불러오기",
+    "loadMoreQuestions": "질문 더 불러오기",
+    "loadMoreAnswers": "답변 더 불러오기",
+    "loadMoreQuizzes": "퀴즈 더 불러오기",
+    "loadMoreExams": "시험 더 불러오기",
+    "loadMoreAssignments": "과제 더 불러오기"
+  },
+  "auth": {
+    "login": "로그인",
+    "register": "회원가입",
+    "signup": "가입하기"
+  },
+  "onboarding": {
+    "page": {
+      "index": {
+        "title": "안녕하세요!",
+        "description": "당신의 일상 여정에 오신 것을 환영합니다",
+        "description2": "매일이 당신 이야기의 새로운 페이지예요",
+        "go": "함께 써내려가 볼까요?"
+      },
+      "nickname": {
+        "title": "당신의 이야기가 여기서 시작됩니다",
+        "description": "어떤 이름으로 이야기를 쓰시겠어요?",
+        "placeholder": "닉네임을 입력해주세요"
+      },
+      "signup": {
+        "title": "더 다양한 경험을 시작해보세요",
+        "ota": "가입하고 추가 기능을 사용해보세요:",
+        "benefits": {
+          "1": "여러 기기에서 동기화",
+          "2": "안전한 백업",
+          "3": "고급 통계"
+        }
+      }
+    }
+  }
+}

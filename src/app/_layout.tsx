@@ -20,6 +20,7 @@ import { WriteHeader } from '@/components/headers/WriteHeader';
 import JournalHeader from '@/components/headers/JournalHeader';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useUser } from '@/store/hooks/useUser';
+import '../i18n';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.

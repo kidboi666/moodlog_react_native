@@ -1,0 +1,129 @@
+{
+  "hello": "Hello!",
+  "greeting": "{{name}}.",
+  "howAreYou": "How are you today?",
+  "fallback": {
+    "journal": "Your story is waiting to be told."
+  },
+  "calendar": {
+    "days": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "May",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Dec"
+    }
+  },
+  "button": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "back": "Back",
+    "next": "Next",
+    "prev": "Prev",
+    "submit": "Submit",
+    "add": "Add",
+    "remove": "Remove",
+    "create": "Create",
+    "copy": "Copy",
+    "paste": "Paste",
+    "import": "Import",
+    "export": "Export",
+    "download": "Download",
+    "upload": "Upload",
+    "login": "Login",
+    "register": "Register",
+    "signup": "Sign up",
+    "logout": "Logout",
+    "search": "Search",
+    "clear": "Clear",
+    "refresh": "Refresh",
+    "settings": "Settings",
+    "help": "Help",
+    "more": "More",
+    "view": "View",
+    "preview": "Preview",
+    "print": "Print",
+    "share": "Share",
+    "send": "Send",
+    "copyLink": "Copy link",
+    "open": "Open",
+    "close": "Close",
+    "backToTop": "Back to top",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "readMore": "Read more",
+    "readLess": "Read less",
+    "loadMore": "Load more",
+    "loadMoreComments": "Load more comments",
+    "loadMoreReplies": "Load more replies",
+    "loadMoreThreads": "Load more threads",
+    "loadMorePosts": "Load more posts",
+    "loadMoreMessages": "Load more messages",
+    "loadMoreNotifications": "Load more notifications",
+    "loadMoreActivities": "Load more activities",
+    "loadMoreEvents": "Load more events",
+    "loadMoreItems": "Load more items",
+    "loadMoreData": "Load more data",
+    "loadMoreResults": "Load more results",
+    "loadMoreQuestions": "Load more questions",
+    "loadMoreAnswers": "Load more answers",
+    "loadMoreQuizzes": "Load more quizzes",
+    "loadMoreExams": "Load more exams",
+    "loadMoreAssignments": "Load more assignments"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "signup": "Sign up"
+  },
+  "onboarding": {
+    "button": {
+      "next": "Next",
+      "prev": "Prev",
+      "access": "Sign up",
+      "alright": "Alright"
+    },
+    "page": {
+      "index": {
+        "title": "Hello!",
+        "description": "Welcome to Your Daily Journey",
+        "description2": "Every day is a new page in your story",
+        "go": "Let's write it together."
+      },
+      "nickname": {
+        "title": "Your story starts here",
+        "description": "what name will you write it under?",
+        "placeholder": "Enter your nickname"
+      },
+      "signup": {
+        "title": "Take Your Experience Further",
+        "ota": "Sign up to unlock additional features:",
+        "benefits": {
+          "1": "Sync across devices",
+          "2": "Secure backup",
+          "3": "Advanced statistics"
+        }
+      }
+    }
+  }
+}

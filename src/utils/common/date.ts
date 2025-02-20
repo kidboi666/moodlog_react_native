@@ -1,5 +1,5 @@
 import { ISODateString } from '@/types/dtos/date';
-import { WEEK_DAY } from '@/constants/date';
+import { MONTHS, WEEK_DAY } from '@/constants/date';
 
 export const formatDate = (value: Date) => {
   const year = value.getFullYear();
@@ -18,12 +18,12 @@ export const getWeekNumberInMonth = (date = new Date()) => {
   return Math.ceil((date.getDate() + firstDayOfMonth.getDay() + 1) / 7);
 };
 
-export const getMonthKey = (year: number, month: number) => {
-  return `${year}-${String(month).padStart(2, '0')}`;
+export const getMonthString = (month: number) => {
+  return Object.keys(MONTHS)[month];
 };
 
 export const getDayInISODateString = (date: ISODateString) => {
-  return Object.values(WEEK_DAY)[new Date(date).getDay()];
+  return Object.keys(WEEK_DAY)[new Date(date).getDay()];
 };
 
 export const getDateInISODateString = (date: ISODateString) => {

@@ -1,5 +1,4 @@
 import { Button, H1, XStack, YStack } from 'tamagui';
-import { MONTHS } from '@/constants/date';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
 import { ISODateString } from '@/types/dtos/date';
@@ -8,6 +7,8 @@ import { CalendarDays, CalendarRange } from '@tamagui/lucide-icons';
 import { PRESS_STYLE } from '@/constants/styles';
 import { VerticalCalendar } from '@/components/VerticalCalendar';
 import { CalendarUtils } from 'react-native-calendars';
+import { getMonthString } from '@/utils/common/date';
+import { useTranslation } from 'react-i18next';
 
 export const WeekDayPicker = () => {
   const [variation, setVariation] = useState<'horizontal' | 'vertical'>(
@@ -21,6 +22,7 @@ export const WeekDayPicker = () => {
   );
   const { updateSelectedJournals, journals, getDateCountsForMonth } =
     useJournal();
+  const { t } = useTranslation();
 
   const dateCounts = useMemo(
     () => getDateCountsForMonth(currentYear, currentMonth + 1),
@@ -57,7 +59,7 @@ export const WeekDayPicker = () => {
     >
       <XStack justify="space-between">
         <H1 fontWeight="800" color="$gray1">
-          {Object.values(MONTHS)[currentMonth]}.
+          {t(`calendar.months.${getMonthString(currentMonth)}`)}.
         </H1>
         <Button
           unstyled

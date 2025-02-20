@@ -6,9 +6,11 @@ import { useUser } from '@/store/hooks/useUser';
 import { useRouter } from 'expo-router';
 import { useStepProgress } from '@/store/hooks/useStepProgress';
 import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
+import { useTranslation } from 'react-i18next';
 
 export default function NicknameScreen() {
   const { draftUserName, onChangeDraftUserName } = useUser();
+  const { t } = useTranslation();
   const router = useRouter();
   const { currentStep, goToPrevStep, goToNextStep } = useStepProgress();
 
@@ -31,16 +33,16 @@ export default function NicknameScreen() {
     <Container edges={['bottom']}>
       <YStack flex={1} gap="$6">
         <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
-          <H2>Your story starts here</H2>
+          <H2>{t('onboarding.page.nickname.title')}</H2>
         </FadeIn>
         <FadeIn delay={PARAGRAPH_DELAY.SECOND}>
-          <H3 color="$gray11">what name will you write it under?</H3>
+          <H3 color="$gray11">{t('onboarding.page.nickname.description')}</H3>
         </FadeIn>
         <FadeIn delay={PARAGRAPH_DELAY.THIRD}>
           <Input
             value={draftUserName}
             onChangeText={onChangeDraftUserName}
-            placeholder="Enter your name"
+            placeholder={t('onboarding.page.nickname.placeholder')}
           />
         </FadeIn>
       </YStack>
@@ -51,7 +53,7 @@ export default function NicknameScreen() {
             icon={<ArrowLeft size="$1" />}
             onPress={handlePrevStep}
           >
-            Prev
+            {t('button.prev')}
           </Button>
           <Button
             themeInverse
@@ -61,7 +63,7 @@ export default function NicknameScreen() {
             onPress={handleNextStep}
             iconAfter={<ArrowRight size="$1" />}
           >
-            Next
+            {t('button.next')}
           </Button>
         </XStack>
       </FadeIn>

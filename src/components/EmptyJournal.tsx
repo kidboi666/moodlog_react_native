@@ -2,9 +2,11 @@ import { Button, Text, YStack } from 'tamagui';
 import { Plus } from '@tamagui/lucide-icons';
 import { useRouter } from 'expo-router';
 import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
+import { useTranslation } from 'react-i18next';
 
 export const EmptyJournal = () => {
   const router = useRouter();
+  const { t } = useTranslation();
   return (
     <YStack
       animation="quick"
@@ -18,7 +20,7 @@ export const EmptyJournal = () => {
       enterStyle={ENTER_STYLE}
     >
       <Text fontWeight="800" fontSize="$9" text="center">
-        Your story is waiting to be told.
+        {t('fallback.journal')}
       </Text>
       <Button
         unstyled
