@@ -29,3 +29,17 @@ export const getDayInISODateString = (date: ISODateString) => {
 export const getDateInISODateString = (date: ISODateString) => {
   return date.split('-')[2];
 };
+
+export const getLastDate = (year: number, month) => {
+  return new Date(year, Object.keys(MONTHS).indexOf(month) + 1, 0).getDate();
+};
+
+export const getFirstDateDay = (year: number, month) => {
+  return new Date(year, Object.keys(MONTHS).indexOf(month), 1).getDay();
+};
+
+export const getWeekLength = (year: number, month: any) => {
+  const lastDate = getLastDate(year, month);
+  const firstDateDay = getFirstDateDay(year, month);
+  return Math.ceil((lastDate + firstDateDay) / 7);
+};

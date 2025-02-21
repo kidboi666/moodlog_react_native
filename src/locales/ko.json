@@ -17,6 +17,12 @@
       }
     }
   },
+  "record": {
+    "garden": {
+      "title": "기록 한눈에 보기",
+      "description": "년도 별, 월 별 당신이 기록한 날의 감정을 확인하세요."
+    }
+  },
   "emotion": {
     "type": {
       "happy": "행복",

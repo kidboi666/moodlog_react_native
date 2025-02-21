@@ -6,7 +6,8 @@
     "journal": "Your story is waiting to be told."
   },
   "placeholder": {
-    "journal": "Write your story here."
+    "journal": "Write your story here.",
+    "emotion": "Select how you're feeling right now."
   },
   "toast": {
     "warn": {
@@ -14,6 +15,12 @@
         "title": "Please select an emotion intensity!",
         "message": "No emotion intensity selected"
       }
+    }
+  },
+  "record": {
+    "garden": {
+      "title": "See Your Story at a Glance",
+      "description": "Check the emotions you've recorded by year and month."
     }
   },
   "setting": {
@@ -29,11 +36,17 @@
     }
   },
   "emotion": {
-    "title": "Select how you're feeling right now.",
-    "happy": "Happy",
-    "sad": "Sad",
-    "angry": "Angry",
-    "peace": "Peace"
+    "type": {
+      "happy": "Happy",
+      "sad": "Sad",
+      "angry": "Angry",
+      "peace": "Peaceful"
+    },
+    "level": {
+      "zero": "Slightly",
+      "half": "Moderately",
+      "full": "Very"
+    }
   },
   "calendar": {
     "days": {
