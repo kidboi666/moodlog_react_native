@@ -18,9 +18,17 @@ export type IJournalStore = WithState<
     draft: IDraft;
     addJournal: (journal: IDraft) => void;
     removeJournal: (id: string) => void;
-    getDateCountsForMonth: (year: number, month: number) => IDateCounts;
+    getDateCountsForMonth: (
+      year: number,
+      month: number | string,
+    ) => IDateCounts;
+    getDateCountsForDate: (
+      year: number,
+      month: number | string,
+      date: number,
+    ) => number;
     updateJournals: (id: string, updateJournal: IJournal) => void;
-    updateDraftLocalDate: (date: string) => void;
+    updateDraftLocalDate: (date: ISODateString) => void;
     updateDraftEmotion: (emotion: IEmotion) => void;
     updateDraftContent: (content: string) => void;
     updateDraftTitle: (title: string) => void;

@@ -13,9 +13,8 @@ export const transformISODate = (time: number) => {
   return new Date(time).toISOString().split('T')[0];
 };
 
-export const getWeekNumberInMonth = (date = new Date()) => {
-  const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-  return Math.ceil((date.getDate() + firstDayOfMonth.getDay() + 1) / 7);
+export const getMonthNumber = (month: string) => {
+  return Object.keys(MONTHS).indexOf(month);
 };
 
 export const getMonthString = (month: number) => {

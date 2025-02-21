@@ -15,6 +15,7 @@ import { ISODateString } from '@/types/dtos/date';
 import { Nullable } from '@/types/utils';
 import { STORAGE_KEY } from '@/constants/storage';
 import { CalendarUtils } from 'react-native-calendars';
+import { MONTHS } from '@/constants/date';
 
 export const JournalContext = createContext<Nullable<IJournalStore>>(null);
 
@@ -47,13 +48,39 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     }
   }, []);
 
+  const getDateCountsForDate = (
+    year: number,
+    month: number | string,
+    date: number,
+  ) => {
+    let intMonth: number;
+    if (typeof month === 'string') {
+      intMonth = Object.keys(MONTHS).findIndex(key => key === month) + 1;
+    } else {
+      intMonth = month;
+    }
+
+    const dateString = `${year}-${(intMonth + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`;
+    const foundJournals = journals.filter(
+      journal => journal.localDate === dateString,
+    );
+    console.log(dateString);
+    return foundJournals.length;
+  };
+
   const getDateCountsForMonth = useCallback(
-    (year: number, month: number) => {
-      const lastDay = new Date(year, month, 0).getDate();
+    (year: number, month: number | string) => {
+      let intMonth: number;
+      if (typeof month === 'string') {
+        intMonth = Object.keys(MONTHS).findIndex(key => key === month) + 1;
+      } else {
+        intMonth = month;
+      }
+      const lastDay = new Date(year, intMonth, 0).getDate();
       const counts: IDateCounts = {};
 
       for (let day = 1; day <= lastDay; day++) {
-        const dateKey = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+        const dateKey = `${year}-${intMonth.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
         counts[dateKey] = 0;
       }
 
@@ -78,7 +105,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     );
   }, []);
 
-  const updateDraftLocalDate = useCallback((date: string) => {
+  const updateDraftLocalDate = useCallback((date: ISODateString) => {
     setDraft(prev => ({ ...prev, localDate: date }));
   }, []);
 
@@ -189,6 +216,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         addJournal,
         isLoading,
         getDateCountsForMonth,
+        getDateCountsForDate,
         removeJournal,
         updateJournals,
         updateDraftLocalDate,
