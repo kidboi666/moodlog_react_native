@@ -4,7 +4,7 @@ import React from 'react';
 import { usePathname, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useJournal } from '@/store/hooks/useJournal';
-import { ENTER_STYLE } from '@/constants/styles';
+import { ENTER_STYLE, ENTER_STYLE_KEY, PRESS_STYLE } from '@/constants/styles';
 
 export const Floating = () => {
   const { draft } = useJournal();
@@ -20,18 +20,17 @@ export const Floating = () => {
       <View position="absolute" b={insets.bottom} r="$4">
         <Button
           unstyled
-          icon={Plus}
           animation="quick"
+          animateOnly={ENTER_STYLE_KEY}
           fontSize="$2"
           size="$6"
           justify="center"
           bg="$gray1"
           themeInverse
+          icon={Plus}
           onPress={() => router.push('/(modal)/write')}
           enterStyle={ENTER_STYLE}
-          pressStyle={{
-            scale: 0.9,
-          }}
+          pressStyle={PRESS_STYLE}
         >
           {(draft.content || draft.emotion?.type) && (
             <Circle

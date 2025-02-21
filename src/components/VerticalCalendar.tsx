@@ -1,4 +1,4 @@
-import { ENTER_STYLE } from '@/constants/styles';
+import { ENTER_STYLE, ENTER_STYLE_KEY } from '@/constants/styles';
 import { useTheme, View } from 'tamagui';
 import React from 'react';
 import { ISODateString } from '@/types/dtos/date';
@@ -22,7 +22,12 @@ export const VerticalCalendar = ({
 }: Props) => {
   const theme = useTheme();
   return (
-    <View animation="quick" flex={1} enterStyle={ENTER_STYLE}>
+    <View
+      flex={1}
+      animation="quick"
+      animateOnly={ENTER_STYLE_KEY}
+      enterStyle={ENTER_STYLE}
+    >
       <CalendarBase
         selectedDate={selectedDate}
         dateCounts={dateCounts}

@@ -16,8 +16,6 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from '@react-navigation/native';
-import { WriteHeader } from '@/components/headers/WriteHeader';
-import JournalHeader from '@/components/headers/JournalHeader';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useUser } from '@/store/hooks/useUser';
 import '../i18n';
@@ -79,8 +77,6 @@ function RootLayoutNav() {
   }, [currentTheme]);
 
   useEffect(() => {
-    if (isLoading) return;
-
     if (isInitialUser) {
       router.replace('/(drawer)');
     } else {
@@ -101,6 +97,7 @@ function RootLayoutNav() {
           <StatusBar />
           <Stack
             screenOptions={{
+              headerShown: false,
               contentStyle: {
                 backgroundColor: theme.background.val,
               },
@@ -109,35 +106,10 @@ function RootLayoutNav() {
               },
             }}
           >
-            <Stack.Screen
-              name="(onboarding)"
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-            <Stack.Screen
-              name="(modal)/write"
-              options={{
-                headerShown: true,
-                header: () => <WriteHeader />,
-                presentation: 'card',
-                animation: 'default',
-                gestureEnabled: true,
-                gestureDirection: 'horizontal',
-              }}
-            />
-            <Stack.Screen
-              name="(modal)/[journalId]/index"
-              options={{
-                headerShown: true,
-                header: ({ route }) => <JournalHeader route={route} />,
-                presentation: 'card',
-                animation: 'default',
-                gestureEnabled: true,
-                gestureDirection: 'horizontal',
-              }}
-            />
+            <Stack.Screen name="(onboarding)" />
+            <Stack.Screen name="(drawer)" />
+            <Stack.Screen name="(modal)" />
+            <Stack.Screen name="(record)" />
             <Stack.Screen name="+not-found" />
           </Stack>
           <CurrentToast />

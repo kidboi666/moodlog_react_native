@@ -1,7 +1,12 @@
 import { Button, Text, YStack } from 'tamagui';
 import { Plus } from '@tamagui/lucide-icons';
 import { useRouter } from 'expo-router';
-import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
+import {
+  ENTER_STYLE,
+  ENTER_STYLE_KEY,
+  PRESS_STYLE,
+  PRESS_STYLE_KEY,
+} from '@/constants/styles';
 import { useTranslation } from 'react-i18next';
 
 export const EmptyJournal = () => {
@@ -10,6 +15,7 @@ export const EmptyJournal = () => {
   return (
     <YStack
       animation="quick"
+      animateOnly={ENTER_STYLE_KEY}
       p="$6"
       justify="center"
       items="center"
@@ -24,6 +30,7 @@ export const EmptyJournal = () => {
       <Button
         unstyled
         animation="quick"
+        animateOnly={PRESS_STYLE_KEY}
         bg="$gray12"
         py="$3"
         px="$4"

@@ -2,7 +2,7 @@ import { Button, Paragraph, View, XStack, YStack } from 'tamagui';
 import { IJournal } from '@/types/entries';
 import { Link } from 'expo-router';
 import { CurrentDateWithoutYear } from './CurrentDateWithoutYear';
-import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
+import { ENTER_STYLE, ENTER_STYLE_KEY, PRESS_STYLE } from '@/constants/styles';
 import { emotionTheme } from '@/constants/themes';
 import { ChevronRight } from '@tamagui/lucide-icons';
 import { FadeIn } from '@/components/FadeIn';
@@ -24,6 +24,7 @@ export const JournalCard = ({ journal, index }: Props) => {
       >
         <XStack
           animation="quick"
+          animateOnly={ENTER_STYLE_KEY}
           enterStyle={ENTER_STYLE}
           pressStyle={PRESS_STYLE}
         >

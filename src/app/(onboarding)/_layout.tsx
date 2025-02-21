@@ -16,29 +16,12 @@ export default function OnboardingLayout() {
             backgroundColor: theme.background.val,
           },
           animation: 'fade',
+          gestureEnabled: false,
         }}
       >
-        <Stack.Screen
-          name="index"
-          options={{
-            animation: 'fade',
-            gestureEnabled: false,
-          }}
-        />
-        <Stack.Screen
-          name="nickname"
-          options={{
-            animation: 'fade',
-            gestureEnabled: false,
-          }}
-        />
-        <Stack.Screen
-          name="signup"
-          options={{
-            animation: 'fade',
-            gestureEnabled: false,
-          }}
-        />
+        <Stack.Screen name="index" />
+        <Stack.Screen name="nickname" />
+        <Stack.Screen name="signup" />
       </Stack>
     </StepProgressContextProvider>
   );

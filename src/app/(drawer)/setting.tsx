@@ -1,5 +1,6 @@
 import { Container } from '@/components/containers/Container';
 import {
+  Label,
   ScrollView,
   Select,
   Separator,
@@ -9,29 +10,24 @@ import {
   YStack,
 } from 'tamagui';
 import { Check, ChevronDown, Globe, Moon } from '@tamagui/lucide-icons';
-import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { useAppTheme } from '@/store/hooks/useAppTheme';
 import { useApp } from '@/store/hooks/useApp';
-
-const LANGUAGES = [
-  { label: 'English', value: 'en' },
-  { label: '한국어', value: 'ko' },
-  { label: '日本語', value: 'ja' },
-];
+import { LANGUAGES } from '@/constants/language';
 
 export default function SettingScreen() {
-  const router = useRouter();
   const { t } = useTranslation();
   const { currentTheme, toggleTheme } = useAppTheme();
   const { language, onChangeLanguage } = useApp();
 
   const SettingItem = ({ icon, label, children }) => (
-    <XStack items="center" justify="space-between" py="$4" px="$4">
-      <XStack gap="$3" items="center">
-        {icon}
-        <Text fontSize="$5">{label}</Text>
-      </XStack>
+    <XStack justify="space-between" items="center" py="$4" px="$4">
+      <Label htmlFor={label} flex={1}>
+        <XStack gap="$3" items="center">
+          {icon}
+          <Text fontSize="$5">{label}</Text>
+        </XStack>
+      </Label>
       {children}
     </XStack>
   );
@@ -46,7 +42,7 @@ export default function SettingScreen() {
             label={t('setting.theme.title')}
           >
             <Switch
-              id="darkmode"
+              id={t('setting.theme.title')}
               checked={currentTheme === 'dark'}
               onCheckedChange={toggleTheme}
               bg={currentTheme === 'dark' ? '$green10' : '$gray7'}
@@ -67,29 +63,35 @@ export default function SettingScreen() {
             label={t('setting.language.title')}
           >
             <Select
+              native
+              id={t('setting.language.title')}
               value={language}
               onValueChange={onChangeLanguage}
-              items={LANGUAGES}
               defaultValue="en"
               disablePreventBodyScroll
             >
-              <Select.Trigger width={120} iconAfter={ChevronDown}>
-                <Select.Value placeholder="select" />
+              <Select.Trigger width="$13" iconAfter={ChevronDown}>
+                <Select.Value placeholder="Select" />
               </Select.Trigger>
 
-              <Select.Content zIndex={20000}>
+              <Select.Content>
                 <Select.ScrollUpButton />
-                <Select.Viewport minW={120}>
+                <Select.Viewport
+                  animation="quick"
+                  animateOnly={['transform', 'opacity']}
+                  enterStyle={{ x: 0, y: -10 }}
+                  exitStyle={{ x: 0, y: 10 }}
+                >
                   <Select.Group>
                     <Select.Label>Language</Select.Label>
                     {LANGUAGES.map((lang, i) => (
                       <Select.Item
-                        key={lang.value}
                         index={i}
+                        key={lang.value}
                         value={lang.value}
                       >
                         <Select.ItemText>{lang.label}</Select.ItemText>
-                        <Select.ItemIndicator>
+                        <Select.ItemIndicator marginLeft="auto">
                           <Check size="$2" />
                         </Select.ItemIndicator>
                       </Select.Item>

@@ -4,7 +4,7 @@ import { useJournal } from '@/store/hooks/useJournal';
 import { ISODateString } from '@/types/dtos/date';
 import { HorizontalCalendar } from '@/components/HorizontalCalendar';
 import { CalendarDays, CalendarRange } from '@tamagui/lucide-icons';
-import { PRESS_STYLE } from '@/constants/styles';
+import { FALL_STYLE, FALL_STYLE_KEY, PRESS_STYLE } from '@/constants/styles';
 import { VerticalCalendar } from '@/components/VerticalCalendar';
 import { CalendarUtils } from 'react-native-calendars';
 import { getMonthString } from '@/utils/common/date';
@@ -48,14 +48,13 @@ export const WeekDayPicker = () => {
   return (
     <YStack
       animation="medium"
+      animateOnly={FALL_STYLE_KEY}
       gap="$2"
       mb="$4"
       p="$4"
       bg="$gray12"
       rounded="$8"
-      enterStyle={{
-        y: -300,
-      }}
+      enterStyle={FALL_STYLE}
     >
       <XStack justify="space-between">
         <H1 fontWeight="800" color="$gray1">

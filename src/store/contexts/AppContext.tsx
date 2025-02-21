@@ -1,6 +1,7 @@
 import { createContext, PropsWithChildren, useState } from 'react';
 import { IAppStore } from 'src/types/store';
 import { ViewFontSize } from '@/types/enums';
+import * as Localization from 'expo-localization';
 import { Nullable } from '@/types/utils';
 
 /**
@@ -9,8 +10,9 @@ import { Nullable } from '@/types/utils';
 export const AppContext = createContext<Nullable<IAppStore>>(null);
 
 export const AppContextProvider = ({ children }: PropsWithChildren) => {
+  const defaultLanguage = Localization.getLocales()[0].languageCode;
   const [fontSize, setFontSize] = useState<ViewFontSize>(ViewFontSize.SMALL);
-  const [language, setLanguage] = useState('en-US');
+  const [language, setLanguage] = useState(defaultLanguage);
 
   const handleLanguageChange = (language: any) => {
     setLanguage(language);
