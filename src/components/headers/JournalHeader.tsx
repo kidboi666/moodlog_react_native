@@ -3,7 +3,7 @@ import { useRouter } from 'expo-router';
 import { Button, View, XStack } from 'tamagui';
 import { ALargeSmall, ChevronLeft, Trash2 } from '@tamagui/lucide-icons';
 import React, { useEffect, useRef, useState } from 'react';
-import { IJournal } from '@/types/entries';
+import { Journal } from '@/types/entries';
 import { useApp } from '@/store/hooks/useApp';
 import { PRESS_STYLE } from '@/constants/styles';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
@@ -15,7 +15,7 @@ import { HeaderContainer } from '@/components/containers/HeaderContainer';
 export default function JournalHeader({ route }) {
   const router = useRouter();
   const modalRef = useRef<BottomSheetModal>(null);
-  const [journal, setJournal] = useState<IJournal>();
+  const [journal, setJournal] = useState<Journal>();
   const { journals } = useJournal();
   const { onChangeFontSize } = useApp();
 

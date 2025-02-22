@@ -1,15 +1,15 @@
 import { createContext, PropsWithChildren, useEffect, useState } from 'react';
-import { IUserStore } from 'src/types/store';
+import { UserStore } from 'src/types/store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { uuid } from 'expo-modules-core';
-import { IUserInfo } from '@/types/entries';
+import { UserInfo } from '@/types/entries';
 import { Nullable } from 'src/types/utils';
 import { STORAGE_KEY } from '@/constants/storage';
 
-export const UserContext = createContext<Nullable<IUserStore>>(null);
+export const UserContext = createContext<Nullable<UserStore>>(null);
 
 export const UserContextProvider = ({ children }: PropsWithChildren) => {
-  const [userInfo, setUserInfo] = useState<IUserInfo>({
+  const [userInfo, setUserInfo] = useState<UserInfo>({
     id: '',
     userName: '',
     email: '',

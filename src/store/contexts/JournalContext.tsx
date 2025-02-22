@@ -5,29 +5,33 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { IJournalStore } from 'src/types/store';
-import { IDateCounts, IDraft, IEmotion, IJournal } from '@/types/entries';
+import { JournalStore } from 'src/types/store';
+import { DateCounts, Draft, Emotion, Journal } from '@/types/entries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { uuid } from 'expo-modules-core';
 import { useToastController } from '@tamagui/toast';
 import { useRouter } from 'expo-router';
-import { ISODateString } from '@/types/dtos/date';
+import { ISODateString, ISOMonthString } from '@/types/dtos/date';
 import { Nullable } from '@/types/utils';
 import { STORAGE_KEY } from '@/constants/storage';
 import { CalendarUtils } from 'react-native-calendars';
 import { MONTHS } from '@/constants/date';
+import { useDate } from '@/store/hooks/useDate';
 
-export const JournalContext = createContext<Nullable<IJournalStore>>(null);
+export const JournalContext = createContext<Nullable<JournalStore>>(null);
 
 export const JournalContextProvider = ({ children }: PropsWithChildren) => {
-  const [journals, setJournals] = useState<IJournal[]>([]);
-  const [selectedJournals, setSelectedJournals] = useState<IJournal[]>([]);
-  const [draft, setDraft] = useState<IDraft>({});
+  const { selectedYear, selectedMonth } = useDate();
+  const [journals, setJournals] = useState<Journal[]>([]);
+  const [yearlyJournals, setYearlyJournals] = useState<Journal[]>([]);
+  const [monthlyJournals, setMonthlyJournals] = useState<Journal[]>([]);
+  const [selectedJournals, setSelectedJournals] = useState<Journal[]>([]);
+  const [draft, setDraft] = useState<Draft>({});
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToastController();
   const router = useRouter();
 
-  const addJournal = useCallback((draft: IDraft) => {
+  const addJournal = useCallback((draft: Draft) => {
     if (draft.content && draft.emotion && draft.localDate && draft.title) {
       const newJournal = {
         id: uuid.v4(),
@@ -64,7 +68,6 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     const foundJournals = journals.filter(
       journal => journal.localDate === dateString,
     );
-    console.log(dateString);
     return foundJournals.length;
   };
 
@@ -77,7 +80,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         intMonth = month;
       }
       const lastDay = new Date(year, intMonth, 0).getDate();
-      const counts: IDateCounts = {};
+      const counts: DateCounts = {};
 
       for (let day = 1; day <= lastDay; day++) {
         const dateKey = `${year}-${intMonth.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
@@ -99,7 +102,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     setJournals(prev => prev.filter(journal => journal.id !== id));
   }, []);
 
-  const updateJournals = useCallback((id: string, newJournal: IJournal) => {
+  const updateJournals = useCallback((id: string, newJournal: Journal) => {
     setJournals(prev =>
       prev.map(journal => (journal.id === id ? newJournal : journal)),
     );
@@ -109,7 +112,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     setDraft(prev => ({ ...prev, localDate: date }));
   }, []);
 
-  const updateDraftEmotion = useCallback((emotion: IEmotion) => {
+  const updateDraftEmotion = useCallback((emotion: Emotion) => {
     setDraft(prev => ({ ...prev, emotion }));
   }, []);
 
@@ -121,7 +124,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     setDraft(prev => ({ ...prev, title }));
   }, []);
 
-  const updateSelectedJournals = useCallback(
+  const getJournalsByDate = useCallback(
     (date: ISODateString) => {
       const selectedJournals =
         journals.filter(journal => journal.localDate === date) || [];
@@ -129,6 +132,20 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     },
     [journals],
   );
+
+  const getJournalsByMonth = (date: ISOMonthString) => {
+    const selectedJournals = journals.filter(journal =>
+      journal.localDate.startsWith(date),
+    );
+    setMonthlyJournals(selectedJournals);
+  };
+
+  const getJournalsByYear = (year: number) => {
+    const selectedJournals = journals.filter(journal =>
+      journal.localDate.startsWith(year.toString()),
+    );
+    setYearlyJournals(selectedJournals);
+  };
 
   useEffect(() => {
     const loadJournals = async () => {
@@ -165,9 +182,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
       try {
         setIsLoading(true);
 
-        if (!Array.isArray(journals)) {
-          throw new Error('Journals is not an array');
-        }
+        if (!Array.isArray(journals)) return null;
 
         await AsyncStorage.setItem(
           STORAGE_KEY.JOURNALS,
@@ -199,19 +214,21 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     const initializeSelectedJournals = () => {
-      updateSelectedJournals(CalendarUtils.getCalendarDateString(new Date()));
+      getJournalsByDate(CalendarUtils.getCalendarDateString(new Date()));
     };
 
     if (journals.length >= 0 && !isLoading) {
       initializeSelectedJournals();
     }
-  }, [journals, isLoading, updateSelectedJournals]);
+  }, [journals, isLoading, getJournalsByDate]);
 
   return (
     <JournalContext.Provider
       value={{
         journals,
         selectedJournals,
+        monthlyJournals,
+        yearlyJournals,
         draft,
         addJournal,
         isLoading,
@@ -223,7 +240,9 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         updateDraftEmotion,
         updateDraftContent,
         updateDraftTitle,
-        updateSelectedJournals,
+        getJournalsByDate,
+        getJournalsByMonth,
+        getJournalsByYear,
       }}
     >
       {children}

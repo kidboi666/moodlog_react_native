@@ -17,7 +17,26 @@
       }
     }
   },
+  "unit": {
+    "month": "월",
+    "count": "개"
+  },
   "record": {
+    "stats": {
+      "totalCount": {
+        "title": "Total Journal Count",
+        "description": "Journals written so far",
+        "unit": "entries"
+      },
+      "emotion": {
+        "title": "Primary Emotion",
+        "description": "Emotion that represents me"
+      },
+      "bestMonth": {
+        "title": "Most Expressive Month",
+        "description": "Month with the most journal entries"
+      }
+    },
     "garden": {
       "title": "See Your Story at a Glance",
       "description": "Check the emotions you've recorded by year and month."

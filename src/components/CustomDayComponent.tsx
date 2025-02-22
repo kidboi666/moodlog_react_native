@@ -3,7 +3,7 @@ import React from 'react';
 import { DateData } from 'react-native-calendars';
 import { DayState } from 'react-native-calendars/src/types';
 import { MarkingProps } from 'react-native-calendars/src/calendar/day/marking';
-import { IDateCounts } from '@/types/entries';
+import { DateCounts } from '@/types/entries';
 import { DateCountDot } from '@/components/DateCountDot';
 
 const StyledDayButton = styled(Button, {
@@ -83,7 +83,7 @@ interface Props {
   marking: MarkingProps;
   onPress: () => void;
   variant?: 'default' | 'contained';
-  dateCounts?: IDateCounts;
+  dateCounts?: DateCounts;
 }
 
 export const CustomDayComponent = ({

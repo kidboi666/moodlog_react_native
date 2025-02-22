@@ -1,8 +1,8 @@
 import { View, XStack } from 'tamagui';
-import { IDateCounts } from '@/types/entries';
+import { DateCounts } from '@/types/entries';
 
 interface Props {
-  dateCounts?: IDateCounts;
+  dateCounts?: DateCounts;
   dateString: string;
   isSelected?: boolean;
   variant?: 'default' | 'contained';

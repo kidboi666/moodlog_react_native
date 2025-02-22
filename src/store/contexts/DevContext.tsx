@@ -12,6 +12,7 @@ export const DevContext = createContext<
     onClearJournalStorage: () => void;
     onClearStorage: () => void;
     insertDummyData: () => void;
+    onClearStatsStorage: () => void;
   }>
 >(null);
 
@@ -19,6 +20,7 @@ export const DevContextProvider = ({ children }: PropsWithChildren) => {
   if (!__DEV__) return children;
   const [isUserStorageCleared, setIsStorageCleared] = useState(false);
   const [isJournalStorageCleared, setIsJournalStorageCleared] = useState(false);
+  const [isStatsStorageCleared, setIsStatsStorageCleared] = useState(false);
 
   const handleClearUserStorage = async () => {
     console.log('Clearing user storage...');
@@ -47,6 +49,12 @@ export const DevContextProvider = ({ children }: PropsWithChildren) => {
     );
   };
 
+  const handleClearStatsStorage = async () => {
+    console.log('Clearing stats storage...');
+    await AsyncStorage.removeItem(STORAGE_KEY.STATS);
+    setIsStatsStorageCleared(true);
+  };
+
   return (
     <DevContext.Provider
       value={{
@@ -55,6 +63,7 @@ export const DevContextProvider = ({ children }: PropsWithChildren) => {
         isJournalStorageCleared,
         onClearJournalStorage: handleClearJournalStorage,
         onClearStorage: handleClearStorage,
+        onClearStatsStorage: handleClearStatsStorage,
         insertDummyData,
       }}
     >

@@ -20,8 +20,7 @@ export const WeekDayPicker = () => {
   const [selectedDate, setSelectedDate] = useState<ISODateString>(
     CalendarUtils.getCalendarDateString(currentDate),
   );
-  const { updateSelectedJournals, journals, getDateCountsForMonth } =
-    useJournal();
+  const { getJournalsByDate, journals, getDateCountsForMonth } = useJournal();
   const { t } = useTranslation();
 
   const dateCounts = useMemo(
@@ -40,9 +39,9 @@ export const WeekDayPicker = () => {
   const handleSelectedDate = useCallback(
     (date: ISODateString) => {
       setSelectedDate(date);
-      updateSelectedJournals(date);
+      getJournalsByDate(date);
     },
-    [currentYear, currentMonth, updateSelectedJournals],
+    [currentYear, currentMonth, getJournalsByDate],
   );
 
   return (

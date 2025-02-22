@@ -1,7 +1,7 @@
-import { IJournal } from '@/types/entries';
+import { Journal } from '@/types/entries';
 import { EmotionLevel, EmotionType } from '@/types/enums';
 
-export const dummyJournals: IJournal[] = [
+export const dummyJournals: Journal[] = [
   {
     id: '123e4567-e89b-12d3-a456-426614174001',
     title: '새로운 프로젝트 시작',

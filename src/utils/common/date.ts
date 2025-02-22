@@ -42,3 +42,17 @@ export const getWeekLength = (year: number, month: any) => {
   const firstDateDay = getFirstDateDay(year, month);
   return Math.ceil((lastDate + firstDateDay) / 7);
 };
+
+export const removeLeadingZero = str => {
+  str = String(str);
+
+  if (str.charAt(0) === '0' && str.length > 1) {
+    return str.substring(1);
+  }
+
+  return str;
+};
+
+export const getExpressiveMonthString = str => {
+  return Object.keys(MONTHS)[removeLeadingZero(str.split('-')[1]) - 1];
+};

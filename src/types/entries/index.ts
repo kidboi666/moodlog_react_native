@@ -1,33 +1,69 @@
 import { EmotionLevel, EmotionType } from '@/types/enums';
-import { ISODateString } from '@/types/dtos/date';
+import { ISODateString, ISOMonthString } from '@/types/dtos/date';
 
-export type IEmotion = {
+export type Emotion = {
   type: EmotionType;
   level: EmotionLevel;
 };
 
-export type IJournal = {
+export type Journal = {
   id: string;
   title: string;
   content: string;
-  emotion: IEmotion;
+  emotion: Emotion;
   createdAt: string;
   localDate: ISODateString; // YYYY-MM-DD
 };
 
-export type IDraft = {} & Partial<
-  Pick<IJournal, 'title' | 'content' | 'emotion' | 'localDate'>
+export type Draft = {} & Partial<
+  Pick<Journal, 'title' | 'content' | 'emotion' | 'localDate'>
 >;
 
-export type IDateCounts = {
+export type DateCounts = {
   [date: string]: number;
 };
 
-export type IUserInfo = {
+export type UserInfo = {
   id: string;
   userName: string;
   age?: number;
   email?: string;
   provider?: string;
   avatarUrl?: string;
+};
+
+export type MonthlyCounts = {
+  [key in ISOMonthString]: number;
+};
+
+export type MonthlyCountsData = {
+  month: ISOMonthString | string;
+  count: number;
+};
+
+export type JournalStats = {
+  totalCount: number;
+  monthlyCounts: MonthlyCounts;
+  expressiveMonth: MonthlyCountsData;
+};
+
+export type CountScore = {
+  count: number;
+  score: number;
+};
+
+export type ScoreBoard = {
+  [key in EmotionType]: CountScore;
+};
+
+export type SignatureEmotion = {
+  type: EmotionType | string;
+  average: number;
+  count: number;
+  score: number;
+};
+
+export type EmotionStats = {
+  signatureEmotion: SignatureEmotion;
+  scoreBoard: ScoreBoard;
 };

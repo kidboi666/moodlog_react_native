@@ -1,5 +1,5 @@
 import { Button, Paragraph, View, XStack, YStack } from 'tamagui';
-import { IJournal } from '@/types/entries';
+import { Journal } from '@/types/entries';
 import { Link } from 'expo-router';
 import { CurrentDateWithoutYear } from './CurrentDateWithoutYear';
 import { ENTER_STYLE, ENTER_STYLE_KEY, PRESS_STYLE } from '@/constants/styles';
@@ -8,7 +8,7 @@ import { ChevronRight } from '@tamagui/lucide-icons';
 import { FadeIn } from '@/components/FadeIn';
 
 interface Props {
-  journal: IJournal;
+  journal: Journal;
   index: number;
 }
 

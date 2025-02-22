@@ -8,7 +8,7 @@ import { CustomDayComponent } from '@/components/CustomDayComponent';
 import { Button } from 'tamagui';
 import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
 import React from 'react';
-import { IDateCounts } from '@/types/entries';
+import { DateCounts } from '@/types/entries';
 import { ISODateString } from '@/types/dtos/date';
 
 LocaleConfig.locales['ko'] = {
@@ -76,7 +76,7 @@ LocaleConfig.locales['en'] = {
 LocaleConfig.defaultLocale = 'ko';
 
 interface Props extends CalendarProps {
-  dateCounts: IDateCounts;
+  dateCounts: DateCounts;
   variant?: 'contained' | 'default';
   onChangeSelectedDate: (date: ISODateString) => void;
   selectedDate?: ISODateString;

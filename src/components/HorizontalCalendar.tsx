@@ -3,7 +3,7 @@ import { Button, ScrollView, Text, View, XStack, YStack } from 'tamagui';
 import { ISODateString } from '@/types/dtos/date';
 import { CALENDAR_SCROLL_SIZE } from '@/constants/size';
 import { ENTER_STYLE, ENTER_STYLE_KEY } from '@/constants/styles';
-import { IDateCounts } from '@/types/entries';
+import { DateCounts } from '@/types/entries';
 import { CalendarUtils } from 'react-native-calendars';
 import {
   getDateInISODateString,
@@ -16,7 +16,7 @@ interface Props {
   dates: ISODateString[];
   selectedDate: ISODateString;
   currentDate: Date;
-  dateCounts: IDateCounts;
+  dateCounts: DateCounts;
   onChangeSelectedDate: (date: ISODateString) => void;
 }
 

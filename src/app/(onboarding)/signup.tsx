@@ -29,20 +29,20 @@ export default function SignupScreen() {
     <Container edges={['bottom']}>
       <YStack gap="$4" flex={1}>
         <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
-          <H1>{t('onboarding.page.signup.title')}</H1>
+          <H1>{t('onboarding.signup.title')}</H1>
         </FadeIn>
         <FadeIn delay={PARAGRAPH_DELAY.SECOND}>
           <YStack bg="$gray12" p="$5" gap="$4" rounded="$8">
-            <H3 color="$gray1">{t('onboarding.page.signup.ota')}</H3>
+            <H3 color="$gray1">{t('onboarding.signup.ota')}</H3>
             <YStack gap="$2">
               <Paragraph color="$gray2">
-                • {t('onboarding.page.signup.benefits.1')}
+                • {t('onboarding.signup.benefits.1')}
               </Paragraph>
               <Paragraph color="$gray2">
-                • {t('onboarding.page.signup.benefits.2')}
+                • {t('onboarding.signup.benefits.2')}
               </Paragraph>
               <Paragraph color="$gray2">
-                • {t('onboarding.page.signup.benefits.3')}
+                • {t('onboarding.signup.benefits.3')}
               </Paragraph>
             </YStack>
             <Button>{t('button.signup')}</Button>

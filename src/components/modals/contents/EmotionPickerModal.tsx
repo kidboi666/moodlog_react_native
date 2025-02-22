@@ -9,7 +9,7 @@ import {
   YStack,
 } from 'tamagui';
 import { EmotionLevel, EmotionType } from '@/types/enums';
-import { IEmotion } from '@/types/entries';
+import { Emotion } from '@/types/entries';
 import { emotionTheme } from '@/constants/themes';
 import { Check } from '@tamagui/lucide-icons';
 import React from 'react';
@@ -17,8 +17,8 @@ import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
 import { useTranslation } from 'react-i18next';
 
 interface Props extends ButtonProps {
-  selectedEmotion?: IEmotion;
-  onChangeEmotion: (emotion: IEmotion) => void;
+  selectedEmotion?: Emotion;
+  onChangeEmotion: (emotion: Emotion) => void;
 }
 
 export const EmotionPickerModal = ({

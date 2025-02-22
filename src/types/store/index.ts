@@ -1,63 +1,58 @@
 import {
-  IDateCounts,
-  IDraft,
-  IEmotion,
-  IJournal,
-  IUserInfo,
+  DateCounts,
+  Draft,
+  Emotion,
+  EmotionStats,
+  Journal,
+  JournalStats,
+  UserInfo,
 } from '@/types/entries';
 import { ViewFontSize } from '@/types/enums';
-import { ISODateString } from '@/types/dtos/date';
-import { RefObject } from 'react';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { ISODateString, ISOMonthString } from '@/types/dtos/date';
 import { LoadingState, Nullable, WithState } from 'src/types/utils';
 
-export type IJournalStore = WithState<
+export type JournalStore = WithState<
   {
-    journals: IJournal[];
-    selectedJournals: IJournal[];
-    draft: IDraft;
-    addJournal: (journal: IDraft) => void;
+    journals: Journal[];
+    selectedJournals: Journal[];
+    monthlyJournals: Journal[];
+    yearlyJournals: Journal[];
+    draft: Draft;
+    addJournal: (journal: Draft) => void;
     removeJournal: (id: string) => void;
-    getDateCountsForMonth: (
-      year: number,
-      month: number | string,
-    ) => IDateCounts;
+    getDateCountsForMonth: (year: number, month: number | string) => DateCounts;
     getDateCountsForDate: (
       year: number,
       month: number | string,
       date: number,
     ) => number;
-    updateJournals: (id: string, updateJournal: IJournal) => void;
+    updateJournals: (id: string, updateJournal: Journal) => void;
     updateDraftLocalDate: (date: ISODateString) => void;
-    updateDraftEmotion: (emotion: IEmotion) => void;
+    updateDraftEmotion: (emotion: Emotion) => void;
     updateDraftContent: (content: string) => void;
     updateDraftTitle: (title: string) => void;
-    updateSelectedJournals: (date: ISODateString) => void;
+    getJournalsByDate: (date: ISODateString) => void;
+    getJournalsByMonth: (date: ISOMonthString) => void;
+    getJournalsByYear: (year: number) => void;
   },
   LoadingState
 >;
 
-export interface IThemeStore {
+export interface ThemeStore {
   toggleTheme: () => void;
   currentTheme: 'dark' | 'light';
 }
 
-export interface IAppStore {
+export interface AppStore {
   fontSize: ViewFontSize;
   language: any;
   onChangeFontSize: () => void;
   onChangeLanguage: (language: any) => void;
 }
 
-export interface IBottomModalStore {
-  modalRef: RefObject<BottomSheetModal>;
-  openModal: () => void;
-  closeModal: () => void;
-}
-
-export type IUserStore = WithState<
+export type UserStore = WithState<
   {
-    userInfo: Nullable<IUserInfo>;
+    userInfo: Nullable<UserInfo>;
     draftUserName: string;
     isInitialUser: boolean;
     signUp: (userName: string) => void;
@@ -66,7 +61,7 @@ export type IUserStore = WithState<
   LoadingState
 >;
 
-export interface IStepProgressStore {
+export interface StepProgressStore {
   totalSteps: number;
   currentStep: number;
   goToNextStep: () => void;
@@ -74,3 +69,18 @@ export interface IStepProgressStore {
   isLastStep: boolean;
   progress: number;
 }
+
+export interface DateStore {
+  selectedYear: number;
+  selectedMonth: number;
+  onChangeSelectedYear: (year: number) => void;
+  onChangeSelectedMonth: (month: number) => void;
+}
+
+export type StatisticsStore = WithState<
+  {
+    journalStats: JournalStats;
+    emotionStats: EmotionStats;
+  },
+  LoadingState
+>;

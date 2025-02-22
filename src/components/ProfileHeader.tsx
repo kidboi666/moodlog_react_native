@@ -1,10 +1,10 @@
 import { Avatar, Button, H1, Paragraph, YStack } from 'tamagui';
 import { User } from '@tamagui/lucide-icons';
 import React from 'react';
-import { IUserInfo } from '@/types/entries';
+import { UserInfo } from '@/types/entries';
 
 interface Props {
-  userInfo: IUserInfo;
+  userInfo: UserInfo;
 }
 
 export const ProfileHeader = ({ userInfo }: Props) => {

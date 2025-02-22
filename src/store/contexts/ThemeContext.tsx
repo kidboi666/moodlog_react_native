@@ -5,12 +5,12 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { IThemeStore } from 'src/types/store';
+import { ThemeStore } from 'src/types/store';
 import { Theme } from 'tamagui';
 import { useColorScheme } from 'react-native';
 import { Nullable } from '@/types/utils';
 
-export const ThemeContext = createContext<Nullable<IThemeStore>>(null);
+export const ThemeContext = createContext<Nullable<ThemeStore>>(null);
 
 export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
   const [currentTheme, setCurrentTheme] = useState<'dark' | 'light'>('light');

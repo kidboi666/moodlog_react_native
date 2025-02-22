@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, H3, Input, Text, XStack, YStack } from 'tamagui';
-import { IUserInfo } from '@/types/entries';
+import { UserInfo } from '@/types/entries';
 import { useUser } from '@/store/hooks/useUser';
 import { Container } from '@/components/containers/Container';
 import { ProfileHeader } from '@/components/ProfileHeader';
@@ -8,14 +8,14 @@ import { BottomModal } from '@/components/modals/BottomModal';
 import { useBottomModal } from '@/hooks/useBottomModal';
 
 interface Props {
-  onUpdateProfile: (updatedInfo: IUserInfo) => void;
+  onUpdateProfile: (updatedInfo: UserInfo) => void;
 }
 
 export default function ProfilePage({ onUpdateProfile }: Props) {
   const { userInfo: initialUserInfo } = useUser();
   if (!initialUserInfo) return null;
   const { modalRef, openModal, closeModal } = useBottomModal();
-  const [userInfo, setUserInfo] = useState<IUserInfo>(initialUserInfo);
+  const [userInfo, setUserInfo] = useState<UserInfo>(initialUserInfo);
 
   return (
     <Container>

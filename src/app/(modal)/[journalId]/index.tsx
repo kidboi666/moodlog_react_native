@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
 import { Container } from '@/components/containers/Container';
 import { useLocalSearchParams } from 'expo-router';
-import { IJournal } from '@/types/entries';
+import { Journal } from '@/types/entries';
 import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
 import { ENTER_STYLE } from '@/constants/styles';
@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function JournalPage() {
   const { journalId } = useLocalSearchParams();
-  const [journal, setJournal] = useState<IJournal>();
+  const [journal, setJournal] = useState<Journal>();
   const { journals } = useJournal();
   const { fontSize } = useApp();
   const { t } = useTranslation();

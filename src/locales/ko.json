@@ -17,7 +17,26 @@
       }
     }
   },
+  "units": {
+    "month": "월",
+    "count": "개"
+  },
   "record": {
+    "stats": {
+      "totalCount": {
+        "title": "총 일기 갯수",
+        "description": "지금까지 작성한 일기",
+        "unit": "개"
+      },
+      "emotion": {
+        "title": "대표 감정",
+        "description": "나를 대표하는 감정"
+      },
+      "bestMonth": {
+        "title": "할 말이 많았던 달",
+        "description": "가장 많은 일기를 작성한 달"
+      }
+    },
     "garden": {
       "title": "기록 한눈에 보기",
       "description": "년도 별, 월 별 당신이 기록한 날의 감정을 확인하세요."
@@ -89,26 +108,24 @@
     }
   },
   "onboarding": {
-    "page": {
-      "index": {
-        "title": "안녕하세요!",
-        "description": "당신의 일상 여정에 오신 것을 환영합니다",
-        "description2": "매일이 당신 이야기의 새로운 페이지예요",
-        "go": "함께 써내려가 볼까요?"
-      },
-      "nickname": {
-        "title": "당신의 이야기가 여기서 시작됩니다",
-        "description": "어떤 이름으로 이야기를 쓰시겠어요?",
-        "placeholder": "닉네임을 입력해주세요"
-      },
-      "signup": {
-        "title": "더 다양한 경험을 시작해보세요",
-        "ota": "가입하고 추가 기능을 사용해보세요:",
-        "benefits": {
-          "1": "여러 기기에서 동기화",
-          "2": "안전한 백업",
-          "3": "고급 통계"
-        }
+    "index": {
+      "title": "안녕하세요!",
+      "description": "당신의 일상 여정에 오신 것을 환영합니다",
+      "description2": "매일이 당신 이야기의 새로운 페이지예요",
+      "go": "함께 써내려가 볼까요?"
+    },
+    "nickname": {
+      "title": "당신의 이야기가 여기서 시작됩니다",
+      "description": "어떤 이름으로 이야기를 쓰시겠어요?",
+      "placeholder": "닉네임을 입력해주세요"
+    },
+    "signup": {
+      "title": "더 다양한 경험을 시작해보세요",
+      "ota": "가입하고 추가 기능을 사용해보세요:",
+      "benefits": {
+        "1": "여러 기기에서 동기화",
+        "2": "안전한 백업",
+        "3": "고급 통계"
       }
     }
   }

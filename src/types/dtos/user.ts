@@ -1,3 +1,1 @@
-import { IUserInfo } from '../entries';
-
-export type UserInfo = {} & Pick<IUserInfo, 'userName' | 'email' | 'age'>;
+export type UserInfo = {} & Pick<UserInfo, 'userName' | 'email' | 'age'>;

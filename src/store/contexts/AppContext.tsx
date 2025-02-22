@@ -1,5 +1,5 @@
 import { createContext, PropsWithChildren, useState } from 'react';
-import { IAppStore } from 'src/types/store';
+import { AppStore } from 'src/types/store';
 import { ViewFontSize } from '@/types/enums';
 import * as Localization from 'expo-localization';
 import { Nullable } from '@/types/utils';
@@ -7,7 +7,7 @@ import { Nullable } from '@/types/utils';
 /**
  * TODO features
  */
-export const AppContext = createContext<Nullable<IAppStore>>(null);
+export const AppContext = createContext<Nullable<AppStore>>(null);
 
 export const AppContextProvider = ({ children }: PropsWithChildren) => {
   const defaultLanguage = Localization.getLocales()[0].languageCode;

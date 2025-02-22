@@ -1,9 +1,9 @@
 import { createContext, PropsWithChildren, useCallback, useState } from 'react';
 import { Nullable } from '@/types/utils';
-import { IStepProgressStore } from '@/types/store';
+import { StepProgressStore } from '@/types/store';
 
 export const StepProgressContext =
-  createContext<Nullable<IStepProgressStore>>(null);
+  createContext<Nullable<StepProgressStore>>(null);
 
 interface Props {
   initialStep?: number;

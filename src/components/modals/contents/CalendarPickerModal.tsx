@@ -2,11 +2,11 @@ import { CalendarBase } from '@/components/CalendarBase';
 import React from 'react';
 import { useTheme } from 'tamagui';
 import { ISODateString } from '@/types/dtos/date';
-import { IDateCounts } from '@/types/entries';
+import { DateCounts } from '@/types/entries';
 
 interface Props {
   onChangeLocalDate: (date: ISODateString) => void;
-  dateCounts: IDateCounts;
+  dateCounts: DateCounts;
   localDate?: ISODateString;
 }
 

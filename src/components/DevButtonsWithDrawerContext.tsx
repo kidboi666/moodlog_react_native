@@ -6,6 +6,7 @@ export const DevButtonsWithDrawerContext = () => {
     onClearUserStorage,
     onClearJournalStorage,
     onClearStorage,
+    onClearStatsStorage,
     insertDummyData,
   } = useDev();
 
@@ -15,6 +16,7 @@ export const DevButtonsWithDrawerContext = () => {
       <YStack gap="$4">
         <Button onPress={onClearUserStorage}>Clear User Storage</Button>
         <Button onPress={onClearJournalStorage}>Clear Journal Storage</Button>
+        <Button onPress={onClearStatsStorage}>Clear Stats Storage</Button>
         <Button onPress={onClearStorage}>Clear Storage</Button>
         <Button onPress={insertDummyData}>Insert Dummy Data</Button>
       </YStack>
