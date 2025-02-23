@@ -10,6 +10,7 @@ import {
 import { ViewFontSize } from '@/types/enums';
 import { ISODateString, ISOMonthString } from '@/types/dtos/date';
 import { LoadingState, Nullable, WithState } from 'src/types/utils';
+import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 
 export type JournalStore = WithState<
   {
@@ -84,3 +85,9 @@ export type StatisticsStore = WithState<
   },
   LoadingState
 >;
+
+export interface ScrollStore {
+  scrollPosition: number;
+  onScroll: (e: NativeSyntheticEvent<NativeScrollEvent>) => void;
+  resetScroll: () => void;
+}

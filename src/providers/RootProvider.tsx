@@ -9,6 +9,7 @@ import { UserContextProvider } from '@/store/contexts/UserContext';
 import { DevContextProvider } from '@/store/contexts/DevContext';
 import { DateContextProvider } from '@/store/contexts/DateContext';
 import { StatisticsContextProvider } from '@/store/contexts/StatisticsContext';
+import { ScrollContextProvider } from '@/store/contexts/ScrollContext';
 
 export const RootProvider = ({
   children,
@@ -25,9 +26,11 @@ export const RootProvider = ({
               <JournalContextProvider>
                 <StatisticsContextProvider>
                   <AppContextProvider>
-                    <UserContextProvider>
-                      <DevContextProvider>{children}</DevContextProvider>
-                    </UserContextProvider>
+                    <ScrollContextProvider>
+                      <UserContextProvider>
+                        <DevContextProvider>{children}</DevContextProvider>
+                      </UserContextProvider>
+                    </ScrollContextProvider>
                   </AppContextProvider>
                 </StatisticsContextProvider>
               </JournalContextProvider>

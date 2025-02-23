@@ -8,6 +8,11 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 import { useState } from 'react';
+import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
+import {
+  RECORD_CARD_EXPANDED_HEIGHT,
+  RECORD_CARD_HEIGHT,
+} from '@/constants/size';
 
 interface Props {
   journalStats: JournalStats;
@@ -20,7 +25,6 @@ export const ExpressiveMonth = ({ journalStats }: Props) => {
   const expressiveMonth = getExpressiveMonthString(
     journalStats.expressiveMonth.month,
   );
-
   const [isExpanded, setIsExpanded] = useState(false);
 
   const onPress = useEvent(() => {
@@ -28,18 +32,24 @@ export const ExpressiveMonth = ({ journalStats }: Props) => {
   });
 
   const animatedStyle = useAnimatedStyle(() => ({
-    height: withSpring(isExpanded ? 360 : 180),
+    height: withSpring(
+      isExpanded ? RECORD_CARD_EXPANDED_HEIGHT : RECORD_CARD_HEIGHT,
+    ),
   }));
 
   return (
     <AnimatedCard
       unstyled
-      style={animatedStyle}
+      flex={1}
       bg="$gray5"
       rounded="$8"
       onPress={onPress}
+      animation="quick"
+      animateOnly={PRESS_STYLE_KEY}
+      pressStyle={PRESS_STYLE}
+      style={animatedStyle}
     >
-      <Card.Header padded>
+      <Card.Header>
         <H3>{t('record.stats.bestMonth.title')}</H3>
         <Text>{t('record.stats.bestMonth.description')}</Text>
       </Card.Header>

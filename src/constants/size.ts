@@ -1,7 +1,11 @@
-export const CONTAINER_SPACING = 12;
+export const CONTAINER_SPACING = 18;
 
 export const CALENDAR_SCROLL_SIZE = 52;
 
 export const HOME_HEADER_LINE_HEIGHT = 48;
 
 export const RECORD_UNIT_LINE_HEIGHT = 32;
+
+export const RECORD_CARD_HEIGHT = 180;
+
+export const RECORD_CARD_EXPANDED_HEIGHT = 280;

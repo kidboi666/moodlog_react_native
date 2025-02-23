@@ -1,12 +1,17 @@
 import { Button, Card, H1, H3, Text, useEvent, XStack } from 'tamagui';
-import { RECORD_UNIT_LINE_HEIGHT } from '@/constants/size';
+import {
+  RECORD_CARD_EXPANDED_HEIGHT,
+  RECORD_CARD_HEIGHT,
+  RECORD_UNIT_LINE_HEIGHT,
+} from '@/constants/size';
 import { useTranslation } from 'react-i18next';
-import { Maximize2 } from '@tamagui/lucide-icons';
+import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
 import { useState } from 'react';
 import Animated, {
   useAnimatedStyle,
   withSpring,
 } from 'react-native-reanimated';
+import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 
 const AnimatedCard = Animated.createAnimatedComponent(Card);
 
@@ -19,19 +24,25 @@ export const TotalCount = ({ journalStats }) => {
   });
 
   const animatedStyle = useAnimatedStyle(() => ({
-    height: withSpring(isExpanded ? 360 : 180),
+    height: withSpring(
+      isExpanded ? RECORD_CARD_EXPANDED_HEIGHT : RECORD_CARD_HEIGHT,
+    ),
   }));
 
   return (
     <AnimatedCard
       unstyled
-      style={animatedStyle}
+      flex={1}
       bg="$gray5"
       rounded="$8"
       onPress={onPress}
+      animation="quick"
+      animateOnly={PRESS_STYLE_KEY}
+      pressStyle={PRESS_STYLE}
+      style={animatedStyle}
     >
-      <Card.Header padded>
-        <H3 fontWeight="800">{t('record.stats.totalCount.title')}</H3>
+      <Card.Header>
+        <H3>{t('record.stats.totalCount.title')}</H3>
         <Text>{t('record.stats.totalCount.description')}</Text>
       </Card.Header>
       <Card.Footer padded>
@@ -46,7 +57,7 @@ export const TotalCount = ({ journalStats }) => {
           self="flex-end"
           bg="transparent"
           opacity={0.2}
-          icon={<Maximize2 size="$1" />}
+          icon={isExpanded ? <Minimize2 size="$1" /> : <Maximize2 size="$1" />}
         />
       </Card.Footer>
     </AnimatedCard>
