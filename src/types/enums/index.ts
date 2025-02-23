@@ -17,7 +17,12 @@ export enum Theme {
 }
 
 export enum ViewFontSize {
-  SMALL = '$4',
-  MEDIUM = '$5',
-  LARGE = '$6',
+  SMALL = '$6',
+  MEDIUM = '$8',
+  LARGE = '$9',
+}
+
+export enum Languages {
+  EN = 'en',
+  KO = 'ko',
 }

@@ -27,44 +27,42 @@ export default function JournalHeader({ route }) {
   if (!journal) return null;
 
   return (
-    <>
-      <HeaderContainer>
-        <XStack>
-          <Button
-            unstyled
-            p="$2"
-            l={0}
-            icon={<ChevronLeft size="$1" />}
-            onPress={() => router.back()}
-            pressStyle={PRESS_STYLE}
-          />
-          <View width="$3" />
-        </XStack>
-        <XStack gap="$2" items="center">
-          <CurrentDate localDate={journal.localDate} />
-        </XStack>
+    <HeaderContainer>
+      <XStack>
+        <Button
+          unstyled
+          p="$2"
+          l={0}
+          icon={<ChevronLeft size="$1" />}
+          onPress={() => router.back()}
+          pressStyle={PRESS_STYLE}
+        />
+        <View width="$3" />
+      </XStack>
+      <XStack gap="$2" items="center">
+        <CurrentDate localDate={journal.localDate} />
+      </XStack>
 
-        <XStack>
-          <Button
-            unstyled
-            p="$2"
-            icon={<Trash2 size="$1" />}
-            pressStyle={PRESS_STYLE}
-            onPress={() => modalRef.current?.present()}
-          />
-          <Button
-            unstyled
-            p="$2"
-            icon={<ALargeSmall size="$1" />}
-            animation="quick"
-            onPress={onChangeFontSize}
-            pressStyle={PRESS_STYLE}
-          />
-        </XStack>
-      </HeaderContainer>
+      <XStack>
+        <Button
+          unstyled
+          p="$2"
+          icon={<Trash2 size="$1" />}
+          pressStyle={PRESS_STYLE}
+          onPress={() => modalRef.current?.present()}
+        />
+        <Button
+          unstyled
+          p="$2"
+          icon={<ALargeSmall size="$1" />}
+          animation="quick"
+          onPress={onChangeFontSize}
+          pressStyle={PRESS_STYLE}
+        />
+      </XStack>
       <BottomModal ref={modalRef}>
         <DeleteJournalModal journalId={journal.id} />
       </BottomModal>
-    </>
+    </HeaderContainer>
   );
 }

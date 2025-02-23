@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { Button, Input, InputProps, View, YStack } from 'tamagui';
+import React, { useRef } from 'react';
+import { Input, InputProps, ScrollView, YStack } from 'tamagui';
 import { useTranslation } from 'react-i18next';
 
 interface Props extends InputProps {
@@ -17,19 +17,10 @@ export const ContentInput = ({
   onChangeTitleText,
   ...props
 }: Props) => {
-  const [isFocused, setIsFocused] = useState(false);
   const firstInputRef = useRef<Input>(null);
   const secondInputRef = useRef<Input>(null);
   const { t } = useTranslation();
 
-  const handleFocusInput = () => {
-    if (titleValue) {
-      secondInputRef.current?.focus();
-      setIsFocused(true);
-    } else {
-      firstInputRef.current?.focus();
-    }
-  };
   const handleFirstLineSubmit = () => {
     secondInputRef.current?.focus();
   };
@@ -47,27 +38,28 @@ export const ContentInput = ({
         color="$color"
         ref={firstInputRef}
         onSubmitEditing={handleFirstLineSubmit}
-        placeholder={t('placeholder.journal')}
+        placeholder={t('placeholder.journal.title')}
         placeholderTextColor="$gray7"
       />
-      <Input
-        value={contentValue}
-        onChangeText={onChangeContentText}
-        unstyled
-        multiline
-        fontSize={fontSize}
-        ref={secondInputRef}
-        scrollEnabled={false}
-        pb="$4"
-        color="$color"
-        verticalAlign="top"
-        {...props}
-      />
-      {!isFocused && (
-        <View flex={1} bg="$blue2">
-          <Button unstyled flex={1} onPress={handleFocusInput} />
-        </View>
-      )}
+      <ScrollView flex={1}>
+        <Input
+          value={contentValue}
+          onChangeText={onChangeContentText}
+          unstyled
+          multiline
+          fontSize={fontSize}
+          ref={secondInputRef}
+          scrollEnabled={false}
+          placeholder={t('placeholder.journal.content')}
+          placeholderTextColor="$gray7"
+          flex={1}
+          height="100%"
+          color="$color"
+          verticalAlign="top"
+          pt={0}
+          {...props}
+        />
+      </ScrollView>
     </YStack>
   );
 };

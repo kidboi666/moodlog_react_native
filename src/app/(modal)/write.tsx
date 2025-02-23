@@ -1,33 +1,14 @@
 import { ContentInput } from '@/components/ContentInput';
-import { Button, ScrollView, View } from 'tamagui';
+import { View } from 'tamagui';
 import { useJournal } from '@/store/hooks/useJournal';
-import { Check } from '@tamagui/lucide-icons';
 import { Container } from '@/components/containers/Container';
-import { useToastController } from '@tamagui/toast';
 import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
-import { PRESS_STYLE } from '@/constants/styles';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { KeyboardAvoidingView } from 'react-native';
-import { useTranslation } from 'react-i18next';
 
 export default function WriteScreen() {
   const { fontSize } = useApp();
-  const toast = useToastController();
-  const insets = useSafeAreaInsets();
-  const { t } = useTranslation();
-  const { addJournal, draft, updateDraftContent, updateDraftTitle } =
-    useJournal();
-
-  const handleSubmit = () => {
-    if (!draft.emotion?.type) {
-      toast.show(t('toast.warn.emotion.title'), {
-        message: t('toast.warn.emotion.message'),
-        duration: 2000,
-      });
-    }
-    addJournal(draft);
-  };
+  const { draft, updateDraftContent, updateDraftTitle } = useJournal();
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }}>
@@ -37,6 +18,7 @@ export default function WriteScreen() {
             width="3%"
             height="100%"
             borderTopRightRadius="$4"
+            borderBottomRightRadius="$4"
             bg={emotionTheme[draft.emotion?.type][draft.emotion?.level]}
           />
         ) : (
@@ -48,29 +30,12 @@ export default function WriteScreen() {
           />
         )}
 
-        <ScrollView flex={1}>
-          <ContentInput
-            fontSize={fontSize}
-            contentValue={draft.content}
-            titleValue={draft.title}
-            onChangeContentText={updateDraftContent}
-            onChangeTitleText={updateDraftTitle}
-          />
-        </ScrollView>
-        <Button
-          bg="$background"
-          animation="quick"
-          themeInverse
-          position="absolute"
-          r="$2"
-          b={insets.bottom}
-          icon={Check}
-          z={200}
-          color="$color"
-          disabled={!draft?.content}
-          opacity={!draft.content ? 0.5 : 1}
-          pressStyle={PRESS_STYLE}
-          onPress={handleSubmit}
+        <ContentInput
+          fontSize={fontSize}
+          contentValue={draft.content}
+          titleValue={draft.title}
+          onChangeContentText={updateDraftContent}
+          onChangeTitleText={updateDraftTitle}
         />
       </Container>
     </KeyboardAvoidingView>

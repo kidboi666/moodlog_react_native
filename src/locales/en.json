@@ -6,7 +6,10 @@
     "journal": "Your story is waiting to be told."
   },
   "placeholder": {
-    "journal": "Write your story here.",
+    "journal": {
+      "title": "How was your day?",
+      "content": "Write about your feelings and experiences today. "
+    },
     "emotion": "Select how you're feeling right now."
   },
   "toast": {

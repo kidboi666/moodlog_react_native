@@ -1,8 +1,9 @@
-import { createContext, PropsWithChildren, useState } from 'react';
+import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 import { AppStore } from 'src/types/store';
-import { ViewFontSize } from '@/types/enums';
+import { Languages, ViewFontSize } from '@/types/enums';
 import * as Localization from 'expo-localization';
 import { Nullable } from '@/types/utils';
+import { useTranslation } from 'react-i18next';
 
 /**
  * TODO features
@@ -10,13 +11,22 @@ import { Nullable } from '@/types/utils';
 export const AppContext = createContext<Nullable<AppStore>>(null);
 
 export const AppContextProvider = ({ children }: PropsWithChildren) => {
-  const defaultLanguage = Localization.getLocales()[0].languageCode;
+  const defaultLanguage = Localization.getLocales()[0]
+    .languageCode as Languages;
   const [fontSize, setFontSize] = useState<ViewFontSize>(ViewFontSize.SMALL);
-  const [language, setLanguage] = useState(defaultLanguage);
+  const [language, setLanguage] = useState<Languages>(defaultLanguage);
+  const { i18n } = useTranslation();
 
-  const handleLanguageChange = (language: any) => {
+  const handleLanguageChange = (language: Languages) => {
     setLanguage(language);
   };
+
+  useEffect(() => {
+    if (language) {
+      i18n.changeLanguage(language);
+    }
+  }, [language]);
+
   const handleFontSizeChange = () => {
     switch (fontSize) {
       case ViewFontSize.MEDIUM:

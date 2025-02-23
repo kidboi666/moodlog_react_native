@@ -1,5 +1,5 @@
 import { HeaderContainer } from '@/components/containers/HeaderContainer';
-import { Button, View, XStack } from 'tamagui';
+import { Button } from 'tamagui';
 import { ArrowLeft } from '@tamagui/lucide-icons';
 import { PRESS_STYLE } from '@/constants/styles';
 import { ParamListBase } from '@react-navigation/routers';
@@ -12,17 +12,14 @@ export const RecordHeader = ({
 }) => {
   return (
     <HeaderContainer>
-      <XStack>
-        <Button
-          p="$2"
-          unstyled
-          rounded="$2"
-          icon={<ArrowLeft size="$1" />}
-          onPress={() => navigation.goBack()}
-          pressStyle={PRESS_STYLE}
-        />
-        <View flex={1} />
-      </XStack>
+      <Button
+        p="$2"
+        unstyled
+        rounded="$2"
+        icon={<ArrowLeft size="$1" />}
+        onPress={() => navigation.goBack()}
+        pressStyle={PRESS_STYLE}
+      />
     </HeaderContainer>
   );
 };

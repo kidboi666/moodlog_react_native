@@ -33,6 +33,7 @@ export const EmotionAverage = ({ signatureEmotion }: Props) => {
       isExpanded ? RECORD_CARD_EXPANDED_HEIGHT : RECORD_CARD_HEIGHT,
     ),
   }));
+
   return (
     <AnimatedCard
       animation="quick"

@@ -8,17 +8,13 @@ export default function RecordLayout() {
     <Stack
       screenOptions={{
         headerShown: true,
+        header: ({ navigation }) => <RecordHeader navigation={navigation} />,
         contentStyle: {
           backgroundColor: theme.background.val,
         },
       }}
     >
-      <Stack.Screen
-        name="index"
-        options={{
-          header: ({ navigation }) => <RecordHeader navigation={navigation} />,
-        }}
-      />
+      <Stack.Screen name="index" />
     </Stack>
   );
 }

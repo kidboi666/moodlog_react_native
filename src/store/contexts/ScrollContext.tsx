@@ -18,6 +18,7 @@ export const ScrollContextProvider = ({ children }: PropsWithChildren) => {
   const resetScroll = () => {
     setScrollPosition(0);
   };
+  console.log(scrollPosition);
 
   useEffect(() => {
     return navigation.addListener('state', e => resetScroll());

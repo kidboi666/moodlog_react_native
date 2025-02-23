@@ -8,12 +8,14 @@ import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
 import { ENTER_STYLE } from '@/constants/styles';
 import { useTranslation } from 'react-i18next';
+import { useScroll } from '@/store/hooks/useScroll';
 
 export default function JournalPage() {
   const { journalId } = useLocalSearchParams();
   const [journal, setJournal] = useState<Journal>();
   const { journals } = useJournal();
   const { fontSize } = useApp();
+  const { onScroll } = useScroll();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -29,9 +31,10 @@ export default function JournalPage() {
         width="3%"
         height="100%"
         borderTopRightRadius="$4"
+        borderBottomRightRadius="$4"
         bg={emotionTheme[journal.emotion.type][journal.emotion.level]}
       />
-      <ScrollView flex={1}>
+      <ScrollView flex={1} onScroll={onScroll}>
         <YStack>
           <XStack gap="$2">
             <XStack
@@ -46,7 +49,7 @@ export default function JournalPage() {
               <H3>{t(`emotion.type.${journal.emotion?.type}`)}</H3>
             </XStack>
           </XStack>
-          <H1 mb="$6">{journal.title}</H1>
+          <H1 mb="$2">{journal.title}</H1>
           <Paragraph fontWeight="300" fontSize={fontSize}>
             {journal.content}
           </Paragraph>
