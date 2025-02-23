@@ -1,6 +1,6 @@
 import { XStack, YStack } from 'tamagui';
-import { getMonthNumber } from '@/utils/common/date';
 import { CommitBox } from '@/components/features/garden/CommitBox';
+import { getMonthNumber } from '@/utils/common';
 
 export const Garden = ({
   weekLength,

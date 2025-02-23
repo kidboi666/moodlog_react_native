@@ -7,8 +7,8 @@ import { CalendarDays, CalendarRange } from '@tamagui/lucide-icons';
 import { FALL_STYLE, FALL_STYLE_KEY, PRESS_STYLE } from '@/constants/styles';
 import { VerticalCalendar } from '@/components/VerticalCalendar';
 import { CalendarUtils } from 'react-native-calendars';
-import { getMonthString } from '@/utils/common/date';
 import { useTranslation } from 'react-i18next';
+import { getMonthString } from '@/utils/common';
 
 export const WeekDayPicker = () => {
   const [variation, setVariation] = useState<'horizontal' | 'vertical'>(

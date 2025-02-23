@@ -42,9 +42,18 @@
         "title": "대표 감정",
         "description": "나를 대표하는 감정"
       },
-      "bestMonth": {
+      "expressiveMonth": {
         "title": "인상 깊던 달",
-        "description": "가장 많은 일기를 작성한 달"
+        "description": "가장 많은 일기를 작성한 달",
+        "journalCount": "{{month}}의 작성한 일기 갯수",
+        "frequency": {
+          "title": "평균 작성 빈도",
+          "description": "{{date}}일에 한 번 일기를 작성했어요."
+        },
+        "mostDay": {
+          "title": "가장 많이 작성한 요일",
+          "description": "주로 {{day}}요일에 일기를 작성했네요."
+        }
       }
     },
     "garden": {

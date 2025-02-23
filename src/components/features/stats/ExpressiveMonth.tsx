@@ -1,5 +1,4 @@
-import { Button, H1, H3, Text, useEvent, XStack, YStack } from 'tamagui';
-import { getExpressiveMonthString } from '@/utils/common/date';
+import { Button, H1, H3, H5, Text, useEvent, XStack, YStack } from 'tamagui';
 import { useTranslation } from 'react-i18next';
 import { JournalStats } from '@/types/entries';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
@@ -13,6 +12,7 @@ import {
   RECORD_CARD_EXPANDED_HEIGHT,
   RECORD_CARD_HEIGHT,
 } from '@/constants/size';
+import { getExpressiveMonthString } from '@/utils/common';
 
 interface Props {
   journalStats: JournalStats;
@@ -37,22 +37,46 @@ export const ExpressiveMonth = ({ journalStats }: Props) => {
     ),
   }));
 
-  return (
-    <AnimatedCard
-      flex={1}
-      bg="$gray5"
-      rounded="$8"
-      justify="space-between"
-      p="$4"
-      onPress={onPress}
-      animation="quick"
-      animateOnly={PRESS_STYLE_KEY}
-      pressStyle={PRESS_STYLE}
-      style={animatedStyle}
-    >
+  const expandedContent = () => (
+    <>
       <YStack>
-        <H3>{t('record.stats.bestMonth.title')}</H3>
-        <Text>{t('record.stats.bestMonth.description')}</Text>
+        <H5 fontWeight="800">
+          {t('record.stats.expressiveMonth.journalCount', {
+            month: t(`calendar.months.${expressiveMonth}`),
+          })}
+        </H5>
+        <Text color="$gray11">21개</Text>
+      </YStack>
+      <YStack>
+        <H5 fontWeight="800">
+          {t('record.stats.expressiveMonth.frequency.title')}
+        </H5>
+        <Text color="$gray11">
+          {t('record.stats.expressiveMonth.frequency.description')}
+        </Text>
+      </YStack>
+      <YStack>
+        <H5 fontWeight="800">
+          {t('record.stats.expressiveMonth.mostDay.title')}
+        </H5>
+        <Text color="$gray11">
+          {t('record.stats.expressiveMonth.mostDay.description')}
+        </Text>
+      </YStack>
+      <Button
+        unstyled
+        self="flex-end"
+        opacity={0.2}
+        icon={isExpanded ? <Minimize2 size="$1" /> : <Maximize2 size="$1" />}
+      />
+    </>
+  );
+
+  const collapsedContent = () => (
+    <>
+      <YStack>
+        <H3>{t('record.stats.expressiveMonth.title')}</H3>
+        <Text>{t('record.stats.expressiveMonth.description')}</Text>
       </YStack>
       <XStack>
         <XStack flex={1}>
@@ -70,6 +94,23 @@ export const ExpressiveMonth = ({ journalStats }: Props) => {
           icon={isExpanded ? <Minimize2 size="$1" /> : <Maximize2 size="$1" />}
         />
       </XStack>
+    </>
+  );
+
+  return (
+    <AnimatedCard
+      flex={1}
+      bg="$gray5"
+      rounded="$8"
+      justify="space-between"
+      p="$4"
+      onPress={onPress}
+      animation="quick"
+      animateOnly={PRESS_STYLE_KEY}
+      pressStyle={PRESS_STYLE}
+      style={animatedStyle}
+    >
+      {isExpanded ? expandedContent() : collapsedContent()}
     </AnimatedCard>
   );
 };

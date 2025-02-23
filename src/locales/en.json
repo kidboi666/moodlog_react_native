@@ -41,9 +41,18 @@
         "title": "Primary Emotion",
         "description": "Emotion that represents me"
       },
-      "bestMonth": {
-        "title": "Most Expressive Month",
-        "description": "Month with the most journal entries"
+      "expressiveMonth": {
+        "title": "Most Active Month",
+        "description": "The month with the most journal entries",
+        "journalCount": "Number of entries in {{month}}",
+        "frequency": {
+          "title": "Average Writing Frequency",
+          "description": "You wrote a journal entry every {{date}} days"
+        },
+        "mostDay": {
+          "title": "Most Active Day",
+          "description": "You mostly wrote your entries on {{day}}s"
+        }
       }
     },
     "garden": {

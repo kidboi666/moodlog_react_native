@@ -1,5 +1,4 @@
 import { Button, H1, H3, Text, useEvent, XStack, YStack } from 'tamagui';
-import { emotionTheme } from '@/constants/themes';
 import { useTranslation } from 'react-i18next';
 import { SignatureEmotion } from '@/types/entries';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
@@ -13,9 +12,12 @@ import {
   RECORD_CARD_EXPANDED_HEIGHT,
   RECORD_CARD_HEIGHT,
 } from '@/constants/size';
+import { Nullable } from '@/types/utils';
+import { getEmotionTheme } from '@/utils/common';
+import { EmotionLevel } from '@/types/enums';
 
 interface Props {
-  signatureEmotion: SignatureEmotion;
+  signatureEmotion: Nullable<SignatureEmotion>;
 }
 
 const AnimatedCard = Animated.createAnimatedComponent(YStack);
@@ -38,7 +40,11 @@ export const EmotionAverage = ({ signatureEmotion }: Props) => {
       flex={1}
       p="$4"
       justify="space-between"
-      bg={emotionTheme[signatureEmotion?.type]?.full ?? '$gray5'}
+      bg={
+        signatureEmotion?.type
+          ? getEmotionTheme(signatureEmotion.type, EmotionLevel.FULL)
+          : '$gray5'
+      }
       rounded="$8"
       onPress={onPress}
       animation="quick"

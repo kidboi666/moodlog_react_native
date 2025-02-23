@@ -5,12 +5,9 @@ import { CALENDAR_SCROLL_SIZE } from '@/constants/size';
 import { ENTER_STYLE, ENTER_STYLE_KEY } from '@/constants/styles';
 import { DateCounts } from '@/types/entries';
 import { CalendarUtils } from 'react-native-calendars';
-import {
-  getDateInISODateString,
-  getDayInISODateString,
-} from '@/utils/common/date';
 import { DateCountDot } from '@/components/DateCountDot';
 import { useTranslation } from 'react-i18next';
+import { getDateInISODateString, getDayInISODateString } from '@/utils/common';
 
 interface Props {
   dates: ISODateString[];

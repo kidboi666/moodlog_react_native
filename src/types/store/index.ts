@@ -82,7 +82,7 @@ export interface DateStore {
 export type StatisticsStore = WithState<
   {
     journalStats: JournalStats;
-    emotionStats: EmotionStats;
+    emotionStats: Nullable<EmotionStats>;
   },
   LoadingState
 >;

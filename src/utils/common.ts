@@ -1,5 +1,7 @@
-import { ISODateString } from '@/types/dtos/date';
 import { MONTHS, WEEK_DAY } from '@/constants/date';
+import { ISODateString } from '@/types/dtos/date';
+import { EmotionLevel, EmotionType } from '@/types/enums';
+import { emotionTheme } from '@/constants/themes';
 
 export const formatDate = (value: Date) => {
   const year = value.getFullYear();
@@ -55,4 +57,11 @@ export const removeLeadingZero = str => {
 
 export const getExpressiveMonthString = str => {
   return Object.keys(MONTHS)[removeLeadingZero(str.split('-')[1]) - 1];
+};
+
+export const getEmotionTheme = (
+  type: EmotionType | string,
+  level: EmotionLevel,
+) => {
+  return emotionTheme[type][level];
 };

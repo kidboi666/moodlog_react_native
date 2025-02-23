@@ -30,7 +30,7 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
       count: 0,
     },
   });
-  const [emotionStats, setEmotionStats] = useState<EmotionStats>({
+  const [emotionStats, setEmotionStats] = useState<Nullable<EmotionStats>>({
     signatureEmotion: {
       type: '',
       count: 0,
@@ -94,8 +94,13 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
     );
   };
 
+  /**
+   * 감정 평균 구하기
+   */
   const getTotalEmotionAverage = () => {
     const emotions = journals.map(journal => journal.emotion);
+
+    if (!emotions) return null;
 
     const scoreBoard: ScoreBoard = {
       sad: { count: 0, score: 0 },
@@ -168,6 +173,8 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   };
   const getEmotionStats = () => {
     const scoreBoard = getTotalEmotionAverage();
+    if (!scoreBoard) return null;
+
     const signatureEmotion = getSignatureEmotion(scoreBoard);
     return {
       scoreBoard,
@@ -253,10 +260,11 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
 
       setEmotionStats(prev => {
         const isScoreBoardChanged =
-          JSON.stringify(newEmotionStats.scoreBoard) !==
-          JSON.stringify(prev.scoreBoard);
+          JSON.stringify(newEmotionStats?.scoreBoard) !==
+          JSON.stringify(prev?.scoreBoard);
         const isSignatureEmotionChanged =
-          newEmotionStats.signatureEmotion.type !== prev.signatureEmotion.type;
+          newEmotionStats?.signatureEmotion.type !==
+          prev?.signatureEmotion.type;
 
         if (isScoreBoardChanged || isSignatureEmotionChanged) {
           console.log('새로운 감정 통계:', newEmotionStats);
