@@ -13,7 +13,7 @@ import {
   ScoreBoard,
   SignatureEmotion,
 } from '@/types/entries';
-import { EmotionLevel } from '@/types/enums';
+import { EmotionLevel } from 'src/types/enums';
 
 export const StatisticsContext = createContext<Nullable<StatisticsStore>>(null);
 

@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 import { AppStore } from 'src/types/store';
-import { Languages, ViewFontSize } from '@/types/enums';
+import { Languages, ViewFontSize } from 'src/types/enums';
 import * as Localization from 'expo-localization';
 import { Nullable } from '@/types/utils';
 import { useTranslation } from 'react-i18next';

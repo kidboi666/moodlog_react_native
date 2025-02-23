@@ -1,4 +1,4 @@
-import { EmotionLevel, EmotionType } from '@/types/enums';
+import { EmotionLevel, EmotionType } from 'src/types/enums';
 import { ISODateString, ISOMonthString } from '@/types/dtos/date';
 
 export type Emotion = {

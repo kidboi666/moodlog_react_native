@@ -30,7 +30,7 @@ export default function HomeLayout() {
           }}
         />
         <Drawer.Screen
-          name="setting"
+          name="(setting)"
           options={{
             title: 'Setting',
           }}

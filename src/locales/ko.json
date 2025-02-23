@@ -111,7 +111,8 @@
     "theme": {
       "title": "다크 모드",
       "light": "밝은 테마",
-      "dark": "어두운 테마"
+      "dark": "어두운 테마",
+      "system": "시스템 테마"
     },
     "language": {
       "title": "언어"

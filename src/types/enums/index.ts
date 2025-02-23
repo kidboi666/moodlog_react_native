@@ -11,11 +11,6 @@ export enum EmotionLevel {
   FULL = 'full',
 }
 
-export enum Theme {
-  DARK = 'dark',
-  LIGHT = 'light',
-}
-
 export enum ViewFontSize {
   SMALL = '$6',
   MEDIUM = '$8',
@@ -26,3 +21,7 @@ export enum Languages {
   EN = 'en',
   KO = 'ko',
 }
+
+export type CurrentTheme = 'dark' | 'light';
+
+export type Theme = 'dark' | 'light' | 'system';

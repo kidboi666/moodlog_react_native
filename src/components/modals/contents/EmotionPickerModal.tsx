@@ -8,7 +8,7 @@ import {
   XStack,
   YStack,
 } from 'tamagui';
-import { EmotionLevel, EmotionType } from '@/types/enums';
+import { EmotionLevel, EmotionType } from 'src/types/enums';
 import { Emotion } from '@/types/entries';
 import { emotionTheme } from '@/constants/themes';
 import { Check } from '@tamagui/lucide-icons';

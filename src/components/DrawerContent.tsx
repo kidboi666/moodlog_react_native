@@ -1,8 +1,5 @@
 import { Button, Separator, Text, useTheme, View, XStack } from 'tamagui';
-import {
-  DrawerContentComponentProps,
-  DrawerItem,
-} from '@react-navigation/drawer';
+import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import { useRouter } from 'expo-router';
 import { Home, PersonStanding, Settings, X } from '@tamagui/lucide-icons';
 import { useAppTheme } from '@/store/hooks/useAppTheme';
@@ -10,21 +7,6 @@ import { PRESS_STYLE } from '@/constants/styles';
 import { DrawerContainer } from '@/components/containers/DrawerContainer';
 import { DevButtonsWithDrawerContext } from '@/components/DevButtonsWithDrawerContext';
 import { useTranslation } from 'react-i18next';
-
-const iconList = {
-  index: (focused, theme) => (
-    <Home color={focused ? theme.gray12.val : theme.gray10.val} size="$1" />
-  ),
-  profile: (focused, theme) => (
-    <PersonStanding
-      color={focused ? theme.gray12.val : theme.gray10.val}
-      size="$1"
-    />
-  ),
-  setting: (focused, theme) => (
-    <Settings color={focused ? theme.gray12.val : theme.gray10.val} size="$1" />
-  ),
-};
 
 export const DrawerContent = ({
   state,
@@ -43,6 +25,11 @@ export const DrawerContent = ({
       router.push(`/${routeName}` as never);
     }
   };
+  const iconList = {
+    index: <Home color={theme.gray10.val as any} size="$1" />,
+    profile: <PersonStanding color={theme.gray10.val as any} size="$1" />,
+    setting: <Settings color={theme.gray10.val as any} size="$1" />,
+  };
 
   return (
     <DrawerContainer>
@@ -59,20 +46,13 @@ export const DrawerContent = ({
       />
       <View flex={1} height="100%">
         {state.routes.map((route, i) => (
-          <DrawerItem
-            key={route.name}
-            focused={state.index === i}
-            activeBackgroundColor={theme.gray8.val}
-            activeTintColor={theme.gray12.val}
-            inactiveTintColor={theme.gray11.val}
-            icon={({ focused }) => iconList[route.name](focused, theme)}
-            label={descriptors[route.key].options.title ?? route.name}
-            style={{
-              width: '100%',
-              borderRadius: 12,
-            }}
+          <Button
+            key={i}
+            icon={iconList[route.name]}
             onPress={() => handleNavigation(route.name)}
-          />
+          >
+            {descriptors[route.key].options.title ?? route.name}
+          </Button>
         ))}
         <Separator my="$4" />
 

@@ -7,7 +7,7 @@ import {
   JournalStats,
   UserInfo,
 } from '@/types/entries';
-import { ViewFontSize } from '@/types/enums';
+import { Theme, ViewFontSize } from 'src/types/enums';
 import { ISODateString, ISOMonthString } from '@/types/dtos/date';
 import { LoadingState, Nullable, WithState } from 'src/types/utils';
 import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
@@ -40,8 +40,9 @@ export type JournalStore = WithState<
 >;
 
 export interface ThemeStore {
-  toggleTheme: () => void;
-  currentTheme: 'dark' | 'light';
+  changeTheme: (theme: Theme) => void;
+  currentTheme: Theme;
+  resolvedTheme: Omit<Theme, 'system'>;
 }
 
 export interface AppStore {

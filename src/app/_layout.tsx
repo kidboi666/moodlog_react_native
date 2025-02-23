@@ -62,7 +62,7 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const { currentTheme } = useAppTheme();
+  const { currentTheme, resolvedTheme } = useAppTheme();
   const theme = useTheme();
   const { isInitialUser, isLoading } = useUser();
   const router = useRouter();
@@ -71,7 +71,7 @@ function RootLayoutNav() {
     if (Platform.OS === 'android') {
       NavigationBar.setBackgroundColorAsync(theme.background.val);
       NavigationBar.setButtonStyleAsync(
-        currentTheme === 'dark' ? 'light' : 'dark',
+        resolvedTheme === 'dark' ? 'light' : 'dark',
       );
     }
   }, [currentTheme]);

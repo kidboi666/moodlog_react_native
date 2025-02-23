@@ -55,7 +55,8 @@
     "theme": {
       "title": "Dark mode",
       "light": "Light Theme",
-      "dark": "Dark Theme"
+      "dark": "Dark Theme",
+      "system": "System Theme"
     },
     "language": {
       "title": "Language",
