@@ -1,28 +1,33 @@
 {
   "hello": "Hello!",
   "greeting": "{{name}}.",
-  "howAreYou": "How are you feeling today?",
+  "howAreYou": "How are you?",
   "fallback": {
-    "journal": "Your story is waiting to be told."
+    "journal": "Start your story."
+  },
+  "drawer": {
+    "home": "Home",
+    "profile": "Profile",
+    "(setting)": "Setting"
   },
   "placeholder": {
     "journal": {
-      "title": "How was your day?",
-      "content": "Write about your feelings and experiences today. "
+      "title": "How was today?",
+      "content": "Write about your day."
     },
-    "emotion": "Select how you're feeling right now."
+    "emotion": "How are you feeling?"
   },
   "toast": {
     "success": {
       "journal": {
-        "title": "Journal saved!",
-        "message": "Your thoughts have been safely stored."
+        "title": "Saved!",
+        "message": "Journal saved successfully."
       }
     },
     "warn": {
       "emotion": {
-        "title": "Please select an emotion intensity!",
-        "message": "No emotion intensity selected"
+        "title": "Select intensity",
+        "message": "Choose emotion intensity"
       }
     }
   },
@@ -33,39 +38,39 @@
   "record": {
     "stats": {
       "totalCount": {
-        "title": "Total Journal Count",
-        "description": "Journals written so far",
+        "title": "Total Journals",
+        "description": "Written entries",
         "unit": "entries"
       },
       "emotion": {
-        "title": "Primary Emotion",
-        "description": "Emotion that represents me"
+        "title": "Main Emotion",
+        "description": "Your signature emotion"
       },
       "expressiveMonth": {
-        "title": "Most Active Month",
-        "description": "The month with the most journal entries",
-        "journalCount": "Number of entries in {{month}}",
+        "title": "Best Month",
+        "description": "Most active month",
+        "journalCount": "Entries in {{month}}",
         "frequency": {
-          "title": "Average Writing Frequency",
-          "description": "You wrote a journal entry every {{date}} days"
+          "title": "Write Frequency",
+          "description": "Every {{date}} days"
         },
         "mostDay": {
-          "title": "Most Active Day",
-          "description": "You mostly wrote your entries on {{day}}s"
+          "title": "Favorite Day",
+          "description": "Most written: {{day}}"
         }
       }
     },
     "garden": {
-      "title": "See Your Story at a Glance",
-      "description": "Check the emotions you've recorded by year and month."
+      "title": "Your Story",
+      "description": "Your emotions by date"
     }
   },
   "setting": {
     "theme": {
       "title": "Dark mode",
-      "light": "Light Theme",
-      "dark": "Dark Theme",
-      "system": "System Theme"
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
     },
     "language": {
       "title": "Language",
@@ -81,8 +86,8 @@
       "peace": "Peaceful"
     },
     "level": {
-      "zero": "Slightly",
-      "half": "Moderately",
+      "zero": "A bit",
+      "half": "Medium",
       "full": "Very"
     }
   },
@@ -131,22 +136,22 @@
   "onboarding": {
     "index": {
       "title": "Hello!",
-      "description": "Welcome to Your Daily Journey",
-      "description2": "Every day is a new page in your story",
-      "go": "Let's write it together."
+      "description": "Welcome",
+      "description2": "Start your story",
+      "go": "Begin writing"
     },
     "nickname": {
-      "title": "Your story starts here",
-      "description": "what name will you write it under?",
-      "placeholder": "Enter your nickname"
+      "title": "Your name",
+      "description": "What should we call you?",
+      "placeholder": "Nickname"
     },
     "signup": {
-      "title": "Take Your Experience Further",
-      "ota": "Sign up to unlock additional features:",
+      "title": "Get More",
+      "ota": "Sign up benefits:",
       "benefits": {
-        "1": "Sync across devices",
-        "2": "Secure backup",
-        "3": "Advanced statistics"
+        "1": "Device sync",
+        "2": "Backup",
+        "3": "Stats"
       }
     }
   }

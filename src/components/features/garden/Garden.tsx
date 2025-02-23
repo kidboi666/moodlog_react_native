@@ -1,5 +1,5 @@
 import { XStack, YStack } from 'tamagui';
-import { CommitBox } from '@/components/features/garden/CommitBox';
+import { Grass } from '@/components/features/garden/Grass';
 import { getMonthNumber } from '@/utils/common';
 
 export const Garden = ({
@@ -22,10 +22,10 @@ export const Garden = ({
               dateNum,
             );
             if (dateNum <= 0 || dateNum > lastDate) {
-              return <CommitBox key={day} isEmpty />;
+              return <Grass key={day} isEmpty />;
             }
 
-            return <CommitBox key={day} count={journalsCount} />;
+            return <Grass key={day} count={journalsCount} />;
           })}
         </YStack>
       ))}

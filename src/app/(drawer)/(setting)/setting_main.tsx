@@ -4,7 +4,7 @@ import { Globe, Moon } from '@tamagui/lucide-icons';
 import { useTranslation } from 'react-i18next';
 import { SettingItem } from '@/components/SettingItem';
 
-export default function SettingScreen() {
+export default function SettingMainScreen() {
   const { t } = useTranslation();
 
   return (
@@ -13,7 +13,7 @@ export default function SettingScreen() {
         <YStack>
           {/* Theme Setting */}
           <SettingItem
-            icon={<Moon size="$1" color="$color" />}
+            icon={<Moon size="$1" />}
             label={t('setting.theme.title')}
             href="/theme"
           />
@@ -22,7 +22,7 @@ export default function SettingScreen() {
 
           {/* Language Setting */}
           <SettingItem
-            icon={<Globe size="$1" color="$color" />}
+            icon={<Globe size="$1" />}
             label={t('setting.language.title')}
             href="/language"
           />

@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useEffect, useState } from 'react';
+import { createContext, PropsWithChildren, useState } from 'react';
 import { ThemeStore } from 'src/types/store';
 import { Theme as TamaguiTheme } from 'tamagui';
 import { useColorScheme } from 'react-native';
@@ -8,7 +8,7 @@ import { Theme } from 'src/types/enums';
 export const ThemeContext = createContext<Nullable<ThemeStore>>(null);
 
 export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
-  const [currentTheme, setCurrentTheme] = useState<Theme>('light');
+  const [currentTheme, setCurrentTheme] = useState<Theme>('system');
   const colorScheme = useColorScheme();
   const resolvedTheme =
     currentTheme !== 'system'
@@ -20,10 +20,6 @@ export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
   const changeTheme = (theme: Theme) => {
     setCurrentTheme(theme);
   };
-
-  useEffect(() => {
-    colorScheme === 'dark' ? setCurrentTheme('dark') : setCurrentTheme('light');
-  }, [colorScheme]);
 
   return (
     <ThemeContext.Provider value={{ resolvedTheme, currentTheme, changeTheme }}>

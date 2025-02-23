@@ -1,23 +1,29 @@
 import { Href, Link } from 'expo-router';
-import { Label, View, XStack } from 'tamagui';
-import { ReactNode } from 'react';
+import { Button } from 'tamagui';
+import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 
 interface Props {
-  icon?: ReactNode;
+  icon?: any;
   label: string;
   href: Href;
 }
 
 export const SettingItem = ({ icon, label, href }: Props) => {
   return (
-    <Link href={href}>
-      <XStack gap="$4" items="center" p="$4">
-        {icon}
-        <Label fontSize="$6" htmlFor={label}>
-          {label}
-        </Label>
-        <View flex={1} />
-      </XStack>
+    <Link href={href} asChild>
+      <Button
+        animation="quick"
+        animateOnly={PRESS_STYLE_KEY}
+        unstyled
+        icon={icon}
+        flexDirection="row"
+        gap="$2"
+        fontSize="$6"
+        pressStyle={PRESS_STYLE}
+        p="$5"
+      >
+        {label}
+      </Button>
     </Link>
   );
 };

@@ -5,7 +5,7 @@ interface Props {
   isEmpty?: boolean;
 }
 
-export const CommitBox = ({ count, isEmpty = false }: Props) => {
+export const Grass = ({ count, isEmpty = false }: Props) => {
   if (isEmpty) {
     return <View width={16} height={16} />;
   }

@@ -1,9 +1,8 @@
-import { Button, Separator, Text, useTheme, View, XStack } from 'tamagui';
+import { Button, Separator, Text, View, XStack } from 'tamagui';
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
-import { useRouter } from 'expo-router';
+import { useRouter, useSegments } from 'expo-router';
 import { Home, PersonStanding, Settings, X } from '@tamagui/lucide-icons';
-import { useAppTheme } from '@/store/hooks/useAppTheme';
-import { PRESS_STYLE } from '@/constants/styles';
+import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 import { DrawerContainer } from '@/components/containers/DrawerContainer';
 import { DevButtonsWithDrawerContext } from '@/components/DevButtonsWithDrawerContext';
 import { useTranslation } from 'react-i18next';
@@ -13,29 +12,26 @@ export const DrawerContent = ({
   navigation,
   descriptors,
 }: DrawerContentComponentProps) => {
-  const { currentTheme, toggleTheme } = useAppTheme();
   const router = useRouter();
-  const theme = useTheme();
+  const segments = useSegments();
   const { t } = useTranslation();
 
   const handleNavigation = (routeName: string) => {
-    if (routeName.toLowerCase() === 'index') {
-      router.push('/');
-    } else {
-      router.push(`/${routeName}` as never);
-    }
+    router.push(`/${routeName}` as never);
   };
+
   const iconList = {
-    index: <Home color={theme.gray10.val as any} size="$1" />,
-    profile: <PersonStanding color={theme.gray10.val as any} size="$1" />,
-    setting: <Settings color={theme.gray10.val as any} size="$1" />,
+    home: (color: any) => <Home color={color} size="$1" />,
+    profile: (color: any) => <PersonStanding color={color} size="$1" />,
+    '(setting)': (color: any) => <Settings color={color} size="$1" />,
   };
 
   return (
     <DrawerContainer>
       <Button
         unstyled
-        p="$2"
+        py="$2"
+        px="$4"
         rounded="$2"
         bg="transparent"
         self="flex-start"
@@ -45,15 +41,31 @@ export const DrawerContent = ({
         pressStyle={PRESS_STYLE}
       />
       <View flex={1} height="100%">
-        {state.routes.map((route, i) => (
-          <Button
-            key={i}
-            icon={iconList[route.name]}
-            onPress={() => handleNavigation(route.name)}
-          >
-            {descriptors[route.key].options.title ?? route.name}
-          </Button>
-        ))}
+        {state.routes.map((route, i) => {
+          const samePage = segments[segments.length - 1] === route.name;
+          return (
+            <Button
+              unstyled
+              key={i}
+              animation="quick"
+              animateOnly={PRESS_STYLE_KEY}
+              pressStyle={PRESS_STYLE}
+              flexDirection="row"
+              items="center"
+              fontSize="$5"
+              p="$4"
+              gap="$1"
+              justify="flex-start"
+              rounded="$4"
+              color={samePage ? '$gray1' : '$gray12'}
+              bg={samePage ? '$gray12' : 'transparent'}
+              icon={iconList[route.name](samePage ? '$gray1' : '$gray12')}
+              onPress={() => handleNavigation(route.name)}
+            >
+              {t(`drawer.${route.name}`)}
+            </Button>
+          );
+        })}
         <Separator my="$4" />
 
         {__DEV__ && <DevButtonsWithDrawerContext />}

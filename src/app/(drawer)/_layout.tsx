@@ -10,15 +10,17 @@ export default function HomeLayout() {
   return (
     <>
       <Drawer
+        initialRouteName="home"
         drawerContent={props => <DrawerContent {...props} />}
         screenOptions={{
           headerShown: true,
           header: ({ navigation }) => <HomeHeader navigation={navigation} />,
           sceneStyle: { backgroundColor: theme.background.val },
+          drawerStyle: { backgroundColor: theme.background.val },
         }}
       >
         <Drawer.Screen
-          name="index"
+          name="home"
           options={{
             title: 'Home',
           }}
@@ -32,6 +34,7 @@ export default function HomeLayout() {
         <Drawer.Screen
           name="(setting)"
           options={{
+            headerShown: false,
             title: 'Setting',
           }}
         />

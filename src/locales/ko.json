@@ -6,6 +6,11 @@
     "journal": "당신의 이야기를 기다리고 있어요.",
     "text": "없음"
   },
+  "drawer": {
+    "home": "홈으로",
+    "profile": "프로필",
+    "(setting)": "설정"
+  },
   "placeholder": {
     "journal": {
       "title": "오늘 하루는 어땟나요?",

@@ -13,7 +13,9 @@ interface Props {
 
 export default function ProfilePage({ onUpdateProfile }: Props) {
   const { userInfo: initialUserInfo } = useUser();
+
   if (!initialUserInfo) return null;
+
   const { modalRef, openModal, closeModal } = useBottomModal();
   const [userInfo, setUserInfo] = useState<UserInfo>(initialUserInfo);
 

@@ -8,7 +8,7 @@ export const DrawerContainer = ({ children, ...props }: ViewProps) => {
   return (
     <View
       flex={1}
-      mt={insets.top}
+      mt={insets.top + CONTAINER_SPACING / 2}
       mb={insets.bottom}
       px={CONTAINER_SPACING}
       {...props}
@@ -17,3 +17,5 @@ export const DrawerContainer = ({ children, ...props }: ViewProps) => {
     </View>
   );
 };
+
+DrawerContainer.displayName = 'DrawerContainer';

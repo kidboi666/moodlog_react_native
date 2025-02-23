@@ -17,7 +17,7 @@ export const HomeHeader = ({
         unstyled
         rounded="$2"
         icon={<Menu size="$1" />}
-        onPress={() => navigation.toggleDrawer()}
+        onPress={() => navigation?.toggleDrawer()}
         pressStyle={PRESS_STYLE}
       />
       <View flex={1} />

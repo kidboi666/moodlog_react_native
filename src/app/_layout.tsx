@@ -78,7 +78,7 @@ function RootLayoutNav() {
 
   useEffect(() => {
     if (isInitialUser) {
-      router.replace('/(drawer)');
+      router.replace('/(drawer)/home');
     } else {
       router.replace('/(onboarding)');
     }
