@@ -51,7 +51,8 @@ export const DevContextProvider = ({ children }: PropsWithChildren) => {
 
   const handleClearStatsStorage = async () => {
     console.log('Clearing stats storage...');
-    await AsyncStorage.removeItem(STORAGE_KEY.STATS);
+    await AsyncStorage.removeItem(STORAGE_KEY.EMOTION_STATS);
+    await AsyncStorage.removeItem(STORAGE_KEY.JOURNALS_STATS);
     setIsStatsStorageCleared(true);
   };
 

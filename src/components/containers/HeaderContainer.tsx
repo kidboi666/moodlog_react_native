@@ -1,5 +1,5 @@
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme, ViewProps, XStack } from 'tamagui';
+import { ViewProps, XStack } from 'tamagui';
 import { CONTAINER_SPACING } from '@/constants/size';
 import Animated, {
   interpolate,
@@ -21,7 +21,6 @@ export const HeaderContainer = ({
   ...props
 }: Props) => {
   const insets = useSafeAreaInsets();
-  const theme = useTheme();
   const { scrollPosition } = useScroll();
 
   const safeAreaMargins = {
@@ -36,7 +35,7 @@ export const HeaderContainer = ({
       return {
         shadowOffset: {
           width: 0,
-          height: withTiming(scrollPosition > 1 ? 2 : 0),
+          height: withTiming(scrollPosition > 1 ? 5 : 0),
         },
         shadowOpacity: withTiming(scrollPosition > 1 ? 0.3 : 0),
         shadowRadius: withTiming(scrollPosition > 1 ? 3 : 0),
@@ -53,6 +52,7 @@ export const HeaderContainer = ({
     <AnimatedXStack
       animation="quick"
       style={animatedStyle}
+      bg="$background"
       shadowColor="$gray11"
       px={CONTAINER_SPACING}
       py={CONTAINER_SPACING / 2}

@@ -31,7 +31,6 @@ export const HorizontalCalendar = ({
   const scrollViewRef = useRef<ScrollView>(null);
 
   const handleChangeSelectedDate = (date: ISODateString) => {
-    console.log(date);
     if (CalendarUtils.getCalendarDateString(currentDate) >= date) {
       onChangeSelectedDate(date);
     }

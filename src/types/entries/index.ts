@@ -58,7 +58,6 @@ export type ScoreBoard = {
 
 export type SignatureEmotion = {
   type: EmotionType | string;
-  average: number;
   count: number;
   score: number;
 };

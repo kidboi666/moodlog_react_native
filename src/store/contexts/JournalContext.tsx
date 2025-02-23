@@ -17,6 +17,7 @@ import { STORAGE_KEY } from '@/constants/storage';
 import { CalendarUtils } from 'react-native-calendars';
 import { MONTHS } from '@/constants/date';
 import { useDate } from '@/store/hooks/useDate';
+import { useTranslation } from 'react-i18next';
 
 export const JournalContext = createContext<Nullable<JournalStore>>(null);
 
@@ -30,6 +31,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToastController();
   const router = useRouter();
+  const { t } = useTranslation();
 
   const addJournal = useCallback((draft: Draft) => {
     if (draft.content && draft.emotion && draft.localDate && draft.title) {
@@ -45,8 +47,8 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
       setJournals(prev => [...prev, newJournal]);
       setDraft({});
 
-      toast.show('Successfully saved!', {
-        message: 'Save Journal!',
+      toast.show(t('toast.success.journal.title'), {
+        message: t('toast.success.journal.message'),
       });
       router.replace('/');
     }

@@ -18,9 +18,9 @@ import { EmotionLevel } from '@/types/enums';
 export const StatisticsContext = createContext<Nullable<StatisticsStore>>(null);
 
 export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
-  const { journals, selectedJournals, monthlyJournals } = useJournal();
+  const { journals } = useJournal();
   const toast = useToastController();
-  const { selectedYear, selectedMonth } = useDate();
+  const { selectedYear } = useDate();
   const [isLoading, setIsLoading] = useState(false);
   const [journalStats, setJournalStats] = useState<JournalStats>({
     totalCount: 0,
@@ -33,7 +33,6 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   const [emotionStats, setEmotionStats] = useState<EmotionStats>({
     signatureEmotion: {
       type: '',
-      average: 0,
       count: 0,
       score: 0,
     },
@@ -98,13 +97,12 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   const getTotalEmotionAverage = () => {
     const emotions = journals.map(journal => journal.emotion);
 
-    const scoreBoard: ScoreBoard = {} as ScoreBoard;
-
-    emotions.forEach(emotion => {
-      if (!scoreBoard[emotion.type]) {
-        scoreBoard[emotion.type] = { count: 0, score: 0 };
-      }
-    });
+    const scoreBoard: ScoreBoard = {
+      sad: { count: 0, score: 0 },
+      angry: { count: 0, score: 0 },
+      happy: { count: 0, score: 0 },
+      peace: { count: 0, score: 0 },
+    };
 
     emotions.forEach(emotion => {
       switch (emotion.level) {
@@ -137,19 +135,22 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
     return scoreBoard;
   };
 
-  const getSignatureEmotion = () => {
-    const scoreBoardData = getTotalEmotionAverage();
-    return Object.entries(scoreBoardData).reduce((highest, [type, data]) => {
-      if (!highest.type || data.score / data.count > highest.average) {
+  const getSignatureEmotion = (scoreBoard: ScoreBoard) => {
+    const initialValue: SignatureEmotion = {
+      type: '',
+      count: 0,
+      score: 0,
+    };
+    return Object.entries(scoreBoard).reduce((highest, [type, data]) => {
+      if (!highest.type || data.score > highest.score) {
         return {
           type,
-          average: data.score / data.count,
           count: data.count,
           score: data.score,
         };
       }
       return highest;
-    }, {} as SignatureEmotion);
+    }, initialValue);
   };
 
   /**
@@ -167,8 +168,7 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   };
   const getEmotionStats = () => {
     const scoreBoard = getTotalEmotionAverage();
-    const signatureEmotion = getSignatureEmotion();
-
+    const signatureEmotion = getSignatureEmotion(scoreBoard);
     return {
       scoreBoard,
       signatureEmotion,
@@ -203,12 +203,14 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
       } finally {
         setIsLoading(false);
       }
-      loadStats();
     };
+    loadStats();
   }, [journals, selectedYear]);
 
   useEffect(() => {
+    let isMounted = true;
     const saveStats = async () => {
+      if (!journalStats.totalCount) return;
       try {
         setIsLoading(true);
         await AsyncStorage.setItem(
@@ -226,30 +228,45 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
           type: 'error',
         });
       } finally {
-        setIsLoading(false);
-      }
-
-      if (journalStats.totalCount > 0) {
-        saveStats();
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
-  }, [journalStats]);
+    saveStats();
+    return () => {
+      isMounted = false;
+    };
+  }, [journalStats, emotionStats]);
 
   useEffect(() => {
     const updateStats = () => {
       const newJournalStats = getJournalStats();
       const newEmotionStats = getEmotionStats();
 
-      if (newJournalStats.totalCount !== journalStats.totalCount) {
-        setJournalStats(newJournalStats);
-      }
-      if (newEmotionStats.signatureEmotion !== emotionStats.signatureEmotion) {
-        setEmotionStats(newEmotionStats);
-      }
+      setJournalStats(prev => {
+        if (prev.totalCount !== newJournalStats.totalCount) {
+          return newJournalStats;
+        }
+        return prev;
+      });
+
+      setEmotionStats(prev => {
+        const isScoreBoardChanged =
+          JSON.stringify(newEmotionStats.scoreBoard) !==
+          JSON.stringify(prev.scoreBoard);
+        const isSignatureEmotionChanged =
+          newEmotionStats.signatureEmotion.type !== prev.signatureEmotion.type;
+
+        if (isScoreBoardChanged || isSignatureEmotionChanged) {
+          console.log('새로운 감정 통계:', newEmotionStats);
+          return newEmotionStats;
+        }
+        return prev;
+      });
     };
     updateStats();
-  }, [journals]);
-
+  }, [journals, selectedYear, emotionStats, journalStats]);
   return (
     <StatisticsContext.Provider
       value={{ journalStats, emotionStats, isLoading }}

@@ -13,6 +13,12 @@
     "emotion": "Select how you're feeling right now."
   },
   "toast": {
+    "success": {
+      "journal": {
+        "title": "Journal saved!",
+        "message": "Your thoughts have been safely stored."
+      }
+    },
     "warn": {
       "emotion": {
         "title": "Please select an emotion intensity!",
