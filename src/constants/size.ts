@@ -8,4 +8,4 @@ export const RECORD_UNIT_LINE_HEIGHT = 32;
 
 export const RECORD_CARD_HEIGHT = 180;
 
-export const RECORD_CARD_EXPANDED_HEIGHT = 280;
+export const RECORD_CARD_EXPANDED_HEIGHT = 360;

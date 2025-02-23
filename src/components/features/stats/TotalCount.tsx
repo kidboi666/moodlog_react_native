@@ -42,7 +42,7 @@ export const TotalCount = ({ journalStats }) => {
       pressStyle={PRESS_STYLE}
       style={animatedStyle}
     >
-      <YStack>
+      <YStack gap="$2">
         <H3>{t('record.stats.totalCount.title')}</H3>
         <Text>{t('record.stats.totalCount.description')}</Text>
       </YStack>

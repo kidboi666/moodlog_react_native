@@ -63,10 +63,15 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
     return journals.length;
   };
 
+  const getCountByMonth = (month: keyof typeof MONTHS) => {
+    const date = `${selectedYear}-${month}`;
+    return journals.filter(journal => journal.localDate.startsWith(date));
+  };
+
   /**
-   * 특정 달의 작성한 일기의 갯수 가져오기
+   * 각 달마다 작성한 일기의 갯수 가져오기
    */
-  const getCountByMonth = () => {
+  const getMonthlyCounts = () => {
     return Object.fromEntries(
       Array.from({ length: Object.keys(MONTHS).length }, (_, i) => {
         const date = `${selectedYear}-${(i + 1).toString().padStart(2, '0')}`;
@@ -82,7 +87,7 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
    * 가장 많은 일기를 작성한 달과 갯수 가져오기
    */
   const getExpressiveMonth = () => {
-    const monthlyCounts = getCountByMonth();
+    const monthlyCounts = getMonthlyCounts();
     return Object.entries(monthlyCounts).reduce(
       (highest, [month, count]) => {
         if (count > highest.count) {
@@ -163,7 +168,7 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
    */
   const getJournalStats = () => {
     const totalCount = getTotalCount();
-    const monthlyCounts = getCountByMonth();
+    const monthlyCounts = getMonthlyCounts();
     const expressiveMonth = getExpressiveMonth();
     return {
       totalCount,
@@ -267,7 +272,6 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
           prev?.signatureEmotion.type;
 
         if (isScoreBoardChanged || isSignatureEmotionChanged) {
-          console.log('새로운 감정 통계:', newEmotionStats);
           return newEmotionStats;
         }
         return prev;
