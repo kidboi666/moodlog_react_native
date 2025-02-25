@@ -23,6 +23,7 @@ export const ExpressiveMonth = ({ journalStats }: Props) => {
   const expressiveMonth = journalStats.expressiveMonth;
   const expressiveMonthString = getExpressiveMonthString(expressiveMonth.month);
   const frequency = journalStats.frequency;
+  const activeDay = journalStats.activeDay;
   const [isExpanded, setIsExpanded] = useState(false);
 
   const onPress = useEvent(() => {
@@ -47,6 +48,7 @@ export const ExpressiveMonth = ({ journalStats }: Props) => {
       <AnimatePresence>
         {isExpanded ? (
           <ExpandedContent
+            activeDay={activeDay}
             frequency={frequency}
             isExpanded={isExpanded}
             expressiveMonth={expressiveMonth}

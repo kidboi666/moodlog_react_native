@@ -9,11 +9,13 @@ import { Nullable } from '@/types/utils';
 import { MONTHS } from '@/constants/date';
 import {
   EmotionStats,
+  Journal,
   JournalStats,
   ScoreBoard,
   SignatureEmotion,
 } from '@/types/entries';
 import { EmotionLevel } from 'src/types/enums';
+import { getDayInISODateString } from '@/utils/common';
 
 export const StatisticsContext = createContext<Nullable<StatisticsStore>>(null);
 
@@ -26,6 +28,7 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
     totalCount: 0,
     monthlyCounts: {},
     frequency: 0,
+    activeDay: '',
     expressiveMonth: {
       month: '',
       count: 0,
@@ -170,11 +173,8 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   /**
    * 일기 작성 빈도 가져오기
    */
-  const getJournalFrequency = () => {
-    const expressiveMonth = journals.filter(journal =>
-      journal.localDate.startsWith(journalStats.expressiveMonth.month),
-    );
-    const dates = expressiveMonth
+  const getJournalFrequency = (expressiveMonthJournals: Journal[]) => {
+    const dates = expressiveMonthJournals
       .map(journal => parseInt(journal.localDate.split('-')[2]))
       .sort((a, b) => a - b);
     let frequency: Record<string, number> = {};
@@ -198,6 +198,23 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
       ),
     );
   };
+
+  const getMostActiveDay = (expressiveMonthJournals: Journal[]) => {
+    const days = expressiveMonthJournals.map(journal =>
+      getDayInISODateString(journal.localDate),
+    );
+    const frequency: Record<string, number> = {};
+
+    days.forEach(day => {
+      frequency[day] = (frequency[day] || 0) + 1;
+    });
+
+    return Object.entries(frequency).reduce(
+      (acc, [day, count]) => (count > frequency[acc] ? day : acc),
+      Object.keys(frequency)[0],
+    );
+  };
+
   /**
    * 초기화
    */
@@ -205,9 +222,15 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
     const totalCount = getTotalCount();
     const monthlyCounts = getMonthlyCounts();
     const expressiveMonth = getExpressiveMonth();
-    const frequency = getJournalFrequency();
+    const expressiveMonthJournals = journals.filter(journal =>
+      journal.localDate.startsWith(journalStats.expressiveMonth.month),
+    );
+    const frequency = getJournalFrequency(expressiveMonthJournals);
+    const activeDay = getMostActiveDay(expressiveMonthJournals);
+
     return {
       frequency,
+      activeDay,
       totalCount,
       monthlyCounts,
       expressiveMonth,

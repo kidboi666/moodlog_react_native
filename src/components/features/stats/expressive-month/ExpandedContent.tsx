@@ -8,6 +8,7 @@ export const ExpandedContent = ({
   expressiveMonth,
   isExpanded,
   frequency,
+  activeDay,
 }) => {
   const { t } = useTranslation();
   if (!expressiveMonth.month) {
@@ -46,7 +47,9 @@ export const ExpandedContent = ({
           {t('record.stats.expressiveMonth.mostDay.title')}
         </H5>
         <Text color="$gray11">
-          {t('record.stats.expressiveMonth.mostDay.description')}
+          {t('record.stats.expressiveMonth.mostDay.description', {
+            day: t(`calendar.days.${activeDay}`),
+          })}
         </Text>
       </YStack>
       <Button
