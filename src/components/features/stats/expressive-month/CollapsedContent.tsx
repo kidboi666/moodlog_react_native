@@ -6,7 +6,7 @@ export const CollapsedContent = ({ expressiveMonthString, isExpanded }) => {
   const { t } = useTranslation();
   return (
     <View
-      animation="medium"
+      animation="quick"
       animateOnly={['opacity']}
       justify="space-between"
       flex={1}

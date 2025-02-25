@@ -6,12 +6,14 @@ import { EmptyExpandedContent } from '@/components/features/stats/EmptyExpandedC
 
 export const ExpandedContent = ({ journalStats, isExpanded }) => {
   const { t } = useTranslation();
+
   if (journalStats.totalCount === 0) {
     return <EmptyExpandedContent />;
   }
+
   return (
     <View
-      animation="medium"
+      animation="quick"
       animateOnly={['opacity']}
       justify="space-between"
       flex={1}

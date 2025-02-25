@@ -5,7 +5,6 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 import { useState } from 'react';
-import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 import {
   RECORD_CARD_EXPANDED_HEIGHT,
   RECORD_CARD_HEIGHT,
@@ -42,9 +41,6 @@ export const ExpressiveMonth = ({ journalStats }: Props) => {
       bg="$gray5"
       rounded="$8"
       onPress={onPress}
-      animation="quick"
-      animateOnly={PRESS_STYLE_KEY}
-      pressStyle={PRESS_STYLE}
       style={animatedStyle}
     >
       <AnimatePresence>
