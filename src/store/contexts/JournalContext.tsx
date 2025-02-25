@@ -50,7 +50,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
       toast.show(t('toast.success.journal.title'), {
         message: t('toast.success.journal.message'),
       });
-      router.replace('/');
+      router.replace('/(drawer)/home');
     }
   }, []);
 

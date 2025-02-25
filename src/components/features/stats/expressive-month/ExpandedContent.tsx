@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Button, H5, Text, View, YStack } from 'tamagui';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
+import { EmptyExpandedContent } from '@/components/features/stats/EmptyExpandedContent';
 
 export const ExpandedContent = ({
   expressiveMonthString,
@@ -8,9 +9,13 @@ export const ExpandedContent = ({
   isExpanded,
 }) => {
   const { t } = useTranslation();
+  if (!expressiveMonth.month) {
+    return <EmptyExpandedContent />;
+  }
+
   return (
     <View
-      animation="quick"
+      animation="medium"
       animateOnly={['opacity']}
       justify="space-between"
       flex={1}

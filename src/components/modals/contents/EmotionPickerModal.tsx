@@ -7,6 +7,7 @@ import {
   View,
   XStack,
   YStack,
+  ZStack,
 } from 'tamagui';
 import { EmotionLevel, EmotionType } from 'src/types/enums';
 import { Emotion } from '@/types/entries';
@@ -32,6 +33,7 @@ export const EmotionPickerModal = ({
       <H3>{t('placeholder.emotion')}</H3>
       {selectedEmotion?.type && (
         <XStack
+          mb="$4"
           animation="bouncy"
           gap="$2"
           justify="center"
@@ -54,10 +56,14 @@ export const EmotionPickerModal = ({
         </YStack>
 
         {Object.values(EmotionType).map((type, index) => (
-          <YStack key={index} gap="$4" justify="space-around" items="center">
-            <Text key={index} fontSize="$6" color="$gray11">
-              {t(`emotion.type.${type}`)}
-            </Text>
+          <YStack key={index} gap="$4" items="center">
+            <ZStack>
+              <View position="absolute" x="-50%" t={-20}>
+                <Text key={index} fontSize="$6" color="$gray11">
+                  {t(`emotion.type.${type}`)}
+                </Text>
+              </View>
+            </ZStack>
             <YStack gap="$4">
               {Object.values(EmotionLevel).map(level => (
                 <Button

@@ -44,8 +44,8 @@ export const BottomModal = forwardRef<
     >
       <BottomSheetView
         style={{
-          padding: CONTAINER_SPACING * 2,
-          paddingBottom: CONTAINER_SPACING * 4,
+          padding: CONTAINER_SPACING,
+          paddingBottom: CONTAINER_SPACING * 2,
         }}
       >
         {children}

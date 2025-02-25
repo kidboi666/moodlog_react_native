@@ -1,5 +1,6 @@
 import { Button, RadioGroup, Text, useTheme, XStack } from 'tamagui';
 import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
+import { Pressable } from 'react-native';
 
 export const RadioGroupItem = ({ value, label, onValueChange }) => {
   const theme = useTheme();
@@ -11,18 +12,25 @@ export const RadioGroupItem = ({ value, label, onValueChange }) => {
       pressStyle={PRESS_STYLE}
       onPress={() => onValueChange(value)}
     >
-      <XStack
-        items="center"
-        width="100%"
-        gap="$4"
-        p="$5"
-        justify="space-between"
+      <Pressable
+        onPress={() => onValueChange(value)}
+        android_ripple={{
+          color: 'rgba(0, 0, 0, 0.3)',
+        }}
       >
-        <Text fontSize="$6">{label}</Text>
-        <RadioGroup.Item value={value} id={value}>
-          <RadioGroup.Indicator />
-        </RadioGroup.Item>
-      </XStack>
+        <XStack
+          items="center"
+          width="100%"
+          gap="$4"
+          p="$5"
+          justify="space-between"
+        >
+          <Text fontSize="$6">{label}</Text>
+          <RadioGroup.Item value={value} id={value}>
+            <RadioGroup.Indicator />
+          </RadioGroup.Item>
+        </XStack>
+      </Pressable>
     </Button>
   );
 };

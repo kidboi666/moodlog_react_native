@@ -1,81 +1,72 @@
-import { Button, ScrollView, XStack, YStack } from 'tamagui';
-import { MONTHS } from '@/constants/date';
-import { useDate } from '@/store/hooks/useDate';
-import { useJournal } from '@/store/hooks/useJournal';
-import { useMemo } from 'react';
-import { ISOMonthString } from '@/types/dtos/date';
-import { GardenTitleHeader } from '@/components/features/garden/GardenTitleHeader';
-import { GardenDayUnits } from '@/components/features/garden/GardenDayUnits';
-import { GardenMonthUnits } from '@/components/features/garden/GardenMonthUnits';
-import { Garden } from '@/components/features/garden/Garden';
-import {
-  getFirstDateDay,
-  getLastDate,
-  getMonthNumber,
-  getWeekLength,
-} from '@/utils/common';
+import Animated, {
+  useAnimatedStyle,
+  withSpring,
+} from 'react-native-reanimated';
+import { Button, YStack } from 'tamagui';
+import { useEffect, useState } from 'react';
+import { GardenMonthUnits } from './GardenMonthUnits';
+import { Garden } from './Garden';
+import { getMonthNumber } from '@/utils/common';
 
-export const GardenContainer = () => {
-  const { selectedYear, selectedMonth, onChangeSelectedMonth } = useDate();
-  const { getDateCountsForDate, getJournalsByMonth } = useJournal();
+const AnimatedGarden = Animated.createAnimatedComponent(Button);
 
-  const monthsData = useMemo(
-    () =>
-      Object.keys(MONTHS).map(month => ({
-        monthString: month,
-        lastDate: getLastDate(selectedYear, month),
-        firstDateDay: getFirstDateDay(selectedYear, month),
-        weekLength: getWeekLength(selectedYear, month),
-      })),
-    [selectedYear],
-  );
+interface Props {
+  monthString: string;
+  lastDate: number;
+  firstDateDay: number;
+  weekLength: number;
+  selectedMonth: number;
+  selectedYear: number;
+  getDateCountsForDate: (
+    year: number,
+    month: number | string,
+    date: number,
+  ) => number;
+  onClick: (month: string) => void;
+}
+export const GardenContainer = ({
+  monthString,
+  lastDate,
+  firstDateDay,
+  weekLength,
+  selectedMonth,
+  selectedYear,
+  getDateCountsForDate,
+  onClick,
+}: Props) => {
+  const [gardenWidth, setGardenWidth] = useState(0);
+  const [isSelected, setIsSelected] = useState(false);
+  const animatedStyle = useAnimatedStyle(() => ({
+    width: withSpring(isSelected ? gardenWidth + 4 : gardenWidth),
+  }));
 
-  const handleClick = (monthString: string) => {
-    onChangeSelectedMonth(getMonthNumber(monthString));
-    const prefix =
-      `${selectedYear}-${(getMonthNumber(monthString) + 1).toString().padStart(2, '0')}` as ISOMonthString;
-    getJournalsByMonth(prefix);
-  };
+  useEffect(() => {
+    setIsSelected(selectedMonth === getMonthNumber(monthString));
+  }, []);
 
   return (
-    <YStack bg="$gray5" p="$4" rounded="$8" gap="$4" mb="$4">
-      <GardenTitleHeader />
-      <ScrollView horizontal>
-        <GardenDayUnits />
-        <XStack gap="$2">
-          {monthsData.map(
-            ({ monthString, lastDate, firstDateDay, weekLength }, i) => {
-              const isSelected = selectedMonth === getMonthNumber(monthString);
-              return (
-                <Button
-                  key={i}
-                  unstyled
-                  rounded="$4"
-                  py="$4"
-                  px={isSelected ? '$4' : undefined}
-                  onPress={() => handleClick(monthString)}
-                  bg={isSelected ? '$gray7' : 'transparent'}
-                >
-                  <YStack>
-                    <GardenMonthUnits
-                      month={monthString}
-                      isSelected={isSelected}
-                    />
-                    <Garden
-                      weekLength={weekLength}
-                      monthString={monthString}
-                      firstDateDay={firstDateDay}
-                      selectedYear={selectedYear}
-                      lastDate={lastDate}
-                      getDateCountsForDate={getDateCountsForDate}
-                    />
-                  </YStack>
-                </Button>
-              );
-            },
-          )}
-        </XStack>
-      </ScrollView>
-    </YStack>
+    <AnimatedGarden
+      unstyled
+      animation="medium"
+      animateOnly={['backgroundColor']}
+      rounded="$4"
+      py="$4"
+      // onLayout={({ nativeEvent }) => setGardenWidth(nativeEvent.layout.width)}
+      // style={animatedStyle}
+      onPress={() => onClick(monthString)}
+      bg={isSelected ? '$gray7' : 'transparent'}
+    >
+      <YStack>
+        <GardenMonthUnits month={monthString} isSelected={isSelected} />
+        <Garden
+          weekLength={weekLength}
+          monthString={monthString}
+          firstDateDay={firstDateDay}
+          selectedYear={selectedYear}
+          lastDate={lastDate}
+          getDateCountsForDate={getDateCountsForDate}
+        />
+      </YStack>
+    </AnimatedGarden>
   );
 };

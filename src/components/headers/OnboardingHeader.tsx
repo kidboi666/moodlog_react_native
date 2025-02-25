@@ -7,7 +7,7 @@ export const OnboardingHeader = () => {
 
   return (
     <HeaderContainer py="$4">
-      <XStack justify="center">
+      <XStack justify="center" flex={1}>
         <XStack gap="$2">
           {Array.from({ length: totalSteps }, (_, i) => (
             <View

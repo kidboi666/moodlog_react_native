@@ -28,20 +28,21 @@ export const EmotionAverage = ({ signatureEmotion }: Props) => {
   const onPress = useEvent(() => {
     setIsExpanded(prev => !prev);
   });
+  const hasSignatureEmotion =
+    signatureEmotion?.count && signatureEmotion.count > 0;
 
   const animatedStyle = useAnimatedStyle(() => ({
     height: withSpring(
       isExpanded ? RECORD_CARD_EXPANDED_HEIGHT : RECORD_CARD_HEIGHT,
     ),
   }));
-
   return (
     <AnimatedCard
       flex={1}
       p="$4"
       justify="space-between"
       bg={
-        signatureEmotion?.type
+        hasSignatureEmotion
           ? getEmotionTheme(signatureEmotion.type, EmotionLevel.FULL)
           : '$gray5'
       }
@@ -53,13 +54,17 @@ export const EmotionAverage = ({ signatureEmotion }: Props) => {
       style={animatedStyle}
     >
       <YStack>
-        <H3 color="$gray1">{t('record.stats.emotion.title')}</H3>
-        <Text color="$gray1">{t('record.stats.emotion.description')}</Text>
+        <H3 color={hasSignatureEmotion ? '$gray1' : '$gray12'}>
+          {t('record.stats.emotion.title')}
+        </H3>
+        <Text color={hasSignatureEmotion ? '$gray1' : '$gray12'}>
+          {t('record.stats.emotion.description')}
+        </Text>
       </YStack>
       <YStack>
         <XStack>
-          <H1 color="$gray1" flex={1}>
-            {signatureEmotion?.type
+          <H1 color={hasSignatureEmotion ? '$gray1' : '$gray12'} flex={1}>
+            {hasSignatureEmotion
               ? t(`emotion.type.${signatureEmotion.type}`)
               : t('fallback.text')}
           </H1>

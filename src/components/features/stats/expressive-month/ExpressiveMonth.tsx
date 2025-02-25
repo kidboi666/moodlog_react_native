@@ -1,5 +1,4 @@
 import { AnimatePresence, useEvent, YStack } from 'tamagui';
-import { useTranslation } from 'react-i18next';
 import { JournalStats } from '@/types/entries';
 import Animated, {
   useAnimatedStyle,
@@ -22,7 +21,6 @@ interface Props {
 const AnimatedCard = Animated.createAnimatedComponent(YStack);
 
 export const ExpressiveMonth = ({ journalStats }: Props) => {
-  const { t } = useTranslation();
   const expressiveMonth = journalStats.expressiveMonth;
   const expressiveMonthString = getExpressiveMonthString(expressiveMonth.month);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -59,7 +57,6 @@ export const ExpressiveMonth = ({ journalStats }: Props) => {
         ) : (
           <CollapsedContent
             isExpanded={isExpanded}
-            expressiveMonth={expressiveMonth}
             expressiveMonthString={expressiveMonthString}
           />
         )}

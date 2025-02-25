@@ -1,8 +1,9 @@
-import { useTranslation } from 'react-i18next';
 import { Button, H1, H3, Text, View, XStack, YStack } from 'tamagui';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
+import { useTranslation } from 'react-i18next';
+import { RECORD_UNIT_LINE_HEIGHT } from '@/constants/size';
 
-export const CollapsedContent = ({ expressiveMonthString, isExpanded }) => {
+export const CollapsedContent = ({ isExpanded, journalStats }) => {
   const { t } = useTranslation();
   return (
     <View
@@ -14,22 +15,21 @@ export const CollapsedContent = ({ expressiveMonthString, isExpanded }) => {
       exitStyle={{ opacity: 0 }}
     >
       <YStack gap="$2">
-        <H3>{t('record.stats.expressiveMonth.title')}</H3>
-        <Text>{t('record.stats.expressiveMonth.description')}</Text>
+        <H3>{t('record.stats.totalCount.title')}</H3>
+        <Text>{t('record.stats.totalCount.description')}</Text>
       </YStack>
       <XStack>
-        <XStack flex={1}>
-          <H1>
-            {expressiveMonthString
-              ? t(`calendar.months.${expressiveMonthString}`)
-              : t('fallback.text')}
-          </H1>
+        <XStack items="flex-end" gap="$2" flex={1}>
+          <H1>{journalStats.totalCount}</H1>
+          <Text lineHeight={RECORD_UNIT_LINE_HEIGHT} color="$gray11">
+            {t('record.stats.totalCount.unit')}
+          </Text>
         </XStack>
         <Button
           unstyled
           self="flex-end"
-          opacity={0.2}
           bg="transparent"
+          opacity={0.2}
           icon={isExpanded ? <Minimize2 size="$1" /> : <Maximize2 size="$1" />}
         />
       </XStack>
