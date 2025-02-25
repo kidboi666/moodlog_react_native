@@ -25,6 +25,7 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   const [journalStats, setJournalStats] = useState<JournalStats>({
     totalCount: 0,
     monthlyCounts: {},
+    frequency: 0,
     expressiveMonth: {
       month: '',
       count: 0,
@@ -145,6 +146,9 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
     return scoreBoard;
   };
 
+  /**
+   * 대표 감정 가져오기
+   */
   const getSignatureEmotion = (scoreBoard: ScoreBoard) => {
     const initialValue: SignatureEmotion = {
       type: '',
@@ -164,13 +168,46 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   };
 
   /**
+   * 일기 작성 빈도 가져오기
+   */
+  const getJournalFrequency = () => {
+    const expressiveMonth = journals.filter(journal =>
+      journal.localDate.startsWith(journalStats.expressiveMonth.month),
+    );
+    const dates = expressiveMonth
+      .map(journal => parseInt(journal.localDate.split('-')[2]))
+      .sort((a, b) => a - b);
+    let frequency: Record<string, number> = {};
+
+    if (dates.length === 0) return 0;
+
+    dates.reduce((acc, date) => {
+      const diffNum = date - acc;
+      if (diffNum !== 0) {
+        frequency[diffNum] = (frequency[diffNum] || 0) + 1;
+      }
+      return date;
+    }, dates[0]);
+
+    if (Object.keys(frequency).length === 0) return 0;
+
+    return parseInt(
+      Object.entries(frequency).reduce(
+        (acc, [num, count]) => (count > frequency[acc] ? num : acc),
+        Object.keys(frequency)[0],
+      ),
+    );
+  };
+  /**
    * 초기화
    */
   const getJournalStats = () => {
     const totalCount = getTotalCount();
     const monthlyCounts = getMonthlyCounts();
     const expressiveMonth = getExpressiveMonth();
+    const frequency = getJournalFrequency();
     return {
+      frequency,
       totalCount,
       monthlyCounts,
       expressiveMonth,

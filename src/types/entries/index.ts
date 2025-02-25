@@ -43,6 +43,7 @@ export type MonthlyCountsData = {
 
 export type JournalStats = {
   totalCount: number;
+  frequency: number;
   monthlyCounts: MonthlyCounts;
   expressiveMonth: MonthlyCountsData;
 };

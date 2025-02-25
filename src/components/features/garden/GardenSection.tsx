@@ -2,7 +2,7 @@ import { Button, ScrollView, XStack, YStack } from 'tamagui';
 import { MONTHS } from '@/constants/date';
 import { useDate } from '@/store/hooks/useDate';
 import { useJournal } from '@/store/hooks/useJournal';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { ISOMonthString } from '@/types/dtos/date';
 import { GardenTitleHeader } from '@/components/features/garden/GardenTitleHeader';
 import { GardenDayUnits } from '@/components/features/garden/GardenDayUnits';
@@ -14,17 +14,13 @@ import {
   getMonthNumber,
   getWeekLength,
 } from '@/utils/common';
-import Animated, {
-  useAnimatedStyle,
-  withTiming,
-} from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 
 const AnimatedGarden = Animated.createAnimatedComponent(Button);
 
 export const GardenSection = () => {
   const { selectedYear, selectedMonth, onChangeSelectedMonth } = useDate();
   const { getDateCountsForDate, getJournalsByMonth } = useJournal();
-  const [monthWidths, setMonthWidths] = useState({});
 
   const monthsData = useMemo(
     () =>
@@ -53,11 +49,6 @@ export const GardenSection = () => {
           {monthsData.map(
             ({ monthString, lastDate, firstDateDay, weekLength }, i) => {
               const isSelected = selectedMonth === getMonthNumber(monthString);
-              const monthKey = `month-${monthString}`;
-              const currentWidth = monthWidths[monthKey] || 0;
-              const animatedStyle = useAnimatedStyle(() => ({
-                width: withTiming(isSelected ? currentWidth + 4 : currentWidth),
-              }));
 
               return (
                 <AnimatedGarden
@@ -67,13 +58,6 @@ export const GardenSection = () => {
                   animateOnly={['backgroundColor']}
                   rounded="$4"
                   py="$4"
-                  onLayout={({ nativeEvent }) => {
-                    const newWidth = nativeEvent.layout.width;
-                    setMonthWidths(prev => ({
-                      ...prev,
-                      [monthKey]: newWidth,
-                    }));
-                  }}
                   onPress={() => handleClick(monthString)}
                   bg={isSelected ? '$gray7' : 'transparent'}
                 >

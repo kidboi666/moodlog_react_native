@@ -7,7 +7,7 @@ import { ExpressiveMonth } from '@/components/features/stats/expressive-month/Ex
 export const StatsContainer = () => {
   const { journalStats, emotionStats } = useStatistics();
   const signatureEmotion = emotionStats?.signatureEmotion ?? null;
-
+  console.log(journalStats);
   return (
     <YStack gap="$4">
       <XStack gap="$4">

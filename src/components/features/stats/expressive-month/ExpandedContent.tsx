@@ -7,6 +7,7 @@ export const ExpandedContent = ({
   expressiveMonthString,
   expressiveMonth,
   isExpanded,
+  frequency,
 }) => {
   const { t } = useTranslation();
   if (!expressiveMonth.month) {
@@ -35,7 +36,9 @@ export const ExpandedContent = ({
           {t('record.stats.expressiveMonth.frequency.title')}
         </H5>
         <Text color="$gray11">
-          {t('record.stats.expressiveMonth.frequency.description')}
+          {t('record.stats.expressiveMonth.frequency.description', {
+            date: frequency,
+          })}
         </Text>
       </YStack>
       <YStack gap="$2">

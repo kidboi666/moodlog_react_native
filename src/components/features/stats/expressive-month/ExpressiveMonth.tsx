@@ -22,6 +22,7 @@ const AnimatedCard = Animated.createAnimatedComponent(YStack);
 export const ExpressiveMonth = ({ journalStats }: Props) => {
   const expressiveMonth = journalStats.expressiveMonth;
   const expressiveMonthString = getExpressiveMonthString(expressiveMonth.month);
+  const frequency = journalStats.frequency;
   const [isExpanded, setIsExpanded] = useState(false);
 
   const onPress = useEvent(() => {
@@ -46,6 +47,7 @@ export const ExpressiveMonth = ({ journalStats }: Props) => {
       <AnimatePresence>
         {isExpanded ? (
           <ExpandedContent
+            frequency={frequency}
             isExpanded={isExpanded}
             expressiveMonth={expressiveMonth}
             expressiveMonthString={expressiveMonthString}

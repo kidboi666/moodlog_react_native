@@ -53,7 +53,7 @@
         "journalCount": "{{month}}의 작성한 일기 갯수",
         "frequency": {
           "title": "평균 작성 빈도",
-          "description": "{{date}}일에 한 번 일기를 작성했어요."
+          "description": "보통 {{date}}일 간격으로 일기를 작성했어요."
         },
         "mostDay": {
           "title": "가장 많이 작성한 요일",
