@@ -1,12 +1,11 @@
 import '../../tamagui-web.css';
-import { Stack, useRouter } from 'expo-router';
+import { Stack } from 'expo-router';
 import { RootProvider } from '@/providers/RootProvider';
 import { useFonts } from 'expo-font';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { StatusBar } from '@/components/StatusBar';
-import * as NavigationBar from 'expo-navigation-bar';
 import { useAppTheme } from '@/store/hooks/useAppTheme';
-import { Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useTheme } from 'tamagui';
 import * as SplashScreen from 'expo-splash-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -17,38 +16,39 @@ import {
   ThemeProvider,
 } from '@react-navigation/native';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { useUser } from '@/store/hooks/useUser';
 import '../i18n';
+import { useUser } from '@/store/hooks/useUser';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: '(drawer)',
 };
 
+const FONTS = {
+  'Pretendard-Bold': require('../../public/fonts/Pretendard-Bold.ttf'),
+  'Pretendard-Medium': require('../../public/fonts/Pretendard-Medium.ttf'),
+  'Pretendard-Regular': require('../../public/fonts/Pretendard-Regular.ttf'),
+  'Pretendard-SemiBold': require('../../public/fonts/Pretendard-SemiBold.ttf'),
+};
+
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [fontLoaded, fontError] = useFonts({
-    'Pretendard-Bold': require('../../public/fonts/Pretendard-Bold.ttf'),
-    'Pretendard-Medium': require('../../public/fonts/Pretendard-Medium.ttf'),
-    'Pretendard-Regular': require('../../public/fonts/Pretendard-Regular.ttf'),
-    'Pretendard-SemiBold': require('../../public/fonts/Pretendard-SemiBold.ttf'),
-  });
+  const [fontLoaded, fontError] = useFonts(FONTS);
 
   useEffect(() => {
-    async function prepare() {
+    async function hideSplashScreen() {
       try {
         if (fontLoaded || fontError) {
-          await new Promise(resolve => setTimeout(resolve, 100));
           await SplashScreen.hideAsync();
         }
-      } catch (e) {
-        console.warn(e);
+      } catch (err) {
+        console.warn('Error hiding splash screen:', err);
       }
     }
 
-    prepare();
+    hideSplashScreen();
   }, [fontLoaded, fontError]);
 
   if (!fontLoaded && !fontError) {
@@ -64,50 +64,36 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const { currentTheme, resolvedTheme } = useAppTheme();
   const theme = useTheme();
-  const { isInitialUser, isLoading } = useUser();
-  const router = useRouter();
+  const { isLoading } = useUser();
 
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      NavigationBar.setBackgroundColorAsync(theme.background.val);
-      NavigationBar.setButtonStyleAsync(
-        resolvedTheme === 'dark' ? 'light' : 'dark',
-      );
-    }
-  }, [currentTheme]);
+  const backgroundStyle = useMemo(
+    () => ({
+      backgroundColor: theme.background.val,
+    }),
+    [theme.background.val, resolvedTheme],
+  );
 
-  useEffect(() => {
-    if (isInitialUser) {
-      router.replace('/(drawer)/home');
-    } else {
-      router.replace('/(onboarding)');
-    }
-  }, [isInitialUser]);
+  const screenOptions = useMemo(
+    () => ({
+      headerShown: false,
+      contentStyle: backgroundStyle,
+      headerStyle: backgroundStyle,
+    }),
+    [backgroundStyle],
+  );
 
   if (isLoading) return null;
 
   return (
-    <GestureHandlerRootView
-      style={{ flex: 1, backgroundColor: theme.background.val }}
-    >
+    <GestureHandlerRootView style={[styles.container, backgroundStyle]}>
       <BottomSheetModalProvider>
         <ThemeProvider
           value={currentTheme === 'dark' ? DarkTheme : DefaultTheme}
         >
           <StatusBar />
-          <Stack
-            screenOptions={{
-              headerShown: false,
-              contentStyle: {
-                backgroundColor: theme.background.val,
-              },
-              headerStyle: {
-                backgroundColor: theme.background.val,
-              },
-            }}
-          >
-            <Stack.Screen name="(onboarding)" />
+          <Stack screenOptions={screenOptions}>
             <Stack.Screen name="(drawer)" />
+            <Stack.Screen name="(onboarding)" />
             <Stack.Screen name="(modal)" />
             <Stack.Screen name="(record)" />
             <Stack.Screen name="+not-found" />
@@ -118,3 +104,9 @@ function RootLayoutNav() {
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

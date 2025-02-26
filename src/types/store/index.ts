@@ -16,6 +16,7 @@ export type JournalStore = WithState<
   {
     journals: Journal[];
     selectedJournals: Journal[];
+    selectedJournal?: Journal;
     monthlyJournals: Journal[];
     yearlyJournals: Journal[];
     draft: Draft;
@@ -27,6 +28,7 @@ export type JournalStore = WithState<
       month: number | string,
       date: number,
     ) => number;
+    onChangeSelectedJournal: (journalId: string) => void;
     updateJournals: (id: string, updateJournal: Journal) => void;
     updateDraftLocalDate: (date: ISODateString) => void;
     updateDraftEmotion: (emotion: Emotion) => void;

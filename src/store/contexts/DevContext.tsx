@@ -1,14 +1,12 @@
 import { Nullable } from '@/types/utils';
-import { createContext, PropsWithChildren, useState } from 'react';
+import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { STORAGE_KEY } from '@/constants/storage';
 import { dummyJournals } from '../../../dummy';
 
 export const DevContext = createContext<
   Nullable<{
-    isUserStorageCleared: boolean;
     onClearUserStorage: () => void;
-    isJournalStorageCleared: boolean;
     onClearJournalStorage: () => void;
     onClearStorage: () => void;
     insertDummyData: () => void;
@@ -18,9 +16,7 @@ export const DevContext = createContext<
 
 export const DevContextProvider = ({ children }: PropsWithChildren) => {
   if (!__DEV__) return children;
-  const [isUserStorageCleared, setIsStorageCleared] = useState(false);
-  const [isJournalStorageCleared, setIsJournalStorageCleared] = useState(false);
-  const [isStatsStorageCleared, setIsStatsStorageCleared] = useState(false);
+  const [isStorageCleared, setIsStorageCleared] = useState(false);
 
   const handleClearUserStorage = async () => {
     console.log('Clearing user storage...');
@@ -31,14 +27,13 @@ export const DevContextProvider = ({ children }: PropsWithChildren) => {
   const handleClearJournalStorage = async () => {
     console.log('Clearing journal storage...');
     await AsyncStorage.removeItem(STORAGE_KEY.JOURNALS);
-    setIsJournalStorageCleared(true);
+    setIsStorageCleared(true);
   };
 
   const handleClearStorage = async () => {
     console.log('Clearing storage...');
     await AsyncStorage.clear();
     setIsStorageCleared(true);
-    setIsJournalStorageCleared(true);
   };
 
   const insertDummyData = async () => {
@@ -53,15 +48,15 @@ export const DevContextProvider = ({ children }: PropsWithChildren) => {
     console.log('Clearing stats storage...');
     await AsyncStorage.removeItem(STORAGE_KEY.EMOTION_STATS);
     await AsyncStorage.removeItem(STORAGE_KEY.JOURNALS_STATS);
-    setIsStatsStorageCleared(true);
+    setIsStorageCleared(true);
   };
+
+  useEffect(() => {}, [isStorageCleared]);
 
   return (
     <DevContext.Provider
       value={{
-        isUserStorageCleared,
         onClearUserStorage: handleClearUserStorage,
-        isJournalStorageCleared,
         onClearJournalStorage: handleClearJournalStorage,
         onClearStorage: handleClearStorage,
         onClearStatsStorage: handleClearStatsStorage,

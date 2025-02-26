@@ -12,7 +12,7 @@ export default function SettingLayout() {
         contentStyle: { backgroundColor: theme.background.val },
       }}
     >
-      <Stack.Screen name="setting_main" />
+      <Stack.Screen name="main" />
       <Stack.Screen name="theme" />
       <Stack.Screen name="language" />
     </Stack>

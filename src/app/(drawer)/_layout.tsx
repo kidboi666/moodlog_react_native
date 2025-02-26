@@ -10,7 +10,7 @@ export default function HomeLayout() {
   return (
     <>
       <Drawer
-        initialRouteName="home"
+        initialRouteName="index"
         drawerContent={props => <DrawerContent {...props} />}
         screenOptions={{
           headerShown: true,
@@ -19,23 +19,12 @@ export default function HomeLayout() {
           drawerStyle: { backgroundColor: theme.background.val },
         }}
       >
-        <Drawer.Screen
-          name="home"
-          options={{
-            title: 'Home',
-          }}
-        />
-        <Drawer.Screen
-          name="profile"
-          options={{
-            title: 'Profile',
-          }}
-        />
+        <Drawer.Screen name="index" />
+        <Drawer.Screen name="profile" />
         <Drawer.Screen
           name="(setting)"
           options={{
             headerShown: false,
-            title: 'Setting',
           }}
         />
       </Drawer>

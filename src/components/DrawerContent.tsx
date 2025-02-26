@@ -21,7 +21,7 @@ export const DrawerContent = ({
   };
 
   const iconList = {
-    home: (color: any) => <Home color={color} size="$1" />,
+    index: (color: any) => <Home color={color} size="$1" />,
     profile: (color: any) => <PersonStanding color={color} size="$1" />,
     '(setting)': (color: any) => <Settings color={color} size="$1" />,
   };

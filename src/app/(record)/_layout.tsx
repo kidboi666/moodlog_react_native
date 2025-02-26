@@ -14,7 +14,7 @@ export default function RecordLayout() {
         },
       }}
     >
-      <Stack.Screen name="index" />
+      <Stack.Screen name="main" />
     </Stack>
   );
 }

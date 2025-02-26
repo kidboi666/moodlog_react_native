@@ -4,7 +4,7 @@ import { StatsContainer } from '@/components/features/stats/StatsContainer';
 import { ScrollView } from 'tamagui';
 import { useScroll } from '@/store/hooks/useScroll';
 
-export default function RecordScreen() {
+export default function MainScreen() {
   const { onScroll } = useScroll();
   return (
     <ScrollView onScroll={onScroll}>

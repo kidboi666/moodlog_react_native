@@ -340,6 +340,7 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
     };
     updateStats();
   }, [journals, selectedYear]);
+
   return (
     <StatisticsContext.Provider
       value={{ journalStats, emotionStats, isLoading }}

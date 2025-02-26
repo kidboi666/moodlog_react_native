@@ -27,11 +27,18 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   const [yearlyJournals, setYearlyJournals] = useState<Journal[]>([]);
   const [monthlyJournals, setMonthlyJournals] = useState<Journal[]>([]);
   const [selectedJournals, setSelectedJournals] = useState<Journal[]>([]);
+  const [selectedJournal, setSelectedJournal] = useState<Journal>();
   const [draft, setDraft] = useState<Draft>({});
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToastController();
   const router = useRouter();
   const { t } = useTranslation();
+
+  const handleChangeSelectedJournal = (journalId: string) => {
+    if (journals.length > 0) {
+      setSelectedJournal(journals.find(item => item.id === journalId));
+    }
+  };
 
   const addJournal = useCallback((draft: Draft) => {
     if (draft.content && draft.emotion && draft.localDate && draft.title) {
@@ -229,6 +236,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
       value={{
         journals,
         selectedJournals,
+        selectedJournal,
         monthlyJournals,
         yearlyJournals,
         draft,
@@ -237,6 +245,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         getDateCountsForMonth,
         getDateCountsForDate,
         removeJournal,
+        onChangeSelectedJournal: handleChangeSelectedJournal,
         updateJournals,
         updateDraftLocalDate,
         updateDraftEmotion,

@@ -43,6 +43,7 @@ export const WriteHeader = () => {
         duration: 2000,
       });
     }
+
     addJournal(draft);
   };
 

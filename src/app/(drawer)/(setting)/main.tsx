@@ -4,7 +4,7 @@ import { Globe, Moon } from '@tamagui/lucide-icons';
 import { useTranslation } from 'react-i18next';
 import { SettingItem } from '@/components/SettingItem';
 
-export default function SettingMainScreen() {
+export default function MainScreen() {
   const { t } = useTranslation();
 
   return (
