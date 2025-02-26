@@ -30,7 +30,7 @@ export const EmotionPickerModal = ({
 
   return (
     <YStack gap="$6" p="$2">
-      <H3>{t('placeholder.emotion')}</H3>
+      <H3>{t('placeholders.emotion')}</H3>
       {selectedEmotion?.type && (
         <XStack
           mb="$4"
@@ -40,9 +40,9 @@ export const EmotionPickerModal = ({
           enterStyle={ENTER_STYLE}
         >
           <H3 color="$gray11">
-            {t(`emotion.level.${selectedEmotion?.level}`)}
+            {t(`emotions.levels.${selectedEmotion?.level}`)}
           </H3>
-          <H3>{t(`emotion.type.${selectedEmotion?.type}`)}</H3>
+          <H3>{t(`emotions.types.${selectedEmotion?.type}`)}</H3>
         </XStack>
       )}
       <XStack justify="space-between">
@@ -50,7 +50,7 @@ export const EmotionPickerModal = ({
           <View></View>
           {Object.values(EmotionLevel).map((level, index) => (
             <Text key={index} fontSize="$5" color="$gray11">
-              {t(`emotion.level.${level}`)}
+              {t(`emotions.levels.${level}`)}
             </Text>
           ))}
         </YStack>
@@ -60,7 +60,7 @@ export const EmotionPickerModal = ({
             <ZStack>
               <View position="absolute" x="-50%" t={-20}>
                 <Text key={index} fontSize="$6" color="$gray11">
-                  {t(`emotion.type.${type}`)}
+                  {t(`emotions.types.${type}`)}
                 </Text>
               </View>
             </ZStack>

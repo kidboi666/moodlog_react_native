@@ -26,28 +26,32 @@ export const ExpandedContent = ({
     >
       <YStack gap="$2">
         <H5 fontWeight="800">
-          {t('record.stats.expressiveMonth.journalCount', {
+          {t('records.stats.expressiveMonth.journalCount.title', {
             month: t(`calendar.months.${expressiveMonthString}`),
           })}
         </H5>
-        <Text color="$gray11">{`${expressiveMonth.count}${t('units.count')}`}</Text>
+        <Text color="$gray11">
+          {t(`records.stats.expressiveMonth.journalCount.description`, {
+            count: expressiveMonth.count,
+          })}
+        </Text>
       </YStack>
       <YStack gap="$2">
         <H5 fontWeight="800">
-          {t('record.stats.expressiveMonth.frequency.title')}
+          {t('records.stats.expressiveMonth.frequency.title')}
         </H5>
         <Text color="$gray11">
-          {t('record.stats.expressiveMonth.frequency.description', {
+          {t('records.stats.expressiveMonth.frequency.description', {
             date: frequency,
           })}
         </Text>
       </YStack>
       <YStack gap="$2">
         <H5 fontWeight="800">
-          {t('record.stats.expressiveMonth.mostDay.title')}
+          {t('records.stats.expressiveMonth.mostDay.title')}
         </H5>
         <Text color="$gray11">
-          {t('record.stats.expressiveMonth.mostDay.description', {
+          {t('records.stats.expressiveMonth.mostDay.description', {
             day: t(`calendar.days.${activeDay}`),
           })}
         </Text>

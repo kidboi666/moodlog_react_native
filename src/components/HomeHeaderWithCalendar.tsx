@@ -16,13 +16,15 @@ export const HomeHeaderWithCalendar = () => {
     <YStack gap="$3">
       <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
         <XStack gap="$2" items="flex-end">
-          <H2 lineHeight={HOME_HEADER_LINE_HEIGHT}>{t('hello')}</H2>
+          <H2 lineHeight={HOME_HEADER_LINE_HEIGHT}>
+            {t('common.greeting.hello')}
+          </H2>
           <ShakeHand duration={2000} />
         </XStack>
-        <H3>{t('greeting', { name: userInfo?.userName })}</H3>
+        <H3>{t('common.greeting.welcome', { name: userInfo?.userName })}</H3>
       </FadeIn>
       <FadeIn delay={PARAGRAPH_DELAY.SECOND}>
-        <H4 color="$gray11">{t('howAreYou')}</H4>
+        <H4 color="$gray11">{t('common.greeting.howAreYou')}</H4>
       </FadeIn>
       <WeekDayPicker />
     </YStack>

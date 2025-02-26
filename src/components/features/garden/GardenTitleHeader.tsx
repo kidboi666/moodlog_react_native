@@ -6,9 +6,9 @@ export const GardenTitleHeader = () => {
   return (
     <YStack gap="$2">
       <H2 fontWeight="800" color="$gray12">
-        {t('record.garden.title')}
+        {t('records.garden.title')}
       </H2>
-      <Paragraph color="$gray12">{t('record.garden.description')}</Paragraph>
+      <Paragraph color="$gray12">{t('records.garden.description')}</Paragraph>
     </YStack>
   );
 };

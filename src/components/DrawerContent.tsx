@@ -62,7 +62,7 @@ export const DrawerContent = ({
               icon={iconList[route.name](samePage ? '$gray1' : '$gray12')}
               onPress={() => handleNavigation(route.name)}
             >
-              {t(`drawer.${route.name}`)}
+              {t(`navigation.drawer.${route.name}`)}
             </Button>
           );
         })}

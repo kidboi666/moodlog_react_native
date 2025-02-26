@@ -55,18 +55,18 @@ export const EmotionAverage = ({ signatureEmotion }: Props) => {
     >
       <YStack>
         <H3 color={hasSignatureEmotion ? '$gray1' : '$gray12'}>
-          {t('record.stats.emotion.title')}
+          {t('records.stats.emotion.title')}
         </H3>
         <Text color={hasSignatureEmotion ? '$gray1' : '$gray12'}>
-          {t('record.stats.emotion.description')}
+          {t('records.stats.emotion.description')}
         </Text>
       </YStack>
       <YStack>
         <XStack>
           <H1 color={hasSignatureEmotion ? '$gray1' : '$gray12'} flex={1}>
             {hasSignatureEmotion
-              ? t(`emotion.type.${signatureEmotion.type}`)
-              : t('fallback.text')}
+              ? t(`emotions.types.${signatureEmotion.type}`)
+              : t('common.fallback.text')}
           </H1>
           <Button
             unstyled

@@ -36,16 +36,15 @@ export default function SignupScreen() {
             <H3 color="$gray1">{t('onboarding.signup.ota')}</H3>
             <YStack gap="$2">
               <Paragraph color="$gray2">
-                • {t('onboarding.signup.benefits.1')}
+                • {t('onboarding.signup.benefits.sync')}
               </Paragraph>
               <Paragraph color="$gray2">
-                • {t('onboarding.signup.benefits.2')}
+                • {t('onboarding.signup.benefits.backup')}
               </Paragraph>
               <Paragraph color="$gray2">
-                • {t('onboarding.signup.benefits.3')}
+                • {t('onboarding.signup.benefits.stats')}
               </Paragraph>
             </YStack>
-            <Button>{t('button.signup')}</Button>
           </YStack>
         </FadeIn>
         <View flex={1} />
@@ -56,14 +55,14 @@ export default function SignupScreen() {
               onPress={handlePrevStep}
               icon={<ArrowLeft size="$1" />}
             >
-              {t('button.prev')}
+              {t('common.button.prev')}
             </Button>
             <Button
               size="$5"
               themeInverse
               onPress={() => handleSubmit(draftUserName)}
             >
-              {t('button.confirm')}
+              {t('common.button.confirm')}
             </Button>
           </XStack>
         </FadeIn>

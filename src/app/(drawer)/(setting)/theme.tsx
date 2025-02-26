@@ -22,19 +22,19 @@ export default function ThemeScreen() {
       >
         <RadioGroupItem
           value="system"
-          label={t(`setting.theme.system`)}
+          label={t(`settings.theme.system`)}
           onValueChange={handleValueChange}
         />
         <Separator />
         <RadioGroupItem
           value="dark"
-          label={t(`setting.theme.dark`)}
+          label={t(`settings.theme.dark`)}
           onValueChange={handleValueChange}
         />
         <Separator />
         <RadioGroupItem
           value="light"
-          label={t(`setting.theme.light`)}
+          label={t(`settings.theme.light`)}
           onValueChange={handleValueChange}
         />
       </RadioGroup>

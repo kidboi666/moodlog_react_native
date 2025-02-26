@@ -38,8 +38,8 @@ export const WriteHeader = () => {
 
   const handleSubmit = () => {
     if (!draft.emotion?.type) {
-      toast.show(t('toast.warn.emotion.title'), {
-        message: t('toast.warn.emotion.message'),
+      toast.show(t('notifications.warning.emotion.title'), {
+        message: t('notifications.warning.emotion.message'),
         duration: 2000,
       });
     }

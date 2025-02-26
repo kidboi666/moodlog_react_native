@@ -1,42 +1,66 @@
 {
-  "hello": "안녕하세요!",
-  "greeting": "{{name}}님.",
-  "howAreYou": "오늘 기분은 어떠세요?",
-  "fallback": {
-    "journal": "당신의 이야기를 기다리고 있어요.",
-    "text": "없음"
+  "common": {
+    "greeting": {
+      "hello": "안녕하세요!",
+      "welcome": "{{name}}님.",
+      "howAreYou": "오늘 기분은 어떠세요?"
+    },
+    "fallback": {
+      "journal": "당신의 이야기를 기다리고 있어요.",
+      "text": "없음"
+    },
+    "button": {
+      "ok": "확인",
+      "cancel": "취소",
+      "confirm": "확인",
+      "delete": "삭제",
+      "edit": "수정",
+      "save": "저장",
+      "back": "뒤로",
+      "next": "다음",
+      "prev": "이전",
+      "submit": "제출"
+    },
+    "units": {
+      "month": "월",
+      "count": "개"
+    }
   },
-  "drawer": {
-    "home": "홈으로",
-    "profile": "프로필",
-    "(setting)": "설정"
+  "navigation": {
+    "drawer": {
+      "home": "홈으로",
+      "profile": "프로필",
+      "(setting)": "설정"
+    }
   },
-  "placeholder": {
+  "modals": {
+    "deleteJournal": {
+      "title": "일기 삭제",
+      "description": "이 일기를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+    }
+  },
+  "placeholders": {
     "journal": {
       "title": "오늘 하루는 어땟나요?",
       "content": "오늘의 감정과 경험을 기록해보세요."
     },
     "emotion": "지금 느끼고 있는 감정을 선택하세요."
   },
-  "toast": {
+  "notifications": {
     "success": {
       "journal": {
         "title": "일기가 저장되었습니다.",
         "message": "소중한 기록이 안전하게 보관되었어요."
       }
     },
-    "warn": {
+    "warning": {
       "emotion": {
         "title": "감정 강도를 선택해주세요!",
         "message": "선택된 감정 강도가 없습니다"
       }
     }
   },
-  "units": {
-    "month": "월",
-    "count": "개"
-  },
-  "record": {
+  "records": {
     "stats": {
       "totalCount": {
         "title": "총 일기 갯수",
@@ -50,7 +74,10 @@
       "expressiveMonth": {
         "title": "인상 깊던 달",
         "description": "가장 많은 일기를 작성한 달",
-        "journalCount": "{{month}}의 작성한 일기 갯수",
+        "journalCount": {
+          "title": "{{month}}의 작성한 일기 갯수",
+          "description": "{{count}} 개"
+        },
         "frequency": {
           "title": "평균 작성 빈도",
           "description": "보통 {{date}}일 간격으로 일기를 작성했어요."
@@ -66,14 +93,14 @@
       "description": "년도 별, 월 별 당신이 기록한 날의 감정을 확인하세요."
     }
   },
-  "emotion": {
-    "type": {
+  "emotions": {
+    "types": {
       "happy": "행복",
       "sad": "슬픔",
       "angry": "화남",
       "peace": "평온"
     },
-    "level": {
+    "levels": {
       "zero": "약간",
       "half": "적당히",
       "full": "매우"
@@ -104,24 +131,12 @@
       "dec": "12월"
     }
   },
-  "button": {
-    "ok": "확인",
-    "cancel": "취소",
-    "confirm": "확인",
-    "delete": "삭제",
-    "edit": "수정",
-    "save": "저장",
-    "back": "뒤로",
-    "next": "다음",
-    "prev": "이전",
-    "submit": "제출"
-  },
   "auth": {
     "login": "로그인",
     "register": "회원가입",
     "signup": "가입하기"
   },
-  "setting": {
+  "settings": {
     "theme": {
       "title": "다크 모드",
       "light": "밝은 테마",
@@ -133,7 +148,7 @@
     }
   },
   "onboarding": {
-    "index": {
+    "welcome": {
       "title": "안녕하세요!",
       "description": "당신의 일상 여정에 오신 것을 환영합니다",
       "description2": "매일이 당신 이야기의 새로운 페이지예요",
@@ -145,12 +160,12 @@
       "placeholder": "닉네임을 입력해주세요"
     },
     "signup": {
-      "title": "더 다양한 경험을 시작해보세요",
-      "ota": "가입하고 추가 기능을 사용해보세요:",
+      "title": "다양한 경험을 시작해보세요",
+      "ota": "여러 기능을 사용해보세요:",
       "benefits": {
-        "1": "여러 기기에서 동기화",
-        "2": "안전한 백업",
-        "3": "고급 통계"
+        "sync": "여러 기기에서 동기화",
+        "backup": "안전한 백업",
+        "stats": "고급 통계"
       }
     }
   }

@@ -15,14 +15,14 @@ export const CollapsedContent = ({ isExpanded, journalStats }) => {
       exitStyle={{ opacity: 0 }}
     >
       <YStack gap="$2">
-        <H3>{t('record.stats.totalCount.title')}</H3>
-        <Text>{t('record.stats.totalCount.description')}</Text>
+        <H3>{t('records.stats.totalCount.title')}</H3>
+        <Text>{t('records.stats.totalCount.description')}</Text>
       </YStack>
       <XStack>
         <XStack items="flex-end" gap="$2" flex={1}>
           <H1>{journalStats.totalCount}</H1>
           <Text lineHeight={RECORD_UNIT_LINE_HEIGHT} color="$gray11">
-            {t('record.stats.totalCount.unit')}
+            {t('records.stats.totalCount.unit')}
           </Text>
         </XStack>
         <Button

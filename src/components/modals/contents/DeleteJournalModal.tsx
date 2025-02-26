@@ -1,9 +1,10 @@
-import { Button, Text, YStack } from 'tamagui';
+import { Button, H3, Paragraph, YStack } from 'tamagui';
 import React from 'react';
 import { useBottomSheetModal } from '@gorhom/bottom-sheet';
 import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 import { useJournal } from '@/store/hooks/useJournal';
 import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   journalId: string;
@@ -13,15 +14,14 @@ export const DeleteJournalModal = ({ journalId }: Props) => {
   const { dismissAll } = useBottomSheetModal();
   const router = useRouter();
   const { removeJournal } = useJournal();
+  const { t } = useTranslation();
+
   return (
     <YStack gap="$4">
-      <Text text="center" fontSize="$5" fontWeight="500">
-        Delete Journal
-      </Text>
-      <Text text="center" color="$gray11">
-        Are you sure you want to delete this journal? This action cannot be
-        undone.
-      </Text>
+      <H3 text="center">{t('modal.deleteJournal.title')}</H3>
+      <Paragraph text="center" color="$gray11">
+        {t('modal.deleteJournal.description')}
+      </Paragraph>
       <YStack gap="$3" mt="$2">
         <Button
           animation="quick"
@@ -35,7 +35,7 @@ export const DeleteJournalModal = ({ journalId }: Props) => {
           }}
           pressStyle={PRESS_STYLE}
         >
-          Delete
+          {t('button.delete')}
         </Button>
         <Button
           animation="quick"
@@ -44,7 +44,7 @@ export const DeleteJournalModal = ({ journalId }: Props) => {
           onPress={() => dismissAll()}
           pressStyle={PRESS_STYLE}
         >
-          Cancel
+          {t('button.cancel')}
         </Button>
       </YStack>
     </YStack>

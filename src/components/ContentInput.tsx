@@ -38,7 +38,7 @@ export const ContentInput = ({
         color="$color"
         ref={firstInputRef}
         onSubmitEditing={handleFirstLineSubmit}
-        placeholder={t('placeholder.journal.title')}
+        placeholder={t('placeholders.journal.title')}
         placeholderTextColor="$gray7"
       />
       <ScrollView flex={1}>
@@ -50,7 +50,7 @@ export const ContentInput = ({
           fontSize={fontSize}
           ref={secondInputRef}
           scrollEnabled={false}
-          placeholder={t('placeholder.journal.content')}
+          placeholder={t('placeholders.journal.content')}
           placeholderTextColor="$gray7"
           flex={1}
           height="100%"

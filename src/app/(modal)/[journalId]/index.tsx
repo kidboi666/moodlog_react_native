@@ -35,7 +35,7 @@ export default function JournalPage() {
         bg={emotionTheme[journal.emotion.type][journal.emotion.level]}
       />
       <ScrollView flex={1} onScroll={onScroll}>
-        <YStack>
+        <YStack gap="$4">
           <XStack gap="$2">
             <XStack
               animation="bouncy"

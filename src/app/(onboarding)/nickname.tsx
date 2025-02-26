@@ -53,7 +53,7 @@ export default function NicknameScreen() {
             icon={<ArrowLeft size="$1" />}
             onPress={handlePrevStep}
           >
-            {t('button.prev')}
+            {t('common.button.prev')}
           </Button>
           <Button
             themeInverse
@@ -63,7 +63,7 @@ export default function NicknameScreen() {
             onPress={handleNextStep}
             iconAfter={<ArrowRight size="$1" />}
           >
-            {t('button.next')}
+            {t('common.button.next')}
           </Button>
         </XStack>
       </FadeIn>

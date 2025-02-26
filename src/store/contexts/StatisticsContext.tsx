@@ -305,6 +305,7 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
         }
       }
     };
+
     saveStats();
     return () => {
       isMounted = false;
@@ -338,7 +339,7 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
       });
     };
     updateStats();
-  }, [journals, selectedYear, emotionStats, journalStats]);
+  }, [journals, selectedYear]);
   return (
     <StatisticsContext.Provider
       value={{ journalStats, emotionStats, isLoading }}

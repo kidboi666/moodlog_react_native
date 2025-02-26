@@ -14,15 +14,15 @@ export const CollapsedContent = ({ expressiveMonthString, isExpanded }) => {
       exitStyle={{ opacity: 0 }}
     >
       <YStack gap="$2">
-        <H3>{t('record.stats.expressiveMonth.title')}</H3>
-        <Text>{t('record.stats.expressiveMonth.description')}</Text>
+        <H3>{t('records.stats.expressiveMonth.title')}</H3>
+        <Text>{t('records.stats.expressiveMonth.description')}</Text>
       </YStack>
       <XStack>
         <XStack flex={1}>
           <H1>
             {expressiveMonthString
               ? t(`calendar.months.${expressiveMonthString}`)
-              : t('fallback.text')}
+              : t('common.fallback.text')}
           </H1>
         </XStack>
         <Button

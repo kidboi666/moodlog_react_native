@@ -14,7 +14,7 @@ export default function SettingMainScreen() {
           {/* Theme Setting */}
           <SettingItem
             icon={<Moon size="$1" />}
-            label={t('setting.theme.title')}
+            label={t('settings.theme.title')}
             href="/theme"
           />
 
@@ -23,7 +23,7 @@ export default function SettingMainScreen() {
           {/* Language Setting */}
           <SettingItem
             icon={<Globe size="$1" />}
-            label={t('setting.language.title')}
+            label={t('settings.language.title')}
             href="/language"
           />
         </YStack>
