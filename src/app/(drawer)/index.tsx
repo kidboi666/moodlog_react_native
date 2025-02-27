@@ -8,16 +8,16 @@ import { HomeHeaderWithCalendar } from '@/components/HomeHeaderWithCalendar';
 import { useScroll } from '@/store/hooks/useScroll';
 import { memo } from 'react';
 import { Redirect } from 'expo-router';
-import { useUser } from '@/store/hooks/useUser';
+import { useApp } from '@/store/hooks/useApp';
 
 const MemoizedJournalCard = memo(JournalCard);
 
 export default function HomeScreen() {
   const { selectedJournals } = useJournal();
   const { onScroll } = useScroll();
-  const { isInitialUser } = useUser();
+  const { isInitialApp } = useApp();
 
-  if (!isInitialUser) {
+  if (!isInitialApp) {
     return <Redirect href="/(onboarding)/welcome" />;
   }
 

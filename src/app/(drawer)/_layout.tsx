@@ -22,7 +22,7 @@ export default function HomeLayout() {
         <Drawer.Screen name="index" />
         <Drawer.Screen name="profile" />
         <Drawer.Screen
-          name="(setting)"
+          name="(settings)"
           options={{
             headerShown: false,
           }}

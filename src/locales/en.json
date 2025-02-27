@@ -28,9 +28,9 @@
   },
   "navigation": {
     "drawer": {
-      "home": "Home",
+      "index": "Home",
       "profile": "Profile",
-      "(setting)": "Settings"
+      "(settings)": "Settings"
     }
   },
   "modals": {

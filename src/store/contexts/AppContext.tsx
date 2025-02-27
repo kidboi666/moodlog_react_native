@@ -4,6 +4,7 @@ import { Languages, ViewFontSize } from 'src/types/enums';
 import * as Localization from 'expo-localization';
 import { Nullable } from '@/types/utils';
 import { useTranslation } from 'react-i18next';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 /**
  * TODO features
@@ -15,17 +16,12 @@ export const AppContextProvider = ({ children }: PropsWithChildren) => {
     .languageCode as Languages;
   const [fontSize, setFontSize] = useState<ViewFontSize>(ViewFontSize.SMALL);
   const [language, setLanguage] = useState<Languages>(defaultLanguage);
+  const [isInitialApp, setIsInitialApp] = useState<boolean>(false);
   const { i18n } = useTranslation();
 
   const handleLanguageChange = (language: Languages) => {
     setLanguage(language);
   };
-
-  useEffect(() => {
-    if (language) {
-      i18n.changeLanguage(language);
-    }
-  }, [language]);
 
   const handleFontSizeChange = () => {
     switch (fontSize) {
@@ -43,11 +39,29 @@ export const AppContextProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  useEffect(() => {
+    if (language) {
+      i18n.changeLanguage(language);
+    }
+  }, [language]);
+
+  useEffect(() => {
+    const loadInitialValue = async () => {
+      const isInitialApp = await AsyncStorage.getItem('isInitialApp');
+      if (!isInitialApp) {
+        setIsInitialApp(true);
+      }
+    };
+    loadInitialValue();
+  }, []);
+
   return (
     <AppContext.Provider
       value={{
         fontSize,
         language,
+        isInitialApp,
+        setIsInitialApp,
         onChangeFontSize: handleFontSizeChange,
         onChangeLanguage: handleLanguageChange,
       }}

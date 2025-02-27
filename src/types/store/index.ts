@@ -11,6 +11,7 @@ import { Theme, ViewFontSize } from 'src/types/enums';
 import { ISODateString, ISOMonthString } from '@/types/dtos/date';
 import { LoadingState, Nullable, WithState } from 'src/types/utils';
 import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+import { Dispatch, SetStateAction } from 'react';
 
 export type JournalStore = WithState<
   {
@@ -50,6 +51,8 @@ export interface ThemeStore {
 export interface AppStore {
   fontSize: ViewFontSize;
   language: any;
+  isInitialApp: boolean;
+  setIsInitialApp: Dispatch<SetStateAction<boolean>>;
   onChangeFontSize: () => void;
   onChangeLanguage: (language: any) => void;
 }
@@ -58,7 +61,6 @@ export type UserStore = WithState<
   {
     userInfo: Nullable<UserInfo>;
     draftUserName: string;
-    isInitialUser: boolean;
     signUp: (userName: string) => void;
     onChangeDraftUserName: (userName: string) => void;
   },

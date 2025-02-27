@@ -5,6 +5,7 @@ import { uuid } from 'expo-modules-core';
 import { UserInfo } from '@/types/entries';
 import { Nullable } from 'src/types/utils';
 import { STORAGE_KEY } from '@/constants/storage';
+import { useApp } from '@/store/hooks/useApp';
 
 export const UserContext = createContext<Nullable<UserStore>>(null);
 
@@ -18,8 +19,8 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
     avatarUrl: '',
   });
   const [draftUserName, setDraftUserName] = useState<string>('');
-  const [isInitialUser, setIsInitialUser] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { setIsInitialApp } = useApp();
 
   const signUp = async (userName: string) => {
     try {
@@ -34,7 +35,7 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
         JSON.stringify(newUser),
       );
       setUserInfo(newUser);
-      setIsInitialUser(true);
+      setIsInitialApp(true);
     } catch (err) {
       console.error('Failed to save user data', err);
     } finally {
@@ -53,7 +54,7 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
         const savedUserData = await AsyncStorage.getItem(STORAGE_KEY.USER_INFO);
         if (savedUserData) {
           setUserInfo(JSON.parse(savedUserData));
-          setIsInitialUser(true);
+          setIsInitialApp(true);
         }
       } catch (err) {
         console.error('Failed to load user data', err);
@@ -68,7 +69,6 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
   return (
     <UserContext.Provider
       value={{
-        isInitialUser,
         signUp,
         userInfo,
         isLoading,

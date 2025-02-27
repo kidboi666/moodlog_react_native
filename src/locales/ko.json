@@ -28,9 +28,9 @@
   },
   "navigation": {
     "drawer": {
-      "home": "홈으로",
+      "index": "홈으로",
       "profile": "프로필",
-      "(setting)": "설정"
+      "(settings)": "설정"
     }
   },
   "modals": {
