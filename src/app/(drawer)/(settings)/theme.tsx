@@ -1,4 +1,4 @@
-import { Container } from '@/components/containers/Container';
+import { Container } from '@/components/layouts/containers/Container';
 import { useTranslation } from 'react-i18next';
 import { RadioGroup, Separator } from 'tamagui';
 import { useAppTheme } from '@/store/hooks/useAppTheme';

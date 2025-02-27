@@ -1,5 +1,5 @@
 import { Stack } from 'expo-router';
-import { RecordHeader } from '@/components/headers/RecordHeader';
+import { RecordHeader } from '@/components/layouts/headers/RecordHeader';
 import { useTheme } from 'tamagui';
 
 export default function RecordLayout() {

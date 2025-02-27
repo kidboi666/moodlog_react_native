@@ -1,4 +1,4 @@
-import { Container } from '@/components/containers/Container';
+import { Container } from '@/components/layouts/containers/Container';
 import { RadioGroup, Separator } from 'tamagui';
 import { useApp } from '@/store/hooks/useApp';
 import { RadioGroupItem } from '@/components/RadioGroupItem';

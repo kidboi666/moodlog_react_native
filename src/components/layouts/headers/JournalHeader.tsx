@@ -9,7 +9,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { BottomModal } from '@/components/modals/BottomModal';
 import { DeleteJournalModal } from '@/components/modals/contents/DeleteJournalModal';
 import { CurrentDate } from '@/components/CurrentDate';
-import { HeaderContainer } from '@/components/containers/HeaderContainer';
+import { HeaderContainer } from '@/components/layouts/containers/HeaderContainer';
 import { router, useLocalSearchParams } from 'expo-router';
 
 export default function JournalHeader() {

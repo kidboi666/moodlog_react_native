@@ -51,7 +51,7 @@ export const GardenContainer = ({
       animateOnly={['backgroundColor']}
       rounded="$4"
       py="$4"
-      // onLayout={({ nativeEvent }) => setGardenWidth(nativeEvent.layout.width)}
+      // onLayout={({ nativeEvent }) => setGardenWidth(nativeEvent.layouts.width)}
       // style={animatedStyle}
       onPress={() => onClick(monthString)}
       bg={isSelected ? '$gray7' : 'transparent'}

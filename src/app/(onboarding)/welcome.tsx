@@ -1,7 +1,7 @@
 import { Button, H1, H2, H3, XStack, YStack } from 'tamagui';
 import { useRouter } from 'expo-router';
 import { ArrowRight } from '@tamagui/lucide-icons';
-import { Container } from '@/components/containers/Container';
+import { Container } from '@/components/layouts/containers/Container';
 import { ShakeHand } from '@/components/ShakeHand';
 import { FadeIn } from '@/components/FadeIn';
 import { PARAGRAPH_DELAY } from '@/constants/styles';

@@ -9,7 +9,7 @@ import {
 } from '@tamagui/lucide-icons';
 import { useRouter } from 'expo-router';
 import { ENTER_STYLE, PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
-import { HeaderContainer } from '@/components/containers/HeaderContainer';
+import { HeaderContainer } from '@/components/layouts/containers/HeaderContainer';
 import { BottomModal } from '@/components/modals/BottomModal';
 import { DatePickerModal } from '@/components/modals/contents/CalendarPickerModal';
 import { CalendarUtils } from 'react-native-calendars';

@@ -1,7 +1,7 @@
 import { Button, View } from 'tamagui';
 import { LayoutGrid, Menu } from '@tamagui/lucide-icons';
 import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
-import { HeaderContainer } from '@/components/containers/HeaderContainer';
+import { HeaderContainer } from '@/components/layouts/containers/HeaderContainer';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { ParamListBase } from '@react-navigation/routers';
 

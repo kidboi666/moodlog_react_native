@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router';
-import { WriteHeader } from '@/components/headers/WriteHeader';
-import JournalHeader from '@/components/headers/JournalHeader';
+import { WriteHeader } from '@/components/layouts/headers/WriteHeader';
+import JournalHeader from '@/components/layouts/headers/JournalHeader';
 import { useTheme } from 'tamagui';
 
 export default function ModalLayout() {

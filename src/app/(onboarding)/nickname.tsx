@@ -1,4 +1,4 @@
-import { Container } from '@/components/containers/Container';
+import { Container } from '@/components/layouts/containers/Container';
 import { Button, H2, H3, Input, XStack, YStack } from 'tamagui';
 import { FadeIn } from '@/components/FadeIn';
 import { PARAGRAPH_DELAY } from '@/constants/styles';

@@ -2,7 +2,7 @@ import { Separator } from 'tamagui';
 import { useJournal } from '@/store/hooks/useJournal';
 import { FlatList } from 'react-native';
 import { JournalCard } from '@/components/JournalCard';
-import { Container } from '@/components/containers/Container';
+import { Container } from '@/components/layouts/containers/Container';
 import { EmptyJournal } from '@/components/EmptyJournal';
 import { HomeHeaderWithCalendar } from '@/components/HomeHeaderWithCalendar';
 import { useScroll } from '@/store/hooks/useScroll';

@@ -1,4 +1,4 @@
-import { Container } from '@/components/containers/Container';
+import { Container } from '@/components/layouts/containers/Container';
 import { ScrollView, Separator, YStack } from 'tamagui';
 import { Globe, Moon } from '@tamagui/lucide-icons';
 import { useTranslation } from 'react-i18next';

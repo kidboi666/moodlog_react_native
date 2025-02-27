@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router';
 import { useTheme } from 'tamagui';
-import { SettingHeader } from '@/components/headers/SettingHeader';
+import { SettingHeader } from '@/components/layouts/headers/SettingHeader';
 
 export default function SettingLayout() {
   const theme = useTheme();

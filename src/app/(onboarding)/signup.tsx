@@ -1,6 +1,6 @@
 import { Button, H1, H3, Paragraph, View, XStack, YStack } from 'tamagui';
 import { useUser } from '@/store/hooks/useUser';
-import { Container } from '@/components/containers/Container';
+import { Container } from '@/components/layouts/containers/Container';
 import { FadeIn } from '@/components/FadeIn';
 import { PARAGRAPH_DELAY } from '@/constants/styles';
 import { useRouter } from 'expo-router';

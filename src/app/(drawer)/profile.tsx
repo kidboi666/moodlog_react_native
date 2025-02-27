@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, H3, Input, Text, XStack, YStack } from 'tamagui';
 import { UserInfo } from '@/types/entries';
 import { useUser } from '@/store/hooks/useUser';
-import { Container } from '@/components/containers/Container';
+import { Container } from '@/components/layouts/containers/Container';
 import { ProfileHeader } from '@/components/ProfileHeader';
 import { BottomModal } from '@/components/modals/BottomModal';
 import { useBottomModal } from '@/hooks/useBottomModal';

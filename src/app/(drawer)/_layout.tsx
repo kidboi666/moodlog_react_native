@@ -1,5 +1,5 @@
-import { DrawerContent } from '@/components/DrawerContent';
-import { HomeHeader } from '@/components/headers/HomeHeader';
+import { DrawerContent } from '@/components/features/drawer/DrawerContent';
+import { HomeHeader } from '@/components/layouts/headers/HomeHeader';
 import { Drawer } from 'expo-router/drawer';
 import { Floating } from '@/components/Floating';
 import { useTheme } from 'tamagui';

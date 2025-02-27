@@ -1,15 +1,15 @@
-import { HeaderContainer } from '@/components/containers/HeaderContainer';
-import { Button } from 'tamagui';
+import { HeaderContainer } from '@/components/layouts/containers/HeaderContainer';
+import { Button, View } from 'tamagui';
 import { ArrowLeft } from '@tamagui/lucide-icons';
 import { PRESS_STYLE } from '@/constants/styles';
-import { ParamListBase } from '@react-navigation/routers';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { ParamListBase } from '@react-navigation/routers';
 
-export const RecordHeader = ({
-  navigation,
-}: {
+interface Props {
   navigation: NativeStackNavigationProp<ParamListBase, string, undefined>;
-}) => {
+}
+
+export const SettingHeader = ({ navigation }: Props) => {
   return (
     <HeaderContainer>
       <Button
@@ -20,6 +20,7 @@ export const RecordHeader = ({
         onPress={() => navigation.goBack()}
         pressStyle={PRESS_STYLE}
       />
+      <View flex={1} />
     </HeaderContainer>
   );
 };

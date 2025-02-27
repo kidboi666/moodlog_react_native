@@ -1,7 +1,7 @@
 import { ContentInput } from '@/components/ContentInput';
 import { View } from 'tamagui';
 import { useJournal } from '@/store/hooks/useJournal';
-import { Container } from '@/components/containers/Container';
+import { Container } from '@/components/layouts/containers/Container';
 import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
 import { KeyboardAvoidingView } from 'react-native';

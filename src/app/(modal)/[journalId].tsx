@@ -1,7 +1,7 @@
 import { H1, H3, Paragraph, ScrollView, View, XStack, YStack } from 'tamagui';
 import React, { useEffect } from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
-import { Container } from '@/components/containers/Container';
+import { Container } from '@/components/layouts/containers/Container';
 import { useLocalSearchParams } from 'expo-router';
 import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';

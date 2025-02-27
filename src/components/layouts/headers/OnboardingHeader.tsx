@@ -1,6 +1,6 @@
 import { View, XStack } from 'tamagui';
 import { useStepProgress } from '@/store/hooks/useStepProgress';
-import { HeaderContainer } from '@/components/containers/HeaderContainer';
+import { HeaderContainer } from '@/components/layouts/containers/HeaderContainer';
 
 export const OnboardingHeader = () => {
   const { currentStep, totalSteps } = useStepProgress();
