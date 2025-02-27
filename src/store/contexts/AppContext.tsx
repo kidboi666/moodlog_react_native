@@ -48,7 +48,7 @@ export const AppContextProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     const loadInitialValue = async () => {
       const isInitialApp = await AsyncStorage.getItem('isInitialApp');
-      if (!isInitialApp) {
+      if (isInitialApp) {
         setIsInitialApp(true);
       }
     };

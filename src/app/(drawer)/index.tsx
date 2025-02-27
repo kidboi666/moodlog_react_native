@@ -16,7 +16,7 @@ export default function HomeScreen() {
   const { selectedJournals } = useJournal();
   const { onScroll } = useScroll();
   const { isInitialApp } = useApp();
-
+  console.log(isInitialApp);
   if (!isInitialApp) {
     return <Redirect href="/(onboarding)/welcome" />;
   }

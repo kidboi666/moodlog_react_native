@@ -31,11 +31,11 @@ export const getDateInISODateString = (date: ISODateString) => {
   return date.split('-')[2];
 };
 
-export const getLastDate = (year: number, month) => {
+export const getLastDate = (year: number, month: string) => {
   return new Date(year, Object.keys(MONTHS).indexOf(month) + 1, 0).getDate();
 };
 
-export const getFirstDateDay = (year: number, month) => {
+export const getFirstDateDay = (year: number, month: string) => {
   return new Date(year, Object.keys(MONTHS).indexOf(month), 1).getDay();
 };
 
@@ -45,7 +45,7 @@ export const getWeekLength = (year: number, month: any) => {
   return Math.ceil((lastDate + firstDateDay) / 7);
 };
 
-export const removeLeadingZero = str => {
+export const removeLeadingZero = (str: string) => {
   str = String(str);
 
   if (str.charAt(0) === '0' && str.length > 1) {
@@ -55,14 +55,11 @@ export const removeLeadingZero = str => {
   return str;
 };
 
-export const getExpressiveMonthString = str => {
-  return Object.keys(MONTHS)[removeLeadingZero(str.split('-')[1]) - 1];
+export const getExpressiveMonthString = (str: string) => {
+  return Object.keys(MONTHS)[Number(removeLeadingZero(str.split('-')[1])) - 1];
 };
 
-export const getEmotionTheme = (
-  type: EmotionType | string,
-  level: EmotionLevel,
-) => {
+export const getEmotionTheme = (type: EmotionType, level: EmotionLevel) => {
   return emotionTheme[type][level];
 };
 

@@ -57,7 +57,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
       toast.show(t('notifications.success.journal.title'), {
         message: t('notifications.success.journal.message'),
       });
-      router.replace('/(drawer)/home');
+      router.replace('/(drawer)');
     }
   }, []);
 

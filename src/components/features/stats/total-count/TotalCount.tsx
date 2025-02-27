@@ -10,11 +10,18 @@ import Animated, {
 } from 'react-native-reanimated';
 import { ExpandedContent } from '@/components/features/stats/total-count/ExpandedContent';
 import { CollapsedContent } from '@/components/features/stats/total-count/CollapsedContent';
+import { JournalStats } from '@/types/entries';
 
 const AnimatedCard = Animated.createAnimatedComponent(YStack);
 
-export const TotalCount = ({ journalStats }) => {
+interface Props {
+  journalStats: JournalStats;
+}
+
+export const TotalCount = ({ journalStats }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const totalFrequency = journalStats.totalFrequency;
+  const totalActiveDay = journalStats.totalActiveDay;
 
   const onPress = useEvent(() => {
     setIsExpanded(prev => !prev);
@@ -40,7 +47,8 @@ export const TotalCount = ({ journalStats }) => {
         {isExpanded ? (
           <ExpandedContent
             isExpanded={isExpanded}
-            journalStats={journalStats}
+            totalFrequency={totalFrequency}
+            totalActiveDay={totalActiveDay}
           />
         ) : (
           <CollapsedContent

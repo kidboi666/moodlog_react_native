@@ -2,19 +2,27 @@ import { useTranslation } from 'react-i18next';
 import { Button, H5, Text, View, YStack } from 'tamagui';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
 import { EmptyExpandedContent } from '@/components/features/stats/EmptyExpandedContent';
+import { ExpressiveMonth } from '@/types/entries';
+
+interface Props {
+  expressiveMonthString: string;
+  expressiveMonth: ExpressiveMonth;
+  isExpanded: boolean;
+  monthlyFrequency: number;
+  monthlyActiveDay: string;
+}
 
 export const ExpandedContent = ({
   expressiveMonthString,
   expressiveMonth,
   isExpanded,
-  frequency,
-  activeDay,
-}) => {
+  monthlyFrequency,
+  monthlyActiveDay,
+}: Props) => {
   const { t } = useTranslation();
   if (!expressiveMonth.month) {
     return <EmptyExpandedContent />;
   }
-
   return (
     <View
       animation="quick"
@@ -42,7 +50,7 @@ export const ExpandedContent = ({
         </H5>
         <Text color="$gray11">
           {t('records.stats.expressiveMonth.frequency.description', {
-            date: frequency,
+            date: monthlyFrequency,
           })}
         </Text>
       </YStack>
@@ -52,7 +60,7 @@ export const ExpandedContent = ({
         </H5>
         <Text color="$gray11">
           {t('records.stats.expressiveMonth.mostDay.description', {
-            day: t(`calendar.days.${activeDay}`),
+            day: t(`calendar.days.${monthlyActiveDay}`),
           })}
         </Text>
       </YStack>

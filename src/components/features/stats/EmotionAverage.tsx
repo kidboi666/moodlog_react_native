@@ -14,7 +14,7 @@ import {
 } from '@/constants/size';
 import { Nullable } from '@/types/utils';
 import { getEmotionTheme } from '@/utils/common';
-import { EmotionLevel } from '@/types/enums';
+import { EmotionLevel, EmotionType } from '@/types/enums';
 
 interface Props {
   signatureEmotion: Nullable<SignatureEmotion>;
@@ -43,7 +43,10 @@ export const EmotionAverage = ({ signatureEmotion }: Props) => {
       justify="space-between"
       bg={
         hasSignatureEmotion
-          ? getEmotionTheme(signatureEmotion.type, EmotionLevel.FULL)
+          ? getEmotionTheme(
+              signatureEmotion.type as EmotionType,
+              EmotionLevel.FULL,
+            )
           : '$gray5'
       }
       rounded="$8"

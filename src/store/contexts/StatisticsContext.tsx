@@ -27,8 +27,11 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   const [journalStats, setJournalStats] = useState<JournalStats>({
     totalCount: 0,
     monthlyCounts: {},
-    frequency: 0,
-    activeDay: '',
+    monthlyFrequency: 0,
+    totalFrequency: 0,
+    monthlyActiveDay: '',
+    totalActiveDay: '',
+
     expressiveMonth: {
       month: '',
       count: 0,
@@ -65,11 +68,6 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
    */
   const getTotalCount = () => {
     return journals.length;
-  };
-
-  const getCountByMonth = (month: keyof typeof MONTHS) => {
-    const date = `${selectedYear}-${month}`;
-    return journals.filter(journal => journal.localDate.startsWith(date));
   };
 
   /**
@@ -173,10 +171,10 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   /**
    * 일기 작성 빈도 가져오기
    */
-  const getJournalFrequency = (expressiveMonthJournals: Journal[]) => {
-    const dates = expressiveMonthJournals
-      .map(journal => parseInt(journal.localDate.split('-')[2]))
-      .sort((a, b) => a - b);
+  const getJournalFrequency = (Journals: Journal[]) => {
+    const dates = Journals.map(journal =>
+      parseInt(journal.localDate.split('-')[2]),
+    ).sort((a, b) => a - b);
     let frequency: Record<string, number> = {};
 
     if (dates.length === 0) return 0;
@@ -199,8 +197,11 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
     );
   };
 
-  const getMostActiveDay = (expressiveMonthJournals: Journal[]) => {
-    const days = expressiveMonthJournals.map(journal =>
+  /**
+   * 가장 자주 일기를 작성한 요일 가져오기
+   */
+  const getMostActiveDay = (Journals: Journal[]) => {
+    const days = Journals.map(journal =>
       getDayInISODateString(journal.localDate),
     );
     const frequency: Record<string, number> = {};
@@ -225,12 +226,16 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
     const expressiveMonthJournals = journals.filter(journal =>
       journal.localDate.startsWith(journalStats.expressiveMonth.month),
     );
-    const frequency = getJournalFrequency(expressiveMonthJournals);
-    const activeDay = getMostActiveDay(expressiveMonthJournals);
+    const monthlyFrequency = getJournalFrequency(expressiveMonthJournals);
+    const monthlyActiveDay = getMostActiveDay(expressiveMonthJournals);
+    const totalFrequency = getJournalFrequency(journals);
+    const totalActiveDay = getMostActiveDay(journals);
 
     return {
-      frequency,
-      activeDay,
+      monthlyFrequency,
+      monthlyActiveDay,
+      totalFrequency,
+      totalActiveDay,
       totalCount,
       monthlyCounts,
       expressiveMonth,
