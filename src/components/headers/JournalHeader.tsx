@@ -1,5 +1,4 @@
 import { useJournal } from '@/store/hooks/useJournal';
-import { useRouter } from 'expo-router';
 import { Button, View, XStack } from 'tamagui';
 import { ALargeSmall, ChevronLeft, Trash2 } from '@tamagui/lucide-icons';
 import React, { useEffect, useRef, useState } from 'react';
@@ -11,16 +10,17 @@ import { BottomModal } from '@/components/modals/BottomModal';
 import { DeleteJournalModal } from '@/components/modals/contents/DeleteJournalModal';
 import { CurrentDate } from '@/components/CurrentDate';
 import { HeaderContainer } from '@/components/containers/HeaderContainer';
+import { router, useLocalSearchParams } from 'expo-router';
 
-export default function JournalHeader({ route }) {
-  const router = useRouter();
+export default function JournalHeader() {
+  const params = useLocalSearchParams();
   const modalRef = useRef<BottomSheetModal>(null);
   const [journal, setJournal] = useState<Journal>();
   const { journals } = useJournal();
   const { onChangeFontSize } = useApp();
 
   useEffect(() => {
-    const journal = journals.find(item => item.id === route.params.journalId);
+    const journal = journals.find(item => item.id === params.journalId);
     setJournal(journal);
   }, []);
 

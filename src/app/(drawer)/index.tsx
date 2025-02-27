@@ -6,11 +6,8 @@ import { Container } from '@/components/containers/Container';
 import { EmptyJournal } from '@/components/EmptyJournal';
 import { HomeHeaderWithCalendar } from '@/components/HomeHeaderWithCalendar';
 import { useScroll } from '@/store/hooks/useScroll';
-import { memo } from 'react';
 import { Redirect } from 'expo-router';
 import { useApp } from '@/store/hooks/useApp';
-
-const MemoizedJournalCard = memo(JournalCard);
 
 export default function HomeScreen() {
   const { selectedJournals } = useJournal();
@@ -33,7 +30,7 @@ export default function HomeScreen() {
           <Separator borderColor="transparent" mb="$4" />
         )}
         renderItem={({ item, index }) => (
-          <MemoizedJournalCard journal={item} index={index} />
+          <JournalCard journal={item} index={index} />
         )}
         ListEmptyComponent={EmptyJournal}
         contentContainerStyle={{

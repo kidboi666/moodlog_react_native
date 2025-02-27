@@ -2,6 +2,15 @@ import { XStack, YStack } from 'tamagui';
 import { Grass } from '@/components/features/garden/Grass';
 import { getMonthNumber } from '@/utils/common';
 
+interface Props {
+  weekLength: number;
+  monthString: string;
+  firstDateDay: number;
+  selectedYear: number;
+  lastDate: number;
+  getDateCountsForDate: (year: number, month: number, date: number) => number;
+}
+
 export const Garden = ({
   weekLength,
   monthString,
@@ -9,7 +18,7 @@ export const Garden = ({
   selectedYear,
   lastDate,
   getDateCountsForDate,
-}) => {
+}: Props) => {
   return (
     <XStack gap="$2">
       {Array.from({ length: weekLength }, (_, week) => (

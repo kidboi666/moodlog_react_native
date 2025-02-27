@@ -1,5 +1,5 @@
 import { MONTHS, WEEK_DAY } from '@/constants/date';
-import { ISODateString } from '@/types/dtos/date';
+import { ISODateString, ISOMonthString } from '@/types/dtos/date';
 import { EmotionLevel, EmotionType } from '@/types/enums';
 import { emotionTheme } from '@/constants/themes';
 
@@ -27,6 +27,10 @@ export const getDateInISODateString = (date: ISODateString) => {
   return date.split('-')[2];
 };
 
+export const getMonthInISODateString = (year: number, month: number) => {
+  return `${year}-${month.toString().padStart(2, '0')}` as ISOMonthString;
+};
+
 export const getLastDate = (year: number, month: string) => {
   return new Date(year, Object.keys(MONTHS).indexOf(month) + 1, 0).getDate();
 };
@@ -51,7 +55,7 @@ export const removeLeadingZero = (str: string) => {
   return str;
 };
 
-export const getExpressiveMonthString = (str: string) => {
+export const getMonthStringWithoutYear = (str: string) => {
   return Object.keys(MONTHS)[Number(removeLeadingZero(str.split('-')[1])) - 1];
 };
 

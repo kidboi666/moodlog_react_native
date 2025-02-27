@@ -10,13 +10,15 @@ import { useTranslation } from 'react-i18next';
 export const DrawerContent = ({
   state,
   navigation,
-  descriptors,
 }: DrawerContentComponentProps) => {
   const router = useRouter();
   const segments = useSegments();
   const { t } = useTranslation();
 
   const handleNavigation = (routeName: string) => {
+    if (routeName === 'index') {
+      router.push('/');
+    }
     router.push(`/${routeName}` as never);
   };
 

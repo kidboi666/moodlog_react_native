@@ -15,25 +15,29 @@ import {
   SignatureEmotion,
 } from '@/types/entries';
 import { EmotionLevel } from 'src/types/enums';
-import { getDayInISODateString } from '@/utils/common';
+import { getDayInISODateString, getMonthInISODateString } from '@/utils/common';
+import { ISOMonthString } from '@/types/dtos/date';
 
 export const StatisticsContext = createContext<Nullable<StatisticsStore>>(null);
 
 export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   const { journals } = useJournal();
   const toast = useToastController();
-  const { selectedYear } = useDate();
+  const { selectedYear, currentYear, currentMonth } = useDate();
   const [isLoading, setIsLoading] = useState(false);
   const [journalStats, setJournalStats] = useState<JournalStats>({
     totalCount: 0,
-    monthlyCounts: {},
-    monthlyFrequency: 0,
     totalFrequency: 0,
-    monthlyActiveDay: '',
     totalActiveDay: '',
-
+    monthlyCounts: {},
+    currentMonthStats: {
+      month: '0000-00',
+      count: 0,
+      frequency: 0,
+      activeDay: '',
+    },
     expressiveMonth: {
-      month: '',
+      month: '0000-00',
       count: 0,
     },
   });
@@ -76,7 +80,8 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   const getMonthlyCounts = () => {
     return Object.fromEntries(
       Array.from({ length: Object.keys(MONTHS).length }, (_, i) => {
-        const date = `${selectedYear}-${(i + 1).toString().padStart(2, '0')}`;
+        const date =
+          `${selectedYear}-${(i + 1).toString().padStart(2, '0')}` as ISOMonthString;
         return [
           date,
           journals.filter(journal => journal.localDate.startsWith(date)).length,
@@ -221,22 +226,33 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
     const totalCount = getTotalCount();
     const monthlyCounts = getMonthlyCounts();
     const expressiveMonth = getExpressiveMonth();
-    const expressiveMonthJournals = journals.filter(journal =>
-      journal.localDate.startsWith(journalStats.expressiveMonth.month),
+    const currentMonthJournals = journals.filter(journal =>
+      journal.localDate.startsWith(
+        getMonthInISODateString(currentYear, currentMonth + 1),
+      ),
     );
-    const monthlyFrequency = getJournalFrequency(expressiveMonthJournals);
-    const monthlyActiveDay = getMostActiveDay(expressiveMonthJournals);
+    const currentFrequency = getJournalFrequency(currentMonthJournals);
+    const currentActiveDay = getMostActiveDay(currentMonthJournals);
     const totalFrequency = getJournalFrequency(journals);
     const totalActiveDay = getMostActiveDay(journals);
 
     return {
-      monthlyFrequency,
-      monthlyActiveDay,
+      currentFrequency,
+      currentActiveDay,
+      currentMonthStats: {
+        month: getMonthInISODateString(currentYear, currentMonth + 1),
+        count: currentMonthJournals.length,
+        frequency: currentFrequency,
+        activeDay: currentActiveDay,
+      },
       totalFrequency,
       totalActiveDay,
       totalCount,
       monthlyCounts,
-      expressiveMonth,
+      expressiveMonth: {
+        month: expressiveMonth.month as ISOMonthString,
+        count: expressiveMonth.count,
+      },
     };
   };
   const getEmotionStats = () => {

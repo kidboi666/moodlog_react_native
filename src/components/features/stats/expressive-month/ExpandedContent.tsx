@@ -2,28 +2,29 @@ import { useTranslation } from 'react-i18next';
 import { Button, H5, Text, View, YStack } from 'tamagui';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
 import { EmptyExpandedContent } from '@/components/features/stats/EmptyExpandedContent';
-import { ExpressiveMonth } from '@/types/entries';
-import { getExpressiveMonthString } from '@/utils/common';
+import { CurrentMonthStats } from '@/types/entries';
+import { getMonthStringWithoutYear } from '@/utils/common';
 
 interface Props {
-  expressiveMonth: ExpressiveMonth;
+  currentMonthStats: CurrentMonthStats;
   isExpanded: boolean;
-  monthlyFrequency: number;
-  monthlyActiveDay: string;
 }
 
-export const ExpandedContent = ({
-  expressiveMonth,
-  isExpanded,
-  monthlyFrequency,
-  monthlyActiveDay,
-}: Props) => {
+export const ExpandedContent = ({ currentMonthStats, isExpanded }: Props) => {
   const { t } = useTranslation();
-  if (!expressiveMonth.month) {
+  const {
+    month: ISOMonthString,
+    count,
+    activeDay,
+    frequency,
+  } = currentMonthStats;
+
+  if (!count) {
     return <EmptyExpandedContent />;
   }
+
   const month = t(
-    `calendar.months.${getExpressiveMonthString(expressiveMonth.month)}`,
+    `calendar.months.${getMonthStringWithoutYear(ISOMonthString)}`,
   );
   return (
     <View
@@ -36,36 +37,36 @@ export const ExpandedContent = ({
     >
       <YStack gap="$2">
         <H5 fontWeight="800">
-          {t('records.stats.expressiveMonth.journalCount.title', {
+          {t('records.stats.currentMonth.journalCount.title', {
             month,
           })}
         </H5>
         <Text color="$gray11">
-          {t(`records.stats.expressiveMonth.journalCount.description`, {
-            count: expressiveMonth.count,
+          {t(`records.stats.currentMonth.journalCount.description`, {
+            count,
           })}
         </Text>
       </YStack>
       <YStack gap="$2">
         <H5 fontWeight="800">
-          {t('records.stats.expressiveMonth.frequency.title', { month })}
+          {t('records.stats.currentMonth.frequency.title', { month })}
         </H5>
         <Text color="$gray11">
-          {monthlyFrequency === 0
-            ? t('records.stats.expressiveMonth.frequency.everyDay', { month })
-            : t('records.stats.expressiveMonth.frequency.description', {
-                date: monthlyFrequency,
+          {frequency === 0
+            ? t('records.stats.currentMonth.frequency.everyDay', { month })
+            : t('records.stats.currentMonth.frequency.description', {
+                date: frequency,
                 month,
               })}
         </Text>
       </YStack>
       <YStack gap="$2">
         <H5 fontWeight="800">
-          {t('records.stats.expressiveMonth.mostDay.title', { month })}
+          {t('records.stats.currentMonth.mostDay.title', { month })}
         </H5>
         <Text color="$gray11">
-          {t('records.stats.expressiveMonth.mostDay.description', {
-            day: t(`calendar.days.${monthlyActiveDay}`),
+          {t('records.stats.currentMonth.mostDay.description', {
+            day: t(`calendar.days.${activeDay}`),
             month,
           })}
         </Text>

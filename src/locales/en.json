@@ -2,11 +2,11 @@
   "common": {
     "greeting": {
       "hello": "Hello!",
-      "welcome": "Hello, {{name}}.",
+      "welcome": "Welcome, {{name}}.",
       "howAreYou": "How are you feeling today?"
     },
     "fallback": {
-      "journal": "Start your story.",
+      "journal": "Waiting for your story.",
       "text": "None"
     },
     "button": {
@@ -22,7 +22,7 @@
       "submit": "Submit"
     },
     "units": {
-      "month": "month",
+      "month": "Month",
       "count": "entries"
     }
   },
@@ -42,69 +42,72 @@
   "placeholders": {
     "journal": {
       "title": "How was your day?",
-      "content": "Write about your day."
+      "content": "Record your emotions and experiences today."
     },
-    "emotion": "How are you feeling?"
+    "emotion": "Choose the emotion you're feeling right now."
   },
   "notifications": {
     "success": {
       "journal": {
-        "title": "Saved!",
-        "message": "Journal saved successfully."
+        "title": "Journal saved.",
+        "message": "Your precious record has been safely stored."
       }
     },
     "warning": {
       "emotion": {
-        "title": "Select intensity",
-        "message": "Choose emotion intensity"
+        "title": "Please select an emotion intensity!",
+        "message": "No emotion intensity has been selected"
       }
     }
   },
   "records": {
     "stats": {
       "totalCount": {
-        "title": "Total Journal Count",
+        "title": "Total Records",
         "description": "Journals written so far",
-        "unit": "entries",
         "daysSinceSignup": {
-          "title": "Days since you started journaling",
+          "title": "Days journaling",
           "description": "Day {{date}}"
         },
         "frequency": {
-          "title": "Average Writing Frequency",
-          "description": "You typically wrote a journal every {{date}} days.",
-          "everyDay": "You typically wrote a journal every day."
+          "title": "Writing Frequency",
+          "description": "You write every {{date}} days.",
+          "everyDay": "You write daily."
         },
         "mostDay": {
-          "title": "Most Common Writing Day",
-          "description": "You mostly wrote journals on {{day}}."
+          "title": "Top Writing Day",
+          "description": "You mostly write on {{day}}."
+        },
+        "expressiveMonth": {
+          "title": "Most Active Month",
+          "description": "In {{month}}, you wrote {{count}} entries."
         }
       },
       "emotion": {
-        "title": "Representative Emotion",
-        "description": "The emotion that represents you"
+        "title": "Signature Emotion",
+        "description": "Your defining emotion"
       },
-      "expressiveMonth": {
-        "title": "Most Expressive Month",
-        "description": "The month with the most journal entries",
+      "currentMonth": {
+        "title": "{{month}} Records",
+        "description": "Journals this month",
         "journalCount": {
-          "title": "Number of journals written in {{month}}",
+          "title": "Journals in {{month}}",
           "description": "{{count}} entries"
         },
         "frequency": {
-          "title": "Average writing frequency in {{month}}",
-          "description": "In {{month}}, you typically wrote a journal every {{date}} days.",
-          "everyDay": "In {{month}}, you typically wrote a journal every day."
+          "title": "{{month}} Frequency",
+          "description": "In {{month}}, you write every {{date}} days.",
+          "everyDay": "In {{month}}, you write daily."
         },
         "mostDay": {
-          "title": "Most common writing day in {{month}}",
-          "description": "In {{month}}, you mostly wrote journals on {{day}}."
+          "title": "Top Day in {{month}}",
+          "description": "In {{month}}, you write most on {{day}}."
         }
       }
     },
     "garden": {
-      "title": "Your Journal Overview",
-      "description": "Check your recorded emotions by year and month at a glance."
+      "title": "Records Overview",
+      "description": "View emotions by year and month."
     }
   },
   "emotions": {
@@ -115,8 +118,8 @@
       "peace": "Peaceful"
     },
     "levels": {
-      "zero": "A bit",
-      "half": "Medium",
+      "zero": "Slightly",
+      "half": "Moderately",
       "full": "Very"
     }
   },
@@ -129,6 +132,15 @@
       "fri": "Fri",
       "sat": "Sat",
       "sun": "Sun"
+    },
+    "daysShort": {
+      "mon": "M",
+      "tue": "T",
+      "wed": "W",
+      "thu": "T",
+      "fri": "F",
+      "sat": "S",
+      "sun": "S"
     },
     "months": {
       "jan": "Jan",
@@ -148,14 +160,14 @@
   "auth": {
     "login": "Login",
     "register": "Register",
-    "signup": "Sign up"
+    "signup": "Sign Up"
   },
   "settings": {
     "theme": {
-      "title": "Dark mode",
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
+      "title": "Dark Mode",
+      "light": "Light Theme",
+      "dark": "Dark Theme",
+      "system": "System Theme"
     },
     "language": {
       "title": "Language"
@@ -164,21 +176,21 @@
   "onboarding": {
     "welcome": {
       "title": "Hello!",
-      "description": "Welcome",
-      "description2": "Start your story",
-      "go": "Begin writing"
+      "description": "Welcome to your journey",
+      "description2": "Each day is a new page",
+      "go": "Start writing together?"
     },
     "nickname": {
-      "title": "Your name",
-      "description": "What should we call you?",
-      "placeholder": "Nickname"
+      "title": "Your story begins here",
+      "description": "What name will you use?",
+      "placeholder": "Enter nickname"
     },
     "signup": {
-      "title": "Start various experiences",
-      "ota": "Try these features:",
+      "title": "Start your journal",
+      "ota": "Features available:",
       "benefits": {
-        "sync": "Device sync",
-        "backup": "Backup",
+        "sync": "Multi-device sync",
+        "backup": "Secure backups",
         "stats": "Advanced stats"
       }
     }

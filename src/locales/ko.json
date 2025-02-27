@@ -63,9 +63,8 @@
   "records": {
     "stats": {
       "totalCount": {
-        "title": "전체 일기 갯수",
-        "description": "지금까지 작성한 일기",
-        "unit": "개",
+        "title": "전체 기록",
+        "description": "지금까지 작성한 일기 갯수",
         "daysSinceSignup": {
           "title": "일기를 작성하기 시작한지",
           "description": "{{date}}일 째"
@@ -77,16 +76,20 @@
         },
         "mostDay": {
           "title": "가장 많이 작성한 요일",
-          "description": "주로 {{day}}요일에 일기를 작성했네요."
+          "description": "주로 {{day}}요일에 일기를 작성했어요."
+        },
+        "expressiveMonth": {
+          "title": "가장 많이 작성한 달",
+          "description": "{{month}}엔 총 {{count}}개의 일기를 작성했어요."
         }
       },
       "emotion": {
         "title": "대표 감정",
         "description": "나를 대표하는 감정"
       },
-      "expressiveMonth": {
-        "title": "인상 깊던 달",
-        "description": "가장 많은 일기를 작성한 달",
+      "currentMonth": {
+        "title": "{{month}}의 기록",
+        "description": "이번 달 작성한 일기의 갯수",
         "journalCount": {
           "title": "{{month}}의 작성한 일기 갯수",
           "description": "{{count}} 개"
@@ -98,7 +101,7 @@
         },
         "mostDay": {
           "title": "{{month}} 동안 가장 많이 작성한 요일",
-          "description": "{{month}}엔 주로 {{day}}요일에 일기를 작성했네요."
+          "description": "{{month}}엔 주로 {{day}}요일에 일기를 작성했어요."
         }
       }
     },
@@ -122,6 +125,15 @@
   },
   "calendar": {
     "days": {
+      "mon": "월",
+      "tue": "화",
+      "wed": "수",
+      "thu": "목",
+      "fri": "금",
+      "sat": "토",
+      "sun": "일"
+    },
+    "daysShort": {
       "mon": "월",
       "tue": "화",
       "wed": "수",
@@ -174,7 +186,7 @@
       "placeholder": "닉네임을 입력해주세요"
     },
     "signup": {
-      "title": "다양한 경험을 시작해보세요",
+      "title": "기록을 시작해보세요",
       "ota": "여러 기능을 사용해보세요:",
       "benefits": {
         "sync": "여러 기기에서 동기화",

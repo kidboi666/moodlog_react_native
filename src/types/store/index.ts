@@ -79,8 +79,10 @@ export interface StepProgressStore {
 export interface DateStore {
   selectedYear: number;
   selectedMonth: number;
-  onChangeSelectedYear: (year: number) => void;
-  onChangeSelectedMonth: (month: number) => void;
+  currentYear: number;
+  currentMonth: number;
+  onSelectedYearChange: (year: number) => void;
+  onSelectedMonthChange: (month: number) => void;
 }
 
 export type StatisticsStore = WithState<

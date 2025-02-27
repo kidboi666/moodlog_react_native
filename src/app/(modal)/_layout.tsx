@@ -25,9 +25,9 @@ export default function ModalLayout() {
         }}
       />
       <Stack.Screen
-        name="[journalId]/index"
+        name="[journalId]"
         options={{
-          header: ({ route }) => <JournalHeader route={route} />,
+          header: () => <JournalHeader />,
         }}
       />
     </Stack>

@@ -1,16 +1,19 @@
 import { useTranslation } from 'react-i18next';
 import { Button, H1, H3, Text, View, XStack, YStack } from 'tamagui';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
-import { getExpressiveMonthString } from '@/utils/common';
-import { ExpressiveMonth } from '@/types/entries';
+import { getMonthStringWithoutYear } from '@/utils/common';
+import { CurrentMonthStats } from '@/types/entries';
+import { RECORD_UNIT_LINE_HEIGHT } from '@/constants/size';
 
 interface Props {
-  expressiveMonth: ExpressiveMonth;
+  currentMonthStats: CurrentMonthStats;
   isExpanded: boolean;
 }
 
-export const CollapsedContent = ({ expressiveMonth, isExpanded }: Props) => {
+export const CollapsedContent = ({ currentMonthStats, isExpanded }: Props) => {
   const { t } = useTranslation();
+  const { month: ISOMonthString, count } = currentMonthStats ?? null;
+  const month = getMonthStringWithoutYear(ISOMonthString);
   return (
     <View
       animation="quick"
@@ -21,18 +24,19 @@ export const CollapsedContent = ({ expressiveMonth, isExpanded }: Props) => {
       exitStyle={{ opacity: 0 }}
     >
       <YStack gap="$2">
-        <H3>{t('records.stats.expressiveMonth.title')}</H3>
-        <Text>{t('records.stats.expressiveMonth.description')}</Text>
+        <H3>
+          {t('records.stats.currentMonth.title', {
+            month: t(`calendar.months.${month}`),
+          })}
+        </H3>
+        <Text>{t('records.stats.currentMonth.description')}</Text>
       </YStack>
       <XStack>
-        <XStack flex={1}>
-          <H1>
-            {expressiveMonth.count
-              ? t(
-                  `calendar.months.${getExpressiveMonthString(expressiveMonth.month)}`,
-                )
-              : t('common.fallback.text')}
-          </H1>
+        <XStack flex={1} items="flex-end" gap="$2">
+          <H1>{count}</H1>
+          <Text lineHeight={RECORD_UNIT_LINE_HEIGHT} color="$gray11">
+            {t('common.units.count')}
+          </Text>
         </XStack>
         <Button
           unstyled

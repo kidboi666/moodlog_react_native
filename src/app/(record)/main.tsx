@@ -6,6 +6,7 @@ import { useScroll } from '@/store/hooks/useScroll';
 
 export default function MainScreen() {
   const { onScroll } = useScroll();
+
   return (
     <ScrollView onScroll={onScroll}>
       <Container gap="$4">

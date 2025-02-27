@@ -19,7 +19,7 @@ import Animated from 'react-native-reanimated';
 const AnimatedGarden = Animated.createAnimatedComponent(Button);
 
 export const GardenSection = () => {
-  const { selectedYear, selectedMonth, onChangeSelectedMonth } = useDate();
+  const { selectedYear, selectedMonth, onSelectedMonthChange } = useDate();
   const { getDateCountsForDate, getJournalsByMonth } = useJournal();
 
   const monthsData = useMemo(
@@ -34,7 +34,7 @@ export const GardenSection = () => {
   );
 
   const handleClick = (monthString: string) => {
-    onChangeSelectedMonth(getMonthNumber(monthString));
+    onSelectedMonthChange(getMonthNumber(monthString));
     const prefix =
       `${selectedYear}-${(getMonthNumber(monthString) + 1).toString().padStart(2, '0')}` as ISOMonthString;
     getJournalsByMonth(prefix);

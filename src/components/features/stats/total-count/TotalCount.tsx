@@ -31,8 +31,8 @@ export const TotalCount = ({ journalStats, daysSinceSignup }: Props) => {
       isExpanded ? RECORD_CARD_EXPANDED_HEIGHT : RECORD_CARD_HEIGHT,
     ),
   }));
-
-  const { totalCount, totalFrequency, totalActiveDay } = journalStats;
+  const { totalCount, totalFrequency, totalActiveDay, expressiveMonth } =
+    journalStats;
 
   return (
     <AnimatedCard
@@ -47,6 +47,7 @@ export const TotalCount = ({ journalStats, daysSinceSignup }: Props) => {
       <AnimatePresence>
         {isExpanded ? (
           <ExpandedContent
+            expressiveMonth={expressiveMonth}
             isExpanded={isExpanded}
             totalCount={totalCount}
             daysSinceSignup={daysSinceSignup}

@@ -6,11 +6,9 @@ import { useTheme } from 'tamagui';
 
 export default function HomeLayout() {
   const theme = useTheme();
-
   return (
     <>
       <Drawer
-        initialRouteName="index"
         drawerContent={props => <DrawerContent {...props} />}
         screenOptions={{
           headerShown: true,

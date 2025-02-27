@@ -39,16 +39,22 @@ export type MonthlyCounts = {
 };
 
 export type ExpressiveMonth = {
-  month: ISOMonthString | string;
+  month: ISOMonthString;
   count: number;
+};
+
+export type CurrentMonthStats = {
+  month: ISOMonthString;
+  count: number;
+  frequency: number;
+  activeDay: string;
 };
 
 export type JournalStats = {
   totalCount: number;
-  monthlyFrequency: number;
-  monthlyActiveDay: string;
   totalFrequency: number;
   totalActiveDay: string;
+  currentMonthStats: CurrentMonthStats;
   monthlyCounts: MonthlyCounts;
   expressiveMonth: ExpressiveMonth;
 };

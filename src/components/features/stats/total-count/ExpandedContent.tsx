@@ -2,6 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { Button, H5, Text, View, YStack } from 'tamagui';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
 import { EmptyExpandedContent } from '@/components/features/stats/EmptyExpandedContent';
+import { ExpressiveMonth } from '@/types/entries';
+import { getMonthStringWithoutYear } from '@/utils/common';
 
 interface Props {
   isExpanded: boolean;
@@ -9,6 +11,7 @@ interface Props {
   totalActiveDay: string;
   totalCount: number;
   daysSinceSignup: number;
+  expressiveMonth: ExpressiveMonth;
 }
 
 export const ExpandedContent = ({
@@ -17,6 +20,7 @@ export const ExpandedContent = ({
   totalActiveDay,
   totalCount,
   daysSinceSignup,
+  expressiveMonth,
 }: Props) => {
   const { t } = useTranslation();
   if (!totalCount) {
@@ -59,6 +63,19 @@ export const ExpandedContent = ({
         <Text color="$gray11">
           {t('records.stats.totalCount.mostDay.description', {
             day: t(`calendar.days.${totalActiveDay}`),
+          })}
+        </Text>
+      </YStack>
+      <YStack gap="$2">
+        <H5 fontWeight="800">
+          {t('records.stats.totalCount.expressiveMonth.title')}
+        </H5>
+        <Text color="$gray11">
+          {t('records.stats.totalCount.expressiveMonth.description', {
+            month: t(
+              `calendar.months.${getMonthStringWithoutYear(expressiveMonth.month)}`,
+            ),
+            count: expressiveMonth.count,
           })}
         </Text>
       </YStack>

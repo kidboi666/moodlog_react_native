@@ -2,8 +2,14 @@ import { Button, H1, H3, Text, View, XStack, YStack } from 'tamagui';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
 import { useTranslation } from 'react-i18next';
 import { RECORD_UNIT_LINE_HEIGHT } from '@/constants/size';
+import { JournalStats } from '@/types/entries';
 
-export const CollapsedContent = ({ isExpanded, journalStats }) => {
+interface Props {
+  isExpanded: boolean;
+  journalStats: JournalStats;
+}
+
+export const CollapsedContent = ({ isExpanded, journalStats }: Props) => {
   const { t } = useTranslation();
   return (
     <View
@@ -22,7 +28,7 @@ export const CollapsedContent = ({ isExpanded, journalStats }) => {
         <XStack items="flex-end" gap="$2" flex={1}>
           <H1>{journalStats.totalCount}</H1>
           <Text lineHeight={RECORD_UNIT_LINE_HEIGHT} color="$gray11">
-            {t('records.stats.totalCount.unit')}
+            {t('common.units.count')}
           </Text>
         </XStack>
         <Button

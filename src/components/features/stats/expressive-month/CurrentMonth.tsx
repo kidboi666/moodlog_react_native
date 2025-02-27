@@ -18,7 +18,7 @@ interface Props {
 
 const AnimatedCard = Animated.createAnimatedComponent(YStack);
 
-export const ExpressiveMonth = ({ journalStats }: Props) => {
+export const CurrentMonth = ({ journalStats }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const onPress = useEvent(() => {
@@ -31,7 +31,7 @@ export const ExpressiveMonth = ({ journalStats }: Props) => {
     ),
   }));
 
-  const { monthlyFrequency, monthlyActiveDay, expressiveMonth } = journalStats;
+  const { currentMonthStats } = journalStats;
 
   return (
     <AnimatedCard
@@ -45,15 +45,13 @@ export const ExpressiveMonth = ({ journalStats }: Props) => {
       <AnimatePresence>
         {isExpanded ? (
           <ExpandedContent
-            monthlyActiveDay={monthlyActiveDay}
-            monthlyFrequency={monthlyFrequency}
+            currentMonthStats={currentMonthStats}
             isExpanded={isExpanded}
-            expressiveMonth={expressiveMonth}
           />
         ) : (
           <CollapsedContent
+            currentMonthStats={currentMonthStats}
             isExpanded={isExpanded}
-            expressiveMonth={expressiveMonth}
           />
         )}
       </AnimatePresence>
