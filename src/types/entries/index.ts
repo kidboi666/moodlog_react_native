@@ -1,5 +1,6 @@
 import { EmotionLevel, EmotionType } from 'src/types/enums';
 import { ISODateString, ISOMonthString } from '@/types/dtos/date';
+import { Nullable } from '@/types/utils';
 
 export type Emotion = {
   type: EmotionType;
@@ -26,10 +27,11 @@ export type DateCounts = {
 export type UserInfo = {
   id: string;
   userName: string;
-  age?: number;
-  email?: string;
-  provider?: string;
-  avatarUrl?: string;
+  daysSinceSignup: number;
+  age: Nullable<number>;
+  email: Nullable<string>;
+  provider: Nullable<string>;
+  avatarUrl: Nullable<string>;
 };
 
 export type MonthlyCounts = {

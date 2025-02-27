@@ -63,9 +63,22 @@
   "records": {
     "stats": {
       "totalCount": {
-        "title": "총 일기 갯수",
+        "title": "전체 일기 갯수",
         "description": "지금까지 작성한 일기",
-        "unit": "개"
+        "unit": "개",
+        "daysSinceSignup": {
+          "title": "일기를 작성하기 시작한지",
+          "description": "{{date}}일 째"
+        },
+        "frequency": {
+          "title": "평균 작성 빈도",
+          "description": "보통 {{date}}일 간격으로 일기를 작성헀어요.",
+          "everyDay": "보통 매일 일기를 작성했어요."
+        },
+        "mostDay": {
+          "title": "가장 많이 작성한 요일",
+          "description": "주로 {{day}}요일에 일기를 작성했네요."
+        }
       },
       "emotion": {
         "title": "대표 감정",
@@ -79,12 +92,13 @@
           "description": "{{count}} 개"
         },
         "frequency": {
-          "title": "평균 작성 빈도",
-          "description": "보통 {{date}}일 간격으로 일기를 작성했어요."
+          "title": "{{month}} 평균 작성 빈도",
+          "description": "{{month}}엔 보통 {{date}}일 간격으로 일기를 작성했어요.",
+          "everyDay": "{{month}}엔 보통 매일 일기를 작성헀어요."
         },
         "mostDay": {
-          "title": "가장 많이 작성한 요일",
-          "description": "주로 {{day}}요일에 일기를 작성했네요."
+          "title": "{{month}} 동안 가장 많이 작성한 요일",
+          "description": "{{month}}엔 주로 {{day}}요일에 일기를 작성했네요."
         }
       }
     },

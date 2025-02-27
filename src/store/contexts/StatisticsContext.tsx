@@ -37,7 +37,7 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
       count: 0,
     },
   });
-  const [emotionStats, setEmotionStats] = useState<Nullable<EmotionStats>>({
+  const [emotionStats, setEmotionStats] = useState<EmotionStats>({
     signatureEmotion: {
       type: '',
       count: 0,
@@ -106,8 +106,6 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
    */
   const getTotalEmotionAverage = () => {
     const emotions = journals.map(journal => journal.emotion);
-
-    if (!emotions) return null;
 
     const scoreBoard: ScoreBoard = {
       sad: { count: 0, score: 0 },
@@ -243,9 +241,8 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   };
   const getEmotionStats = () => {
     const scoreBoard = getTotalEmotionAverage();
-    if (!scoreBoard) return null;
-
     const signatureEmotion = getSignatureEmotion(scoreBoard);
+
     return {
       scoreBoard,
       signatureEmotion,

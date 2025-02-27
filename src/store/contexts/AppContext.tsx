@@ -5,10 +5,9 @@ import * as Localization from 'expo-localization';
 import { Nullable } from '@/types/utils';
 import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ISODateString } from '@/types/dtos/date';
+import { STORAGE_KEY } from '@/constants/storage';
 
-/**
- * TODO features
- */
 export const AppContext = createContext<Nullable<AppStore>>(null);
 
 export const AppContextProvider = ({ children }: PropsWithChildren) => {
@@ -17,6 +16,8 @@ export const AppContextProvider = ({ children }: PropsWithChildren) => {
   const [fontSize, setFontSize] = useState<ViewFontSize>(ViewFontSize.SMALL);
   const [language, setLanguage] = useState<Languages>(defaultLanguage);
   const [isInitialApp, setIsInitialApp] = useState<boolean>(false);
+  const [firstLaunchDate, setFirstLaunceDate] =
+    useState<Nullable<ISODateString>>(null);
   const { i18n } = useTranslation();
 
   const handleLanguageChange = (language: Languages) => {
@@ -39,20 +40,41 @@ export const AppContextProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const initializeFirstLaunchStatus = async () => {
+    const firstLaunchDate = new Date()
+      .toISOString()
+      .split('T')[0] as ISODateString;
+
+    try {
+      await AsyncStorage.setItem(STORAGE_KEY.INIT, 'true');
+      await AsyncStorage.setItem(STORAGE_KEY.FIRST_LAUNCH, firstLaunchDate);
+      setIsInitialApp(true);
+      setFirstLaunceDate(firstLaunchDate);
+    } catch (err) {
+      console.error('초기화 중 오류 발생:', err);
+    }
+
+    return firstLaunchDate;
+  };
+
   useEffect(() => {
     if (language) {
-      i18n.changeLanguage(language);
+      void i18n.changeLanguage(language);
     }
   }, [language]);
 
   useEffect(() => {
     const loadInitialValue = async () => {
-      const isInitialApp = await AsyncStorage.getItem('isInitialApp');
-      if (isInitialApp) {
+      const isInitialApp = await AsyncStorage.getItem(STORAGE_KEY.INIT);
+      const firstLaunchDate = await AsyncStorage.getItem(
+        STORAGE_KEY.FIRST_LAUNCH,
+      );
+      if (isInitialApp === 'true') {
         setIsInitialApp(true);
+        setFirstLaunceDate(firstLaunchDate as ISODateString);
       }
     };
-    loadInitialValue();
+    void loadInitialValue();
   }, []);
 
   return (
@@ -61,7 +83,8 @@ export const AppContextProvider = ({ children }: PropsWithChildren) => {
         fontSize,
         language,
         isInitialApp,
-        setIsInitialApp,
+        firstLaunchDate,
+        initializeFirstLaunchStatus,
         onChangeFontSize: handleFontSizeChange,
         onChangeLanguage: handleLanguageChange,
       }}

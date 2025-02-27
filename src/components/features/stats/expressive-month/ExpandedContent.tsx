@@ -22,6 +22,9 @@ export const ExpandedContent = ({
   if (!expressiveMonth.month) {
     return <EmptyExpandedContent />;
   }
+  const month = t(
+    `calendar.months.${getExpressiveMonthString(expressiveMonth.month)}`,
+  );
   return (
     <View
       animation="quick"
@@ -34,9 +37,7 @@ export const ExpandedContent = ({
       <YStack gap="$2">
         <H5 fontWeight="800">
           {t('records.stats.expressiveMonth.journalCount.title', {
-            month: t(
-              `calendar.months.${getExpressiveMonthString(expressiveMonth.month)}`,
-            ),
+            month,
           })}
         </H5>
         <Text color="$gray11">
@@ -47,21 +48,25 @@ export const ExpandedContent = ({
       </YStack>
       <YStack gap="$2">
         <H5 fontWeight="800">
-          {t('records.stats.expressiveMonth.frequency.title')}
+          {t('records.stats.expressiveMonth.frequency.title', { month })}
         </H5>
         <Text color="$gray11">
-          {t('records.stats.expressiveMonth.frequency.description', {
-            date: monthlyFrequency,
-          })}
+          {monthlyFrequency === 0
+            ? t('records.stats.expressiveMonth.frequency.everyDay', { month })
+            : t('records.stats.expressiveMonth.frequency.description', {
+                date: monthlyFrequency,
+                month,
+              })}
         </Text>
       </YStack>
       <YStack gap="$2">
         <H5 fontWeight="800">
-          {t('records.stats.expressiveMonth.mostDay.title')}
+          {t('records.stats.expressiveMonth.mostDay.title', { month })}
         </H5>
         <Text color="$gray11">
           {t('records.stats.expressiveMonth.mostDay.description', {
             day: t(`calendar.days.${monthlyActiveDay}`),
+            month,
           })}
         </Text>
       </YStack>

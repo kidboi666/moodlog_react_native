@@ -11,7 +11,6 @@ import { Theme, ViewFontSize } from 'src/types/enums';
 import { ISODateString, ISOMonthString } from '@/types/dtos/date';
 import { LoadingState, Nullable, WithState } from 'src/types/utils';
 import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
-import { Dispatch, SetStateAction } from 'react';
 
 export type JournalStore = WithState<
   {
@@ -52,14 +51,15 @@ export interface AppStore {
   fontSize: ViewFontSize;
   language: any;
   isInitialApp: boolean;
-  setIsInitialApp: Dispatch<SetStateAction<boolean>>;
+  initializeFirstLaunchStatus: () => Promise<ISODateString>;
+  firstLaunchDate: Nullable<ISODateString>;
   onChangeFontSize: () => void;
   onChangeLanguage: (language: any) => void;
 }
 
 export type UserStore = WithState<
   {
-    userInfo: Nullable<UserInfo>;
+    userInfo: UserInfo;
     draftUserName: string;
     signUp: (userName: string) => void;
     onChangeDraftUserName: (userName: string) => void;
@@ -86,7 +86,7 @@ export interface DateStore {
 export type StatisticsStore = WithState<
   {
     journalStats: JournalStats;
-    emotionStats: Nullable<EmotionStats>;
+    emotionStats: EmotionStats;
   },
   LoadingState
 >;

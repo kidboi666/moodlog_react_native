@@ -13,14 +13,15 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
   const [userInfo, setUserInfo] = useState<UserInfo>({
     id: '',
     userName: '',
-    email: '',
-    provider: '',
-    age: 0,
-    avatarUrl: '',
+    daysSinceSignup: 0,
+    email: null,
+    provider: null,
+    age: null,
+    avatarUrl: null,
   });
   const [draftUserName, setDraftUserName] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { setIsInitialApp } = useApp();
+  const { initializeFirstLaunchStatus, firstLaunchDate } = useApp();
 
   const signUp = async (userName: string) => {
     try {
@@ -35,7 +36,7 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
         JSON.stringify(newUser),
       );
       setUserInfo(newUser);
-      setIsInitialApp(true);
+      await initializeFirstLaunchStatus();
     } catch (err) {
       console.error('Failed to save user data', err);
     } finally {
@@ -47,6 +48,13 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
     setDraftUserName(userName);
   };
 
+  const handleDaysSinceSignupChange = () => {
+    const daysSinceSignup = new Date(
+      new Date().getTime() - new Date(firstLaunchDate as string).getTime(),
+    ).getDate();
+    setUserInfo(prev => ({ ...prev, daysSinceSignup }));
+  };
+
   useEffect(() => {
     const loadUserData = async () => {
       try {
@@ -54,7 +62,7 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
         const savedUserData = await AsyncStorage.getItem(STORAGE_KEY.USER_INFO);
         if (savedUserData) {
           setUserInfo(JSON.parse(savedUserData));
-          setIsInitialApp(true);
+          await initializeFirstLaunchStatus();
         }
       } catch (err) {
         console.error('Failed to load user data', err);
@@ -65,6 +73,10 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
 
     void loadUserData();
   }, []);
+
+  useEffect(() => {
+    handleDaysSinceSignupChange();
+  }, [firstLaunchDate]);
 
   return (
     <UserContext.Provider

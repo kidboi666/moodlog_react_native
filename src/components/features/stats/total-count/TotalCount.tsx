@@ -16,9 +16,10 @@ const AnimatedCard = Animated.createAnimatedComponent(YStack);
 
 interface Props {
   journalStats: JournalStats;
+  daysSinceSignup: number;
 }
 
-export const TotalCount = ({ journalStats }: Props) => {
+export const TotalCount = ({ journalStats, daysSinceSignup }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const onPress = useEvent(() => {
@@ -48,6 +49,7 @@ export const TotalCount = ({ journalStats }: Props) => {
           <ExpandedContent
             isExpanded={isExpanded}
             totalCount={totalCount}
+            daysSinceSignup={daysSinceSignup}
             totalFrequency={totalFrequency}
             totalActiveDay={totalActiveDay}
           />

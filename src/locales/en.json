@@ -63,34 +63,48 @@
   "records": {
     "stats": {
       "totalCount": {
-        "title": "Total Journals",
-        "description": "Written entries",
-        "unit": "entries"
-      },
-      "emotion": {
-        "title": "Main Emotion",
-        "description": "Your signature emotion"
-      },
-      "expressiveMonth": {
-        "title": "Best Month",
-        "description": "Most active month",
-        "journalCount": {
-          "title": "Entries in {{month}}",
-          "description": "{{count}} journal"
+        "title": "Total Journal Count",
+        "description": "Journals written so far",
+        "unit": "entries",
+        "daysSinceSignup": {
+          "title": "Days since you started journaling",
+          "description": "Day {{date}}"
         },
         "frequency": {
-          "title": "Write Frequency",
-          "description": "Every {{date}} days"
+          "title": "Average Writing Frequency",
+          "description": "You typically wrote a journal every {{date}} days.",
+          "everyDay": "You typically wrote a journal every day."
         },
         "mostDay": {
-          "title": "Favorite Day",
-          "description": "Most written: {{day}}"
+          "title": "Most Common Writing Day",
+          "description": "You mostly wrote journals on {{day}}."
+        }
+      },
+      "emotion": {
+        "title": "Representative Emotion",
+        "description": "The emotion that represents you"
+      },
+      "expressiveMonth": {
+        "title": "Most Expressive Month",
+        "description": "The month with the most journal entries",
+        "journalCount": {
+          "title": "Number of journals written in {{month}}",
+          "description": "{{count}} entries"
+        },
+        "frequency": {
+          "title": "Average writing frequency in {{month}}",
+          "description": "In {{month}}, you typically wrote a journal every {{date}} days.",
+          "everyDay": "In {{month}}, you typically wrote a journal every day."
+        },
+        "mostDay": {
+          "title": "Most common writing day in {{month}}",
+          "description": "In {{month}}, you mostly wrote journals on {{day}}."
         }
       }
     },
     "garden": {
-      "title": "Your Story",
-      "description": "Your emotions by date"
+      "title": "Your Journal Overview",
+      "description": "Check your recorded emotions by year and month at a glance."
     }
   },
   "emotions": {

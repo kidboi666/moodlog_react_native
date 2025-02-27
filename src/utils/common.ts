@@ -11,10 +11,6 @@ export const formatDate = (value: Date) => {
   return { year, month, date, day };
 };
 
-export const transformISODate = (time: number) => {
-  return new Date(time).toISOString().split('T')[0];
-};
-
 export const getMonthNumber = (month: string) => {
   return Object.keys(MONTHS).indexOf(month);
 };

@@ -8,6 +8,7 @@ interface Props {
   totalFrequency: number;
   totalActiveDay: string;
   totalCount: number;
+  daysSinceSignup: number;
 }
 
 export const ExpandedContent = ({
@@ -15,6 +16,7 @@ export const ExpandedContent = ({
   totalFrequency,
   totalActiveDay,
   totalCount,
+  daysSinceSignup,
 }: Props) => {
   const { t } = useTranslation();
   if (!totalCount) {
@@ -32,20 +34,30 @@ export const ExpandedContent = ({
     >
       <YStack gap="$2">
         <H5 fontWeight="800">
-          {t('records.stats.expressiveMonth.frequency.title')}
+          {t('records.stats.totalCount.daysSinceSignup.title')}
         </H5>
         <Text color="$gray11">
-          {t('records.stats.expressiveMonth.frequency.description', {
-            date: totalFrequency,
+          {t('records.stats.totalCount.daysSinceSignup.description', {
+            date: daysSinceSignup,
           })}
         </Text>
       </YStack>
       <YStack gap="$2">
         <H5 fontWeight="800">
-          {t('records.stats.expressiveMonth.mostDay.title')}
+          {t('records.stats.totalCount.frequency.title')}
         </H5>
         <Text color="$gray11">
-          {t('records.stats.expressiveMonth.mostDay.description', {
+          {totalFrequency === 0
+            ? t('records.stats.totalCount.frequency.everyDay')
+            : t('records.stats.totalCount.frequency.description', {
+                date: totalFrequency,
+              })}
+        </Text>
+      </YStack>
+      <YStack gap="$2">
+        <H5 fontWeight="800">{t('records.stats.totalCount.mostDay.title')}</H5>
+        <Text color="$gray11">
+          {t('records.stats.totalCount.mostDay.description', {
             day: t(`calendar.days.${totalActiveDay}`),
           })}
         </Text>
