@@ -9,7 +9,6 @@ import {
   RECORD_CARD_EXPANDED_HEIGHT,
   RECORD_CARD_HEIGHT,
 } from '@/constants/size';
-import { getExpressiveMonthString } from '@/utils/common';
 import { CollapsedContent } from '@/components/features/stats/expressive-month/CollapsedContent';
 import { ExpandedContent } from '@/components/features/stats/expressive-month/ExpandedContent';
 
@@ -20,10 +19,6 @@ interface Props {
 const AnimatedCard = Animated.createAnimatedComponent(YStack);
 
 export const ExpressiveMonth = ({ journalStats }: Props) => {
-  const expressiveMonth = journalStats.expressiveMonth;
-  const expressiveMonthString = getExpressiveMonthString(expressiveMonth.month);
-  const monthlyFrequency = journalStats.monthlyFrequency;
-  const monthlyActiveDay = journalStats.monthlyActiveDay;
   const [isExpanded, setIsExpanded] = useState(false);
 
   const onPress = useEvent(() => {
@@ -35,6 +30,8 @@ export const ExpressiveMonth = ({ journalStats }: Props) => {
       isExpanded ? RECORD_CARD_EXPANDED_HEIGHT : RECORD_CARD_HEIGHT,
     ),
   }));
+
+  const { monthlyFrequency, monthlyActiveDay, expressiveMonth } = journalStats;
 
   return (
     <AnimatedCard
@@ -52,12 +49,11 @@ export const ExpressiveMonth = ({ journalStats }: Props) => {
             monthlyFrequency={monthlyFrequency}
             isExpanded={isExpanded}
             expressiveMonth={expressiveMonth}
-            expressiveMonthString={expressiveMonthString}
           />
         ) : (
           <CollapsedContent
             isExpanded={isExpanded}
-            expressiveMonthString={expressiveMonthString}
+            expressiveMonth={expressiveMonth}
           />
         )}
       </AnimatePresence>

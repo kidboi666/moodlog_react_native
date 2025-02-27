@@ -7,15 +7,17 @@ interface Props {
   isExpanded: boolean;
   totalFrequency: number;
   totalActiveDay: string;
+  totalCount: number;
 }
 
 export const ExpandedContent = ({
   isExpanded,
   totalFrequency,
   totalActiveDay,
+  totalCount,
 }: Props) => {
   const { t } = useTranslation();
-  if (!totalFrequency) {
+  if (!totalCount) {
     return <EmptyExpandedContent />;
   }
 

@@ -20,8 +20,6 @@ interface Props {
 
 export const TotalCount = ({ journalStats }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const totalFrequency = journalStats.totalFrequency;
-  const totalActiveDay = journalStats.totalActiveDay;
 
   const onPress = useEvent(() => {
     setIsExpanded(prev => !prev);
@@ -32,6 +30,8 @@ export const TotalCount = ({ journalStats }: Props) => {
       isExpanded ? RECORD_CARD_EXPANDED_HEIGHT : RECORD_CARD_HEIGHT,
     ),
   }));
+
+  const { totalCount, totalFrequency, totalActiveDay } = journalStats;
 
   return (
     <AnimatedCard
@@ -47,6 +47,7 @@ export const TotalCount = ({ journalStats }: Props) => {
         {isExpanded ? (
           <ExpandedContent
             isExpanded={isExpanded}
+            totalCount={totalCount}
             totalFrequency={totalFrequency}
             totalActiveDay={totalActiveDay}
           />

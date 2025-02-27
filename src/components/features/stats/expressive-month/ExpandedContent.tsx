@@ -3,9 +3,9 @@ import { Button, H5, Text, View, YStack } from 'tamagui';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
 import { EmptyExpandedContent } from '@/components/features/stats/EmptyExpandedContent';
 import { ExpressiveMonth } from '@/types/entries';
+import { getExpressiveMonthString } from '@/utils/common';
 
 interface Props {
-  expressiveMonthString: string;
   expressiveMonth: ExpressiveMonth;
   isExpanded: boolean;
   monthlyFrequency: number;
@@ -13,7 +13,6 @@ interface Props {
 }
 
 export const ExpandedContent = ({
-  expressiveMonthString,
   expressiveMonth,
   isExpanded,
   monthlyFrequency,
@@ -35,7 +34,9 @@ export const ExpandedContent = ({
       <YStack gap="$2">
         <H5 fontWeight="800">
           {t('records.stats.expressiveMonth.journalCount.title', {
-            month: t(`calendar.months.${expressiveMonthString}`),
+            month: t(
+              `calendar.months.${getExpressiveMonthString(expressiveMonth.month)}`,
+            ),
           })}
         </H5>
         <Text color="$gray11">

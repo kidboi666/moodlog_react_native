@@ -1,8 +1,15 @@
 import { useTranslation } from 'react-i18next';
 import { Button, H1, H3, Text, View, XStack, YStack } from 'tamagui';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
+import { getExpressiveMonthString } from '@/utils/common';
+import { ExpressiveMonth } from '@/types/entries';
 
-export const CollapsedContent = ({ expressiveMonthString, isExpanded }) => {
+interface Props {
+  expressiveMonth: ExpressiveMonth;
+  isExpanded: boolean;
+}
+
+export const CollapsedContent = ({ expressiveMonth, isExpanded }: Props) => {
   const { t } = useTranslation();
   return (
     <View
@@ -20,8 +27,10 @@ export const CollapsedContent = ({ expressiveMonthString, isExpanded }) => {
       <XStack>
         <XStack flex={1}>
           <H1>
-            {expressiveMonthString
-              ? t(`calendar.months.${expressiveMonthString}`)
+            {expressiveMonth.count
+              ? t(
+                  `calendar.months.${getExpressiveMonthString(expressiveMonth.month)}`,
+                )
               : t('common.fallback.text')}
           </H1>
         </XStack>

@@ -218,7 +218,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         setIsLoading(false);
       }
     };
-    void saveJournals();
+    saveJournals();
   }, [journals]);
 
   useEffect(() => {

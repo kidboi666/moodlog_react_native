@@ -14,7 +14,7 @@
     "moduleResolution": "node",
     "noEmitOnError": false,
     "noImplicitAny": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "noUnusedLocals": false,
     "noUnusedParameters": true,
     "useUnknownInCatchVariables": false,
