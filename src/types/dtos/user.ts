@@ -1,1 +1,5 @@
-export type UserInfo = {} & Pick<UserInfo, 'userName' | 'email' | 'age'>;
+import { UserInfo } from '@/types/entries';
+
+export type NewUserInfo = {} & Partial<
+  Pick<UserInfo, 'email' | 'age' | 'avatarUrl'>
+>;

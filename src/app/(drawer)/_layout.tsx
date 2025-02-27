@@ -1,7 +1,6 @@
 import { DrawerContent } from '@/components/features/drawer/DrawerContent';
 import { HomeHeader } from '@/components/layouts/headers/HomeHeader';
 import { Drawer } from 'expo-router/drawer';
-import { Floating } from '@/components/Floating';
 import { useTheme } from 'tamagui';
 
 export default function HomeLayout() {
@@ -18,7 +17,6 @@ export default function HomeLayout() {
         }}
       >
         <Drawer.Screen name="index" />
-        <Drawer.Screen name="profile" />
         <Drawer.Screen
           name="(settings)"
           options={{
@@ -26,7 +24,6 @@ export default function HomeLayout() {
           }}
         />
       </Drawer>
-      <Floating />
     </>
   );
 }

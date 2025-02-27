@@ -1,9 +1,14 @@
-import { Button, RadioGroup, Text, useTheme, XStack } from 'tamagui';
+import { Button, RadioGroup, Text, XStack } from 'tamagui';
 import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 import { Pressable } from 'react-native';
 
-export const RadioGroupItem = ({ value, label, onValueChange }) => {
-  const theme = useTheme();
+interface Props {
+  value: string;
+  label: string;
+  onValueChange: (value: string) => void;
+}
+
+export const RadioGroupItem = ({ value, label, onValueChange }: Props) => {
   return (
     <Button
       unstyled

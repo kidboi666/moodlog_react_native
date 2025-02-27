@@ -77,6 +77,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     const foundJournals = journals.filter(
       journal => journal.localDate === dateString,
     );
+
     return foundJournals.length;
   };
 

@@ -8,6 +8,7 @@ import { HomeHeaderWithCalendar } from '@/components/HomeHeaderWithCalendar';
 import { useScroll } from '@/store/hooks/useScroll';
 import { Redirect } from 'expo-router';
 import { useApp } from '@/store/hooks/useApp';
+import { Floating } from '@/components/Floating';
 
 export default function HomeScreen() {
   const { selectedJournals } = useJournal();
@@ -37,6 +38,7 @@ export default function HomeScreen() {
           paddingBottom: 80,
         }}
       />
+      <Floating />
     </Container>
   );
 }

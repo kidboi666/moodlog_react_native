@@ -1,5 +1,5 @@
 import { Button, View } from 'tamagui';
-import { LayoutGrid, Menu } from '@tamagui/lucide-icons';
+import { FileChartColumnIncreasing, Menu } from '@tamagui/lucide-icons';
 import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 import { HeaderContainer } from '@/components/layouts/containers/HeaderContainer';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
@@ -28,7 +28,7 @@ export const HomeHeader = ({
         animation="quick"
         animateOnly={PRESS_STYLE_KEY}
         p="$2"
-        icon={<LayoutGrid size="$1" />}
+        icon={<FileChartColumnIncreasing size="$1" />}
         onPress={() => navigation.navigate('(record)')}
         pressStyle={PRESS_STYLE}
       />

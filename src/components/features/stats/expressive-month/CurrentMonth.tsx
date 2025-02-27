@@ -11,6 +11,7 @@ import {
 } from '@/constants/size';
 import { CollapsedContent } from '@/components/features/stats/expressive-month/CollapsedContent';
 import { ExpandedContent } from '@/components/features/stats/expressive-month/ExpandedContent';
+import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 
 interface Props {
   journalStats: JournalStats;
@@ -36,6 +37,9 @@ export const CurrentMonth = ({ journalStats }: Props) => {
   return (
     <AnimatedCard
       flex={1}
+      animation="quick"
+      animateOnly={PRESS_STYLE_KEY}
+      pressStyle={PRESS_STYLE}
       p="$4"
       bg="$gray5"
       rounded="$8"

@@ -7,12 +7,13 @@ import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ISODateString } from '@/types/dtos/date';
 import { STORAGE_KEY } from '@/constants/storage';
+import { APP_VERSION } from '@/constants/common';
 
 export const AppContext = createContext<Nullable<AppStore>>(null);
+const defaultLanguage = Localization.getLocales()[0].languageCode as Languages;
 
 export const AppContextProvider = ({ children }: PropsWithChildren) => {
-  const defaultLanguage = Localization.getLocales()[0]
-    .languageCode as Languages;
+  const [appVersion] = useState<typeof APP_VERSION>(APP_VERSION);
   const [fontSize, setFontSize] = useState<ViewFontSize>(ViewFontSize.SMALL);
   const [language, setLanguage] = useState<Languages>(defaultLanguage);
   const [isInitialApp, setIsInitialApp] = useState<boolean>(false);
@@ -83,6 +84,7 @@ export const AppContextProvider = ({ children }: PropsWithChildren) => {
         fontSize,
         language,
         isInitialApp,
+        appVersion,
         firstLaunchDate,
         initializeFirstLaunchStatus,
         onChangeFontSize: handleFontSizeChange,

@@ -30,6 +30,7 @@ export const Garden = ({
               getMonthNumber(monthString),
               dateNum,
             );
+
             if (dateNum <= 0 || dateNum > lastDate) {
               return <Grass key={day} isEmpty />;
             }

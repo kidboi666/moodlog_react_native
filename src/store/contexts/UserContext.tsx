@@ -6,6 +6,7 @@ import { UserInfo } from '@/types/entries';
 import { Nullable } from 'src/types/utils';
 import { STORAGE_KEY } from '@/constants/storage';
 import { useApp } from '@/store/hooks/useApp';
+import { NewUserInfo } from '@/types/dtos/user';
 
 export const UserContext = createContext<Nullable<UserStore>>(null);
 
@@ -44,7 +45,7 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
-  const handleChangeDraftUserName = (userName: string) => {
+  const handleDraftUserNameChange = (userName: string) => {
     setDraftUserName(userName);
   };
 
@@ -53,6 +54,10 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
       new Date().getTime() - new Date(firstLaunchDate as string).getTime(),
     ).getDate();
     setUserInfo(prev => ({ ...prev, daysSinceSignup }));
+  };
+
+  const handleUserInfoChange = (newUserInfo: NewUserInfo) => {
+    setUserInfo(prev => ({ ...prev, ...newUserInfo }));
   };
 
   useEffect(() => {
@@ -85,7 +90,8 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
         userInfo,
         isLoading,
         draftUserName,
-        onChangeDraftUserName: handleChangeDraftUserName,
+        onUserInfoChange: handleUserInfoChange,
+        onDraftUserNameChange: handleDraftUserNameChange,
       }}
     >
       {children}

@@ -20,7 +20,8 @@ const AnimatedGarden = Animated.createAnimatedComponent(Button);
 
 export const GardenSection = () => {
   const { selectedYear, selectedMonth, onSelectedMonthChange } = useDate();
-  const { getDateCountsForDate, getJournalsByMonth } = useJournal();
+  const { getDateCountsForDate, getJournalsByMonth, getJournalsByDate } =
+    useJournal();
 
   const monthsData = useMemo(
     () =>
