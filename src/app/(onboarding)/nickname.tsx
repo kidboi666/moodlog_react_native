@@ -9,7 +9,7 @@ import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
 import { useTranslation } from 'react-i18next';
 
 export default function NicknameScreen() {
-  const { draftUserName, onChangeDraftUserName } = useUser();
+  const { draftUserName, onDraftUserNameChange } = useUser();
   const { t } = useTranslation();
   const router = useRouter();
   const { currentStep, goToPrevStep, goToNextStep } = useStepProgress();
@@ -41,7 +41,7 @@ export default function NicknameScreen() {
         <FadeIn delay={PARAGRAPH_DELAY.THIRD}>
           <Input
             value={draftUserName}
-            onChangeText={onChangeDraftUserName}
+            onChangeText={onDraftUserNameChange}
             placeholder={t('onboarding.nickname.placeholder')}
           />
         </FadeIn>
