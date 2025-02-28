@@ -22,7 +22,7 @@ export const GardenContextProvider = ({ children }: PropsWithChildren) => {
   const months = useMemo(
     () =>
       Object.keys(MONTHS).map(month => ({
-        monthString: month as MonthKey,
+        monthKey: month as MonthKey,
         lastDate: getLastDate(selectedYear, month as MonthKey),
         firstDateDay: getFirstDateDay(selectedYear, month),
         weekLength: getWeekLength(selectedYear, month),

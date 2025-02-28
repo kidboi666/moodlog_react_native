@@ -102,7 +102,8 @@
         "mostDay": {
           "title": "Top Day in {{month}}",
           "description": "In {{month}}, you write most on {{day}}."
-        }
+        },
+        "emotion": "{{month}} Signature Emotion"
       }
     },
     "garden": {

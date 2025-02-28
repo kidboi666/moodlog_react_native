@@ -34,7 +34,6 @@ export const Grass = ({ emotions, isEmpty = false }: Props) => {
   const emotionColor = Object.entries(scoreBoard).sort(
     (a, b) => a[1] - b[1],
   )[0][0] as EmotionType;
-
   return (
     <View
       bg={emotions[0] ? emotionTheme[emotionColor].full : '$gray10'}

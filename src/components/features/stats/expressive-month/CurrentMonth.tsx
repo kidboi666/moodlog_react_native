@@ -38,7 +38,6 @@ export const CurrentMonth = () => {
       flex={1}
       onPressIn={() => (isTouched.value = true)}
       onPressOut={() => (isTouched.value = false)}
-      p="$4"
       bg="$gray5"
       rounded="$8"
       onPress={onPress}

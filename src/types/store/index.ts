@@ -115,7 +115,7 @@ export interface ScrollStore {
 export type GardenStore = WithState<
   {
     months: {
-      monthString: MonthKey;
+      monthKey: MonthKey;
       lastDate: number;
       firstDateDay: number;
       weekLength: number;

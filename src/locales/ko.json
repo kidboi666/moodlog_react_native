@@ -102,7 +102,8 @@
         "mostDay": {
           "title": "{{month}} 동안 가장 많이 작성한 요일",
           "description": "{{month}}엔 주로 {{day}}요일에 일기를 작성했어요."
-        }
+        },
+        "emotion": "{{month}} 대표 감정"
       }
     },
     "garden": {

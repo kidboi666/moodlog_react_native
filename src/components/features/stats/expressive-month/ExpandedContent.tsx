@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { Button, H5, Text, View, YStack } from 'tamagui';
+import { Button, H2, H3, H5, Text, View, XStack, YStack } from 'tamagui';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
 import { EmptyExpandedContent } from '@/components/features/stats/EmptyExpandedContent';
 import { SelectedMonthStats } from '@/types/entries';
-import { getMonthStringWithoutYear } from '@/utils/common';
+import { getEmotionTheme, getMonthStringWithoutYear } from '@/utils/common';
+import { EmotionLevel, EmotionType } from '@/types/enums';
 
 interface Props {
   selectedMonthStats: SelectedMonthStats;
@@ -17,6 +18,7 @@ export const ExpandedContent = ({ selectedMonthStats, isExpanded }: Props) => {
     count,
     activeDay,
     frequency,
+    signatureEmotion,
   } = selectedMonthStats;
 
   if (!count) {
@@ -30,53 +32,74 @@ export const ExpandedContent = ({ selectedMonthStats, isExpanded }: Props) => {
     <View
       animation="quick"
       animateOnly={['opacity']}
-      justify="space-between"
       flex={1}
       enterStyle={{ opacity: 0 }}
       exitStyle={{ opacity: 0 }}
     >
-      <YStack gap="$2">
-        <H5 fontWeight="800">
-          {t('records.stats.currentMonth.journalCount.title', {
-            month,
-          })}
-        </H5>
-        <Text color="$gray11">
-          {t(`records.stats.currentMonth.journalCount.description`, {
-            count,
-          })}
-        </Text>
+      <XStack
+        justify="space-between"
+        items="center"
+        rounded="$8"
+        p="$4"
+        mb="$6"
+        bg={getEmotionTheme(
+          signatureEmotion.type as EmotionType,
+          EmotionLevel.FULL,
+        )}
+      >
+        <H3 fontWeight="800" color="$gray1">
+          {t('records.stats.currentMonth.emotion', { month })}
+        </H3>
+        <H2 color="$gray1">
+          {signatureEmotion
+            ? t(`emotions.types.${signatureEmotion.type}`)
+            : t('common.fallback.text')}
+        </H2>
+      </XStack>
+      <YStack flex={1} justify="space-between" p="$4">
+        <YStack gap="$2">
+          <H5 fontWeight="800">
+            {t('records.stats.currentMonth.journalCount.title', {
+              month,
+            })}
+          </H5>
+          <Text color="$gray11">
+            {t(`records.stats.currentMonth.journalCount.description`, {
+              count,
+            })}
+          </Text>
+        </YStack>
+        <YStack gap="$2">
+          <H5 fontWeight="800">
+            {t('records.stats.currentMonth.frequency.title', { month })}
+          </H5>
+          <Text color="$gray11">
+            {frequency === 0
+              ? t('records.stats.currentMonth.frequency.everyDay', { month })
+              : t('records.stats.currentMonth.frequency.description', {
+                  date: frequency,
+                  month,
+                })}
+          </Text>
+        </YStack>
+        <YStack gap="$2">
+          <H5 fontWeight="800">
+            {t('records.stats.currentMonth.mostDay.title', { month })}
+          </H5>
+          <Text color="$gray11">
+            {t('records.stats.currentMonth.mostDay.description', {
+              day: t(`calendar.days.${activeDay}`),
+              month,
+            })}
+          </Text>
+        </YStack>
+        <Button
+          unstyled
+          self="flex-end"
+          opacity={0.2}
+          icon={isExpanded ? <Minimize2 size="$1" /> : <Maximize2 size="$1" />}
+        />
       </YStack>
-      <YStack gap="$2">
-        <H5 fontWeight="800">
-          {t('records.stats.currentMonth.frequency.title', { month })}
-        </H5>
-        <Text color="$gray11">
-          {frequency === 0
-            ? t('records.stats.currentMonth.frequency.everyDay', { month })
-            : t('records.stats.currentMonth.frequency.description', {
-                date: frequency,
-                month,
-              })}
-        </Text>
-      </YStack>
-      <YStack gap="$2">
-        <H5 fontWeight="800">
-          {t('records.stats.currentMonth.mostDay.title', { month })}
-        </H5>
-        <Text color="$gray11">
-          {t('records.stats.currentMonth.mostDay.description', {
-            day: t(`calendar.days.${activeDay}`),
-            month,
-          })}
-        </Text>
-      </YStack>
-      <Button
-        unstyled
-        self="flex-end"
-        opacity={0.2}
-        icon={isExpanded ? <Minimize2 size="$1" /> : <Maximize2 size="$1" />}
-      />
     </View>
   );
 };

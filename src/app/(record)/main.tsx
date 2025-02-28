@@ -5,6 +5,8 @@ import { ScrollView } from 'tamagui';
 import { useScroll } from '@/store/hooks/useScroll';
 import { Floating } from '@/components/Floating';
 import { CurrentMonth } from '@/components/features/stats/expressive-month/CurrentMonth';
+import { PARAGRAPH_DELAY } from '@/constants/styles';
+import { FadeIn } from '@/components/FadeIn';
 
 export default function MainScreen() {
   const { onScroll } = useScroll();
@@ -13,9 +15,15 @@ export default function MainScreen() {
     <>
       <ScrollView onScroll={onScroll}>
         <Container gap="$4">
-          <StatsContainer />
-          <GardenSection />
-          <CurrentMonth />
+          <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
+            <StatsContainer />
+          </FadeIn>
+          <FadeIn delay={PARAGRAPH_DELAY.SECOND}>
+            <GardenSection />
+          </FadeIn>
+          <FadeIn delay={PARAGRAPH_DELAY.THIRD}>
+            <CurrentMonth />
+          </FadeIn>
         </Container>
       </ScrollView>
       <Floating />

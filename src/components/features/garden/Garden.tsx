@@ -6,7 +6,7 @@ import { MonthKey } from '@/types/utils';
 
 interface Props {
   weekLength: number;
-  monthString: MonthKey;
+  monthKey: MonthKey;
   firstDateDay: number;
   selectedYear: number;
   lastDate: number;
@@ -15,7 +15,7 @@ interface Props {
 
 export const Garden = ({
   weekLength,
-  monthString,
+  monthKey,
   firstDateDay,
   selectedYear,
   lastDate,
@@ -29,7 +29,7 @@ export const Garden = ({
             const dateNum = week * 7 + day - firstDateDay + 1;
             const emotions = getEmotionForDate(
               selectedYear,
-              getMonthNumber(monthString),
+              getMonthNumber(monthKey),
               dateNum,
             );
 

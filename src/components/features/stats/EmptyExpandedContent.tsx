@@ -4,6 +4,7 @@ import { Minimize2 } from '@tamagui/lucide-icons';
 export const EmptyExpandedContent = () => {
   return (
     <View
+      p="$4"
       animation="quick"
       animateOnly={['opacity']}
       justify="space-between"

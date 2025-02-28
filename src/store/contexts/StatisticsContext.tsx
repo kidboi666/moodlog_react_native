@@ -35,6 +35,11 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
       count: 0,
       frequency: 0,
       activeDay: '',
+      signatureEmotion: {
+        type: '',
+        count: 0,
+        score: 0,
+      },
     });
   const [expressiveMonthStats, setExpressiveMonthStats] =
     useState<ExpressiveMonthStats>({
@@ -109,8 +114,8 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   /**
    * 감정 평균 구하기
    */
-  const getTotalEmotionAverage = () => {
-    const emotions = journals.map(journal => journal.emotion);
+  const getTotalEmotionAverage = (selectedJournals: Journal[]) => {
+    const emotions = selectedJournals.map(journal => journal.emotion);
 
     const scoreBoard: ScoreBoard = {
       sad: { count: 0, score: 0 },
@@ -235,11 +240,14 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   const getMonthlyStats = () => {
     const currentFrequency = getJournalFrequency(monthlyJournals);
     const currentActiveDay = getMostActiveDay(monthlyJournals);
+    const scoreBoard = getTotalEmotionAverage(monthlyJournals);
+    const signatureEmotion = getSignatureEmotion(scoreBoard);
     setSelectedMonthStats({
       month: selectedMonth,
       count: monthlyJournals.length,
       frequency: currentFrequency,
       activeDay: currentActiveDay,
+      signatureEmotion,
     });
   };
 
@@ -252,7 +260,7 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   };
 
   const getEmotionStats = () => {
-    const scoreBoard = getTotalEmotionAverage();
+    const scoreBoard = getTotalEmotionAverage(journals);
     const signatureEmotion = getSignatureEmotion(scoreBoard);
     setEmotionStats({
       scoreBoard,

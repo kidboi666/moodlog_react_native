@@ -16,6 +16,7 @@ export const CollapsedContent = ({ selectedMonthStats, isExpanded }: Props) => {
   const month = getMonthStringWithoutYear(ISOMonthString);
   return (
     <View
+      p="$4"
       animation="quick"
       animateOnly={['opacity']}
       justify="space-between"

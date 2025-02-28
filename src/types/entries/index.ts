@@ -50,6 +50,7 @@ export type SelectedMonthStats = {
   count: number;
   frequency: number;
   activeDay: string;
+  signatureEmotion: SignatureEmotion;
 };
 
 export type ExpressiveMonthStats = {
