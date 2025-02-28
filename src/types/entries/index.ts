@@ -38,25 +38,23 @@ export type MonthlyCounts = {
   [key in ISOMonthString]: number;
 };
 
-export type ExpressiveMonth = {
-  month: ISOMonthString;
-  count: number;
+export type JournalStats = {
+  totalCount: number;
+  totalFrequency: number;
+  totalActiveDay: string;
+  monthlyCounts: MonthlyCounts;
 };
 
-export type SelectedMonthStats = {
+export type MonthlyStats = {
   month: ISOMonthString;
   count: number;
   frequency: number;
   activeDay: string;
 };
 
-export type JournalStats = {
-  totalCount: number;
-  totalFrequency: number;
-  totalActiveDay: string;
-  selectedMonthStats: SelectedMonthStats;
-  monthlyCounts: MonthlyCounts;
-  expressiveMonth: ExpressiveMonth;
+export type ExpressiveMonthStats = {
+  month: ISOMonthString;
+  count: number;
 };
 
 export type CountScore = {

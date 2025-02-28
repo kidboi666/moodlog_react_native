@@ -4,14 +4,11 @@ import { EmotionLevel, EmotionType } from '@/types/enums';
 import { emotionTheme } from '@/constants/themes';
 import { MonthKey } from '@/types/utils';
 
-export const formatDate = (value: Date) => {
-  const year = value.getFullYear();
-  const month = (value.getMonth() + 1).toString().padStart(2, '0');
-  const date = value.getDate().toString().padStart(2, '0');
-  const day = value.getDay();
-  return { year, month, date, day };
-};
-
+/**
+ * month에 +1 하는 규칙:
+ * 1. ISODateString을 만들때
+ * 2. 해당 달의 마지막날을 구할때 (getLastDate)
+ */
 export const removeLeadingZero = (str: string) => {
   str = String(str);
 
@@ -22,20 +19,20 @@ export const removeLeadingZero = (str: string) => {
   return str;
 };
 
-export const getMonthNumber = (month: string) => {
-  return Object.keys(MONTHS).indexOf(month + 1);
+export const getMonthNumber = (month: MonthKey) => {
+  return Object.keys(MONTHS).indexOf(month);
 };
 
 export const getMonthString = (month: number) => {
   return Object.keys(MONTHS)[month];
 };
 
-export const getDayInISODateString = (date: ISODateString) => {
-  return Object.keys(WEEK_DAY)[new Date(date).getDay()];
-};
-
 export const getISODateString = (year: number, month: number, date: number) => {
   return `${year}-${(month + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}` as ISODateString;
+};
+
+export const getDayInISODateString = (date: ISODateString) => {
+  return Object.keys(WEEK_DAY)[new Date(date).getDay()];
 };
 
 export const getDateInISODateString = (date: ISODateString) => {

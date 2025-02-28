@@ -1,4 +1,4 @@
-import { Nullable } from '@/types/utils';
+import { MonthKey, Nullable } from '@/types/utils';
 import { createContext, PropsWithChildren, useMemo, useState } from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
 import { MONTHS } from '@/constants/date';
@@ -14,27 +14,25 @@ import { GardenStore } from '@/types/store';
 export const GardenContext = createContext<Nullable<GardenStore>>(null);
 
 export const GardenContextProvider = ({ children }: PropsWithChildren) => {
-  const [isLoading, setIsLoading] = useState(false);
   const { journals, getJournalsByMonth } = useJournal();
   const { selectedYear, onSelectedMonthChange } = useDate();
+  const [isLoading, setIsLoading] = useState(false);
   const [monthlyJournals, setMonthlyJournals] = useState();
 
   const months = useMemo(
     () =>
       Object.keys(MONTHS).map(month => ({
-        monthString: month,
-        lastDate: getLastDate(selectedYear, month),
+        monthString: month as MonthKey,
+        lastDate: getLastDate(selectedYear, month as MonthKey),
         firstDateDay: getFirstDateDay(selectedYear, month),
         weekLength: getWeekLength(selectedYear, month),
       })),
     [selectedYear],
   );
 
-  const handleMonthChange = (ISOMonth: string) => {
+  const handleMonthChange = (ISOMonth: MonthKey) => {
     onSelectedMonthChange(getMonthInISODateString(selectedYear, ISOMonth));
-    getJournalsByMonth(
-      getMonthInISODateString(selectedYear, Number(ISOMonth + 1)),
-    );
+    getJournalsByMonth(getMonthInISODateString(selectedYear, Number(ISOMonth)));
   };
 
   return (

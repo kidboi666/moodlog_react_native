@@ -1,5 +1,5 @@
 import { Button, H1, XStack, YStack } from 'tamagui';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
 import { ISODateString } from '@/types/dtos/date';
 import { HorizontalCalendar } from '@/components/HorizontalCalendar';
@@ -14,9 +14,13 @@ export const WeekDayPicker = () => {
   const [calendarVariation, setCalendarVariation] = useState<
     'horizontal' | 'vertical'
   >('horizontal');
-  const { currentYear, currentMonth, selectedDate, onSelectedDateChange } =
-    useDate();
-  const currentDate = new Date();
+  const {
+    currentYear,
+    currentMonth,
+    currentDate,
+    selectedDate,
+    onSelectedDateChange,
+  } = useDate();
   const { getJournalsByDate, journals, getDateCountsForMonth } = useJournal();
   const { t } = useTranslation();
 
@@ -26,20 +30,16 @@ export const WeekDayPicker = () => {
   );
 
   const dates: ISODateString[] = useMemo(() => {
-    const lastDate = getLastDate(currentYear, currentMonth + 1);
+    const lastDate = getLastDate(currentYear, currentMonth);
 
     return Array.from({ length: lastDate }, (_, i) => {
       return getISODateString(currentYear, currentMonth, i + 1);
     });
   }, [currentYear, currentMonth]);
 
-  const handleSelectedDate = useCallback(
-    (date: ISODateString) => {
-      onSelectedDateChange(date);
-      getJournalsByDate(date);
-    },
-    [currentYear, currentMonth, getJournalsByDate],
-  );
+  const handleSelectedDate = (date: ISODateString) => {
+    onSelectedDateChange(date);
+  };
 
   return (
     <YStack
@@ -80,16 +80,14 @@ export const WeekDayPicker = () => {
           dateCounts={dateCounts}
           selectedDate={selectedDate}
           currentDate={currentDate}
-          onChangeSelectedDate={handleSelectedDate}
+          onSelectedDateChange={onSelectedDateChange}
         />
       )}
       {calendarVariation === 'vertical' && (
         <VerticalCalendar
-          onChangeSelectedDate={handleSelectedDate}
+          onSelectedDateChange={onSelectedDateChange}
           dateCounts={dateCounts}
           selectedDate={selectedDate}
-          currentYear={currentYear}
-          currentMonth={currentMonth}
         />
       )}
     </YStack>

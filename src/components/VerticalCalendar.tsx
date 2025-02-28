@@ -6,19 +6,15 @@ import { DateCounts } from '@/types/entries';
 import { CalendarBase } from '@/components/CalendarBase';
 
 interface Props {
-  onChangeSelectedDate: (date: ISODateString) => void;
+  onSelectedDateChange: (date: ISODateString) => void;
   selectedDate: ISODateString;
-  currentYear: number;
   dateCounts: DateCounts;
-  currentMonth: number;
 }
 
 export const VerticalCalendar = ({
-  onChangeSelectedDate,
+  onSelectedDateChange,
   selectedDate,
-  currentYear,
   dateCounts,
-  currentMonth,
 }: Props) => {
   const theme = useTheme();
   return (
@@ -32,7 +28,7 @@ export const VerticalCalendar = ({
         selectedDate={selectedDate}
         dateCounts={dateCounts}
         variant="default"
-        onChangeSelectedDate={onChangeSelectedDate}
+        onSelectedDateChange={onSelectedDateChange}
         theme={{
           calendarBackground: theme.gray12.val,
           monthTextColor: theme.gray1.val,

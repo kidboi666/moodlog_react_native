@@ -1,16 +1,15 @@
 import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
 import { useDate } from '@/store/hooks/useDate';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { STORAGE_KEY } from '@/constants/storage';
-import { useToastController } from '@tamagui/toast';
 import { StatisticsStore } from '@/types/store';
 import { Nullable } from '@/types/utils';
 import { MONTHS } from '@/constants/date';
 import {
   EmotionStats,
+  ExpressiveMonthStats,
   Journal,
   JournalStats,
+  MonthlyStats,
   ScoreBoard,
   SignatureEmotion,
 } from '@/types/entries';
@@ -21,8 +20,7 @@ import { ISOMonthString } from '@/types/dtos/date';
 export const StatisticsContext = createContext<Nullable<StatisticsStore>>(null);
 
 export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
-  const { journals } = useJournal();
-  const toast = useToastController();
+  const { journals, monthlyJournals } = useJournal();
   const { selectedYear, selectedMonth, currentYear, currentMonth } = useDate();
   const [isLoading, setIsLoading] = useState(false);
   const [journalStats, setJournalStats] = useState<JournalStats>({
@@ -30,16 +28,16 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
     totalFrequency: 0,
     totalActiveDay: '',
     monthlyCounts: {},
-    selectedMonthStats: {
-      month: '0000-00',
-      count: 0,
-      frequency: 0,
-      activeDay: '',
-    },
-    expressiveMonth: {
-      month: '0000-00',
-      count: 0,
-    },
+  });
+  const [monthlyStats, setMonthlyStats] = useState<MonthlyStats>({
+    month: '0000-00',
+    count: 0,
+    frequency: 0,
+    activeDay: '',
+  });
+  const [expressiveMonth, setExpressiveMonth] = useState<ExpressiveMonthStats>({
+    month: '0000-00',
+    count: 0,
   });
   const [emotionStats, setEmotionStats] = useState<EmotionStats>({
     signatureEmotion: {
@@ -220,169 +218,156 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   };
 
   /**
-   * selectedMonth에 따라 해당하는 월 일기 가져오기
-   */
-  const getSelectedMonthStats = () => {
-    const selectedMonthJournals = journals.filter(journal =>
-      journal.localDate.startsWith(
-        getMonthInISODateString(currentYear, currentMonth + 1),
-      ),
-    );
-    const selectedFrequency = getJournalFrequency(selectedMonthJournals);
-    const selectedActiveDay = getMostActiveDay(selectedMonthJournals);
-    return {
-      selectedMonthStats: {
-        month: getMonthInISODateString(currentYear, currentMonth + 1),
-        count: selectedMonthJournals.length,
-        frequency: selectedFrequency,
-        activeDay: selectedActiveDay,
-      },
-    };
-  };
-
-  /**
    * 초기화
    */
   const getJournalStats = () => {
     const totalCount = getTotalCount();
     const monthlyCounts = getMonthlyCounts();
-    const expressiveMonth = getExpressiveMonth();
-    const currentMonthJournals = journals.filter(journal =>
-      journal.localDate.startsWith(
-        getMonthInISODateString(currentYear, currentMonth + 1),
-      ),
-    );
-    const currentFrequency = getJournalFrequency(currentMonthJournals);
-    const currentActiveDay = getMostActiveDay(currentMonthJournals);
     const totalFrequency = getJournalFrequency(journals);
     const totalActiveDay = getMostActiveDay(journals);
-
-    return {
-      currentFrequency,
-      currentActiveDay,
-      selectedMonthStats: {
-        month: getMonthInISODateString(currentYear, currentMonth + 1),
-        count: currentMonthJournals.length,
-        frequency: currentFrequency,
-        activeDay: currentActiveDay,
-      },
+    setJournalStats({
       totalFrequency,
       totalActiveDay,
       totalCount,
       monthlyCounts,
-      expressiveMonth: {
-        month: expressiveMonth.month as ISOMonthString,
-        count: expressiveMonth.count,
-      },
-    };
+    });
   };
+
+  const getMonthlyStats = () => {
+    const currentFrequency = getJournalFrequency(monthlyJournals);
+    const currentActiveDay = getMostActiveDay(monthlyJournals);
+    setMonthlyStats({
+      month: getMonthInISODateString(currentYear, currentMonth + 1),
+      count: monthlyJournals.length,
+      frequency: currentFrequency,
+      activeDay: currentActiveDay,
+    });
+  };
+
+  const getExpressiveMonthStats = () => {
+    const expressiveMonth = getExpressiveMonth();
+    setExpressiveMonth({
+      month: expressiveMonth.month as ISOMonthString,
+      count: expressiveMonth.count,
+    });
+  };
+
   const getEmotionStats = () => {
     const scoreBoard = getTotalEmotionAverage();
     const signatureEmotion = getSignatureEmotion(scoreBoard);
-
-    return {
+    setEmotionStats({
       scoreBoard,
       signatureEmotion,
-    };
+    });
   };
 
   useEffect(() => {
-    getSelectedMonthStats();
+    if (selectedYear) {
+      getJournalStats();
+      getEmotionStats();
+      getExpressiveMonthStats();
+    }
+  }, [selectedYear]);
+
+  useEffect(() => {
+    if (selectedMonth) {
+      getMonthlyStats();
+    }
   }, [selectedMonth]);
 
-  useEffect(() => {
-    const loadStats = async () => {
-      try {
-        setIsLoading(true);
-        const journalStatsData = await AsyncStorage.getItem(
-          STORAGE_KEY.JOURNALS_STATS,
-        );
-        const emotionStatsData = await AsyncStorage.getItem(
-          STORAGE_KEY.EMOTION_STATS,
-        );
-
-        if (journalStatsData && emotionStatsData) {
-          setJournalStats(JSON.parse(journalStatsData));
-          setEmotionStats(JSON.parse(emotionStatsData));
-          return;
-        }
-
-        setJournalStats(getJournalStats());
-        setEmotionStats(getEmotionStats());
-      } catch (err) {
-        console.error('Load error:', err);
-        toast.show('Error loading journals count', {
-          message: 'Please try again later',
-          type: 'error',
-        });
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    loadStats();
-  }, [journals, selectedYear]);
-
-  useEffect(() => {
-    let isMounted = true;
-    const saveStats = async () => {
-      if (!journalStats.totalCount) return;
-      try {
-        setIsLoading(true);
-        await AsyncStorage.setItem(
-          STORAGE_KEY.JOURNALS_STATS,
-          JSON.stringify(journalStats),
-        );
-        await AsyncStorage.setItem(
-          STORAGE_KEY.EMOTION_STATS,
-          JSON.stringify(emotionStats),
-        );
-      } catch (err) {
-        console.error('Save error:', err);
-        toast.show('Error saving journals count', {
-          message: 'Please try again later',
-          type: 'error',
-        });
-      } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        }
-      }
-    };
-
-    saveStats();
-    return () => {
-      isMounted = false;
-    };
-  }, [journalStats, emotionStats]);
-
-  useEffect(() => {
-    const updateStats = () => {
-      const newJournalStats = getJournalStats();
-      const newEmotionStats = getEmotionStats();
-
-      setJournalStats(prev => {
-        if (prev.totalCount !== newJournalStats.totalCount) {
-          return newJournalStats;
-        }
-        return prev;
-      });
-
-      setEmotionStats(prev => {
-        const isScoreBoardChanged =
-          JSON.stringify(newEmotionStats?.scoreBoard) !==
-          JSON.stringify(prev?.scoreBoard);
-        const isSignatureEmotionChanged =
-          newEmotionStats?.signatureEmotion.type !==
-          prev?.signatureEmotion.type;
-
-        if (isScoreBoardChanged || isSignatureEmotionChanged) {
-          return newEmotionStats;
-        }
-        return prev;
-      });
-    };
-    updateStats();
-  }, [journals, selectedYear]);
+  // useEffect(() => {
+  //   const loadStats = async () => {
+  //     try {
+  //       setIsLoading(true);
+  //       const journalStatsData = await AsyncStorage.getItem(
+  //         STORAGE_KEY.JOURNALS_STATS,
+  //       );
+  //       const emotionStatsData = await AsyncStorage.getItem(
+  //         STORAGE_KEY.EMOTION_STATS,
+  //       );
+  //
+  //       if (journalStatsData && emotionStatsData) {
+  //         setJournalStats(JSON.parse(journalStatsData));
+  //         setEmotionStats(JSON.parse(emotionStatsData));
+  //         return;
+  //       }
+  //
+  //       setJournalStats(getJournalStats());
+  //       setEmotionStats(getEmotionStats());
+  //     } catch (err) {
+  //       console.error('Load error:', err);
+  //       toast.show('Error loading journals count', {
+  //         message: 'Please try again later',
+  //         type: 'error',
+  //       });
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+  //   loadStats();
+  // }, [journals, selectedYear]);
+  //
+  // useEffect(() => {
+  //   let isMounted = true;
+  //   const saveStats = async () => {
+  //     if (!journalStats.totalCount) return;
+  //     try {
+  //       setIsLoading(true);
+  //       await AsyncStorage.setItem(
+  //         STORAGE_KEY.JOURNALS_STATS,
+  //         JSON.stringify(journalStats),
+  //       );
+  //       await AsyncStorage.setItem(
+  //         STORAGE_KEY.EMOTION_STATS,
+  //         JSON.stringify(emotionStats),
+  //       );
+  //     } catch (err) {
+  //       console.error('Save error:', err);
+  //       toast.show('Error saving journals count', {
+  //         message: 'Please try again later',
+  //         type: 'error',
+  //       });
+  //     } finally {
+  //       if (isMounted) {
+  //         setIsLoading(false);
+  //       }
+  //     }
+  //   };
+  //
+  //   saveStats();
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, [journalStats, emotionStats]);
+  //
+  // useEffect(() => {
+  //   const updateStats = () => {
+  //     const newJournalStats = getJournalStats();
+  //     const newEmotionStats = getEmotionStats();
+  //
+  //     setJournalStats(prev => {
+  //       if (prev.totalCount !== newJournalStats.totalCount) {
+  //         return newJournalStats;
+  //       }
+  //       return prev;
+  //     });
+  //
+  //     setEmotionStats(prev => {
+  //       const isScoreBoardChanged =
+  //         JSON.stringify(newEmotionStats?.scoreBoard) !==
+  //         JSON.stringify(prev?.scoreBoard);
+  //       const isSignatureEmotionChanged =
+  //         newEmotionStats?.signatureEmotion.type !==
+  //         prev?.signatureEmotion.type;
+  //
+  //       if (isScoreBoardChanged || isSignatureEmotionChanged) {
+  //         return newEmotionStats;
+  //       }
+  //       return prev;
+  //     });
+  //   };
+  //   updateStats();
+  // }, [journals, selectedYear]);
 
   return (
     <StatisticsContext.Provider

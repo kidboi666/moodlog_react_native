@@ -19,7 +19,7 @@ export const DatePickerModal = ({
   return (
     <CalendarBase
       variant="contained"
-      onChangeSelectedDate={onChangeLocalDate}
+      onSelectedDateChange={onChangeLocalDate}
       dateCounts={dateCounts}
       selectedDate={localDate}
       theme={{

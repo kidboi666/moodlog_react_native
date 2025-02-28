@@ -12,9 +12,9 @@ import { getDateInISODateString, getDayInISODateString } from '@/utils/common';
 interface Props {
   dates: ISODateString[];
   selectedDate: ISODateString;
-  currentDate: Date;
   dateCounts: DateCounts;
-  onChangeSelectedDate: (date: ISODateString) => void;
+  currentDate: Date;
+  onSelectedDateChange: (date: ISODateString) => void;
 }
 
 export const HorizontalCalendar = ({
@@ -22,14 +22,14 @@ export const HorizontalCalendar = ({
   dates,
   selectedDate,
   currentDate,
-  onChangeSelectedDate,
+  onSelectedDateChange,
 }: Props) => {
   const { t } = useTranslation();
   const scrollViewRef = useRef<ScrollView>(null);
 
   const handleSelectedDateChange = (date: ISODateString) => {
     if (CalendarUtils.getCalendarDateString(currentDate) >= date) {
-      onChangeSelectedDate(date);
+      onSelectedDateChange(date);
     }
   };
 

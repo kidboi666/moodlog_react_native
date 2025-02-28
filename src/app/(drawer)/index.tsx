@@ -11,7 +11,7 @@ import { useApp } from '@/store/hooks/useApp';
 import { Floating } from '@/components/Floating';
 
 export default function HomeScreen() {
-  const { selectedJournals } = useJournal();
+  const { dailyJournals } = useJournal();
   const { onScroll } = useScroll();
   const { isInitialApp } = useApp();
 
@@ -22,7 +22,7 @@ export default function HomeScreen() {
   return (
     <Container>
       <FlatList
-        data={selectedJournals}
+        data={dailyJournals}
         onScroll={onScroll}
         scrollEventThrottle={16}
         ListHeaderComponent={HomeHeaderWithCalendar}

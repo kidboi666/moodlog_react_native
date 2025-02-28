@@ -9,7 +9,7 @@ import {
 } from '@/types/entries';
 import { Theme, ViewFontSize } from 'src/types/enums';
 import { ISODateString, ISOMonthString } from '@/types/dtos/date';
-import { LoadingState, Nullable, WithState } from 'src/types/utils';
+import { LoadingState, MonthKey, Nullable, WithState } from 'src/types/utils';
 import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import { NewUserInfo } from '@/types/dtos/user';
 import { APP_VERSION } from '@/constants/common';
@@ -17,7 +17,7 @@ import { APP_VERSION } from '@/constants/common';
 export type JournalStore = WithState<
   {
     journals: Journal[];
-    selectedJournals: Journal[];
+    dailyJournals: Journal[];
     selectedJournal?: Journal;
     monthlyJournals: Journal[];
     yearlyJournals: Journal[];
@@ -30,11 +30,7 @@ export type JournalStore = WithState<
       month: number | string,
       date: number,
     ) => number;
-    getEmotionForDate: (
-      year: number,
-      month: number | string,
-      date: number,
-    ) => Emotion[];
+    getEmotionForDate: (year: number, month: number, date: number) => Emotion[];
 
     onSelectedJournalChange: (journalId: string) => void;
     updateJournals: (id: string, updateJournal: Journal) => void;
@@ -92,6 +88,7 @@ export interface DateStore {
   selectedDate: ISODateString;
   currentYear: number;
   currentMonth: number;
+  currentDate: Date;
   onSelectedYearChange: (year: number) => void;
   onSelectedMonthChange: (month: ISOMonthString) => void;
   onSelectedDateChange: (date: ISODateString) => void;
@@ -114,12 +111,12 @@ export interface ScrollStore {
 export type GardenStore = WithState<
   {
     months: {
-      monthString: string;
+      monthString: MonthKey;
       lastDate: number;
       firstDateDay: number;
       weekLength: number;
     }[];
-    onMonthChange: (monthString: string) => void;
+    onMonthChange: (ISOMonth: MonthKey) => void;
   },
   LoadingState
 >;

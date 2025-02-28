@@ -18,6 +18,7 @@ import { CalendarUtils } from 'react-native-calendars';
 import { MONTHS } from '@/constants/date';
 import { useDate } from '@/store/hooks/useDate';
 import { useTranslation } from 'react-i18next';
+import { getISODateString } from '@/utils/common';
 
 export const JournalContext = createContext<Nullable<JournalStore>>(null);
 
@@ -26,7 +27,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   const [journals, setJournals] = useState<Journal[]>([]);
   const [yearlyJournals, setYearlyJournals] = useState<Journal[]>([]);
   const [monthlyJournals, setMonthlyJournals] = useState<Journal[]>([]);
-  const [selectedJournals, setSelectedJournals] = useState<Journal[]>([]);
+  const [dailyJournals, setDailyJournals] = useState<Journal[]>([]);
   const [selectedJournal, setSelectedJournal] = useState<Journal>();
   const [draft, setDraft] = useState<Draft>({});
   const [isLoading, setIsLoading] = useState(false);
@@ -81,19 +82,8 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     return foundJournals.length;
   };
 
-  const getEmotionForDate = (
-    year: number,
-    month: number | string,
-    date: number,
-  ) => {
-    let intMonth: number;
-    if (typeof month === 'string') {
-      intMonth = Object.keys(MONTHS).findIndex(key => key === month) + 1;
-    } else {
-      intMonth = month;
-    }
-
-    const dateString = `${year}-${(intMonth + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`;
+  const getEmotionForDate = (year: number, month: number, date: number) => {
+    const dateString = getISODateString(year, month, date);
     const foundJournals = journals.filter(
       journal => journal.localDate === dateString,
     );
@@ -158,7 +148,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     (date: ISODateString) => {
       const selectedJournals =
         journals.filter(journal => journal.localDate === date) || [];
-      setSelectedJournals(selectedJournals);
+      setDailyJournals(selectedJournals);
     },
     [journals],
   );
@@ -176,6 +166,24 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     );
     setYearlyJournals(selectedJournals);
   };
+
+  useEffect(() => {
+    if (selectedDate) {
+      getJournalsByDate(selectedDate);
+    }
+  }, [selectedDate]);
+
+  useEffect(() => {
+    if (selectedMonth) {
+      getJournalsByMonth(selectedMonth);
+    }
+  }, [selectedMonth]);
+
+  useEffect(() => {
+    if (selectedYear) {
+      getJournalsByYear(selectedYear);
+    }
+  }, [selectedYear]);
 
   useEffect(() => {
     const loadJournals = async () => {
@@ -256,7 +264,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     <JournalContext.Provider
       value={{
         journals,
-        selectedJournals,
+        dailyJournals,
         selectedJournal,
         monthlyJournals,
         yearlyJournals,

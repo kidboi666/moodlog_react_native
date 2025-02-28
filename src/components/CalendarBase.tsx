@@ -78,14 +78,14 @@ LocaleConfig.defaultLocale = 'ko';
 interface Props extends CalendarProps {
   dateCounts: DateCounts;
   variant?: 'contained' | 'default';
-  onChangeSelectedDate: (date: ISODateString) => void;
+  onSelectedDateChange: (date: ISODateString) => void;
   selectedDate?: ISODateString;
 }
 
 export const CalendarBase = ({
   dateCounts,
   variant = 'default',
-  onChangeSelectedDate,
+  onSelectedDateChange,
   selectedDate,
   ...props
 }: Props) => {
@@ -99,14 +99,14 @@ export const CalendarBase = ({
           dateCounts={dateCounts}
           marking={marking}
           onPress={() => {
-            onChangeSelectedDate(date?.dateString);
+            onSelectedDateChange(date?.dateString);
           }}
         />
       )}
       current={CalendarUtils.getCalendarDateString(new Date())}
       enableSwipeMonths
       maxDate={CalendarUtils.getCalendarDateString(new Date())}
-      onDayPress={day => onChangeSelectedDate(day.dateString)}
+      onDayPress={day => onSelectedDateChange(day.dateString)}
       markedDates={
         selectedDate && {
           [selectedDate]: {

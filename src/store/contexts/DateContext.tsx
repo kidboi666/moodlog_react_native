@@ -2,16 +2,23 @@ import { createContext, PropsWithChildren, useState } from 'react';
 import { DateStore } from '@/types/store';
 import { Nullable } from '@/types/utils';
 import { ISODateString, ISOMonthString } from '@/types/dtos/date';
+import { CalendarUtils } from 'react-native-calendars';
+import { getMonthInISODateString } from '@/utils/common';
 
 export const DateContext = createContext<Nullable<DateStore>>(null);
 
 export const DateContextProvider = ({ children }: PropsWithChildren) => {
   const [currentYear] = useState(new Date().getFullYear());
   const [currentMonth] = useState(new Date().getMonth());
+  const [currentDate] = useState(new Date());
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedMonth, setSelectedMonth] = useState<ISOMonthString>('0000-00');
-  const [selectedDate, setSelectedDate] = useState<ISODateString>('0000-00-00');
-
+  const [selectedMonth, setSelectedMonth] = useState<ISOMonthString>(
+    getMonthInISODateString(currentYear, currentMonth),
+  );
+  const [selectedDate, setSelectedDate] = useState<ISODateString>(
+    CalendarUtils.getCalendarDateString(currentDate),
+  );
+  console.log(selectedMonth);
   const handleSelectedYearChange = (year: number) => {
     setSelectedYear(year);
   };
@@ -29,6 +36,7 @@ export const DateContextProvider = ({ children }: PropsWithChildren) => {
       value={{
         currentMonth,
         currentYear,
+        currentDate,
         selectedYear,
         selectedMonth,
         selectedDate,
