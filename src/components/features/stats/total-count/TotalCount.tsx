@@ -12,16 +12,21 @@ import Animated, {
 } from 'react-native-reanimated';
 import { ExpandedContent } from '@/components/features/stats/total-count/ExpandedContent';
 import { CollapsedContent } from '@/components/features/stats/total-count/CollapsedContent';
-import { JournalStats } from '@/types/entries';
+import { ExpressiveMonthStats, JournalStats } from '@/types/entries';
 
 const AnimatedCard = Animated.createAnimatedComponent(YStack);
 
 interface Props {
   journalStats: JournalStats;
+  expressiveMonthStats: ExpressiveMonthStats;
   daysSinceSignup: number;
 }
 
-export const TotalCount = ({ journalStats, daysSinceSignup }: Props) => {
+export const TotalCount = ({
+  journalStats,
+  daysSinceSignup,
+  expressiveMonthStats,
+}: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const isTouched = useSharedValue(false);
 
@@ -37,8 +42,7 @@ export const TotalCount = ({ journalStats, daysSinceSignup }: Props) => {
     opacity: withTiming(isTouched.value ? 0.6 : 1),
   }));
 
-  const { totalCount, totalFrequency, totalActiveDay, expressiveMonth } =
-    journalStats;
+  const { totalCount, totalFrequency, totalActiveDay } = journalStats;
 
   return (
     <AnimatedCard
@@ -55,7 +59,7 @@ export const TotalCount = ({ journalStats, daysSinceSignup }: Props) => {
       <AnimatePresence>
         {isExpanded ? (
           <ExpandedContent
-            expressiveMonth={expressiveMonth}
+            expressiveMonthStats={expressiveMonthStats}
             isExpanded={isExpanded}
             totalCount={totalCount}
             daysSinceSignup={daysSinceSignup}

@@ -9,19 +9,19 @@ import {
   ExpressiveMonthStats,
   Journal,
   JournalStats,
-  MonthlyStats,
   ScoreBoard,
+  SelectedMonthStats,
   SignatureEmotion,
 } from '@/types/entries';
 import { EmotionLevel } from 'src/types/enums';
-import { getDayInISODateString, getMonthInISODateString } from '@/utils/common';
+import { getDayInISODateString } from '@/utils/common';
 import { ISOMonthString } from '@/types/dtos/date';
 
 export const StatisticsContext = createContext<Nullable<StatisticsStore>>(null);
 
 export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   const { journals, monthlyJournals } = useJournal();
-  const { selectedYear, selectedMonth, currentYear, currentMonth } = useDate();
+  const { selectedYear, selectedMonth } = useDate();
   const [isLoading, setIsLoading] = useState(false);
   const [journalStats, setJournalStats] = useState<JournalStats>({
     totalCount: 0,
@@ -29,16 +29,18 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
     totalActiveDay: '',
     monthlyCounts: {},
   });
-  const [monthlyStats, setMonthlyStats] = useState<MonthlyStats>({
-    month: '0000-00',
-    count: 0,
-    frequency: 0,
-    activeDay: '',
-  });
-  const [expressiveMonth, setExpressiveMonth] = useState<ExpressiveMonthStats>({
-    month: '0000-00',
-    count: 0,
-  });
+  const [selectedMonthStats, setSelectedMonthStats] =
+    useState<SelectedMonthStats>({
+      month: '0000-00',
+      count: 0,
+      frequency: 0,
+      activeDay: '',
+    });
+  const [expressiveMonthStats, setExpressiveMonthStats] =
+    useState<ExpressiveMonthStats>({
+      month: '0000-00',
+      count: 0,
+    });
   const [emotionStats, setEmotionStats] = useState<EmotionStats>({
     signatureEmotion: {
       type: '',
@@ -217,9 +219,6 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
     );
   };
 
-  /**
-   * 초기화
-   */
   const getJournalStats = () => {
     const totalCount = getTotalCount();
     const monthlyCounts = getMonthlyCounts();
@@ -236,8 +235,8 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   const getMonthlyStats = () => {
     const currentFrequency = getJournalFrequency(monthlyJournals);
     const currentActiveDay = getMostActiveDay(monthlyJournals);
-    setMonthlyStats({
-      month: getMonthInISODateString(currentYear, currentMonth + 1),
+    setSelectedMonthStats({
+      month: selectedMonth,
       count: monthlyJournals.length,
       frequency: currentFrequency,
       activeDay: currentActiveDay,
@@ -246,7 +245,7 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
 
   const getExpressiveMonthStats = () => {
     const expressiveMonth = getExpressiveMonth();
-    setExpressiveMonth({
+    setExpressiveMonthStats({
       month: expressiveMonth.month as ISOMonthString,
       count: expressiveMonth.count,
     });
@@ -267,111 +266,23 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
       getEmotionStats();
       getExpressiveMonthStats();
     }
-  }, [selectedYear]);
+  }, [journals]);
 
   useEffect(() => {
     if (selectedMonth) {
       getMonthlyStats();
     }
-  }, [selectedMonth]);
-
-  // useEffect(() => {
-  //   const loadStats = async () => {
-  //     try {
-  //       setIsLoading(true);
-  //       const journalStatsData = await AsyncStorage.getItem(
-  //         STORAGE_KEY.JOURNALS_STATS,
-  //       );
-  //       const emotionStatsData = await AsyncStorage.getItem(
-  //         STORAGE_KEY.EMOTION_STATS,
-  //       );
-  //
-  //       if (journalStatsData && emotionStatsData) {
-  //         setJournalStats(JSON.parse(journalStatsData));
-  //         setEmotionStats(JSON.parse(emotionStatsData));
-  //         return;
-  //       }
-  //
-  //       setJournalStats(getJournalStats());
-  //       setEmotionStats(getEmotionStats());
-  //     } catch (err) {
-  //       console.error('Load error:', err);
-  //       toast.show('Error loading journals count', {
-  //         message: 'Please try again later',
-  //         type: 'error',
-  //       });
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   loadStats();
-  // }, [journals, selectedYear]);
-  //
-  // useEffect(() => {
-  //   let isMounted = true;
-  //   const saveStats = async () => {
-  //     if (!journalStats.totalCount) return;
-  //     try {
-  //       setIsLoading(true);
-  //       await AsyncStorage.setItem(
-  //         STORAGE_KEY.JOURNALS_STATS,
-  //         JSON.stringify(journalStats),
-  //       );
-  //       await AsyncStorage.setItem(
-  //         STORAGE_KEY.EMOTION_STATS,
-  //         JSON.stringify(emotionStats),
-  //       );
-  //     } catch (err) {
-  //       console.error('Save error:', err);
-  //       toast.show('Error saving journals count', {
-  //         message: 'Please try again later',
-  //         type: 'error',
-  //       });
-  //     } finally {
-  //       if (isMounted) {
-  //         setIsLoading(false);
-  //       }
-  //     }
-  //   };
-  //
-  //   saveStats();
-  //   return () => {
-  //     isMounted = false;
-  //   };
-  // }, [journalStats, emotionStats]);
-  //
-  // useEffect(() => {
-  //   const updateStats = () => {
-  //     const newJournalStats = getJournalStats();
-  //     const newEmotionStats = getEmotionStats();
-  //
-  //     setJournalStats(prev => {
-  //       if (prev.totalCount !== newJournalStats.totalCount) {
-  //         return newJournalStats;
-  //       }
-  //       return prev;
-  //     });
-  //
-  //     setEmotionStats(prev => {
-  //       const isScoreBoardChanged =
-  //         JSON.stringify(newEmotionStats?.scoreBoard) !==
-  //         JSON.stringify(prev?.scoreBoard);
-  //       const isSignatureEmotionChanged =
-  //         newEmotionStats?.signatureEmotion.type !==
-  //         prev?.signatureEmotion.type;
-  //
-  //       if (isScoreBoardChanged || isSignatureEmotionChanged) {
-  //         return newEmotionStats;
-  //       }
-  //       return prev;
-  //     });
-  //   };
-  //   updateStats();
-  // }, [journals, selectedYear]);
+  }, [monthlyJournals]);
 
   return (
     <StatisticsContext.Provider
-      value={{ journalStats, emotionStats, isLoading }}
+      value={{
+        journalStats,
+        emotionStats,
+        selectedMonthStats,
+        expressiveMonthStats,
+        isLoading,
+      }}
     >
       {children}
     </StatisticsContext.Provider>

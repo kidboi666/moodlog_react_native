@@ -2,6 +2,7 @@ import {
   Calendar,
   CalendarProps,
   CalendarUtils,
+  DateData,
   LocaleConfig,
 } from 'react-native-calendars';
 import { CustomDayComponent } from '@/components/CustomDayComponent';
@@ -10,6 +11,8 @@ import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
 import React from 'react';
 import { DateCounts } from '@/types/entries';
 import { ISODateString } from '@/types/dtos/date';
+import { DayState, Direction } from 'react-native-calendars/src/types';
+import { MarkingProps } from 'react-native-calendars/src/calendar/day/marking';
 
 LocaleConfig.locales['ko'] = {
   monthNames: [
@@ -91,7 +94,15 @@ export const CalendarBase = ({
 }: Props) => {
   return (
     <Calendar
-      dayComponent={({ date, state, marking }) => (
+      dayComponent={({
+        date,
+        state,
+        marking,
+      }: {
+        date: DateData;
+        state: DayState;
+        marking: MarkingProps;
+      }) => (
         <CustomDayComponent
           variant={variant}
           date={date}
@@ -99,14 +110,16 @@ export const CalendarBase = ({
           dateCounts={dateCounts}
           marking={marking}
           onPress={() => {
-            onSelectedDateChange(date?.dateString);
+            onSelectedDateChange(date.dateString as ISODateString);
           }}
         />
       )}
       current={CalendarUtils.getCalendarDateString(new Date())}
       enableSwipeMonths
       maxDate={CalendarUtils.getCalendarDateString(new Date())}
-      onDayPress={day => onSelectedDateChange(day.dateString)}
+      onDayPress={(date: DateData) =>
+        onSelectedDateChange(date.dateString as ISODateString)
+      }
       markedDates={
         selectedDate && {
           [selectedDate]: {
@@ -115,7 +128,7 @@ export const CalendarBase = ({
           },
         }
       }
-      renderArrow={direction => (
+      renderArrow={(direction: Direction) => (
         <Button
           unstyled
           p="$1"

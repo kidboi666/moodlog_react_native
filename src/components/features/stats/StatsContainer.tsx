@@ -5,9 +5,8 @@ import { TotalCount } from '@/components/features/stats/total-count/TotalCount';
 import { useUser } from '@/store/hooks/useUser';
 
 export const StatsContainer = () => {
-  const { journalStats, emotionStats } = useStatistics();
+  const { journalStats, emotionStats, expressiveMonthStats } = useStatistics();
   const { userInfo } = useUser();
-
   const { signatureEmotion } = emotionStats ?? null;
   const { daysSinceSignup } = userInfo ?? null;
 
@@ -15,6 +14,7 @@ export const StatsContainer = () => {
     <YStack gap="$4">
       <XStack gap="$4">
         <TotalCount
+          expressiveMonthStats={expressiveMonthStats}
           daysSinceSignup={daysSinceSignup}
           journalStats={journalStats}
         />

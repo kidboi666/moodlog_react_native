@@ -42,6 +42,7 @@ export const EmotionAverage = ({ signatureEmotion }: Props) => {
     transform: [{ scale: withSpring(isTouched.value ? 0.9 : 1) }],
     opacity: withTiming(isTouched.value ? 0.6 : 1),
   }));
+
   return (
     <AnimatedCard
       flex={1}

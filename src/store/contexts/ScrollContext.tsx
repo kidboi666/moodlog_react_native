@@ -20,7 +20,7 @@ export const ScrollContextProvider = ({ children }: PropsWithChildren) => {
   };
 
   useEffect(() => {
-    return navigation.addListener('state', e => resetScroll());
+    return navigation.addListener('state', () => resetScroll());
   }, [navigation]);
 
   return (

@@ -3,8 +3,10 @@ import {
   Draft,
   Emotion,
   EmotionStats,
+  ExpressiveMonthStats,
   Journal,
   JournalStats,
+  SelectedMonthStats,
   UserInfo,
 } from '@/types/entries';
 import { Theme, ViewFontSize } from 'src/types/enums';
@@ -98,6 +100,8 @@ export type StatisticsStore = WithState<
   {
     journalStats: JournalStats;
     emotionStats: EmotionStats;
+    expressiveMonthStats: ExpressiveMonthStats;
+    selectedMonthStats: SelectedMonthStats;
   },
   LoadingState
 >;

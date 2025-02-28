@@ -16,7 +16,7 @@ import { useStatistics } from '@/store/hooks/useStatistics';
 const AnimatedCard = Animated.createAnimatedComponent(YStack);
 
 export const CurrentMonth = () => {
-  const { journalStats } = useStatistics();
+  const { selectedMonthStats } = useStatistics();
   const [isExpanded, setIsExpanded] = useState(false);
 
   const onPress = useEvent(() => {
@@ -28,8 +28,6 @@ export const CurrentMonth = () => {
       isExpanded ? RECORD_CARD_EXPANDED_HEIGHT : RECORD_CARD_HEIGHT,
     ),
   }));
-
-  const { selectedMonthStats } = journalStats;
 
   return (
     <AnimatedCard

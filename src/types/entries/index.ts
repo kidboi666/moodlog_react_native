@@ -45,7 +45,7 @@ export type JournalStats = {
   monthlyCounts: MonthlyCounts;
 };
 
-export type MonthlyStats = {
+export type SelectedMonthStats = {
   month: ISOMonthString;
   count: number;
   frequency: number;
