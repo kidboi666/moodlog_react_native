@@ -22,6 +22,4 @@ export enum Languages {
   KO = 'ko',
 }
 
-export type CurrentTheme = 'dark' | 'light';
-
 export type Theme = 'dark' | 'light' | 'system';

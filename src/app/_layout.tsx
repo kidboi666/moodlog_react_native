@@ -62,7 +62,7 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const { currentTheme, resolvedTheme } = useAppTheme();
+  const { resolvedTheme } = useAppTheme();
   const theme = useTheme();
   const { isLoading } = useUser();
 
@@ -88,7 +88,7 @@ function RootLayoutNav() {
     <GestureHandlerRootView style={[styles.container, backgroundStyle]}>
       <BottomSheetModalProvider>
         <ThemeProvider
-          value={currentTheme === 'dark' ? DarkTheme : DefaultTheme}
+          value={resolvedTheme === 'dark' ? DarkTheme : DefaultTheme}
         >
           <StatusBar />
           <Stack screenOptions={screenOptions}>
