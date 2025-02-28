@@ -30,7 +30,13 @@ export type JournalStore = WithState<
       month: number | string,
       date: number,
     ) => number;
-    onChangeSelectedJournal: (journalId: string) => void;
+    getEmotionForDate: (
+      year: number,
+      month: number | string,
+      date: number,
+    ) => Emotion[];
+
+    onSelectedJournalChange: (journalId: string) => void;
     updateJournals: (id: string, updateJournal: Journal) => void;
     updateDraftLocalDate: (date: ISODateString) => void;
     updateDraftEmotion: (emotion: Emotion) => void;
@@ -82,11 +88,13 @@ export interface StepProgressStore {
 
 export interface DateStore {
   selectedYear: number;
-  selectedMonth: number;
+  selectedMonth: ISOMonthString;
+  selectedDate: ISODateString;
   currentYear: number;
   currentMonth: number;
   onSelectedYearChange: (year: number) => void;
-  onSelectedMonthChange: (month: number) => void;
+  onSelectedMonthChange: (month: ISOMonthString) => void;
+  onSelectedDateChange: (date: ISODateString) => void;
 }
 
 export type StatisticsStore = WithState<

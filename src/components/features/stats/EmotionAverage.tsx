@@ -2,10 +2,11 @@ import { Button, H1, H3, Text, useEvent, XStack, YStack } from 'tamagui';
 import { useTranslation } from 'react-i18next';
 import { SignatureEmotion } from '@/types/entries';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
-import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 import Animated, {
   useAnimatedStyle,
+  useSharedValue,
   withSpring,
+  withTiming,
 } from 'react-native-reanimated';
 import { useState } from 'react';
 import {
@@ -25,9 +26,12 @@ const AnimatedCard = Animated.createAnimatedComponent(YStack);
 export const EmotionAverage = ({ signatureEmotion }: Props) => {
   const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);
+  const isTouched = useSharedValue(false);
+
   const onPress = useEvent(() => {
     setIsExpanded(prev => !prev);
   });
+
   const hasSignatureEmotion =
     signatureEmotion?.count && signatureEmotion.count > 0;
 
@@ -35,6 +39,8 @@ export const EmotionAverage = ({ signatureEmotion }: Props) => {
     height: withSpring(
       isExpanded ? RECORD_CARD_EXPANDED_HEIGHT : RECORD_CARD_HEIGHT,
     ),
+    transform: [{ scale: withSpring(isTouched.value ? 0.9 : 1) }],
+    opacity: withTiming(isTouched.value ? 0.6 : 1),
   }));
   return (
     <AnimatedCard
@@ -51,9 +57,8 @@ export const EmotionAverage = ({ signatureEmotion }: Props) => {
       }
       rounded="$8"
       onPress={onPress}
-      animation="quick"
-      animateOnly={PRESS_STYLE_KEY}
-      pressStyle={PRESS_STYLE}
+      onPressIn={() => (isTouched.value = true)}
+      onPressOut={() => (isTouched.value = false)}
       style={animatedStyle}
     >
       <YStack>

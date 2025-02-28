@@ -2,7 +2,6 @@ import { XStack, YStack } from 'tamagui';
 import { useStatistics } from '@/store/hooks/useStatistics';
 import { EmotionAverage } from '@/components/features/stats/EmotionAverage';
 import { TotalCount } from '@/components/features/stats/total-count/TotalCount';
-import { CurrentMonth } from '@/components/features/stats/expressive-month/CurrentMonth';
 import { useUser } from '@/store/hooks/useUser';
 
 export const StatsContainer = () => {
@@ -19,9 +18,8 @@ export const StatsContainer = () => {
           daysSinceSignup={daysSinceSignup}
           journalStats={journalStats}
         />
-        <CurrentMonth journalStats={journalStats} />
+        <EmotionAverage signatureEmotion={signatureEmotion} />
       </XStack>
-      <EmotionAverage signatureEmotion={signatureEmotion} />
     </YStack>
   );
 };

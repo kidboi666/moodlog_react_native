@@ -1,6 +1,7 @@
 import { XStack, YStack } from 'tamagui';
 import { Grass } from '@/components/features/garden/Grass';
 import { getMonthNumber } from '@/utils/common';
+import { Emotion } from '@/types/entries';
 
 interface Props {
   weekLength: number;
@@ -8,7 +9,7 @@ interface Props {
   firstDateDay: number;
   selectedYear: number;
   lastDate: number;
-  getDateCountsForDate: (year: number, month: number, date: number) => number;
+  getEmotionForDate: (year: number, month: number, date: number) => Emotion[];
 }
 
 export const Garden = ({
@@ -17,7 +18,7 @@ export const Garden = ({
   firstDateDay,
   selectedYear,
   lastDate,
-  getDateCountsForDate,
+  getEmotionForDate,
 }: Props) => {
   return (
     <XStack gap="$2">
@@ -25,7 +26,8 @@ export const Garden = ({
         <YStack key={week} gap="$2">
           {Array.from({ length: 7 }, (_, day) => {
             const dateNum = week * 7 + day - firstDateDay + 1;
-            const journalsCount = getDateCountsForDate(
+
+            const emotions = getEmotionForDate(
               selectedYear,
               getMonthNumber(monthString),
               dateNum,
@@ -35,7 +37,7 @@ export const Garden = ({
               return <Grass key={day} isEmpty />;
             }
 
-            return <Grass key={day} count={journalsCount} />;
+            return <Grass key={day} emotions={emotions} />;
           })}
         </YStack>
       ))}

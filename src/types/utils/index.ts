@@ -1,4 +1,4 @@
-import { WEEK_DAY } from '@/constants/date';
+import { MONTHS, WEEK_DAY } from '@/constants/date';
 
 /**
  * type
@@ -10,6 +10,8 @@ export type WithState<T, S> = T & S;
 export type WeekDayKey = keyof typeof WEEK_DAY;
 export type WeekDayValue = (typeof WEEK_DAY)[WeekDayKey];
 
+export type MonthKey = keyof typeof MONTHS;
+export type MonthValue = (typeof MONTHS)[MonthKey];
 /**
  * interface
  */

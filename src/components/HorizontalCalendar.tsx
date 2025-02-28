@@ -27,7 +27,7 @@ export const HorizontalCalendar = ({
   const { t } = useTranslation();
   const scrollViewRef = useRef<ScrollView>(null);
 
-  const handleChangeSelectedDate = (date: ISODateString) => {
+  const handleSelectedDateChange = (date: ISODateString) => {
     if (CalendarUtils.getCalendarDateString(currentDate) >= date) {
       onChangeSelectedDate(date);
     }
@@ -45,7 +45,7 @@ export const HorizontalCalendar = ({
             animated: true,
           });
         }
-      }, 600);
+      }, 1000);
     }
 
     return () => clearTimeout(timeout);
@@ -85,7 +85,7 @@ export const HorizontalCalendar = ({
                 unstyled
                 borderWidth={isToday ? 1 : 0}
                 borderColor="$gray1"
-                onPress={() => handleChangeSelectedDate(date)}
+                onPress={() => handleSelectedDateChange(date)}
               >
                 <YStack items="center">
                   <YStack gap="$2" items="center">

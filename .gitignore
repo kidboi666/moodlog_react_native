@@ -48,3 +48,7 @@ ios
 android
 
 package-lock.json
+
+# Vim swap files
+*.swp
+*.swo

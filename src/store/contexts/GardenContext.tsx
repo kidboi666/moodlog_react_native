@@ -6,7 +6,6 @@ import {
   getFirstDateDay,
   getLastDate,
   getMonthInISODateString,
-  getMonthNumber,
   getWeekLength,
 } from '@/utils/common';
 import { useDate } from '@/store/hooks/useDate';
@@ -31,10 +30,10 @@ export const GardenContextProvider = ({ children }: PropsWithChildren) => {
     [selectedYear],
   );
 
-  const handleMonthChange = (monthString: string) => {
-    onSelectedMonthChange(getMonthNumber(monthString));
+  const handleMonthChange = (ISOMonth: string) => {
+    onSelectedMonthChange(getMonthInISODateString(selectedYear, ISOMonth));
     getJournalsByMonth(
-      getMonthInISODateString(selectedYear, Number(monthString + 1)),
+      getMonthInISODateString(selectedYear, Number(ISOMonth + 1)),
     );
   };
 

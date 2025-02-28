@@ -2,17 +2,17 @@ import { useTranslation } from 'react-i18next';
 import { Button, H1, H3, Text, View, XStack, YStack } from 'tamagui';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
 import { getMonthStringWithoutYear } from '@/utils/common';
-import { CurrentMonthStats } from '@/types/entries';
+import { SelectedMonthStats } from '@/types/entries';
 import { RECORD_UNIT_LINE_HEIGHT } from '@/constants/size';
 
 interface Props {
-  currentMonthStats: CurrentMonthStats;
+  selectedMonthStats: SelectedMonthStats;
   isExpanded: boolean;
 }
 
-export const CollapsedContent = ({ currentMonthStats, isExpanded }: Props) => {
+export const CollapsedContent = ({ selectedMonthStats, isExpanded }: Props) => {
   const { t } = useTranslation();
-  const { month: ISOMonthString, count } = currentMonthStats ?? null;
+  const { month: ISOMonthString, count } = selectedMonthStats ?? null;
   const month = getMonthStringWithoutYear(ISOMonthString);
   return (
     <View

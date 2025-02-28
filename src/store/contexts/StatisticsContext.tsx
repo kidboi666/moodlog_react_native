@@ -23,14 +23,14 @@ export const StatisticsContext = createContext<Nullable<StatisticsStore>>(null);
 export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   const { journals } = useJournal();
   const toast = useToastController();
-  const { selectedYear, currentYear, currentMonth } = useDate();
+  const { selectedYear, selectedMonth, currentYear, currentMonth } = useDate();
   const [isLoading, setIsLoading] = useState(false);
   const [journalStats, setJournalStats] = useState<JournalStats>({
     totalCount: 0,
     totalFrequency: 0,
     totalActiveDay: '',
     monthlyCounts: {},
-    currentMonthStats: {
+    selectedMonthStats: {
       month: '0000-00',
       count: 0,
       frequency: 0,
@@ -220,6 +220,27 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   };
 
   /**
+   * selectedMonth에 따라 해당하는 월 일기 가져오기
+   */
+  const getSelectedMonthStats = () => {
+    const selectedMonthJournals = journals.filter(journal =>
+      journal.localDate.startsWith(
+        getMonthInISODateString(currentYear, currentMonth + 1),
+      ),
+    );
+    const selectedFrequency = getJournalFrequency(selectedMonthJournals);
+    const selectedActiveDay = getMostActiveDay(selectedMonthJournals);
+    return {
+      selectedMonthStats: {
+        month: getMonthInISODateString(currentYear, currentMonth + 1),
+        count: selectedMonthJournals.length,
+        frequency: selectedFrequency,
+        activeDay: selectedActiveDay,
+      },
+    };
+  };
+
+  /**
    * 초기화
    */
   const getJournalStats = () => {
@@ -239,7 +260,7 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
     return {
       currentFrequency,
       currentActiveDay,
-      currentMonthStats: {
+      selectedMonthStats: {
         month: getMonthInISODateString(currentYear, currentMonth + 1),
         count: currentMonthJournals.length,
         frequency: currentFrequency,
@@ -264,6 +285,10 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
       signatureEmotion,
     };
   };
+
+  useEffect(() => {
+    getSelectedMonthStats();
+  }, [selectedMonth]);
 
   useEffect(() => {
     const loadStats = async () => {

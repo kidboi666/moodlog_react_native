@@ -6,12 +6,13 @@ import {
 import { useState } from 'react';
 import Animated, {
   useAnimatedStyle,
+  useSharedValue,
   withSpring,
+  withTiming,
 } from 'react-native-reanimated';
 import { ExpandedContent } from '@/components/features/stats/total-count/ExpandedContent';
 import { CollapsedContent } from '@/components/features/stats/total-count/CollapsedContent';
 import { JournalStats } from '@/types/entries';
-import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 
 const AnimatedCard = Animated.createAnimatedComponent(YStack);
 
@@ -22,6 +23,7 @@ interface Props {
 
 export const TotalCount = ({ journalStats, daysSinceSignup }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const isTouched = useSharedValue(false);
 
   const onPress = useEvent(() => {
     setIsExpanded(prev => !prev);
@@ -31,16 +33,18 @@ export const TotalCount = ({ journalStats, daysSinceSignup }: Props) => {
     height: withSpring(
       isExpanded ? RECORD_CARD_EXPANDED_HEIGHT : RECORD_CARD_HEIGHT,
     ),
+    transform: [{ scale: withSpring(isTouched.value ? 0.9 : 1) }],
+    opacity: withTiming(isTouched.value ? 0.6 : 1),
   }));
+
   const { totalCount, totalFrequency, totalActiveDay, expressiveMonth } =
     journalStats;
 
   return (
     <AnimatedCard
       flex={1}
-      animation="quick"
-      animateOnly={PRESS_STYLE_KEY}
-      pressStyle={PRESS_STYLE}
+      onPressIn={() => (isTouched.value = true)}
+      onPressOut={() => (isTouched.value = false)}
       bg="$gray5"
       rounded="$8"
       justify="space-between"

@@ -6,20 +6,17 @@ import { HorizontalCalendar } from '@/components/HorizontalCalendar';
 import { CalendarDays, CalendarRange } from '@tamagui/lucide-icons';
 import { FALL_STYLE, FALL_STYLE_KEY, PRESS_STYLE } from '@/constants/styles';
 import { VerticalCalendar } from '@/components/VerticalCalendar';
-import { CalendarUtils } from 'react-native-calendars';
 import { useTranslation } from 'react-i18next';
-import { getMonthString } from '@/utils/common';
+import { getISODateString, getLastDate, getMonthString } from '@/utils/common';
+import { useDate } from '@/store/hooks/useDate';
 
 export const WeekDayPicker = () => {
-  const [variation, setVariation] = useState<'horizontal' | 'vertical'>(
-    'horizontal',
-  );
+  const [calendarVariation, setCalendarVariation] = useState<
+    'horizontal' | 'vertical'
+  >('horizontal');
+  const { currentYear, currentMonth, selectedDate, onSelectedDateChange } =
+    useDate();
   const currentDate = new Date();
-  const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth();
-  const [selectedDate, setSelectedDate] = useState<ISODateString>(
-    CalendarUtils.getCalendarDateString(currentDate),
-  );
   const { getJournalsByDate, journals, getDateCountsForMonth } = useJournal();
   const { t } = useTranslation();
 
@@ -29,16 +26,16 @@ export const WeekDayPicker = () => {
   );
 
   const dates: ISODateString[] = useMemo(() => {
-    const lastDate = new Date(currentYear, currentMonth, 0).getDate();
+    const lastDate = getLastDate(currentYear, currentMonth + 1);
 
     return Array.from({ length: lastDate }, (_, i) => {
-      return `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${(i + 1).toString().padStart(2, '0')}` as ISODateString;
+      return getISODateString(currentYear, currentMonth, i + 1);
     });
   }, [currentYear, currentMonth]);
 
   const handleSelectedDate = useCallback(
     (date: ISODateString) => {
-      setSelectedDate(date);
+      onSelectedDateChange(date);
       getJournalsByDate(date);
     },
     [currentYear, currentMonth, getJournalsByDate],
@@ -63,7 +60,7 @@ export const WeekDayPicker = () => {
           unstyled
           color="$gray1"
           icon={
-            variation === 'vertical' ? (
+            calendarVariation === 'vertical' ? (
               <CalendarRange size="$1" />
             ) : (
               <CalendarDays size="$1" />
@@ -71,13 +68,13 @@ export const WeekDayPicker = () => {
           }
           pressStyle={PRESS_STYLE}
           onPress={() =>
-            setVariation(prev =>
+            setCalendarVariation(prev =>
               prev === 'horizontal' ? 'vertical' : 'horizontal',
             )
           }
         />
       </XStack>
-      {variation === 'horizontal' && (
+      {calendarVariation === 'horizontal' && (
         <HorizontalCalendar
           dates={dates}
           dateCounts={dateCounts}
@@ -86,7 +83,7 @@ export const WeekDayPicker = () => {
           onChangeSelectedDate={handleSelectedDate}
         />
       )}
-      {variation === 'vertical' && (
+      {calendarVariation === 'vertical' && (
         <VerticalCalendar
           onChangeSelectedDate={handleSelectedDate}
           dateCounts={dateCounts}

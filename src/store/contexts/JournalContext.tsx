@@ -22,7 +22,7 @@ import { useTranslation } from 'react-i18next';
 export const JournalContext = createContext<Nullable<JournalStore>>(null);
 
 export const JournalContextProvider = ({ children }: PropsWithChildren) => {
-  const { selectedYear, selectedMonth } = useDate();
+  const { selectedYear, selectedMonth, selectedDate } = useDate();
   const [journals, setJournals] = useState<Journal[]>([]);
   const [yearlyJournals, setYearlyJournals] = useState<Journal[]>([]);
   const [monthlyJournals, setMonthlyJournals] = useState<Journal[]>([]);
@@ -34,7 +34,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   const router = useRouter();
   const { t } = useTranslation();
 
-  const handleChangeSelectedJournal = (journalId: string) => {
+  const handleSelectedJournalChange = (journalId: string) => {
     if (journals.length > 0) {
       setSelectedJournal(journals.find(item => item.id === journalId));
     }
@@ -79,6 +79,26 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     );
 
     return foundJournals.length;
+  };
+
+  const getEmotionForDate = (
+    year: number,
+    month: number | string,
+    date: number,
+  ) => {
+    let intMonth: number;
+    if (typeof month === 'string') {
+      intMonth = Object.keys(MONTHS).findIndex(key => key === month) + 1;
+    } else {
+      intMonth = month;
+    }
+
+    const dateString = `${year}-${(intMonth + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`;
+    const foundJournals = journals.filter(
+      journal => journal.localDate === dateString,
+    );
+
+    return foundJournals.map(journal => journal.emotion);
   };
 
   const getDateCountsForMonth = useCallback(
@@ -245,8 +265,9 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         isLoading,
         getDateCountsForMonth,
         getDateCountsForDate,
+        getEmotionForDate,
         removeJournal,
-        onChangeSelectedJournal: handleChangeSelectedJournal,
+        onSelectedJournalChange: handleSelectedJournalChange,
         updateJournals,
         updateDraftLocalDate,
         updateDraftEmotion,

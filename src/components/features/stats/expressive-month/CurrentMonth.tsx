@@ -1,5 +1,4 @@
 import { AnimatePresence, useEvent, YStack } from 'tamagui';
-import { JournalStats } from '@/types/entries';
 import Animated, {
   useAnimatedStyle,
   withSpring,
@@ -12,14 +11,12 @@ import {
 import { CollapsedContent } from '@/components/features/stats/expressive-month/CollapsedContent';
 import { ExpandedContent } from '@/components/features/stats/expressive-month/ExpandedContent';
 import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
-
-interface Props {
-  journalStats: JournalStats;
-}
+import { useStatistics } from '@/store/hooks/useStatistics';
 
 const AnimatedCard = Animated.createAnimatedComponent(YStack);
 
-export const CurrentMonth = ({ journalStats }: Props) => {
+export const CurrentMonth = () => {
+  const { journalStats } = useStatistics();
   const [isExpanded, setIsExpanded] = useState(false);
 
   const onPress = useEvent(() => {
@@ -32,7 +29,7 @@ export const CurrentMonth = ({ journalStats }: Props) => {
     ),
   }));
 
-  const { currentMonthStats } = journalStats;
+  const { selectedMonthStats } = journalStats;
 
   return (
     <AnimatedCard
@@ -49,12 +46,12 @@ export const CurrentMonth = ({ journalStats }: Props) => {
       <AnimatePresence>
         {isExpanded ? (
           <ExpandedContent
-            currentMonthStats={currentMonthStats}
+            selectedMonthStats={selectedMonthStats}
             isExpanded={isExpanded}
           />
         ) : (
           <CollapsedContent
-            currentMonthStats={currentMonthStats}
+            selectedMonthStats={selectedMonthStats}
             isExpanded={isExpanded}
           />
         )}

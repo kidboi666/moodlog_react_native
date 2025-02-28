@@ -2,22 +2,22 @@ import { useTranslation } from 'react-i18next';
 import { Button, H5, Text, View, YStack } from 'tamagui';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
 import { EmptyExpandedContent } from '@/components/features/stats/EmptyExpandedContent';
-import { CurrentMonthStats } from '@/types/entries';
+import { SelectedMonthStats } from '@/types/entries';
 import { getMonthStringWithoutYear } from '@/utils/common';
 
 interface Props {
-  currentMonthStats: CurrentMonthStats;
+  selectedMonthStats: SelectedMonthStats;
   isExpanded: boolean;
 }
 
-export const ExpandedContent = ({ currentMonthStats, isExpanded }: Props) => {
+export const ExpandedContent = ({ selectedMonthStats, isExpanded }: Props) => {
   const { t } = useTranslation();
   const {
     month: ISOMonthString,
     count,
     activeDay,
     frequency,
-  } = currentMonthStats;
+  } = selectedMonthStats;
 
   if (!count) {
     return <EmptyExpandedContent />;

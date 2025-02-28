@@ -5,39 +5,41 @@ import { GardenTitleHeader } from '@/components/features/garden/GardenTitleHeade
 import { GardenDayUnits } from '@/components/features/garden/GardenDayUnits';
 import { GardenMonthUnits } from '@/components/features/garden/GardenMonthUnits';
 import { Garden } from '@/components/features/garden/Garden';
-import { getMonthNumber } from '@/utils/common';
-import Animated from 'react-native-reanimated';
+import { getMonthInISODateString } from '@/utils/common';
 import { useGarden } from '@/store/hooks/useGarden';
 import { memo } from 'react';
 
-const AnimatedGarden = Animated.createAnimatedComponent(Button);
 const MemoizedGarden = memo(Garden);
 
 export const GardenSection = () => {
   const { selectedYear, selectedMonth } = useDate();
-  const { getDateCountsForDate } = useJournal();
+  const { getEmotionForDate } = useJournal();
   const { months, onMonthChange } = useGarden();
 
   return (
-    <YStack bg="$gray5" p="$4" rounded="$8" gap="$4" mb="$4">
+    <YStack bg="$gray5" p="$4" rounded="$8" gap="$4">
       <GardenTitleHeader />
       <ScrollView horizontal>
         <GardenDayUnits />
         <XStack gap="$2">
           {months.map(
             ({ monthString, lastDate, firstDateDay, weekLength }, i) => {
-              const isSelected = selectedMonth === getMonthNumber(monthString);
+              const isSelected =
+                selectedMonth ===
+                getMonthInISODateString(selectedYear, monthString);
 
               return (
-                <AnimatedGarden
+                <Button
                   key={i}
                   unstyled
                   animation="medium"
-                  animateOnly={['backgroundColor']}
-                  rounded="$4"
+                  animateOnly={['transform', 'opacity']}
+                  rounded="$8"
                   py="$4"
+                  scale={isSelected ? 1.14 : 1}
+                  opacity={isSelected ? 1 : 0.7}
+                  z={isSelected ? 100 : 1}
                   onPress={() => onMonthChange(monthString)}
-                  bg={isSelected ? '$gray7' : 'transparent'}
                 >
                   <YStack>
                     <GardenMonthUnits
@@ -50,10 +52,10 @@ export const GardenSection = () => {
                       firstDateDay={firstDateDay}
                       selectedYear={selectedYear}
                       lastDate={lastDate}
-                      getDateCountsForDate={getDateCountsForDate}
+                      getEmotionForDate={getEmotionForDate}
                     />
                   </YStack>
-                </AnimatedGarden>
+                </Button>
               );
             },
           )}
