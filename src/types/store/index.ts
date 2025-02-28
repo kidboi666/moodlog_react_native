@@ -102,3 +102,16 @@ export interface ScrollStore {
   onScroll: (e: NativeSyntheticEvent<NativeScrollEvent>) => void;
   resetScroll: () => void;
 }
+
+export type GardenStore = WithState<
+  {
+    months: {
+      monthString: string;
+      lastDate: number;
+      firstDateDay: number;
+      weekLength: number;
+    }[];
+    onMonthChange: (monthString: string) => void;
+  },
+  LoadingState
+>;
