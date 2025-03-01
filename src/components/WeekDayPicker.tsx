@@ -28,7 +28,7 @@ export const WeekDayPicker = () => {
     onSelectedDateChange,
     onSelectedMonthChange,
   } = useDate();
-  const { getJournalsByDate, journals, getDateCountsForMonth } = useJournal();
+  const { journals, getDateCountsForMonth } = useJournal();
   const { t } = useTranslation();
 
   const dateCounts = useMemo(

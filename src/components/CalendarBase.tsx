@@ -118,7 +118,7 @@ export const CalendarBase = ({
         />
       )}
       hideExtraDays
-      current={CalendarUtils.getCalendarDateString(new Date())}
+      current={selectedDate}
       enableSwipeMonths
       maxDate={CalendarUtils.getCalendarDateString(new Date())}
       onDayPress={(date: DateData) =>

@@ -5,14 +5,12 @@ import { JournalCard } from '@/components/JournalCard';
 import { Container } from '@/components/layouts/containers/Container';
 import { EmptyJournal } from '@/components/EmptyJournal';
 import { HomeHeaderWithCalendar } from '@/components/HomeHeaderWithCalendar';
-import { useScroll } from '@/store/hooks/useScroll';
 import { Redirect } from 'expo-router';
 import { useApp } from '@/store/hooks/useApp';
 import { Floating } from '@/components/Floating';
 
 export default function DrawerScreen() {
   const { dailyJournals } = useJournal();
-  const { onScroll } = useScroll();
   const { isInitialApp } = useApp();
 
   if (!isInitialApp) {
@@ -23,8 +21,6 @@ export default function DrawerScreen() {
     <Container>
       <FlatList
         data={dailyJournals}
-        onScroll={onScroll}
-        scrollEventThrottle={16}
         ListHeaderComponent={HomeHeaderWithCalendar}
         keyExtractor={item => item.id}
         ItemSeparatorComponent={() => (
