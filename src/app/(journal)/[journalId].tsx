@@ -5,10 +5,10 @@ import { Container } from '@/components/layouts/containers/Container';
 import { useLocalSearchParams } from 'expo-router';
 import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
-import { ENTER_STYLE } from '@/constants/styles';
 import { useTranslation } from 'react-i18next';
 import { useScroll } from '@/store/hooks/useScroll';
 import { toSingle } from '@/utils/common';
+import { ENTER_STYLE, ENTER_STYLE_KEY } from '@/constants/styles';
 
 export default function JournalScreen() {
   const { journalId } = useLocalSearchParams();
@@ -27,6 +27,9 @@ export default function JournalScreen() {
     <Container flexDirection="row" gap="$3" pl={0}>
       <View
         width="3%"
+        animation="medium"
+        animateOnly={ENTER_STYLE_KEY}
+        enterStyle={ENTER_STYLE}
         height="100%"
         borderTopRightRadius="$4"
         borderBottomRightRadius="$4"
@@ -40,9 +43,10 @@ export default function JournalScreen() {
         <YStack gap="$4">
           <XStack gap="$2">
             <XStack
-              animation="bouncy"
               gap="$2"
               justify="center"
+              animation="bouncy"
+              animateOnly={ENTER_STYLE_KEY}
               enterStyle={ENTER_STYLE}
             >
               <H3 color="$gray11">
@@ -51,11 +55,17 @@ export default function JournalScreen() {
               <H3>{t(`emotions.types.${selectedJournal.emotion?.type}`)}</H3>
             </XStack>
           </XStack>
-          <H1 mb="$2">{selectedJournal.title}</H1>
-          <Paragraph fontWeight="300" fontSize={fontSize}>
-            {selectedJournal.content}
-          </Paragraph>
-          <View height="$8" />
+          <YStack
+            animation="bouncy"
+            animateOnly={ENTER_STYLE_KEY}
+            enterStyle={ENTER_STYLE}
+          >
+            <H1 mb="$2">{selectedJournal.title}</H1>
+            <Paragraph fontWeight="300" fontSize={fontSize}>
+              {selectedJournal.content}
+            </Paragraph>
+            <View height="$8" />
+          </YStack>
         </YStack>
       </ScrollView>
     </Container>

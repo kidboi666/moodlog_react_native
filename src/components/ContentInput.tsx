@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Input, InputProps, ScrollView, YStack } from 'tamagui';
+import { Input, InputProps, ScrollView, TextArea, YStack } from 'tamagui';
 import { useTranslation } from 'react-i18next';
 
 interface Props extends InputProps {
@@ -26,7 +26,7 @@ export const ContentInput = ({
   };
 
   return (
-    <YStack flex={1}>
+    <YStack flex={1} gap="$4">
       <Input
         width="100%"
         value={titleValue}
@@ -42,7 +42,7 @@ export const ContentInput = ({
         placeholderTextColor="$gray7"
       />
       <ScrollView flex={1}>
-        <Input
+        <TextArea
           value={contentValue}
           onChangeText={onContentChange}
           unstyled

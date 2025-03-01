@@ -25,7 +25,7 @@ export const EmptyJournal = () => {
       enterStyle={ENTER_STYLE}
     >
       <Text fontWeight="800" fontSize="$9" text="center">
-        {t('common.fallback.journal')} ✏️
+        {t('common.fallback.(journal)')} ✏️
       </Text>
       <Button
         unstyled

@@ -53,8 +53,8 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
 
       setJournals(prev => [...prev, newJournal]);
 
-      toast.show(t('notifications.success.journal.title'), {
-        message: t('notifications.success.journal.message'),
+      toast.show(t('notifications.success.(journal).title'), {
+        message: t('notifications.success.(journal).message'),
       });
       router.replace('/(drawer)');
     }

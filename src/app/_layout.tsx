@@ -95,7 +95,8 @@ function RootLayoutNav() {
             <Stack.Screen name="(drawer)" />
             <Stack.Screen name="(onboarding)" />
             <Stack.Screen name="record" />
-            <Stack.Screen name="journal" />
+            <Stack.Screen name="write" />
+            <Stack.Screen name="(journal)" />
             <Stack.Screen name="+not-found" />
           </Stack>
           <CurrentToast />

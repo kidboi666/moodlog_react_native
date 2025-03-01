@@ -6,7 +6,7 @@ import { emotionTheme } from '@/constants/themes';
 import { KeyboardAvoidingView, StyleSheet } from 'react-native';
 import { useDraft } from '@/store/hooks/useDraft';
 
-export default function WriteScreen() {
+export default function JournalWriteScreen() {
   const { fontSize } = useApp();
   const { draft, onTitleChange, onContentChange } = useDraft();
 

@@ -1,17 +1,19 @@
 import { CalendarBase } from '@/components/CalendarBase';
 import React from 'react';
 import { useTheme } from 'tamagui';
-import { ISODateString } from '@/types/dtos/date';
+import { ISODateString, ISOMonthString } from '@/types/dtos/date';
 import { DateCounts } from '@/types/entries';
 
 interface Props {
-  onChangeLocalDate: (date: ISODateString) => void;
+  onLocalDateChange: (date: ISODateString) => void;
+  onSelectedMonthChange: (date: ISOMonthString) => void;
   dateCounts: DateCounts;
   localDate?: ISODateString;
 }
 
 export const DatePickerModal = ({
-  onChangeLocalDate,
+  onLocalDateChange,
+  onSelectedMonthChange,
   dateCounts,
   localDate,
 }: Props) => {
@@ -19,7 +21,8 @@ export const DatePickerModal = ({
   return (
     <CalendarBase
       variant="contained"
-      onSelectedDateChange={onChangeLocalDate}
+      onSelectedMonthChange={onSelectedMonthChange}
+      onSelectedDateChange={onLocalDateChange}
       dateCounts={dateCounts}
       selectedDate={localDate}
       theme={{

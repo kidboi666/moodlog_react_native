@@ -1,12 +1,7 @@
 import { AnimatePresence, Button, XStack } from 'tamagui';
 import React, { useEffect, useMemo } from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
-import {
-  CalendarDays,
-  Check,
-  ChevronLeft,
-  Grid2x2Plus,
-} from '@tamagui/lucide-icons';
+import { ArrowLeft, CalendarDays, Check } from '@tamagui/lucide-icons';
 import { useRouter } from 'expo-router';
 import { ENTER_STYLE, PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 import { HeaderContainer } from '@/components/layouts/containers/HeaderContainer';
@@ -25,7 +20,7 @@ export const WriteHeader = () => {
   const { getDateCountsForMonth, journals } = useJournal();
   const { draft, onDraftSubmit, onEmotionChange, onLocalDateChange } =
     useDraft();
-  const { selectedMonth, selectedYear } = useDate();
+  const { selectedMonth, selectedYear, onSelectedMonthChange } = useDate();
   const { modalRef: calendarRef, openModal: openCalendar } = useBottomModal();
   const { modalRef: emotionRef, openModal: openEmotion } = useBottomModal();
   const toast = useToastController();
@@ -61,25 +56,11 @@ export const WriteHeader = () => {
           animation="quick"
           p="$2"
           color="$gray12"
-          icon={<ChevronLeft size="$1" />}
+          icon={<ArrowLeft size="$1" />}
           onPress={() => router.back()}
           pressStyle={PRESS_STYLE}
         />
         <XStack>
-          <Button
-            unstyled
-            animation="quick"
-            flexDirection="row"
-            gap="$1"
-            borderWidth={0}
-            p="$2"
-            color="$gray12"
-            items="center"
-            icon={<Grid2x2Plus size="$1" />}
-            pressStyle={PRESS_STYLE}
-            fontSize="$5"
-            onPress={openEmotion}
-          />
           <Button
             unstyled
             animation="quick"
@@ -118,7 +99,8 @@ export const WriteHeader = () => {
         <DatePickerModal
           localDate={draft?.localDate}
           dateCounts={dateCounts}
-          onChangeLocalDate={onLocalDateChange}
+          onLocalDateChange={onLocalDateChange}
+          onSelectedMonthChange={onSelectedMonthChange}
         />
       </BottomModal>
       <BottomModal ref={emotionRef}>

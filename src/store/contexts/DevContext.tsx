@@ -25,7 +25,7 @@ export const DevContextProvider = ({ children }: PropsWithChildren) => {
   };
 
   const handleClearJournalStorage = async () => {
-    console.log('Clearing journal storage...');
+    console.log('Clearing (journal) storage...');
     await AsyncStorage.removeItem(STORAGE_KEY.JOURNALS);
     setIsStorageCleared(true);
   };
