@@ -18,7 +18,7 @@ export const JournalCard = ({ journal, index }: Props) => {
       <Link
         asChild
         href={{
-          pathname: '/(modal)/[journalId]',
+          pathname: '/(journal)/[journalId]',
           params: { journalId: journal.id },
         }}
       >

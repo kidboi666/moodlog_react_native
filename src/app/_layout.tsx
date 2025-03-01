@@ -1,5 +1,4 @@
 import '../../tamagui-web.css';
-import { Stack } from 'expo-router';
 import { RootProvider } from '@/providers/RootProvider';
 import { useFonts } from 'expo-font';
 import { useEffect, useMemo } from 'react';
@@ -18,6 +17,8 @@ import {
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import '../i18n';
 import { useUser } from '@/store/hooks/useUser';
+import { JsStack } from '@/components/layouts/JsStack';
+import { WriteHeader } from '@/components/layouts/headers/WriteHeader';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -86,21 +87,34 @@ function RootLayoutNav() {
 
   return (
     <GestureHandlerRootView style={[styles.container, backgroundStyle]}>
-      <BottomSheetModalProvider>
-        <ThemeProvider
-          value={resolvedTheme === 'dark' ? DarkTheme : DefaultTheme}
-        >
-          <StatusBar />
-          <Stack screenOptions={screenOptions}>
-            <Stack.Screen name="(drawer)" />
-            <Stack.Screen name="(onboarding)" />
-            <Stack.Screen name="(modal)" />
-            <Stack.Screen name="(record)" />
-            <Stack.Screen name="+not-found" />
-          </Stack>
+      <ThemeProvider
+        value={resolvedTheme === 'dark' ? DarkTheme : DefaultTheme}
+      >
+        <StatusBar />
+        <BottomSheetModalProvider>
+          <JsStack screenOptions={screenOptions}>
+            <JsStack.Screen name="(drawer)" />
+            <JsStack.Screen name="(onboarding)" />
+            <JsStack.Screen
+              name="(journal)"
+              options={{
+                animation: 'fade_from_bottom',
+              }}
+            />
+            <JsStack.Screen
+              name="write"
+              options={{
+                headerShown: true,
+                animation: 'fade_from_bottom',
+                header: () => <WriteHeader />,
+              }}
+            />
+            <JsStack.Screen name="(record)" />
+            <JsStack.Screen name="+not-found" />
+          </JsStack>
           <CurrentToast />
-        </ThemeProvider>
-      </BottomSheetModalProvider>
+        </BottomSheetModalProvider>
+      </ThemeProvider>
     </GestureHandlerRootView>
   );
 }

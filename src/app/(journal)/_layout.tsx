@@ -1,35 +1,31 @@
-import { Stack } from 'expo-router';
 import { WriteHeader } from '@/components/layouts/headers/WriteHeader';
 import JournalHeader from '@/components/layouts/headers/JournalHeader';
 import { useTheme } from 'tamagui';
+import { JsStack } from '@/components/layouts/JsStack';
 
 export default function ModalLayout() {
   const theme = useTheme();
   return (
-    <Stack
+    <JsStack
       screenOptions={{
         headerShown: true,
-        presentation: 'card',
-        animation: 'default',
-        gestureEnabled: true,
-        gestureDirection: 'horizontal',
-        contentStyle: {
+        cardStyle: {
           backgroundColor: theme.background.val,
         },
       }}
     >
-      <Stack.Screen
+      <JsStack.Screen
         name="write"
         options={{
           header: () => <WriteHeader />,
         }}
       />
-      <Stack.Screen
+      <JsStack.Screen
         name="[journalId]"
         options={{
           header: () => <JournalHeader />,
         }}
       />
-    </Stack>
+    </JsStack>
   );
 }
