@@ -10,9 +10,10 @@ import { Button } from 'tamagui';
 import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
 import React from 'react';
 import { DateCounts } from '@/types/entries';
-import { ISODateString } from '@/types/dtos/date';
+import { ISODateString, ISOMonthString } from '@/types/dtos/date';
 import { DayState, Direction } from 'react-native-calendars/src/types';
 import { MarkingProps } from 'react-native-calendars/src/calendar/day/marking';
+import { getMonthInISODateString } from '@/utils/common';
 
 LocaleConfig.locales['ko'] = {
   monthNames: [
@@ -82,6 +83,7 @@ interface Props extends CalendarProps {
   dateCounts: DateCounts;
   variant?: 'contained' | 'default';
   onSelectedDateChange: (date: ISODateString) => void;
+  onSelectedMonthChange: (month: ISOMonthString) => void;
   selectedDate?: ISODateString;
 }
 
@@ -89,6 +91,7 @@ export const CalendarBase = ({
   dateCounts,
   variant = 'default',
   onSelectedDateChange,
+  onSelectedMonthChange,
   selectedDate,
   ...props
 }: Props) => {
@@ -114,11 +117,17 @@ export const CalendarBase = ({
           }}
         />
       )}
+      hideExtraDays
       current={CalendarUtils.getCalendarDateString(new Date())}
       enableSwipeMonths
       maxDate={CalendarUtils.getCalendarDateString(new Date())}
       onDayPress={(date: DateData) =>
         onSelectedDateChange(date.dateString as ISODateString)
+      }
+      onMonthChange={(date: DateData) =>
+        onSelectedMonthChange(
+          getMonthInISODateString(date.year, date.month - 1),
+        )
       }
       markedDates={
         selectedDate && {

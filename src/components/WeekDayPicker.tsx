@@ -26,13 +26,18 @@ export const WeekDayPicker = () => {
     currentDate,
     selectedDate,
     onSelectedDateChange,
+    onSelectedMonthChange,
   } = useDate();
   const { getJournalsByDate, journals, getDateCountsForMonth } = useJournal();
   const { t } = useTranslation();
 
   const dateCounts = useMemo(
-    () => getDateCountsForMonth(selectedYear, selectedMonth + 1),
-    [journals],
+    () =>
+      getDateCountsForMonth(
+        selectedYear,
+        getMonthStringWithoutYear(selectedMonth),
+      ),
+    [journals, selectedMonth],
   );
 
   const dates: ISODateString[] = useMemo(() => {
@@ -99,6 +104,7 @@ export const WeekDayPicker = () => {
       )}
       {calendarVariation === 'vertical' && (
         <VerticalCalendar
+          onSelectedMonthChange={onSelectedMonthChange}
           onSelectedDateChange={onSelectedDateChange}
           dateCounts={dateCounts}
           selectedDate={selectedDate}
