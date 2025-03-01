@@ -6,12 +6,13 @@ interface Props {
   duration?: number;
 }
 
-export const ShakeHand = ({ duration = 1000 }: Props) => {
+export const ShakeHand = ({ duration }: Props) => {
   const [isRotate, setIsRotate] = useState(false);
   const [isShaking, setIsShaking] = useState(true);
 
   useEffect(() => {
     let shakeInterval: NodeJS.Timeout;
+    let stopTimer: NodeJS.Timeout;
 
     if (isShaking) {
       shakeInterval = setInterval(() => {
@@ -19,10 +20,12 @@ export const ShakeHand = ({ duration = 1000 }: Props) => {
       }, 300);
     }
 
-    const stopTimer = setTimeout(() => {
-      setIsShaking(false);
-      setIsRotate(false);
-    }, duration);
+    if (duration) {
+      stopTimer = setTimeout(() => {
+        setIsShaking(false);
+        setIsRotate(false);
+      }, duration);
+    }
 
     return () => {
       clearInterval(shakeInterval);

@@ -1,6 +1,7 @@
 import JournalHeader from '@/components/layouts/headers/JournalHeader';
 import { Stack } from 'expo-router';
 import { useTheme } from 'tamagui';
+import { WriteHeader } from '@/components/layouts/headers/WriteHeader';
 
 export default function JournalLayout() {
   const theme = useTheme();
@@ -11,13 +12,12 @@ export default function JournalLayout() {
         contentStyle: {
           backgroundColor: theme.background.val,
         },
-        animation: 'fade',
       }}
     >
       <Stack.Screen
         name="write"
         options={{
-          header: () => <JournalHeader />,
+          header: () => <WriteHeader />,
         }}
       />
       <Stack.Screen

@@ -3,7 +3,7 @@ import { View } from 'tamagui';
 import { Container } from '@/components/layouts/containers/Container';
 import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
-import { KeyboardAvoidingView } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet } from 'react-native';
 import { useDraft } from '@/store/hooks/useDraft';
 
 export default function WriteScreen() {
@@ -11,7 +11,7 @@ export default function WriteScreen() {
   const { draft, onTitleChange, onContentChange } = useDraft();
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }}>
+    <KeyboardAvoidingView style={styles.container}>
       <Container flexDirection="row" gap="$3" pl={0}>
         {draft.emotion ? (
           <View
@@ -29,7 +29,6 @@ export default function WriteScreen() {
             bg="$gray8"
           />
         )}
-
         <ContentInput
           fontSize={fontSize}
           contentValue={draft.content}
@@ -41,3 +40,9 @@ export default function WriteScreen() {
     </KeyboardAvoidingView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
