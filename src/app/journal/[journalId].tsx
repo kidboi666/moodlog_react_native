@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useScroll } from '@/store/hooks/useScroll';
 import { toSingle } from '@/utils/common';
 
-export default function JournalPage() {
+export default function JournalScreen() {
   const { journalId } = useLocalSearchParams();
   const { selectedJournal, onSelectedJournalChange } = useJournal();
   const { fontSize } = useApp();

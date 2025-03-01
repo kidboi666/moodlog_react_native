@@ -2,7 +2,7 @@ import { Stack } from 'expo-router';
 import { useTheme } from 'tamagui';
 import { SettingHeader } from '@/components/layouts/headers/SettingHeader';
 
-export default function SettingLayout() {
+export default function SettingsLayout() {
   const theme = useTheme();
   return (
     <Stack
@@ -12,7 +12,7 @@ export default function SettingLayout() {
         contentStyle: { backgroundColor: theme.background.val },
       }}
     >
-      <Stack.Screen name="main" />
+      <Stack.Screen name="index" />
       <Stack.Screen name="theme" />
       <Stack.Screen name="language" />
     </Stack>

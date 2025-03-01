@@ -29,7 +29,7 @@ export const HomeHeader = ({
         animateOnly={PRESS_STYLE_KEY}
         p="$2"
         icon={<FileChartColumnIncreasing size="$1" />}
-        onPress={() => navigation.navigate('(record)')}
+        onPress={() => navigation.navigate('record')}
         pressStyle={PRESS_STYLE}
       />
     </HeaderContainer>

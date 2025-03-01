@@ -28,7 +28,7 @@ export const Floating = () => {
           bg="$gray1"
           themeInverse
           icon={Plus}
-          onPress={() => router.push('/write')}
+          onPress={() => router.push('/journal/write')}
           enterStyle={ENTER_STYLE}
           pressStyle={PRESS_STYLE}
         >

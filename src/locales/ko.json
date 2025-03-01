@@ -29,8 +29,7 @@
   "navigation": {
     "drawer": {
       "index": "홈으로",
-      "profile": "프로필",
-      "(settings)": "설정"
+      "settings": "설정"
     }
   },
   "modals": {

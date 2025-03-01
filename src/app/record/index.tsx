@@ -8,7 +8,7 @@ import { CurrentMonth } from '@/components/features/stats/expressive-month/Curre
 import { CARD_DELAY } from '@/constants/styles';
 import { FadeIn } from '@/components/FadeIn';
 
-export default function MainScreen() {
+export default function RecordScreen() {
   const { onScroll } = useScroll();
 
   return (

@@ -10,7 +10,7 @@ import { Redirect } from 'expo-router';
 import { useApp } from '@/store/hooks/useApp';
 import { Floating } from '@/components/Floating';
 
-export default function HomeScreen() {
+export default function DrawerScreen() {
   const { dailyJournals } = useJournal();
   const { onScroll } = useScroll();
   const { isInitialApp } = useApp();

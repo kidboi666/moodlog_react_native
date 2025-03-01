@@ -1,6 +1,6 @@
 import { Button } from 'tamagui';
 import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
-import { IconRenderer } from '@/components/features/drawer/DrawerContent';
+import { IconRenderer } from '@/components/layouts/drawer/DrawerContent';
 
 interface DrawerItemProps {
   icon: IconRenderer;

@@ -1,6 +1,6 @@
-import { Stack } from 'expo-router';
 import { RecordHeader } from '@/components/layouts/headers/RecordHeader';
 import { useTheme } from 'tamagui';
+import { Stack } from 'expo-router';
 
 export default function RecordLayout() {
   const theme = useTheme();
@@ -14,7 +14,7 @@ export default function RecordLayout() {
         },
       }}
     >
-      <Stack.Screen name="main" />
+      <Stack.Screen name="index" />
     </Stack>
   );
 }

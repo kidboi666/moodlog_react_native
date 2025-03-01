@@ -17,8 +17,7 @@ import {
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import '../i18n';
 import { useUser } from '@/store/hooks/useUser';
-import { JsStack } from '@/components/layouts/JsStack';
-import { WriteHeader } from '@/components/layouts/headers/WriteHeader';
+import { Stack } from 'expo-router';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -92,26 +91,13 @@ function RootLayoutNav() {
       >
         <StatusBar />
         <BottomSheetModalProvider>
-          <JsStack screenOptions={screenOptions}>
-            <JsStack.Screen name="(drawer)" />
-            <JsStack.Screen name="(onboarding)" />
-            <JsStack.Screen
-              name="(journal)"
-              options={{
-                animation: 'fade_from_bottom',
-              }}
-            />
-            <JsStack.Screen
-              name="write"
-              options={{
-                headerShown: true,
-                animation: 'fade_from_bottom',
-                header: () => <WriteHeader />,
-              }}
-            />
-            <JsStack.Screen name="(record)" />
-            <JsStack.Screen name="+not-found" />
-          </JsStack>
+          <Stack screenOptions={screenOptions}>
+            <Stack.Screen name="(drawer)" />
+            <Stack.Screen name="(onboarding)" />
+            <Stack.Screen name="record" />
+            <Stack.Screen name="journal" />
+            <Stack.Screen name="+not-found" />
+          </Stack>
           <CurrentToast />
         </BottomSheetModalProvider>
       </ThemeProvider>

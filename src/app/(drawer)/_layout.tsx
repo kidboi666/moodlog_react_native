@@ -1,9 +1,9 @@
-import { DrawerContent } from '@/components/features/drawer/DrawerContent';
+import { DrawerContent } from '@/components/layouts/drawer/DrawerContent';
 import { HomeHeader } from '@/components/layouts/headers/HomeHeader';
 import { Drawer } from 'expo-router/drawer';
 import { useTheme } from 'tamagui';
 
-export default function HomeLayout() {
+export default function DrawerLayout() {
   const theme = useTheme();
   return (
     <>
@@ -18,7 +18,7 @@ export default function HomeLayout() {
       >
         <Drawer.Screen name="index" />
         <Drawer.Screen
-          name="(settings)"
+          name="settings"
           options={{
             headerShown: false,
           }}

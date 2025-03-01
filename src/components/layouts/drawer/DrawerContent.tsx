@@ -14,10 +14,10 @@ import { PRESS_STYLE } from '@/constants/styles';
 import { DevButtonsWithDrawerContext } from '@/components/DevButtonsWithDrawerContext';
 import { useTranslation } from 'react-i18next';
 import { DrawerContainer } from '@/components/layouts/containers/DrawerContainer';
-import { DrawerItem } from '@/components/features/drawer/DrawerItem';
+import { DrawerItem } from '@/components/layouts/drawer/DrawerItem';
 import { useApp } from '@/store/hooks/useApp';
 
-export type RouteNames = 'index' | '(settings)';
+export type RouteNames = 'index' | 'settings';
 export type ButtonProps = GetProps<typeof Button>;
 export type IconProp = ButtonProps['icon'];
 export type IconRenderer = (isSelected: boolean) => IconProp;
@@ -26,7 +26,7 @@ const createIconMap = (theme: any): Record<RouteNames, IconRenderer> => ({
   index: (isSelected: boolean) => (
     <Home color={isSelected ? theme.gray1 : theme.gray12} size="$1" />
   ),
-  '(settings)': (isSelected: boolean) => (
+  settings: (isSelected: boolean) => (
     <Settings color={isSelected ? theme.gray1 : theme.gray12} size="$1" />
   ),
 });
