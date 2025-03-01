@@ -23,7 +23,6 @@ export type JournalStore = WithState<
     selectedJournal?: Journal;
     monthlyJournals: Journal[];
     yearlyJournals: Journal[];
-    draft: Draft;
     addJournal: (journal: Draft) => void;
     removeJournal: (id: string) => void;
     getDateCountsForMonth: (year: number, month: number | string) => DateCounts;
@@ -33,13 +32,8 @@ export type JournalStore = WithState<
       date: number,
     ) => number;
     getEmotionForDate: (year: number, month: number, date: number) => Emotion[];
-
     onSelectedJournalChange: (journalId: string) => void;
     updateJournals: (id: string, updateJournal: Journal) => void;
-    updateDraftLocalDate: (date: ISODateString) => void;
-    updateDraftEmotion: (emotion: Emotion) => void;
-    updateDraftContent: (content: string) => void;
-    updateDraftTitle: (title: string) => void;
     getJournalsByDate: (date: ISODateString) => void;
     getJournalsByMonth: (date: ISOMonthString) => void;
     getJournalsByYear: (year: number) => void;
@@ -124,3 +118,12 @@ export type GardenStore = WithState<
   },
   LoadingState
 >;
+
+export interface DraftStore {
+  draft: Draft;
+  onLocalDateChange: (date: ISODateString) => void;
+  onEmotionChange: (emotion: Emotion) => void;
+  onContentChange: (content: string) => void;
+  onTitleChange: (title: string) => void;
+  onDraftSubmit: (draft: Draft) => void;
+}

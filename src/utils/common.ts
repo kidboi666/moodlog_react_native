@@ -69,7 +69,9 @@ export const getWeekLength = (year: number, month: any) => {
 };
 
 export const getMonthStringWithoutYear = (str: string) => {
-  return Object.keys(MONTHS)[Number(removeLeadingZero(str.split('-')[1])) - 1];
+  return Object.keys(MONTHS)[
+    Number(removeLeadingZero(str.split('-')[1])) - 1
+  ] as MonthKey;
 };
 
 export const getEmotionTheme = (type: EmotionType, level: EmotionLevel) => {

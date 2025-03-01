@@ -3,14 +3,7 @@ import { ToastProvider } from './ToastProvider';
 import { TamaguiBaseProvider } from './TamaguiProvider';
 import { useColorScheme } from 'react-native';
 import { ThemeContextProvider } from '@/store/contexts/ThemeContext';
-import { JournalContextProvider } from '@/store/contexts/JournalContext';
-import { AppContextProvider } from '@/store/contexts/AppContext';
-import { UserContextProvider } from '@/store/contexts/UserContext';
-import { DevContextProvider } from '@/store/contexts/DevContext';
-import { DateContextProvider } from '@/store/contexts/DateContext';
-import { StatisticsContextProvider } from '@/store/contexts/StatisticsContext';
-import { ScrollContextProvider } from '@/store/contexts/ScrollContext';
-import { GardenContextProvider } from '@/store/contexts/GardenContext';
+import { ContextProvider } from '@/providers/ContextProvider';
 
 export const RootProvider = ({
   children,
@@ -23,21 +16,7 @@ export const RootProvider = ({
       <ThemeContextProvider>
         <ToastProvider>
           <PortalProvider>
-            <DateContextProvider>
-              <JournalContextProvider>
-                <StatisticsContextProvider>
-                  <AppContextProvider>
-                    <ScrollContextProvider>
-                      <UserContextProvider>
-                        <GardenContextProvider>
-                          <DevContextProvider>{children}</DevContextProvider>
-                        </GardenContextProvider>
-                      </UserContextProvider>
-                    </ScrollContextProvider>
-                  </AppContextProvider>
-                </StatisticsContextProvider>
-              </JournalContextProvider>
-            </DateContextProvider>
+            <ContextProvider>{children}</ContextProvider>
           </PortalProvider>
         </ToastProvider>
       </ThemeContextProvider>

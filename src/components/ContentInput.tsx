@@ -5,16 +5,16 @@ import { useTranslation } from 'react-i18next';
 interface Props extends InputProps {
   contentValue?: string;
   titleValue?: string;
-  onChangeContentText: (content: string) => void;
-  onChangeTitleText: (title: string) => void;
+  onContentChange: (content: string) => void;
+  onTitleChange: (title: string) => void;
 }
 
 export const ContentInput = ({
   fontSize,
   contentValue,
   titleValue,
-  onChangeContentText,
-  onChangeTitleText,
+  onContentChange,
+  onTitleChange,
   ...props
 }: Props) => {
   const firstInputRef = useRef<Input>(null);
@@ -30,7 +30,7 @@ export const ContentInput = ({
       <Input
         width="100%"
         value={titleValue}
-        onChangeText={onChangeTitleText}
+        onChangeText={onTitleChange}
         unstyled
         fontSize="$9"
         fontWeight="700"
@@ -44,7 +44,7 @@ export const ContentInput = ({
       <ScrollView flex={1}>
         <Input
           value={contentValue}
-          onChangeText={onChangeContentText}
+          onChangeText={onContentChange}
           unstyled
           multiline
           fontSize={fontSize}

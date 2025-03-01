@@ -1,14 +1,14 @@
 import { ContentInput } from '@/components/ContentInput';
 import { View } from 'tamagui';
-import { useJournal } from '@/store/hooks/useJournal';
 import { Container } from '@/components/layouts/containers/Container';
 import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
 import { KeyboardAvoidingView } from 'react-native';
+import { useDraft } from '@/store/hooks/useDraft';
 
 export default function WriteScreen() {
   const { fontSize } = useApp();
-  const { draft, updateDraftContent, updateDraftTitle } = useJournal();
+  const { draft, onTitleChange, onContentChange } = useDraft();
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }}>
@@ -34,8 +34,8 @@ export default function WriteScreen() {
           fontSize={fontSize}
           contentValue={draft.content}
           titleValue={draft.title}
-          onChangeContentText={updateDraftContent}
-          onChangeTitleText={updateDraftTitle}
+          onContentChange={onContentChange}
+          onTitleChange={onTitleChange}
         />
       </Container>
     </KeyboardAvoidingView>

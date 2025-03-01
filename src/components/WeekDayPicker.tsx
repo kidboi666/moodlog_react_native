@@ -7,7 +7,13 @@ import { CalendarDays, CalendarRange } from '@tamagui/lucide-icons';
 import { FALL_STYLE, FALL_STYLE_KEY, PRESS_STYLE } from '@/constants/styles';
 import { VerticalCalendar } from '@/components/VerticalCalendar';
 import { useTranslation } from 'react-i18next';
-import { getISODateString, getLastDate, getMonthString } from '@/utils/common';
+import {
+  getISODateString,
+  getLastDate,
+  getMonthNumber,
+  getMonthString,
+  getMonthStringWithoutYear,
+} from '@/utils/common';
 import { useDate } from '@/store/hooks/useDate';
 
 export const WeekDayPicker = () => {
@@ -15,8 +21,8 @@ export const WeekDayPicker = () => {
     'horizontal' | 'vertical'
   >('horizontal');
   const {
-    currentYear,
-    currentMonth,
+    selectedMonth,
+    selectedYear,
     currentDate,
     selectedDate,
     onSelectedDateChange,
@@ -25,21 +31,24 @@ export const WeekDayPicker = () => {
   const { t } = useTranslation();
 
   const dateCounts = useMemo(
-    () => getDateCountsForMonth(currentYear, currentMonth + 1),
+    () => getDateCountsForMonth(selectedYear, selectedMonth + 1),
     [journals],
   );
 
   const dates: ISODateString[] = useMemo(() => {
-    const lastDate = getLastDate(currentYear, currentMonth);
+    const lastDate = getLastDate(
+      selectedYear,
+      getMonthStringWithoutYear(selectedMonth),
+    );
 
     return Array.from({ length: lastDate }, (_, i) => {
-      return getISODateString(currentYear, currentMonth, i + 1);
+      return getISODateString(
+        selectedYear,
+        getMonthNumber(getMonthStringWithoutYear(selectedMonth)),
+        i + 1,
+      );
     });
-  }, [currentYear, currentMonth]);
-
-  const handleSelectedDate = (date: ISODateString) => {
-    onSelectedDateChange(date);
-  };
+  }, [selectedYear, selectedMonth]);
 
   return (
     <YStack
@@ -54,7 +63,12 @@ export const WeekDayPicker = () => {
     >
       <XStack justify="space-between">
         <H1 fontWeight="800" color="$gray1">
-          {t(`calendar.months.${getMonthString(currentMonth)}`)}.
+          {t(
+            `calendar.months.${getMonthString(
+              getMonthNumber(getMonthStringWithoutYear(selectedMonth)),
+            )}`,
+          )}
+          .
         </H1>
         <Button
           unstyled

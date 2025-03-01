@@ -18,7 +18,7 @@ export const DateContextProvider = ({ children }: PropsWithChildren) => {
   const [selectedDate, setSelectedDate] = useState<ISODateString>(
     CalendarUtils.getCalendarDateString(currentDate),
   );
-  console.log(selectedMonth);
+
   const handleSelectedYearChange = (year: number) => {
     setSelectedYear(year);
   };

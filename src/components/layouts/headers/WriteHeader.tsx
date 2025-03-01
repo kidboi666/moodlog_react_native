@@ -17,20 +17,15 @@ import { EmotionPickerModal } from '@/components/modals/contents/EmotionPickerMo
 import { useBottomModal } from '@/hooks/useBottomModal';
 import { useToastController } from '@tamagui/toast';
 import { useTranslation } from 'react-i18next';
+import { useDraft } from '@/store/hooks/useDraft';
+import { useDate } from '@/store/hooks/useDate';
 
 export const WriteHeader = () => {
   const router = useRouter();
-  const {
-    updateDraftEmotion,
-    getDateCountsForMonth,
-    journals,
-    draft,
-    addJournal,
-    updateDraftLocalDate,
-  } = useJournal();
-  const currentDate = new Date();
-  const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth();
+  const { getDateCountsForMonth, journals } = useJournal();
+  const { draft, onDraftSubmit, onEmotionChange, onLocalDateChange } =
+    useDraft();
+  const { selectedMonth, selectedYear } = useDate();
   const { modalRef: calendarRef, openModal: openCalendar } = useBottomModal();
   const { modalRef: emotionRef, openModal: openEmotion } = useBottomModal();
   const toast = useToastController();
@@ -44,17 +39,17 @@ export const WriteHeader = () => {
       });
     }
 
-    addJournal(draft);
+    onDraftSubmit(draft);
   };
 
   const dateCounts = useMemo(
-    () => getDateCountsForMonth(currentYear, currentMonth + 1),
+    () => getDateCountsForMonth(selectedYear, selectedMonth + 1),
     [journals],
   );
 
   useEffect(() => {
     if (!draft.localDate) {
-      updateDraftLocalDate(CalendarUtils.getCalendarDateString(new Date()));
+      onLocalDateChange(CalendarUtils.getCalendarDateString(new Date()));
     }
   }, []);
 
@@ -123,13 +118,13 @@ export const WriteHeader = () => {
         <DatePickerModal
           localDate={draft?.localDate}
           dateCounts={dateCounts}
-          onChangeLocalDate={updateDraftLocalDate}
+          onChangeLocalDate={onLocalDateChange}
         />
       </BottomModal>
       <BottomModal ref={emotionRef}>
         <EmotionPickerModal
           selectedEmotion={draft?.emotion}
-          onChangeEmotion={updateDraftEmotion}
+          onChangeEmotion={onEmotionChange}
         />
       </BottomModal>
     </HeaderContainer>

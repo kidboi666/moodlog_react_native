@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react';
 import { JournalStore } from 'src/types/store';
-import { DateCounts, Draft, Emotion, Journal } from '@/types/entries';
+import { DateCounts, Draft, Journal } from '@/types/entries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { uuid } from 'expo-modules-core';
 import { useToastController } from '@tamagui/toast';
@@ -29,7 +29,6 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   const [monthlyJournals, setMonthlyJournals] = useState<Journal[]>([]);
   const [dailyJournals, setDailyJournals] = useState<Journal[]>([]);
   const [selectedJournal, setSelectedJournal] = useState<Journal>();
-  const [draft, setDraft] = useState<Draft>({});
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToastController();
   const router = useRouter();
@@ -53,7 +52,6 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
       };
 
       setJournals(prev => [...prev, newJournal]);
-      setDraft({});
 
       toast.show(t('notifications.success.journal.title'), {
         message: t('notifications.success.journal.message'),
@@ -126,22 +124,6 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     setJournals(prev =>
       prev.map(journal => (journal.id === id ? newJournal : journal)),
     );
-  }, []);
-
-  const updateDraftLocalDate = useCallback((date: ISODateString) => {
-    setDraft(prev => ({ ...prev, localDate: date }));
-  }, []);
-
-  const updateDraftEmotion = useCallback((emotion: Emotion) => {
-    setDraft(prev => ({ ...prev, emotion }));
-  }, []);
-
-  const updateDraftContent = useCallback((content: string) => {
-    setDraft(prev => ({ ...prev, content }));
-  }, []);
-
-  const updateDraftTitle = useCallback((title: string) => {
-    setDraft(prev => ({ ...prev, title }));
   }, []);
 
   const getJournalsByDate = useCallback(
@@ -268,7 +250,6 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         selectedJournal,
         monthlyJournals,
         yearlyJournals,
-        draft,
         addJournal,
         isLoading,
         getDateCountsForMonth,
@@ -277,10 +258,6 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         removeJournal,
         onSelectedJournalChange: handleSelectedJournalChange,
         updateJournals,
-        updateDraftLocalDate,
-        updateDraftEmotion,
-        updateDraftContent,
-        updateDraftTitle,
         getJournalsByDate,
         getJournalsByMonth,
         getJournalsByYear,
