@@ -12,13 +12,13 @@ import { toSingle } from '@/utils/common';
 
 export default function JournalPage() {
   const { journalId } = useLocalSearchParams();
-  const { selectedJournal, onChangeSelectedJournal } = useJournal();
+  const { selectedJournal, onSelectedJournalChange } = useJournal();
   const { fontSize } = useApp();
   const { onScroll } = useScroll();
   const { t } = useTranslation();
 
   useEffect(() => {
-    onChangeSelectedJournal(toSingle(journalId));
+    onSelectedJournalChange(toSingle(journalId));
   }, [journalId]);
 
   if (!selectedJournal || selectedJournal?.id !== journalId) return null;
