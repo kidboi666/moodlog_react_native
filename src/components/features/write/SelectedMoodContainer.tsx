@@ -3,9 +3,10 @@ import { H2, XStack } from 'tamagui';
 import React from 'react';
 import { Emotion } from '@/types/entries';
 import { useTranslation } from 'react-i18next';
+import { Nullable } from '@/types/utils';
 
 interface Props {
-  emotion: Emotion;
+  emotion: Nullable<Emotion>;
 }
 
 export const SelectedMoodContainer = ({ emotion }: Props) => {
@@ -20,8 +21,10 @@ export const SelectedMoodContainer = ({ emotion }: Props) => {
       enterStyle={ENTER_STYLE}
       exitStyle={ENTER_STYLE}
     >
-      <H2 color="$gray11">{t(`emotions.levels.${emotion.level}`)}</H2>
-      <H2>{t(`emotions.types.${emotion.type}`)}</H2>
+      <H2 color="$gray11">
+        {emotion ? t(`emotions.levels.${emotion.level}`) : '??'}
+      </H2>
+      <H2>{emotion ? t(`emotions.types.${emotion.type}`) : '??'}</H2>
     </XStack>
   );
 };

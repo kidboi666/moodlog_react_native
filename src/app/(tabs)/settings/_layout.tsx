@@ -6,6 +6,7 @@ export default function SettingsLayout() {
 
   return (
     <Stack
+      initialRouteName="index"
       screenOptions={{
         headerShown: false,
         contentStyle: { backgroundColor: theme.background.val },

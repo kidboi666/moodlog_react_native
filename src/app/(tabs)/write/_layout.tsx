@@ -17,7 +17,7 @@ export default function WriteLayout() {
         contentStyle: {
           backgroundColor: theme.background.val,
         },
-        gestureEnabled: false,
+        gestureEnabled: true,
       }}
     >
       <Stack.Screen name="mood_select" />

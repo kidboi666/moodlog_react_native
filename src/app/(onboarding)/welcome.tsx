@@ -27,7 +27,7 @@ export default function WelcomeScreen() {
           <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
             <XStack gap="$2">
               <H1>{t('onboarding.welcome.title')}</H1>
-              <ShakeEmoji />
+              <ShakeEmoji emoji="👋" />
             </XStack>
           </FadeIn>
           <FadeIn delay={PARAGRAPH_DELAY.SECOND}>
