@@ -1,6 +1,6 @@
 import { XStack, YStack } from 'tamagui';
 import { useStatistics } from '@/store/hooks/useStatistics';
-import { EmotionAverage } from '@/components/features/stats/EmotionAverage';
+import { EmotionAverage } from '@/components/features/stats/emotion-average/EmotionAverage';
 import { TotalCount } from '@/components/features/stats/total-count/TotalCount';
 import { useUser } from '@/store/hooks/useUser';
 

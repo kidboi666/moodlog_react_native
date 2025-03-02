@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { Button, H2, H3, H5, Text, View, XStack, YStack } from 'tamagui';
-import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
+import { H2, H3, H5, Text, XStack, YStack } from 'tamagui';
+import { Minimize2 } from '@tamagui/lucide-icons';
 import { EmptyExpandedContent } from '@/components/features/stats/EmptyExpandedContent';
 import { SelectedMonthStats } from '@/types/entries';
 import { getEmotionTheme, getMonthStringWithoutYear } from '@/utils/common';
@@ -8,10 +8,9 @@ import { EmotionLevel, EmotionType } from '@/types/enums';
 
 interface Props {
   selectedMonthStats: SelectedMonthStats;
-  isExpanded: boolean;
 }
 
-export const ExpandedContent = ({ selectedMonthStats, isExpanded }: Props) => {
+export const ExpandedContent = ({ selectedMonthStats }: Props) => {
   const { t } = useTranslation();
   const {
     month: ISOMonthString,
@@ -28,8 +27,9 @@ export const ExpandedContent = ({ selectedMonthStats, isExpanded }: Props) => {
   const month = t(
     `calendar.months.${getMonthStringWithoutYear(ISOMonthString)}`,
   );
+
   return (
-    <View
+    <YStack
       animation="quick"
       animateOnly={['opacity']}
       flex={1}
@@ -41,7 +41,6 @@ export const ExpandedContent = ({ selectedMonthStats, isExpanded }: Props) => {
         items="center"
         rounded="$8"
         p="$4"
-        mb="$6"
         bg={getEmotionTheme(
           signatureEmotion.type as EmotionType,
           EmotionLevel.FULL,
@@ -93,13 +92,8 @@ export const ExpandedContent = ({ selectedMonthStats, isExpanded }: Props) => {
             })}
           </Text>
         </YStack>
-        <Button
-          unstyled
-          self="flex-end"
-          opacity={0.2}
-          icon={isExpanded ? <Minimize2 size="$1" /> : <Maximize2 size="$1" />}
-        />
+        <Minimize2 size="$1" self="flex-end" opacity={0.6} />
       </YStack>
-    </View>
+    </YStack>
   );
 };

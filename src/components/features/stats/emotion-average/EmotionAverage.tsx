@@ -1,4 +1,5 @@
 import { AnimatePresence, useEvent, YStack } from 'tamagui';
+import { SignatureEmotion } from '@/types/entries';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -10,20 +11,29 @@ import {
   RECORD_CARD_EXPANDED_HEIGHT,
   RECORD_CARD_HEIGHT,
 } from '@/constants/size';
-import { CollapsedContent } from '@/components/features/stats/expressive-month/CollapsedContent';
-import { ExpandedContent } from '@/components/features/stats/expressive-month/ExpandedContent';
-import { useStatistics } from '@/store/hooks/useStatistics';
+import { Nullable } from '@/types/utils';
+import { EmotionLevel } from '@/types/enums';
+import { CollapsedContent } from '@/components/features/stats/emotion-average/CollapsedContent';
+import { ExpandedContent } from '@/components/features/stats/emotion-average/ExpandedContent';
+import { getEmotionTheme } from '@/utils/common';
+
+interface Props {
+  signatureEmotion: Nullable<SignatureEmotion>;
+}
 
 const AnimatedCard = Animated.createAnimatedComponent(YStack);
 
-export const CurrentMonth = () => {
-  const { selectedMonthStats } = useStatistics();
+export const EmotionAverage = ({ signatureEmotion }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const isTouched = useSharedValue(false);
 
   const onPress = useEvent(() => {
     setIsExpanded(prev => !prev);
   });
+
+  const hasSignatureEmotion = signatureEmotion
+    ? signatureEmotion?.count > 0
+    : false;
 
   const animatedStyle = useAnimatedStyle(() => ({
     height: withSpring(
@@ -36,23 +46,28 @@ export const CurrentMonth = () => {
   return (
     <AnimatedCard
       flex={1}
-      onPressIn={() => (isTouched.value = true)}
-      onPressOut={() => (isTouched.value = false)}
-      bg="$gray5"
+      p="$4"
+      justify="space-between"
+      bg={
+        isExpanded
+          ? '$gray5'
+          : hasSignatureEmotion
+            ? getEmotionTheme(signatureEmotion!.type, EmotionLevel.FULL)
+            : '$gray5'
+      }
       rounded="$8"
       onPress={onPress}
+      onPressIn={() => (isTouched.value = true)}
+      onPressOut={() => (isTouched.value = false)}
       style={animatedStyle}
     >
       <AnimatePresence>
         {isExpanded ? (
-          <ExpandedContent
-            selectedMonthStats={selectedMonthStats}
-            isExpanded={isExpanded}
-          />
+          <ExpandedContent />
         ) : (
           <CollapsedContent
-            selectedMonthStats={selectedMonthStats}
-            isExpanded={isExpanded}
+            hasSignatureEmotion={hasSignatureEmotion}
+            signatureEmotion={signatureEmotion}
           />
         )}
       </AnimatePresence>

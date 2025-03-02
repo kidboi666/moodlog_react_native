@@ -74,8 +74,11 @@ export const getMonthStringWithoutYear = (str: string) => {
   ] as MonthKey;
 };
 
-export const getEmotionTheme = (type: EmotionType, level: EmotionLevel) => {
-  return emotionTheme[type][level];
+export const getEmotionTheme = (
+  type: EmotionType | string,
+  level: EmotionLevel,
+) => {
+  return emotionTheme[type as EmotionType][level];
 };
 
 export const toSingle = <T>(value: T | T[]): T => {
