@@ -1,7 +1,7 @@
-import { AnimatePresence, Button, View, XStack, YStack } from 'tamagui';
+import { Button, XStack, YStack } from 'tamagui';
 import { CARD_DELAY, PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 import { ArrowLeft } from '@tamagui/lucide-icons';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDraft } from '@/store/hooks/useDraft';
 import { Container } from '@/components/layouts/containers/Container';
 import { router } from 'expo-router';
@@ -14,57 +14,42 @@ import { MoodBar } from '@/components/features/write/MoodBar';
 
 export default function MoodScreen() {
   const { draft, onEmotionChange } = useDraft();
-  const [animationKey, setAnimationKey] = useState(0);
-
-  useEffect(() => {
-    setAnimationKey(key => key + 1);
-  }, [draft.emotion?.type, draft.emotion?.level]);
 
   return (
     <Container edges={['top', 'bottom']} pr={0}>
-      <Button
-        p="$2"
-        unstyled
-        rounded="$2"
-        animateOnly={PRESS_STYLE_KEY}
-        icon={<ArrowLeft size="$1" />}
-        onPress={() => router.back()}
-        pressStyle={PRESS_STYLE}
-        animation="bouncy"
-      />
       <XStack flex={1} gap="$3">
-        <YStack flex={1} justify="space-between" p="$2" gap="$6">
-          <FadeIn delay={CARD_DELAY.FIRST}>
-            <MoodSelectTitle />
-          </FadeIn>
+        <YStack flex={1}>
+          <Button
+            p="$2"
+            unstyled
+            rounded="$2"
+            animateOnly={PRESS_STYLE_KEY}
+            icon={<ArrowLeft size="$1" />}
+            onPress={() => router.back()}
+            pressStyle={PRESS_STYLE}
+            animation="bouncy"
+          />
+          <YStack flex={1} justify="space-between" p="$2" gap="$6">
+            <FadeIn delay={CARD_DELAY.FIRST}>
+              <MoodSelectTitle />
+            </FadeIn>
 
-          <FadeIn delay={CARD_DELAY.SECOND} flex={1}>
-            <View flex={1} items="center" justify="center">
-              <AnimatePresence>
-                <SelectedMoodContainer
-                  key={animationKey}
-                  emotion={draft.emotion ?? null}
-                />
-              </AnimatePresence>
-            </View>
-          </FadeIn>
+            <FadeIn delay={CARD_DELAY.SECOND} flex={1}>
+              <SelectedMoodContainer emotion={draft.emotion ?? null} />
+            </FadeIn>
 
-          <FadeIn delay={CARD_DELAY.THIRD}>
-            <AnimatePresence>
+            <FadeIn delay={CARD_DELAY.THIRD}>
               <PickerMood
                 emotion={draft?.emotion}
                 onEmotionChange={onEmotionChange}
               />
-            </AnimatePresence>
-          </FadeIn>
+            </FadeIn>
 
-          <FadeIn delay={CARD_DELAY.FOURTH} items="center">
             <NextButton emotion={draft?.emotion} />
-          </FadeIn>
+          </YStack>
         </YStack>
-        <AnimatePresence>
-          <MoodBar emotion={draft?.emotion} />
-        </AnimatePresence>
+
+        <MoodBar emotion={draft?.emotion} />
       </XStack>
     </Container>
   );

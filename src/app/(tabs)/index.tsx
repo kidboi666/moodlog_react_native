@@ -33,9 +33,11 @@ import { FileChartColumnIncreasing } from '@tamagui/lucide-icons';
 import { HeaderContainer } from '@/components/layouts/containers/HeaderContainer';
 import { Platform } from 'react-native';
 import * as NavigationBar from 'expo-navigation-bar';
+import { useDraft } from '@/store/hooks/useDraft';
 
 export default function HomeScreen() {
-  const { dailyJournals } = useJournal();
+  const { dailyJournals, isSubmitted } = useJournal();
+  const { initDraft } = useDraft();
   const theme = useTheme();
   const { isInitialApp } = useApp();
   const { t } = useTranslation();

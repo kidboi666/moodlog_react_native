@@ -19,6 +19,7 @@ import { APP_VERSION } from '@/constants/common';
 export type JournalStore = WithState<
   {
     journals: Journal[];
+    isSubmitted: boolean;
     dailyJournals: Journal[];
     selectedJournal?: Journal;
     monthlyJournals: Journal[];

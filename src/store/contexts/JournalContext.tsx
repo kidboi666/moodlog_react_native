@@ -10,14 +10,12 @@ import { DateCounts, Draft, Journal } from '@/types/entries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { uuid } from 'expo-modules-core';
 import { useToastController } from '@tamagui/toast';
-import { useRouter } from 'expo-router';
 import { ISODateString, ISOMonthString } from '@/types/dtos/date';
 import { Nullable } from '@/types/utils';
 import { STORAGE_KEY } from '@/constants/storage';
 import { CalendarUtils } from 'react-native-calendars';
 import { MONTHS } from '@/constants/date';
 import { useDate } from '@/store/hooks/useDate';
-import { useTranslation } from 'react-i18next';
 import { getISODateString } from '@/utils/common';
 
 export const JournalContext = createContext<Nullable<JournalStore>>(null);
@@ -29,10 +27,9 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   const [monthlyJournals, setMonthlyJournals] = useState<Journal[]>([]);
   const [dailyJournals, setDailyJournals] = useState<Journal[]>([]);
   const [selectedJournal, setSelectedJournal] = useState<Journal>();
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToastController();
-  const router = useRouter();
-  const { t } = useTranslation();
 
   const handleSelectedJournalChange = (journalId: string) => {
     if (journals.length > 0) {
@@ -51,11 +48,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         localDate: draft.localDate,
       };
       setJournals(prev => [...prev, newJournal]);
-
-      toast.show(t('notifications.success.journal.title'), {
-        message: t('notifications.success.journal.message'),
-      });
-      router.replace('/(tabs)');
+      setIsSubmitted(true);
     }
   };
 
@@ -251,6 +244,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         yearlyJournals,
         addJournal,
         isLoading,
+        isSubmitted,
         getDateCountsForMonth,
         getDateCountsForDate,
         getEmotionForDate,

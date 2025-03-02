@@ -10,15 +10,23 @@ import { ENTER_STYLE, ENTER_STYLE_KEY, PRESS_STYLE } from '@/constants/styles';
 import React from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
 import { WriteHeader } from '@/components/layouts/headers/WriteHeader';
+import { useTranslation } from 'react-i18next';
+import { useToastController } from '@tamagui/toast';
+import { router } from 'expo-router';
 
 export default function JournalWriteScreen() {
   const { fontSize } = useApp();
-  const { draft, onTitleChange, onContentChange, initDraft } = useDraft();
+  const { draft, onTitleChange, onContentChange } = useDraft();
   const { addJournal } = useJournal();
+  const toast = useToastController();
+  const { t } = useTranslation();
 
   const handleSubmit = () => {
     addJournal(draft);
-    initDraft();
+    toast.show(t('notifications.success.journal.title'), {
+      message: t('notifications.success.journal.message'),
+    });
+    router.replace('/(tabs)');
   };
 
   return (

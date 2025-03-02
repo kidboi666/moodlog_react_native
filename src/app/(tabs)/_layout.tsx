@@ -6,7 +6,7 @@ import React from 'react';
 import { useDraft } from '@/store/hooks/useDraft';
 import { TAB_BAR_HEIGHT } from '@/constants/size';
 
-export default function DrawerLayout() {
+export default function TabsLayout() {
   const theme = useTheme();
   const { draft } = useDraft();
 
