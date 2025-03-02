@@ -10,8 +10,6 @@ export const StatusBar = () => {
 
   useEffect(() => {
     if (Platform.OS === 'android') {
-      // 안드로이드 네비게이션 바 설정
-      NavigationBar.setBackgroundColorAsync(theme.background.val);
       NavigationBar.setButtonStyleAsync(
         resolvedTheme === 'dark' ? 'light' : 'dark',
       );

@@ -37,7 +37,7 @@ export const EmptyJournal = () => {
         rounded="$4"
         color="$gray1"
         icon={<Plus size="$1" />}
-        onPress={() => router.push('/(modal)/write')}
+        onPress={() => router.push('/(tabs)/write')}
         pressStyle={PRESS_STYLE}
       />
     </YStack>

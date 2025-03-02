@@ -4,6 +4,7 @@ import { RadioGroup, Separator } from 'tamagui';
 import { useAppTheme } from '@/store/hooks/useAppTheme';
 import { Theme } from 'src/types/enums';
 import { RadioGroupItem } from '@/components/RadioGroupItem';
+import { SettingHeader } from '@/components/layouts/headers/SettingHeader';
 
 export default function ThemeScreen() {
   const { currentTheme, changeTheme } = useAppTheme();
@@ -15,6 +16,8 @@ export default function ThemeScreen() {
 
   return (
     <Container>
+      <SettingHeader />
+
       <RadioGroup
         value={currentTheme}
         onValueChange={handleValueChange}

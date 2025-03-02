@@ -4,9 +4,10 @@ import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 
 interface Props {
   duration?: number;
+  emoji: string;
 }
 
-export const ShakeHand = ({ duration }: Props) => {
+export const ShakeEmoji = ({ duration, emoji }: Props) => {
   const [isRotate, setIsRotate] = useState(false);
   const [isShaking, setIsShaking] = useState(true);
 
@@ -42,7 +43,7 @@ export const ShakeHand = ({ duration }: Props) => {
       onPress={() => setIsShaking(true)}
       pressStyle={PRESS_STYLE}
     >
-      <H1>👋</H1>
+      <H1>{emoji}</H1>
     </Button>
   );
 };

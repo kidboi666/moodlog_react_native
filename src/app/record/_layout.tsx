@@ -1,4 +1,3 @@
-import { RecordHeader } from '@/components/layouts/headers/RecordHeader';
 import { useTheme } from 'tamagui';
 import { Stack } from 'expo-router';
 
@@ -7,8 +6,7 @@ export default function RecordLayout() {
   return (
     <Stack
       screenOptions={{
-        headerShown: true,
-        header: ({ navigation }) => <RecordHeader navigation={navigation} />,
+        headerShown: false,
         contentStyle: {
           backgroundColor: theme.background.val,
         },

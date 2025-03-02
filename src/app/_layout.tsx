@@ -21,7 +21,7 @@ import { Stack } from 'expo-router';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(drawer)',
+  initialRouteName: '(tabs)',
 };
 
 const FONTS = {
@@ -92,10 +92,9 @@ function RootLayoutNav() {
         <StatusBar />
         <BottomSheetModalProvider>
           <Stack screenOptions={screenOptions}>
-            <Stack.Screen name="(drawer)" />
+            <Stack.Screen name="(tabs)" />
             <Stack.Screen name="(onboarding)" />
             <Stack.Screen name="record" />
-            <Stack.Screen name="write" />
             <Stack.Screen name="(journal)" />
             <Stack.Screen name="+not-found" />
           </Stack>

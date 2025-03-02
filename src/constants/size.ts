@@ -1,3 +1,5 @@
+import { Platform } from 'react-native';
+
 export const CONTAINER_SPACING = 18;
 
 export const CALENDAR_SCROLL_SIZE = 52;
@@ -11,3 +13,5 @@ export const RECORD_CARD_HEIGHT = 180;
 export const RECORD_CARD_EXPANDED_HEIGHT = 450;
 
 export const RECORD_CARD_EXPANDED_HEIGHT_MEDIUM = 380;
+
+export const TAB_BAR_HEIGHT = Platform.OS === 'ios' ? 68 : 60;

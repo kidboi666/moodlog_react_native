@@ -1,15 +1,19 @@
 import { Stack } from 'expo-router';
 import { useTheme } from 'tamagui';
-import { WriteHeader } from '@/components/layouts/headers/WriteHeader';
+import { Platform } from 'react-native';
+import * as NavigationBar from 'expo-navigation-bar';
 
 export default function WriteLayout() {
   const theme = useTheme();
 
+  if (Platform.OS === 'android') {
+    NavigationBar.setBackgroundColorAsync(theme.background.val);
+  }
+
   return (
     <Stack
       screenOptions={{
-        headerShown: true,
-        header: () => <WriteHeader />,
+        headerShown: false,
         contentStyle: {
           backgroundColor: theme.background.val,
         },

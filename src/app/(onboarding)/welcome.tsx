@@ -2,7 +2,7 @@ import { Button, H1, H2, H3, XStack, YStack } from 'tamagui';
 import { useRouter } from 'expo-router';
 import { ArrowRight } from '@tamagui/lucide-icons';
 import { Container } from '@/components/layouts/containers/Container';
-import { ShakeHand } from '@/components/ShakeHand';
+import { ShakeEmoji } from '@/components/ShakeEmoji';
 import { FadeIn } from '@/components/FadeIn';
 import { PARAGRAPH_DELAY } from '@/constants/styles';
 import { useStepProgress } from '@/store/hooks/useStepProgress';
@@ -27,7 +27,7 @@ export default function WelcomeScreen() {
           <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
             <XStack gap="$2">
               <H1>{t('onboarding.welcome.title')}</H1>
-              <ShakeHand />
+              <ShakeEmoji />
             </XStack>
           </FadeIn>
           <FadeIn delay={PARAGRAPH_DELAY.SECOND}>

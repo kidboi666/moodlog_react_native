@@ -4,6 +4,7 @@ import { useApp } from '@/store/hooks/useApp';
 import { RadioGroupItem } from '@/components/RadioGroupItem';
 import { useCallback } from 'react';
 import { Languages } from '@/types/enums';
+import { SettingHeader } from '@/components/layouts/headers/SettingHeader';
 
 export default function LanguageScreen() {
   const { language, onChangeLanguage } = useApp();
@@ -14,6 +15,8 @@ export default function LanguageScreen() {
 
   return (
     <Container>
+      <SettingHeader />
+
       <RadioGroup
         value={language}
         onValueChange={handleValueChange}

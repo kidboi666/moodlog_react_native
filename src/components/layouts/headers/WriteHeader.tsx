@@ -1,7 +1,7 @@
 import { AnimatePresence, Button, XStack } from 'tamagui';
 import React, { useEffect, useMemo } from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
-import { ArrowLeft, CalendarDays, Check } from '@tamagui/lucide-icons';
+import { CalendarDays, Check } from '@tamagui/lucide-icons';
 import { useRouter } from 'expo-router';
 import { ENTER_STYLE, PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 import { HeaderContainer } from '@/components/layouts/containers/HeaderContainer';
@@ -51,15 +51,6 @@ export const WriteHeader = () => {
   return (
     <HeaderContainer>
       <XStack justify="space-between">
-        <Button
-          unstyled
-          animation="quick"
-          p="$2"
-          color="$gray12"
-          icon={<ArrowLeft size="$1" />}
-          onPress={() => router.back()}
-          pressStyle={PRESS_STYLE}
-        />
         <XStack>
           <Button
             unstyled

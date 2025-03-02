@@ -32,10 +32,15 @@ export const DraftContextProvider = ({ children }: PropsWithChildren) => {
     setDraft({});
   }, []);
 
+  const initDraft = useCallback(() => {
+    setDraft({});
+  }, []);
+
   return (
     <DraftContext.Provider
       value={{
         draft,
+        initDraft,
         onLocalDateChange: handleLocalDateChange,
         onEmotionChange: handleEmotionChange,
         onContentChange: handleContentChange,

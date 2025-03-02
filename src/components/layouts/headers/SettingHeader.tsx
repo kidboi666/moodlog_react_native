@@ -2,14 +2,9 @@ import { HeaderContainer } from '@/components/layouts/containers/HeaderContainer
 import { Button, View } from 'tamagui';
 import { ArrowLeft } from '@tamagui/lucide-icons';
 import { PRESS_STYLE } from '@/constants/styles';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { ParamListBase } from '@react-navigation/routers';
+import { router } from 'expo-router';
 
-interface Props {
-  navigation: NativeStackNavigationProp<ParamListBase, string, undefined>;
-}
-
-export const SettingHeader = ({ navigation }: Props) => {
+export const SettingHeader = () => {
   return (
     <HeaderContainer>
       <Button
@@ -17,7 +12,7 @@ export const SettingHeader = ({ navigation }: Props) => {
         unstyled
         rounded="$2"
         icon={<ArrowLeft size="$1" />}
-        onPress={() => navigation.goBack()}
+        onPress={() => router.back()}
         pressStyle={PRESS_STYLE}
       />
       <View flex={1} />
