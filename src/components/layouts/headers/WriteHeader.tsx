@@ -1,41 +1,22 @@
-import { AnimatePresence, Button, XStack } from 'tamagui';
+import { Button, XStack } from 'tamagui';
 import React, { useEffect, useMemo } from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
-import { CalendarDays, Check } from '@tamagui/lucide-icons';
+import { ArrowLeft, CalendarDays } from '@tamagui/lucide-icons';
 import { useRouter } from 'expo-router';
-import { ENTER_STYLE, PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
-import { HeaderContainer } from '@/components/layouts/containers/HeaderContainer';
+import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 import { BottomModal } from '@/components/modals/BottomModal';
 import { DatePickerModal } from '@/components/modals/contents/CalendarPickerModal';
 import { CalendarUtils } from 'react-native-calendars';
-import { EmotionPickerModal } from '@/components/modals/contents/EmotionPickerModal';
 import { useBottomModal } from '@/hooks/useBottomModal';
-import { useToastController } from '@tamagui/toast';
-import { useTranslation } from 'react-i18next';
 import { useDraft } from '@/store/hooks/useDraft';
 import { useDate } from '@/store/hooks/useDate';
 
 export const WriteHeader = () => {
   const router = useRouter();
   const { getDateCountsForMonth, journals } = useJournal();
-  const { draft, onDraftSubmit, onEmotionChange, onLocalDateChange } =
-    useDraft();
+  const { draft, onLocalDateChange } = useDraft();
   const { selectedMonth, selectedYear, onSelectedMonthChange } = useDate();
   const { modalRef: calendarRef, openModal: openCalendar } = useBottomModal();
-  const { modalRef: emotionRef, openModal: openEmotion } = useBottomModal();
-  const toast = useToastController();
-  const { t } = useTranslation();
-
-  const handleSubmit = () => {
-    if (!draft.emotion?.type) {
-      toast.show(t('notifications.warning.emotion.title'), {
-        message: t('notifications.warning.emotion.message'),
-        duration: 2000,
-      });
-    }
-
-    onDraftSubmit(draft);
-  };
 
   const dateCounts = useMemo(
     () => getDateCountsForMonth(selectedYear, selectedMonth + 1),
@@ -49,41 +30,29 @@ export const WriteHeader = () => {
   }, []);
 
   return (
-    <HeaderContainer>
+    <>
       <XStack justify="space-between">
-        <XStack>
-          <Button
-            unstyled
-            animation="quick"
-            p="$2"
-            color="$gray12"
-            icon={<CalendarDays size="$1" />}
-            onPress={openCalendar}
-            pressStyle={PRESS_STYLE}
-          />
-        </XStack>
+        <Button
+          p="$2"
+          unstyled
+          rounded="$2"
+          animation="quick"
+          animateOnly={PRESS_STYLE_KEY}
+          icon={<ArrowLeft size="$1" />}
+          onPress={() => router.back()}
+          pressStyle={PRESS_STYLE}
+        />
+
+        <Button
+          unstyled
+          animation="quick"
+          p="$2"
+          color="$gray12"
+          icon={<CalendarDays size="$1" />}
+          onPress={openCalendar}
+          pressStyle={PRESS_STYLE}
+        />
       </XStack>
-      <AnimatePresence>
-        {draft.content && draft.title && (
-          <Button
-            unstyled
-            bg="$background"
-            themeInverse
-            px="$4"
-            justify="center"
-            icon={Check}
-            rounded="$4"
-            color="$color"
-            disabled={!draft?.content}
-            animation="quick"
-            animateOnly={PRESS_STYLE_KEY}
-            pressStyle={PRESS_STYLE}
-            enterStyle={ENTER_STYLE}
-            exitStyle={ENTER_STYLE}
-            onPress={handleSubmit}
-          />
-        )}
-      </AnimatePresence>
 
       {/* BottomModal */}
       <BottomModal ref={calendarRef}>
@@ -94,12 +63,6 @@ export const WriteHeader = () => {
           onSelectedMonthChange={onSelectedMonthChange}
         />
       </BottomModal>
-      <BottomModal ref={emotionRef}>
-        <EmotionPickerModal
-          selectedEmotion={draft?.emotion}
-          onChangeEmotion={onEmotionChange}
-        />
-      </BottomModal>
-    </HeaderContainer>
+    </>
   );
 };

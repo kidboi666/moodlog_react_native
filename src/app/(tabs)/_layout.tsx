@@ -1,5 +1,5 @@
-import { Button, Circle, useTheme } from 'tamagui';
-import { Tabs } from 'expo-router';
+import { Button, Circle, getToken, useTheme } from 'tamagui';
+import { router, Tabs } from 'expo-router';
 import { Home, Plus, Settings } from '@tamagui/lucide-icons';
 import { ENTER_STYLE, ENTER_STYLE_KEY, PRESS_STYLE } from '@/constants/styles';
 import React from 'react';
@@ -23,16 +23,16 @@ export default function DrawerLayout() {
               animation: 'timing',
             },
           },
-          animation: 'fade',
+          animation: 'shift',
           sceneStyle: { backgroundColor: theme.background.val },
           tabBarStyle: {
             backgroundColor: theme.gray5.val,
             borderTopWidth: 0,
-            borderTopLeftRadius: 40,
-            borderTopRightRadius: 40,
+            borderTopLeftRadius: getToken('$8'),
+            borderTopRightRadius: getToken('$8'),
             shadowColor: '#000',
             shadowOffset: { width: 0, height: -3 },
-            shadowOpacity: 0.05,
+            shadowOpacity: 0.04,
             shadowRadius: 3,
             elevation: 10,
             height: TAB_BAR_HEIGHT,
@@ -72,7 +72,7 @@ export default function DrawerLayout() {
           name="write"
           options={{
             title: 'Write',
-            tabBarButton: ({ onPress, children }) => (
+            tabBarButton: ({ children }) => (
               <Button
                 unstyled
                 items="center"
@@ -84,7 +84,11 @@ export default function DrawerLayout() {
                 bg="$gray1"
                 themeInverse
                 b="$4"
-                onPress={onPress}
+                onPress={() =>
+                  draft.emotion
+                    ? router.push('/write/journal_write')
+                    : router.push('/write/mood_select')
+                }
                 animation="bouncy"
                 animateOnly={ENTER_STYLE_KEY}
                 enterStyle={ENTER_STYLE}

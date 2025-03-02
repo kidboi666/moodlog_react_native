@@ -126,5 +126,4 @@ export interface DraftStore {
   onEmotionChange: (emotion: Emotion) => void;
   onContentChange: (content: string) => void;
   onTitleChange: (title: string) => void;
-  onDraftSubmit: (draft: Draft) => void;
 }

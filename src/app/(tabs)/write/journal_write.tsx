@@ -5,34 +5,25 @@ import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
 import { KeyboardAvoidingView, StyleSheet } from 'react-native';
 import { useDraft } from '@/store/hooks/useDraft';
-import { ArrowLeft, Check } from '@tamagui/lucide-icons';
-import { router } from 'expo-router';
-import { ENTER_STYLE, PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
-import React, { useState } from 'react';
-import { useToastController } from '@tamagui/toast';
-import { useTranslation } from 'react-i18next';
+import { Check } from '@tamagui/lucide-icons';
+import { ENTER_STYLE, ENTER_STYLE_KEY, PRESS_STYLE } from '@/constants/styles';
+import React from 'react';
+import { useJournal } from '@/store/hooks/useJournal';
+import { WriteHeader } from '@/components/layouts/headers/WriteHeader';
 
 export default function JournalWriteScreen() {
   const { fontSize } = useApp();
-  const toast = useToastController();
-  const { t } = useTranslation();
-  const [key, setKey] = useState(0);
-  const { draft, onTitleChange, onContentChange, onDraftSubmit } = useDraft();
+  const { draft, onTitleChange, onContentChange, initDraft } = useDraft();
+  const { addJournal } = useJournal();
 
   const handleSubmit = () => {
-    onDraftSubmit(draft);
-
-    if (!draft.emotion?.type) {
-      toast.show(t('notifications.warning.emotion.title'), {
-        message: t('notifications.warning.emotion.message'),
-        duration: 2000,
-      });
-    }
+    addJournal(draft);
+    initDraft();
   };
 
   return (
-    <KeyboardAvoidingView key={key} style={styles.container}>
-      <Container gap="$3" pl={0} edges={['top']}>
+    <KeyboardAvoidingView style={styles.container} behavior={'height'}>
+      <Container gap="$3" pl={0} edges={['top', 'bottom']}>
         <XStack flex={1} gap="$3">
           {draft.emotion ? (
             <View
@@ -51,39 +42,7 @@ export default function JournalWriteScreen() {
             />
           )}
           <YStack gap="$2" flex={1}>
-            <XStack justify="space-between">
-              <Button
-                p="$2"
-                unstyled
-                rounded="$2"
-                animation="quick"
-                animateOnly={PRESS_STYLE_KEY}
-                icon={<ArrowLeft size="$1" />}
-                onPress={() => router.back()}
-                pressStyle={PRESS_STYLE}
-              />
-              <AnimatePresence>
-                {draft.content && draft.title && (
-                  <Button
-                    unstyled
-                    bg="$background"
-                    themeInverse
-                    px="$4"
-                    justify="center"
-                    icon={Check}
-                    rounded="$4"
-                    color="$color"
-                    disabled={!draft?.content}
-                    animation="quick"
-                    animateOnly={PRESS_STYLE_KEY}
-                    pressStyle={PRESS_STYLE}
-                    enterStyle={ENTER_STYLE}
-                    exitStyle={ENTER_STYLE}
-                    onPress={handleSubmit}
-                  />
-                )}
-              </AnimatePresence>
-            </XStack>
+            <WriteHeader />
             <ContentInput
               fontSize={fontSize}
               contentValue={draft.content}
@@ -91,6 +50,31 @@ export default function JournalWriteScreen() {
               onContentChange={onContentChange}
               onTitleChange={onTitleChange}
             />
+            <View items="center">
+              <AnimatePresence>
+                {draft.content && draft.title && (
+                  <Button
+                    unstyled
+                    bg="$gray12"
+                    rounded="$12"
+                    p="$6"
+                    shadowColor="#000"
+                    shadowOffset={{ width: 0, height: -3 }}
+                    shadowOpacity={0.05}
+                    shadowRadius={3}
+                    elevation={10}
+                    color="$gray1"
+                    icon={<Check size="$1" />}
+                    onPress={handleSubmit}
+                    animation="bouncy"
+                    animateOnly={ENTER_STYLE_KEY}
+                    pressStyle={PRESS_STYLE}
+                    enterStyle={ENTER_STYLE}
+                    exitStyle={ENTER_STYLE}
+                  />
+                )}
+              </AnimatePresence>
+            </View>
           </YStack>
         </XStack>
       </Container>

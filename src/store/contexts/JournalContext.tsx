@@ -40,7 +40,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
-  const addJournal = useCallback((draft: Draft) => {
+  const addJournal = (draft: Draft) => {
     if (draft.content && draft.emotion && draft.localDate && draft.title) {
       const newJournal = {
         id: uuid.v4(),
@@ -50,15 +50,14 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         createdAt: new Date().toISOString(),
         localDate: draft.localDate,
       };
-
       setJournals(prev => [...prev, newJournal]);
 
-      toast.show(t('notifications.success.(journal).title'), {
-        message: t('notifications.success.(journal).message'),
+      toast.show(t('notifications.success.journal.title'), {
+        message: t('notifications.success.journal.message'),
       });
-      router.replace('/(drawer)');
+      router.replace('/(tabs)');
     }
-  }, []);
+  };
 
   const getDateCountsForDate = (
     year: number,

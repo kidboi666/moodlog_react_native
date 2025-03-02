@@ -1,11 +1,10 @@
-import { useTranslation } from 'react-i18next';
 import { AnimatePresence, Button, View, XStack, YStack } from 'tamagui';
 import { CARD_DELAY, PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 import { ArrowLeft } from '@tamagui/lucide-icons';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDraft } from '@/store/hooks/useDraft';
 import { Container } from '@/components/layouts/containers/Container';
-import { router, useFocusEffect } from 'expo-router';
+import { router } from 'expo-router';
 import { MoodSelectTitle } from '@/components/features/write/MoodSelectTitle';
 import { SelectedMoodContainer } from '@/components/features/write/SelectedMoodContainer';
 import { PickerMood } from '@/components/features/write/PickerMood';
@@ -14,20 +13,12 @@ import { FadeIn } from '@/components/FadeIn';
 import { MoodBar } from '@/components/features/write/MoodBar';
 
 export default function MoodScreen() {
-  const { t } = useTranslation();
   const { draft, onEmotionChange } = useDraft();
   const [animationKey, setAnimationKey] = useState(0);
-  const [key, setKey] = useState(0);
 
   useEffect(() => {
     setAnimationKey(key => key + 1);
   }, [draft.emotion?.type, draft.emotion?.level]);
-
-  useFocusEffect(
-    useCallback(() => {
-      setKey(prev => prev++);
-    }, []),
-  );
 
   return (
     <Container edges={['top', 'bottom']} pr={0}>
@@ -41,7 +32,7 @@ export default function MoodScreen() {
         pressStyle={PRESS_STYLE}
         animation="bouncy"
       />
-      <XStack key={key} flex={1} gap="$3">
+      <XStack flex={1} gap="$3">
         <YStack flex={1} justify="space-between" p="$2" gap="$6">
           <FadeIn delay={CARD_DELAY.FIRST}>
             <MoodSelectTitle />

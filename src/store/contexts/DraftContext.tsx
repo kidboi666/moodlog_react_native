@@ -1,6 +1,5 @@
 import { createContext, PropsWithChildren, useCallback, useState } from 'react';
 import { Draft, Emotion } from '@/types/entries';
-import { useJournal } from '@/store/hooks/useJournal';
 import { ISODateString } from '@/types/dtos/date';
 import { DraftStore } from '@/types/store';
 import { Nullable } from '@/types/utils';
@@ -8,7 +7,6 @@ import { Nullable } from '@/types/utils';
 export const DraftContext = createContext<Nullable<DraftStore>>(null);
 
 export const DraftContextProvider = ({ children }: PropsWithChildren) => {
-  const { addJournal } = useJournal();
   const [draft, setDraft] = useState<Draft>({});
 
   const handleLocalDateChange = useCallback((date: ISODateString) => {
@@ -27,14 +25,9 @@ export const DraftContextProvider = ({ children }: PropsWithChildren) => {
     setDraft(prev => ({ ...prev, title }));
   }, []);
 
-  const handleDraftSubmit = useCallback((draft: Draft) => {
-    addJournal(draft);
+  const initDraft = () => {
     setDraft({});
-  }, []);
-
-  const initDraft = useCallback(() => {
-    setDraft({});
-  }, []);
+  };
 
   return (
     <DraftContext.Provider
@@ -45,7 +38,6 @@ export const DraftContextProvider = ({ children }: PropsWithChildren) => {
         onEmotionChange: handleEmotionChange,
         onContentChange: handleContentChange,
         onTitleChange: handleTitleChange,
-        onDraftSubmit: handleDraftSubmit,
       }}
     >
       {children}
