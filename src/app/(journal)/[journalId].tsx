@@ -56,9 +56,11 @@ export default function JournalScreen() {
             </XStack>
           </XStack>
           <YStack
-            animation="bouncy"
-            animateOnly={ENTER_STYLE_KEY}
-            enterStyle={ENTER_STYLE}
+            animation="medium"
+            animateOnly={['opacity']}
+            enterStyle={{
+              opacity: 0,
+            }}
           >
             <H1 mb="$2">{selectedJournal.title}</H1>
             <Paragraph fontWeight="300" fontSize={fontSize}>

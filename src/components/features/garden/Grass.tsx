@@ -2,44 +2,62 @@ import { View } from 'tamagui';
 import { Emotion } from '@/types/entries';
 import { EmotionLevel, EmotionType } from '@/types/enums';
 import { emotionTheme } from '@/constants/themes';
+import { memo, useMemo } from 'react';
+import { Nullable } from '@/types/utils';
 
-interface Props {
-  emotions?: Emotion[];
-  isEmpty?: boolean;
-}
+const calculateEmotionColor = (emotions: Emotion[]) => {
+  if (!emotions || emotions.length === 0) return null;
 
-export const Grass = ({ emotions, isEmpty = false }: Props) => {
-  if (!emotions || isEmpty) {
-    return <View width={16} height={16} />;
-  }
   const scoreBoard = {
     angry: 0,
     peace: 0,
     sad: 0,
     happy: 0,
   };
-  emotions.forEach(emotion => {
-    switch (emotion.level) {
-      case EmotionLevel.FULL: {
-        return (scoreBoard[emotion.type] = scoreBoard[emotion.type] + 3);
-      }
-      case EmotionLevel.HALF: {
-        return (scoreBoard[emotion.type] = scoreBoard[emotion.type] + 2);
-      }
-      case EmotionLevel.ZERO: {
-        return (scoreBoard[emotion.type] = scoreBoard[emotion.type] + 1);
-      }
-    }
+
+  emotions.forEach((emotion: Emotion) => {
+    const scoreMap = {
+      [EmotionLevel.FULL]: 3,
+      [EmotionLevel.HALF]: 2,
+      [EmotionLevel.ZERO]: 1,
+    };
+    scoreBoard[emotion.type] += scoreMap[emotion.level] || 0;
   });
-  const emotionColor = Object.entries(scoreBoard).sort(
-    (a, b) => a[1] - b[1],
-  )[0][0] as EmotionType;
+
+  let maxType = 'happy';
+  let maxScore = -1;
+
+  for (const [type, score] of Object.entries(scoreBoard)) {
+    if (score > maxScore) {
+      maxScore = score;
+      maxType = type;
+    }
+  }
+
+  return maxType as EmotionType;
+};
+
+interface Props {
+  emotions: Nullable<Emotion[]>;
+  isEmpty?: boolean;
+}
+
+export const Grass = memo(({ emotions, isEmpty = false }: Props) => {
+  const emotionColor = useMemo(
+    () => (isEmpty ? null : calculateEmotionColor(emotions!)),
+    [emotions, isEmpty],
+  );
+
+  if (isEmpty) {
+    return <View width={16} height={16} />;
+  }
+
   return (
     <View
-      bg={emotions[0] ? emotionTheme[emotionColor].full : '$gray10'}
+      bg={emotionColor ? emotionTheme[emotionColor].full : '$gray10'}
       width={16}
       height={16}
       rounded="$1"
     />
   );
-};
+});

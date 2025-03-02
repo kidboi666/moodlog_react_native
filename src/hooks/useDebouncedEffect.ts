@@ -1,6 +1,10 @@
 import { useEffect } from 'react';
 
-export const useDebouncedEffect = (effect, deps, delay = 500) => {
+export const useDebouncedEffect = <T>(
+  effect: any,
+  deps: T[],
+  delay: number = 500,
+) => {
   useEffect(() => {
     const handler = setTimeout(() => {
       effect();

@@ -14,7 +14,7 @@ export default function RecordScreen() {
   return (
     <>
       <ScrollView onScroll={onScroll}>
-        <Container gap="$4">
+        <Container gap="$4" pb="$10">
           <FadeIn delay={CARD_DELAY.FIRST}>
             <StatsContainer />
           </FadeIn>

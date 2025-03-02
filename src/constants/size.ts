@@ -4,7 +4,7 @@ export const CALENDAR_SCROLL_SIZE = 52;
 
 export const HOME_HEADER_LINE_HEIGHT = 48;
 
-export const RECORD_UNIT_LINE_HEIGHT = 32;
+export const RECORD_UNIT_LINE_HEIGHT = 26;
 
 export const RECORD_CARD_HEIGHT = 180;
 

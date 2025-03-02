@@ -1,4 +1,4 @@
-import { Button, H1, H3, Text, useEvent, XStack, YStack } from 'tamagui';
+import { Button, H2, H3, Text, useEvent, XStack, YStack } from 'tamagui';
 import { useTranslation } from 'react-i18next';
 import { SignatureEmotion } from '@/types/entries';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
@@ -62,7 +62,7 @@ export const EmotionAverage = ({ signatureEmotion }: Props) => {
       onPressOut={() => (isTouched.value = false)}
       style={animatedStyle}
     >
-      <YStack>
+      <YStack gap="$2">
         <H3 color={hasSignatureEmotion ? '$gray1' : '$gray12'}>
           {t('records.stats.emotion.title')}
         </H3>
@@ -72,11 +72,11 @@ export const EmotionAverage = ({ signatureEmotion }: Props) => {
       </YStack>
       <YStack>
         <XStack>
-          <H1 color={hasSignatureEmotion ? '$gray1' : '$gray12'} flex={1}>
+          <H2 color={hasSignatureEmotion ? '$gray1' : '$gray12'} flex={1}>
             {hasSignatureEmotion
               ? t(`emotions.types.${signatureEmotion.type}`)
               : t('common.fallback.text')}
-          </H1>
+          </H2>
           <Button
             unstyled
             self="flex-end"

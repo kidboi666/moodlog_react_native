@@ -26,7 +26,13 @@ export const ContentInput = ({
   };
 
   return (
-    <YStack flex={1} gap="$4">
+    <YStack
+      flex={1}
+      gap="$4"
+      animation="quick"
+      enterStyle={{ opacity: 0, scale: 0.95 }}
+      animateOnly={['opacity', 'transform']}
+    >
       <Input
         width="100%"
         value={titleValue}

@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Button, H1, H3, Text, View, XStack, YStack } from 'tamagui';
+import { Button, H2, H3, Text, View, XStack, YStack } from 'tamagui';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
 import { getMonthStringWithoutYear } from '@/utils/common';
 import { SelectedMonthStats } from '@/types/entries';
@@ -34,7 +34,7 @@ export const CollapsedContent = ({ selectedMonthStats, isExpanded }: Props) => {
       </YStack>
       <XStack>
         <XStack flex={1} items="flex-end" gap="$2">
-          <H1>{count}</H1>
+          <H2>{count}</H2>
           <Text lineHeight={RECORD_UNIT_LINE_HEIGHT} color="$gray11">
             {t('common.units.count')}
           </Text>

@@ -1,4 +1,4 @@
-import { Button, H1, H3, Text, View, XStack, YStack } from 'tamagui';
+import { Button, H2, H3, Text, View, XStack, YStack } from 'tamagui';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
 import { useTranslation } from 'react-i18next';
 import { RECORD_UNIT_LINE_HEIGHT } from '@/constants/size';
@@ -26,7 +26,7 @@ export const CollapsedContent = ({ isExpanded, journalStats }: Props) => {
       </YStack>
       <XStack>
         <XStack items="flex-end" gap="$2" flex={1}>
-          <H1>{journalStats.totalCount}</H1>
+          <H2>{journalStats.totalCount}</H2>
           <Text lineHeight={RECORD_UNIT_LINE_HEIGHT} color="$gray11">
             {t('common.units.count')}
           </Text>
