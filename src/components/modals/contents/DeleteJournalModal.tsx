@@ -18,9 +18,9 @@ export const DeleteJournalModal = ({ journalId }: Props) => {
 
   return (
     <YStack gap="$4">
-      <H3 text="center">{t('modal.deleteJournal.title')}</H3>
+      <H3 text="center">{t('modals.deleteJournal.title')}</H3>
       <Paragraph text="center" color="$gray11">
-        {t('modal.deleteJournal.description')}
+        {t('modals.deleteJournal.description')}
       </Paragraph>
       <YStack gap="$3" mt="$2">
         <Button
@@ -35,7 +35,7 @@ export const DeleteJournalModal = ({ journalId }: Props) => {
           }}
           pressStyle={PRESS_STYLE}
         >
-          {t('button.delete')}
+          {t('common.button.delete')}
         </Button>
         <Button
           animation="quick"
@@ -44,7 +44,7 @@ export const DeleteJournalModal = ({ journalId }: Props) => {
           onPress={() => dismissAll()}
           pressStyle={PRESS_STYLE}
         >
-          {t('button.cancel')}
+          {t('common.button.cancel')}
         </Button>
       </YStack>
     </YStack>

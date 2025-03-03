@@ -21,10 +21,6 @@ export const DraftContextProvider = ({ children }: PropsWithChildren) => {
     setDraft(prev => ({ ...prev, content }));
   }, []);
 
-  const handleTitleChange = useCallback((title: string) => {
-    setDraft(prev => ({ ...prev, title }));
-  }, []);
-
   const initDraft = () => {
     setDraft({});
   };
@@ -37,7 +33,6 @@ export const DraftContextProvider = ({ children }: PropsWithChildren) => {
         onLocalDateChange: handleLocalDateChange,
         onEmotionChange: handleEmotionChange,
         onContentChange: handleContentChange,
-        onTitleChange: handleTitleChange,
       }}
     >
       {children}

@@ -3,7 +3,7 @@ import { AnimatePresence, Button, View, XStack, YStack } from 'tamagui';
 import { Container } from '@/components/layouts/containers/Container';
 import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
-import { KeyboardAvoidingView, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import { useDraft } from '@/store/hooks/useDraft';
 import { Check } from '@tamagui/lucide-icons';
 import { ENTER_STYLE, ENTER_STYLE_KEY, PRESS_STYLE } from '@/constants/styles';
@@ -16,7 +16,7 @@ import { router } from 'expo-router';
 
 export default function JournalWriteScreen() {
   const { fontSize } = useApp();
-  const { draft, onTitleChange, onContentChange } = useDraft();
+  const { draft, onContentChange } = useDraft();
   const { addJournal } = useJournal();
   const toast = useToastController();
   const { t } = useTranslation();
@@ -30,8 +30,11 @@ export default function JournalWriteScreen() {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={'height'}>
-      <Container gap="$3" pl={0} edges={['top', 'bottom']}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'height' : 'padding'}
+    >
+      <Container gap="$3" pl={0} edges={['top']}>
         <XStack flex={1} gap="$3">
           {draft.emotion ? (
             <View
@@ -54,18 +57,16 @@ export default function JournalWriteScreen() {
             <ContentInput
               fontSize={fontSize}
               contentValue={draft.content}
-              titleValue={draft.title}
               onContentChange={onContentChange}
-              onTitleChange={onTitleChange}
             />
             <View items="center">
               <AnimatePresence>
-                {draft.content && draft.title && (
+                {draft.content && (
                   <Button
                     unstyled
                     bg="$gray12"
                     rounded="$12"
-                    p="$6"
+                    p="$4"
                     shadowColor="#000"
                     shadowOffset={{ width: 0, height: -3 }}
                     shadowOpacity={0.05}

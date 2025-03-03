@@ -16,19 +16,21 @@ export default function MoodScreen() {
   const { draft, onEmotionChange } = useDraft();
 
   return (
-    <Container edges={['top', 'bottom']} pr={0}>
+    <Container edges={['top']} pr={0}>
       <XStack flex={1} gap="$3">
         <YStack flex={1}>
-          <Button
-            p="$2"
-            unstyled
-            rounded="$2"
-            animateOnly={PRESS_STYLE_KEY}
-            icon={<ArrowLeft size="$1" />}
-            onPress={() => router.back()}
-            pressStyle={PRESS_STYLE}
-            animation="bouncy"
-          />
+          <XStack>
+            <Button
+              p="$2"
+              unstyled
+              rounded="$2"
+              animateOnly={PRESS_STYLE_KEY}
+              icon={<ArrowLeft size="$1" />}
+              onPress={() => router.back()}
+              pressStyle={PRESS_STYLE}
+              animation="bouncy"
+            />
+          </XStack>
           <YStack flex={1} justify="space-between" p="$2" gap="$6">
             <FadeIn delay={CARD_DELAY.FIRST}>
               <MoodSelectTitle />

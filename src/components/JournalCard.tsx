@@ -17,7 +17,7 @@ export const JournalCard = ({ journal, index }: Props) => {
     <FadeIn delay={100 * (index + 1)}>
       <Link
         href={{
-          pathname: '/(journal)/[journalId]',
+          pathname: '/(tabs)/(journal)/[journalId]',
           params: { journalId: journal.id },
         }}
         asChild
@@ -34,7 +34,7 @@ export const JournalCard = ({ journal, index }: Props) => {
           p="$4"
           pl="$3"
           items="center"
-          gap="$3"
+          gap="$1"
         >
           <View
             width="$0.75"
@@ -43,14 +43,9 @@ export const JournalCard = ({ journal, index }: Props) => {
             rounded="$8"
             bg={emotionTheme[journal.emotion.type][journal.emotion.level]}
           />
-          <YStack flex={1} gap="$4">
-            {journal.title && (
-              <Paragraph fontWeight="800" fontSize="$6">
-                {journal.title.trim()}
-              </Paragraph>
-            )}
+          <YStack flex={1} gap="$2">
             {journal.content.length > 0 && (
-              <Paragraph color="$gray12" flex={1} numberOfLines={4}>
+              <Paragraph color="$gray12" flex={1} numberOfLines={2}>
                 {journal.content}
               </Paragraph>
             )}

@@ -4,7 +4,7 @@ import { useFonts } from 'expo-font';
 import { useEffect, useMemo } from 'react';
 import { StatusBar } from '@/components/StatusBar';
 import { useAppTheme } from '@/store/hooks/useAppTheme';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { useTheme } from 'tamagui';
 import * as SplashScreen from 'expo-splash-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -18,6 +18,7 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import '../i18n';
 import { useUser } from '@/store/hooks/useUser';
 import { Stack } from 'expo-router';
+import * as NavigationBar from 'expo-navigation-bar';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -82,6 +83,15 @@ function RootLayoutNav() {
     [backgroundStyle],
   );
 
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      NavigationBar.setButtonStyleAsync(
+        resolvedTheme === 'dark' ? 'light' : 'dark',
+      );
+      NavigationBar.setBackgroundColorAsync(theme.gray5.val);
+    }
+  }, [resolvedTheme]);
+
   if (isLoading) return null;
 
   return (
@@ -94,8 +104,6 @@ function RootLayoutNav() {
           <Stack screenOptions={screenOptions}>
             <Stack.Screen name="(tabs)" />
             <Stack.Screen name="(onboarding)" />
-            <Stack.Screen name="record" />
-            <Stack.Screen name="(journal)" />
             <Stack.Screen name="+not-found" />
           </Stack>
           <CurrentToast />

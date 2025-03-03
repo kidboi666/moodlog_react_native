@@ -1,5 +1,9 @@
 import { View, ViewProps } from 'tamagui';
-import { CONTAINER_SPACING } from '@/constants/size';
+import {
+  CONTAINER_MARGIN_TOP,
+  CONTAINER_PADDING_BOTTOM,
+  CONTAINER_SPACING,
+} from '@/constants/size';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface Props extends ViewProps {
@@ -10,8 +14,10 @@ export const Container = ({ children, edges, ...props }: Props) => {
   const insets = useSafeAreaInsets();
 
   const safeAreaMargins = {
-    mt: edges?.includes('top') ? insets.top : 0,
-    mb: edges?.includes('bottom') ? insets.bottom : 0,
+    mt: edges?.includes('top') ? insets.top + CONTAINER_MARGIN_TOP : 0,
+    mb: edges?.includes('bottom')
+      ? insets.bottom + CONTAINER_PADDING_BOTTOM
+      : 0,
   };
 
   return (

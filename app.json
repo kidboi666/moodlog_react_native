@@ -1,6 +1,5 @@
 {
   "expo": {
-    "jsEngine": "hermes",
     "name": "moodlog",
     "slug": "moodlog",
     "version": "1.0.0",

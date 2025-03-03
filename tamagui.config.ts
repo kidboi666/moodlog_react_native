@@ -36,6 +36,27 @@ const systemFont = createFont({
     800: { normal: 'Pretendard-Bold' },
   },
 });
+//
+// const smoothBezierEasing = Easing.bezier(0.215, 0.61, 0.355, 1.0);
+//
+// const animations = createAnimations({
+//   medium: {
+//     type: 'timing',
+//     duration: 300,
+//     easing: Easing.in(Easing.cubic),
+//   },
+//   quick: {
+//     type: 'timing',
+//     duration: 400,
+//     easing: smoothBezierEasing,
+//   },
+//   bouncy: {
+//     type: 'spring',
+//     damping: 10,
+//     mass: 0.9,
+//     stiffness: 100,
+//   },
+// });
 
 export const config = createTamagui({
   ...defaultConfig,

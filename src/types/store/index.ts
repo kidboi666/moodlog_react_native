@@ -126,5 +126,4 @@ export interface DraftStore {
   onLocalDateChange: (date: ISODateString) => void;
   onEmotionChange: (emotion: Emotion) => void;
   onContentChange: (content: string) => void;
-  onTitleChange: (title: string) => void;
 }

@@ -9,7 +9,6 @@ export type Emotion = {
 
 export type Journal = {
   id: string;
-  title: string;
   content: string;
   emotion: Emotion;
   createdAt: string;
@@ -17,7 +16,7 @@ export type Journal = {
 };
 
 export type Draft = {} & Partial<
-  Pick<Journal, 'title' | 'content' | 'emotion' | 'localDate'>
+  Pick<Journal, 'content' | 'emotion' | 'localDate'>
 >;
 
 export type DateCounts = {

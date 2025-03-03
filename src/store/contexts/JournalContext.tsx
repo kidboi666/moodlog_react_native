@@ -38,10 +38,9 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   };
 
   const addJournal = (draft: Draft) => {
-    if (draft.content && draft.emotion && draft.localDate && draft.title) {
+    if (draft.content && draft.emotion && draft.localDate) {
       const newJournal = {
         id: uuid.v4(),
-        title: draft.title,
         content: draft.content,
         emotion: draft.emotion,
         createdAt: new Date().toISOString(),
