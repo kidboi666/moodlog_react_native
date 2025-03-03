@@ -13,12 +13,9 @@ export const NextButton = ({ emotion }: Props) => {
   return (
     <View items="center">
       <Button
-        unstyled
         bg="$gray12"
-        rounded="$12"
-        p="$6"
         disabled={!emotion}
-        color={!emotion ? '$gray6' : '$gray1'}
+        color="$gray1"
         onPress={() => router.push('/write/journal_write')}
         icon={<ArrowRight size="$1" />}
         animation="bouncy"
