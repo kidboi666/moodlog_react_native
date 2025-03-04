@@ -10,6 +10,7 @@ import { useScroll } from '@/store/hooks/useScroll';
 import { toSingle } from '@/utils/common';
 import { ENTER_STYLE, ENTER_STYLE_KEY } from '@/constants/styles';
 import JournalHeader from '@/components/layouts/headers/JournalHeader';
+import { Image, StyleSheet } from 'react-native';
 
 export default function JournalScreen() {
   const { journalId } = useLocalSearchParams();
@@ -17,7 +18,7 @@ export default function JournalScreen() {
   const { fontSize } = useApp();
   const { onScroll } = useScroll();
   const { t } = useTranslation();
-
+  console.log(selectedJournal);
   useEffect(() => {
     onSelectedJournalChange(toSingle(journalId));
   }, [journalId]);
@@ -25,10 +26,9 @@ export default function JournalScreen() {
   if (!selectedJournal || selectedJournal?.id !== journalId) return null;
 
   return (
-    <ScrollView onScroll={onScroll}>
+    <ScrollView onScroll={onScroll} overScrollMode="always">
       <Container edges={['bottom']} pl={0}>
         <JournalHeader />
-
         <XStack gap="$3">
           <View
             width="3%"
@@ -43,7 +43,7 @@ export default function JournalScreen() {
               ]
             }
           />
-          <YStack gap="$4">
+          <YStack gap="$4" flex={1}>
             <XStack gap="$2">
               <XStack
                 gap="$2"
@@ -58,6 +58,14 @@ export default function JournalScreen() {
                 <H3>{t(`emotions.types.${selectedJournal.emotion?.type}`)}</H3>
               </XStack>
             </XStack>
+            {selectedJournal.imageUri && (
+              <View style={styles.imageContainer}>
+                <Image
+                  source={{ uri: selectedJournal.imageUri }}
+                  style={styles.image}
+                />
+              </View>
+            )}
             <YStack
               animation="medium"
               animateOnly={['opacity']}
@@ -76,3 +84,23 @@ export default function JournalScreen() {
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  image: {
+    width: 300,
+    height: 300,
+    borderRadius: 10,
+    elevation: 10,
+  },
+  imageContainer: {
+    width: 300,
+    height: 300,
+    marginHorizontal: 'auto',
+    borderRadius: 10,
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+  },
+});
