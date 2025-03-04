@@ -1,6 +1,5 @@
-import { Button, Square, Text, View, XStack, YStack } from 'tamagui';
+import { Button, Text, View, XStack, YStack } from 'tamagui';
 import { EmotionLevel, EmotionType } from '@/types/enums';
-import { PRESS_STYLE } from '@/constants/styles';
 import { Check } from '@tamagui/lucide-icons';
 import { emotionTheme } from '@/constants/themes';
 import React from 'react';
@@ -33,11 +32,9 @@ export const PickerMood = ({ onEmotionChange, emotion }: Props) => {
               {Object.values(EmotionLevel).map(level => (
                 <Button
                   key={type + level}
-                  unstyled
-                  animation="medium"
-                  justify="center"
-                  items="center"
-                  pressStyle={PRESS_STYLE}
+                  animation="quick"
+                  size="$5"
+                  bg={emotionTheme[type][level]}
                   onPress={() =>
                     onEmotionChange({
                       type,
@@ -56,13 +53,7 @@ export const PickerMood = ({ onEmotionChange, emotion }: Props) => {
                       />
                     ) : null
                   }
-                >
-                  <Square
-                    rounded="$6"
-                    size="$5"
-                    bg={emotionTheme[type][level]}
-                  />
-                </Button>
+                />
               ))}
             </YStack>
             <View key={index}>

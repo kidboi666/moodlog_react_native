@@ -1,9 +1,8 @@
 import { Button, XStack } from 'tamagui';
 import React, { useEffect, useMemo } from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
-import { ArrowLeft, CalendarDays } from '@tamagui/lucide-icons';
+import { ArrowLeft } from '@tamagui/lucide-icons';
 import { useRouter } from 'expo-router';
-import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 import { BottomModal } from '@/components/modals/BottomModal';
 import { DatePickerModal } from '@/components/modals/contents/CalendarPickerModal';
 import { CalendarUtils } from 'react-native-calendars';
@@ -33,25 +32,19 @@ export const WriteHeader = () => {
     <>
       <XStack justify="space-between">
         <Button
-          p="$2"
-          unstyled
           rounded="$2"
+          size="$3"
           animation="quick"
-          animateOnly={PRESS_STYLE_KEY}
           icon={<ArrowLeft size="$1" />}
           onPress={() => router.back()}
-          pressStyle={PRESS_STYLE}
         />
 
-        <Button
-          unstyled
-          animation="quick"
-          p="$2"
-          color="$gray12"
-          icon={<CalendarDays size="$1" />}
-          onPress={openCalendar}
-          pressStyle={PRESS_STYLE}
-        />
+        {/*<Button*/}
+        {/*  animation="quick"*/}
+        {/*  size="$3"*/}
+        {/*  icon={<CalendarDays size="$1" />}*/}
+        {/*  onPress={openCalendar}*/}
+        {/*/>*/}
       </XStack>
 
       {/* BottomModal */}

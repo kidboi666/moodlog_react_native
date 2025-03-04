@@ -1,4 +1,12 @@
-import { H3, Paragraph, ScrollView, View, XStack, YStack } from 'tamagui';
+import {
+  H3,
+  Image,
+  Paragraph,
+  ScrollView,
+  View,
+  XStack,
+  YStack,
+} from 'tamagui';
 import React, { useEffect } from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
 import { Container } from '@/components/layouts/containers/Container';
@@ -10,7 +18,6 @@ import { useScroll } from '@/store/hooks/useScroll';
 import { toSingle } from '@/utils/common';
 import { ENTER_STYLE, ENTER_STYLE_KEY } from '@/constants/styles';
 import JournalHeader from '@/components/layouts/headers/JournalHeader';
-import { Image, StyleSheet } from 'react-native';
 
 export default function JournalScreen() {
   const { journalId } = useLocalSearchParams();
@@ -18,7 +25,7 @@ export default function JournalScreen() {
   const { fontSize } = useApp();
   const { onScroll } = useScroll();
   const { t } = useTranslation();
-  console.log(selectedJournal);
+
   useEffect(() => {
     onSelectedJournalChange(toSingle(journalId));
   }, [journalId]);
@@ -27,8 +34,7 @@ export default function JournalScreen() {
 
   return (
     <ScrollView onScroll={onScroll} overScrollMode="always">
-      <Container edges={['bottom']} pl={0}>
-        <JournalHeader />
+      <Container edges={['bottom']} pl={0} gap="$6" Header={<JournalHeader />}>
         <XStack gap="$3">
           <View
             width="3%"
@@ -59,48 +65,36 @@ export default function JournalScreen() {
               </XStack>
             </XStack>
             {selectedJournal.imageUri && (
-              <View style={styles.imageContainer}>
+              <View
+                animation="bouncy"
+                width={300}
+                height={300}
+                mx={'auto'}
+                rounded="$8"
+                bg={'white'}
+                shadowColor={'#000'}
+                shadowOffset={{ width: 0, height: 3 }}
+                shadowOpacity={0.2}
+                shadowRadius={8}
+                enterStyle={ENTER_STYLE}
+                elevationAndroid={10}
+              >
                 <Image
                   source={{ uri: selectedJournal.imageUri }}
-                  style={styles.image}
+                  width="100%"
+                  height="100%"
+                  rounded="$8"
                 />
               </View>
             )}
-            <YStack
-              animation="medium"
-              animateOnly={['opacity']}
-              enterStyle={{
-                opacity: 0,
-              }}
-            >
-              <Paragraph fontWeight="300" fontSize={fontSize}>
-                {selectedJournal.content}
-              </Paragraph>
-              <View height="$8" />
-            </YStack>
+
+            <Paragraph fontWeight="300" fontSize={fontSize}>
+              {selectedJournal.content}
+            </Paragraph>
+            <View height="$8" />
           </YStack>
         </XStack>
       </Container>
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  image: {
-    width: 300,
-    height: 300,
-    borderRadius: 10,
-    elevation: 10,
-  },
-  imageContainer: {
-    width: 300,
-    height: 300,
-    marginHorizontal: 'auto',
-    borderRadius: 10,
-    backgroundColor: 'white',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-  },
-});

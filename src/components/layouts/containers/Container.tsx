@@ -5,12 +5,14 @@ import {
   CONTAINER_SPACING,
 } from '@/constants/size';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ReactNode } from 'react';
 
 interface Props extends ViewProps {
   edges?: Array<'top' | 'bottom'>;
+  Header?: ReactNode;
 }
 
-export const Container = ({ children, edges, ...props }: Props) => {
+export const Container = ({ children, Header, edges, ...props }: Props) => {
   const insets = useSafeAreaInsets();
 
   const safeAreaMargins = {
@@ -22,6 +24,7 @@ export const Container = ({ children, edges, ...props }: Props) => {
 
   return (
     <View flex={1} px={CONTAINER_SPACING} {...safeAreaMargins} {...props}>
+      {Header && Header}
       {children}
     </View>
   );

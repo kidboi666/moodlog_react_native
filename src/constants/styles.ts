@@ -6,13 +6,14 @@ import { Dimensions } from 'react-native';
 export const ENTER_STYLE = {
   opacity: 0,
   scale: 0.85,
+  y: 10,
 };
 
 export const ENTER_STYLE_KEY = ['opacity', 'transform'];
 
 export const PRESS_STYLE = {
   opacity: 0.5,
-  scale: 0.9,
+  scale: 0.925,
 };
 
 export const PRESS_STYLE_KEY = ['opacity', 'transform'];

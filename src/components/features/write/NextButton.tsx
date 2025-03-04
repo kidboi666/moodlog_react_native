@@ -3,7 +3,7 @@ import React from 'react';
 import { Emotion } from '@/types/entries';
 import { router } from 'expo-router';
 import { ArrowRight } from '@tamagui/lucide-icons';
-import { ENTER_STYLE, ENTER_STYLE_KEY, PRESS_STYLE } from '@/constants/styles';
+import { ENTER_STYLE } from '@/constants/styles';
 
 interface Props {
   emotion?: Emotion;
@@ -13,14 +13,10 @@ export const NextButton = ({ emotion }: Props) => {
   return (
     <View items="center">
       <Button
-        bg="$gray12"
+        animation="bouncy"
         disabled={!emotion}
-        color="$gray1"
         onPress={() => router.push('/write/journal_write')}
         icon={<ArrowRight size="$1" />}
-        animation="bouncy"
-        animateOnly={ENTER_STYLE_KEY}
-        pressStyle={PRESS_STYLE}
         enterStyle={ENTER_STYLE}
       />
     </View>

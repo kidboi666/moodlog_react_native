@@ -6,7 +6,7 @@ import {
   Plus,
   Settings,
 } from '@tamagui/lucide-icons';
-import { ENTER_STYLE, ENTER_STYLE_KEY, PRESS_STYLE } from '@/constants/styles';
+import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
 import React, { useEffect } from 'react';
 import { useDraft } from '@/store/hooks/useDraft';
 import { TAB_BAR_HEIGHT } from '@/constants/size';
@@ -17,6 +17,8 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Platform } from 'react-native';
+import { HIDE_TAB_BAR_ROUTES } from '@/constants/routes';
 
 const AnimatedStack = Animated.createAnimatedComponent(Stack);
 
@@ -29,8 +31,7 @@ export const CustomTabBar = () => {
   const translateY = useSharedValue(0);
 
   useEffect(() => {
-    if (pathname.startsWith('/write')) {
-      // write 페이지일 때 아래로 사라지게 함
+    if (HIDE_TAB_BAR_ROUTES.some(route => pathname.startsWith(route))) {
       translateY.value = withTiming(TAB_BAR_HEIGHT + insets.bottom, {
         duration: 300,
         easing: Easing.inOut(Easing.ease),
@@ -71,23 +72,26 @@ export const CustomTabBar = () => {
       pb={insets.bottom}
       flexDirection="row"
       bg={theme.gray5.val as any}
-      borderTopRightRadius={getToken('$8')}
-      borderTopLeftRadius={getToken('$8')}
+      borderTopRightRadius={getToken('$12')}
+      borderTopLeftRadius={getToken('$12')}
       shadowColor="#000"
       shadowOffset={{ width: 0, height: -3 }}
-      shadowOpacity={0.04}
+      shadowOpacity={0.1}
       shadowRadius={3}
+      elevationAndroid={10}
       style={animatedStyle}
     >
-      <Stack flex={1} flexDirection="row" justify="space-around" items="center">
+      <Stack
+        flex={1}
+        pt={Platform.OS === 'ios' ? '$4' : undefined}
+        flexDirection="row"
+        justify="space-around"
+        items="center"
+      >
         {/* Home 탭 */}
         <Button
-          unstyled
-          justify="center"
-          items="center"
-          p="$4"
+          bg="transparent"
           animation="bouncy"
-          animateOnly={['color', ...ENTER_STYLE_KEY]}
           enterStyle={ENTER_STYLE}
           onPress={() => navigateTo('/')}
           pressStyle={PRESS_STYLE}
@@ -97,30 +101,20 @@ export const CustomTabBar = () => {
 
         {/* Record 탭 */}
         <Button
-          unstyled
-          justify="center"
-          items="center"
-          p="$4"
-          rounded="$8"
+          bg="transparent"
           animation="quick"
-          animateOnly={['color', ...ENTER_STYLE_KEY]}
+          pressStyle={PRESS_STYLE}
           enterStyle={ENTER_STYLE}
           onPress={() => navigateTo('/record')}
-          pressStyle={PRESS_STYLE}
           color={isActive('/record') ? '$gray12' : '$gray10'}
           icon={<FileChartColumnIncreasing size="$1" />}
         />
 
         {/* Write 탭 */}
         <Button
-          unstyled
-          p="$4"
-          items="center"
-          rounded="$8"
           bg="$gray1"
           onPress={() => navigateTo('/write')}
           animation="bouncy"
-          animateOnly={['color', ...ENTER_STYLE_KEY]}
           enterStyle={ENTER_STYLE}
           pressStyle={PRESS_STYLE}
           color="$gray10"
@@ -140,15 +134,11 @@ export const CustomTabBar = () => {
 
         {/* Settings 탭 */}
         <Button
-          unstyled
-          justify="center"
-          items="center"
-          p="$4"
+          bg="transparent"
           animation="bouncy"
-          animateOnly={['color', ...ENTER_STYLE_KEY]}
+          pressStyle={PRESS_STYLE}
           enterStyle={ENTER_STYLE}
           onPress={() => navigateTo('/settings')}
-          pressStyle={PRESS_STYLE}
           color={isActive('/settings') ? '$gray12' : '$gray11'}
           icon={<Settings size="$1" />}
         />

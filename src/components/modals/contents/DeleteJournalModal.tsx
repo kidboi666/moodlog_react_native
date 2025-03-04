@@ -25,8 +25,8 @@ export const DeleteJournalModal = ({ journalId }: Props) => {
       <YStack gap="$3" mt="$2">
         <Button
           animation="quick"
-          animateOnly={PRESS_STYLE_KEY}
-          bg="$red8"
+          bg="$red9"
+          color="white"
           fontWeight="800"
           onPress={() => {
             removeJournal(journalId);

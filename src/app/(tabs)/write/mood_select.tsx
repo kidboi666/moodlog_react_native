@@ -1,5 +1,5 @@
 import { Button, XStack, YStack } from 'tamagui';
-import { CARD_DELAY, PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
+import { CARD_DELAY } from '@/constants/styles';
 import { ArrowLeft } from '@tamagui/lucide-icons';
 import React from 'react';
 import { useDraft } from '@/store/hooks/useDraft';
@@ -16,19 +16,15 @@ export default function MoodScreen() {
   const { draft, onEmotionChange } = useDraft();
 
   return (
-    <Container edges={['top']} pr={0}>
+    <Container edges={['top', 'bottom']} pr={0}>
       <XStack flex={1} gap="$3">
-        <YStack flex={1}>
+        <YStack flex={1} gap="$6">
           <XStack>
             <Button
-              p="$2"
-              unstyled
-              rounded="$2"
-              animateOnly={PRESS_STYLE_KEY}
+              animation="quick"
+              size="$3"
               icon={<ArrowLeft size="$1" />}
               onPress={() => router.back()}
-              pressStyle={PRESS_STYLE}
-              animation="bouncy"
             />
           </XStack>
           <YStack flex={1} justify="space-between" p="$2" gap="$6">

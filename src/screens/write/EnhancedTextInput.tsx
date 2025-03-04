@@ -1,11 +1,13 @@
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { getToken, Input, ScrollView, TextArea, YStack } from 'tamagui';
-import { TextInput } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { ViewFontSize } from '@/types/enums';
+import { Nullable } from '@/types/utils';
 
 interface EnhancedTextInputProps {
   fontSize: ViewFontSize;
+  imageUri?: Nullable<string>;
   contentValue?: string;
   onContentChange: (content: string) => void;
   autoFocus?: boolean;
@@ -18,10 +20,10 @@ export interface EnhancedTextInputRef {
 export const EnhancedTextInput = forwardRef<
   EnhancedTextInputRef,
   EnhancedTextInputProps
->(({ fontSize, contentValue, onContentChange, autoFocus }, ref) => {
+>(({ fontSize, contentValue, onContentChange, autoFocus, imageUri }, ref) => {
   const { t } = useTranslation();
-  const firstInputRef = useRef<TextInput>(null);
-  const secondInputRef = useRef<TextInput>(null);
+  const firstInputRef = useRef<Input>(null);
+  const secondInputRef = useRef<Input>(null);
 
   const contentLines = contentValue ? contentValue.split('\n') : [''];
   const firstLine = contentLines[0] || '';
@@ -67,14 +69,16 @@ export const EnhancedTextInput = forwardRef<
   }));
 
   return (
-    <YStack
-      flex={1}
-      gap="$4"
-      animation="quick"
-      enterStyle={{ opacity: 0, scale: 0.95 }}
-      animateOnly={['opacity', 'transform']}
-    >
-      <ScrollView flex={1}>
+    <ScrollView>
+      <YStack
+        flex={1}
+        gap="$2"
+        animation="quick"
+        enterStyle={{ opacity: 0, scale: 0.95 }}
+        animateOnly={['opacity', 'transform']}
+      >
+        {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
+
         {/* 첫 번째 줄 (큰 글씨) */}
         <Input
           unstyled
@@ -104,7 +108,20 @@ export const EnhancedTextInput = forwardRef<
           placeholder={t('placeholders.journal.content')}
           placeholderTextColor="$gray7"
         />
-      </ScrollView>
-    </YStack>
+      </YStack>
+    </ScrollView>
   );
+});
+
+const styles = StyleSheet.create({
+  image: {
+    width: 200,
+    height: 200,
+    marginHorizontal: 'auto',
+    borderRadius: 12,
+    elevation: 10,
+    shadowColor: 'black',
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+  },
 });

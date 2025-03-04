@@ -1,4 +1,4 @@
-import { ScrollView, Stack, useTheme } from 'tamagui';
+import { Stack, useTheme } from 'tamagui';
 import { LinearGradient } from 'tamagui/linear-gradient';
 import React from 'react';
 import { Slot } from 'expo-router';
@@ -13,7 +13,7 @@ export default function TabsLayout() {
     const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     const formattedHex = hex.replace(
       shorthandRegex,
-      (m, r, g, b) => r + r + g + g + b + b,
+      (_, r, g, b) => r + r + g + g + b + b,
     );
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(
       formattedHex,
@@ -31,7 +31,7 @@ export default function TabsLayout() {
   const transparentBg = `rgba(${bgRgb}, 0)`;
 
   return (
-    <Stack flex={1} pb="$8" position="relative">
+    <Stack flex={1} position="relative">
       <Slot />
       <LinearGradient
         position="absolute"

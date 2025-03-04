@@ -36,7 +36,11 @@ export default function HomeScreen() {
   }
 
   return (
-    <ScrollView onScroll={onScroll} scrollEventThrottle={16}>
+    <ScrollView
+      onScroll={onScroll}
+      scrollEventThrottle={16}
+      overScrollMode="always"
+    >
       <Container edges={['top', 'bottom']}>
         <YStack gap="$3">
           <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
@@ -62,7 +66,9 @@ export default function HomeScreen() {
           dailyJournals.map((journal, index) => (
             <View key={journal.id}>
               {index > 0 && <Separator borderColor="transparent" mb="$4" />}
-              <JournalCard journal={journal} index={index} />
+              <FadeIn delay={100 * (index + 1)}>
+                <JournalCard journal={journal} />
+              </FadeIn>
             </View>
           ))
         )}

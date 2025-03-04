@@ -45,6 +45,7 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
         emotion: draft.emotion,
         createdAt: new Date().toISOString(),
         localDate: draft.localDate,
+        imageUri: draft.imageUri ? draft.imageUri : null,
       };
       setJournals(prev => [...prev, newJournal]);
       setIsSubmitted(true);

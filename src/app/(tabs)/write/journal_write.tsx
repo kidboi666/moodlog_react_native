@@ -11,8 +11,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useDraft } from '@/store/hooks/useDraft';
-import { Check, Timer } from '@tamagui/lucide-icons';
-import { ENTER_STYLE, ENTER_STYLE_KEY, PRESS_STYLE } from '@/constants/styles';
+import { Check, ImagePlus, Timer } from '@tamagui/lucide-icons';
+import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
 import { useJournal } from '@/store/hooks/useJournal';
 import { WriteHeader } from '@/components/layouts/headers/WriteHeader';
 import { useTranslation } from 'react-i18next';
@@ -25,7 +25,7 @@ import {
 
 export default function JournalWriteScreen() {
   const { fontSize } = useApp();
-  const { draft, onContentChange } = useDraft();
+  const { draft, onContentChange, onTimeStamp, onImageUriChange } = useDraft();
   const { addJournal } = useJournal();
   const toast = useToastController();
   const { t } = useTranslation();
@@ -48,6 +48,7 @@ export default function JournalWriteScreen() {
       setInputKey(prev => prev + 1);
     }
   };
+
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
@@ -68,17 +69,19 @@ export default function JournalWriteScreen() {
       keyboardDidHideListener.remove();
     };
   }, []);
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'height' : 'padding'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? -60 : 0}
     >
       <TouchableOpacity
         activeOpacity={1}
         style={StyleSheet.absoluteFill}
         onPress={triggerFocus}
       >
-        <Container gap="$3" pl={0} edges={['top']}>
+        <Container gap="$3" pl={0} edges={['top', 'bottom']}>
           <XStack flex={1} gap="$3">
             {draft.emotion ? (
               <View
@@ -96,43 +99,54 @@ export default function JournalWriteScreen() {
                 bg="$gray8"
               />
             )}
-            <YStack gap="$2" flex={1} z={1}>
+            <YStack gap="$6" flex={1} z={1}>
               <WriteHeader />
+
               <EnhancedTextInput
                 key={inputKey}
                 ref={enhancedInputRef}
+                imageUri={draft.imageUri}
                 fontSize={fontSize}
                 contentValue={draft.content}
                 onContentChange={onContentChange}
                 autoFocus={true}
               />
               <View items="center">
-                <AnimatePresence>
-                  {isKeyboardVisible && (
-                    <XStack
-                      r={0}
-                      position="absolute"
-                      b={12}
-                      gap="$2"
-                      animation="medium"
-                      enterStyle={ENTER_STYLE}
-                      exitStyle={ENTER_STYLE}
-                      pressStyle={PRESS_STYLE}
-                    >
-                      <Button
-                        icon={<Check size="$1" />}
-                        onPress={handleSubmit}
-                        animation="medium"
-                        bg="$gray5"
-                        animateOnly={ENTER_STYLE_KEY}
-                        pressStyle={PRESS_STYLE}
-                        enterStyle={ENTER_STYLE}
-                        exitStyle={ENTER_STYLE}
-                      />
-                      <Button icon={<Timer size="$1" />} bg="$gray5" />
-                    </XStack>
-                  )}
-                </AnimatePresence>
+                <XStack position="absolute" r={0} b={12} gap="$2">
+                  <AnimatePresence>
+                    {isKeyboardVisible && (
+                      <>
+                        <Button
+                          animation="medium"
+                          enterStyle={ENTER_STYLE}
+                          exitStyle={ENTER_STYLE}
+                          pressStyle={PRESS_STYLE}
+                          icon={<ImagePlus size="$1" />}
+                          onPress={onImageUriChange}
+                          bg="$gray5"
+                        />
+                        <Button
+                          animation="medium"
+                          enterStyle={ENTER_STYLE}
+                          exitStyle={ENTER_STYLE}
+                          pressStyle={PRESS_STYLE}
+                          onPress={onTimeStamp}
+                          icon={<Timer size="$1" />}
+                          bg="$gray5"
+                        />
+                      </>
+                    )}
+                  </AnimatePresence>
+                  <Button
+                    bg="$gray5"
+                    onPress={handleSubmit}
+                    icon={<Check size="$1" />}
+                    animation="medium"
+                    pressStyle={PRESS_STYLE}
+                    enterStyle={ENTER_STYLE}
+                    exitStyle={ENTER_STYLE}
+                  />
+                </XStack>
               </View>
             </YStack>
           </XStack>
@@ -145,5 +159,14 @@ export default function JournalWriteScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  image: {
+    width: 200,
+    height: 200,
+    borderRadius: 12,
+    elevation: 10,
+    shadowColor: 'black',
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
   },
 });

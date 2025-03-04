@@ -25,11 +25,7 @@ export const CurrentDate = ({
 
     if (onlyText) return renderText(year, month, day);
 
-    return (
-      <Paragraph color="$gray11" {...props}>
-        {renderText(year, month, day)}
-      </Paragraph>
-    );
+    return <Paragraph {...props}>{renderText(year, month, day)}</Paragraph>;
   }
 
   if (timestamp) {
@@ -40,11 +36,7 @@ export const CurrentDate = ({
 
     if (onlyText) return renderText(year, month, day);
 
-    return (
-      <Paragraph color="$gray9" {...props}>
-        {renderText(year, month, day)}
-      </Paragraph>
-    );
+    return <Paragraph {...props}>{renderText(year, month, day)}</Paragraph>;
   }
 
   const today = new Date();
@@ -54,9 +46,5 @@ export const CurrentDate = ({
 
   if (onlyText) return renderText(year, month, day);
 
-  return (
-    <Paragraph color="$gray9" {...props}>
-      {renderText(year, month, day)}
-    </Paragraph>
-  );
+  return <Paragraph {...props}>{renderText(year, month, day)}</Paragraph>;
 };

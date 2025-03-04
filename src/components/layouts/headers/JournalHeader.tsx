@@ -1,60 +1,53 @@
 import { useJournal } from '@/store/hooks/useJournal';
-import { Button, View, XStack } from 'tamagui';
-import { ALargeSmall, ChevronLeft, Trash2 } from '@tamagui/lucide-icons';
-import React, { useRef } from 'react';
-import { useApp } from '@/store/hooks/useApp';
-import { PRESS_STYLE } from '@/constants/styles';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { Button } from 'tamagui';
+import { ChevronLeft, Trash2 } from '@tamagui/lucide-icons';
+import React from 'react';
+import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
 import { BottomModal } from '@/components/modals/BottomModal';
 import { DeleteJournalModal } from '@/components/modals/contents/DeleteJournalModal';
 import { CurrentDate } from '@/components/CurrentDate';
 import { HeaderContainer } from '@/components/layouts/containers/HeaderContainer';
 import { router } from 'expo-router';
+import { useBottomModal } from '@/hooks/useBottomModal';
+import { CONTAINER_SPACING } from '@/constants/size';
 
 export default function JournalHeader() {
-  const modalRef = useRef<BottomSheetModal>(null);
   const { selectedJournal } = useJournal();
-  const { onChangeFontSize } = useApp();
+  const { modalRef, openModal } = useBottomModal();
 
   if (!selectedJournal) return null;
 
   return (
-    <HeaderContainer>
-      <XStack>
+    <>
+      <HeaderContainer items="center" pl={CONTAINER_SPACING}>
         <Button
-          unstyled
-          p="$2"
-          l={0}
+          animation="quick"
+          size="$3"
           icon={<ChevronLeft size="$1" />}
           onPress={() => router.back()}
-          pressStyle={PRESS_STYLE}
+          enterStyle={ENTER_STYLE}
         />
-        <View width="$3" />
-      </XStack>
-      <XStack gap="$2" items="center">
-        <CurrentDate localDate={selectedJournal.localDate} />
-      </XStack>
-
-      <XStack>
-        <Button
-          unstyled
-          p="$2"
-          icon={<Trash2 size="$1" />}
-          pressStyle={PRESS_STYLE}
-          onPress={() => modalRef.current?.present()}
-        />
-        <Button
-          unstyled
-          p="$2"
-          icon={<ALargeSmall size="$1" />}
+        <CurrentDate
           animation="quick"
-          onPress={onChangeFontSize}
           pressStyle={PRESS_STYLE}
+          color="$gray8"
+          fontSize="$5"
+          fontWeight="800"
+          enterStyle={ENTER_STYLE}
+          localDate={selectedJournal.localDate}
         />
-      </XStack>
+
+        <Button
+          animation="quick"
+          size="$3"
+          icon={<Trash2 size="$1" />}
+          enterStyle={ENTER_STYLE}
+          onPress={openModal}
+        />
+      </HeaderContainer>
       <BottomModal ref={modalRef}>
         <DeleteJournalModal journalId={selectedJournal.id} />
       </BottomModal>
-    </HeaderContainer>
+    </>
   );
 }

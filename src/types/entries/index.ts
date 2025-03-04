@@ -13,10 +13,11 @@ export type Journal = {
   emotion: Emotion;
   createdAt: string;
   localDate: ISODateString; // YYYY-MM-DD
+  imageUri: Nullable<string>;
 };
 
 export type Draft = {} & Partial<
-  Pick<Journal, 'content' | 'emotion' | 'localDate'>
+  Pick<Journal, 'content' | 'emotion' | 'localDate' | 'imageUri'>
 >;
 
 export type DateCounts = {

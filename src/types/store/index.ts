@@ -123,7 +123,9 @@ export type GardenStore = WithState<
 export interface DraftStore {
   draft: Draft;
   initDraft: () => void;
+  onTimeStamp: () => void;
   onLocalDateChange: (date: ISODateString) => void;
   onEmotionChange: (emotion: Emotion) => void;
+  onImageUriChange: () => Promise<Nullable<void>>;
   onContentChange: (content: string) => void;
 }
