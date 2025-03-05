@@ -17,6 +17,7 @@ export const SettingItem = ({ icon, label, href }: Props) => {
         animateOnly={PRESS_STYLE_KEY}
         icon={icon}
         flexDirection="row"
+        rounded="$4"
         gap="$2"
         fontSize="$6"
         pressStyle={PRESS_STYLE}

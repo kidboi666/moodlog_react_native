@@ -4,7 +4,7 @@ interface Props extends TextProps {
   createdAt: string;
 }
 
-export const DateTime = ({ createdAt, ...props }: Props) => {
+export const RenderTime = ({ createdAt, ...props }: Props) => {
   const date = new Date(createdAt);
 
   const hours = String(date.getHours()).padStart(2, '0');

@@ -6,7 +6,7 @@ interface Props extends TextProps {
   onlyText?: boolean;
 }
 
-export const CurrentDate = ({
+export const RenderDate = ({
   timestamp,
   localDate,
   onlyText,

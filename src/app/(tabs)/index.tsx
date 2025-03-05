@@ -24,21 +24,16 @@ import { useTranslation } from 'react-i18next';
 import { useUser } from '@/store/hooks/useUser';
 import { useScroll } from '@/store/hooks/useScroll';
 import { useDate } from '@/store/hooks/useDate';
-import { CalendarUtils } from 'react-native-calendars';
 
 export default function HomeScreen() {
   const { dailyJournals } = useJournal();
-  const { onSelectedDateChange, currentDate } = useDate();
+  const { initSelectedDates } = useDate();
   const { isInitialApp } = useApp();
   const { t } = useTranslation();
   const { onScroll } = useScroll();
   const { userInfo } = useUser();
 
-  useFocusEffect(
-    useCallback(() => {
-      onSelectedDateChange(CalendarUtils.getCalendarDateString(currentDate));
-    }, []),
-  );
+  useFocusEffect(useCallback(() => initSelectedDates(), []));
 
   if (!isInitialApp) {
     return <Redirect href="/(onboarding)/welcome" />;
@@ -50,7 +45,7 @@ export default function HomeScreen() {
       scrollEventThrottle={16}
       overScrollMode="always"
     >
-      <Container edges={['top', 'bottom']}>
+      <Container edges={['top', 'bottom']} padded>
         <YStack gap="$3">
           <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
             <XStack gap="$2" items="flex-end">

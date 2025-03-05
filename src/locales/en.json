@@ -24,7 +24,8 @@
     },
     "units": {
       "month": "Month",
-      "count": "entries"
+      "count": "entries",
+      "day": ""
     }
   },
   "navigation": {

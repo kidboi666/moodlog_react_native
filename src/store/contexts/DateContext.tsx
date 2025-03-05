@@ -31,6 +31,12 @@ export const DateContextProvider = ({ children }: PropsWithChildren) => {
     setSelectedDate(date);
   };
 
+  const initSelectedDates = () => {
+    setSelectedDate(CalendarUtils.getCalendarDateString(currentDate));
+    setSelectedMonth(getMonthInISODateString(currentYear, currentMonth));
+    setSelectedYear(currentYear);
+  };
+
   return (
     <DateContext.Provider
       value={{
@@ -40,6 +46,7 @@ export const DateContextProvider = ({ children }: PropsWithChildren) => {
         selectedYear,
         selectedMonth,
         selectedDate,
+        initSelectedDates,
         onSelectedYearChange: handleSelectedYearChange,
         onSelectedMonthChange: handleSelectedMonthChange,
         onSelectedDateChange: handleSelectedDateChange,

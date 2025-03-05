@@ -88,6 +88,7 @@ export default function JournalWriteScreen() {
       style={styles.container}
       contentContainerStyle={{ backgroundColor: theme.red5.val }}
       behavior={Platform.OS === 'ios' ? 'height' : 'padding'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? -40 : 0}
     >
       <TouchableOpacity
         activeOpacity={1}

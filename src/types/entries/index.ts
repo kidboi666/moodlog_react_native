@@ -17,7 +17,7 @@ export type Journal = {
 };
 
 export type Draft = {} & Partial<
-  Pick<Journal, 'content' | 'emotion' | 'localDate' | 'imageUri'>
+  Pick<Journal, 'content' | 'emotion' | 'imageUri'>
 >;
 
 export type DateCounts = {

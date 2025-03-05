@@ -5,11 +5,7 @@ interface Props extends TextProps {
   localDate?: string;
 }
 
-export const CurrentDateWithoutYear = ({
-  timestamp,
-  localDate,
-  ...props
-}: Props) => {
+export const DateWithoutYear = ({ timestamp, localDate, ...props }: Props) => {
   if (localDate) {
     const [, month, day] = localDate.split('-');
     return (

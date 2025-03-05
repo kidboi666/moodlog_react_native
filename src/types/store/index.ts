@@ -95,6 +95,7 @@ export interface DateStore {
   onSelectedYearChange: (year: number) => void;
   onSelectedMonthChange: (month: ISOMonthString) => void;
   onSelectedDateChange: (date: ISODateString) => void;
+  initSelectedDates: () => void;
 }
 
 export type StatisticsStore = WithState<

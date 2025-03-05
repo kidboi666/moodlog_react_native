@@ -8,13 +8,13 @@ import {
   YStack,
 } from 'tamagui';
 import { Journal } from '@/types/entries';
-import { CurrentDateWithoutYear } from './CurrentDateWithoutYear';
 import { emotionTheme } from '@/constants/themes';
 import { ChevronRight } from '@tamagui/lucide-icons';
 import { ENTER_STYLE, PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 import { LinearGradient } from 'tamagui/linear-gradient';
 import { useState } from 'react';
 import { router } from 'expo-router';
+import { RenderTime } from './RenderTime';
 
 interface Props {
   journal: Journal;
@@ -22,6 +22,7 @@ interface Props {
 
 export const JournalCard = ({ journal }: Props) => {
   const [isPress, setIsPress] = useState(false);
+
   return (
     <Card
       group
@@ -29,7 +30,7 @@ export const JournalCard = ({ journal }: Props) => {
       enterStyle={ENTER_STYLE}
       pressStyle={PRESS_STYLE}
       animateOnly={PRESS_STYLE_KEY}
-      bg="$gray5"
+      bg="$gray4"
       rounded="$8"
       overflow="hidden"
       onPress={() => {
@@ -52,13 +53,16 @@ export const JournalCard = ({ journal }: Props) => {
             bg={emotionTheme[journal.emotion.type][journal.emotion.level]}
           />
           <YStack flex={1} gap="$2">
+            <RenderTime
+              createdAt={journal.createdAt}
+              fontSize="$7"
+              lineHeight={20}
+              color="$gray9"
+              fontWeight="800"
+            />
             <Paragraph color="$gray12" flex={1} numberOfLines={2}>
               {journal.content ?? ''}
             </Paragraph>
-            <CurrentDateWithoutYear
-              localDate={journal.localDate}
-              fontSize="$2"
-            />
           </YStack>
           <ChevronRight size="$1" />
         </XStack>

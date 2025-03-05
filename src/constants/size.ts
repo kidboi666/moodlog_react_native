@@ -4,7 +4,7 @@ export const CONTAINER_SPACING = 18;
 
 export const CONTAINER_MARGIN_TOP = 28;
 
-export const CONTAINER_PADDING_BOTTOM = 32;
+export const CONTAINER_PADDING_BOTTOM = 180;
 
 export const CALENDAR_SCROLL_SIZE = 52;
 

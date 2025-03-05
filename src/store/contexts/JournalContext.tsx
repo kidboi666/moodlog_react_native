@@ -21,7 +21,14 @@ import { getISODateString } from '@/utils/common';
 export const JournalContext = createContext<Nullable<JournalStore>>(null);
 
 export const JournalContextProvider = ({ children }: PropsWithChildren) => {
-  const { selectedYear, selectedMonth, selectedDate } = useDate();
+  const {
+    selectedYear,
+    selectedMonth,
+    selectedDate,
+    currentYear,
+    currentMonth,
+    currentDate,
+  } = useDate();
   const [journals, setJournals] = useState<Journal[]>([]);
   const [yearlyJournals, setYearlyJournals] = useState<Journal[]>([]);
   const [monthlyJournals, setMonthlyJournals] = useState<Journal[]>([]);
@@ -40,13 +47,17 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   };
 
   const addJournal = (draft: Draft) => {
-    if (draft.content && draft.emotion && draft.localDate) {
+    if (draft.content && draft.emotion) {
       const newJournal = {
         id: uuid.v4(),
         content: draft.content,
         emotion: draft.emotion,
         createdAt: new Date().toISOString(),
-        localDate: draft.localDate,
+        localDate: getISODateString(
+          currentYear,
+          currentMonth,
+          currentDate.getDate(),
+        ),
         imageUri: draft.imageUri ? draft.imageUri : null,
       };
       setJournals(prev => [...prev, newJournal]);

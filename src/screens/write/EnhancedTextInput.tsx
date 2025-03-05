@@ -4,15 +4,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import {
-  getToken,
-  Input,
-  ScrollView,
-  TextArea,
-  YStack,
-  Button,
-  XStack,
-} from 'tamagui';
+import { getToken, Input, ScrollView, TextArea, YStack } from 'tamagui';
 import {
   Image,
   NativeSyntheticEvent,
@@ -197,7 +189,7 @@ export const EnhancedTextInput = forwardRef<
             returnKeyType="next"
             fontWeight="800"
             py="$2"
-            fontSize={getToken(fontSize) * 1.4}
+            fontSize={getToken(fontSize) * 2}
             color="$gray12"
             placeholder={t('placeholders.journal.title')}
             placeholderTextColor="$gray7"

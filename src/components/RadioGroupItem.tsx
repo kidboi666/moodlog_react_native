@@ -12,6 +12,7 @@ export const RadioGroupItem = ({ value, label, onValueChange }: Props) => {
     <Button
       unstyled
       animation="medium"
+      rounded="$4"
       pressStyle={PRESS_STYLE}
       onPress={() => onValueChange(value)}
     >

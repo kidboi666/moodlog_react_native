@@ -11,7 +11,7 @@ export default function SettingsScreen() {
 
   return (
     <ScrollView flex={1}>
-      <Container edges={['top']}>
+      <Container edges={['top']} padded>
         <YStack>
           {/* Theme Setting */}
           <FadeIn delay={CARD_DELAY.FIRST}>

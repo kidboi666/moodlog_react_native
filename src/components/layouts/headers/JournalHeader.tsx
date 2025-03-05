@@ -1,15 +1,17 @@
 import { useJournal } from '@/store/hooks/useJournal';
-import { Button } from 'tamagui';
+import { Button, XStack, YStack } from 'tamagui';
 import { ChevronLeft, Trash2 } from '@tamagui/lucide-icons';
 import React from 'react';
 import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
 import { BottomModal } from '@/components/modals/BottomModal';
 import { DeleteJournalModal } from '@/components/modals/contents/DeleteJournalModal';
-import { CurrentDate } from '@/components/CurrentDate';
+import { RenderDate } from '@/components/RenderDate';
 import { HeaderContainer } from '@/components/layouts/containers/HeaderContainer';
 import { router } from 'expo-router';
 import { useBottomModal } from '@/hooks/useBottomModal';
 import { CONTAINER_SPACING } from '@/constants/size';
+import { RenderTime } from '@/components/RenderTime';
+import { RenderDay } from '@/components/RenderDay';
 
 export default function JournalHeader() {
   const { selectedJournal } = useJournal();
@@ -30,15 +32,28 @@ export default function JournalHeader() {
           enterStyle={ENTER_STYLE}
           pressStyle={PRESS_STYLE}
         />
-        <CurrentDate
-          animation="quick"
-          pressStyle={PRESS_STYLE}
-          color="$gray8"
-          fontSize="$5"
-          fontWeight="800"
-          enterStyle={ENTER_STYLE}
-          localDate={selectedJournal.localDate}
-        />
+        <YStack items="center">
+          <RenderDate
+            color="$gray8"
+            fontSize="$5"
+            fontWeight="800"
+            localDate={selectedJournal.localDate}
+          />
+          <XStack gap="$2">
+            <RenderDay
+              color="$gray8"
+              fontSize="$5"
+              fontWeight="800"
+              createdAt={selectedJournal.createdAt}
+            />
+            <RenderTime
+              color="$gray8"
+              fontSize="$5"
+              fontWeight="800"
+              createdAt={selectedJournal.createdAt}
+            />
+          </XStack>
+        </YStack>
 
         <Button
           unstyled

@@ -24,7 +24,8 @@
     },
     "units": {
       "month": "월",
-      "count": "개"
+      "count": "개",
+      "day": "요일"
     }
   },
   "navigation": {
