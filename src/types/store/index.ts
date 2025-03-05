@@ -56,13 +56,13 @@ export interface ThemeStore {
 
 export interface AppStore {
   appVersion: typeof APP_VERSION;
-  fontSize: ViewFontSize;
   language: any;
   isInitialApp: boolean;
   initializeFirstLaunchStatus: () => Promise<ISODateString>;
   firstLaunchDate: Nullable<ISODateString>;
-  onChangeFontSize: () => void;
   onChangeLanguage: (language: any) => void;
+  onChangeFontSize: () => void;
+  fontSize: ViewFontSize;
 }
 
 export type UserStore = WithState<

@@ -81,11 +81,11 @@ export const AppContextProvider = ({ children }: PropsWithChildren) => {
   return (
     <AppContext.Provider
       value={{
-        fontSize,
         language,
         isInitialApp,
         appVersion,
         firstLaunchDate,
+        fontSize,
         initializeFirstLaunchStatus,
         onChangeFontSize: handleFontSizeChange,
         onChangeLanguage: handleLanguageChange,

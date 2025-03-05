@@ -24,6 +24,7 @@ import Animated, {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Platform } from 'react-native';
 import { HIDE_TAB_BAR_ROUTES } from '@/constants/routes';
+import * as NavigationBar from 'expo-navigation-bar';
 
 const AnimatedStack = Animated.createAnimatedComponent(Stack);
 
@@ -66,6 +67,16 @@ export const CustomTabBar = () => {
   const isActive = (path: string) => {
     return pathname === path || (path === '/' && pathname === '/index');
   };
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      if (HIDE_TAB_BAR_ROUTES.some(route => pathname.startsWith(route))) {
+        NavigationBar.setBackgroundColorAsync(theme.background.val);
+      } else {
+        NavigationBar.setBackgroundColorAsync(theme.gray5.val);
+      }
+    }
+  }, [pathname]);
 
   return (
     <AnimatedStack

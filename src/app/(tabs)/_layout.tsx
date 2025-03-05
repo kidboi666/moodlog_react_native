@@ -31,7 +31,7 @@ export default function TabsLayout() {
   const transparentBg = `rgba(${bgRgb}, 0)`;
 
   return (
-    <Stack flex={1} position="relative">
+    <Stack bg="$background" flex={1} position="relative">
       <Slot />
       <LinearGradient
         position="absolute"

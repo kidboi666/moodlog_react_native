@@ -1,5 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, Button, View, XStack, YStack } from 'tamagui';
+import React, { useEffect, useState } from 'react';
+import {
+  AnimatePresence,
+  Button,
+  useTheme,
+  View,
+  XStack,
+  YStack,
+} from 'tamagui';
 import { Container } from '@/components/layouts/containers/Container';
 import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
@@ -17,10 +24,7 @@ import { useJournal } from '@/store/hooks/useJournal';
 import { useTranslation } from 'react-i18next';
 import { useToastController } from '@tamagui/toast';
 import { router } from 'expo-router';
-import {
-  EnhancedTextInput,
-  EnhancedTextInputRef,
-} from '@/screens/write/EnhancedTextInput';
+import { EnhancedTextInput } from '@/screens/write/EnhancedTextInput';
 import { WriteHeader } from '@/components/layouts/headers/WriteHeader';
 import { CONTAINER_SPACING } from '@/constants/size';
 
@@ -38,6 +42,7 @@ export default function JournalWriteScreen() {
   const { addJournal } = useJournal();
   const toast = useToastController();
   const { t } = useTranslation();
+  const theme = useTheme();
   const [inputKey, setInputKey] = useState(0);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
 
@@ -81,8 +86,8 @@ export default function JournalWriteScreen() {
   return (
     <KeyboardAvoidingView
       style={styles.container}
+      contentContainerStyle={{ backgroundColor: theme.red5.val }}
       behavior={Platform.OS === 'ios' ? 'height' : 'padding'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? -60 : 0}
     >
       <TouchableOpacity
         activeOpacity={1}
@@ -175,14 +180,5 @@ export default function JournalWriteScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  image: {
-    width: 200,
-    height: 200,
-    borderRadius: 12,
-    elevation: 10,
-    shadowColor: 'black',
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
   },
 });
