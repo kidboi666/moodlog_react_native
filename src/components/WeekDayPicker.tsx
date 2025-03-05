@@ -4,7 +4,7 @@ import { useJournal } from '@/store/hooks/useJournal';
 import { ISODateString } from '@/types/dtos/date';
 import { HorizontalCalendar } from '@/components/HorizontalCalendar';
 import { CalendarDays, CalendarRange } from '@tamagui/lucide-icons';
-import { FALL_STYLE, FALL_STYLE_KEY, PRESS_STYLE } from '@/constants/styles';
+import { FALL_STYLE, FALL_STYLE_KEY } from '@/constants/styles';
 import { VerticalCalendar } from '@/components/VerticalCalendar';
 import { useTranslation } from 'react-i18next';
 import {
@@ -76,8 +76,8 @@ export const WeekDayPicker = () => {
           .
         </H1>
         <Button
-          unstyled
-          color="$gray1"
+          variant="outlined"
+          themeInverse
           icon={
             calendarVariation === 'vertical' ? (
               <CalendarRange size="$1" />
@@ -85,7 +85,6 @@ export const WeekDayPicker = () => {
               <CalendarDays size="$1" />
             )
           }
-          pressStyle={PRESS_STYLE}
           onPress={() =>
             setCalendarVariation(prev =>
               prev === 'horizontal' ? 'vertical' : 'horizontal',

@@ -14,9 +14,7 @@ export default function LanguageScreen() {
   }, []);
 
   return (
-    <Container>
-      <SettingHeader />
-
+    <Container Header={<SettingHeader />}>
       <RadioGroup
         value={language}
         onValueChange={handleValueChange}

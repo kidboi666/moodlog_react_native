@@ -14,7 +14,6 @@ import { useDraft } from '@/store/hooks/useDraft';
 import { Check, ImagePlus, Timer } from '@tamagui/lucide-icons';
 import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
 import { useJournal } from '@/store/hooks/useJournal';
-import { WriteHeader } from '@/components/layouts/headers/WriteHeader';
 import { useTranslation } from 'react-i18next';
 import { useToastController } from '@tamagui/toast';
 import { router } from 'expo-router';
@@ -22,6 +21,8 @@ import {
   EnhancedTextInput,
   EnhancedTextInputRef,
 } from '@/screens/write/EnhancedTextInput';
+import { WriteHeader } from '@/components/layouts/headers/WriteHeader';
+import { CONTAINER_SPACING } from '@/constants/size';
 
 export default function JournalWriteScreen() {
   const { fontSize } = useApp();
@@ -81,7 +82,12 @@ export default function JournalWriteScreen() {
         style={StyleSheet.absoluteFill}
         onPress={triggerFocus}
       >
-        <Container gap="$3" pl={0} edges={['top', 'bottom']}>
+        <Container
+          gap="$3"
+          pl={0}
+          edges={['bottom']}
+          Header={<WriteHeader pl={CONTAINER_SPACING} />}
+        >
           <XStack flex={1} gap="$3">
             {draft.emotion ? (
               <View
@@ -100,8 +106,6 @@ export default function JournalWriteScreen() {
               />
             )}
             <YStack gap="$6" flex={1} z={1}>
-              <WriteHeader />
-
               <EnhancedTextInput
                 key={inputKey}
                 ref={enhancedInputRef}

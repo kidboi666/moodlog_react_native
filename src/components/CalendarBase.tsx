@@ -13,7 +13,6 @@ import { DateCounts } from '@/types/entries';
 import { ISODateString, ISOMonthString } from '@/types/dtos/date';
 import { DayState, Direction } from 'react-native-calendars/src/types';
 import { MarkingProps } from 'react-native-calendars/src/calendar/day/marking';
-import { getMonthInISODateString } from '@/utils/common';
 
 LocaleConfig.locales['ko'] = {
   monthNames: [
@@ -97,6 +96,8 @@ export const CalendarBase = ({
 }: Props) => {
   return (
     <Calendar
+      disableMonthChange
+      customHeader={() => null}
       dayComponent={({
         date,
         state,
@@ -119,15 +120,9 @@ export const CalendarBase = ({
       )}
       hideExtraDays
       current={selectedDate}
-      enableSwipeMonths
       maxDate={CalendarUtils.getCalendarDateString(new Date())}
       onDayPress={(date: DateData) =>
         onSelectedDateChange(date.dateString as ISODateString)
-      }
-      onMonthChange={(date: DateData) =>
-        onSelectedMonthChange(
-          getMonthInISODateString(date.year, date.month - 1),
-        )
       }
       markedDates={
         selectedDate && {

@@ -21,11 +21,14 @@ export default function JournalHeader() {
     <>
       <HeaderContainer items="center" pl={CONTAINER_SPACING}>
         <Button
+          unstyled
           animation="quick"
-          size="$3"
+          rounded="$4"
+          p="$3"
           icon={<ChevronLeft size="$1" />}
           onPress={() => router.back()}
           enterStyle={ENTER_STYLE}
+          pressStyle={PRESS_STYLE}
         />
         <CurrentDate
           animation="quick"
@@ -38,10 +41,13 @@ export default function JournalHeader() {
         />
 
         <Button
+          unstyled
           animation="quick"
-          size="$3"
+          rounded="$4"
+          p="$3"
           icon={<Trash2 size="$1" />}
           enterStyle={ENTER_STYLE}
+          pressStyle={PRESS_STYLE}
           onPress={openModal}
         />
       </HeaderContainer>

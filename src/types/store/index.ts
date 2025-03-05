@@ -20,7 +20,7 @@ export type JournalStore = WithState<
   {
     journals: Journal[];
     isSubmitted: boolean;
-    dailyJournals: Journal[];
+    dailyJournals: Journal[] | ISODateString;
     selectedJournal?: Journal;
     monthlyJournals: Journal[];
     yearlyJournals: Journal[];

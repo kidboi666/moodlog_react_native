@@ -1,6 +1,6 @@
 import { H3, Text, View, YStack } from 'tamagui';
 import { useStatistics } from '@/store/hooks/useStatistics';
-import { ProgressGraph } from '@/components/features/stats/emotion-average/ProgressGraph';
+import { ProgressGraph } from '@/screens/stats/emotion-average/ProgressGraph';
 import { EmotionType } from '@/types/enums';
 import { Minimize2 } from '@tamagui/lucide-icons';
 

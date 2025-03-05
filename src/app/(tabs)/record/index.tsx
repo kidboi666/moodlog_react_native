@@ -1,9 +1,9 @@
 import { Container } from '@/components/layouts/containers/Container';
-import { GardenSection } from '@/components/features/garden/GardenSection';
-import { StatsContainer } from '@/components/features/stats/StatsContainer';
+import { GardenSection } from '@/screens/garden/GardenSection';
+import { StatsContainer } from '@/screens/stats/StatsContainer';
 import { ScrollView } from 'tamagui';
 import { useScroll } from '@/store/hooks/useScroll';
-import { CurrentMonth } from '@/components/features/stats/selected-month/CurrentMonth';
+import { CurrentMonth } from '@/screens/stats/selected-month/CurrentMonth';
 import { CARD_DELAY } from '@/constants/styles';
 import { FadeIn } from '@/components/FadeIn';
 

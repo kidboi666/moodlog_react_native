@@ -25,7 +25,9 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   const [journals, setJournals] = useState<Journal[]>([]);
   const [yearlyJournals, setYearlyJournals] = useState<Journal[]>([]);
   const [monthlyJournals, setMonthlyJournals] = useState<Journal[]>([]);
-  const [dailyJournals, setDailyJournals] = useState<Journal[]>([]);
+  const [dailyJournals, setDailyJournals] = useState<Journal[] | ISODateString>(
+    [],
+  );
   const [selectedJournal, setSelectedJournal] = useState<Journal>();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -122,7 +124,11 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
     (date: ISODateString) => {
       const selectedJournals =
         journals.filter(journal => journal.localDate === date) || [];
-      setDailyJournals(selectedJournals);
+      if (selectedJournals.length === 0) {
+        setDailyJournals(date);
+      } else {
+        setDailyJournals(selectedJournals);
+      }
     },
     [journals],
   );

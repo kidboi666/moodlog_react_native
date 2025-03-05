@@ -11,8 +11,8 @@ import {
   RECORD_CARD_HEIGHT,
 } from '@/constants/size';
 import { useStatistics } from '@/store/hooks/useStatistics';
-import { ExpandedContent } from '@/components/features/stats/selected-month/ExpandedContent';
-import { CollapsedContent } from '@/components/features/stats/selected-month/CollapsedContent';
+import { ExpandedContent } from '@/screens/stats/selected-month/ExpandedContent';
+import { CollapsedContent } from '@/screens/stats/selected-month/CollapsedContent';
 
 const AnimatedCard = Animated.createAnimatedComponent(YStack);
 

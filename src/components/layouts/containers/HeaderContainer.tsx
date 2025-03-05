@@ -21,7 +21,6 @@ export const HeaderContainer = ({
 
   return (
     <XStack
-      py={CONTAINER_SPACING / 2}
       pt={Platform.OS === 'ios' ? CONTAINER_SPACING : CONTAINER_SPACING * 2}
       justify="space-between"
       {...safeAreaMargins}

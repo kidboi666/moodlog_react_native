@@ -10,8 +10,8 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import { ExpandedContent } from '@/components/features/stats/total-count/ExpandedContent';
-import { CollapsedContent } from '@/components/features/stats/total-count/CollapsedContent';
+import { ExpandedContent } from '@/screens/stats/total-count/ExpandedContent';
+import { CollapsedContent } from '@/screens/stats/total-count/CollapsedContent';
 import { ExpressiveMonthStats, JournalStats } from '@/types/entries';
 
 const AnimatedCard = Animated.createAnimatedComponent(YStack);

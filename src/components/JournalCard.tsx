@@ -11,7 +11,7 @@ import { Journal } from '@/types/entries';
 import { CurrentDateWithoutYear } from './CurrentDateWithoutYear';
 import { emotionTheme } from '@/constants/themes';
 import { ChevronRight } from '@tamagui/lucide-icons';
-import { ENTER_STYLE } from '@/constants/styles';
+import { ENTER_STYLE, PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 import { LinearGradient } from 'tamagui/linear-gradient';
 import { useState } from 'react';
 import { router } from 'expo-router';
@@ -27,6 +27,8 @@ export const JournalCard = ({ journal }: Props) => {
       group
       animation="quick"
       enterStyle={ENTER_STYLE}
+      pressStyle={PRESS_STYLE}
+      animateOnly={PRESS_STYLE_KEY}
       bg="$gray5"
       rounded="$8"
       overflow="hidden"

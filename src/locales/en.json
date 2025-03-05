@@ -6,7 +6,8 @@
       "howAreYou": "How are you feeling today?"
     },
     "fallback": {
-      "journal": "Waiting for your story.",
+      "today": "Waiting for your story.",
+      "empty": "No diary entries available.",
       "text": "None"
     },
     "button": {

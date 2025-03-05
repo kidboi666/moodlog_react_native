@@ -1,6 +1,5 @@
 import { Button, H1 } from 'tamagui';
 import { useEffect, useState } from 'react';
-import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants/styles';
 
 interface Props {
   duration?: number;
@@ -38,10 +37,11 @@ export const ShakeEmoji = ({ duration, emoji }: Props) => {
     <Button
       unstyled
       animation="quick"
-      animateOnly={PRESS_STYLE_KEY}
       rotate={isRotate ? '40deg' : '0deg'}
-      onPress={() => setIsShaking(true)}
-      pressStyle={PRESS_STYLE}
+      onPress={() => setIsShaking(prev => !prev)}
+      pressStyle={{
+        scale: 0.85,
+      }}
     >
       <H1>{emoji}</H1>
     </Button>

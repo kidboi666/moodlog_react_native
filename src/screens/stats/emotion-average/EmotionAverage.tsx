@@ -13,8 +13,8 @@ import {
 } from '@/constants/size';
 import { Nullable } from '@/types/utils';
 import { EmotionLevel } from '@/types/enums';
-import { CollapsedContent } from '@/components/features/stats/emotion-average/CollapsedContent';
-import { ExpandedContent } from '@/components/features/stats/emotion-average/ExpandedContent';
+import { CollapsedContent } from '@/screens/stats/emotion-average/CollapsedContent';
+import { ExpandedContent } from '@/screens/stats/emotion-average/ExpandedContent';
 import { getEmotionTheme } from '@/utils/common';
 
 interface Props {

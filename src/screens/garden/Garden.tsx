@@ -1,5 +1,5 @@
 import { XStack, YStack } from 'tamagui';
-import { Grass } from '@/components/features/garden/Grass';
+import { Grass } from '@/screens/garden/Grass';
 import { getMonthNumber } from '@/utils/common';
 import { Emotion } from '@/types/entries';
 import { MonthKey } from '@/types/utils';

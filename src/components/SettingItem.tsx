@@ -12,9 +12,9 @@ export const SettingItem = ({ icon, label, href }: Props) => {
   return (
     <Link href={href} asChild>
       <Button
-        animation="quick"
-        animateOnly={PRESS_STYLE_KEY}
         unstyled
+        animation="medium"
+        animateOnly={PRESS_STYLE_KEY}
         icon={icon}
         flexDirection="row"
         gap="$2"

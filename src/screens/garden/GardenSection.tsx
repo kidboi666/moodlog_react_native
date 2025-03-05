@@ -1,10 +1,10 @@
 import { Button, ScrollView, XStack, YStack } from 'tamagui';
 import { useDate } from '@/store/hooks/useDate';
 import { useJournal } from '@/store/hooks/useJournal';
-import { GardenTitleHeader } from '@/components/features/garden/GardenTitleHeader';
-import { GardenDayUnits } from '@/components/features/garden/GardenDayUnits';
-import { GardenMonthUnits } from '@/components/features/garden/GardenMonthUnits';
-import { Garden } from '@/components/features/garden/Garden';
+import { GardenTitleHeader } from '@/screens/garden/GardenTitleHeader';
+import { GardenDayUnits } from '@/screens/garden/GardenDayUnits';
+import { GardenMonthUnits } from '@/screens/garden/GardenMonthUnits';
+import { Garden } from '@/screens/garden/Garden';
 import { getMonthInISODateString } from '@/utils/common';
 import { useGarden } from '@/store/hooks/useGarden';
 import { useCallback, useMemo } from 'react';

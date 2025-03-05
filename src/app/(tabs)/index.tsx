@@ -30,11 +30,10 @@ export default function HomeScreen() {
   const { t } = useTranslation();
   const { onScroll } = useScroll();
   const { userInfo } = useUser();
-
+  console.log(dailyJournals);
   if (!isInitialApp) {
     return <Redirect href="/(onboarding)/welcome" />;
   }
-
   return (
     <ScrollView
       onScroll={onScroll}
@@ -60,9 +59,7 @@ export default function HomeScreen() {
           <WeekDayPicker />
         </YStack>
 
-        {dailyJournals.length === 0 ? (
-          <EmptyJournal />
-        ) : (
+        {Array.isArray(dailyJournals) ? (
           dailyJournals.map((journal, index) => (
             <View key={journal.id}>
               {index > 0 && <Separator borderColor="transparent" mb="$4" />}
@@ -71,6 +68,8 @@ export default function HomeScreen() {
               </FadeIn>
             </View>
           ))
+        ) : (
+          <EmptyJournal date={dailyJournals} />
         )}
       </Container>
     </ScrollView>

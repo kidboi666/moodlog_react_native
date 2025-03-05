@@ -6,7 +6,12 @@ import {
   Plus,
   Settings,
 } from '@tamagui/lucide-icons';
-import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
+import {
+  ENTER_STYLE,
+  ENTER_STYLE_KEY,
+  PRESS_STYLE,
+  PRESS_STYLE_KEY,
+} from '@/constants/styles';
 import React, { useEffect } from 'react';
 import { useDraft } from '@/store/hooks/useDraft';
 import { TAB_BAR_HEIGHT } from '@/constants/size';
@@ -68,6 +73,9 @@ export const CustomTabBar = () => {
       b={0}
       l={0}
       r={0}
+      animation="medium"
+      animateOnly={ENTER_STYLE_KEY}
+      enterStyle={ENTER_STYLE}
       height={TAB_BAR_HEIGHT + insets.bottom}
       pb={insets.bottom}
       flexDirection="row"
@@ -85,26 +93,30 @@ export const CustomTabBar = () => {
         flex={1}
         pt={Platform.OS === 'ios' ? '$4' : undefined}
         flexDirection="row"
-        justify="space-around"
+        justify="space-evenly"
         items="center"
       >
         {/* Home 탭 */}
         <Button
-          bg="transparent"
-          animation="bouncy"
-          enterStyle={ENTER_STYLE}
-          onPress={() => navigateTo('/')}
+          unstyled
+          p="$4"
+          rounded="$4"
+          animation="quick"
+          animateOnly={PRESS_STYLE_KEY}
           pressStyle={PRESS_STYLE}
+          onPress={() => navigateTo('/')}
           color={isActive('/') ? '$gray12' : '$gray10'}
           icon={<Home size="$1" />}
         />
 
         {/* Record 탭 */}
         <Button
-          bg="transparent"
+          unstyled
+          p="$4"
+          rounded="$4"
           animation="quick"
+          animateOnly={PRESS_STYLE_KEY}
           pressStyle={PRESS_STYLE}
-          enterStyle={ENTER_STYLE}
           onPress={() => navigateTo('/record')}
           color={isActive('/record') ? '$gray12' : '$gray10'}
           icon={<FileChartColumnIncreasing size="$1" />}
@@ -112,12 +124,15 @@ export const CustomTabBar = () => {
 
         {/* Write 탭 */}
         <Button
+          unstyled
+          p="$4"
           bg="$gray1"
-          onPress={() => navigateTo('/write')}
-          animation="bouncy"
-          enterStyle={ENTER_STYLE}
+          rounded="$4"
+          animation="quick"
+          animateOnly={PRESS_STYLE_KEY}
           pressStyle={PRESS_STYLE}
           color="$gray10"
+          onPress={() => navigateTo('/write')}
           icon={<Plus size="$1" />}
         >
           {(draft.content || draft.emotion?.type) && (
@@ -134,10 +149,12 @@ export const CustomTabBar = () => {
 
         {/* Settings 탭 */}
         <Button
-          bg="transparent"
-          animation="bouncy"
+          unstyled
+          p="$4"
+          rounded="$4"
+          animation="quick"
+          animateOnly={PRESS_STYLE_KEY}
           pressStyle={PRESS_STYLE}
-          enterStyle={ENTER_STYLE}
           onPress={() => navigateTo('/settings')}
           color={isActive('/settings') ? '$gray12' : '$gray11'}
           icon={<Settings size="$1" />}

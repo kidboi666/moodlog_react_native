@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Button, H5, Text, View, YStack } from 'tamagui';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
-import { EmptyExpandedContent } from '@/components/features/stats/EmptyExpandedContent';
+import { EmptyExpandedContent } from '@/screens/stats/EmptyExpandedContent';
 import { ExpressiveMonthStats } from '@/types/entries';
 import { getMonthStringWithoutYear } from '@/utils/common';
 
