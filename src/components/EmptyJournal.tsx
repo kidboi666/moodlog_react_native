@@ -1,4 +1,4 @@
-import { Button, Text, XStack, YStack } from 'tamagui';
+import { Button, Text, YStack } from 'tamagui';
 import { FileQuestion, Plus } from '@tamagui/lucide-icons';
 import {
   ENTER_STYLE,
@@ -53,7 +53,7 @@ export const EmptyJournal = ({ date }: Props) => {
           />
         </>
       ) : (
-        <XStack items="center">
+        <>
           <Text fontWeight="800" fontSize="$8">
             {t('common.fallback.empty')}
           </Text>
@@ -61,13 +61,15 @@ export const EmptyJournal = ({ date }: Props) => {
             unstyled
             animation="quick"
             animateOnly={PRESS_STYLE_KEY}
+            color="$gray1"
             p="$4"
+            bg="$gray12"
             rounded="$4"
             icon={<FileQuestion size="$1" />}
             pressStyle={PRESS_STYLE}
-            onPress={() => toast.show('일기는 당일에만 작성할 수 있습니다.')}
+            onPress={() => toast.show(t('notifications.warning.journal.title'))}
           />
-        </XStack>
+        </>
       )}
     </YStack>
   );

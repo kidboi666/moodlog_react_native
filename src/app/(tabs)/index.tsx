@@ -12,28 +12,38 @@ import { useJournal } from '@/store/hooks/useJournal';
 import { JournalCard } from '@/components/JournalCard';
 import { Container } from '@/components/layouts/containers/Container';
 import { EmptyJournal } from '@/components/EmptyJournal';
-import { Redirect } from 'expo-router';
+import { Redirect, useFocusEffect } from 'expo-router';
 import { useApp } from '@/store/hooks/useApp';
 import { FadeIn } from '@/components/FadeIn';
 import { PARAGRAPH_DELAY } from '@/constants/styles';
 import { HOME_HEADER_LINE_HEIGHT } from '@/constants/size';
 import { ShakeEmoji } from '@/components/ShakeEmoji';
 import { WeekDayPicker } from '@/components/WeekDayPicker';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useUser } from '@/store/hooks/useUser';
 import { useScroll } from '@/store/hooks/useScroll';
+import { useDate } from '@/store/hooks/useDate';
+import { CalendarUtils } from 'react-native-calendars';
 
 export default function HomeScreen() {
   const { dailyJournals } = useJournal();
+  const { onSelectedDateChange, currentDate } = useDate();
   const { isInitialApp } = useApp();
   const { t } = useTranslation();
   const { onScroll } = useScroll();
   const { userInfo } = useUser();
-  console.log(dailyJournals);
+
+  useFocusEffect(
+    useCallback(() => {
+      onSelectedDateChange(CalendarUtils.getCalendarDateString(currentDate));
+    }, []),
+  );
+
   if (!isInitialApp) {
     return <Redirect href="/(onboarding)/welcome" />;
   }
+
   return (
     <ScrollView
       onScroll={onScroll}

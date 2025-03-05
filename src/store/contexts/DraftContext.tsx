@@ -1,4 +1,10 @@
-import { createContext, PropsWithChildren, useCallback, useState } from 'react';
+import {
+  createContext,
+  PropsWithChildren,
+  useCallback,
+  useRef,
+  useState,
+} from 'react';
 import { Draft, Emotion } from '@/types/entries';
 import { ISODateString } from '@/types/dtos/date';
 import { DraftStore } from '@/types/store';
@@ -6,11 +12,14 @@ import { Nullable } from '@/types/utils';
 import * as ImagePicker from 'expo-image-picker';
 import { PermissionStatus } from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
+import { EnhancedTextInputRef } from '@/screens/write/EnhancedTextInput';
 
 export const DraftContext = createContext<Nullable<DraftStore>>(null);
 
 export const DraftContextProvider = ({ children }: PropsWithChildren) => {
   const [draft, setDraft] = useState<Draft>({});
+  const [selection, setSelection] = useState({ start: 0, end: 0 });
+  const enhancedInputRef = useRef<EnhancedTextInputRef>(null);
 
   const handleLocalDateChange = useCallback((date: ISODateString) => {
     setDraft(prev => ({ ...prev, localDate: date }));
@@ -25,8 +34,11 @@ export const DraftContextProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   const handleTimeStamp = () => {
-    const timeStamp = new Date().toISOString().split('T')[0];
-    setDraft(prev => ({ ...prev, content: prev.content + timeStamp }));
+    enhancedInputRef.current?.insertCurrentTime();
+  };
+
+  const handleSelectionChange = (event: any) => {
+    setSelection(event.nativeEvent.selection);
   };
 
   const handleImageUriChange = async () => {
@@ -85,11 +97,14 @@ export const DraftContextProvider = ({ children }: PropsWithChildren) => {
       value={{
         draft,
         initDraft,
+        enhancedInputRef,
+        selection,
         onTimeStamp: handleTimeStamp,
         onImageUriChange: handleImageUriChange,
         onLocalDateChange: handleLocalDateChange,
         onEmotionChange: handleEmotionChange,
         onContentChange: handleContentChange,
+        onSelectionChange: handleSelectionChange,
       }}
     >
       {children}

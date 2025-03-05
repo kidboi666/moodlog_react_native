@@ -13,6 +13,7 @@ export default function JournalLayout() {
           contentStyle: {
             backgroundColor: theme.background.val,
           },
+          gestureEnabled: true,
         }}
       />
     </Stack>

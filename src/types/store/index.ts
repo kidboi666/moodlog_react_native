@@ -12,9 +12,15 @@ import {
 import { Theme, ViewFontSize } from 'src/types/enums';
 import { ISODateString, ISOMonthString } from '@/types/dtos/date';
 import { LoadingState, MonthKey, Nullable, WithState } from 'src/types/utils';
-import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+import {
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  TextInputSelectionChangeEventData,
+} from 'react-native';
 import { NewUserInfo } from '@/types/dtos/user';
 import { APP_VERSION } from '@/constants/common';
+import { MutableRefObject } from 'react';
+import { EnhancedTextInputRef } from '@/screens/write/EnhancedTextInput';
 
 export type JournalStore = WithState<
   {
@@ -123,6 +129,11 @@ export type GardenStore = WithState<
 export interface DraftStore {
   draft: Draft;
   initDraft: () => void;
+  selection: { start: number; end: number };
+  onSelectionChange: (
+    event: NativeSyntheticEvent<TextInputSelectionChangeEventData>,
+  ) => void;
+  enhancedInputRef: MutableRefObject<EnhancedTextInputRef | null>;
   onTimeStamp: () => void;
   onLocalDateChange: (date: ISODateString) => void;
   onEmotionChange: (emotion: Emotion) => void;

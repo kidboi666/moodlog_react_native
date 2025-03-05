@@ -26,12 +26,19 @@ import { CONTAINER_SPACING } from '@/constants/size';
 
 export default function JournalWriteScreen() {
   const { fontSize } = useApp();
-  const { draft, onContentChange, onTimeStamp, onImageUriChange } = useDraft();
+  const {
+    draft,
+    onContentChange,
+    onTimeStamp,
+    onSelectionChange,
+    selection,
+    onImageUriChange,
+    enhancedInputRef,
+  } = useDraft();
   const { addJournal } = useJournal();
   const toast = useToastController();
   const { t } = useTranslation();
   const [inputKey, setInputKey] = useState(0);
-  const enhancedInputRef = useRef<EnhancedTextInputRef>(null);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
 
   const handleSubmit = () => {
@@ -113,6 +120,8 @@ export default function JournalWriteScreen() {
                 fontSize={fontSize}
                 contentValue={draft.content}
                 onContentChange={onContentChange}
+                selection={selection}
+                onSelectionChange={onSelectionChange}
                 autoFocus={true}
               />
               <View items="center">
@@ -121,28 +130,31 @@ export default function JournalWriteScreen() {
                     {isKeyboardVisible && (
                       <>
                         <Button
+                          unstyled
+                          p="$3"
                           animation="medium"
                           enterStyle={ENTER_STYLE}
                           exitStyle={ENTER_STYLE}
                           pressStyle={PRESS_STYLE}
-                          icon={<ImagePlus size="$1" />}
                           onPress={onImageUriChange}
-                          bg="$gray5"
+                          icon={<ImagePlus size="$1" />}
                         />
                         <Button
+                          unstyled
+                          p="$3"
                           animation="medium"
                           enterStyle={ENTER_STYLE}
                           exitStyle={ENTER_STYLE}
                           pressStyle={PRESS_STYLE}
                           onPress={onTimeStamp}
                           icon={<Timer size="$1" />}
-                          bg="$gray5"
                         />
                       </>
                     )}
                   </AnimatePresence>
                   <Button
-                    bg="$gray5"
+                    unstyled
+                    p="$3"
                     onPress={handleSubmit}
                     icon={<Check size="$1" />}
                     animation="medium"

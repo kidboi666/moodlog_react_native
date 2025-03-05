@@ -54,6 +54,9 @@
       }
     },
     "warning": {
+      "journal": {
+        "title": "Diaries can only be written on the same day."
+      },
       "emotion": {
         "title": "Please select an emotion intensity!",
         "message": "No emotion intensity has been selected"
