@@ -13,7 +13,7 @@ export const EmptyExpandedContent = () => {
       exitStyle={{ opacity: 0 }}
     >
       <YStack gap="$2">
-        <H5 fontWeight="800">작성된 일기가 없습니다.</H5>
+        <H5 fontWeight="800">컨텐츠가 없습니다.</H5>
         <Text>일기를 작성하면 관련된 정보를 볼 수 있습니다.</Text>
       </YStack>
       <Button
