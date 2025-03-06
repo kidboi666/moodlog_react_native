@@ -23,6 +23,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useUser } from '@/store/hooks/useUser';
 import { useScroll } from '@/store/hooks/useScroll';
+import { HomeHeader } from '@/components/layouts/headers/HomeHeader';
 
 export default function HomeScreen() {
   const { dailyJournals } = useJournal('week');
@@ -41,7 +42,11 @@ export default function HomeScreen() {
       scrollEventThrottle={16}
       overScrollMode="always"
     >
-      <Container edges={['top', 'bottom']} padded>
+      <Container
+        edges={__DEV__ ? ['bottom'] : ['top', 'bottom']}
+        Header={__DEV__ ? <HomeHeader /> : undefined}
+        padded
+      >
         <YStack gap="$3">
           <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
             <XStack gap="$2" items="flex-end">

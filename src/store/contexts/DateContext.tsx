@@ -1,4 +1,10 @@
-import { createContext, PropsWithChildren, useState } from 'react';
+import {
+  createContext,
+  PropsWithChildren,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react';
 import { DateStore } from '@/types/store';
 import { Nullable } from '@/types/utils';
 import { ISODateString, ISOMonthString } from '@/types/dtos/date';
@@ -12,9 +18,10 @@ export const CreateDateContext = (contextName: ContextName) => {
   Context.displayName = `${contextName}DateContext`;
 
   const Provider = ({ children }: PropsWithChildren) => {
-    const [currentYear] = useState(new Date().getFullYear());
-    const [currentMonth] = useState(new Date().getMonth());
-    const [currentDate] = useState(new Date());
+    const currentDate = useMemo(() => new Date(), []);
+    const currentYear = useMemo(() => currentDate.getFullYear(), [currentDate]);
+    const currentMonth = useMemo(() => currentDate.getMonth(), [currentDate]);
+
     const [selectedYear, setSelectedYear] = useState(currentYear);
     const [selectedMonth, setSelectedMonth] = useState<ISOMonthString>(
       getMonthInISODateString(currentYear, currentMonth),
@@ -23,38 +30,52 @@ export const CreateDateContext = (contextName: ContextName) => {
       CalendarUtils.getCalendarDateString(currentDate),
     );
 
-    const handleSelectedYearChange = (year: number) => {
+    const handleSelectedYearChange = useCallback((year: number) => {
       setSelectedYear(year);
-    };
+    }, []);
 
-    const handleSelectedMonthChange = (month: ISOMonthString) => {
+    const handleSelectedMonthChange = useCallback((month: ISOMonthString) => {
       setSelectedMonth(month);
-    };
+    }, []);
 
-    const handleSelectedDateChange = (date: ISODateString) => {
+    const handleSelectedDateChange = useCallback((date: ISODateString) => {
       setSelectedDate(date);
-    };
+    }, []);
 
-    const initSelectedDates = () => {
+    const initSelectedDates = useCallback(() => {
       setSelectedDate(CalendarUtils.getCalendarDateString(currentDate));
       setSelectedMonth(getMonthInISODateString(currentYear, currentMonth));
       setSelectedYear(currentYear);
-    };
+    }, [currentDate, currentMonth, currentYear]);
 
     return (
       <Context.Provider
-        value={{
-          currentMonth,
-          currentYear,
-          currentDate,
-          selectedYear,
-          selectedMonth,
-          selectedDate,
-          initSelectedDates,
-          onSelectedYearChange: handleSelectedYearChange,
-          onSelectedMonthChange: handleSelectedMonthChange,
-          onSelectedDateChange: handleSelectedDateChange,
-        }}
+        value={useMemo(
+          () => ({
+            currentMonth,
+            currentYear,
+            currentDate,
+            selectedYear,
+            selectedMonth,
+            selectedDate,
+            initSelectedDates,
+            onSelectedYearChange: handleSelectedYearChange,
+            onSelectedMonthChange: handleSelectedMonthChange,
+            onSelectedDateChange: handleSelectedDateChange,
+          }),
+          [
+            currentMonth,
+            currentYear,
+            currentDate,
+            selectedYear,
+            selectedMonth,
+            selectedDate,
+            initSelectedDates,
+            handleSelectedYearChange,
+            handleSelectedMonthChange,
+            handleSelectedDateChange,
+          ],
+        )}
       >
         {children}
       </Context.Provider>

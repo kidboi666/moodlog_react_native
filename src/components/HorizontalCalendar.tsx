@@ -110,6 +110,7 @@ export const HorizontalCalendar = ({
                     </Text>
                   </YStack>
                   <DateCountDot
+                    variant="contained"
                     dateCounts={dateCounts}
                     dateString={date}
                     isSelected={selectedDate === date}

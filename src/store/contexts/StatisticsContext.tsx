@@ -1,4 +1,11 @@
-import { createContext, PropsWithChildren, useEffect, useState } from 'react';
+import {
+  createContext,
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
 import { StatisticsStore } from '@/types/store';
 import { Nullable } from '@/types/utils';
@@ -75,14 +82,14 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   /**
    * 작성한 모든 일기의 갯수 가져오기
    */
-  const getTotalCount = () => {
+  const getTotalCount = useCallback(() => {
     return journals.length;
-  };
+  }, [journals.length]);
 
   /**
    * 각 달마다 작성한 일기의 갯수 가져오기
    */
-  const getMonthlyCounts = () => {
+  const getMonthlyCounts = useCallback(() => {
     return Object.fromEntries(
       Array.from({ length: Object.keys(MONTHS).length }, (_, i) => {
         const date =
@@ -93,12 +100,12 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
         ];
       }),
     );
-  };
+  }, [journals, selectedYear]);
 
   /**
    * 가장 많은 일기를 작성한 달과 갯수 가져오기
    */
-  const getExpressiveMonth = () => {
+  const getExpressiveMonth = useCallback(() => {
     const monthlyCounts = getMonthlyCounts();
     return Object.entries(monthlyCounts).reduce(
       (highest, [month, count]) => {
@@ -109,12 +116,12 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
       },
       { month: '', count: 0 },
     );
-  };
+  }, [getMonthlyCounts]);
 
   /**
    * 감정 평균 구하기
    */
-  const getTotalEmotionAverage = (selectedJournals: Journal[]) => {
+  const getTotalEmotionAverage = useCallback((selectedJournals: Journal[]) => {
     const emotions = selectedJournals.map(journal => journal.emotion);
 
     const scoreBoard: ScoreBoard = {
@@ -153,12 +160,12 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
     });
 
     return scoreBoard;
-  };
+  }, []);
 
   /**
    * 대표 감정 가져오기
    */
-  const getSignatureEmotion = (scoreBoard: ScoreBoard) => {
+  const getSignatureEmotion = useCallback((scoreBoard: ScoreBoard) => {
     const initialValue: SignatureEmotion = {
       type: '',
       count: 0,
@@ -174,12 +181,12 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
       }
       return highest;
     }, initialValue);
-  };
+  }, []);
 
   /**
    * 일기 작성 빈도 가져오기
    */
-  const getJournalFrequency = (Journals: Journal[]) => {
+  const getJournalFrequency = useCallback((Journals: Journal[]) => {
     const dates = Journals.map(journal =>
       parseInt(journal.localDate.split('-')[2]),
     ).sort((a, b) => a - b);
@@ -203,12 +210,12 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
         Object.keys(frequency)[0],
       ),
     );
-  };
+  }, []);
 
   /**
    * 가장 자주 일기를 작성한 요일 가져오기
    */
-  const getMostActiveDay = (Journals: Journal[]) => {
+  const getMostActiveDay = useCallback((Journals: Journal[]) => {
     const days = Journals.map(journal =>
       getDayInISODateString(journal.localDate),
     );
@@ -218,13 +225,15 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
       frequency[day] = (frequency[day] || 0) + 1;
     });
 
+    if (Object.keys(frequency).length === 0) return '';
+
     return Object.entries(frequency).reduce(
       (acc, [day, count]) => (count > frequency[acc] ? day : acc),
       Object.keys(frequency)[0],
     );
-  };
+  }, []);
 
-  const getJournalStats = () => {
+  const getJournalStats = useCallback(() => {
     const totalCount = getTotalCount();
     const monthlyCounts = getMonthlyCounts();
     const totalFrequency = getJournalFrequency(journals);
@@ -235,9 +244,15 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
       totalCount,
       monthlyCounts,
     });
-  };
+  }, [
+    getTotalCount,
+    getMonthlyCounts,
+    getJournalFrequency,
+    getMostActiveDay,
+    journals,
+  ]);
 
-  const getMonthlyStats = () => {
+  const getMonthlyStats = useCallback(() => {
     const currentFrequency = getJournalFrequency(monthlyJournals);
     const currentActiveDay = getMostActiveDay(monthlyJournals);
     const scoreBoard = getTotalEmotionAverage(monthlyJournals);
@@ -249,24 +264,31 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
       activeDay: currentActiveDay,
       signatureEmotion,
     });
-  };
+  }, [
+    getJournalFrequency,
+    getMostActiveDay,
+    getTotalEmotionAverage,
+    getSignatureEmotion,
+    monthlyJournals,
+    selectedMonth,
+  ]);
 
-  const getExpressiveMonthStats = () => {
+  const getExpressiveMonthStats = useCallback(() => {
     const expressiveMonth = getExpressiveMonth();
     setExpressiveMonthStats({
       month: expressiveMonth.month as ISOMonthString,
       count: expressiveMonth.count,
     });
-  };
+  }, [getExpressiveMonth]);
 
-  const getEmotionStats = () => {
+  const getEmotionStats = useCallback(() => {
     const scoreBoard = getTotalEmotionAverage(journals);
     const signatureEmotion = getSignatureEmotion(scoreBoard);
     setEmotionStats({
       scoreBoard,
       signatureEmotion,
     });
-  };
+  }, [getTotalEmotionAverage, getSignatureEmotion, journals]);
 
   useEffect(() => {
     if (selectedYear) {
@@ -274,23 +296,32 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
       getEmotionStats();
       getExpressiveMonthStats();
     }
-  }, [journals]);
+  }, [selectedYear, getJournalStats, getEmotionStats, getExpressiveMonthStats]);
 
   useEffect(() => {
     if (selectedMonth) {
       getMonthlyStats();
     }
-  }, [monthlyJournals]);
+  }, [selectedMonth, getMonthlyStats]);
 
   return (
     <StatisticsContext.Provider
-      value={{
-        journalStats,
-        emotionStats,
-        selectedMonthStats,
-        expressiveMonthStats,
-        isLoading,
-      }}
+      value={useMemo(
+        () => ({
+          journalStats,
+          emotionStats,
+          selectedMonthStats,
+          expressiveMonthStats,
+          isLoading,
+        }),
+        [
+          journalStats,
+          emotionStats,
+          selectedMonthStats,
+          expressiveMonthStats,
+          isLoading,
+        ],
+      )}
     >
       {children}
     </StatisticsContext.Provider>

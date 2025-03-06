@@ -2,6 +2,7 @@ import {
   createContext,
   PropsWithChildren,
   useCallback,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -13,6 +14,10 @@ import * as ImagePicker from 'expo-image-picker';
 import { PermissionStatus } from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { EnhancedTextInputRef } from '@/screens/write/EnhancedTextInput';
+
+const JOURNAL_IMAGES_DIR = FileSystem.documentDirectory
+  ? `${FileSystem.documentDirectory}journal_images/`
+  : '';
 
 export const DraftContext = createContext<Nullable<DraftStore>>(null);
 
@@ -33,15 +38,15 @@ export const DraftContextProvider = ({ children }: PropsWithChildren) => {
     setDraft(prev => ({ ...prev, content }));
   }, []);
 
-  const handleTimeStamp = () => {
+  const handleTimeStamp = useCallback(() => {
     enhancedInputRef.current?.insertCurrentTime();
-  };
+  }, []);
 
-  const handleSelectionChange = (event: any) => {
+  const handleSelectionChange = useCallback((event: any) => {
     setSelection(event.nativeEvent.selection);
-  };
+  }, []);
 
-  const handleImageUriChange = async () => {
+  const handleImageUriChange = useCallback(async () => {
     try {
       const { status } =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -62,50 +67,65 @@ export const DraftContextProvider = ({ children }: PropsWithChildren) => {
         return null;
       }
 
-      const journalImagesDir = `${FileSystem.documentDirectory}journal_images/`;
-      const dirInfo = await FileSystem.getInfoAsync(journalImagesDir);
+      const dirInfo = await FileSystem.getInfoAsync(JOURNAL_IMAGES_DIR);
 
       if (!dirInfo.exists) {
-        await FileSystem.makeDirectoryAsync(journalImagesDir, {
+        await FileSystem.makeDirectoryAsync(JOURNAL_IMAGES_DIR, {
           intermediates: true,
         });
       }
 
+      const dateString = new Date().toISOString().split('T')[0];
+      const timestamp = Date.now();
+      const randomString = Math.random().toString(36).substring(2, 8);
       const fileExt = result.assets[0].uri.split('.').pop();
-      const fileName = `${new Date().toISOString().split('T')[0]}-${Date.now()}-${Math.random().toString(36).substring(2, 8)}.${fileExt}`;
-      const newFilePath = `${journalImagesDir}${fileName}`;
+      const fileName = `${dateString}-${timestamp}-${randomString}.${fileExt}`;
+      const newFilePath = `${JOURNAL_IMAGES_DIR}${fileName}`;
 
       await FileSystem.copyAsync({
         from: result.assets[0].uri,
         to: newFilePath,
       });
 
-      console.log('Image saved successfully.', newFilePath);
       setDraft(prev => ({ ...prev, imageUri: newFilePath }));
     } catch (err) {
       console.error('Image saving error ', err);
       return null;
     }
-  };
+  }, []);
 
-  const initDraft = () => {
+  const initDraft = useCallback(() => {
     setDraft({});
-  };
+  }, []);
 
   return (
     <DraftContext.Provider
-      value={{
-        draft,
-        initDraft,
-        enhancedInputRef,
-        selection,
-        onTimeStamp: handleTimeStamp,
-        onImageUriChange: handleImageUriChange,
-        onLocalDateChange: handleLocalDateChange,
-        onEmotionChange: handleEmotionChange,
-        onContentChange: handleContentChange,
-        onSelectionChange: handleSelectionChange,
-      }}
+      value={useMemo(
+        () => ({
+          draft,
+          initDraft,
+          enhancedInputRef,
+          selection,
+          onTimeStamp: handleTimeStamp,
+          onImageUriChange: handleImageUriChange,
+          onLocalDateChange: handleLocalDateChange,
+          onEmotionChange: handleEmotionChange,
+          onContentChange: handleContentChange,
+          onSelectionChange: handleSelectionChange,
+        }),
+        [
+          draft,
+          initDraft,
+          enhancedInputRef,
+          selection,
+          handleTimeStamp,
+          handleImageUriChange,
+          handleLocalDateChange,
+          handleEmotionChange,
+          handleContentChange,
+          handleSelectionChange,
+        ],
+      )}
     >
       {children}
     </DraftContext.Provider>

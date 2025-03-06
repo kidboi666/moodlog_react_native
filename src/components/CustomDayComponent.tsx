@@ -1,5 +1,5 @@
 import { Button, styled, Text, YStack } from 'tamagui';
-import React from 'react';
+import React, { memo } from 'react';
 import { DateData } from 'react-native-calendars';
 import { DayState } from 'react-native-calendars/src/types';
 import { MarkingProps } from 'react-native-calendars/src/calendar/day/marking';
@@ -82,61 +82,47 @@ interface Props {
   state: DayState;
   marking: MarkingProps;
   onPress: () => void;
-  variant?: 'default' | 'contained';
   dateCounts?: DateCounts;
 }
 
-export const CustomDayComponent = ({
-  date,
-  state,
-  marking,
-  onPress,
-  variant = 'default',
-  dateCounts,
-}: Props) => {
-  const isSelected = marking?.selected;
-  const isToday = state === 'today';
-  const isDisabled = state === 'disabled';
+export const CustomDayComponent = memo(
+  ({ date, state, marking, onPress, dateCounts }: Props) => {
+    const isSelected = marking?.selected;
+    const isToday = state === 'today';
+    const isDisabled = state === 'disabled';
 
-  return (
-    <StyledDayButton
-      variant={variant}
-      isSelected={isSelected}
-      isToday={isToday}
-      isDisabled={isDisabled}
-      onPress={onPress}
-      disabled={isDisabled}
-      bg={
-        isSelected
-          ? variant === 'contained'
-            ? '$gray12'
-            : '$gray6'
-          : 'transparent'
-      }
-    >
-      <YStack items="center">
-        <DayText
-          variant={variant}
-          isSelected={isSelected}
-          color={
-            variant === 'contained'
-              ? isSelected
-                ? '$gray6'
-                : '$gray12'
-              : isSelected
-                ? '$gray12'
-                : '$gray6'
-          }
-        >
-          {date.day}
-        </DayText>
-        <DateCountDot
-          dateCounts={dateCounts}
-          dateString={date.dateString}
-          isSelected={isSelected}
-          variant={variant}
-        />
-      </YStack>
-    </StyledDayButton>
-  );
-};
+    return (
+      <Button
+        unstyled
+        width="$4"
+        height="$4"
+        justify="center"
+        onPress={onPress}
+        disabled={isDisabled}
+        bg={isSelected ? '$gray11' : 'transparent'}
+        opacity={isDisabled ? 0.2 : 1}
+        borderWidth={isToday ? 3 : 0}
+        borderColor="$gray6"
+        rounded="$4"
+      >
+        <YStack items="center">
+          <Text p={0} color={isSelected ? '$gray6' : '$gray12'}>
+            {date.day}
+          </Text>
+          <DateCountDot
+            dateCounts={dateCounts}
+            dateString={date.dateString}
+            isSelected={isSelected}
+          />
+        </YStack>
+      </Button>
+    );
+  },
+  (prevProps, nextProps) => {
+    return (
+      prevProps.date.dateString === nextProps.date.dateString &&
+      prevProps.state === nextProps.state &&
+      prevProps.marking === nextProps.marking
+    );
+  },
+);

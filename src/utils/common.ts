@@ -74,6 +74,18 @@ export const getMonthStringWithoutYear = (str: string) => {
   ] as MonthKey;
 };
 
+export const getCountOfPrevMonth = (date: ISODateString) => {
+  const currentMonth = removeLeadingZero(date.split('-')[1]);
+
+  return parseInt(currentMonth, 10) - 1;
+};
+
+export const getCountOfNextMonth = (date: ISODateString) => {
+  const currentMonth = removeLeadingZero(date.split('-')[1]);
+
+  return 12 - parseInt(currentMonth, 10);
+};
+
 export const getEmotionTheme = (
   type: EmotionType | string,
   level: EmotionLevel,

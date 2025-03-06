@@ -29,11 +29,11 @@ export const DateCountDot = ({
             bg={
               variant === 'contained'
                 ? isSelected
-                  ? '$gray6'
-                  : '$gray12'
-                : isSelected
                   ? '$gray12'
-                  : '$gray6'
+                  : '$gray1'
+                : isSelected
+                  ? '$gray1'
+                  : '$gray12'
             }
           />
         );

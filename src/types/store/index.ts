@@ -18,35 +18,31 @@ import {
   TextInputSelectionChangeEventData,
 } from 'react-native';
 import { NewUserInfo } from '@/types/dtos/user';
-import { APP_VERSION } from '@/constants/common';
 import { Dispatch, MutableRefObject, SetStateAction } from 'react';
 import { EnhancedTextInputRef } from '@/screens/write/EnhancedTextInput';
 
-export type JournalStore = WithState<
-  {
-    journals: Journal[];
-    isSubmitted: boolean;
-    dailyJournals: Journal[] | ISODateString;
-    selectedJournal?: Journal;
-    monthlyJournals: Journal[];
-    yearlyJournals: Journal[];
-    addJournal: (journal: Draft) => void;
-    removeJournal: (id: string) => void;
-    getDateCountsForMonth: (year: number, month: number | string) => DateCounts;
-    getDateCountsForDate: (
-      year: number,
-      month: number | string,
-      date: number,
-    ) => number;
-    getEmotionForDate: (year: number, month: number, date: number) => Emotion[];
-    onSelectedJournalChange: (journalId: string) => void;
-    updateJournals: (id: string, updateJournal: Journal) => void;
-    getJournalsByDate: (date: ISODateString) => void;
-    getJournalsByMonth: (date: ISOMonthString) => void;
-    getJournalsByYear: (year: number) => void;
-  },
-  LoadingState
->;
+export interface JournalStore {
+  journals: Journal[];
+  isSubmitted: boolean;
+  dailyJournals: Journal[] | ISODateString;
+  selectedJournal?: Journal;
+  monthlyJournals: Journal[];
+  yearlyJournals: Journal[];
+  addJournal: (journal: Draft) => void;
+  removeJournal: (id: string) => void;
+  getDateCountsForMonth: (year: number, month: number | string) => DateCounts;
+  getDateCountsForDate: (
+    year: number,
+    month: number | string,
+    date: number,
+  ) => number;
+  getEmotionForDate: (year: number, month: number, date: number) => Emotion[];
+  onSelectedJournalChange: (journalId: string) => void;
+  updateJournals: (id: string, updateJournal: Journal) => void;
+  getJournalsByDate: (date: ISODateString) => void;
+  getJournalsByMonth: (date: ISOMonthString) => void;
+  getJournalsByYear: (year: number) => void;
+}
 
 export interface ThemeStore {
   changeTheme: (theme: Theme) => void;
@@ -55,13 +51,13 @@ export interface ThemeStore {
 }
 
 export interface AppStore {
-  appVersion: typeof APP_VERSION;
+  appVersion: string;
   language: any;
   isInitialApp: boolean;
-  initializeFirstLaunchStatus: () => Promise<ISODateString>;
+  initializeFirstLaunchStatus: () => Promise<Nullable<ISODateString>>;
   firstLaunchDate: Nullable<ISODateString>;
   onChangeLanguage: (language: any) => void;
-  onChangeFontSize: () => void;
+  onChangeFontSize: (fontSize: ViewFontSize) => void;
   fontSize: ViewFontSize;
 }
 

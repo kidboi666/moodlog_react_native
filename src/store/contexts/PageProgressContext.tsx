@@ -1,4 +1,10 @@
-import { createContext, PropsWithChildren, useCallback, useState } from 'react';
+import {
+  createContext,
+  PropsWithChildren,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react';
 import { Nullable } from '@/types/utils';
 import { StepProgressStore } from '@/types/store';
 
@@ -18,34 +24,54 @@ export const StepProgressContextProvider = ({
   const [currentStep, setCurrentStep] = useState(initialStep);
 
   const goToNextStep = useCallback(() => {
-    if (currentStep + 1 < totalSteps) {
-      setCurrentStep(prev => prev + 1);
-    } else {
-      setCurrentStep(0);
-    }
-  }, [currentStep, totalSteps]);
+    setCurrentStep(prev => {
+      if (prev + 1 < totalSteps) {
+        return prev + 1;
+      } else {
+        return 0;
+      }
+    });
+  }, [totalSteps]);
 
   const goToPrevStep = useCallback(() => {
-    if (currentStep - 1 >= 0) {
-      setCurrentStep(prev => prev - 1);
-    } else {
-      setCurrentStep(totalSteps - 1);
-    }
-  }, [currentStep, totalSteps]);
+    setCurrentStep(prev => {
+      if (prev - 1 >= 0) {
+        return prev - 1;
+      } else {
+        return totalSteps - 1;
+      }
+    });
+  }, [totalSteps]);
 
-  const isLastStep = currentStep === totalSteps - 1;
-  const progress = totalSteps > 1 ? (currentStep / totalSteps) * 100 : 0;
+  const isLastStep = useMemo(
+    () => currentStep === totalSteps - 1,
+    [currentStep, totalSteps],
+  );
+  const progress = useMemo(
+    () => (totalSteps > 1 ? (currentStep / totalSteps) * 100 : 0),
+    [totalSteps, currentStep],
+  );
 
   return (
     <StepProgressContext.Provider
-      value={{
-        totalSteps,
-        currentStep,
-        goToNextStep,
-        goToPrevStep,
-        isLastStep,
-        progress,
-      }}
+      value={useMemo(
+        () => ({
+          totalSteps,
+          currentStep,
+          goToNextStep,
+          goToPrevStep,
+          isLastStep,
+          progress,
+        }),
+        [
+          totalSteps,
+          currentStep,
+          goToNextStep,
+          goToPrevStep,
+          isLastStep,
+          progress,
+        ],
+      )}
     >
       {children}
     </StepProgressContext.Provider>

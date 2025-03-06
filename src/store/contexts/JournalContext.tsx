@@ -3,12 +3,12 @@ import {
   PropsWithChildren,
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 import { JournalStore } from 'src/types/store';
 import { DateCounts, Draft, Journal } from '@/types/entries';
 import { uuid } from 'expo-modules-core';
-import { useToastController } from '@tamagui/toast';
 import { ISODateString, ISOMonthString } from '@/types/dtos/date';
 import { Nullable } from '@/types/utils';
 import { CalendarUtils } from 'react-native-calendars';
@@ -40,66 +40,80 @@ export const CreateJournalContext = (contextName: ContextName) => {
     >([]);
     const [selectedJournal, setSelectedJournal] = useState<Journal>();
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const toast = useToastController();
 
-    const handleSelectedJournalChange = (journalId: string) => {
-      if (journals.length > 0) {
-        setSelectedJournal(journals.find(item => item.id === journalId));
-      }
-    };
+    const handleSelectedJournalChange = useCallback(
+      (journalId: string) => {
+        if (journals.length > 0) {
+          setSelectedJournal(journals.find(item => item.id === journalId));
+        }
+      },
+      [journals],
+    );
 
-    const addJournal = (draft: Draft) => {
-      if (draft.content && draft.emotion) {
-        const newJournal = {
-          id: uuid.v4(),
-          content: draft.content,
-          emotion: draft.emotion,
-          createdAt: new Date().toISOString(),
-          localDate: getISODateString(
-            currentYear,
-            currentMonth,
-            currentDate.getDate(),
-          ),
-          imageUri: draft.imageUri ? draft.imageUri : null,
-        };
-        setJournals(prev => [...prev, newJournal]);
-        setIsSubmitted(true);
-      }
-    };
+    const currentDateString = useMemo(
+      () => getISODateString(currentYear, currentMonth, currentDate.getDate()),
+      [currentYear, currentMonth, currentDate],
+    );
 
-    const getDateCountsForDate = (
-      year: number,
-      month: number | string,
-      date: number,
-    ) => {
-      let intMonth: number;
-      if (typeof month === 'string') {
-        intMonth = Object.keys(MONTHS).findIndex(key => key === month) + 1;
-      } else {
-        intMonth = month;
-      }
+    const addJournal = useCallback(
+      (draft: Draft) => {
+        if (draft.content && draft.emotion) {
+          const newJournal = {
+            id: uuid.v4(),
+            content: draft.content,
+            emotion: draft.emotion,
+            createdAt: new Date().toISOString(),
+            localDate: getISODateString(
+              currentYear,
+              currentMonth,
+              currentDate.getDate(),
+            ),
+            imageUri: draft.imageUri ? draft.imageUri : null,
+          };
+          setJournals(prev => [...prev, newJournal]);
+          setIsSubmitted(true);
+        }
+      },
+      [currentDateString, setJournals],
+    );
 
-      const dateString = `${year}-${(intMonth + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`;
-      const foundJournals = journals.filter(
-        journal => journal.localDate === dateString,
-      );
+    const getDateCountsForDate = useCallback(
+      (year: number, month: number | string, date: number) => {
+        let intMonth: number;
+        if (typeof month === 'string') {
+          intMonth = Object.keys(MONTHS).findIndex(key => key === month) + 1;
+        } else {
+          intMonth = month;
+        }
 
-      return foundJournals.length;
-    };
+        const dateString = `${year}-${(intMonth + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`;
+        const foundJournals = journals.filter(
+          journal => journal.localDate === dateString,
+        );
 
-    const getEmotionForDate = (year: number, month: number, date: number) => {
-      const dateString = getISODateString(year, month, date);
-      const foundJournals = journals.filter(
-        journal => journal.localDate === dateString,
-      );
+        return foundJournals.length;
+      },
+      [journals],
+    );
 
-      return foundJournals.map(journal => journal.emotion);
-    };
+    const getEmotionForDate = useCallback(
+      (year: number, month: number, date: number) => {
+        const dateString = getISODateString(year, month, date);
+        const foundJournals = journals.filter(
+          journal => journal.localDate === dateString,
+        );
+
+        return foundJournals.map(journal => journal.emotion);
+      },
+      [journals],
+    );
 
     const getDateCountsForMonth = useCallback(
       (year: number, month: number | string) => {
         let intMonth: number;
+
+        console.time('calendar');
+
         if (typeof month === 'string') {
           intMonth = Object.keys(MONTHS).findIndex(key => key === month) + 1;
         } else {
@@ -119,25 +133,34 @@ export const CreateJournalContext = (contextName: ContextName) => {
           }
         });
 
+        console.timeEnd('calendar');
+
         return counts;
       },
       [journals],
     );
 
-    const removeJournal = useCallback((id: string) => {
-      setJournals(prev => prev.filter(journal => journal.id !== id));
-    }, []);
+    const removeJournal = useCallback(
+      (id: string) => {
+        setJournals(prev => prev.filter(journal => journal.id !== id));
+      },
+      [setJournals],
+    );
 
-    const updateJournals = useCallback((id: string, newJournal: Journal) => {
-      setJournals(prev =>
-        prev.map(journal => (journal.id === id ? newJournal : journal)),
-      );
-    }, []);
+    const updateJournals = useCallback(
+      (id: string, newJournal: Journal) => {
+        setJournals(prev =>
+          prev.map(journal => (journal.id === id ? newJournal : journal)),
+        );
+      },
+      [setJournals],
+    );
 
     const getJournalsByDate = useCallback(
       (date: ISODateString) => {
-        const selectedJournals =
-          journals.filter(journal => journal.localDate === date) || [];
+        const selectedJournals = journals.filter(
+          journal => journal.localDate === date,
+        );
         if (selectedJournals.length === 0) {
           setDailyJournals(date);
         } else {
@@ -147,19 +170,25 @@ export const CreateJournalContext = (contextName: ContextName) => {
       [journals],
     );
 
-    const getJournalsByMonth = (date: ISOMonthString) => {
-      const selectedJournals = journals.filter(journal =>
-        journal.localDate.startsWith(date),
-      );
-      setMonthlyJournals(selectedJournals);
-    };
+    const getJournalsByMonth = useCallback(
+      (date: ISOMonthString) => {
+        const selectedJournals = journals.filter(journal =>
+          journal.localDate.startsWith(date),
+        );
+        setMonthlyJournals(selectedJournals);
+      },
+      [journals],
+    );
 
-    const getJournalsByYear = (year: number) => {
-      const selectedJournals = journals.filter(journal =>
-        journal.localDate.startsWith(year.toString()),
-      );
-      setYearlyJournals(selectedJournals);
-    };
+    const getJournalsByYear = useCallback(
+      (year: number) => {
+        const selectedJournals = journals.filter(journal =>
+          journal.localDate.startsWith(year.toString()),
+        );
+        setYearlyJournals(selectedJournals);
+      },
+      [journals],
+    );
 
     useEffect(() => {
       if (selectedDate) {
@@ -180,36 +209,49 @@ export const CreateJournalContext = (contextName: ContextName) => {
     }, [selectedYear]);
 
     useEffect(() => {
-      const initializeSelectedJournals = () => {
-        getJournalsByDate(CalendarUtils.getCalendarDateString(new Date()));
-      };
-
-      if (journals.length >= 0 && !isLoading) {
-        initializeSelectedJournals();
-      }
-    }, [journals, isLoading, getJournalsByDate]);
+      getJournalsByDate(CalendarUtils.getCalendarDateString(new Date()));
+    }, [getJournalsByDate]);
 
     return (
       <Context.Provider
-        value={{
-          journals,
-          dailyJournals,
-          selectedJournal,
-          monthlyJournals,
-          yearlyJournals,
-          addJournal,
-          isLoading,
-          isSubmitted,
-          getDateCountsForMonth,
-          getDateCountsForDate,
-          getEmotionForDate,
-          removeJournal,
-          onSelectedJournalChange: handleSelectedJournalChange,
-          updateJournals,
-          getJournalsByDate,
-          getJournalsByMonth,
-          getJournalsByYear,
-        }}
+        value={useMemo(
+          () => ({
+            journals,
+            dailyJournals,
+            selectedJournal,
+            monthlyJournals,
+            yearlyJournals,
+            addJournal,
+            isSubmitted,
+            getDateCountsForMonth,
+            getDateCountsForDate,
+            getEmotionForDate,
+            removeJournal,
+            onSelectedJournalChange: handleSelectedJournalChange,
+            updateJournals,
+            getJournalsByDate,
+            getJournalsByMonth,
+            getJournalsByYear,
+          }),
+          [
+            journals,
+            dailyJournals,
+            selectedJournal,
+            monthlyJournals,
+            yearlyJournals,
+            addJournal,
+            isSubmitted,
+            getDateCountsForMonth,
+            getDateCountsForDate,
+            getEmotionForDate,
+            removeJournal,
+            handleSelectedJournalChange,
+            updateJournals,
+            getJournalsByDate,
+            getJournalsByMonth,
+            getJournalsByYear,
+          ],
+        )}
       >
         {children}
       </Context.Provider>
