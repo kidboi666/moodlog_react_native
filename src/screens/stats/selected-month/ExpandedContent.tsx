@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { H2, H3, H5, Text, XStack, YStack } from 'tamagui';
 import { Minimize2 } from '@tamagui/lucide-icons';
-import { EmptyExpandedContent } from '@/screens/stats/EmptyExpandedContent';
 import { SelectedMonthStats } from '@/types/entries';
 import { getEmotionTheme, getMonthStringWithoutYear } from '@/utils/common';
 import { EmotionLevel, EmotionType } from '@/types/enums';
@@ -19,10 +18,6 @@ export const ExpandedContent = ({ selectedMonthStats }: Props) => {
     frequency,
     signatureEmotion,
   } = selectedMonthStats;
-
-  if (!count) {
-    return <EmptyExpandedContent />;
-  }
 
   const month = t(
     `calendar.months.${getMonthStringWithoutYear(ISOMonthString)}`,

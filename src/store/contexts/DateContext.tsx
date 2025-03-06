@@ -23,9 +23,8 @@ export const CreateDateContext = (contextName: ContextName) => {
     const currentMonth = useMemo(() => currentDate.getMonth(), [currentDate]);
 
     const [selectedYear, setSelectedYear] = useState(currentYear);
-    const [selectedMonth, setSelectedMonth] = useState<ISOMonthString>(
-      getMonthInISODateString(currentYear, currentMonth),
-    );
+    const [selectedMonth, setSelectedMonth] =
+      useState<Nullable<ISOMonthString>>(null);
     const [selectedDate, setSelectedDate] = useState<ISODateString>(
       CalendarUtils.getCalendarDateString(currentDate),
     );
@@ -34,9 +33,12 @@ export const CreateDateContext = (contextName: ContextName) => {
       setSelectedYear(year);
     }, []);
 
-    const handleSelectedMonthChange = useCallback((month: ISOMonthString) => {
-      setSelectedMonth(month);
-    }, []);
+    const handleSelectedMonthChange = useCallback(
+      (month: Nullable<ISOMonthString>) => {
+        setSelectedMonth(month);
+      },
+      [],
+    );
 
     const handleSelectedDateChange = useCallback((date: ISODateString) => {
       setSelectedDate(date);

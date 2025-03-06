@@ -24,61 +24,58 @@ import { getDayInISODateString } from '@/utils/common';
 import { ISOMonthString } from '@/types/dtos/date';
 import { useDate } from '@/store/hooks/useDate';
 
+const INITIAL_JOURNAL_STATS = {
+  totalCount: 0,
+  totalFrequency: 0,
+  totalActiveDay: '',
+  monthlyCounts: {},
+};
+
+const INITIAL_EMOTION_STATS = {
+  signatureEmotion: {
+    type: '',
+    count: 0,
+    score: 0,
+  },
+  scoreBoard: {
+    sad: {
+      count: 0,
+      score: 0,
+    },
+    angry: {
+      count: 0,
+      score: 0,
+    },
+    happy: {
+      count: 0,
+      score: 0,
+    },
+    peace: {
+      count: 0,
+      score: 0,
+    },
+  },
+};
+
 export const StatisticsContext = createContext<Nullable<StatisticsStore>>(null);
 
 export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   const { journals, monthlyJournals } = useJournal('statistic');
   const { selectedYear, selectedMonth } = useDate('statistic');
   const [isLoading, setIsLoading] = useState(false);
-  const [journalStats, setJournalStats] = useState<JournalStats>({
-    totalCount: 0,
-    totalFrequency: 0,
-    totalActiveDay: '',
-    monthlyCounts: {},
-  });
+  const [journalStats, setJournalStats] = useState<JournalStats>(
+    INITIAL_JOURNAL_STATS,
+  );
   const [selectedMonthStats, setSelectedMonthStats] =
-    useState<SelectedMonthStats>({
-      month: '0000-00',
-      count: 0,
-      frequency: 0,
-      activeDay: '',
-      signatureEmotion: {
-        type: '',
-        count: 0,
-        score: 0,
-      },
-    });
+    useState<Nullable<SelectedMonthStats>>(null);
   const [expressiveMonthStats, setExpressiveMonthStats] =
     useState<ExpressiveMonthStats>({
       month: '0000-00',
       count: 0,
     });
-  const [emotionStats, setEmotionStats] = useState<EmotionStats>({
-    signatureEmotion: {
-      type: '',
-      count: 0,
-      score: 0,
-    },
-    scoreBoard: {
-      sad: {
-        count: 0,
-        score: 0,
-      },
-      angry: {
-        count: 0,
-        score: 0,
-      },
-      happy: {
-        count: 0,
-        score: 0,
-      },
-      peace: {
-        count: 0,
-        score: 0,
-      },
-    },
-  });
-
+  const [emotionStats, setEmotionStats] = useState<EmotionStats>(
+    INITIAL_EMOTION_STATS,
+  );
   /**
    * 작성한 모든 일기의 갯수 가져오기
    */
@@ -253,6 +250,11 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   ]);
 
   const getMonthlyStats = useCallback(() => {
+    console.log(selectedMonth);
+    if (!selectedMonth) {
+      setSelectedMonthStats(null);
+      return;
+    }
     const currentFrequency = getJournalFrequency(monthlyJournals);
     const currentActiveDay = getMostActiveDay(monthlyJournals);
     const scoreBoard = getTotalEmotionAverage(monthlyJournals);
@@ -299,9 +301,7 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   }, [selectedYear, getJournalStats, getEmotionStats, getExpressiveMonthStats]);
 
   useEffect(() => {
-    if (selectedMonth) {
-      getMonthlyStats();
-    }
+    getMonthlyStats();
   }, [selectedMonth, getMonthlyStats]);
 
   return (

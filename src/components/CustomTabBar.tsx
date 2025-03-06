@@ -13,7 +13,7 @@ import {
   PRESS_STYLE,
   PRESS_STYLE_KEY,
 } from '@/constants/styles';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useDraft } from '@/store/hooks/useDraft';
 import { TAB_BAR_HEIGHT } from '@/constants/size';
 import Animated, {
@@ -29,6 +29,11 @@ import * as NavigationBar from 'expo-navigation-bar';
 
 const AnimatedStack = Animated.createAnimatedComponent(Stack);
 
+const ANIMATION_CONFIG = {
+  duration: 300,
+  easing: Easing.inOut(Easing.ease),
+};
+
 export const CustomTabBar = () => {
   const theme = useTheme();
   const router = useRouter();
@@ -37,70 +42,51 @@ export const CustomTabBar = () => {
   const insets = useSafeAreaInsets();
   const translateY = useSharedValue(0);
 
-  useEffect(() => {
-    if (HIDE_TAB_BAR_ROUTES.some(route => pathname.startsWith(route))) {
-      translateY.value = withTiming(TAB_BAR_HEIGHT + insets.bottom, {
-        duration: 300,
-        easing: Easing.inOut(Easing.ease),
-      });
-    } else {
-      // 다른 페이지에서는 보이게 함
-      translateY.value = withTiming(0, {
-        duration: 300,
-        easing: Easing.inOut(Easing.ease),
-      });
-    }
-  }, [pathname, insets.bottom]);
+  const shouldHideTabBar = useMemo(
+    () => HIDE_TAB_BAR_ROUTES.some(route => pathname.startsWith(route)),
+    [pathname],
+  );
 
-  // 애니메이션 스타일
+  useEffect(() => {
+    translateY.value = withTiming(
+      shouldHideTabBar ? TAB_BAR_HEIGHT + insets.bottom : 0,
+      ANIMATION_CONFIG,
+    );
+
+    if (Platform.OS === 'android') {
+      NavigationBar.setBackgroundColorAsync(
+        shouldHideTabBar ? theme.background.val : theme.gray5.val,
+      );
+    }
+  }, [pathname, shouldHideTabBar, theme, insets.bottom, translateY]);
+
   const animatedStyle = useAnimatedStyle(() => {
     return {
       transform: [{ translateY: translateY.value }],
     };
   });
 
-  // 탭 네비게이션 함수
-  const navigateTo = (path: string) => {
-    router.push(path as Href);
-  };
+  const navigateTo = useCallback(
+    (path: string) => {
+      router.push(path as Href);
+    },
+    [router],
+  );
 
-  // 현재 활성화된 탭 확인
-  const isActive = (path: string) => {
-    return pathname === path || (path === '/' && pathname === '/index');
-  };
+  const showDraftNotification = useMemo(
+    () => Boolean(draft.content || draft.emotion?.type),
+    [draft.content, draft.emotion?.type],
+  );
 
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      if (HIDE_TAB_BAR_ROUTES.some(route => pathname.startsWith(route))) {
-        NavigationBar.setBackgroundColorAsync(theme.background.val);
-      } else {
-        NavigationBar.setBackgroundColorAsync(theme.gray5.val);
-      }
-    }
-  }, [pathname]);
+  const isActive = useCallback(
+    (path: string) => {
+      return pathname === path || (path === '/' && pathname === '/index');
+    },
+    [pathname],
+  );
 
-  return (
-    <AnimatedStack
-      position="absolute"
-      b={0}
-      l={0}
-      r={0}
-      animation="medium"
-      animateOnly={ENTER_STYLE_KEY}
-      enterStyle={ENTER_STYLE}
-      height={TAB_BAR_HEIGHT + insets.bottom}
-      pb={insets.bottom}
-      flexDirection="row"
-      bg={theme.gray5.val as any}
-      borderTopRightRadius={getToken('$12')}
-      borderTopLeftRadius={getToken('$12')}
-      shadowColor="#000"
-      shadowOffset={{ width: 0, height: -3 }}
-      shadowOpacity={0.1}
-      shadowRadius={3}
-      elevationAndroid={10}
-      style={animatedStyle}
-    >
+  const tabBarButtons = useMemo(
+    () => (
       <Stack
         flex={1}
         pt={Platform.OS === 'ios' ? '$4' : undefined}
@@ -146,7 +132,7 @@ export const CustomTabBar = () => {
           onPress={() => navigateTo('/write')}
           icon={<Plus size="$1" />}
         >
-          {(draft.content || draft.emotion?.type) && (
+          {showDraftNotification && (
             <Circle
               position="absolute"
               l={8}
@@ -183,6 +169,39 @@ export const CustomTabBar = () => {
           icon={<Settings size="$1" />}
         />
       </Stack>
+    ),
+    [navigateTo, isActive, showDraftNotification],
+  );
+
+  const containerStyle = useMemo(
+    () => ({
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: -3 },
+      shadowOpacity: 0.1,
+      shadowRadius: 3,
+      elevationAndroid: 10,
+    }),
+    [],
+  );
+
+  return (
+    <AnimatedStack
+      position="absolute"
+      b={0}
+      l={0}
+      r={0}
+      animation="medium"
+      animateOnly={ENTER_STYLE_KEY}
+      enterStyle={ENTER_STYLE}
+      height={TAB_BAR_HEIGHT + insets.bottom}
+      pb={insets.bottom}
+      flexDirection="row"
+      bg={theme.gray5.val as any}
+      borderTopRightRadius={getToken('$12')}
+      borderTopLeftRadius={getToken('$12')}
+      style={[containerStyle, animatedStyle]}
+    >
+      {tabBarButtons}
     </AnimatedStack>
   );
 };

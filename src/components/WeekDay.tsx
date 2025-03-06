@@ -4,20 +4,14 @@ import { ISODateString } from '@/types/dtos/date';
 import { HorizontalCalendar } from '@/components/HorizontalCalendar';
 import { FALL_STYLE, FALL_STYLE_KEY } from '@/constants/styles';
 import { useTranslation } from 'react-i18next';
-import {
-  getISODateString,
-  getLastDate,
-  getMonthNumber,
-  getMonthString,
-  getMonthStringWithoutYear,
-} from '@/utils/common';
+import { getISODateString, getLastDate, getMonthString } from '@/utils/common';
 import { useJournal } from '@/store/hooks/useJournal';
 import { useDate } from '@/store/hooks/useDate';
 
 export const WeekDay = () => {
   const {
-    selectedMonth,
-    selectedYear,
+    currentMonth,
+    currentYear,
     currentDate,
     selectedDate,
     onSelectedDateChange,
@@ -26,28 +20,17 @@ export const WeekDay = () => {
   const { t } = useTranslation();
 
   const dateCounts = useMemo(
-    () =>
-      getDateCountsForMonth(
-        selectedYear,
-        getMonthStringWithoutYear(selectedMonth),
-      ),
-    [journals, selectedMonth],
+    () => getDateCountsForMonth(currentYear, getMonthString(currentMonth)),
+    [journals, currentMonth],
   );
 
   const dates: ISODateString[] = useMemo(() => {
-    const lastDate = getLastDate(
-      selectedYear,
-      getMonthStringWithoutYear(selectedMonth),
-    );
+    const lastDate = getLastDate(currentYear, currentMonth);
 
     return Array.from({ length: lastDate }, (_, i) => {
-      return getISODateString(
-        selectedYear,
-        getMonthNumber(getMonthStringWithoutYear(selectedMonth)),
-        i + 1,
-      );
+      return getISODateString(currentYear, currentMonth, i + 1);
     });
-  }, [selectedYear, selectedMonth]);
+  }, [currentYear, currentMonth]);
 
   return (
     <YStack
@@ -62,12 +45,7 @@ export const WeekDay = () => {
     >
       <XStack justify="space-between">
         <H1 fontWeight="800" color="$gray1">
-          {t(
-            `calendar.months.${getMonthString(
-              getMonthNumber(getMonthStringWithoutYear(selectedMonth)),
-            )}`,
-          )}
-          .
+          {t(`calendar.months.${getMonthString(currentMonth)}`)}.
         </H1>
       </XStack>
       <HorizontalCalendar

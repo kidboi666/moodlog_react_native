@@ -15,6 +15,8 @@ export default function CalendarScreen() {
     selectedMonth,
     selectedYear,
     selectedDate,
+    currentMonth,
+    currentYear,
     onSelectedDateChange,
     onSelectedMonthChange,
   } = useDate('calendar');
@@ -25,9 +27,15 @@ export default function CalendarScreen() {
   const dateCounts = useMemo(() => {
     return getDateCountsForMonth(
       selectedYear,
-      getMonthStringWithoutYear(selectedMonth),
+      selectedMonth ? getMonthStringWithoutYear(selectedMonth) : currentMonth,
     );
-  }, [journals, selectedMonth]);
+  }, [
+    journals,
+    selectedMonth,
+    selectedYear,
+    currentMonth,
+    getDateCountsForMonth,
+  ]);
 
   return (
     <CalendarListBase

@@ -83,13 +83,13 @@ export interface StepProgressStore {
 
 export interface DateStore {
   selectedYear: number;
-  selectedMonth: ISOMonthString;
+  selectedMonth: Nullable<ISOMonthString>;
   selectedDate: ISODateString;
   currentYear: number;
   currentMonth: number;
   currentDate: Date;
   onSelectedYearChange: (year: number) => void;
-  onSelectedMonthChange: (month: ISOMonthString) => void;
+  onSelectedMonthChange: (month: Nullable<ISOMonthString>) => void;
   onSelectedDateChange: (date: ISODateString) => void;
   initSelectedDates: () => void;
 }
@@ -99,7 +99,7 @@ export type StatisticsStore = WithState<
     journalStats: JournalStats;
     emotionStats: EmotionStats;
     expressiveMonthStats: ExpressiveMonthStats;
-    selectedMonthStats: SelectedMonthStats;
+    selectedMonthStats: Nullable<SelectedMonthStats>;
   },
   LoadingState
 >;

@@ -13,6 +13,7 @@ import {
 import { useStatistics } from '@/store/hooks/useStatistics';
 import { ExpandedContent } from '@/screens/stats/selected-month/ExpandedContent';
 import { CollapsedContent } from '@/screens/stats/selected-month/CollapsedContent';
+import { EmptyContent } from '@/screens/stats/EmptyContent';
 
 const AnimatedCard = Animated.createAnimatedComponent(YStack);
 
@@ -40,11 +41,13 @@ export const CurrentMonth = () => {
       onPressOut={() => (isTouched.value = false)}
       bg="$gray5"
       rounded="$8"
-      onPress={onPress}
+      onPress={() => (selectedMonthStats ? onPress() : undefined)}
       style={animatedStyle}
     >
       <AnimatePresence>
-        {isExpanded ? (
+        {!selectedMonthStats || selectedMonthStats.count === 0 ? (
+          <EmptyContent />
+        ) : isExpanded ? (
           <ExpandedContent selectedMonthStats={selectedMonthStats} />
         ) : (
           <CollapsedContent selectedMonthStats={selectedMonthStats} />

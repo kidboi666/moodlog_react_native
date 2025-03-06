@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Button, H5, Text, View, YStack } from 'tamagui';
 import { Maximize2, Minimize2 } from '@tamagui/lucide-icons';
-import { EmptyExpandedContent } from '@/screens/stats/EmptyExpandedContent';
+import { EmptyContent } from '@/screens/stats/EmptyContent';
 import { ExpressiveMonthStats } from '@/types/entries';
 import { getMonthStringWithoutYear } from '@/utils/common';
 
@@ -24,7 +24,7 @@ export const ExpandedContent = ({
 }: Props) => {
   const { t } = useTranslation();
   if (!totalCount) {
-    return <EmptyExpandedContent />;
+    return <EmptyContent />;
   }
 
   return (
