@@ -1,18 +1,18 @@
 import {
-  Calendar,
+  CalendarList,
   CalendarProps,
   CalendarUtils,
   DateData,
   LocaleConfig,
 } from 'react-native-calendars';
-import { CustomDayComponent } from '@/components/CustomDayComponent';
 import { Button } from 'tamagui';
 import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { DateCounts } from '@/types/entries';
 import { ISODateString, ISOMonthString } from '@/types/dtos/date';
-import { DayState, Direction } from 'react-native-calendars/src/types';
-import { MarkingProps } from 'react-native-calendars/src/calendar/day/marking';
+import { Direction } from 'react-native-calendars/src/types';
+import { CustomDayComponent } from '@/components/CustomDayComponent';
+import { DayProps } from 'react-native-calendars/src/calendar/day';
 
 LocaleConfig.locales['ko'] = {
   monthNames: [
@@ -80,57 +80,74 @@ LocaleConfig.defaultLocale = 'ko';
 
 interface Props extends CalendarProps {
   dateCounts: DateCounts;
-  variant?: 'contained' | 'default';
   onSelectedDateChange: (date: ISODateString) => void;
   onSelectedMonthChange: (month: ISOMonthString) => void;
   selectedDate?: ISODateString;
+  pastScrollRange: number;
+  futureScrollRange: number;
 }
 
-export const CalendarBase = ({
+export const CalendarListBase = ({
   dateCounts,
-  variant = 'default',
+  pastScrollRange,
+  futureScrollRange,
   onSelectedDateChange,
   onSelectedMonthChange,
   selectedDate,
   ...props
 }: Props) => {
-  return (
-    <Calendar
-      disableMonthChange
-      dayComponent={({
-        date,
-        state,
-        marking,
-      }: {
-        date: DateData;
-        state: DayState;
-        marking: MarkingProps;
-      }) => (
+  const handleDayPress = useCallback(
+    (date: DateData) => {
+      onSelectedDateChange(date.dateString as ISODateString);
+    },
+    [onSelectedDateChange],
+  );
+
+  const markedDates = useMemo(() => {
+    if (selectedDate) {
+      return {
+        [selectedDate]: {
+          selected: true,
+          disableTouchEvent: true,
+        },
+      };
+    }
+    return {};
+  }, [selectedDate]);
+
+  const DayComponentWrapper = useCallback(
+    (props: DayProps) => {
+      const { date, state, marking } = props;
+
+      if (!date) {
+        return null;
+      }
+
+      return (
         <CustomDayComponent
-          variant={variant}
-          date={date}
-          state={state}
+          date={date as unknown as DateData}
+          state={state!}
           dateCounts={dateCounts}
-          marking={marking}
-          onPress={() => {
-            onSelectedDateChange(date.dateString as ISODateString);
-          }}
+          marking={marking!}
+          onPress={() => handleDayPress(date as unknown as DateData)}
         />
-      )}
+      );
+    },
+    [dateCounts, onSelectedDateChange],
+  );
+
+  return (
+    <CalendarList
+      dayComponent={DayComponentWrapper}
+      pastScrollRange={pastScrollRange}
+      futureScrollRange={futureScrollRange}
       hideExtraDays
       current={selectedDate}
       maxDate={CalendarUtils.getCalendarDateString(new Date())}
       onDayPress={(date: DateData) =>
         onSelectedDateChange(date.dateString as ISODateString)
       }
-      markedDates={
-        selectedDate && {
-          [selectedDate]: {
-            selected: true,
-            disabledTouchEvent: true,
-          },
-        }
-      }
+      markedDates={markedDates}
       renderArrow={(direction: Direction) => (
         <Button
           unstyled
