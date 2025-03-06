@@ -10,7 +10,7 @@ export default function SettingsScreen() {
   const { t } = useTranslation();
 
   return (
-    <ScrollView flex={1}>
+    <ScrollView>
       <Container edges={['top']} padded>
         <YStack>
           {/* Theme Setting */}

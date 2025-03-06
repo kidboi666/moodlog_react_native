@@ -10,6 +10,7 @@ import { STORAGE_KEY } from '@/constants/storage';
 import { APP_VERSION } from '@/constants/common';
 
 export const AppContext = createContext<Nullable<AppStore>>(null);
+
 const defaultLanguage = Localization.getLocales()[0].languageCode as Languages;
 
 export const AppContextProvider = ({ children }: PropsWithChildren) => {

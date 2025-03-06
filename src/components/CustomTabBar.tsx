@@ -1,6 +1,7 @@
 import { Button, Circle, getToken, Stack, useTheme } from 'tamagui';
 import { Href, usePathname, useRouter } from 'expo-router';
 import {
+  CalendarDays,
   FileChartColumnIncreasing,
   Home,
   Plus,
@@ -119,8 +120,7 @@ export const CustomTabBar = () => {
           color={isActive('/') ? '$gray12' : '$gray10'}
           icon={<Home size="$1" />}
         />
-
-        {/* Record 탭 */}
+        {/* Calendar 탭 */}
         <Button
           unstyled
           p="$4"
@@ -128,9 +128,9 @@ export const CustomTabBar = () => {
           animation="quick"
           animateOnly={PRESS_STYLE_KEY}
           pressStyle={PRESS_STYLE}
-          onPress={() => navigateTo('/record')}
-          color={isActive('/record') ? '$gray12' : '$gray10'}
-          icon={<FileChartColumnIncreasing size="$1" />}
+          onPress={() => navigateTo('/calendar')}
+          color={isActive('/calendar') ? '$gray12' : '$gray11'}
+          icon={<CalendarDays size="$1" />}
         />
 
         {/* Write 탭 */}
@@ -158,6 +158,18 @@ export const CustomTabBar = () => {
           )}
         </Button>
 
+        {/* Record 탭 */}
+        <Button
+          unstyled
+          p="$4"
+          rounded="$4"
+          animation="quick"
+          animateOnly={PRESS_STYLE_KEY}
+          pressStyle={PRESS_STYLE}
+          onPress={() => navigateTo('/record')}
+          color={isActive('/record') ? '$gray12' : '$gray10'}
+          icon={<FileChartColumnIncreasing size="$1" />}
+        />
         {/* Settings 탭 */}
         <Button
           unstyled

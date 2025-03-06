@@ -19,7 +19,7 @@ import {
 } from 'react-native';
 import { NewUserInfo } from '@/types/dtos/user';
 import { APP_VERSION } from '@/constants/common';
-import { MutableRefObject } from 'react';
+import { Dispatch, MutableRefObject, SetStateAction } from 'react';
 import { EnhancedTextInputRef } from '@/screens/write/EnhancedTextInput';
 
 export type JournalStore = WithState<
@@ -141,3 +141,11 @@ export interface DraftStore {
   onImageUriChange: () => Promise<Nullable<void>>;
   onContentChange: (content: string) => void;
 }
+
+export type StorageStore = WithState<
+  {
+    journals: Journal[];
+    setJournals: Dispatch<SetStateAction<Journal[]>>;
+  },
+  LoadingState
+>;

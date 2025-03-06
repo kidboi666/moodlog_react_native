@@ -1,8 +1,26 @@
 import { useContext } from 'react';
-import { DateContext } from '@/store/contexts/DateContext';
+import {
+  CalendarDateContext,
+  GlobalDateContext,
+  StatisticDateContext,
+  WeekDateContext,
+} from '@/store/contexts/DateContext';
+import { ContextName } from '@/types/enums';
 
-export const useDate = () => {
-  const context = useContext(DateContext);
+export const useDate = (contextName: ContextName) => {
+  let dateContext;
+
+  if (contextName === 'week') {
+    dateContext = WeekDateContext;
+  } else if (contextName === 'calendar') {
+    dateContext = CalendarDateContext;
+  } else if (contextName === 'statistic') {
+    dateContext = StatisticDateContext;
+  } else {
+    dateContext = GlobalDateContext;
+  }
+
+  const context = useContext(dateContext);
   if (!context) {
     throw new Error('useDate must be used within a DateContextProvider');
   }

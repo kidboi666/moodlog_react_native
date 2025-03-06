@@ -107,6 +107,7 @@ function RootLayoutNav() {
             <Stack.Screen name="+not-found" />
           </Stack>
           <CurrentToast />
+          {/*{__DEV__ && <DevContainer />}*/}
         </BottomSheetModalProvider>
       </ThemeProvider>
     </GestureHandlerRootView>

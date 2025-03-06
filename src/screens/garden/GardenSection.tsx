@@ -1,5 +1,4 @@
 import { Button, ScrollView, XStack, YStack } from 'tamagui';
-import { useDate } from '@/store/hooks/useDate';
 import { useJournal } from '@/store/hooks/useJournal';
 import { GardenTitleHeader } from '@/screens/garden/GardenTitleHeader';
 import { GardenDayUnits } from '@/screens/garden/GardenDayUnits';
@@ -8,10 +7,11 @@ import { Garden } from '@/screens/garden/Garden';
 import { getMonthInISODateString } from '@/utils/common';
 import { useGarden } from '@/store/hooks/useGarden';
 import { useCallback, useMemo } from 'react';
+import { useDate } from '@/store/hooks/useDate';
 
 export const GardenSection = () => {
-  const { selectedYear, selectedMonth } = useDate();
-  const { getEmotionForDate } = useJournal();
+  const { selectedYear, selectedMonth } = useDate('statistic');
+  const { getEmotionForDate } = useJournal('statistic');
   const { months, onMonthChange } = useGarden();
 
   // 함수 메모이제이션

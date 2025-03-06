@@ -1,6 +1,5 @@
 import { H1, XStack, YStack } from 'tamagui';
 import React, { useMemo } from 'react';
-import { useJournal } from '@/store/hooks/useJournal';
 import { ISODateString } from '@/types/dtos/date';
 import { HorizontalCalendar } from '@/components/HorizontalCalendar';
 import { FALL_STYLE, FALL_STYLE_KEY } from '@/constants/styles';
@@ -12,17 +11,18 @@ import {
   getMonthString,
   getMonthStringWithoutYear,
 } from '@/utils/common';
+import { useJournal } from '@/store/hooks/useJournal';
 import { useDate } from '@/store/hooks/useDate';
 
-export const WeekDayPicker = () => {
+export const WeekDay = () => {
   const {
     selectedMonth,
     selectedYear,
     currentDate,
     selectedDate,
     onSelectedDateChange,
-  } = useDate();
-  const { journals, getDateCountsForMonth } = useJournal();
+  } = useDate('week');
+  const { journals, getDateCountsForMonth } = useJournal('week');
   const { t } = useTranslation();
 
   const dateCounts = useMemo(

@@ -14,8 +14,8 @@ import { GardenStore } from '@/types/store';
 export const GardenContext = createContext<Nullable<GardenStore>>(null);
 
 export const GardenContextProvider = ({ children }: PropsWithChildren) => {
-  const { journals, getJournalsByMonth } = useJournal();
-  const { selectedYear, onSelectedMonthChange } = useDate();
+  const { journals, getJournalsByMonth } = useJournal('statistic');
+  const { selectedYear, onSelectedMonthChange } = useDate('statistic');
   const [isLoading, setIsLoading] = useState(false);
   const [monthlyJournals, setMonthlyJournals] = useState();
 

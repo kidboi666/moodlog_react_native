@@ -12,28 +12,24 @@ import { useJournal } from '@/store/hooks/useJournal';
 import { JournalCard } from '@/components/JournalCard';
 import { Container } from '@/components/layouts/containers/Container';
 import { EmptyJournal } from '@/components/EmptyJournal';
-import { Redirect, useFocusEffect } from 'expo-router';
+import { Redirect } from 'expo-router';
 import { useApp } from '@/store/hooks/useApp';
 import { FadeIn } from '@/components/FadeIn';
 import { PARAGRAPH_DELAY } from '@/constants/styles';
 import { HOME_HEADER_LINE_HEIGHT } from '@/constants/size';
 import { ShakeEmoji } from '@/components/ShakeEmoji';
-import { WeekDayPicker } from '@/components/WeekDayPicker';
-import React, { useCallback } from 'react';
+import { WeekDay } from '@/components/WeekDay';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useUser } from '@/store/hooks/useUser';
 import { useScroll } from '@/store/hooks/useScroll';
-import { useDate } from '@/store/hooks/useDate';
 
 export default function HomeScreen() {
-  const { dailyJournals } = useJournal();
-  const { initSelectedDates } = useDate();
+  const { dailyJournals } = useJournal('week');
   const { isInitialApp } = useApp();
   const { t } = useTranslation();
   const { onScroll } = useScroll();
   const { userInfo } = useUser();
-
-  useFocusEffect(useCallback(() => initSelectedDates(), []));
 
   if (!isInitialApp) {
     return <Redirect href="/(onboarding)/welcome" />;
@@ -61,7 +57,7 @@ export default function HomeScreen() {
           <FadeIn delay={PARAGRAPH_DELAY.SECOND}>
             <H4 color="$gray11">{t('common.greeting.howAreYou')}</H4>
           </FadeIn>
-          <WeekDayPicker />
+          <WeekDay />
         </YStack>
 
         {Array.isArray(dailyJournals) ? (

@@ -1,6 +1,5 @@
 import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
-import { useDate } from '@/store/hooks/useDate';
 import { StatisticsStore } from '@/types/store';
 import { Nullable } from '@/types/utils';
 import { MONTHS } from '@/constants/date';
@@ -16,12 +15,13 @@ import {
 import { EmotionLevel } from 'src/types/enums';
 import { getDayInISODateString } from '@/utils/common';
 import { ISOMonthString } from '@/types/dtos/date';
+import { useDate } from '@/store/hooks/useDate';
 
 export const StatisticsContext = createContext<Nullable<StatisticsStore>>(null);
 
 export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
-  const { journals, monthlyJournals } = useJournal();
-  const { selectedYear, selectedMonth } = useDate();
+  const { journals, monthlyJournals } = useJournal('statistic');
+  const { selectedYear, selectedMonth } = useDate('statistic');
   const [isLoading, setIsLoading] = useState(false);
   const [journalStats, setJournalStats] = useState<JournalStats>({
     totalCount: 0,

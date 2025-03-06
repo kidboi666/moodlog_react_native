@@ -97,7 +97,6 @@ export const CalendarBase = ({
   return (
     <Calendar
       disableMonthChange
-      customHeader={() => null}
       dayComponent={({
         date,
         state,
