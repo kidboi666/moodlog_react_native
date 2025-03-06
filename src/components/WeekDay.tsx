@@ -1,11 +1,9 @@
-import { Button, H1, XStack, YStack } from 'tamagui';
-import React, { useMemo, useState } from 'react';
+import { H1, XStack, YStack } from 'tamagui';
+import React, { useMemo } from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
 import { ISODateString } from '@/types/dtos/date';
 import { HorizontalCalendar } from '@/components/HorizontalCalendar';
-import { CalendarDays, CalendarRange } from '@tamagui/lucide-icons';
 import { FALL_STYLE, FALL_STYLE_KEY } from '@/constants/styles';
-import { VerticalCalendar } from '@/components/VerticalCalendar';
 import { useTranslation } from 'react-i18next';
 import {
   getISODateString,
@@ -17,16 +15,12 @@ import {
 import { useDate } from '@/store/hooks/useDate';
 
 export const WeekDayPicker = () => {
-  const [calendarVariation, setCalendarVariation] = useState<
-    'horizontal' | 'vertical'
-  >('horizontal');
   const {
     selectedMonth,
     selectedYear,
     currentDate,
     selectedDate,
     onSelectedDateChange,
-    onSelectedMonthChange,
   } = useDate();
   const { journals, getDateCountsForMonth } = useJournal();
   const { t } = useTranslation();
@@ -75,40 +69,14 @@ export const WeekDayPicker = () => {
           )}
           .
         </H1>
-        <Button
-          variant="outlined"
-          themeInverse
-          icon={
-            calendarVariation === 'vertical' ? (
-              <CalendarRange size="$1" />
-            ) : (
-              <CalendarDays size="$1" />
-            )
-          }
-          onPress={() =>
-            setCalendarVariation(prev =>
-              prev === 'horizontal' ? 'vertical' : 'horizontal',
-            )
-          }
-        />
       </XStack>
-      {calendarVariation === 'horizontal' && (
-        <HorizontalCalendar
-          dates={dates}
-          dateCounts={dateCounts}
-          selectedDate={selectedDate}
-          currentDate={currentDate}
-          onSelectedDateChange={onSelectedDateChange}
-        />
-      )}
-      {calendarVariation === 'vertical' && (
-        <VerticalCalendar
-          onSelectedMonthChange={onSelectedMonthChange}
-          onSelectedDateChange={onSelectedDateChange}
-          dateCounts={dateCounts}
-          selectedDate={selectedDate}
-        />
-      )}
+      <HorizontalCalendar
+        dates={dates}
+        dateCounts={dateCounts}
+        selectedDate={selectedDate}
+        currentDate={currentDate}
+        onSelectedDateChange={onSelectedDateChange}
+      />
     </YStack>
   );
 };
