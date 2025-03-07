@@ -65,19 +65,14 @@ export default function JournalScreen() {
               </XStack>
             </XStack>
             {selectedJournal.imageUri && (
-              <View
+              <XStack
                 animation="bouncy"
                 width={300}
                 height={300}
-                mx={'auto'}
+                elevation="$2"
+                mx="auto"
                 rounded="$8"
-                bg={'white'}
-                shadowColor={'#000'}
-                shadowOffset={{ width: 0, height: 3 }}
-                shadowOpacity={0.2}
-                shadowRadius={8}
                 enterStyle={ENTER_STYLE}
-                elevationAndroid={10}
               >
                 <Image
                   source={{ uri: selectedJournal.imageUri }}
@@ -85,7 +80,7 @@ export default function JournalScreen() {
                   height="100%"
                   rounded="$8"
                 />
-              </View>
+              </XStack>
             )}
 
             <Paragraph fontWeight="300" fontSize={fontSize}>

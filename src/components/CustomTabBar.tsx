@@ -99,6 +99,7 @@ export const CustomTabBar = () => {
           unstyled
           p="$4"
           rounded="$4"
+          borderTopLeftRadius="$10"
           animation="quick"
           animateOnly={PRESS_STYLE_KEY}
           pressStyle={PRESS_STYLE}
@@ -161,6 +162,7 @@ export const CustomTabBar = () => {
           unstyled
           p="$4"
           rounded="$4"
+          borderTopRightRadius="$10"
           animation="quick"
           animateOnly={PRESS_STYLE_KEY}
           pressStyle={PRESS_STYLE}
@@ -173,19 +175,12 @@ export const CustomTabBar = () => {
     [navigateTo, isActive, showDraftNotification],
   );
 
-  const containerStyle = useMemo(
-    () => ({
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: -3 },
-      shadowOpacity: 0.1,
-      shadowRadius: 3,
-      elevationAndroid: 10,
-    }),
-    [],
-  );
-
   return (
     <AnimatedStack
+      shadowColor="$shadowColor"
+      shadowOpacity={0.1}
+      shadowRadius="$4"
+      shadowOffset={{ width: 0, height: -3 }}
       position="absolute"
       b={0}
       l={0}
@@ -199,7 +194,7 @@ export const CustomTabBar = () => {
       bg={theme.gray5.val as any}
       borderTopRightRadius={getToken('$12')}
       borderTopLeftRadius={getToken('$12')}
-      style={[containerStyle, animatedStyle]}
+      style={animatedStyle}
     >
       {tabBarButtons}
     </AnimatedStack>

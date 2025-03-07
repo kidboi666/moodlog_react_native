@@ -40,6 +40,7 @@ export const WeekDay = () => {
       mb="$4"
       p="$4"
       bg="$gray12"
+      elevation="$2"
       rounded="$8"
       enterStyle={FALL_STYLE}
     >

@@ -1,5 +1,5 @@
-import { Button, Text, YStack } from 'tamagui';
-import { FileQuestion, Plus } from '@tamagui/lucide-icons';
+import { Button, H3, H5, YStack } from 'tamagui';
+import { NotebookPen, Plus } from '@tamagui/lucide-icons';
 import {
   ENTER_STYLE,
   ENTER_STYLE_KEY,
@@ -21,7 +21,37 @@ export const EmptyJournal = ({ date }: Props) => {
   const toast = useToastController();
   const isToday = CalendarUtils.getCalendarDateString(new Date()) === date;
 
-  return (
+  return isToday ? (
+    <YStack
+      key={date}
+      animation="quick"
+      animateOnly={ENTER_STYLE_KEY}
+      p="$6"
+      px="$9"
+      justify="center"
+      items="center"
+      bg="$gray4"
+      rounded="$8"
+      gap="$3"
+      enterStyle={ENTER_STYLE}
+    >
+      <H3 text="center" color="$gray11">
+        {t('common.fallback.today')}
+      </H3>
+      <Button
+        unstyled
+        animation="quick"
+        animateOnly={PRESS_STYLE_KEY}
+        bg="$gray12"
+        p="$4"
+        rounded="$4"
+        color="$gray1"
+        icon={<Plus size="$1" />}
+        onPress={() => router.push('/(tabs)/write/mood_select')}
+        pressStyle={PRESS_STYLE}
+      />
+    </YStack>
+  ) : (
     <YStack
       key={date}
       animation="quick"
@@ -29,48 +59,17 @@ export const EmptyJournal = ({ date }: Props) => {
       p="$6"
       justify="center"
       items="center"
-      bg="$gray5"
       rounded="$8"
-      gap="$4"
+      gap="$3"
       enterStyle={ENTER_STYLE}
     >
-      {isToday ? (
-        <>
-          <Text fontWeight="800" fontSize="$9" text="center">
-            {t('common.fallback.today')} ✏️
-          </Text>
-          <Button
-            unstyled
-            animation="quick"
-            animateOnly={PRESS_STYLE_KEY}
-            bg="$gray12"
-            p="$4"
-            rounded="$4"
-            color="$gray1"
-            icon={<Plus size="$1" />}
-            onPress={() => router.push('/(tabs)/write/mood_select')}
-            pressStyle={PRESS_STYLE}
-          />
-        </>
-      ) : (
-        <>
-          <Text fontWeight="800" fontSize="$8">
-            {t('common.fallback.empty')}
-          </Text>
-          <Button
-            unstyled
-            animation="quick"
-            animateOnly={PRESS_STYLE_KEY}
-            color="$gray1"
-            p="$4"
-            bg="$gray12"
-            rounded="$4"
-            icon={<FileQuestion size="$1" />}
-            pressStyle={PRESS_STYLE}
-            onPress={() => toast.show(t('notifications.warning.journal.title'))}
-          />
-        </>
-      )}
+      <Button
+        unstyled
+        icon={<NotebookPen size="$2" color="$gray10" />}
+        onPress={() => toast.show(t('notifications.warning.journal.title'))}
+      />
+      <H3 color="$gray10">{t('common.fallback.empty.title')}</H3>
+      <H5 color="$gray10">{t('common.fallback.empty.description')}</H5>
     </YStack>
   );
 };

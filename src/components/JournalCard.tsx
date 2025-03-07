@@ -30,6 +30,7 @@ export const JournalCard = ({ journal }: Props) => {
       <Card
         group
         flex={1}
+        elevation="$2"
         l={isLongPress ? -8 : 0}
         animation="quick"
         enterStyle={ENTER_STYLE}
@@ -38,7 +39,6 @@ export const JournalCard = ({ journal }: Props) => {
         animateOnly={PRESS_STYLE_KEY}
         bg="$gray4"
         rounded="$8"
-        overflow="hidden"
         onPress={() => {
           setIsPress(true);
           setTimeout(() => {
@@ -75,7 +75,7 @@ export const JournalCard = ({ journal }: Props) => {
         </Card.Header>
 
         {journal.imageUri && (
-          <Card.Background>
+          <Card.Background rounded="$8">
             <Image
               animation="medium"
               opacity={0.6}

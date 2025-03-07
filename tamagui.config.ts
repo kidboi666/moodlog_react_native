@@ -1,6 +1,6 @@
 import { defaultConfig } from '@tamagui/config/v4';
 import { createFont, createTamagui } from 'tamagui';
-import { themes, tokens } from '@tamagui/themes';
+import { themes, tokens as tamaguiTokens } from '@tamagui/themes';
 
 const systemFont = createFont({
   family: 'Pretendard',
@@ -36,27 +36,6 @@ const systemFont = createFont({
     800: { normal: 'Pretendard-Bold' },
   },
 });
-//
-// const smoothBezierEasing = Easing.bezier(0.215, 0.61, 0.355, 1.0);
-//
-// const animations = createAnimations({
-//   medium: {
-//     type: 'timing',
-//     duration: 300,
-//     easing: Easing.in(Easing.cubic),
-//   },
-//   quick: {
-//     type: 'timing',
-//     duration: 400,
-//     easing: smoothBezierEasing,
-//   },
-//   bouncy: {
-//     type: 'spring',
-//     damping: 10,
-//     mass: 0.9,
-//     stiffness: 100,
-//   },
-// });
 
 export const config = createTamagui({
   ...defaultConfig,
@@ -65,7 +44,7 @@ export const config = createTamagui({
     heading: systemFont,
   },
   themes,
-  tokens,
+  tokens: tamaguiTokens,
 });
 
 export default config;
