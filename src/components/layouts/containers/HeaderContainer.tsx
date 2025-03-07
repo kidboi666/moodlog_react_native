@@ -1,9 +1,9 @@
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ViewProps, XStack } from 'tamagui';
+import { XStack, XStackProps } from 'tamagui';
 import { CONTAINER_SPACING } from '@/constants/size';
 import { Platform } from 'react-native';
 
-interface Props extends ViewProps {
+interface Props extends XStackProps {
   edges?: Array<'top' | 'bottom'>;
 }
 
@@ -23,6 +23,7 @@ export const HeaderContainer = ({
     <XStack
       pt={Platform.OS === 'ios' ? CONTAINER_SPACING : CONTAINER_SPACING * 2}
       justify="space-between"
+      items="center"
       {...safeAreaMargins}
       {...props}
     >

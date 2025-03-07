@@ -7,7 +7,10 @@
     },
     "fallback": {
       "today": "Waiting for your story.",
-      "empty": "No diary entries available.",
+      "empty": {
+        "title": "No diary entries yet.",
+        "description": "Written diary entries will appear here."
+      },
       "text": "None"
     },
     "button": {

@@ -19,7 +19,10 @@ export const removeLeadingZero = (str: string) => {
   return str;
 };
 
-export const getMonthNumber = (month: MonthKey) => {
+export const getMonthNumber = (month: number | MonthKey) => {
+  if (typeof month === 'number') {
+    return `${month + 1}`;
+  }
   return Object.keys(MONTHS).indexOf(month);
 };
 

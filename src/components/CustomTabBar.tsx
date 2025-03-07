@@ -1,4 +1,4 @@
-import { Button, Circle, getToken, Stack, useTheme } from 'tamagui';
+import { Button, Circle, getToken, Stack, useTheme, XStack } from 'tamagui';
 import { Href, usePathname, useRouter } from 'expo-router';
 import {
   CalendarDays,
@@ -27,7 +27,7 @@ import { Platform } from 'react-native';
 import { HIDE_TAB_BAR_ROUTES } from '@/constants/routes';
 import * as NavigationBar from 'expo-navigation-bar';
 
-const AnimatedStack = Animated.createAnimatedComponent(Stack);
+const AnimatedStack = Animated.createAnimatedComponent(XStack);
 
 const ANIMATION_CONFIG = {
   duration: 300,
@@ -177,10 +177,7 @@ export const CustomTabBar = () => {
 
   return (
     <AnimatedStack
-      shadowColor="$shadowColor"
-      shadowOpacity={0.1}
-      shadowRadius="$4"
-      shadowOffset={{ width: 0, height: -3 }}
+      elevation="$4"
       position="absolute"
       b={0}
       l={0}

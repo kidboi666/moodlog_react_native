@@ -45,7 +45,7 @@ export const GardenSection = () => {
   );
 
   return (
-    <YStack bg="$gray5" p="$4" rounded="$8" gap="$4">
+    <YStack bg="$gray4" p="$4" rounded="$8" gap="$4">
       <GardenTitleHeader />
       <ScrollView horizontal>
         <GardenDayUnits />

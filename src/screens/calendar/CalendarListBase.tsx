@@ -7,12 +7,13 @@ import {
 } from 'react-native-calendars';
 import { Button } from 'tamagui';
 import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
-import React, { useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { DateCounts } from '@/types/entries';
 import { ISODateString, ISOMonthString } from '@/types/dtos/date';
 import { Direction } from 'react-native-calendars/src/types';
 import { CustomDayComponent } from '@/components/CustomDayComponent';
 import { DayProps } from 'react-native-calendars/src/calendar/day';
+import { CustomHeader } from '@/screens/calendar/CustomHeader';
 
 LocaleConfig.locales['ko'] = {
   monthNames: [
@@ -87,68 +88,63 @@ interface Props extends CalendarProps {
   futureScrollRange: number;
 }
 
-export const CalendarListBase = ({
-  dateCounts,
-  pastScrollRange,
-  futureScrollRange,
-  onSelectedDateChange,
-  onSelectedMonthChange,
-  selectedDate,
-  ...props
-}: Props) => {
-  const handleDayPress = useCallback(
-    (date: DateData) => {
-      onSelectedDateChange(date.dateString as ISODateString);
-    },
-    [onSelectedDateChange],
-  );
+export const CalendarListBase = memo(
+  ({
+    dateCounts,
+    pastScrollRange,
+    futureScrollRange,
+    onSelectedDateChange,
+    onSelectedMonthChange,
+    selectedDate,
+    ...props
+  }: Props) => {
+    const handleDayPress = useCallback(
+      (date: DateData) => {
+        onSelectedDateChange(date.dateString as ISODateString);
+      },
+      [onSelectedDateChange],
+    );
 
-  const markedDates = useMemo(() => {
-    if (selectedDate) {
-      return {
-        [selectedDate]: {
-          selected: true,
-          disableTouchEvent: true,
-        },
-      };
-    }
-    return {};
-  }, [selectedDate]);
-
-  const DayComponentWrapper = useCallback(
-    (props: DayProps) => {
-      const { date, state, marking } = props;
-
-      if (!date) {
-        return null;
+    const markedDates = useMemo(() => {
+      if (selectedDate) {
+        return {
+          [selectedDate]: {
+            selected: true,
+            disableTouchEvent: true,
+          },
+        };
       }
+      return {};
+    }, [selectedDate]);
 
-      return (
-        <CustomDayComponent
-          date={date as unknown as DateData}
-          state={state!}
-          dateCounts={dateCounts}
-          marking={marking!}
-          onPress={() => handleDayPress(date as unknown as DateData)}
-        />
-      );
-    },
-    [dateCounts, onSelectedDateChange],
-  );
+    const DayComponentWrapper = useCallback(
+      (props: DayProps) => {
+        const { date, state, marking } = props;
 
-  return (
-    <CalendarList
-      dayComponent={DayComponentWrapper}
-      pastScrollRange={pastScrollRange}
-      futureScrollRange={futureScrollRange}
-      hideExtraDays
-      current={selectedDate}
-      maxDate={CalendarUtils.getCalendarDateString(new Date())}
-      onDayPress={(date: DateData) =>
-        onSelectedDateChange(date.dateString as ISODateString)
-      }
-      markedDates={markedDates}
-      renderArrow={(direction: Direction) => (
+        if (!date) {
+          return null;
+        }
+
+        return (
+          <CustomDayComponent
+            date={date as unknown as DateData}
+            state={state!}
+            dateCounts={dateCounts}
+            marking={marking!}
+            onPress={() => handleDayPress(date as unknown as DateData)}
+          />
+        );
+      },
+      [dateCounts, handleDayPress],
+    );
+
+    const renderHeader = useCallback(
+      (date: any) => <CustomHeader date={date} />,
+      [],
+    );
+
+    const renderArrow = useCallback(
+      (direction: Direction) => (
         <Button
           unstyled
           p="$1"
@@ -161,8 +157,26 @@ export const CalendarListBase = ({
             )
           }
         />
-      )}
-      {...props}
-    />
-  );
-};
+      ),
+      [],
+    );
+
+    return (
+      <CalendarList
+        renderHeader={renderHeader}
+        dayComponent={DayComponentWrapper}
+        pastScrollRange={pastScrollRange}
+        futureScrollRange={futureScrollRange}
+        hideExtraDays
+        hideDayNames
+        current={selectedDate}
+        maxDate={CalendarUtils.getCalendarDateString(new Date())}
+        onDayPress={handleDayPress}
+        markedDates={markedDates}
+        renderArrow={renderArrow}
+        animateScroll
+        {...props}
+      />
+    );
+  },
+);

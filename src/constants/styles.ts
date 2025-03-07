@@ -6,7 +6,6 @@ import { Dimensions } from 'react-native';
 export const ENTER_STYLE = {
   opacity: 0,
   scale: 0.85,
-  y: 10,
 } as const;
 
 export const ENTER_STYLE_KEY = ['opacity', 'transform'];

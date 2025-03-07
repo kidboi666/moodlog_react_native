@@ -50,7 +50,7 @@ export const EmotionAverage = ({ signatureEmotion }: Props) => {
       justify="space-between"
       bg={
         isExpanded
-          ? '$gray5'
+          ? '$gray4'
           : hasSignatureEmotion
             ? getEmotionTheme(signatureEmotion!.type, EmotionLevel.FULL)
             : '$gray5'

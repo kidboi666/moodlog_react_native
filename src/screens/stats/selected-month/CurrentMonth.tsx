@@ -39,7 +39,7 @@ export const CurrentMonth = () => {
       flex={1}
       onPressIn={() => (isTouched.value = true)}
       onPressOut={() => (isTouched.value = false)}
-      bg="$gray5"
+      bg="$gray4"
       rounded="$8"
       onPress={() => (selectedMonthStats ? onPress() : undefined)}
       style={animatedStyle}

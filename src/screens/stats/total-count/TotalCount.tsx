@@ -49,7 +49,7 @@ export const TotalCount = ({
       flex={1}
       onPressIn={() => (isTouched.value = true)}
       onPressOut={() => (isTouched.value = false)}
-      bg="$gray5"
+      bg="$gray4"
       rounded="$8"
       justify="space-between"
       p="$4"

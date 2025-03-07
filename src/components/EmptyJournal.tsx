@@ -32,6 +32,7 @@ export const EmptyJournal = ({ date }: Props) => {
       items="center"
       bg="$gray4"
       rounded="$8"
+      elevation="$4"
       gap="$3"
       enterStyle={ENTER_STYLE}
     >
