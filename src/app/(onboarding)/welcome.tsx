@@ -4,9 +4,9 @@ import { ArrowRight } from '@tamagui/lucide-icons';
 import { Container } from '@/components/layouts/containers/Container';
 import { ShakeEmoji } from '@/components/ShakeEmoji';
 import { FadeIn } from '@/components/FadeIn';
-import { PARAGRAPH_DELAY } from '@/constants/styles';
 import { useStepProgress } from '@/store/hooks/useStepProgress';
 import { useTranslation } from 'react-i18next';
+import { PARAGRAPH_DELAY } from '@/constants/time';
 
 export default function WelcomeScreen() {
   const router = useRouter();

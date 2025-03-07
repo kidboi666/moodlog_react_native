@@ -20,16 +20,3 @@ export const emotionTheme = {
     full: '$blue10',
   },
 } as const;
-
-export const emotionColorContext = {
-  angry: 'red',
-  peace: 'green',
-  happy: 'yellow',
-  sad: 'blue',
-};
-
-export const emotionLevelContext = {
-  zero: 5,
-  half: 8,
-  full: 10,
-};

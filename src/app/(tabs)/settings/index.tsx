@@ -4,7 +4,8 @@ import { Globe, Moon } from '@tamagui/lucide-icons';
 import { useTranslation } from 'react-i18next';
 import { SettingItem } from '@/components/SettingItem';
 import { FadeIn } from '@/components/FadeIn';
-import { CARD_DELAY } from '@/constants/styles';
+
+import { CARD_DELAY } from '@/constants/time';
 
 export default function SettingsScreen() {
   const { t } = useTranslation();

@@ -4,8 +4,8 @@ import { StatsContainer } from '@/screens/stats/StatsContainer';
 import { ScrollView } from 'tamagui';
 import { useScroll } from '@/store/hooks/useScroll';
 import { CurrentMonth } from '@/screens/stats/selected-month/CurrentMonth';
-import { CARD_DELAY } from '@/constants/styles';
 import { FadeIn } from '@/components/FadeIn';
+import { CARD_DELAY } from '@/constants/time';
 
 export default function RecordScreen() {
   const { onScroll } = useScroll();

@@ -1,13 +1,13 @@
 import { useEffect, useRef } from 'react';
-import { Button, ScrollView, Text, View, XStack, YStack } from 'tamagui';
+import { ScrollView, Text, View, YStack } from 'tamagui';
 import { ISODateString } from '@/types/dtos/date';
 import { CALENDAR_SCROLL_SIZE } from '@/constants/size';
-import { ENTER_STYLE, ENTER_STYLE_KEY } from '@/constants/styles';
 import { DateCounts } from '@/types/entries';
 import { CalendarUtils } from 'react-native-calendars';
 import { DateCountDot } from '@/components/DateCountDot';
 import { useTranslation } from 'react-i18next';
 import { getDateInISODateString, getDayInISODateString } from '@/utils/common';
+import * as S from './HorizontalCalendar.styled';
 
 interface Props {
   dates: ISODateString[];
@@ -52,15 +52,7 @@ export const HorizontalCalendar = ({
   }, [dates]);
 
   return (
-    <XStack
-      animation="quick"
-      animateOnly={ENTER_STYLE_KEY}
-      enterStyle={ENTER_STYLE}
-      flex={1}
-      justify="center"
-      rounded="$4"
-      items="center"
-    >
+    <S.CalendarContainer>
       <View>
         <ScrollView
           ref={scrollViewRef}
@@ -76,15 +68,10 @@ export const HorizontalCalendar = ({
             const isFuture =
               date > CalendarUtils.getCalendarDateString(currentDate);
             return (
-              <Button
+              <S.DateContainer
                 key={date}
-                bg={selectedDate === date ? '$gray5' : 'transparent'}
-                py="$3"
-                width={CALENDAR_SCROLL_SIZE}
-                rounded="$4"
-                unstyled
-                borderWidth={isToday ? 1 : 0}
-                borderColor="$gray1"
+                isSelected={selectedDate === date}
+                isToday={isToday}
                 onPress={() => handleSelectedDateChange(date)}
               >
                 <YStack items="center">
@@ -116,11 +103,11 @@ export const HorizontalCalendar = ({
                     isSelected={selectedDate === date}
                   />
                 </YStack>
-              </Button>
+              </S.DateContainer>
             );
           })}
         </ScrollView>
       </View>
-    </XStack>
+    </S.CalendarContainer>
   );
 };

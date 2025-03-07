@@ -1,7 +1,7 @@
 import { Stack, useTheme } from 'tamagui';
 import { LinearGradient } from 'tamagui/linear-gradient';
 import { Slot } from 'expo-router';
-import { CustomTabBar } from '@/components/CustomTabBar';
+import { CustomTabBar } from '@/components/layouts/tab/CustomTabBar';
 import { BottomModal } from '@/components/modals/BottomModal';
 import { DevContainer } from '@/components/layouts/containers/DevContainer';
 

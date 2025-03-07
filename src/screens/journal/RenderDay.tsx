@@ -1,6 +1,7 @@
-import { Text, TextProps } from 'tamagui';
+import { TextProps } from 'tamagui';
 import { useTranslation } from 'react-i18next';
 import { WEEK_DAY } from '@/constants/date';
+import * as S from './RenderDate.styled';
 
 interface Props extends TextProps {
   createdAt: string;
@@ -11,9 +12,9 @@ export const RenderDay = ({ createdAt, ...props }: Props) => {
   const day = new Date(createdAt);
 
   return (
-    <Text {...props}>
+    <S.Text {...props}>
       {t(`calendar.days.${Object.keys(WEEK_DAY)[day.getDay()]}`)}
       {t(`common.units.day`)}
-    </Text>
+    </S.Text>
   );
 };

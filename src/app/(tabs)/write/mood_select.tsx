@@ -1,5 +1,4 @@
 import { XStack, YStack } from 'tamagui';
-import { CARD_DELAY } from '@/constants/styles';
 import React from 'react';
 import { useDraft } from '@/store/hooks/useDraft';
 import { Container } from '@/components/layouts/containers/Container';
@@ -10,6 +9,7 @@ import { NextButton } from '@/screens/write/NextButton';
 import { FadeIn } from '@/components/FadeIn';
 import { MoodBar } from '@/screens/write/MoodBar';
 import { WriteHeader } from '@/components/layouts/headers/WriteHeader';
+import { CARD_DELAY } from '@/constants/time';
 
 export default function MoodScreen() {
   const { draft, onEmotionChange } = useDraft();

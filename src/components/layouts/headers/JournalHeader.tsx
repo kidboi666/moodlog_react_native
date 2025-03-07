@@ -1,17 +1,16 @@
 import { useJournal } from '@/store/hooks/useJournal';
-import { Button, XStack, YStack } from 'tamagui';
+import { Button, XStack } from 'tamagui';
 import { ChevronLeft, Trash2 } from '@tamagui/lucide-icons';
 import React from 'react';
 import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
 import { BottomModal } from '@/components/modals/BottomModal';
 import { DeleteJournalModal } from '@/components/modals/contents/DeleteJournalModal';
-import { RenderDate } from '@/components/RenderDate';
-import { HeaderContainer } from '@/components/layouts/containers/HeaderContainer';
+import { RenderDate } from '@/screens/journal/RenderDate';
 import { router } from 'expo-router';
 import { useBottomModal } from '@/hooks/useBottomModal';
-import { CONTAINER_SPACING } from '@/constants/size';
-import { RenderTime } from '@/components/RenderTime';
-import { RenderDay } from '@/components/RenderDay';
+import { RenderTime } from '@/screens/journal/RenderTime';
+import { RenderDay } from '@/screens/journal/RenderDay';
+import * as S from './JournalHeader.styled';
 
 export default function JournalHeader() {
   const { selectedJournal } = useJournal();
@@ -21,39 +20,18 @@ export default function JournalHeader() {
 
   return (
     <>
-      <HeaderContainer items="center" pl={CONTAINER_SPACING}>
-        <Button
-          unstyled
-          animation="quick"
-          rounded="$4"
-          p="$3"
+      <S.HeaderContainer>
+        <S.BackButton
           icon={<ChevronLeft size="$1" />}
           onPress={() => router.back()}
-          enterStyle={ENTER_STYLE}
-          pressStyle={PRESS_STYLE}
         />
-        <YStack items="center">
-          <RenderDate
-            color="$gray8"
-            fontSize="$5"
-            fontWeight="800"
-            localDate={selectedJournal.localDate}
-          />
+        <S.DateContainer>
+          <RenderDate localDate={selectedJournal.localDate} />
           <XStack gap="$2">
-            <RenderDay
-              color="$gray8"
-              fontSize="$5"
-              fontWeight="800"
-              createdAt={selectedJournal.createdAt}
-            />
-            <RenderTime
-              color="$gray8"
-              fontSize="$5"
-              fontWeight="800"
-              createdAt={selectedJournal.createdAt}
-            />
+            <RenderDay createdAt={selectedJournal.createdAt} />
+            <RenderTime createdAt={selectedJournal.createdAt} />
           </XStack>
-        </YStack>
+        </S.DateContainer>
 
         <Button
           unstyled
@@ -65,7 +43,7 @@ export default function JournalHeader() {
           pressStyle={PRESS_STYLE}
           onPress={openModal}
         />
-      </HeaderContainer>
+      </S.HeaderContainer>
       <BottomModal ref={modalRef}>
         <DeleteJournalModal journalId={selectedJournal.id} />
       </BottomModal>

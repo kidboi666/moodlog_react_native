@@ -1,12 +1,12 @@
 import { Container } from '@/components/layouts/containers/Container';
 import { Button, H2, H3, Input, XStack, YStack } from 'tamagui';
 import { FadeIn } from '@/components/FadeIn';
-import { PARAGRAPH_DELAY } from '@/constants/styles';
 import { useUser } from '@/store/hooks/useUser';
 import { useRouter } from 'expo-router';
 import { useStepProgress } from '@/store/hooks/useStepProgress';
 import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
 import { useTranslation } from 'react-i18next';
+import { PARAGRAPH_DELAY } from '@/constants/time';
 
 export default function NicknameScreen() {
   const { draftUserName, onDraftUserNameChange } = useUser();

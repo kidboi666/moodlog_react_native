@@ -14,7 +14,7 @@ import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
 import { LinearGradient } from 'tamagui/linear-gradient';
 import { useState } from 'react';
 import { router } from 'expo-router';
-import { RenderTime } from './RenderTime';
+import { RenderTime } from '../screens/journal/RenderTime';
 
 interface Props {
   journal: Journal;

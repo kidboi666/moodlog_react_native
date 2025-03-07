@@ -2,11 +2,11 @@ import { Button, H1, H3, Paragraph, View, XStack, YStack } from 'tamagui';
 import { useUser } from '@/store/hooks/useUser';
 import { Container } from '@/components/layouts/containers/Container';
 import { FadeIn } from '@/components/FadeIn';
-import { PARAGRAPH_DELAY } from '@/constants/styles';
 import { useRouter } from 'expo-router';
 import { useStepProgress } from '@/store/hooks/useStepProgress';
 import { ArrowLeft } from '@tamagui/lucide-icons';
 import { useTranslation } from 'react-i18next';
+import { PARAGRAPH_DELAY } from '@/constants/time';
 
 export default function SignupScreen() {
   const router = useRouter();

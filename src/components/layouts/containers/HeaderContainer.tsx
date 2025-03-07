@@ -1,33 +1,24 @@
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { XStack, XStackProps } from 'tamagui';
-import { CONTAINER_SPACING } from '@/constants/size';
-import { Platform } from 'react-native';
+import { XStackProps } from 'tamagui';
+import * as S from './HeaderContainer.styled';
 
 interface Props extends XStackProps {
   edges?: Array<'top' | 'bottom'>;
 }
 
-export const HeaderContainer = ({
-  children,
-  edges = ['top'],
-  ...props
-}: Props) => {
-  const insets = useSafeAreaInsets();
+export const HeaderContainer = S.HeaderContainer.styleable<Props>(
+  ({ children, edges = ['top'], ...props }, ref) => {
+    const insets = useSafeAreaInsets();
 
-  const safeAreaMargins = {
-    mt: edges.includes('top') ? insets.top : 0,
-    mb: edges.includes('bottom') ? insets.bottom : 0,
-  };
-
-  return (
-    <XStack
-      pt={Platform.OS === 'ios' ? CONTAINER_SPACING : CONTAINER_SPACING * 2}
-      justify="space-between"
-      items="center"
-      {...safeAreaMargins}
-      {...props}
-    >
-      {children}
-    </XStack>
-  );
-};
+    return (
+      <S.HeaderContainer
+        ref={ref}
+        topEdge={edges?.includes('top') ? insets.top : 0}
+        bottomEdge={edges?.includes('bottom') ? insets.bottom : 0}
+        {...props}
+      >
+        {children}
+      </S.HeaderContainer>
+    );
+  },
+);

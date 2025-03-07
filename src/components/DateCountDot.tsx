@@ -1,5 +1,5 @@
-import { View, XStack } from 'tamagui';
 import { DateCounts } from '@/types/entries';
+import * as S from './DateCountDot.styled';
 
 interface Props {
   dateCounts?: DateCounts;
@@ -16,17 +16,13 @@ export const DateCountDot = ({
 }: Props) => {
   if (!dateCounts) return null;
   return (
-    <XStack gap={2} position="absolute" b="$1">
+    <S.DotContainer>
       {Array.from({ length: dateCounts[dateString] }, (_, i) => {
         if (i >= 3) return null;
         return (
-          <View
+          <S.Dot
             key={i}
-            width="$0.5"
-            height="$0.5"
-            b={-8}
-            rounded="$1"
-            bg={
+            backgroundStyle={
               variant === 'contained'
                 ? isSelected
                   ? '$gray12'
@@ -38,6 +34,6 @@ export const DateCountDot = ({
           />
         );
       })}
-    </XStack>
+    </S.DotContainer>
   );
 };

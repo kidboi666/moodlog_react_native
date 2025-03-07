@@ -15,7 +15,6 @@ import { EmptyJournal } from '@/components/EmptyJournal';
 import { Redirect } from 'expo-router';
 import { useApp } from '@/store/hooks/useApp';
 import { FadeIn } from '@/components/FadeIn';
-import { PARAGRAPH_DELAY } from '@/constants/styles';
 import { HOME_HEADER_LINE_HEIGHT } from '@/constants/size';
 import { ShakeEmoji } from '@/components/ShakeEmoji';
 import { WeekDay } from '@/components/WeekDay';
@@ -24,6 +23,7 @@ import { useTranslation } from 'react-i18next';
 import { useUser } from '@/store/hooks/useUser';
 import { useScroll } from '@/store/hooks/useScroll';
 import { HomeHeader } from '@/components/layouts/headers/HomeHeader';
+import { PARAGRAPH_DELAY } from '@/constants/time';
 
 export default function HomeScreen() {
   const { dailyJournals } = useJournal('week');

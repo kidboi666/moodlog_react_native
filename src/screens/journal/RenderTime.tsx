@@ -1,4 +1,5 @@
-import { Text, TextProps } from 'tamagui';
+import { TextProps } from 'tamagui';
+import * as S from './RenderDate.styled';
 
 interface Props extends TextProps {
   createdAt: string;
@@ -11,5 +12,5 @@ export const RenderTime = ({ createdAt, ...props }: Props) => {
   const minutes = String(date.getMinutes()).padStart(2, '0');
 
   const timestamp = `${hours}: ${minutes}`;
-  return <Text {...props}>{timestamp}</Text>;
+  return <S.Text {...props}>{timestamp}</S.Text>;
 };
