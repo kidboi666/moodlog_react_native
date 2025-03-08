@@ -1,5 +1,5 @@
 import { Container } from '@/components/layouts/containers/Container';
-import { Button, H2, H3, Input, XStack, YStack } from 'tamagui';
+import { Input } from 'tamagui';
 import { FadeIn } from '@/components/FadeIn';
 import { useUser } from '@/store/hooks/useUser';
 import { router } from 'expo-router';
@@ -7,6 +7,7 @@ import { useStepProgress } from '@/store/hooks/useStepProgress';
 import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
 import { useTranslation } from 'react-i18next';
 import { PARAGRAPH_DELAY } from '@/constants/time';
+import * as S from '../../styles/onboarding/Nickname.styled';
 
 export default function NicknameScreen() {
   const { draftUserName, onDraftUserNameChange } = useUser();
@@ -30,12 +31,12 @@ export default function NicknameScreen() {
 
   return (
     <Container edges={['bottom']}>
-      <YStack flex={1} gap="$6">
+      <S.YStackContainer>
         <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
-          <H2>{t('onboarding.nickname.title')}</H2>
+          <S.Title>{t('onboarding.nickname.title')}</S.Title>
         </FadeIn>
         <FadeIn delay={PARAGRAPH_DELAY.SECOND}>
-          <H3 color="$gray11">{t('onboarding.nickname.description')}</H3>
+          <S.Description>{t('onboarding.nickname.description')}</S.Description>
         </FadeIn>
         <FadeIn delay={PARAGRAPH_DELAY.THIRD}>
           <Input
@@ -44,27 +45,21 @@ export default function NicknameScreen() {
             placeholder={t('onboarding.nickname.placeholder')}
           />
         </FadeIn>
-      </YStack>
+      </S.YStackContainer>
       <FadeIn delay={PARAGRAPH_DELAY.THIRD}>
-        <XStack justify="space-between">
-          <Button
-            size="$5"
-            icon={<ArrowLeft size="$1" />}
-            onPress={handlePrevStep}
-          >
+        <S.ButtonContainer>
+          <S.PrevButton icon={ArrowLeft} onPress={handlePrevStep}>
             {t('common.button.prev')}
-          </Button>
-          <Button
-            themeInverse
-            size="$5"
+          </S.PrevButton>
+          <S.NextButton
             disabled={!draftUserName}
-            opacity={!draftUserName ? 0.2 : 1}
+            isDisabled={!draftUserName}
             onPress={handleNextStep}
-            iconAfter={<ArrowRight size="$1" />}
+            iconAfter={ArrowRight}
           >
             {t('common.button.next')}
-          </Button>
-        </XStack>
+          </S.NextButton>
+        </S.ButtonContainer>
       </FadeIn>
     </Container>
   );

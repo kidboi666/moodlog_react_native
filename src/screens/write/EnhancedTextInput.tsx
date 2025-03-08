@@ -4,7 +4,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { getToken, Input, ScrollView, TextArea, YStack } from 'tamagui';
+import { getToken, Input, ScrollView } from 'tamagui';
 import {
   Image,
   NativeSyntheticEvent,
@@ -14,6 +14,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { ViewFontSize } from '@/types/enums';
 import { Nullable } from '@/types/utils';
+import * as S from './EnhancedTextInput.styled';
 
 interface EnhancedTextInputProps {
   fontSize: ViewFontSize;
@@ -166,20 +167,13 @@ export const EnhancedTextInput = forwardRef<
 
     return (
       <ScrollView>
-        <YStack
-          flex={1}
-          gap="$2"
-          animation="quick"
-          enterStyle={{ opacity: 0, scale: 0.95 }}
-          animateOnly={['opacity', 'transform']}
-        >
+        <S.InputContainer>
           {imageUri && (
             <Image source={{ uri: imageUri }} style={styles.image} />
           )}
 
           {/* 첫 번째 줄 (큰 글씨) */}
-          <Input
-            unstyled
+          <S.Input
             ref={firstInputRef}
             value={firstLine}
             onChangeText={text => handleTextChange('first', text)}
@@ -187,32 +181,24 @@ export const EnhancedTextInput = forwardRef<
             onFocus={() => setFocusedInput('first')}
             onBlur={() => setFocusedInput(null)}
             returnKeyType="next"
-            fontWeight="800"
-            py="$2"
             fontSize={getToken(fontSize) * 2}
-            color="$gray12"
             placeholder={t('placeholders.journal.title')}
-            placeholderTextColor="$gray7"
             autoFocus={autoFocus}
           />
 
           {/* 두 번째 줄부터 (작은 글씨) */}
-          <TextArea
-            unstyled
-            color="$gray12"
+          <S.TextArea
             ref={secondInputRef}
             value={restLines}
             selection={selection}
             onSelectionChange={event => onSelectionChange(event)}
             onFocus={() => setFocusedInput('second')}
             onBlur={() => setFocusedInput(null)}
-            py="$2"
             onChangeText={text => handleTextChange('rest', text)}
             fontSize={fontSize}
             placeholder={t('placeholders.journal.content')}
-            placeholderTextColor="$gray7"
           />
-        </YStack>
+        </S.InputContainer>
       </ScrollView>
     );
   },

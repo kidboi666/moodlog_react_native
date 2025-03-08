@@ -10,26 +10,23 @@ interface Props extends ViewProps {
   padded?: boolean;
 }
 
-export const Container = ({
-  children,
-  Header,
-  padded,
-  edges,
-  ...props
-}: Props) => {
-  const insets = useSafeAreaInsets();
+export const Container = S.Container.styleable<Props>(
+  ({ children, Header, padded, edges, ...props }, ref) => {
+    const insets = useSafeAreaInsets();
 
-  return (
-    <S.Container
-      padded={padded}
-      topEdge={edges?.includes('top') ? insets.top + CONTAINER_MARGIN_TOP : 0}
-      bottomEdge={edges?.includes('bottom') ? insets.bottom : 0}
-      {...props}
-    >
-      {Header && Header}
-      {children}
-    </S.Container>
-  );
-};
+    return (
+      <S.Container
+        ref={ref}
+        padded={padded}
+        topEdge={edges?.includes('top') ? insets.top + CONTAINER_MARGIN_TOP : 0}
+        bottomEdge={edges?.includes('bottom') ? insets.bottom : 0}
+        {...props}
+      >
+        {Header && Header}
+        {children}
+      </S.Container>
+    );
+  },
+);
 
 Container.displayName = 'Container';

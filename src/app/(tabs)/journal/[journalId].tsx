@@ -1,23 +1,14 @@
-import {
-  H3,
-  Image,
-  Paragraph,
-  ScrollView,
-  View,
-  XStack,
-  YStack,
-} from 'tamagui';
+import { ScrollView } from 'tamagui';
 import React, { useEffect } from 'react';
 import { useJournal } from '@/store/hooks/useJournal';
-import { Container } from '@/components/layouts/containers/Container';
 import { useLocalSearchParams } from 'expo-router';
 import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
 import { useTranslation } from 'react-i18next';
 import { useScroll } from '@/store/hooks/useScroll';
 import { toSingle } from '@/utils/common';
-import { ENTER_STYLE, ENTER_STYLE_KEY } from '@/constants/styles';
 import JournalHeader from '@/components/layouts/headers/JournalHeader';
+import * as S from '../../../styles/journal/Journal.styled';
 
 export default function JournalScreen() {
   const { journalId } = useLocalSearchParams();
@@ -34,62 +25,36 @@ export default function JournalScreen() {
 
   return (
     <ScrollView onScroll={onScroll} overScrollMode="always">
-      <Container edges={['bottom']} pl={0} gap="$6" Header={<JournalHeader />}>
-        <XStack gap="$3">
-          <View
-            width="3%"
-            animation="medium"
-            animateOnly={['transform']}
-            enterStyle={{ x: -20 }}
-            borderTopRightRadius="$4"
-            borderBottomRightRadius="$4"
-            bg={
+      <S.ViewContainer edges={['bottom']} Header={<JournalHeader />}>
+        <S.XStackContainer>
+          <S.MoodBar
+            emotionColor={
               emotionTheme[selectedJournal.emotion.type][
                 selectedJournal.emotion.level
               ]
             }
           />
-          <YStack gap="$4" flex={1}>
-            <XStack gap="$2">
-              <XStack
-                gap="$2"
-                justify="center"
-                animation="bouncy"
-                animateOnly={ENTER_STYLE_KEY}
-                enterStyle={ENTER_STYLE}
-              >
-                <H3 color="$gray11">
-                  {t(`emotions.levels.${selectedJournal.emotion?.level}`)}
-                </H3>
-                <H3>{t(`emotions.types.${selectedJournal.emotion?.type}`)}</H3>
-              </XStack>
-            </XStack>
+          <S.ContentBox>
+            <S.EmotionTextBox>
+              <S.EmotionLevelText>
+                {t(`emotions.levels.${selectedJournal.emotion?.level}`)}
+              </S.EmotionLevelText>
+              <S.EmotionTypeText>
+                {t(`emotions.types.${selectedJournal.emotion?.type}`)}
+              </S.EmotionTypeText>
+            </S.EmotionTextBox>
             {selectedJournal.imageUri && (
-              <XStack
-                animation="bouncy"
-                width={300}
-                height={300}
-                elevation="$2"
-                mx="auto"
-                rounded="$8"
-                enterStyle={ENTER_STYLE}
-              >
-                <Image
-                  source={{ uri: selectedJournal.imageUri }}
-                  width="100%"
-                  height="100%"
-                  rounded="$8"
-                />
-              </XStack>
+              <S.ImageBox>
+                <S.Image source={{ uri: selectedJournal.imageUri }} />
+              </S.ImageBox>
             )}
 
-            <Paragraph fontWeight="300" fontSize={fontSize}>
+            <S.ContentText fontSize={fontSize}>
               {selectedJournal.content}
-            </Paragraph>
-            <View height="$8" />
-          </YStack>
-        </XStack>
-      </Container>
+            </S.ContentText>
+          </S.ContentBox>
+        </S.XStackContainer>
+      </S.ViewContainer>
     </ScrollView>
   );
 }

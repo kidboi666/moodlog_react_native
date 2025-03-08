@@ -1,4 +1,4 @@
-import { Button, H1, H3, Paragraph, View, XStack, YStack } from 'tamagui';
+import { H1 } from 'tamagui';
 import { useUser } from '@/store/hooks/useUser';
 import { Container } from '@/components/layouts/containers/Container';
 import { FadeIn } from '@/components/FadeIn';
@@ -7,6 +7,7 @@ import { useStepProgress } from '@/store/hooks/useStepProgress';
 import { ArrowLeft } from '@tamagui/lucide-icons';
 import { useTranslation } from 'react-i18next';
 import { PARAGRAPH_DELAY } from '@/constants/time';
+import * as S from '../../styles/onboarding/Signup.styled';
 
 export default function SignupScreen() {
   const { goToPrevStep, currentStep } = useStepProgress();
@@ -26,46 +27,38 @@ export default function SignupScreen() {
 
   return (
     <Container edges={['bottom']}>
-      <YStack gap="$4" flex={1}>
+      <S.YStackContainer>
         <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
           <H1>{t('onboarding.signup.title')}</H1>
         </FadeIn>
         <FadeIn delay={PARAGRAPH_DELAY.SECOND}>
-          <YStack bg="$gray12" p="$5" gap="$4" rounded="$8">
-            <H3 color="$gray1">{t('onboarding.signup.ota')}</H3>
-            <YStack gap="$2">
-              <Paragraph color="$gray2">
+          <S.BenefitsContainer>
+            <S.BenefitTitle>{t('onboarding.signup.ota')}</S.BenefitTitle>
+            <S.BenefitsBox>
+              <S.BenefitText>
                 • {t('onboarding.signup.benefits.sync')}
-              </Paragraph>
-              <Paragraph color="$gray2">
+              </S.BenefitText>
+              <S.BenefitText>
                 • {t('onboarding.signup.benefits.backup')}
-              </Paragraph>
-              <Paragraph color="$gray2">
+              </S.BenefitText>
+              <S.BenefitText>
                 • {t('onboarding.signup.benefits.stats')}
-              </Paragraph>
-            </YStack>
-          </YStack>
+              </S.BenefitText>
+            </S.BenefitsBox>
+          </S.BenefitsContainer>
         </FadeIn>
-        <View flex={1} />
+        <S.RestBox />
         <FadeIn delay={PARAGRAPH_DELAY.FOURTH}>
-          <XStack justify="space-between">
-            <Button
-              size="$5"
-              onPress={handlePrevStep}
-              icon={<ArrowLeft size="$1" />}
-            >
+          <S.ButtonContainer>
+            <S.PrevButton onPress={handlePrevStep} icon={ArrowLeft}>
               {t('common.button.prev')}
-            </Button>
-            <Button
-              size="$5"
-              themeInverse
-              onPress={() => handleSubmit(draftUserName)}
-            >
+            </S.PrevButton>
+            <S.ConfirmButton onPress={() => handleSubmit(draftUserName)}>
               {t('common.button.confirm')}
-            </Button>
-          </XStack>
+            </S.ConfirmButton>
+          </S.ButtonContainer>
         </FadeIn>
-      </YStack>
+      </S.YStackContainer>
     </Container>
   );
 }

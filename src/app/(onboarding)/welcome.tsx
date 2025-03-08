@@ -1,4 +1,4 @@
-import { Button, H1, H2, H3, XStack, YStack } from 'tamagui';
+import { H1, H2 } from 'tamagui';
 import { router } from 'expo-router';
 import { ArrowRight } from '@tamagui/lucide-icons';
 import { Container } from '@/components/layouts/containers/Container';
@@ -7,6 +7,7 @@ import { FadeIn } from '@/components/FadeIn';
 import { useStepProgress } from '@/store/hooks/useStepProgress';
 import { useTranslation } from 'react-i18next';
 import { PARAGRAPH_DELAY } from '@/constants/time';
+import * as S from '../../styles/onboarding/Welcome.styled';
 
 export default function WelcomeScreen() {
   const { t } = useTranslation();
@@ -21,38 +22,33 @@ export default function WelcomeScreen() {
 
   return (
     <Container edges={['bottom']}>
-      <YStack flex={1}>
-        <YStack flex={1} gap="$6">
+      <S.WelcomeContainer>
+        <S.WelcomeContent>
           <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
-            <XStack gap="$2">
+            <S.TitleBox>
               <H1>{t('onboarding.welcome.title')}</H1>
               <ShakeEmoji emoji="👋" />
-            </XStack>
+            </S.TitleBox>
           </FadeIn>
           <FadeIn delay={PARAGRAPH_DELAY.SECOND}>
-            <YStack gap="$6">
-              <H3 color="$gray11" mb="$4">
+            <S.DescriptionBox>
+              <S.Description1>
                 {t('onboarding.welcome.description')}
-              </H3>
-              <H3 color="$gray11">{t('onboarding.welcome.description2')}</H3>
-            </YStack>
+              </S.Description1>
+              <S.Description2>
+                {t('onboarding.welcome.description2')}
+              </S.Description2>
+            </S.DescriptionBox>
           </FadeIn>
-        </YStack>
+        </S.WelcomeContent>
         <FadeIn delay={PARAGRAPH_DELAY.THIRD}>
           <H2>{t('onboarding.welcome.go')}</H2>
         </FadeIn>
-      </YStack>
+      </S.WelcomeContainer>
       <FadeIn delay={PARAGRAPH_DELAY.FOURTH}>
-        <Button
-          mt="$8"
-          themeInverse
-          self="flex-end"
-          size="$5"
-          iconAfter={<ArrowRight size="$1" />}
-          onPress={handleClickNextButton}
-        >
+        <S.NextButton iconAfter={ArrowRight} onPress={handleClickNextButton}>
           {t('common.button.next')}
-        </Button>
+        </S.NextButton>
       </FadeIn>
     </Container>
   );

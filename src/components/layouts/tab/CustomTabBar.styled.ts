@@ -14,7 +14,7 @@ import {
 import { Platform } from 'react-native';
 
 export const TabBarContainer = styled(XStack, {
-  elevation: '$4',
+  elevation: '$8',
   position: 'absolute',
   b: 0,
   l: 0,

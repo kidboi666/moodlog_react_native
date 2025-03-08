@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  AnimatePresence,
-  Button,
-  useTheme,
-  View,
-  XStack,
-  YStack,
-} from 'tamagui';
-import { Container } from '@/components/layouts/containers/Container';
+import { AnimatePresence, useTheme } from 'tamagui';
 import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
 import {
@@ -19,14 +11,13 @@ import {
 } from 'react-native';
 import { useDraft } from '@/store/hooks/useDraft';
 import { Check, ImagePlus, Timer } from '@tamagui/lucide-icons';
-import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
 import { useJournal } from '@/store/hooks/useJournal';
 import { useTranslation } from 'react-i18next';
 import { useToastController } from '@tamagui/toast';
 import { router } from 'expo-router';
 import { EnhancedTextInput } from '@/screens/write/EnhancedTextInput';
 import { WriteHeader } from '@/components/layouts/headers/WriteHeader';
-import { CONTAINER_SPACING } from '@/constants/size';
+import * as S from '../../../styles/write/JournalWrite.styled';
 
 export default function JournalWriteScreen() {
   const { fontSize } = useApp();
@@ -95,30 +86,18 @@ export default function JournalWriteScreen() {
         style={StyleSheet.absoluteFill}
         onPress={triggerFocus}
       >
-        <Container
-          gap="$3"
-          pl={0}
-          edges={['bottom']}
-          Header={<WriteHeader pl={CONTAINER_SPACING} />}
-        >
-          <XStack flex={1} gap="$3">
+        <S.ViewContainer edges={['bottom']} Header={<WriteHeader />}>
+          <S.XStackContainer>
             {draft.emotion ? (
-              <View
-                width="3%"
-                height="100%"
-                borderTopRightRadius="$4"
-                borderBottomRightRadius="$4"
-                bg={emotionTheme[draft.emotion?.type][draft.emotion?.level]}
+              <S.ColoredMoodBar
+                moodColor={
+                  emotionTheme[draft.emotion?.type][draft.emotion?.level]
+                }
               />
             ) : (
-              <View
-                width="3%"
-                height="100%"
-                borderTopRightRadius="$4"
-                bg="$gray8"
-              />
+              <S.UncoloredMoodBar />
             )}
-            <YStack gap="$6" flex={1} z={1}>
+            <S.TextContentBox>
               <EnhancedTextInput
                 key={inputKey}
                 ref={enhancedInputRef}
@@ -130,49 +109,25 @@ export default function JournalWriteScreen() {
                 onSelectionChange={onSelectionChange}
                 autoFocus={true}
               />
-              <View items="center">
-                <XStack position="absolute" r={0} b={12} gap="$2">
+              <S.ButtonsViewBox>
+                <S.ButtonsXStackBox>
                   <AnimatePresence>
                     {isKeyboardVisible && (
                       <>
-                        <Button
-                          unstyled
-                          p="$3"
-                          animation="medium"
-                          enterStyle={ENTER_STYLE}
-                          exitStyle={ENTER_STYLE}
-                          pressStyle={PRESS_STYLE}
+                        <S.AddImageButton
                           onPress={onImageUriChange}
-                          icon={<ImagePlus size="$1" />}
+                          icon={ImagePlus}
                         />
-                        <Button
-                          unstyled
-                          p="$3"
-                          animation="medium"
-                          enterStyle={ENTER_STYLE}
-                          exitStyle={ENTER_STYLE}
-                          pressStyle={PRESS_STYLE}
-                          onPress={onTimeStamp}
-                          icon={<Timer size="$1" />}
-                        />
+                        <S.TimeStampButton onPress={onTimeStamp} icon={Timer} />
                       </>
                     )}
                   </AnimatePresence>
-                  <Button
-                    unstyled
-                    p="$3"
-                    onPress={handleSubmit}
-                    icon={<Check size="$1" />}
-                    animation="medium"
-                    pressStyle={PRESS_STYLE}
-                    enterStyle={ENTER_STYLE}
-                    exitStyle={ENTER_STYLE}
-                  />
-                </XStack>
-              </View>
-            </YStack>
-          </XStack>
-        </Container>
+                  <S.SubmitButton onPress={handleSubmit} icon={Check} />
+                </S.ButtonsXStackBox>
+              </S.ButtonsViewBox>
+            </S.TextContentBox>
+          </S.XStackContainer>
+        </S.ViewContainer>
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );

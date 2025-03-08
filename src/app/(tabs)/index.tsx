@@ -1,13 +1,4 @@
-import {
-  H2,
-  H3,
-  H4,
-  ScrollView,
-  Separator,
-  View,
-  XStack,
-  YStack,
-} from 'tamagui';
+import { H3, ScrollView, View } from 'tamagui';
 import { useJournal } from '@/store/hooks/useJournal';
 import { JournalCard } from '@/components/JournalCard';
 import { Container } from '@/components/layouts/containers/Container';
@@ -15,7 +6,6 @@ import { EmptyJournal } from '@/components/EmptyJournal';
 import { Redirect } from 'expo-router';
 import { useApp } from '@/store/hooks/useApp';
 import { FadeIn } from '@/components/FadeIn';
-import { HOME_HEADER_LINE_HEIGHT } from '@/constants/size';
 import { ShakeEmoji } from '@/components/ShakeEmoji';
 import { WeekDay } from '@/components/WeekDay';
 import React, { useEffect } from 'react';
@@ -25,6 +15,7 @@ import { useScroll } from '@/store/hooks/useScroll';
 import { HomeHeader } from '@/components/layouts/headers/HomeHeader';
 import { PARAGRAPH_DELAY } from '@/constants/time';
 import { useDraft } from '@/store/hooks/useDraft';
+import * as S from '../../styles/Main.styled';
 
 export default function HomeScreen() {
   const { dailyJournals, isSubmitted } = useJournal('week');
@@ -35,7 +26,6 @@ export default function HomeScreen() {
   const { initDraft } = useDraft();
 
   useEffect(() => {
-    console.log('isSubmitted', isSubmitted);
     if (isSubmitted) {
       initDraft();
     }
@@ -56,28 +46,28 @@ export default function HomeScreen() {
         Header={__DEV__ ? <HomeHeader /> : undefined}
         padded
       >
-        <YStack gap="$3">
+        <S.ContentHeaderContainer>
           <FadeIn delay={PARAGRAPH_DELAY.FIRST}>
-            <XStack gap="$2" items="flex-end">
-              <H2 lineHeight={HOME_HEADER_LINE_HEIGHT}>
+            <S.WelcomeEmojiBox>
+              <S.WelcomeTitleText>
                 {t('common.greeting.hello')}
-              </H2>
+              </S.WelcomeTitleText>
               <ShakeEmoji emoji="👋" />
-            </XStack>
+            </S.WelcomeEmojiBox>
             <H3>
               {t('common.greeting.welcome', { name: userInfo?.userName })}
             </H3>
           </FadeIn>
           <FadeIn delay={PARAGRAPH_DELAY.SECOND}>
-            <H4 color="$gray11">{t('common.greeting.howAreYou')}</H4>
+            <S.HowAreYouText>{t('common.greeting.howAreYou')}</S.HowAreYouText>
           </FadeIn>
           <WeekDay />
-        </YStack>
+        </S.ContentHeaderContainer>
 
         {Array.isArray(dailyJournals) ? (
           dailyJournals.map((journal, index) => (
             <View key={journal.id}>
-              {index > 0 && <Separator borderColor="transparent" mb="$4" />}
+              {index > 0 && <S.Separator />}
               <FadeIn delay={100 * (index + 1)}>
                 <JournalCard journal={journal} />
               </FadeIn>

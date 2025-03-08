@@ -1,10 +1,10 @@
-import { Button, Text, View, XStack, YStack } from 'tamagui';
 import { EmotionLevel, EmotionType } from '@/types/enums';
 import { Check } from '@tamagui/lucide-icons';
 import { emotionTheme } from '@/constants/themes';
 import React from 'react';
 import { Emotion } from '@/types/entries';
 import { useTranslation } from 'react-i18next';
+import * as S from './PickerMood.styled';
 
 interface Props {
   emotion?: Emotion;
@@ -14,27 +14,15 @@ interface Props {
 export const PickerMood = ({ onEmotionChange, emotion }: Props) => {
   const { t } = useTranslation();
   return (
-    <View
-      animation="bouncy"
-      enterStyle={{
-        opacity: 0,
-        y: 10,
-      }}
-      exitStyle={{
-        opacity: 0,
-        y: 10,
-      }}
-    >
-      <XStack justify="space-between">
+    <S.ViewContainer>
+      <S.XStackContainer>
         {Object.values(EmotionType).map((type, index) => (
-          <YStack key={index} gap="$4" items="center">
-            <YStack gap="$4">
+          <S.MoodTypeContainer key={index}>
+            <S.MoodLevelContainer>
               {Object.values(EmotionLevel).map(level => (
-                <Button
+                <S.MoodLevelButton
                   key={type + level}
-                  animation="quick"
-                  size="$5"
-                  bg={emotionTheme[type][level]}
+                  moodColor={emotionTheme[type][level]}
                   onPress={() =>
                     onEmotionChange({
                       type,
@@ -55,15 +43,15 @@ export const PickerMood = ({ onEmotionChange, emotion }: Props) => {
                   }
                 />
               ))}
-            </YStack>
-            <View key={index}>
-              <Text fontSize="$4" color="$gray11" fontWeight="400">
+            </S.MoodLevelContainer>
+            <S.SelectedMoodBox key={index}>
+              <S.SelectedMoodText>
                 {t(`emotions.types.${type}`)}
-              </Text>
-            </View>
-          </YStack>
+              </S.SelectedMoodText>
+            </S.SelectedMoodBox>
+          </S.MoodTypeContainer>
         ))}
-      </XStack>
-    </View>
+      </S.XStackContainer>
+    </S.ViewContainer>
   );
 };
