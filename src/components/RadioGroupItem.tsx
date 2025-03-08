@@ -1,5 +1,4 @@
-import { Button, RadioGroup, Text, XStack } from 'tamagui';
-import { PRESS_STYLE } from '@/constants/styles';
+import * as S from './RadioGroupItem.styled';
 
 interface Props {
   value: string;
@@ -9,25 +8,13 @@ interface Props {
 
 export const RadioGroupItem = ({ value, label, onValueChange }: Props) => {
   return (
-    <Button
-      unstyled
-      animation="medium"
-      rounded="$4"
-      pressStyle={PRESS_STYLE}
-      onPress={() => onValueChange(value)}
-    >
-      <XStack
-        items="center"
-        width="100%"
-        gap="$4"
-        p="$5"
-        justify="space-between"
-      >
-        <Text fontSize="$6">{label}</Text>
-        <RadioGroup.Item value={value} id={value}>
-          <RadioGroup.Indicator />
-        </RadioGroup.Item>
-      </XStack>
-    </Button>
+    <S.RadioGroupContainerButton onPress={() => onValueChange(value)}>
+      <S.ContentContainer>
+        <S.RadioItemLabel>{label}</S.RadioItemLabel>
+        <S.StyledRadioGroupItem value={value} id={value}>
+          <S.StyledRadioGroupIndicator />
+        </S.StyledRadioGroupItem>
+      </S.ContentContainer>
+    </S.RadioGroupContainerButton>
   );
 };

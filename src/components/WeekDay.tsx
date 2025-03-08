@@ -1,12 +1,11 @@
-import { H1, XStack, YStack } from 'tamagui';
 import React, { useMemo } from 'react';
 import { ISODateString } from '@/types/dtos/date';
 import { HorizontalCalendar } from '@/components/HorizontalCalendar';
-import { FALL_STYLE, FALL_STYLE_KEY } from '@/constants/styles';
 import { useTranslation } from 'react-i18next';
 import { getISODateString, getLastDate, getMonthString } from '@/utils/common';
 import { useJournal } from '@/store/hooks/useJournal';
 import { useDate } from '@/store/hooks/useDate';
+import * as S from './WeekDay.styled';
 
 export const WeekDay = () => {
   const {
@@ -33,21 +32,12 @@ export const WeekDay = () => {
   }, [currentYear, currentMonth]);
 
   return (
-    <YStack
-      animation="medium"
-      animateOnly={FALL_STYLE_KEY}
-      gap="$2"
-      mb="$4"
-      p="$4"
-      bg="$gray12"
-      rounded="$8"
-      enterStyle={FALL_STYLE}
-    >
-      <XStack justify="space-between">
-        <H1 fontWeight="800" color="$gray1">
+    <S.WeekDayContainer>
+      <S.CurrentMonthBox>
+        <S.CurrentMonthText>
           {t(`calendar.months.${getMonthString(currentMonth)}`)}.
-        </H1>
-      </XStack>
+        </S.CurrentMonthText>
+      </S.CurrentMonthBox>
       <HorizontalCalendar
         dates={dates}
         dateCounts={dateCounts}
@@ -55,6 +45,6 @@ export const WeekDay = () => {
         currentDate={currentDate}
         onSelectedDateChange={onSelectedDateChange}
       />
-    </YStack>
+    </S.WeekDayContainer>
   );
 };

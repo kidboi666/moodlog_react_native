@@ -1,5 +1,5 @@
 import { Button, H1, H2, H3, XStack, YStack } from 'tamagui';
-import { useRouter } from 'expo-router';
+import { router } from 'expo-router';
 import { ArrowRight } from '@tamagui/lucide-icons';
 import { Container } from '@/components/layouts/containers/Container';
 import { ShakeEmoji } from '@/components/ShakeEmoji';
@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 import { PARAGRAPH_DELAY } from '@/constants/time';
 
 export default function WelcomeScreen() {
-  const router = useRouter();
   const { t } = useTranslation();
   const { currentStep, goToNextStep } = useStepProgress();
 

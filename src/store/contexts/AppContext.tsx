@@ -120,6 +120,7 @@ export const AppContextProvider = ({ children }: PropsWithChildren) => {
           AsyncStorage.getItem(STORAGE_KEY.INIT),
           AsyncStorage.getItem(STORAGE_KEY.FIRST_LAUNCH),
         ]);
+        console.log('isInitialApp', isInitialApp);
 
         if (isInitialApp === 'true') {
           dispatch({

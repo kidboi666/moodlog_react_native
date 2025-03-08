@@ -9,9 +9,9 @@ export const CalendarHeader = () => {
   return (
     <S.HeaderContainer>
       <S.NavigationBox>
-        <S.ArrowButton icon={<ArrowLeft size="$1" />} />
+        <S.ArrowButton icon={ArrowLeft} />
         <S.YearText>2025</S.YearText>
-        <S.ArrowButton icon={<ArrowRight size="$1" />} />
+        <S.ArrowButton icon={ArrowRight} />
       </S.NavigationBox>
       <S.DayContainer>
         {Object.keys(WEEK_DAY).map((week, i) => (

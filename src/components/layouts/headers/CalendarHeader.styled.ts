@@ -16,6 +16,7 @@ export const NavigationBox = styled(XStack, {
 
 export const ArrowButton = styled(Button, {
   bg: 'transparent',
+  scaleIcon: 1.5,
 });
 
 export const YearText = styled(H1, {

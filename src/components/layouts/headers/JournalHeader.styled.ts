@@ -5,20 +5,10 @@ import { CONTAINER_SPACING } from '@/constants/size';
 import { RenderTime } from '@/components/RenderTime';
 import { RenderDay } from '@/components/RenderDay';
 import { RenderDate } from '@/components/RenderDate';
-import { ChevronLeft, Trash2 } from '@tamagui/lucide-icons';
 
 export const HeaderContainer = styled(HOSHeaderContainer, {
   items: 'center',
   pl: CONTAINER_SPACING,
-});
-
-export const BackButton = styled(Button, {
-  unstyled: true,
-  animation: 'quick',
-  rounded: '$4',
-  p: '$3',
-  enterStyle: ENTER_STYLE,
-  pressStyle: PRESS_STYLE,
 });
 
 export const DateContainer = styled(YStack, {
@@ -47,21 +37,22 @@ export const DayWithTimeBox = styled(XStack, {
   gap: '$2',
 });
 
-export const DeleteButton = styled(Button, {
+export const BackButton = styled(Button, {
   unstyled: true,
   animation: 'quick',
   rounded: '$4',
   p: '$3',
+  scaleIcon: 1.5,
   enterStyle: ENTER_STYLE,
   pressStyle: PRESS_STYLE,
 });
 
-// Icon
-
-export const BackIcon = styled(ChevronLeft, {
-  size: '$1',
-});
-
-export const DeleteIcon = styled(Trash2, {
-  size: '$1',
+export const DeleteButton = styled(Button, {
+  unstyled: true,
+  animation: 'quick',
+  scaleIcon: 1.5,
+  rounded: '$4',
+  p: '$3',
+  enterStyle: ENTER_STYLE,
+  pressStyle: PRESS_STYLE,
 });

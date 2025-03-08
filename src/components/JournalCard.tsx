@@ -1,11 +1,10 @@
-import { AnimatePresence, Card, Image } from 'tamagui';
+import { AnimatePresence } from 'tamagui';
 import { Journal } from '@/types/entries';
 import { emotionTheme } from '@/constants/themes';
-import { ChevronRight } from '@tamagui/lucide-icons';
-import { LinearGradient } from 'tamagui/linear-gradient';
 import { useCallback, useState } from 'react';
 import { router } from 'expo-router';
 import * as S from './JournalCard.styled';
+import { ChevronRight } from '@tamagui/lucide-icons';
 
 interface Props {
   journal: Journal;
@@ -45,39 +44,17 @@ export const JournalCard = ({ journal }: Props) => {
             <S.TimeText createdAt={journal.createdAt} />
             <S.JournalContentText>{journal.content ?? ''}</S.JournalContentText>
           </S.JournalContentBox>
-          <ChevronRight size="$1" />
+          <S.RightChevronButton icon={ChevronRight} />
         </S.Content>
       </S.CardHeader>
 
       {journal.imageUri && (
-        <Card.Background rounded="$8">
-          <Image
-            animation="medium"
-            opacity={0.6}
-            objectFit="cover"
-            source={{ uri: journal.imageUri }}
-            width="100%"
-            height="100%"
-          />
+        <S.CardBackground>
+          <S.JournalCoverImage source={{ uri: journal.imageUri }} />
           <AnimatePresence>
-            {!isPress && (
-              <LinearGradient
-                animation="quick"
-                exitStyle={{
-                  opacity: 0,
-                }}
-                width="100%"
-                height="100%"
-                colors={['$gray5', 'rgba(0,0,0,0)']}
-                start={[0, 0]}
-                end={[2.4, 0]}
-                // 이미지 위에 그라디언트 위치하도록
-                position="absolute"
-                pointerEvents="none"
-              />
-            )}
+            {!isPress && <S.ImageCoverGradient />}
           </AnimatePresence>
-        </Card.Background>
+        </S.CardBackground>
       )}
     </S.CardContainer>
   );

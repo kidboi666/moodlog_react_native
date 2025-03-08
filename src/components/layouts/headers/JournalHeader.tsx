@@ -5,6 +5,7 @@ import { DeleteJournalModal } from '@/components/modals/contents/DeleteJournalMo
 import { router } from 'expo-router';
 import { useBottomModal } from '@/hooks/useBottomModal';
 import * as S from './JournalHeader.styled';
+import { ArrowLeft, Trash2 } from '@tamagui/lucide-icons';
 
 export default function JournalHeader() {
   const { selectedJournal } = useJournal();
@@ -15,7 +16,7 @@ export default function JournalHeader() {
   return (
     <>
       <S.HeaderContainer>
-        <S.BackButton icon={S.BackIcon} onPress={() => router.back()} />
+        <S.BackButton icon={ArrowLeft} onPress={() => router.back()} />
         <S.DateContainer>
           <S.DateText localDate={selectedJournal.localDate} />
           <S.DayWithTimeBox>
@@ -24,7 +25,7 @@ export default function JournalHeader() {
           </S.DayWithTimeBox>
         </S.DateContainer>
 
-        <S.DeleteButton icon={S.DeleteIcon} onPress={openModal} />
+        <S.DeleteButton icon={Trash2} onPress={openModal} />
       </S.HeaderContainer>
       <BottomModal ref={modalRef}>
         <DeleteJournalModal journalId={selectedJournal.id} />

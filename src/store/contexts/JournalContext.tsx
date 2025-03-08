@@ -74,7 +74,7 @@ export const CreateJournalContext = (contextName: ContextName) => {
           setIsSubmitted(true);
         }
       },
-      [currentDateString, setJournals],
+      [currentDateString, currentYear, currentMonth, currentDate],
     );
 
     const getDateCountsForDate = useCallback(

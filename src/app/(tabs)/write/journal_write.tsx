@@ -39,7 +39,7 @@ export default function JournalWriteScreen() {
     onImageUriChange,
     enhancedInputRef,
   } = useDraft();
-  const { addJournal } = useJournal();
+  const { addJournal } = useJournal('week');
   const toast = useToastController();
   const { t } = useTranslation();
   const theme = useTheme();

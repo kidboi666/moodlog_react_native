@@ -1,6 +1,16 @@
-import { Card, Paragraph, styled, View, XStack, YStack } from 'tamagui';
+import {
+  Button,
+  Card,
+  Image,
+  Paragraph,
+  styled,
+  View,
+  XStack,
+  YStack,
+} from 'tamagui';
 import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
 import { RenderTime } from '@/components/RenderTime';
+import { LinearGradient } from 'tamagui/linear-gradient';
 
 export const CardContainer = styled(Card, {
   group: true,
@@ -62,4 +72,33 @@ export const TimeText = styled(RenderTime, {
   lineHeight: 20,
   color: '$gray9',
   fontWeight: '800',
+});
+
+export const CardBackground = styled(Card.Background, {
+  rounded: '$8',
+});
+
+export const JournalCoverImage = styled(Image, {
+  animation: 'medium',
+  opacity: 0.6,
+  objectFit: 'cover',
+  width: '100%',
+  height: '100%',
+});
+
+export const ImageCoverGradient = styled(LinearGradient, {
+  animation: 'quick',
+  exitStyle: { opacity: 0 },
+  width: '100%',
+  height: '100%',
+  colors: ['$gray5', 'rgba(0,0,0,0)'],
+  start: [0, 0],
+  end: [2.4, 0],
+  position: 'absolute',
+  pointerEvents: 'none',
+});
+
+export const RightChevronButton = styled(Button, {
+  unstyled: true,
+  p: '$4',
 });

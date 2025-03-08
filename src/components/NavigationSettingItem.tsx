@@ -1,8 +1,8 @@
 import { Href, Link } from 'expo-router';
-import { SettingsNavigationButton } from './NavigationSettingItem.styled';
+import * as S from './NavigationSettingItem.styled';
 
 interface NavigationSettingItemProps {
-  icon?: React.ReactNode;
+  icon?: any;
   label: string;
   href: Href;
   onNavigate?: () => void;
@@ -22,7 +22,9 @@ export const NavigationSettingItem = ({
 
   return (
     <Link href={href} asChild onPress={handlePress}>
-      <SettingsNavigationButton icon={icon}>{label}</SettingsNavigationButton>
+      <S.SettingsNavigationButton icon={icon}>
+        {label}
+      </S.SettingsNavigationButton>
     </Link>
   );
 };

@@ -18,19 +18,28 @@ import { FadeIn } from '@/components/FadeIn';
 import { HOME_HEADER_LINE_HEIGHT } from '@/constants/size';
 import { ShakeEmoji } from '@/components/ShakeEmoji';
 import { WeekDay } from '@/components/WeekDay';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useUser } from '@/store/hooks/useUser';
 import { useScroll } from '@/store/hooks/useScroll';
 import { HomeHeader } from '@/components/layouts/headers/HomeHeader';
 import { PARAGRAPH_DELAY } from '@/constants/time';
+import { useDraft } from '@/store/hooks/useDraft';
 
 export default function HomeScreen() {
-  const { dailyJournals } = useJournal('week');
+  const { dailyJournals, isSubmitted } = useJournal('week');
   const { isInitialApp } = useApp();
   const { t } = useTranslation();
   const { onScroll } = useScroll();
   const { userInfo } = useUser();
+  const { initDraft } = useDraft();
+
+  useEffect(() => {
+    console.log('isSubmitted', isSubmitted);
+    if (isSubmitted) {
+      initDraft();
+    }
+  }, [isSubmitted]);
 
   if (!isInitialApp) {
     return <Redirect href="/(onboarding)/welcome" />;

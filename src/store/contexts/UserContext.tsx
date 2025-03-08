@@ -96,8 +96,8 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
       const savedUserData = await AsyncStorage.getItem(STORAGE_KEY.USER_INFO);
       if (savedUserData) {
         setUserInfo(JSON.parse(savedUserData));
+        await initializeFirstLaunchStatus();
       }
-      await initializeFirstLaunchStatus();
     } catch (err) {
       console.error('Failed to load user data', err);
     } finally {

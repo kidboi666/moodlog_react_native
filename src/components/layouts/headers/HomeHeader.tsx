@@ -10,8 +10,8 @@ export const HomeHeader = () => {
   return (
     <>
       <HeaderContainer>
-        <S.DevMenuButton icon={<Menu size="$1" />} onPress={openModal} />
-        <S.RestLayout />
+        <S.DevMenuButton icon={Menu} onPress={openModal} />
+        <S.RestBox />
       </HeaderContainer>
 
       <BottomModal ref={modalRef}>
