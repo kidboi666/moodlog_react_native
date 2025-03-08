@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { ScrollView, Text, View, YStack } from 'tamagui';
+import { ScrollView, View } from 'tamagui';
 import { ISODateString } from '@/types/dtos/date';
 import { CALENDAR_SCROLL_SIZE } from '@/constants/size';
 import { DateCounts } from '@/types/entries';
@@ -74,18 +74,13 @@ export const HorizontalCalendar = ({
                 isToday={isToday}
                 onPress={() => handleSelectedDateChange(date)}
               >
-                <YStack items="center">
-                  <YStack gap="$2" items="center">
-                    <Text
-                      fontSize="$2"
-                      color={selectedDate === date ? '$gray12' : '$gray9'}
-                    >
+                <S.DateWrapper>
+                  <S.DateTextWrapper>
+                    <S.DayText isSelected={selectedDate === date}>
                       {t(`calendar.days.${getDayInISODateString(date)}`)}
-                    </Text>
-                    <Text
-                      fontSize="$5"
-                      fontWeight="800"
-                      color={
+                    </S.DayText>
+                    <S.DateText
+                      isFuture={
                         isFuture
                           ? '$gray11'
                           : selectedDate === date
@@ -94,15 +89,15 @@ export const HorizontalCalendar = ({
                       }
                     >
                       {getDateInISODateString(date)}
-                    </Text>
-                  </YStack>
+                    </S.DateText>
+                  </S.DateTextWrapper>
                   <DateCountDot
                     variant="contained"
                     dateCounts={dateCounts}
                     dateString={date}
                     isSelected={selectedDate === date}
                   />
-                </YStack>
+                </S.DateWrapper>
               </S.DateContainer>
             );
           })}

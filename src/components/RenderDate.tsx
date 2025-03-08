@@ -1,5 +1,4 @@
 import { Text, TextProps } from 'tamagui';
-import * as S from './RenderDate.styled';
 
 interface Props extends TextProps {
   timestamp?: string | number;
@@ -23,9 +22,9 @@ export const RenderDate = Text.styleable<Props>(
       if (onlyText) return renderText(year, month, day);
 
       return (
-        <S.Text ref={ref} {...props}>
+        <Text ref={ref} {...props}>
           {renderText(year, month, day)}
-        </S.Text>
+        </Text>
       );
     }
 
@@ -38,9 +37,9 @@ export const RenderDate = Text.styleable<Props>(
       if (onlyText) return renderText(year, month, day);
 
       return (
-        <S.Text ref={ref} {...props}>
+        <Text ref={ref} {...props}>
           {renderText(year, month, day)}
-        </S.Text>
+        </Text>
       );
     }
 
@@ -52,9 +51,9 @@ export const RenderDate = Text.styleable<Props>(
     if (onlyText) return renderText(year, month, day);
 
     return (
-      <S.Text ref={ref} {...props}>
+      <Text ref={ref} {...props}>
         {renderText(year, month, day)}
-      </S.Text>
+      </Text>
     );
   },
 );

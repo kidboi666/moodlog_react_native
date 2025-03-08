@@ -1,20 +1,21 @@
-import { TextProps } from 'tamagui';
+import { Text, TextProps } from 'tamagui';
 import { useTranslation } from 'react-i18next';
 import { WEEK_DAY } from '@/constants/date';
-import * as S from './RenderDate.styled';
 
 interface Props extends TextProps {
   createdAt: string;
 }
 
-export const RenderDay = ({ createdAt, ...props }: Props) => {
-  const { t } = useTranslation();
-  const day = new Date(createdAt);
+export const RenderDay = Text.styleable<Props>(
+  ({ createdAt, ...props }, ref) => {
+    const { t } = useTranslation();
+    const day = new Date(createdAt);
 
-  return (
-    <S.Text {...props}>
-      {t(`calendar.days.${Object.keys(WEEK_DAY)[day.getDay()]}`)}
-      {t(`common.units.day`)}
-    </S.Text>
-  );
-};
+    return (
+      <Text ref={ref} {...props}>
+        {t(`calendar.days.${Object.keys(WEEK_DAY)[day.getDay()]}`)}
+        {t(`common.units.day`)}
+      </Text>
+    );
+  },
+);

@@ -1,4 +1,4 @@
-import { Button, styled, XStack } from 'tamagui';
+import { Button, styled, Text, XStack, YStack } from 'tamagui';
 import { ENTER_STYLE, ENTER_STYLE_KEY } from '@/constants/styles';
 import { CALENDAR_SCROLL_SIZE } from '@/constants/size';
 
@@ -28,6 +28,42 @@ export const DateContainer = styled(Button, {
     isToday: {
       true: {
         borderWidth: 1,
+      },
+    },
+  } as const,
+});
+
+export const DateWrapper = styled(YStack, {
+  items: 'center',
+});
+
+export const DateTextWrapper = styled(YStack, {
+  gap: '$2',
+  items: 'center',
+});
+
+export const DayText = styled(Text, {
+  fontSize: '$2',
+  color: '$gray9',
+
+  variants: {
+    isSelected: {
+      true: {
+        color: '$gray12',
+      },
+    },
+  } as const,
+});
+
+export const DateText = styled(Text, {
+  fontSize: '$5',
+  fontWeight: '800',
+  color: '$gray11',
+
+  variants: {
+    isFuture: {
+      ':string': color => {
+        return { color };
       },
     },
   } as const,

@@ -1,20 +1,11 @@
-import {
-  AnimatePresence,
-  Card,
-  Image,
-  Paragraph,
-  View,
-  XStack,
-  YStack,
-} from 'tamagui';
+import { AnimatePresence, Card, Image } from 'tamagui';
 import { Journal } from '@/types/entries';
 import { emotionTheme } from '@/constants/themes';
 import { ChevronRight } from '@tamagui/lucide-icons';
-import { ENTER_STYLE, PRESS_STYLE } from '@/constants/styles';
 import { LinearGradient } from 'tamagui/linear-gradient';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { router } from 'expo-router';
-import { RenderTime } from '../screens/journal/RenderTime';
+import * as S from './JournalCard.styled';
 
 interface Props {
   journal: Journal;
@@ -24,51 +15,39 @@ export const JournalCard = ({ journal }: Props) => {
   const [isPress, setIsPress] = useState(false);
   const [isLongPress, setIsLongPress] = useState(false);
 
+  const handlePress = useCallback(() => {
+    setIsPress(true);
+    setTimeout(() => {
+      router.push({
+        pathname: '/(tabs)/journal/[journalId]',
+        params: { journalId: journal.id },
+      });
+    }, 300);
+  }, [router]);
+
+  const handleLongPress = useCallback(() => {
+    setIsLongPress(true);
+  }, []);
   return (
-    <Card
-      group
-      flex={1}
-      l={isLongPress ? -8 : 0}
-      animation="quick"
-      enterStyle={ENTER_STYLE}
-      pressStyle={PRESS_STYLE}
-      onLongPress={() => setIsLongPress(true)}
-      bg="$gray4"
-      rounded="$8"
-      onPress={() => {
-        setIsPress(true);
-        setTimeout(() => {
-          router.push({
-            pathname: '/(tabs)/journal/[journalId]',
-            params: { journalId: journal.id },
-          });
-        }, 300);
-      }}
+    <S.CardContainer
+      isLongPress={isLongPress}
+      onLongPress={handleLongPress}
+      onPress={handlePress}
     >
-      <Card.Header padded>
-        <XStack flex={1} gap="$4" items="center">
-          <View
-            width="$0.75"
-            my="auto"
-            height="75%"
-            rounded="$8"
-            bg={emotionTheme[journal.emotion.type][journal.emotion.level]}
+      <S.CardHeader>
+        <S.Content>
+          <S.MoodBar
+            moodColor={
+              emotionTheme[journal.emotion.type][journal.emotion.level]
+            }
           />
-          <YStack flex={1} gap="$2">
-            <RenderTime
-              createdAt={journal.createdAt}
-              fontSize="$7"
-              lineHeight={20}
-              color="$gray9"
-              fontWeight="800"
-            />
-            <Paragraph color="$gray12" flex={1} numberOfLines={4}>
-              {journal.content ?? ''}
-            </Paragraph>
-          </YStack>
+          <S.JournalContentBox>
+            <S.TimeText createdAt={journal.createdAt} />
+            <S.JournalContentText>{journal.content ?? ''}</S.JournalContentText>
+          </S.JournalContentBox>
           <ChevronRight size="$1" />
-        </XStack>
-      </Card.Header>
+        </S.Content>
+      </S.CardHeader>
 
       {journal.imageUri && (
         <Card.Background rounded="$8">
@@ -100,6 +79,6 @@ export const JournalCard = ({ journal }: Props) => {
           </AnimatePresence>
         </Card.Background>
       )}
-    </Card>
+    </S.CardContainer>
   );
 };
