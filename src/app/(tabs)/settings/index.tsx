@@ -17,7 +17,7 @@ export default function SettingsScreen() {
           {/* Theme Setting */}
           <FadeIn delay={CARD_DELAY.FIRST}>
             <NavigationSettingItem
-              icon={<Moon size="$1" />}
+              icon={Moon}
               label={t('settings.theme.title')}
               href="/settings/theme"
             />
@@ -27,7 +27,7 @@ export default function SettingsScreen() {
           <FadeIn delay={CARD_DELAY.SECOND}>
             {/* Language Setting */}
             <NavigationSettingItem
-              icon={<Globe size="$1" />}
+              icon={Globe}
               label={t('settings.language.title')}
               href="/settings/language"
             />

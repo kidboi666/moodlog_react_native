@@ -112,8 +112,6 @@ export const CreateJournalContext = (contextName: ContextName) => {
       (year: number, month: number | string) => {
         let intMonth: number;
 
-        console.time('calendar');
-
         if (typeof month === 'string') {
           intMonth = Object.keys(MONTHS).findIndex(key => key === month) + 1;
         } else {
@@ -132,8 +130,6 @@ export const CreateJournalContext = (contextName: ContextName) => {
             counts[journal.localDate]++;
           }
         });
-
-        console.timeEnd('calendar');
 
         return counts;
       },

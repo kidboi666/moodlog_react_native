@@ -23,6 +23,7 @@ import * as NavigationBar from 'expo-navigation-bar';
 import { FEEDBACK_DURATION } from '@/constants/time';
 import { Nullable } from '@/types/utils';
 import * as S from './CustomTabBar.styled';
+import { TabTrigger } from 'expo-router/ui';
 
 const AnimatedStack = Animated.createAnimatedComponent(S.TabBarContainer);
 
@@ -109,32 +110,42 @@ export const CustomTabBar = () => {
       style={animatedStyle}
     >
       <S.Container>
-        <S.HomeButton
-          onPress={() => navigateTo('/')}
-          isTabActive={isTabActive('/')}
-          icon={<Home size="$1" />}
-        />
-        <S.CalendarButton
-          onPress={() => navigateTo('/calendar')}
-          isTabActive={isTabActive('/calendar')}
-          icon={<CalendarDays size="$1" />}
-        />
-        <S.WriteButton
-          onPress={() => navigateTo('/write')}
-          icon={<Plus size="$1" />}
-        >
-          {showDraftNotification && <S.Circle />}
-        </S.WriteButton>
-        <S.RecordButton
-          onPress={() => navigateTo('/record')}
-          isTabActive={isTabActive('/record')}
-          icon={<FileChartColumnIncreasing size="$1" />}
-        />
-        <S.SettingsButton
-          onPress={() => navigateTo('/settings')}
-          isTabActive={isTabActive('/settings')}
-          icon={<Settings size="$1" />}
-        />
+        <TabTrigger name="home" asChild>
+          <S.HomeButton
+            onPress={() => navigateTo('/')}
+            isTabActive={isTabActive('/')}
+            icon={<Home size="$1" />}
+          />
+        </TabTrigger>
+        <TabTrigger name="calendar" asChild>
+          <S.CalendarButton
+            onPress={() => navigateTo('/calendar')}
+            isTabActive={isTabActive('/calendar')}
+            icon={<CalendarDays size="$1" />}
+          />
+        </TabTrigger>
+        <TabTrigger name="write" asChild>
+          <S.WriteButton
+            onPress={() => navigateTo('/write/mood_select')}
+            icon={<Plus size="$1" />}
+          >
+            {showDraftNotification && <S.Circle />}
+          </S.WriteButton>
+        </TabTrigger>
+        <TabTrigger name="record" asChild>
+          <S.RecordButton
+            onPress={() => navigateTo('/record')}
+            isTabActive={isTabActive('/record')}
+            icon={<FileChartColumnIncreasing size="$1" />}
+          />
+        </TabTrigger>
+        <TabTrigger name="settings" asChild>
+          <S.SettingsButton
+            onPress={() => navigateTo('/settings')}
+            isTabActive={isTabActive('/settings')}
+            icon={<Settings size="$1" />}
+          />
+        </TabTrigger>
       </S.Container>
     </AnimatedStack>
   );

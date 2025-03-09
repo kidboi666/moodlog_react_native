@@ -250,7 +250,6 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   ]);
 
   const getMonthlyStats = useCallback(() => {
-    console.log(selectedMonth);
     if (!selectedMonth) {
       setSelectedMonthStats(null);
       return;

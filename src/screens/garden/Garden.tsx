@@ -1,9 +1,9 @@
-import { XStack, YStack } from 'tamagui';
 import { Grass } from '@/screens/garden/Grass';
 import { getMonthNumber } from '@/utils/common';
 import { Emotion } from '@/types/entries';
 import { MonthKey } from '@/types/utils';
 import { memo, useMemo } from 'react';
+import * as S from './Garden.styled';
 
 interface Props {
   weekLength: number;
@@ -54,9 +54,9 @@ export const Garden = memo(
     ]);
 
     return (
-      <XStack gap="$2">
+      <S.GardenContainer>
         {emotionsData.map((week, weekIndex) => (
-          <YStack key={weekIndex} gap="$2">
+          <S.YStackContainer key={weekIndex}>
             {week.map((emotions, dayIndex) => (
               <Grass
                 key={dayIndex}
@@ -64,9 +64,9 @@ export const Garden = memo(
                 isEmpty={emotions === null}
               />
             ))}
-          </YStack>
+          </S.YStackContainer>
         ))}
-      </XStack>
+      </S.GardenContainer>
     );
   },
 );

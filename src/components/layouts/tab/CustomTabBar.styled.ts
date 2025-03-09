@@ -1,10 +1,4 @@
-import {
-  Button,
-  Circle as TamaguiCircle,
-  Stack,
-  styled,
-  XStack,
-} from 'tamagui';
+import { Button, Circle as TamaguiCircle, styled, XStack } from 'tamagui';
 import {
   ENTER_STYLE,
   ENTER_STYLE_KEY,
@@ -28,7 +22,7 @@ export const TabBarContainer = styled(XStack, {
   borderTopLeftRadius: '$12',
 });
 
-export const Container = styled(Stack, {
+export const Container = styled(XStack, {
   flex: 1,
   pt: Platform.OS === 'ios' ? '$4' : undefined,
   flexDirection: 'row',
@@ -38,7 +32,8 @@ export const Container = styled(Stack, {
 
 const TabButton = styled(Button, {
   unstyled: true,
-  p: '$4',
+  px: '$4',
+  py: '$3',
   rounded: '$4',
   animation: 'medium',
   animateOnly: PRESS_STYLE_KEY,

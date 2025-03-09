@@ -12,7 +12,6 @@ import { CalendarUtils } from 'react-native-calendars';
 import { getMonthInISODateString } from '@/utils/common';
 import { ContextName } from '@/types/enums';
 
-// 액션 타입 정의
 type DateAction =
   | { type: 'SET_SELECTED_YEAR'; payload: number }
   | { type: 'SET_SELECTED_MONTH'; payload: Nullable<ISOMonthString> }
@@ -26,14 +25,12 @@ type DateAction =
       };
     };
 
-// 상태 타입 정의
 interface DateState {
   selectedYear: number;
   selectedMonth: Nullable<ISOMonthString>;
   selectedDate: ISODateString;
 }
 
-// 컴포넌트 외부에 리듀서 함수 정의
 const dateReducer = (state: DateState, action: DateAction): DateState => {
   switch (action.type) {
     case 'SET_SELECTED_YEAR':
@@ -61,7 +58,6 @@ export const CreateDateContext = (contextName: ContextName) => {
   Context.displayName = `${contextName}DateContext`;
 
   const Provider = ({ children }: PropsWithChildren) => {
-    // 현재 날짜 값 (한 번만 계산됨)
     const currentDate = useMemo(() => new Date(), []);
     const currentYear = useMemo(() => currentDate.getFullYear(), [currentDate]);
     const currentMonth = useMemo(() => currentDate.getMonth(), [currentDate]);
@@ -70,7 +66,6 @@ export const CreateDateContext = (contextName: ContextName) => {
       [currentDate],
     );
 
-    // 리듀서 초기 상태
     const initialState: DateState = useMemo(
       () => ({
         selectedYear: currentYear,
@@ -80,10 +75,8 @@ export const CreateDateContext = (contextName: ContextName) => {
       [currentYear, initialISODate],
     );
 
-    // 리듀서 사용
     const [state, dispatch] = useReducer(dateReducer, initialState);
 
-    // 액션 디스패처 (메모이제이션된 콜백)
     const handleSelectedYearChange = useCallback((year: number) => {
       dispatch({ type: 'SET_SELECTED_YEAR', payload: year });
     }, []);
@@ -106,18 +99,14 @@ export const CreateDateContext = (contextName: ContextName) => {
       });
     }, [currentYear, currentMonth, initialISODate]);
 
-    // 컨텍스트 값 생성 (메모이제이션)
     const contextValue = useMemo(
       () => ({
-        // 현재 날짜 정보 (정적)
         currentMonth,
         currentYear,
         currentDate,
-        // 선택된 날짜 상태 (리듀서에서)
         selectedYear: state.selectedYear,
         selectedMonth: state.selectedMonth,
         selectedDate: state.selectedDate,
-        // 액션
         initSelectedDates,
         onSelectedYearChange: handleSelectedYearChange,
         onSelectedMonthChange: handleSelectedMonthChange,

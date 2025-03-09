@@ -1,4 +1,4 @@
-import { H3, ScrollView, View } from 'tamagui';
+import { H3, ScrollView } from 'tamagui';
 import { useJournal } from '@/store/hooks/useJournal';
 import { JournalCard } from '@/components/JournalCard';
 import { Container } from '@/components/layouts/containers/Container';
@@ -8,7 +8,7 @@ import { useApp } from '@/store/hooks/useApp';
 import { FadeIn } from '@/components/FadeIn';
 import { ShakeEmoji } from '@/components/ShakeEmoji';
 import { WeekDay } from '@/components/WeekDay';
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useUser } from '@/store/hooks/useUser';
 import { useScroll } from '@/store/hooks/useScroll';
@@ -38,8 +38,9 @@ export default function HomeScreen() {
   return (
     <ScrollView
       onScroll={onScroll}
-      scrollEventThrottle={16}
+      scrollEventThrottle={32}
       overScrollMode="always"
+      keyboardShouldPersistTaps="handled"
     >
       <Container
         edges={__DEV__ ? ['bottom'] : ['top', 'bottom']}
@@ -66,12 +67,12 @@ export default function HomeScreen() {
 
         {Array.isArray(dailyJournals) ? (
           dailyJournals.map((journal, index) => (
-            <View key={journal.id}>
+            <Fragment key={journal.id}>
               {index > 0 && <S.Separator />}
               <FadeIn delay={100 * (index + 1)}>
                 <JournalCard journal={journal} />
               </FadeIn>
-            </View>
+            </Fragment>
           ))
         ) : (
           <EmptyJournal date={dailyJournals} />

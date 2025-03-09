@@ -1,9 +1,9 @@
-import { View } from 'tamagui';
 import { Emotion } from '@/types/entries';
 import { EmotionLevel, EmotionType } from '@/types/enums';
 import { emotionTheme } from '@/constants/themes';
 import { memo, useMemo } from 'react';
 import { Nullable } from '@/types/utils';
+import * as S from './Grass.styled';
 
 const calculateEmotionColor = (emotions: Emotion[]) => {
   if (!emotions || emotions.length === 0) return null;
@@ -49,15 +49,12 @@ export const Grass = memo(({ emotions, isEmpty = false }: Props) => {
   );
 
   if (isEmpty) {
-    return <View width={16} height={16} />;
+    return <S.Grass />;
   }
 
   return (
-    <View
-      bg={emotionColor ? emotionTheme[emotionColor].full : '$gray10'}
-      width={16}
-      height={16}
-      rounded="$1"
+    <S.Grass
+      moodColor={emotionColor ? emotionTheme[emotionColor].full : '$gray10'}
     />
   );
 });

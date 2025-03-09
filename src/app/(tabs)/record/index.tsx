@@ -1,4 +1,3 @@
-import { Container } from '@/components/layouts/containers/Container';
 import { GardenSection } from '@/screens/garden/GardenSection';
 import { StatsContainer } from '@/screens/stats/StatsContainer';
 import { ScrollView } from 'tamagui';
@@ -6,13 +5,14 @@ import { useScroll } from '@/store/hooks/useScroll';
 import { CurrentMonth } from '@/screens/stats/selected-month/CurrentMonth';
 import { FadeIn } from '@/components/FadeIn';
 import { CARD_DELAY } from '@/constants/time';
+import * as S from '@/styles/record/Record.styled';
 
 export default function RecordScreen() {
   const { onScroll } = useScroll();
 
   return (
     <ScrollView onScroll={onScroll} scrollEventThrottle={16}>
-      <Container edges={['top', 'bottom']} gap="$4" padded>
+      <S.CardContainer edges={['top', 'bottom']} padded>
         <FadeIn delay={CARD_DELAY.FIRST}>
           <StatsContainer />
         </FadeIn>
@@ -22,7 +22,7 @@ export default function RecordScreen() {
         <FadeIn delay={CARD_DELAY.THIRD}>
           <CurrentMonth />
         </FadeIn>
-      </Container>
+      </S.CardContainer>
     </ScrollView>
   );
 }

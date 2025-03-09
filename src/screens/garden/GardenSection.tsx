@@ -1,4 +1,4 @@
-import { ScrollView, XStack, YStack } from 'tamagui';
+import { ScrollView } from 'tamagui';
 import { useJournal } from '@/store/hooks/useJournal';
 import { GardenTitleHeader } from '@/screens/garden/GardenTitleHeader';
 import { GardenDayUnits } from '@/screens/garden/GardenDayUnits';
@@ -13,6 +13,7 @@ import { useDate } from '@/store/hooks/useDate';
 import { MONTHS } from '@/constants/date';
 import { MonthKey } from '@/types/utils';
 import { MonthItem } from '@/screens/garden/MonthItem';
+import * as S from './GardenSection.styled';
 
 export const GardenSection = () => {
   const { selectedYear, selectedMonth, onSelectedMonthChange } =
@@ -45,11 +46,11 @@ export const GardenSection = () => {
   );
 
   return (
-    <YStack bg="$gray4" p="$4" rounded="$8" gap="$4">
+    <S.Container>
       <GardenTitleHeader />
       <ScrollView horizontal>
         <GardenDayUnits />
-        <XStack gap="$2">
+        <S.StackBox>
           {months.map((monthData, i) => {
             const isSelected =
               selectedMonth ===
@@ -66,8 +67,8 @@ export const GardenSection = () => {
               />
             );
           })}
-        </XStack>
+        </S.StackBox>
       </ScrollView>
-    </YStack>
+    </S.Container>
   );
 };

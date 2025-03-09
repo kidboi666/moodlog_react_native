@@ -4,7 +4,7 @@ import { useFonts } from 'expo-font';
 import { useEffect, useMemo } from 'react';
 import { StatusBar } from '@/components/StatusBar';
 import { useAppTheme } from '@/store/hooks/useAppTheme';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform } from 'react-native';
 import { useTheme } from 'tamagui';
 import * as SplashScreen from 'expo-splash-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -69,6 +69,7 @@ function RootLayoutNav() {
 
   const backgroundStyle = useMemo(
     () => ({
+      flex: 1,
       backgroundColor: theme.background.val,
     }),
     [theme.background.val, resolvedTheme],
@@ -95,7 +96,7 @@ function RootLayoutNav() {
   if (isLoading) return null;
 
   return (
-    <GestureHandlerRootView style={[styles.container, backgroundStyle]}>
+    <GestureHandlerRootView style={backgroundStyle}>
       <ThemeProvider
         value={resolvedTheme === 'dark' ? DarkTheme : DefaultTheme}
       >
@@ -112,9 +113,3 @@ function RootLayoutNav() {
     </GestureHandlerRootView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

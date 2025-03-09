@@ -1,9 +1,10 @@
 import { MonthKey } from '@/types/utils';
-import { Button, YStack } from 'tamagui';
+import { YStack } from 'tamagui';
 import { GardenMonthUnits } from '@/screens/garden/GardenMonthUnits';
 import { Garden } from '@/screens/garden/Garden';
 import { memo } from 'react';
 import { Emotion } from '@/types/entries';
+import * as S from './MonthItem.styled';
 
 interface Props {
   monthData: {
@@ -28,16 +29,9 @@ export const MonthItem = memo(
   }: Props) => {
     const { monthKey, lastDate, firstDateDay, weekLength } = monthData;
     return (
-      <Button
+      <S.MonthItemButton
         key={monthKey}
-        unstyled
-        animation="medium"
-        animateOnly={['transform', 'opacity']}
-        rounded="$8"
-        py="$4"
-        scale={isSelected ? 1.14 : 1}
-        opacity={isSelected ? 1 : 0.7}
-        z={isSelected ? 100 : 1}
+        isSelected={isSelected}
         onPress={() => onMonthChange(monthKey)}
       >
         <YStack>
@@ -51,7 +45,7 @@ export const MonthItem = memo(
             getEmotionForDate={getEmotionForDate}
           />
         </YStack>
-      </Button>
+      </S.MonthItemButton>
     );
   },
 );

@@ -1,4 +1,4 @@
-import { AnimatePresence, useEvent, YStack } from 'tamagui';
+import { AnimatePresence, useEvent } from 'tamagui';
 import {
   RECORD_CARD_EXPANDED_HEIGHT,
   RECORD_CARD_HEIGHT,
@@ -13,8 +13,9 @@ import Animated, {
 import { ExpandedContent } from '@/screens/stats/total-count/ExpandedContent';
 import { CollapsedContent } from '@/screens/stats/total-count/CollapsedContent';
 import { ExpressiveMonthStats, JournalStats } from '@/types/entries';
+import * as S from './TotalCount.styled';
 
-const AnimatedCard = Animated.createAnimatedComponent(YStack);
+const AnimatedCard = Animated.createAnimatedComponent(S.CardContainer);
 
 interface Props {
   journalStats: JournalStats;
@@ -46,13 +47,8 @@ export const TotalCount = ({
 
   return (
     <AnimatedCard
-      flex={1}
       onPressIn={() => (isTouched.value = true)}
       onPressOut={() => (isTouched.value = false)}
-      bg="$gray4"
-      rounded="$8"
-      justify="space-between"
-      p="$4"
       onPress={onPress}
       style={animatedStyle}
     >
@@ -60,17 +56,13 @@ export const TotalCount = ({
         {isExpanded ? (
           <ExpandedContent
             expressiveMonthStats={expressiveMonthStats}
-            isExpanded={isExpanded}
             totalCount={totalCount}
             daysSinceSignup={daysSinceSignup}
             totalFrequency={totalFrequency}
             totalActiveDay={totalActiveDay}
           />
         ) : (
-          <CollapsedContent
-            isExpanded={isExpanded}
-            journalStats={journalStats}
-          />
+          <CollapsedContent journalStats={journalStats} />
         )}
       </AnimatePresence>
     </AnimatedCard>

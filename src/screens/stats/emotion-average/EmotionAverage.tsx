@@ -1,4 +1,4 @@
-import { AnimatePresence, useEvent, YStack } from 'tamagui';
+import { AnimatePresence, useEvent } from 'tamagui';
 import { SignatureEmotion } from '@/types/entries';
 import Animated, {
   useAnimatedStyle,
@@ -16,12 +16,13 @@ import { EmotionLevel } from '@/types/enums';
 import { CollapsedContent } from '@/screens/stats/emotion-average/CollapsedContent';
 import { ExpandedContent } from '@/screens/stats/emotion-average/ExpandedContent';
 import { getEmotionTheme } from '@/utils/common';
+import * as S from './EmotionAverage.styled';
 
 interface Props {
   signatureEmotion: Nullable<SignatureEmotion>;
 }
 
-const AnimatedCard = Animated.createAnimatedComponent(YStack);
+const AnimatedCard = Animated.createAnimatedComponent(S.CardContainer);
 
 export const EmotionAverage = ({ signatureEmotion }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -45,17 +46,13 @@ export const EmotionAverage = ({ signatureEmotion }: Props) => {
 
   return (
     <AnimatedCard
-      flex={1}
-      p="$4"
-      justify="space-between"
-      bg={
+      moodColor={
         isExpanded
           ? '$gray4'
           : hasSignatureEmotion
             ? getEmotionTheme(signatureEmotion!.type, EmotionLevel.FULL)
             : '$gray5'
       }
-      rounded="$8"
       onPress={onPress}
       onPressIn={() => (isTouched.value = true)}
       onPressOut={() => (isTouched.value = false)}

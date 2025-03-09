@@ -1,20 +1,14 @@
-import { H5, Text, View, YStack } from 'tamagui';
+import * as S from './EmptyContent.styled';
 
 export const EmptyContent = () => {
   return (
-    <View
-      p="$4"
-      animation="quick"
-      animateOnly={['opacity']}
-      justify="space-between"
-      flex={1}
-      enterStyle={{ opacity: 0 }}
-      exitStyle={{ opacity: 0 }}
-    >
-      <YStack gap="$2">
-        <H5 fontWeight="800">컨텐츠가 없습니다.</H5>
-        <Text>일기를 작성하면 관련된 정보를 볼 수 있습니다.</Text>
-      </YStack>
-    </View>
+    <S.ViewContainer>
+      <S.YStackContainer>
+        <S.Title>컨텐츠가 없습니다.</S.Title>
+        <S.Description>
+          일기를 작성하면 관련된 정보를 볼 수 있습니다.
+        </S.Description>
+      </S.YStackContainer>
+    </S.ViewContainer>
   );
 };

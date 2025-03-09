@@ -1,4 +1,4 @@
-import { AnimatePresence, useEvent, YStack } from 'tamagui';
+import { AnimatePresence, useEvent } from 'tamagui';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -14,8 +14,9 @@ import { useStatistics } from '@/store/hooks/useStatistics';
 import { ExpandedContent } from '@/screens/stats/selected-month/ExpandedContent';
 import { CollapsedContent } from '@/screens/stats/selected-month/CollapsedContent';
 import { EmptyContent } from '@/screens/stats/EmptyContent';
+import * as S from './CurrentMonth.styled';
 
-const AnimatedCard = Animated.createAnimatedComponent(YStack);
+const AnimatedCard = Animated.createAnimatedComponent(S.CardContainer);
 
 export const CurrentMonth = () => {
   const { selectedMonthStats } = useStatistics();
@@ -36,11 +37,8 @@ export const CurrentMonth = () => {
 
   return (
     <AnimatedCard
-      flex={1}
       onPressIn={() => (isTouched.value = true)}
       onPressOut={() => (isTouched.value = false)}
-      bg="$gray4"
-      rounded="$8"
       onPress={() => (selectedMonthStats ? onPress() : undefined)}
       style={animatedStyle}
     >

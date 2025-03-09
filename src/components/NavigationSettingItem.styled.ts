@@ -6,6 +6,7 @@ export const SettingsNavigationButton = styled(Button, {
   animation: 'medium',
   animateOnly: PRESS_STYLE_KEY,
   flexDirection: 'row',
+  scaleIcon: 1.5,
   rounded: '$4',
   gap: '$2',
   fontSize: '$6',
