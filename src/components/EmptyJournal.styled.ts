@@ -22,12 +22,13 @@ export const TodayContainer = styled(YStack, {
 
 export const TodayTitle = styled(H3, {
   text: 'center',
-  color: '$gray11',
+  color: '$gray12',
 });
 
 export const WriteButton = styled(Button, {
   unstyled: true,
   p: '$4',
+  scaleIcon: 1.5,
   rounded: '$4',
   bg: '$gray12',
   color: '$gray1',

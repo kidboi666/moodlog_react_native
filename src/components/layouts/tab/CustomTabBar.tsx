@@ -114,36 +114,36 @@ export const CustomTabBar = () => {
           <S.HomeButton
             onPress={() => navigateTo('/')}
             isTabActive={isTabActive('/')}
-            icon={<Home size="$1" />}
+            icon={Home}
           />
         </TabTrigger>
         <TabTrigger name="calendar" asChild>
           <S.CalendarButton
             onPress={() => navigateTo('/calendar')}
             isTabActive={isTabActive('/calendar')}
-            icon={<CalendarDays size="$1" />}
+            icon={CalendarDays}
           />
         </TabTrigger>
         <TabTrigger name="write" asChild>
           <S.WriteButton
             onPress={() => navigateTo('/write/mood_select')}
-            icon={<Plus size="$1" />}
+            icon={Plus}
           >
-            {showDraftNotification && <S.Circle />}
+            <S.Circle showDraftNotification={showDraftNotification} />
           </S.WriteButton>
         </TabTrigger>
         <TabTrigger name="record" asChild>
           <S.RecordButton
             onPress={() => navigateTo('/record')}
             isTabActive={isTabActive('/record')}
-            icon={<FileChartColumnIncreasing size="$1" />}
+            icon={FileChartColumnIncreasing}
           />
         </TabTrigger>
         <TabTrigger name="settings" asChild>
           <S.SettingsButton
             onPress={() => navigateTo('/settings')}
             isTabActive={isTabActive('/settings')}
-            icon={<Settings size="$1" />}
+            icon={Settings}
           />
         </TabTrigger>
       </S.Container>

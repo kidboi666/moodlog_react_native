@@ -31,21 +31,18 @@ export const Container = styled(XStack, {
 });
 
 const TabButton = styled(Button, {
-  unstyled: true,
-  px: '$4',
-  py: '$3',
+  bg: 'transparent',
   rounded: '$4',
   animation: 'medium',
   animateOnly: PRESS_STYLE_KEY,
   pressStyle: PRESS_STYLE,
+  color: '$gray9',
+  scaleIcon: 1.5,
 
   variants: {
     isTabActive: {
       true: {
         color: '$gray12',
-      },
-      false: {
-        color: '$gray9',
       },
     },
   } as const,
@@ -59,6 +56,7 @@ export const CalendarButton = styled(TabButton);
 
 export const WriteButton = styled(TabButton, {
   bg: '$gray1',
+  position: 'relative',
 });
 
 export const Circle = styled(TamaguiCircle, {
@@ -68,6 +66,15 @@ export const Circle = styled(TamaguiCircle, {
   rounded: '$4',
   bg: '$green9',
   size: '$0.75',
+  opacity: 0,
+
+  variants: {
+    showDraftNotification: {
+      true: {
+        opacity: 1,
+      },
+    },
+  } as const,
 });
 
 export const RecordButton = styled(TabButton);

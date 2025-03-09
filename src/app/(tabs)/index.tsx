@@ -8,7 +8,7 @@ import { useApp } from '@/store/hooks/useApp';
 import { FadeIn } from '@/components/FadeIn';
 import { ShakeEmoji } from '@/components/ShakeEmoji';
 import { WeekDay } from '@/components/WeekDay';
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useUser } from '@/store/hooks/useUser';
 import { useScroll } from '@/store/hooks/useScroll';
@@ -24,12 +24,6 @@ export default function HomeScreen() {
   const { onScroll } = useScroll();
   const { userInfo } = useUser();
   const { initDraft } = useDraft();
-
-  useEffect(() => {
-    if (isSubmitted) {
-      initDraft();
-    }
-  }, [isSubmitted]);
 
   if (!isInitialApp) {
     return <Redirect href="/(onboarding)/welcome" />;

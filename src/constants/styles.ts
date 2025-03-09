@@ -12,7 +12,7 @@ export const ENTER_STYLE_KEY = ['opacity', 'transform'];
 
 export const PRESS_STYLE = {
   opacity: 0.5,
-  bg: '$gray5',
+  bg: 'rgba(0, 0, 0, 0.8)',
 } as const;
 
 export const PRESS_STYLE_KEY = ['opacity', 'backgroundColor'];

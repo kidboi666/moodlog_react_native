@@ -15,10 +15,11 @@ import { LinearGradient } from 'tamagui/linear-gradient';
 export const CardContainer = styled(Card, {
   group: true,
   flex: 1,
+  bg: '$gray4',
+  borderColor: '$gray9',
   animation: 'quick',
   enterStyle: ENTER_STYLE,
   pressStyle: PRESS_STYLE,
-  bg: '$gray4',
   rounded: '$8',
   l: 0,
 
