@@ -7,7 +7,7 @@ export default function CalendarLayout() {
   return (
     <Stack
       screenOptions={{
-        headerShown: true,
+        headerShown: false,
         header: () => <CalendarHeader />,
         contentStyle: {
           backgroundColor: theme.background.val,
