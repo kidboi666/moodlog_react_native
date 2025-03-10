@@ -32,7 +32,9 @@ export default function EntriesScreen() {
   const dateCounts = useMemo(() => {
     return getDateCountsForMonth(
       selectedYear,
-      selectedMonth ? getMonthStringWithoutYear(selectedMonth) : currentMonth,
+      selectedMonth
+        ? getMonthStringWithoutYear(selectedMonth)
+        : currentMonth + 1,
     );
   }, [
     journals,
