@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import {
-  CalendarDateContext,
+  EntriesDateContext,
   GlobalDateContext,
   StatisticDateContext,
   WeekDateContext,
@@ -12,8 +12,8 @@ export const useDate = (contextName: ContextName) => {
 
   if (contextName === 'week') {
     dateContext = WeekDateContext;
-  } else if (contextName === 'calendar') {
-    dateContext = CalendarDateContext;
+  } else if (contextName === 'entries') {
+    dateContext = EntriesDateContext;
   } else if (contextName === 'statistic') {
     dateContext = StatisticDateContext;
   } else {

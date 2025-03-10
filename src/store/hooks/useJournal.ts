@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import {
-  CalendarJournalContext,
+  EntriesJournalContext,
   GlobalJournalContext,
   StatisticJournalContext,
   WeekJournalContext,
@@ -12,8 +12,8 @@ export const useJournal = (contextName?: ContextName) => {
 
   if (contextName === 'week') {
     journalContext = WeekJournalContext;
-  } else if (contextName === 'calendar') {
-    journalContext = CalendarJournalContext;
+  } else if (contextName === 'entries') {
+    journalContext = EntriesJournalContext;
   } else if (contextName === 'statistic') {
     journalContext = StatisticJournalContext;
   } else {

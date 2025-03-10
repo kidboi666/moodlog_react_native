@@ -13,7 +13,7 @@ export default function TabsLayout() {
       <CustomTabBar />
       <TabList style={{ display: 'none' }}>
         <TabTrigger name="home" href="/" />
-        <TabTrigger name="calendar" href="/calendar" />
+        <TabTrigger name="entries" href="/entries" />
         <TabTrigger name="write" href="/write/mood_select" />
         <TabTrigger name="record" href="/record" />
         <TabTrigger name="settings" href="/settings" />

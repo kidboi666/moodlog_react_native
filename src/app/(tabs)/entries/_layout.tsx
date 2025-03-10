@@ -1,14 +1,12 @@
 import { Stack } from 'expo-router';
 import { useTheme } from 'tamagui';
-import { CalendarHeader } from '@/components/layouts/headers/CalendarHeader';
 
-export default function CalendarLayout() {
+export default function EntriesLayout() {
   const theme = useTheme();
   return (
     <Stack
       screenOptions={{
         headerShown: false,
-        header: () => <CalendarHeader />,
         contentStyle: {
           backgroundColor: theme.background.val,
         },

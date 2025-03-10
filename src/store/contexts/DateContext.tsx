@@ -135,8 +135,8 @@ export const CreateDateContext = (contextName: ContextName) => {
   };
 };
 
-export const { Provider: CalendarDateProvider, Context: CalendarDateContext } =
-  CreateDateContext('calendar');
+export const { Provider: EntriesDateProvider, Context: EntriesDateContext } =
+  CreateDateContext('entries');
 export const { Provider: WeekDateProvider, Context: WeekDateContext } =
   CreateDateContext('week');
 export const {

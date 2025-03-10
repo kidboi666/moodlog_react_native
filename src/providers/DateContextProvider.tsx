@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 import {
-  CalendarDateProvider,
+  EntriesDateProvider,
   GlobalDateProvider,
   StatisticDateProvider,
   WeekDateProvider,
@@ -10,9 +10,9 @@ export const DateContextProvider = ({ children }: PropsWithChildren) => {
   return (
     <GlobalDateProvider>
       <StatisticDateProvider>
-        <CalendarDateProvider>
+        <EntriesDateProvider>
           <WeekDateProvider>{children}</WeekDateProvider>
-        </CalendarDateProvider>
+        </EntriesDateProvider>
       </StatisticDateProvider>
     </GlobalDateProvider>
   );

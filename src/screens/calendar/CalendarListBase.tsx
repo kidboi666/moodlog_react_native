@@ -13,6 +13,7 @@ import { Direction } from 'react-native-calendars/src/types';
 import { CustomDayComponent } from '@/components/CustomDayComponent';
 import { DayProps } from 'react-native-calendars/src/calendar/day';
 import { CalendarCustomHeader } from '@/screens/calendar/CalendarCustomHeader';
+import { getMonthInISODateString } from '@/utils/common';
 
 const LeftArrow = () => (
   <Button unstyled p="$1" color="$gray10" icon={<ArrowLeft size="$1" />} />
@@ -98,8 +99,15 @@ export const CalendarListBase = memo(
         dayComponent={DayComponentWrapper}
         pastScrollRange={pastScrollRange}
         futureScrollRange={futureScrollRange}
+        onMonthChange={({ dateString }: Pick<DateData, 'dateString'>) =>
+          onSelectedMonthChange(
+            getMonthInISODateString(
+              new Date(dateString).getFullYear(),
+              new Date(dateString).getMonth(),
+            ),
+          )
+        }
         hideExtraDays
-        hideDayNames
         current={selectedDate}
         maxDate={CalendarUtils.getCalendarDateString(new Date())}
         onDayPress={handleDayPress}

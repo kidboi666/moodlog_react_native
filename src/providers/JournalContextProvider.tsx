@@ -1,5 +1,5 @@
 import {
-  CalendarJournalProvider,
+  EntriesJournalProvider,
   GlobalJournalProvider,
   StatisticJournalProvider,
   WeekJournalProvider,
@@ -10,9 +10,9 @@ export const JournalContextProvider = ({ children }: PropsWithChildren) => {
   return (
     <GlobalJournalProvider>
       <StatisticJournalProvider>
-        <CalendarJournalProvider>
+        <EntriesJournalProvider>
           <WeekJournalProvider>{children}</WeekJournalProvider>
-        </CalendarJournalProvider>
+        </EntriesJournalProvider>
       </StatisticJournalProvider>
     </GlobalJournalProvider>
   );

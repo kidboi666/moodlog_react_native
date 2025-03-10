@@ -24,4 +24,4 @@ export enum Languages {
 
 export type Theme = 'dark' | 'light' | 'system';
 
-export type ContextName = 'week' | 'calendar' | 'statistic' | 'global';
+export type ContextName = 'week' | 'entries' | 'statistic' | 'global';

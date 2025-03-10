@@ -267,9 +267,9 @@ export const CreateJournalContext = (contextName: ContextName) => {
 };
 
 export const {
-  Provider: CalendarJournalProvider,
-  Context: CalendarJournalContext,
-} = CreateJournalContext('calendar');
+  Provider: EntriesJournalProvider,
+  Context: EntriesJournalContext,
+} = CreateJournalContext('entries');
 export const { Provider: WeekJournalProvider, Context: WeekJournalContext } =
   CreateJournalContext('week');
 export const {
