@@ -8,7 +8,7 @@ import { FadeIn } from '@/components/FadeIn';
 import { MoodBar } from '@/screens/write/MoodBar';
 import { WriteHeader } from '@/components/layouts/headers/WriteHeader';
 import { CARD_DELAY } from '@/constants/time';
-import * as S from '../../../styles/write/MoodSelect.styled';
+import * as S from '@/styles/write/MoodSelect.styled';
 
 export default function MoodScreen() {
   const { draft, onEmotionChange } = useDraft();

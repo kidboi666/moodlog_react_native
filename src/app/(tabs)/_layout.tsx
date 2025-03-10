@@ -2,7 +2,7 @@ import { BottomModal } from '@/components/modals/BottomModal';
 import { DevContainer } from '@/components/layouts/containers/DevContainer';
 import { ContainerFog } from '@/components/ContainerFog';
 import React from 'react';
-import { CustomTabBar } from '@/components/layouts/tab/CustomTabBar';
+import { CustomTabBar } from '@/components/CustomTabBar';
 import { TabList, Tabs, TabSlot, TabTrigger } from 'expo-router/ui';
 
 export default function TabsLayout() {

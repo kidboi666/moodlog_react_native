@@ -23,11 +23,11 @@ import { EnhancedTextInputRef } from '@/screens/write/EnhancedTextInput';
 
 export interface JournalStore {
   journals: Journal[];
-  isSubmitted: boolean;
   dailyJournals: Journal[] | ISODateString;
   selectedJournal?: Journal;
   monthlyJournals: Journal[];
   yearlyJournals: Journal[];
+  isSubmitted: boolean;
   addJournal: (journal: Draft) => void;
   removeJournal: (id: string) => void;
   getDateCountsForMonth: (year: number, month: number | string) => DateCounts;
@@ -38,6 +38,7 @@ export interface JournalStore {
   ) => number;
   getEmotionForDate: (year: number, month: number, date: number) => Emotion[];
   onSelectedJournalChange: (journalId: string) => void;
+  onSubmittedChange: () => void;
   updateJournals: (id: string, updateJournal: Journal) => void;
   getJournalsByDate: (date: ISODateString) => void;
   getJournalsByMonth: (date: ISOMonthString) => void;

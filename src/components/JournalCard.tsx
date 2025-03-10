@@ -1,7 +1,7 @@
 import { AnimatePresence } from 'tamagui';
 import { Journal } from '@/types/entries';
 import { emotionTheme } from '@/constants/themes';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { router } from 'expo-router';
 import * as S from './JournalCard.styled';
 import { ChevronRight } from '@tamagui/lucide-icons';
@@ -21,12 +21,25 @@ export const JournalCard = ({ journal }: Props) => {
         pathname: '/(tabs)/journal/[journalId]',
         params: { journalId: journal.id },
       });
+
+      setTimeout(() => {
+        setIsPress(false);
+        setIsLongPress(false);
+      }, 100);
     }, 300);
   }, [router]);
 
   const handleLongPress = useCallback(() => {
     setIsLongPress(true);
   }, []);
+
+  useEffect(() => {
+    return () => {
+      setIsPress(false);
+      setIsLongPress(false);
+    };
+  }, []);
+
   return (
     <S.CardContainer
       isLongPress={isLongPress}

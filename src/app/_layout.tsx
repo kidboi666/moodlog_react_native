@@ -89,7 +89,6 @@ function RootLayoutNav() {
       NavigationBar.setButtonStyleAsync(
         resolvedTheme === 'dark' ? 'light' : 'dark',
       );
-      NavigationBar.setBackgroundColorAsync(theme.gray5.val);
     }
   }, [resolvedTheme]);
 

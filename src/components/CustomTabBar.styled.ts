@@ -1,4 +1,4 @@
-import { Button, Circle as TamaguiCircle, styled, XStack } from 'tamagui';
+import { Button, Circle as TamaguiCircle, styled, View, XStack } from 'tamagui';
 import {
   ENTER_STYLE,
   ENTER_STYLE_KEY,
@@ -8,18 +8,20 @@ import {
 import { Platform } from 'react-native';
 
 export const TabBarContainer = styled(XStack, {
-  elevation: '$8',
   position: 'absolute',
   b: 0,
   l: 0,
   r: 0,
+  elevation: '$10',
+  borderTopRightRadius: '$12',
+  borderTopLeftRadius: '$12',
+  borderWidth: 1,
+  borderBottomWidth: 0,
+  borderColor: '$gray7',
+  bg: '$gray4',
   animation: 'medium',
   animateOnly: ENTER_STYLE_KEY,
   enterStyle: ENTER_STYLE,
-  flexDirection: 'row',
-  bg: '$gray5',
-  borderTopRightRadius: '$12',
-  borderTopLeftRadius: '$12',
 });
 
 export const Container = styled(XStack, {
@@ -52,11 +54,17 @@ export const HomeButton = styled(TabButton, {
   borderTopLeftRadius: '$10',
 });
 
-export const CalendarButton = styled(TabButton);
+export const CalendarButton = styled(TabButton, {});
 
 export const WriteButton = styled(TabButton, {
+  unstyled: true,
   bg: '$gray1',
+});
+
+export const WriteInnerBox = styled(View, {
   position: 'relative',
+  px: '$4',
+  py: '$3',
 });
 
 export const Circle = styled(TamaguiCircle, {
@@ -65,8 +73,9 @@ export const Circle = styled(TamaguiCircle, {
   t: 8,
   rounded: '$4',
   bg: '$green9',
-  size: '$0.75',
   opacity: 0,
+  width: '$0.75',
+  height: '$0.75',
 
   variants: {
     showDraftNotification: {

@@ -55,7 +55,7 @@ export const CustomTabBar = () => {
 
     if (Platform.OS === 'android') {
       NavigationBar.setBackgroundColorAsync(
-        shouldHideTabBar ? theme.background.val : theme.gray5.val,
+        shouldHideTabBar ? theme.background.val : theme.gray4.val,
       );
     }
   }, [pathname, shouldHideTabBar, theme, insets.bottom, translateY]);
@@ -110,38 +110,43 @@ export const CustomTabBar = () => {
       style={animatedStyle}
     >
       <S.Container>
-        <TabTrigger name="home" asChild>
-          <S.HomeButton
-            onPress={() => navigateTo('/')}
-            isTabActive={isTabActive('/')}
-            icon={Home}
-          />
+        <TabTrigger name="home" asChild onPress={() => navigateTo('/')}>
+          <S.HomeButton isTabActive={isTabActive('/')} icon={Home} />
         </TabTrigger>
-        <TabTrigger name="calendar" asChild>
+        <TabTrigger
+          name="calendar"
+          asChild
+          onPress={() => navigateTo('/calendar')}
+        >
           <S.CalendarButton
-            onPress={() => navigateTo('/calendar')}
             isTabActive={isTabActive('/calendar')}
             icon={CalendarDays}
           />
         </TabTrigger>
-        <TabTrigger name="write" asChild>
-          <S.WriteButton
-            onPress={() => navigateTo('/write/mood_select')}
-            icon={Plus}
-          >
-            <S.Circle showDraftNotification={showDraftNotification} />
+        <TabTrigger
+          name="write"
+          asChild
+          onPress={() => navigateTo('/write/mood_select')}
+        >
+          <S.WriteButton>
+            <S.WriteInnerBox>
+              <Plus size="$1" />
+              <S.Circle showDraftNotification={showDraftNotification} />
+            </S.WriteInnerBox>
           </S.WriteButton>
         </TabTrigger>
-        <TabTrigger name="record" asChild>
+        <TabTrigger name="record" asChild onPress={() => navigateTo('/record')}>
           <S.RecordButton
-            onPress={() => navigateTo('/record')}
             isTabActive={isTabActive('/record')}
             icon={FileChartColumnIncreasing}
           />
         </TabTrigger>
-        <TabTrigger name="settings" asChild>
+        <TabTrigger
+          name="settings"
+          asChild
+          onPress={() => navigateTo('/settings')}
+        >
           <S.SettingsButton
-            onPress={() => navigateTo('/settings')}
             isTabActive={isTabActive('/settings')}
             icon={Settings}
           />

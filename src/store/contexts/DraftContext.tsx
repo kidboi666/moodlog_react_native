@@ -14,15 +14,25 @@ import * as ImagePicker from 'expo-image-picker';
 import { PermissionStatus } from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { EnhancedTextInputRef } from '@/screens/write/EnhancedTextInput';
+import {
+  NativeSyntheticEvent,
+  TextInputSelectionChangeEventData,
+} from 'react-native';
 
 const JOURNAL_IMAGES_DIR = FileSystem.documentDirectory
   ? `${FileSystem.documentDirectory}journal_images/`
   : '';
 
+const initialDraft = {
+  content: '',
+  emotion: undefined,
+  imageUri: '',
+};
+
 export const DraftContext = createContext<Nullable<DraftStore>>(null);
 
 export const DraftContextProvider = ({ children }: PropsWithChildren) => {
-  const [draft, setDraft] = useState<Draft>({});
+  const [draft, setDraft] = useState<Draft>(initialDraft);
   const [selection, setSelection] = useState({ start: 0, end: 0 });
   const enhancedInputRef = useRef<EnhancedTextInputRef>(null);
 
@@ -42,8 +52,15 @@ export const DraftContextProvider = ({ children }: PropsWithChildren) => {
     enhancedInputRef.current?.insertCurrentTime();
   }, []);
 
-  const handleSelectionChange = useCallback((event: any) => {
-    setSelection(event.nativeEvent.selection);
+  const handleSelectionChange = useCallback(
+    (event: NativeSyntheticEvent<TextInputSelectionChangeEventData>) => {
+      setSelection(event.nativeEvent.selection);
+    },
+    [],
+  );
+
+  const initDraft = useCallback(() => {
+    setDraft(initialDraft);
   }, []);
 
   const handleImageUriChange = useCallback(async () => {
@@ -92,10 +109,6 @@ export const DraftContextProvider = ({ children }: PropsWithChildren) => {
       console.error('Image saving error ', err);
       return null;
     }
-  }, []);
-
-  const initDraft = useCallback(() => {
-    setDraft({});
   }, []);
 
   return (

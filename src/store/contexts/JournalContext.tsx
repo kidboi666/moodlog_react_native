@@ -33,13 +33,13 @@ export const CreateJournalContext = (contextName: ContextName) => {
       currentDate,
     } = useDate(contextName);
     const { journals, setJournals } = useStorage();
+    const [isSubmitted, setIsSubmitted] = useState(false);
     const [yearlyJournals, setYearlyJournals] = useState<Journal[]>([]);
     const [monthlyJournals, setMonthlyJournals] = useState<Journal[]>([]);
     const [dailyJournals, setDailyJournals] = useState<
       Journal[] | ISODateString
     >([]);
     const [selectedJournal, setSelectedJournal] = useState<Journal>();
-    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const handleSelectedJournalChange = useCallback(
       (journalId: string) => {
@@ -186,6 +186,10 @@ export const CreateJournalContext = (contextName: ContextName) => {
       [journals],
     );
 
+    const handleSubmittedChange = useCallback(() => {
+      setIsSubmitted(prev => !prev);
+    }, []);
+
     useEffect(() => {
       if (selectedDate) {
         getJournalsByDate(selectedDate);
@@ -217,13 +221,14 @@ export const CreateJournalContext = (contextName: ContextName) => {
             selectedJournal,
             monthlyJournals,
             yearlyJournals,
-            addJournal,
             isSubmitted,
+            addJournal,
             getDateCountsForMonth,
             getDateCountsForDate,
             getEmotionForDate,
             removeJournal,
             onSelectedJournalChange: handleSelectedJournalChange,
+            onSubmittedChange: handleSubmittedChange,
             updateJournals,
             getJournalsByDate,
             getJournalsByMonth,
@@ -235,13 +240,14 @@ export const CreateJournalContext = (contextName: ContextName) => {
             selectedJournal,
             monthlyJournals,
             yearlyJournals,
-            addJournal,
             isSubmitted,
+            addJournal,
             getDateCountsForMonth,
             getDateCountsForDate,
             getEmotionForDate,
             removeJournal,
             handleSelectedJournalChange,
+            handleSubmittedChange,
             updateJournals,
             getJournalsByDate,
             getJournalsByMonth,

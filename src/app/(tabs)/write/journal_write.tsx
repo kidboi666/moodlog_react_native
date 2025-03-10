@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, useTheme } from 'tamagui';
 import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
@@ -17,7 +17,7 @@ import { useToastController } from '@tamagui/toast';
 import { router } from 'expo-router';
 import { EnhancedTextInput } from '@/screens/write/EnhancedTextInput';
 import { WriteHeader } from '@/components/layouts/headers/WriteHeader';
-import * as S from '../../../styles/write/JournalWrite.styled';
+import * as S from '@/styles/write/JournalWrite.styled';
 
 export default function JournalWriteScreen() {
   const { fontSize } = useApp();
@@ -37,13 +37,13 @@ export default function JournalWriteScreen() {
   const [inputKey, setInputKey] = useState(0);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     addJournal(draft);
     toast.show(t('notifications.success.journal.title'), {
       message: t('notifications.success.journal.message'),
     });
-    router.replace('/(tabs)');
-  };
+    router.push('/(tabs)');
+  }, [router, toast, draft]);
 
   const triggerFocus = () => {
     if (enhancedInputRef.current) {

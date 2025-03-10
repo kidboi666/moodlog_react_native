@@ -16,7 +16,6 @@ export const CardContainer = styled(Card, {
   group: true,
   flex: 1,
   bg: '$gray4',
-  borderColor: '$gray9',
   animation: 'quick',
   enterStyle: ENTER_STYLE,
   pressStyle: PRESS_STYLE,

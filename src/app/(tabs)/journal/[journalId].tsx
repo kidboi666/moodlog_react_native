@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useScroll } from '@/store/hooks/useScroll';
 import { toSingle } from '@/utils/common';
 import JournalHeader from '@/components/layouts/headers/JournalHeader';
-import * as S from '../../../styles/journal/Journal.styled';
+import * as S from '@/styles/journal/Journal.styled';
 
 export default function JournalScreen() {
   const { journalId } = useLocalSearchParams();

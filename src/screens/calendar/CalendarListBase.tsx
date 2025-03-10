@@ -1,5 +1,5 @@
 import {
-  CalendarList,
+  Calendar,
   CalendarProps,
   CalendarUtils,
   DateData,
@@ -93,7 +93,7 @@ export const CalendarListBase = memo(
     );
 
     return (
-      <CalendarList
+      <Calendar
         renderHeader={renderHeader}
         dayComponent={DayComponentWrapper}
         pastScrollRange={pastScrollRange}
@@ -105,6 +105,7 @@ export const CalendarListBase = memo(
         onDayPress={handleDayPress}
         markedDates={markedDates}
         renderArrow={renderArrow}
+        enableSwipeMonths
         animateScroll
         {...props}
       />
