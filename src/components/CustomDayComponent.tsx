@@ -16,7 +16,8 @@ interface Props {
 
 export const CustomDayComponent = memo(
   ({ date, state, marking, onPress, dateCounts }: Props) => {
-    const isSelected = marking?.selected;
+    const { selected } = marking || {};
+    const isSelected = selected;
     const isToday = state === 'today';
     const isDisabled = state === 'disabled';
 
@@ -43,7 +44,8 @@ export const CustomDayComponent = memo(
     return (
       prevProps.date.dateString === nextProps.date.dateString &&
       prevProps.state === nextProps.state &&
-      prevProps.marking === nextProps.marking
+      prevProps.marking === nextProps.marking &&
+      prevProps.dateCounts === nextProps.dateCounts
     );
   },
 );

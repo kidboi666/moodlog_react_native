@@ -1,16 +1,14 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { AnimatePresence, useTheme } from 'tamagui';
+import React, { useCallback, useState } from 'react';
+import { useTheme } from 'tamagui';
 import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
 import {
-  Keyboard,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
 import { useDraft } from '@/store/hooks/useDraft';
-import { Check, ImagePlus, Timer } from '@tamagui/lucide-icons';
 import { useJournal } from '@/store/hooks/useJournal';
 import { useTranslation } from 'react-i18next';
 import { useToastController } from '@tamagui/toast';
@@ -18,6 +16,7 @@ import { router } from 'expo-router';
 import { EnhancedTextInput } from '@/screens/write/EnhancedTextInput';
 import { WriteHeader } from '@/components/layouts/headers/WriteHeader';
 import * as S from '@/styles/write/JournalWrite.styled';
+import { ActionButtons } from '@/screens/write/ActionButtons';
 
 export default function JournalWriteScreen() {
   const { fontSize } = useApp();
@@ -35,7 +34,6 @@ export default function JournalWriteScreen() {
   const { t } = useTranslation();
   const theme = useTheme();
   const [inputKey, setInputKey] = useState(0);
-  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
 
   const handleSubmit = useCallback(() => {
     addJournal(draft);
@@ -53,27 +51,6 @@ export default function JournalWriteScreen() {
     }
   };
 
-  useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      () => {
-        setIsKeyboardVisible(true);
-      },
-    );
-
-    const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      () => {
-        setIsKeyboardVisible(false);
-      },
-    );
-
-    return () => {
-      keyboardDidShowListener.remove();
-      keyboardDidHideListener.remove();
-    };
-  }, []);
-
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -86,7 +63,14 @@ export default function JournalWriteScreen() {
         style={StyleSheet.absoluteFill}
         onPress={triggerFocus}
       >
-        <S.ViewContainer edges={['bottom']} Header={<WriteHeader />}>
+        <S.ViewContainer
+          edges={['bottom']}
+          Header={
+            <S.HeaderWrapper>
+              <WriteHeader />
+            </S.HeaderWrapper>
+          }
+        >
           <S.XStackContainer>
             {draft.emotion ? (
               <S.ColoredMoodBar
@@ -110,20 +94,11 @@ export default function JournalWriteScreen() {
                 autoFocus={true}
               />
               <S.ButtonsViewBox>
-                <S.ButtonsXStackBox>
-                  <AnimatePresence>
-                    {isKeyboardVisible && (
-                      <>
-                        <S.AddImageButton
-                          onPress={onImageUriChange}
-                          icon={ImagePlus}
-                        />
-                        <S.TimeStampButton onPress={onTimeStamp} icon={Timer} />
-                      </>
-                    )}
-                  </AnimatePresence>
-                  <S.SubmitButton onPress={handleSubmit} icon={Check} />
-                </S.ButtonsXStackBox>
+                <ActionButtons
+                  onTimeStamp={onTimeStamp}
+                  onImageUriChange={onImageUriChange}
+                  onSubmit={handleSubmit}
+                />
               </S.ButtonsViewBox>
             </S.TextContentBox>
           </S.XStackContainer>
