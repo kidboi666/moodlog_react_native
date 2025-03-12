@@ -46,7 +46,7 @@ export default function EntriesScreen() {
 
   return (
     <ScrollView>
-      <Container edges={['top']} gap="$4" padded>
+      <Container edges={['top']} padded>
         <CalendarListBase
           dateCounts={dateCounts}
           onSelectedDateChange={onSelectedDateChange}

@@ -4,7 +4,7 @@
     "slug": "moodlog",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./public/images/icon.png",
+    "icon": "./assets/images/icon.png",
     "newArchEnabled": true,
     "scheme": "moodlog",
     "userInterfaceStyle": "automatic",
@@ -17,7 +17,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./public/images/icon.png",
+        "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.kidboi666.moodlog"
@@ -28,9 +28,9 @@
         "expo-splash-screen",
         {
           "backgroundColor": "#232323",
-          "image": "./public/images/icon.png",
+          "image": "./assets/images/icon.png",
           "dark": {
-            "image": "./public/images/splash-dark.png",
+            "image": "./assets/images/splash-dark.png",
             "backgroundColor": "#232323"
           },
           "resizeMode": "contain"

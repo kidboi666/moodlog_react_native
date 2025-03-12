@@ -1,7 +1,7 @@
 import { AnimatePresence } from 'tamagui';
 import { Journal } from '@/types/entries';
 import { emotionTheme } from '@/constants/themes';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { router } from 'expo-router';
 import * as S from './JournalCard.styled';
 import { ChevronRight } from '@tamagui/lucide-icons';
@@ -10,7 +10,7 @@ interface Props {
   journal: Journal;
 }
 
-export const JournalCard = memo(({ journal }: Props) => {
+export const JournalCard = ({ journal }: Props) => {
   const [isPress, setIsPress] = useState(false);
   const [isLongPress, setIsLongPress] = useState(false);
 
@@ -71,4 +71,4 @@ export const JournalCard = memo(({ journal }: Props) => {
       )}
     </S.CardContainer>
   );
-});
+};

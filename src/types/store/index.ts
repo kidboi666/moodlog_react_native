@@ -11,7 +11,7 @@ import {
 } from '@/types/entries';
 import { Theme, ViewFontSize } from 'src/types/enums';
 import { ISODateString, ISOMonthString } from '@/types/dtos/date';
-import { LoadingState, MonthKey, Nullable, WithState } from 'src/types/utils';
+import { LoadingState, Nullable, WithState } from 'src/types/utils';
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -95,34 +95,18 @@ export interface DateStore {
   initSelectedDates: () => void;
 }
 
-export type StatisticsStore = WithState<
-  {
-    journalStats: JournalStats;
-    emotionStats: EmotionStats;
-    expressiveMonthStats: ExpressiveMonthStats;
-    selectedMonthStats: Nullable<SelectedMonthStats>;
-  },
-  LoadingState
->;
+export interface StatisticsStore {
+  journalStats: JournalStats;
+  emotionStats: EmotionStats;
+  expressiveMonthStats: ExpressiveMonthStats;
+  selectedMonthStats: Nullable<SelectedMonthStats>;
+}
 
 export interface ScrollStore {
   scrollPosition: number;
   onScroll: (e: NativeSyntheticEvent<NativeScrollEvent>) => void;
   resetScroll: () => void;
 }
-
-export type GardenStore = WithState<
-  {
-    months: {
-      monthKey: MonthKey;
-      lastDate: number;
-      firstDateDay: number;
-      weekLength: number;
-    }[];
-    onMonthChange: (ISOMonth: MonthKey) => void;
-  },
-  LoadingState
->;
 
 export interface DraftStore {
   draft: Draft;

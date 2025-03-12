@@ -62,7 +62,6 @@ export const StatisticsContext = createContext<Nullable<StatisticsStore>>(null);
 export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
   const { journals, monthlyJournals } = useJournal('statistic');
   const { selectedYear, selectedMonth } = useDate('statistic');
-  const [isLoading, setIsLoading] = useState(false);
   const [journalStats, setJournalStats] = useState<JournalStats>(
     INITIAL_JOURNAL_STATS,
   );
@@ -311,15 +310,8 @@ export const StatisticsContextProvider = ({ children }: PropsWithChildren) => {
           emotionStats,
           selectedMonthStats,
           expressiveMonthStats,
-          isLoading,
         }),
-        [
-          journalStats,
-          emotionStats,
-          selectedMonthStats,
-          expressiveMonthStats,
-          isLoading,
-        ],
+        [journalStats, emotionStats, selectedMonthStats, expressiveMonthStats],
       )}
     >
       {children}

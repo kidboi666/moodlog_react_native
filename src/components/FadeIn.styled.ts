@@ -12,5 +12,5 @@ export const FadeInContainer = styled(View, {
         opacity: 0,
       },
     },
-  },
+  } as const,
 });

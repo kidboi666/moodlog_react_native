@@ -4,6 +4,7 @@ import { CONTAINER_PADDING_BOTTOM, CONTAINER_SPACING } from '@/constants/size';
 export const Container = styled(View, {
   flex: 1,
   px: CONTAINER_SPACING,
+  pb: 0,
 
   variants: {
     padded: {

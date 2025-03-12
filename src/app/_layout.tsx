@@ -26,10 +26,10 @@ export const unstable_settings = {
 };
 
 const FONTS = {
-  'Pretendard-Bold': require('../../public/fonts/Pretendard-Bold.ttf'),
-  'Pretendard-Medium': require('../../public/fonts/Pretendard-Medium.ttf'),
-  'Pretendard-Regular': require('../../public/fonts/Pretendard-Regular.ttf'),
-  'Pretendard-SemiBold': require('../../public/fonts/Pretendard-SemiBold.ttf'),
+  'Pretendard-Bold': require('@/assets/fonts/Pretendard-Bold.ttf'),
+  'Pretendard-Medium': require('@/assets/fonts/Pretendard-Medium.ttf'),
+  'Pretendard-Regular': require('@/assets/fonts/Pretendard-Regular.ttf'),
+  'Pretendard-SemiBold': require('@/assets/fonts/Pretendard-SemiBold.ttf'),
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
