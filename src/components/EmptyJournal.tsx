@@ -7,12 +7,13 @@ import { useToastController } from '@tamagui/toast';
 import * as S from './EmptyJournal.styled';
 import { XStack } from 'tamagui';
 import { ShakeEmoji } from '@/components/ShakeEmoji';
+import { memo } from 'react';
 
 interface Props {
   date: ISODateString;
 }
 
-export const EmptyJournal = ({ date }: Props) => {
+export const EmptyJournal = memo(({ date }: Props) => {
   const { t } = useTranslation();
   const toast = useToastController();
   const isToday = CalendarUtils.getCalendarDateString(new Date()) === date;
@@ -40,4 +41,4 @@ export const EmptyJournal = ({ date }: Props) => {
       </S.PastDaysDescription>
     </S.PastDaysContainer>
   );
-};
+});

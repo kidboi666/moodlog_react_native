@@ -3,12 +3,13 @@ import { Maximize2 } from '@tamagui/lucide-icons';
 import { useTranslation } from 'react-i18next';
 import { JournalStats } from '@/types/entries';
 import * as S from './CollapsedContent.styled';
+import { memo } from 'react';
 
 interface Props {
   journalStats: JournalStats;
 }
 
-export const CollapsedContent = ({ journalStats }: Props) => {
+export const CollapsedContent = memo(({ journalStats }: Props) => {
   const { t } = useTranslation();
   return (
     <S.ViewContainer>
@@ -25,4 +26,4 @@ export const CollapsedContent = ({ journalStats }: Props) => {
       </XStack>
     </S.ViewContainer>
   );
-};
+});

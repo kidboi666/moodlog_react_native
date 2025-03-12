@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Emotion } from '@/types/entries';
 import { useTranslation } from 'react-i18next';
 import { Nullable } from '@/types/utils';
@@ -8,7 +8,7 @@ interface Props {
   emotion: Nullable<Emotion>;
 }
 
-export const SelectedMoodContainer = ({ emotion }: Props) => {
+export const SelectedMoodContainer = memo(({ emotion }: Props) => {
   const [animationKey, setAnimationKey] = useState(0);
   const { t } = useTranslation();
 
@@ -28,4 +28,4 @@ export const SelectedMoodContainer = ({ emotion }: Props) => {
       </S.XStackContainer>
     </S.ViewContainer>
   );
-};
+});

@@ -12,7 +12,6 @@ import * as S from '@/styles/write/MoodSelect.styled';
 
 export default function MoodScreen() {
   const { draft, onEmotionChange } = useDraft();
-
   return (
     <S.ViewContainer edges={['bottom']} Header={<WriteHeader />}>
       <S.XStackContainer>
@@ -32,7 +31,7 @@ export default function MoodScreen() {
             />
           </FadeIn>
 
-          <NextButton emotion={draft?.emotion} />
+          <NextButton mood={draft?.emotion} />
         </S.YStackContainer>
 
         <MoodBar emotion={draft?.emotion} />

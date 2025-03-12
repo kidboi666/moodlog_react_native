@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { ArrowLeft } from '@tamagui/lucide-icons';
-import { useNavigation } from 'expo-router';
+import { router } from 'expo-router';
 import * as S from './WriteHeader.styled';
 
-export const WriteHeader = () => {
-  const navigation = useNavigation();
+export const WriteHeader = memo(() => {
   return (
     <S.HeaderContainer>
-      <S.BackButton icon={ArrowLeft} onPress={() => navigation.goBack()} />
+      <S.BackButton icon={ArrowLeft} onPress={() => router.back()} />
     </S.HeaderContainer>
   );
-};
+});

@@ -30,7 +30,7 @@ export default function HomeScreen() {
       initDraft();
       onSubmittedChange();
     }
-  }, [isSubmitted]);
+  }, [isSubmitted, initDraft, onSubmittedChange]);
 
   if (!isInitialApp) {
     return <Redirect href="/(onboarding)/welcome" />;

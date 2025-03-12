@@ -13,7 +13,6 @@ import { STORAGE_KEY } from '@/constants/storage';
 import { useToastController } from '@tamagui/toast';
 import { Nullable } from '@/types/utils';
 import { StorageStore } from '@/types/store';
-import { debounce } from 'tamagui';
 
 export const StorageContext = createContext<Nullable<StorageStore>>(null);
 
@@ -64,7 +63,7 @@ export const StorageProvider = ({ children }: PropsWithChildren) => {
   }, [toast]);
 
   const saveJournals = useCallback(
-    debounce(async (journals: Journal[]) => {
+    async (journals: Journal[]) => {
       try {
         setIsSaving(true);
 
@@ -85,7 +84,7 @@ export const StorageProvider = ({ children }: PropsWithChildren) => {
         previousJournalsLength.current = journals.length;
       } catch (error) {
         console.error('Save error:', error);
-
+        previousJournalsLength.current = journals.length;
         if (Math.abs(journals.length - previousJournalsLength.current) > 0) {
           toast.show('Error saving journals', {
             message: 'Please try again',
@@ -95,7 +94,7 @@ export const StorageProvider = ({ children }: PropsWithChildren) => {
       } finally {
         setIsSaving(false);
       }
-    }, 500),
+    },
     [toast],
   );
 
@@ -113,11 +112,12 @@ export const StorageProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     if (
       isInitialLoadDone.current &&
-      journals.length !== previousJournalsLength.current
+      journals.length !== previousJournalsLength.current &&
+      !isSaving
     ) {
       saveJournals(journals);
     }
-  }, [journals, saveJournals]);
+  }, [journals, saveJournals, isSaving]);
 
   return (
     <StorageContext.Provider

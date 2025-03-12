@@ -6,7 +6,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import {
   RECORD_CARD_EXPANDED_HEIGHT,
   RECORD_CARD_HEIGHT,
@@ -24,7 +24,7 @@ interface Props {
 
 const AnimatedCard = Animated.createAnimatedComponent(S.CardContainer);
 
-export const EmotionAverage = ({ signatureEmotion }: Props) => {
+export const EmotionAverage = memo(({ signatureEmotion }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const isTouched = useSharedValue(false);
 
@@ -70,4 +70,4 @@ export const EmotionAverage = ({ signatureEmotion }: Props) => {
       </AnimatePresence>
     </AnimatedCard>
   );
-};
+});

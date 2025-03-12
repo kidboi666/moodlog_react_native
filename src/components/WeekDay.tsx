@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { ISODateString } from '@/types/dtos/date';
 import { HorizontalCalendar } from '@/components/HorizontalCalendar';
 import { useTranslation } from 'react-i18next';
@@ -7,7 +7,7 @@ import { useJournal } from '@/store/hooks/useJournal';
 import { useDate } from '@/store/hooks/useDate';
 import * as S from './WeekDay.styled';
 
-export const WeekDay = () => {
+export const WeekDay = memo(() => {
   const {
     currentMonth,
     currentYear,
@@ -47,4 +47,4 @@ export const WeekDay = () => {
       />
     </S.WeekDayContainer>
   );
-};
+});

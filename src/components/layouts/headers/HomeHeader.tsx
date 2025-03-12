@@ -4,8 +4,9 @@ import { useBottomModal } from '@/hooks/useBottomModal';
 import { BottomModal } from '@/components/modals/BottomModal';
 import { DevContainer } from '@/components/layouts/containers/DevContainer';
 import * as S from './HomeHeader.styled';
+import { memo } from 'react';
 
-export const HomeHeader = () => {
+export const HomeHeader = memo(() => {
   const { modalRef, openModal } = useBottomModal();
   return (
     <>
@@ -19,4 +20,4 @@ export const HomeHeader = () => {
       </BottomModal>
     </>
   );
-};
+});

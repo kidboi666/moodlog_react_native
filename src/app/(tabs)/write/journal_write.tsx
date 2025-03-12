@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { useTheme } from 'tamagui';
 import { useApp } from '@/store/hooks/useApp';
 import { emotionTheme } from '@/constants/themes';
@@ -35,13 +35,13 @@ export default function JournalWriteScreen() {
   const theme = useTheme();
   const [inputKey, setInputKey] = useState(0);
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = () => {
     addJournal(draft);
     toast.show(t('notifications.success.journal.title'), {
       message: t('notifications.success.journal.message'),
     });
-    router.push('/(tabs)');
-  }, [router, toast, draft]);
+    router.navigate('/(tabs)');
+  };
 
   const triggerFocus = () => {
     if (enhancedInputRef.current) {

@@ -1,7 +1,7 @@
 import { ViewProps } from 'tamagui';
 import { CONTAINER_MARGIN_TOP } from '@/constants/size';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ReactNode } from 'react';
+import { memo, ReactNode } from 'react';
 import * as S from './Container.styled';
 
 interface Props extends ViewProps {
@@ -10,7 +10,7 @@ interface Props extends ViewProps {
   padded?: boolean;
 }
 
-export const Container = S.Container.styleable<Props>(
+const StyledContainer = S.Container.styleable<Props>(
   ({ children, Header, padded, edges, ...props }, ref) => {
     const insets = useSafeAreaInsets();
 
@@ -28,5 +28,7 @@ export const Container = S.Container.styleable<Props>(
     );
   },
 );
+
+export const Container = memo(StyledContainer);
 
 Container.displayName = 'Container';

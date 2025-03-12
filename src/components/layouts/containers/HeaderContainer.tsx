@@ -1,12 +1,13 @@
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { XStackProps } from 'tamagui';
 import * as S from './HeaderContainer.styled';
+import { memo } from 'react';
 
 interface Props extends XStackProps {
   edges?: Array<'top' | 'bottom'>;
 }
 
-export const HeaderContainer = S.HeaderContainer.styleable<Props>(
+const StyledHeaderContainer = S.HeaderContainer.styleable<Props>(
   ({ children, edges = ['top'], ...props }, ref) => {
     const insets = useSafeAreaInsets();
 
@@ -22,3 +23,7 @@ export const HeaderContainer = S.HeaderContainer.styleable<Props>(
     );
   },
 );
+
+export const HeaderContainer = memo(StyledHeaderContainer);
+
+HeaderContainer.displayName = 'HeaderContainer';

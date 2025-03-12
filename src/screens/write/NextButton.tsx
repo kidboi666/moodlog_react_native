@@ -1,21 +1,26 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Emotion } from '@/types/entries';
 import { router } from 'expo-router';
 import { ArrowRight } from '@tamagui/lucide-icons';
 import * as S from './NextButton.styled';
+import { AnimatePresence } from 'tamagui';
 
 interface Props {
-  emotion?: Emotion;
+  mood?: Emotion;
 }
 
-export const NextButton = ({ emotion }: Props) => {
+export const NextButton = memo(({ mood }: Props) => {
   return (
     <S.ViewContainer>
-      <S.NextButton
-        disabled={!emotion}
-        onPress={() => router.push('/write/journal_write')}
-        icon={ArrowRight}
-      />
+      <AnimatePresence>
+        {mood && (
+          <S.NextButton
+            disabled={!mood}
+            onPress={() => router.push('/write/journal_write')}
+            icon={ArrowRight}
+          />
+        )}
+      </AnimatePresence>
     </S.ViewContainer>
   );
-};
+});

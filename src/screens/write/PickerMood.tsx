@@ -1,7 +1,7 @@
 import { EmotionLevel, EmotionType } from '@/types/enums';
 import { Check } from '@tamagui/lucide-icons';
 import { emotionTheme } from '@/constants/themes';
-import React from 'react';
+import React, { memo } from 'react';
 import { Emotion } from '@/types/entries';
 import { useTranslation } from 'react-i18next';
 import * as S from './PickerMood.styled';
@@ -11,7 +11,7 @@ interface Props {
   onEmotionChange: (emotion: Emotion) => void;
 }
 
-export const PickerMood = ({ onEmotionChange, emotion }: Props) => {
+export const PickerMood = memo(({ onEmotionChange, emotion }: Props) => {
   const { t } = useTranslation();
   return (
     <S.ViewContainer>
@@ -54,4 +54,4 @@ export const PickerMood = ({ onEmotionChange, emotion }: Props) => {
       </S.XStackContainer>
     </S.ViewContainer>
   );
-};
+});
