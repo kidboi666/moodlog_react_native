@@ -14,6 +14,7 @@ import { CustomDayComponent } from '@/components/CustomDayComponent';
 import { DayProps } from 'react-native-calendars/src/calendar/day';
 import { CalendarCustomHeader } from '@/screens/calendar/CalendarCustomHeader';
 import { getMonthInISODateString } from '@/utils/common';
+import {ArrowButton} from "@/screens/calendar/ArrowButton";
 
 const LeftArrow = () => (
   <Button unstyled p="$1" color="$gray10" icon={<ArrowLeft size="$1" />} />
@@ -89,7 +90,7 @@ export const CalendarListBase = memo(
 
     const renderArrow = useCallback(
       (direction: Direction) =>
-        direction === 'left' ? <LeftArrow /> : <RightArrow />,
+        direction === 'left' ? <ArrowButton icon={ArrowLeft} /> : <ArrowButton icon={ArrowRight} />,
       [],
     );
 
