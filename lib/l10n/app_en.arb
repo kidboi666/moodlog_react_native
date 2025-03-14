@@ -1,0 +1,223 @@
+{
+  "common_greeting_hello": "Hello!",
+  "@common_greeting_hello": {
+    "description": "Greeting message"
+  },
+  "common_greeting_welcome": "Welcome, {name}.",
+  "@common_greeting_welcome": {
+    "description": "Welcome greeting",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "common_greeting_howAreYou": "How are you feeling today?",
+  "common_fallback_today": "Waiting for your story.",
+  "common_fallback_empty_title": "No diary entries yet.",
+  "common_fallback_empty_description": "Written diary entries will appear here.",
+  "common_fallback_text": "None",
+  "common_button_ok": "OK",
+  "common_button_cancel": "Cancel",
+  "common_button_confirm": "Confirm",
+  "common_button_delete": "Delete",
+  "common_button_edit": "Edit",
+  "common_button_save": "Save",
+  "common_button_back": "Back",
+  "common_button_next": "Next",
+  "common_button_prev": "Previous",
+  "common_button_submit": "Submit",
+  "common_units_month": "Month",
+  "common_units_count": "entries",
+  "common_units_day": "",
+  "navigation_drawer_index": "Home",
+  "navigation_drawer_settings": "Settings",
+  "modals_deleteJournal_title": "Delete Journal",
+  "modals_deleteJournal_description": "Are you sure you want to delete this journal? This action cannot be undone.",
+  "placeholders_journal_title": "How was your day?",
+  "placeholders_journal_content": "Record your emotions and experiences today.",
+  "placeholders_emotion": "Choose the emotion you're feeling right now.",
+  "notifications_success_journal_title": "Journal saved.",
+  "notifications_success_journal_message": "Your precious record has been safely stored.",
+  "notifications_warning_journal_title": "Diaries can only be written on the same day.",
+  "notifications_warning_emotion_title": "Please select an emotion intensity!",
+  "notifications_warning_emotion_message": "No emotion intensity has been selected",
+  "records_stats_totalCount_title": "Total Records",
+  "records_stats_totalCount_description": "Journals written so far",
+  "records_stats_totalCount_daysSinceSignup_title": "Days journaling",
+  "records_stats_totalCount_daysSinceSignup_description": "Day {date}",
+  "@records_stats_totalCount_daysSinceSignup_description": {
+    "placeholders": {
+      "date": {
+        "type": "int"
+      }
+    }
+  },
+  "records_stats_totalCount_frequency_title": "Writing Frequency",
+  "records_stats_totalCount_frequency_description": "You write every {date} days.",
+  "@records_stats_totalCount_frequency_description": {
+    "placeholders": {
+      "date": {
+        "type": "int"
+      }
+    }
+  },
+  "records_stats_totalCount_frequency_everyDay": "You write daily.",
+  "records_stats_totalCount_mostDay_title": "Top Writing Day",
+  "records_stats_totalCount_mostDay_description": "You mostly write on {day}.",
+  "@records_stats_totalCount_mostDay_description": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "records_stats_totalCount_expressiveMonth_title": "Most Active Month",
+  "records_stats_totalCount_expressiveMonth_description": "In {month}, you wrote {count} entries.",
+  "@records_stats_totalCount_expressiveMonth_description": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "records_stats_emotion_title": "Signature Emotion",
+  "records_stats_emotion_description": "Your defining emotion",
+  "records_stats_currentMonth_title": "{month} Records",
+  "@records_stats_currentMonth_title": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "records_stats_currentMonth_description": "Journals this month",
+  "records_stats_currentMonth_journalCount_title": "Journals in {month}",
+  "@records_stats_currentMonth_journalCount_title": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "records_stats_currentMonth_journalCount_description": "{count} entries",
+  "@records_stats_currentMonth_journalCount_description": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "records_stats_currentMonth_frequency_title": "{month} Frequency",
+  "@records_stats_currentMonth_frequency_title": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "records_stats_currentMonth_frequency_description": "In {month}, you write every {date} days.",
+  "@records_stats_currentMonth_frequency_description": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "date": {
+        "type": "int"
+      }
+    }
+  },
+  "records_stats_currentMonth_frequency_everyDay": "In {month}, you write daily.",
+  "@records_stats_currentMonth_frequency_everyDay": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "records_stats_currentMonth_mostDay_title": "Top Day in {month}",
+  "@records_stats_currentMonth_mostDay_title": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "records_stats_currentMonth_mostDay_description": "In {month}, you write most on {day}.",
+  "@records_stats_currentMonth_mostDay_description": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "records_stats_currentMonth_emotion": "{month} Signature Emotion",
+  "@records_stats_currentMonth_emotion": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "records_garden_title": "Records Overview",
+  "records_garden_description": "View emotions by year and month.",
+  "emotions_types_happy": "Happy",
+  "emotions_types_sad": "Sad",
+  "emotions_types_angry": "Angry",
+  "emotions_types_peace": "Peaceful",
+  "emotions_levels_zero": "Slightly",
+  "emotions_levels_half": "Moderately",
+  "emotions_levels_full": "Very",
+  "calendar_days_mon": "Mon",
+  "calendar_days_tue": "Tue",
+  "calendar_days_wed": "Wed",
+  "calendar_days_thu": "Thu",
+  "calendar_days_fri": "Fri",
+  "calendar_days_sat": "Sat",
+  "calendar_days_sun": "Sun",
+  "calendar_daysShort_mon": "M",
+  "calendar_daysShort_tue": "T",
+  "calendar_daysShort_wed": "W",
+  "calendar_daysShort_thu": "T",
+  "calendar_daysShort_fri": "F",
+  "calendar_daysShort_sat": "S",
+  "calendar_daysShort_sun": "S",
+  "calendar_months_jan": "Jan",
+  "calendar_months_feb": "Feb",
+  "calendar_months_mar": "Mar",
+  "calendar_months_apr": "Apr",
+  "calendar_months_may": "May",
+  "calendar_months_jun": "Jun",
+  "calendar_months_jul": "Jul",
+  "calendar_months_aug": "Aug",
+  "calendar_months_sep": "Sep",
+  "calendar_months_oct": "Oct",
+  "calendar_months_nov": "Nov",
+  "calendar_months_dec": "Dec",
+  "auth_login": "Login",
+  "auth_register": "Register",
+  "auth_signup": "Sign Up",
+  "settings_theme_title": "Dark Mode",
+  "settings_theme_light": "Light Theme",
+  "settings_theme_dark": "Dark Theme",
+  "settings_theme_system": "System Theme",
+  "settings_language_title": "Language",
+  "onboarding_welcome_title": "Hello!",
+  "onboarding_welcome_description": "Welcome to your journey",
+  "onboarding_welcome_description2": "Each day is a new page",
+  "onboarding_welcome_go": "Start writing together?",
+  "onboarding_nickname_title": "Your story begins here",
+  "onboarding_nickname_description": "What name will you use?",
+  "onboarding_nickname_placeholder": "Enter nickname",
+  "onboarding_signup_title": "Start your journal",
+  "onboarding_signup_ota": "Features available:",
+  "onboarding_signup_benefits_sync": "Multi-device sync",
+  "onboarding_signup_benefits_backup": "Secure backups",
+  "onboarding_signup_benefits_stats": "Advanced stats"
+}
