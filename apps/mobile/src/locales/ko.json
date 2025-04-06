@@ -1,0 +1,226 @@
+{
+  "common": {
+    "greeting": {
+      "hello": "안녕하세요!",
+      "welcome": "{{name}}님.",
+      "howAreYou": "오늘 기분은 어떠세요?"
+    },
+    "fallback": {
+      "today": "당신의 이야기를 기다리고 있어요.",
+      "empty": {
+        "title": "작성된 일기가 없어요.",
+        "description": "작성된 일기가 이곳에 보여집니다."
+      },
+      "text": "없음"
+    },
+    "button": {
+      "ok": "확인",
+      "cancel": "취소",
+      "confirm": "확인",
+      "delete": "삭제",
+      "edit": "수정",
+      "save": "저장",
+      "back": "뒤로",
+      "next": "다음",
+      "prev": "이전",
+      "submit": "제출",
+      "addCover": "커버 추가",
+      "timeStamp": "타임 스탬프"
+    },
+    "units": {
+      "month": "월",
+      "count": "개",
+      "day": "요일"
+    }
+  },
+  "navigation": {
+    "drawer": {
+      "index": "홈으로",
+      "settings": "설정"
+    }
+  },
+  "modals": {
+    "deleteJournal": {
+      "title": "일기 삭제",
+      "description": "이 일기를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+    }
+  },
+  "placeholders": {
+    "journal": {
+      "title": "오늘 하루는 어땟나요?",
+      "content": "오늘의 감정과 경험을 기록해보세요."
+    },
+    "mood": "지금 느끼고 있는 감정을 선택하세요."
+  },
+  "notifications": {
+    "success": {
+      "journal": {
+        "title": "일기가 저장되었습니다.",
+        "message": "소중한 기록이 안전하게 보관되었어요."
+      },
+      "delete": "일기가 삭제되었습니다."
+    },
+    "warning": {
+      "journal": {
+        "title": "일기는 당일에만 작성할 수 있습니다."
+      },
+      "mood": {
+        "title": "감정 강도를 선택해주세요!",
+        "message": "선택된 감정 강도가 없습니다"
+      }
+    }
+  },
+  "entries": {
+    "title": "기록",
+    "garden": {
+      "title": "기록 한눈에 보기",
+      "description": "년도 별, 월 별 당신이 기록한 날의 감정을 확인하세요."
+    }
+  },
+  "statistics": {
+    "title": "통계",
+    "timeRange": {
+      "yearly": "연간",
+      "monthly": "월간",
+      "weekly": "주간"
+    },
+    "totalCount": {
+      "title": "전체 기록",
+      "description": "지금까지 작성한 일기 갯수",
+      "daysSinceSignup": {
+        "title": "일기를 작성하기 시작한지",
+        "description": "{{date}}일 째"
+      },
+      "frequency": {
+        "title": "평균 작성 빈도",
+        "description": "보통 {{date}}일 간격으로 일기를 작성헀어요.",
+        "everyDay": "보통 매일 일기를 작성했어요."
+      },
+      "mostDay": {
+        "title": "가장 많이 작성한 요일",
+        "description": "주로 {{day}}요일에 일기를 작성했어요."
+      },
+      "expressiveMonth": {
+        "title": "가장 많이 작성한 달",
+        "description": "{{month}}엔 총 {{count}}개의 일기를 작성했어요."
+      }
+    },
+    "mood": {
+      "title": "대표 감정",
+      "description": "나를 대표하는 감정"
+    },
+    "weeklyMood": {
+      "title": "주간 감정 분포",
+      "description": "주 단위로 가장 많이 선택한 감정 분포표"
+    },
+    "currentMonth": {
+      "title": "{{month}}의 기록",
+      "description": "이번 달 작성한 일기의 갯수",
+      "journalCount": {
+        "title": "{{month}}의 작성한 일기 갯수",
+        "description": "{{count}} 개"
+      },
+      "frequency": {
+        "title": "{{month}} 평균 작성 빈도",
+        "description": "{{month}}엔 보통 {{date}}일 간격으로 일기를 작성했어요.",
+        "everyDay": "{{month}}엔 보통 매일 일기를 작성헀어요."
+      },
+      "mostDay": {
+        "title": "{{month}} 동안 가장 많이 작성한 요일",
+        "description": "{{month}}엔 주로 {{day}}요일에 일기를 작성했어요."
+      },
+      "mood": "{{month}} 대표 감정"
+    }
+  },
+  "moods": {
+    "types": {
+      "happy": "행복",
+      "sad": "슬픔",
+      "angry": "화남",
+      "peace": "평온"
+    },
+    "levels": {
+      "zero": "약간",
+      "half": "적당히",
+      "full": "매우"
+    }
+  },
+  "calendar": {
+    "days": {
+      "mon": "월",
+      "tue": "화",
+      "wed": "수",
+      "thu": "목",
+      "fri": "금",
+      "sat": "토",
+      "sun": "일"
+    },
+    "daysShort": {
+      "mon": "월",
+      "tue": "화",
+      "wed": "수",
+      "thu": "목",
+      "fri": "금",
+      "sat": "토",
+      "sun": "일"
+    },
+    "months": {
+      "jan": "1월",
+      "feb": "2월",
+      "mar": "3월",
+      "apr": "4월",
+      "may": "5월",
+      "jun": "6월",
+      "jul": "7월",
+      "aug": "8월",
+      "sep": "9월",
+      "oct": "10월",
+      "nov": "11월",
+      "dec": "12월"
+    }
+  },
+  "auth": {
+    "login": "로그인",
+    "register": "회원가입",
+    "signup": "가입하기"
+  },
+  "settings": {
+    "title": "설정",
+    "theme": {
+      "title": "다크 모드",
+      "light": "밝은 테마",
+      "dark": "어두운 테마",
+      "system": "시스템 테마"
+    },
+    "language": {
+      "title": "언어"
+    },
+    "timeFormat": {
+      "title": "시간 형식",
+      "24": "24 시간",
+      "12": "12 시간"
+    }
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "안녕하세요!",
+      "description": "당신의 일상 여정에 오신 것을 환영합니다",
+      "description2": "매일이 당신 이야기의 새로운 페이지예요",
+      "go": "함께 써내려가 볼까요?"
+    },
+    "nickname": {
+      "title": "당신의 이야기가 여기서 시작됩니다",
+      "description": "어떤 이름으로 이야기를 쓰시겠어요?",
+      "placeholder": "닉네임을 입력해주세요"
+    },
+    "signup": {
+      "title": "시작해보세요",
+      "ota": "여러 기능을 사용해보세요:",
+      "benefits": {
+        "sync": "여러 기기에서 동기화",
+        "backup": "안전한 백업",
+        "stats": "고급 통계"
+      }
+    }
+  }
+}

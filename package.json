@@ -1,0 +1,16 @@
+{
+  "name": "moodlog",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "start:mobile": "yarn workspace @moodlog/mobile start",
+    "upgrade:tamagui": "yarn workspace @moodlog/mobile upgrade:tamagui",
+    "check:tamagui": "yarn workspace @moodlog/mobile check:tamagui"
+  },
+  "packageManager": "yarn@4.8.1"
+}
