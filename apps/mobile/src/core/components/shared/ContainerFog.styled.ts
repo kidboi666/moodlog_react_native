@@ -22,4 +22,5 @@ export const BottomFog = styled(TamaguiLinearGradient, {
   z: 1,
   start: [0, 0],
   end: [0, 1],
+  pointerEvents: 'none'
 });
