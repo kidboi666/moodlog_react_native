@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import { Redirect, Tabs } from 'expo-router';
+import { Redirect, Tabs, usePathname } from 'expo-router';
 
 import { ContainerFog } from '@/core/components/shared/ContainerFog';
 import { CustomTabBar } from '@/core/components/shared/CustomTabBar';
 import { FullSpinner } from '@/core/components/shared/FullSpinner';
+import { HIDE_TAB_BAR_ROUTES } from '@/core/constants/routes';
 import { useApp } from '@/core/store/app.store';
 import { useJournal } from '@/core/store/journal.store';
 
@@ -14,7 +15,11 @@ export default function Layout() {
   const initAppData = useApp(state => state.initAppData);
   const initJournals = useJournal(state => state.initJournals);
   const [initialized, setInitialized] = useState(false);
+  const pathname = usePathname();
 
+  const shouldHideTabBar = HIDE_TAB_BAR_ROUTES.some(route =>
+    pathname.startsWith(route),
+  );
   useEffect(() => {
     const initApp = async () => {
       await initAppData();
@@ -55,7 +60,7 @@ export default function Layout() {
         />
       </Tabs>
       <ContainerFog />
-      <CustomTabBar />
+      {!shouldHideTabBar && <CustomTabBar />}
     </>
   );
 }

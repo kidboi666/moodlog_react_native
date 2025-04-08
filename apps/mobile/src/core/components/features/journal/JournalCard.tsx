@@ -123,7 +123,7 @@ export const JournalCard = memo(
                 </S.Content>
               </S.CardHeader>
 
-              {imageUri.length !== 0 && (
+              {Array.isArray(imageUri) && (
                 <S.CardBackground>
                   <S.JournalCoverImage source={{ uri: imageUri[0] }} />
                   <AnimatePresence>

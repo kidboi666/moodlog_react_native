@@ -1,13 +1,23 @@
 import { memo } from 'react';
 
+import { usePathname, useRouter } from 'expo-router';
+
 import { useTheme } from 'tamagui';
+
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { HIDE_TAB_BAR_ROUTES } from '@/core/constants/routes';
 
 import * as S from './ContainerFog.styled';
 
 export const ContainerFog = memo(() => {
   const theme = useTheme();
   const backgroundColor = theme.background.val;
+  const pathname = usePathname();
 
+  const shouldHideTabBar = HIDE_TAB_BAR_ROUTES.some(route =>
+    pathname.startsWith(route),
+  );
   const hexToRgb = (hex: string) => {
     const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     const formattedHex = hex.replace(
@@ -38,15 +48,17 @@ export const ContainerFog = memo(() => {
           transparentBg,
         ]}
       />
-      <S.BottomFog
-        colors={[
-          transparentBg,
-          `rgba(${bgRgb}, 0.3)`,
-          `rgba(${bgRgb}, 0.7)`,
-          `rgba(${bgRgb}, 0.9)`,
-          '$background',
-        ]}
-      />
+      {!shouldHideTabBar && (
+        <S.BottomFog
+          colors={[
+            transparentBg,
+            `rgba(${bgRgb}, 0.3)`,
+            `rgba(${bgRgb}, 0.7)`,
+            `rgba(${bgRgb}, 0.9)`,
+            '$background',
+          ]}
+        />
+      )}
     </>
   );
 });

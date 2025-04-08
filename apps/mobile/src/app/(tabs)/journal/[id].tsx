@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
 
 import { ScrollView, XStack } from 'tamagui';
 
@@ -94,7 +94,7 @@ export default function Screen() {
                 {t(`moods.types.${selectedJournal.mood?.type}`)}
               </S.MoodTypeText>
             </S.MoodTextBox>
-            {selectedJournal.imageUri.length !== 0 && (
+            {Array.isArray(selectedJournal.imageUri) && (
               <ScrollView horizontal>
                 <S.ImageBox>
                   {selectedJournal.imageUri.map(uri => (
