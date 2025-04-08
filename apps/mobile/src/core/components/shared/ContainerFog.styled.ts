@@ -20,7 +20,7 @@ export const BottomFog = styled(TamaguiLinearGradient, {
   b: Platform.OS === 'ios' ? 94 : 80,
   l: 0,
   r: 0,
-  height: 80,
+  height: 30,
   z: 1,
   start: [0, 0],
   end: [0, 1],

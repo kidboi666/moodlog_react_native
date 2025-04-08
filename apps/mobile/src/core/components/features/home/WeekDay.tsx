@@ -12,15 +12,15 @@ import { HorizontalCalendar } from '@/core/components/features/home/HorizontalCa
 
 import { getMonthKey } from '@/utils/date';
 
+import { DEFAULT_BOUNCE_IN_UP } from '@/styles/animations';
+
 const AnimatedContainer = Animated.createAnimatedComponent(YStack);
 
 export const WeekDay = memo(() => {
   const { t } = useTranslation();
 
   return (
-    <AnimatedContainer
-      entering={BounceInUp.duration(700).easing(Easing.inOut(Easing.quad))}
-    >
+    <AnimatedContainer entering={DEFAULT_BOUNCE_IN_UP}>
       <S.OuterGradientBox>
         <S.InnerGradientBox>
           <S.CurrentMonthBox>

@@ -15,23 +15,29 @@ interface Props<T> {
   startValue: number;
   endValue: number;
   duration?: number;
+  threshold?: number;
 }
 
 export const useAxisAnimationWithState = <T>(
   axis: AnimationAxis,
-  { defaultState, nextState, startValue, endValue, duration = 300 }: Props<T>,
+  {
+    defaultState,
+    nextState,
+    startValue,
+    endValue,
+    duration = 300,
+    threshold = 50,
+  }: Props<T>,
 ) => {
   const [state, setState] = useState(defaultState);
   const translateValue = useSharedValue(startValue);
 
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform:
-        axis === 'y'
-          ? [{ translateY: translateValue.value }]
-          : [{ translateX: translateValue.value }],
-    };
-  });
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform:
+      axis === 'y'
+        ? [{ translateY: translateValue.value }]
+        : [{ translateX: translateValue.value }],
+  }));
 
   const toggleState = useCallback(() => {
     setState(prev => (prev === defaultState ? nextState : defaultState));
@@ -44,6 +50,40 @@ export const useAxisAnimationWithState = <T>(
     [defaultState, nextState],
   );
 
+  const updateTranslate = useCallback(
+    (translation: number) => {
+      if (state === defaultState) {
+        translateValue.value = startValue + translation;
+      } else {
+        if (translation < 0) {
+          translateValue.value = endValue;
+        } else {
+          translateValue.value = endValue + translation;
+        }
+      }
+    },
+    [state, defaultState, startValue, endValue, translateValue],
+  );
+
+  const handleGestureEnd = useCallback(
+    (finalTranslation: number) => {
+      if (state === defaultState) {
+        if (finalTranslation < -threshold) {
+          setState(nextState);
+        } else {
+          setState(defaultState);
+        }
+      } else {
+        if (finalTranslation > threshold) {
+          setState(defaultState);
+        } else {
+          setState(nextState);
+        }
+      }
+    },
+    [state, defaultState, nextState, threshold],
+  );
+
   useEffect(() => {
     translateValue.value = withTiming(
       state === defaultState ? startValue : endValue,
@@ -52,12 +92,14 @@ export const useAxisAnimationWithState = <T>(
         easing: Easing.inOut(Easing.cubic),
       },
     );
-  }, [state]);
+  }, [state, startValue, endValue, duration, translateValue]);
 
   return {
     state,
     animatedStyle,
     toggleState,
     changeStateByCondition,
+    updateTranslate,
+    handleGestureEnd,
   };
 };

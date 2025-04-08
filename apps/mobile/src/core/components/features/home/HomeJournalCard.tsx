@@ -14,13 +14,13 @@ import { Nullable } from '@/types/utill.types';
 
 interface Props {
   journals: SelectedJournals;
-  onDeletePress: (id: string) => void;
+  openDeleteSheet: (id: string) => void;
   isToday: (date: Nullable<ISODateString>) => boolean;
 }
 
 export const HomeJournalCard = ({
   journals,
-  onDeletePress,
+  openDeleteSheet,
   isToday,
 }: Props) => {
   return Array.isArray(journals) ? (
@@ -38,7 +38,7 @@ export const HomeJournalCard = ({
               moodLevel={mood.level}
               imageUri={imageUri}
               createdAt={createdAt}
-              onDeletePress={onDeletePress}
+              openDeleteSheet={openDeleteSheet}
             />
           </FadeIn>
         </Fragment>

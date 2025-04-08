@@ -10,21 +10,15 @@ import { useBottomSheet } from '@/core/store/bottom-sheet.store';
 import { BottomSheetProps, BottomSheetType } from '@/types/bottom-sheet.types';
 
 const SheetContentComponents = {
-  [BottomSheetType.DELETE_JOURNAL]: memo(
-    (props: BottomSheetProps[BottomSheetType.DELETE_JOURNAL]) => (
-      <DeleteJournalModal {...props} />
-    ),
-  ),
-  [BottomSheetType.SELECT_MOOD]: memo(
-    (props: BottomSheetProps[BottomSheetType.SELECT_MOOD]) => (
-      <SelectMoodModal {...props} />
-    ),
-  ),
-  [BottomSheetType.JOURNAL_WRITE]: memo(
-    (props: BottomSheetProps[BottomSheetType.JOURNAL_WRITE]) => (
-      <JournalWriteModal {...props} />
-    ),
-  ),
+  [BottomSheetType.DELETE_JOURNAL]: (
+    props: BottomSheetProps[BottomSheetType.DELETE_JOURNAL],
+  ) => <DeleteJournalModal {...props} />,
+  [BottomSheetType.SELECT_MOOD]: (
+    props: BottomSheetProps[BottomSheetType.SELECT_MOOD],
+  ) => <SelectMoodModal {...props} />,
+  [BottomSheetType.JOURNAL_WRITE]: (
+    props: BottomSheetProps[BottomSheetType.JOURNAL_WRITE],
+  ) => <JournalWriteModal {...props} />,
 };
 
 export const BottomSheet = memo(() => {

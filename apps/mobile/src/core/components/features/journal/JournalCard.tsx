@@ -26,7 +26,7 @@ interface Props {
   imageUri: Nullable<string>;
   moodType: MoodType;
   moodLevel: MoodLevel;
-  onDeletePress: (id: string) => void;
+  openDeleteSheet: (id: string) => void;
 }
 
 export const JournalCard = memo(
@@ -37,7 +37,7 @@ export const JournalCard = memo(
     imageUri,
     moodType,
     moodLevel,
-    onDeletePress,
+    openDeleteSheet,
   }: Props) => {
     const router = useRouter();
     const {
@@ -45,6 +45,8 @@ export const JournalCard = memo(
       animatedStyle,
       toggleState,
       changeStateByCondition,
+      updateTranslate,
+      handleGestureEnd,
     } = useAxisAnimationWithState('x', {
       defaultState: Position.CENTER,
       nextState: Position.LEFT,
@@ -72,6 +74,8 @@ export const JournalCard = memo(
       onSwipeRight: handleSwipeRight,
       onLongPress: () =>
         changeStateByCondition(cardPosition === Position.CENTER),
+      updateTranslate,
+      onGestureEnd: handleGestureEnd,
     });
 
     const handlePress = () => {
@@ -89,11 +93,11 @@ export const JournalCard = memo(
       <>
         <S.Container>
           <AnimatePresence>
-            {cardPosition === 'left' && (
+            {cardPosition === Position.LEFT && (
               <S.ActionBox>
                 <S.DeleteButton
                   icon={Trash}
-                  onPress={() => onDeletePress(id)}
+                  onPress={() => openDeleteSheet(id)}
                 />
               </S.ActionBox>
             )}

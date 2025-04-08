@@ -31,21 +31,23 @@ export default function Screen() {
   const toast = useToastController();
   const { t } = useTranslation();
 
-  const handleDeletePress = useCallback(
+  const openDeleteSheet = useCallback(
     (id: string) => {
+      const bottomSheetProps = {
+        journalId: id,
+        isLoading,
+        onDelete: removeJournal,
+        hideBottomSheet,
+        onSuccess: () => {
+          selectJournals(selectedDate);
+          toast.show(t('notifications.success.delete'));
+        },
+      };
+
       showBottomSheet(
         BottomSheetType.DELETE_JOURNAL,
         DELETE_JOURNAL_SNAP_POINTS,
-        {
-          journalId: id,
-          isLoading,
-          onDelete: removeJournal,
-          hideBottomSheet,
-          onSuccess: () => {
-            selectJournals(selectedDate);
-            toast.show(t('notifications.success.delete'));
-          },
-        },
+        bottomSheetProps,
       );
     },
     [
@@ -56,6 +58,7 @@ export default function Screen() {
       selectedDate,
       toast,
       hideBottomSheet,
+      t,
     ],
   );
 
@@ -63,10 +66,10 @@ export default function Screen() {
     selectJournals(selectedDate);
   }, [selectJournals, selectedDate]);
 
-  const userName = userInfo?.userName || '';
+  const userName = userInfo?.userName || 'Guest';
 
   return (
-    <ScrollView overScrollMode="always">
+    <ScrollView overScrollMode="always" keyboardShouldPersistTaps="handled">
       <ViewContainer edges={['top', 'bottom']} padded>
         <S.ContentHeaderContainer>
           <WelcomeZone userName={userName} />
@@ -74,7 +77,7 @@ export default function Screen() {
 
           <HomeJournalCard
             journals={selectedJournals}
-            onDeletePress={handleDeletePress}
+            openDeleteSheet={openDeleteSheet}
             isToday={isToday}
           />
         </S.ContentHeaderContainer>
