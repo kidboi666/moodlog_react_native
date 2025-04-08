@@ -14,8 +14,9 @@ import { useCalendar } from '@/core/hooks/useCalendar';
 import { useBottomSheet } from '@/core/store/bottom-sheet.store';
 import { useJournal } from '@/core/store/journal.store';
 
-import * as S from '@/styles/screens/entries/Entries.styled';
 import { BottomSheetType } from '@/types/bottom-sheet.types';
+
+import * as S from '@/styles/screens/entries/Entries.styled';
 
 export default function Screen() {
   const selectedJournals = useJournal(state => state.selectedJournals);
@@ -28,7 +29,7 @@ export default function Screen() {
   const { selectedMonth } = useCalendar();
   const { t } = useTranslation();
 
-  const handleDeletePress = useCallback(
+  const openDeleteSheet = useCallback(
     (id: string) => {
       showBottomSheet(
         BottomSheetType.DELETE_JOURNAL,
@@ -76,7 +77,7 @@ export default function Screen() {
                       createdAt,
                       moodType: mood.type,
                       moodLevel: mood.level,
-                      onDeletePress: handleDeletePress,
+                      openDeleteSheet,
                     }}
                   />
                 </Fragment>

@@ -30,7 +30,6 @@ export const useApp = create<AppStore>()(
   persist(
     (set, get) => ({
       appVersion: APP_VERSION,
-      isInitialApp: false,
       firstLaunchDate: null,
       settings: initialSettings,
       isLoading: false,
@@ -49,7 +48,6 @@ export const useApp = create<AppStore>()(
           ]);
 
           set({
-            isInitialApp: true,
             firstLaunchDate: firstLaunchDate as ISODateString,
           });
         } catch (err) {
@@ -70,7 +68,6 @@ export const useApp = create<AppStore>()(
           ]);
 
           set({
-            isInitialApp: true,
             firstLaunchDate: firstLaunchDate as ISODateString,
           });
 

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { ScrollView, View } from 'tamagui';
+import { ScrollView } from 'tamagui';
 
 import * as S from 'src/core/components/features/home/HorizontalCalendar.styled';
 
@@ -11,6 +11,8 @@ import { CALENDAR_SCROLL_SIZE } from '@/core/constants/size';
 import { useCalendar } from '@/core/hooks/useCalendar';
 import { useJournal } from '@/core/store/journal.store';
 
+import { ISODateString } from '@/types/date.types';
+
 import {
   getDateFromISODate,
   getDayFromISODate,
@@ -18,8 +20,6 @@ import {
   getISODateString,
   getLastDate,
 } from '@/utils/date';
-
-import { ISODateString } from '@/types/date.types';
 
 export const HorizontalCalendar = () => {
   const selectJournals = useJournal(state => state.selectJournals);
@@ -39,10 +39,7 @@ export const HorizontalCalendar = () => {
   const handleCalendarDateChange = useCallback(
     (date: ISODateString) => {
       onSelectedDateChange(date);
-
-      setTimeout(() => {
-        selectJournals(date);
-      }, 0);
+      selectJournals(date);
     },
     [onSelectedDateChange, selectJournals],
   );
@@ -80,6 +77,10 @@ export const HorizontalCalendar = () => {
 
     return () => clearTimeout(timeout);
   }, [dates, selectedDate]);
+
+  useEffect(() => {
+    selectJournals(selectedDate);
+  }, []);
 
   return (
     <S.CalendarContainer>

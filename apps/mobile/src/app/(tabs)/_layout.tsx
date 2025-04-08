@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Redirect, Tabs } from 'expo-router';
 
@@ -9,23 +9,23 @@ import { useApp } from '@/core/store/app.store';
 import { useJournal } from '@/core/store/journal.store';
 
 export default function Layout() {
-  const isInitialApp = useApp(state => state.isInitialApp);
   const firstLaunchDate = useApp(state => state.firstLaunchDate);
   const isLoading = useApp(state => state.isLoading);
   const initAppData = useApp(state => state.initAppData);
   const initJournals = useJournal(state => state.initJournals);
+  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    initAppData();
-  }, [initAppData]);
+    const initApp = async () => {
+      await initAppData();
+      await initJournals();
+      setInitialized(true);
+    };
 
-  useEffect(() => {
-    if (isInitialApp) {
-      initJournals();
-    }
-  }, [isInitialApp, initJournals]);
+    initApp();
+  }, [initAppData, initJournals]);
 
-  if (isLoading || !isInitialApp) {
+  if (!initialized || isLoading) {
     return <FullSpinner size="large" />;
   }
 
@@ -48,7 +48,7 @@ export default function Layout() {
         <Tabs.Screen name="statistics" />
         <Tabs.Screen name="settings" />
         <Tabs.Screen
-          name="journal/[id]"
+          name="journal"
           options={{
             href: null,
           }}

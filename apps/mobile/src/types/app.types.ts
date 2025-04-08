@@ -45,7 +45,6 @@ export interface AppSettings {
 
 export interface AppStore {
   appVersion: string;
-  isInitialApp: boolean;
   firstLaunchDate: ISODateString | null;
 
   settings: AppSettings;

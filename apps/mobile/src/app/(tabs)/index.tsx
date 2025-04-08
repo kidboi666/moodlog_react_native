@@ -16,8 +16,9 @@ import { useBottomSheet } from '@/core/store/bottom-sheet.store';
 import { useJournal } from '@/core/store/journal.store';
 import { useUser } from '@/core/store/user.store';
 
-import * as S from '@/styles/screens/home/Home.styled';
 import { BottomSheetType } from '@/types/bottom-sheet.types';
+
+import * as S from '@/styles/screens/home/Home.styled';
 
 export default function Screen() {
   const selectedJournals = useJournal(state => state.selectedJournals);
@@ -61,10 +62,6 @@ export default function Screen() {
       t,
     ],
   );
-
-  useEffect(() => {
-    selectJournals(selectedDate);
-  }, [selectJournals, selectedDate]);
 
   const userName = userInfo?.userName || 'Guest';
 

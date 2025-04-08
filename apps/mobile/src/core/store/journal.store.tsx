@@ -121,7 +121,3 @@ export const useJournal = create<JournalStoreState>((set, get) => ({
     }
   },
 }));
-
-export const initializeJournalStore = async () => {
-  await useJournal.getState().initJournals();
-};
