@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
 import { useLocalSearchParams, useRouter } from 'expo-router';
 
-import { ScrollView } from 'tamagui';
+import { ScrollView, XStack } from 'tamagui';
 
 import { JournalHeader } from '@/core/components/features/journal/JournalHeader';
 import { DELETE_JOURNAL_SNAP_POINTS } from '@/core/constants/size';
@@ -13,10 +13,11 @@ import { useApp } from '@/core/store/app.store';
 import { useBottomSheet } from '@/core/store/bottom-sheet.store';
 import { useJournal } from '@/core/store/journal.store';
 
+import { BottomSheetType } from '@/types/bottom-sheet.types';
+
 import { toSingle } from '@/utils/common';
 
 import * as S from '@/styles/screens/journal/Journal.styled';
-import { BottomSheetType } from '@/types/bottom-sheet.types';
 
 export default function Screen() {
   const { id } = useLocalSearchParams();
@@ -30,6 +31,12 @@ export default function Screen() {
   const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet);
   const fontSize = useApp(state => state.settings.fontSize);
   const { t } = useTranslation();
+  const [[page, going], setPage] = useState([0, 0]);
+
+  const wrap = (min: number, max: number, v: number) => {
+    const rangeSize = max - min;
+    return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
+  };
 
   const handleDeletePress = useCallback(() => {
     showBottomSheet(
@@ -72,7 +79,7 @@ export default function Screen() {
           />
         }
       >
-        <S.XStackContainer>
+        <XStack>
           <S.MoodBar
             moodColor={
               moodTheme[selectedJournal.mood.type][selectedJournal.mood.level]
@@ -87,17 +94,21 @@ export default function Screen() {
                 {t(`moods.types.${selectedJournal.mood?.type}`)}
               </S.MoodTypeText>
             </S.MoodTextBox>
-            {selectedJournal.imageUri && (
-              <S.ImageBox>
-                <S.Image source={{ uri: selectedJournal.imageUri }} />
-              </S.ImageBox>
+            {selectedJournal.imageUri.length !== 0 && (
+              <ScrollView horizontal>
+                <S.ImageBox>
+                  {selectedJournal.imageUri.map(uri => (
+                    <S.Image key={uri} source={{ uri }} />
+                  ))}
+                </S.ImageBox>
+              </ScrollView>
             )}
 
             <S.ContentText fontSize={fontSize}>
               {selectedJournal.content}
             </S.ContentText>
           </S.ContentBox>
-        </S.XStackContainer>
+        </XStack>
       </S.ViewContainer>
     </ScrollView>
   );

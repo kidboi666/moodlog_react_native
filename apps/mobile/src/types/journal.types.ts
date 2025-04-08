@@ -8,7 +8,7 @@ export type Journal = {
   mood: Mood;
   createdAt: string;
   localDate: ISODateString; // YYYY-MM-DD
-  imageUri: Nullable<string>;
+  imageUri: string[];
 };
 
 export type Journals = Record<string, Journal>;
@@ -16,7 +16,7 @@ export type Journals = Record<string, Journal>;
 export type Draft = {
   content: string;
   mood?: Mood;
-  imageUri: Nullable<string>;
+  imageUri: string[];
 };
 /**
  * Types

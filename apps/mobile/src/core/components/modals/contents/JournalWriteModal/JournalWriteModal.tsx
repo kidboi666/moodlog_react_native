@@ -46,7 +46,7 @@ export const JournalWriteModal = ({
       type: moodType,
       level: moodLevel,
     },
-    imageUri: '',
+    imageUri: [],
   });
   const inputRef = useRef<EnhancedTextInputRef>(null);
 
@@ -57,8 +57,11 @@ export const JournalWriteModal = ({
   const handleImageUriChange = useCallback(async () => {
     try {
       const newFilePath = await ImageService.createNewFileName();
+
       setDraft(prev =>
-        newFilePath ? { ...prev, imageUri: newFilePath } : prev,
+        newFilePath
+          ? { ...prev, imageUri: [...prev.imageUri, newFilePath] }
+          : prev,
       );
     } catch (err) {
       console.error('Image saving error ', err);

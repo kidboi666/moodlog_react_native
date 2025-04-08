@@ -9,7 +9,7 @@ import React, {
 
 import { useTranslation } from 'react-i18next';
 
-import { Input } from 'tamagui';
+import { Input, ScrollView } from 'tamagui';
 
 import { ContentLength } from '@/core/components/modals/contents/JournalWriteModal/components/ContentLength';
 
@@ -18,7 +18,7 @@ import { Nullable } from '@/types/utill.types';
 import * as S from './EnhancedTextInput.styled';
 
 interface Props {
-  imageUri?: Nullable<string>;
+  imageUri: string[];
   contentValue: string;
   onContentChange: (content: string) => void;
   autoFocus?: boolean;
@@ -70,7 +70,15 @@ export const EnhancedTextInput = forwardRef<EnhancedTextInputRef, Props>(
 
     return (
       <S.InputContainer>
-        {imageUri && <S.Image source={{ uri: imageUri }} />}
+        {imageUri.length !== 0 && (
+          <S.ImageContainer>
+            <ScrollView horizontal>
+              {imageUri.map(uri => (
+                <S.Image key={uri} source={{ uri }} />
+              ))}
+            </ScrollView>
+          </S.ImageContainer>
+        )}
 
         <S.TextArea
           ref={inputRef}

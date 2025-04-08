@@ -9,7 +9,7 @@ import { CONTAINER_HORIZONTAL_PADDING } from '@/core/constants/size';
 
 export const HeaderContainer = styled(HOSHeaderContainer, {
   items: 'center',
-  pl: CONTAINER_HORIZONTAL_PADDING,
+  px: CONTAINER_HORIZONTAL_PADDING,
 });
 
 export const DateContainer = styled(YStack, {

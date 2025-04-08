@@ -23,7 +23,7 @@ interface Props {
   content: string;
   id: string;
   createdAt: string;
-  imageUri: Nullable<string>;
+  imageUri: string[];
   moodType: MoodType;
   moodLevel: MoodLevel;
   openDeleteSheet: (id: string) => void;
@@ -123,11 +123,11 @@ export const JournalCard = memo(
                 </S.Content>
               </S.CardHeader>
 
-              {imageUri && (
+              {imageUri.length !== 0 && (
                 <S.CardBackground>
-                  <S.JournalCoverImage source={{ uri: imageUri }} />
+                  <S.JournalCoverImage source={{ uri: imageUri[0] }} />
                   <AnimatePresence>
-                    <S.ImageCoverGradient />
+                    {isOpenCard ? null : <S.ImageCoverGradient />}
                   </AnimatePresence>
                 </S.CardBackground>
               )}

@@ -87,6 +87,7 @@ export const JournalCoverImage = styled(Image, {
 export const ImageCoverGradient = styled(LinearGradient, {
   animation: 'quick',
   exitStyle: { opacity: 0 },
+  enterStyle: { opacity: 0 },
   width: '100%',
   height: '100%',
   colors: ['$gray5', 'rgba(0,0,0,0)'],
