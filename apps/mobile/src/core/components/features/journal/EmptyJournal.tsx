@@ -1,9 +1,12 @@
-import { WriteButtonWithEvent } from '@/core/components/shared/WriteButtonWithEvent';
+import { memo } from 'react';
+
+import { useTranslation } from 'react-i18next';
+
+import * as S from 'src/core/components/features/journal/EmptyJournal.styled';
 import { NotebookPen } from '@tamagui/lucide-icons';
 import { useToastController } from '@tamagui/toast';
-import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
-import * as S from 'src/core/components/features/journal/EmptyJournal.styled';
+
+import { WriteButtonWithEvent } from '@/core/components/shared/WriteButtonWithEvent';
 
 interface Props {
   isToday: boolean;

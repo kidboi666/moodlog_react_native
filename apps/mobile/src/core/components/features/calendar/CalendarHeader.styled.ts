@@ -1,4 +1,5 @@
-import { Button, H1, styled, XStack } from 'tamagui';
+import { Button, H1, XStack, styled } from 'tamagui';
+
 import { HeaderContainer as HOSHeaderContainer } from '@/core/components/shared/HeaderContainer.styleable';
 
 export const HeaderContainer = styled(HOSHeaderContainer, {

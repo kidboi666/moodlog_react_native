@@ -1,5 +1,6 @@
+import { Text, styled } from 'tamagui';
+
 import { PressableButton } from '@/core/components/shared/PressableButton.styled';
-import { styled, Text } from 'tamagui';
 
 export const SettingsNavigationButton = styled(PressableButton, {
   elevate: false,

@@ -1,14 +1,19 @@
+import { useCallback, useMemo } from 'react';
+
+import { ScrollView } from 'tamagui';
+
+import * as S from 'src/core/components/features/entries/GardenSection.styled';
+
 import { GardenDayUnits } from '@/core/components/features/entries/GardenDayUnits';
 import { GardenTitleHeader } from '@/core/components/features/entries/GardenTitleHeader';
 import { MonthItem } from '@/core/components/features/entries/MonthItem';
 import { MONTHS } from '@/core/constants/date';
 import { useCalendar } from '@/core/hooks/useCalendar';
 import { useJournal } from '@/core/store/contexts/journal.context';
-import { ISOMonthString, MonthKey } from '@/types/date.types';
+
 import { getFirstDateDay, getLastDate, getWeekLength } from '@/utils/date';
-import { useCallback, useMemo } from 'react';
-import * as S from 'src/core/components/features/entries/GardenSection.styled';
-import { ScrollView } from 'tamagui';
+
+import { ISOMonthString, MonthKey } from '@/types/date.types';
 
 export const GardenSection = () => {
   const { getMoodForDate, selectJournals } = useJournal();

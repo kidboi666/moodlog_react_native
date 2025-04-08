@@ -1,14 +1,16 @@
 import {
   H3,
-  Image as TamaguiImage,
   Paragraph,
-  styled,
+  Image as TamaguiImage,
   View,
   XStack,
   YStack,
+  styled,
 } from 'tamagui';
-import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/styles/animations';
+
 import { ViewContainer as HOSContainer } from '@/core/components/shared/ViewContainer.styleable';
+
+import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/styles/animations';
 
 export const ViewContainer = styled(HOSContainer, {
   pl: 0,

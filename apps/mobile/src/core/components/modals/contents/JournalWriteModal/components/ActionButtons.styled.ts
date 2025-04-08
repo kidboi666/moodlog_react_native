@@ -1,4 +1,4 @@
-import { Button, Separator as TamaguiSeparator, styled, XGroup } from 'tamagui';
+import { Button, Separator as TamaguiSeparator, XGroup, styled } from 'tamagui';
 
 export const XGroupContainer = styled(XGroup);
 

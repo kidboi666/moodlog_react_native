@@ -1,9 +1,12 @@
+import { useTranslation } from 'react-i18next';
+
+import { XStack, YStack } from 'tamagui';
+
+import * as S from 'src/core/components/features/statistics/mood-average/CollapsedContent.styled';
+import { Maximize2 } from '@tamagui/lucide-icons';
+
 import { SignatureMood } from '@/types/mood.types';
 import { Nullable } from '@/types/utill.types';
-import { Maximize2 } from '@tamagui/lucide-icons';
-import { useTranslation } from 'react-i18next';
-import * as S from 'src/core/components/features/statistics/mood-average/CollapsedContent.styled';
-import { XStack, YStack } from 'tamagui';
 
 interface Props {
   hasSignatureMood: boolean;

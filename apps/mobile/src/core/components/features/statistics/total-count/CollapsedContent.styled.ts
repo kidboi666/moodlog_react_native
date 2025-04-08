@@ -1,4 +1,5 @@
-import { Button, styled, Text, View, XStack, YStack } from 'tamagui';
+import { Button, Text, View, XStack, YStack, styled } from 'tamagui';
+
 import { RECORD_UNIT_LINE_HEIGHT } from '@/core/constants/size';
 
 export const ViewContainer = styled(View, {

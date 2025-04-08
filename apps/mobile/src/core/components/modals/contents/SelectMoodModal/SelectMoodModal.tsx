@@ -1,11 +1,13 @@
+import { useCallback, useState } from 'react';
+
+import * as S from '@/core/components/modals/contents/SelectMoodModal/SelectMoodModal.styled';
 import { MoodSelectTitle } from '@/core/components/features/write/MoodSelectTitle';
 import { NextButton } from '@/core/components/features/write/NextButton';
 import { PickerMood } from '@/core/components/features/write/PickerMood';
 import { SelectedMoodContainer } from '@/core/components/features/write/SelectedMoodContainer';
-import * as S from '@/core/components/modals/contents/SelectMoodModal/SelectMoodModal.styled';
 import { FadeIn } from '@/core/components/shared/FadeIn.styleable';
+
 import { Mood, MoodLevel, MoodType } from '@/types/mood.types';
-import { useCallback, useState } from 'react';
 
 interface Props {
   onPress: (mood: Mood) => void;

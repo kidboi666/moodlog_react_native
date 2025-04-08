@@ -1,8 +1,8 @@
 import {
   Image as TamaguiImage,
-  styled,
   TextArea as TamaguiTextArea,
   YStack,
+  styled,
 } from 'tamagui';
 
 export const InputContainer = styled(YStack, {

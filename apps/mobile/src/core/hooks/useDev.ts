@@ -1,6 +1,7 @@
-import { STORAGE_KEY } from '@/core/constants/storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { dummyJournals } from 'dummy';
+
+import { STORAGE_KEY } from '@/core/constants/storage';
 
 export const useDev = () => {
   const handleClearUserStorage = async () => {

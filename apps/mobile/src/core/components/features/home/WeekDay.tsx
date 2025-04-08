@@ -1,10 +1,16 @@
-import { HorizontalCalendar } from '@/core/components/features/home/HorizontalCalendar';
-import { getMonthKey } from '@/utils/date';
 import React, { memo } from 'react';
+
 import { useTranslation } from 'react-i18next';
-import Animated, { BounceInUp, Easing } from 'react-native-reanimated';
-import * as S from 'src/core/components/features/home/WeekDay.styled';
+
 import { YStack } from 'tamagui';
+
+import Animated, { BounceInUp, Easing } from 'react-native-reanimated';
+
+import * as S from 'src/core/components/features/home/WeekDay.styled';
+
+import { HorizontalCalendar } from '@/core/components/features/home/HorizontalCalendar';
+
+import { getMonthKey } from '@/utils/date';
 
 const AnimatedContainer = Animated.createAnimatedComponent(YStack);
 

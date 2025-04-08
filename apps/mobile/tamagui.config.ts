@@ -1,6 +1,7 @@
-import { defaultConfig } from '@tamagui/config/v4';
-import { themes, tokens as tamaguiTokens } from '@tamagui/themes';
 import { createFont, createTamagui } from 'tamagui';
+
+import { defaultConfig } from '@tamagui/config/v4';
+import { tokens as tamaguiTokens, themes } from '@tamagui/themes';
 
 const systemFont = createFont({
   family: 'Pretendard',

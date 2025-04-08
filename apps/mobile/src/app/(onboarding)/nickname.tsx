@@ -1,13 +1,18 @@
+import { useTranslation } from 'react-i18next';
+
+import { useRouter } from 'expo-router';
+
+import { Input } from 'tamagui';
+
+import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
+
 import { FadeIn } from '@/core/components/shared/FadeIn.styleable';
 import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable';
 import { ANIMATION_DELAY_SECONDS } from '@/core/constants/time';
 import { useStepProgress } from '@/core/store/contexts/step-progress.context';
 import { useUser } from '@/core/store/contexts/user.context';
+
 import * as S from '@/styles/screens/onboarding/Nickname.styled';
-import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
-import { useRouter } from 'expo-router';
-import { useTranslation } from 'react-i18next';
-import { Input } from 'tamagui';
 
 export default function Screen() {
   const { draftUserName, onDraftUserNameChange } = useUser();

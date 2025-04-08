@@ -1,4 +1,4 @@
-import { styled, View, XStack } from 'tamagui';
+import { View, XStack, styled } from 'tamagui';
 
 export const DotContainer = styled(XStack, {
   gap: 2,

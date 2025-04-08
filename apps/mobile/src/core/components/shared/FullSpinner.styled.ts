@@ -1,4 +1,4 @@
-import { styled, View } from 'tamagui';
+import { View, styled } from 'tamagui';
 
 export const ViewContainer = styled(View, {
   flex: 1,

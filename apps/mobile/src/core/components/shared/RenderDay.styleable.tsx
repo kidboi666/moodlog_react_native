@@ -1,5 +1,7 @@
-import { Text, TextProps } from 'tamagui';
 import { useTranslation } from 'react-i18next';
+
+import { Text, TextProps } from 'tamagui';
+
 import { WEEK_DAY } from '@/core/constants/date';
 
 interface Props extends TextProps {

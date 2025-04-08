@@ -1,13 +1,15 @@
+import Animated from 'react-native-reanimated';
+
+import * as S from 'src/core/components/features/statistics/total-count/TotalCount.styled';
+
 import { CollapsedContent } from '@/core/components/features/statistics/total-count/CollapsedContent';
 import { ExpandedContent } from '@/core/components/features/statistics/total-count/ExpandedContent';
 import { useExpandAnimation } from '@/core/hooks/useExpandAnimation';
 import { useJournalStats } from '@/core/hooks/useJournalStats';
 import { useUser } from '@/core/store/contexts/user.context';
-import { ISOMonthString } from '@/types/date.types';
 
+import { ISOMonthString } from '@/types/date.types';
 import { ExpansionState, TimeRange } from '@/types/statistic.types';
-import Animated from 'react-native-reanimated';
-import * as S from 'src/core/components/features/statistics/total-count/TotalCount.styled';
 
 const AnimatedCardContainer = Animated.createAnimatedComponent(S.CardContainer);
 

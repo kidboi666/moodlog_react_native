@@ -1,4 +1,5 @@
 import { Stack } from 'expo-router';
+
 import { useTheme } from 'tamagui';
 
 export default function Layout() {

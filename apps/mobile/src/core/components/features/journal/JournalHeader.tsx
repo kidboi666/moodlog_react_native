@@ -1,7 +1,9 @@
-import { Journal } from '@/types/journal.types';
-import { ArrowLeft, Trash2 } from '@tamagui/lucide-icons';
 import { memo } from 'react';
+
 import * as S from 'src/core/components/features/journal/JournalHeader.styled';
+import { ArrowLeft, Trash2 } from '@tamagui/lucide-icons';
+
+import { Journal } from '@/types/journal.types';
 
 interface Props {
   journal: Journal;

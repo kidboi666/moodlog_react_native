@@ -1,16 +1,21 @@
 import {
-  createContext,
   PropsWithChildren,
+  createContext,
   useCallback,
   useContext,
   useMemo,
   useReducer,
 } from 'react';
-import { Theme as TamaguiTheme } from 'tamagui';
+
 import { useColorScheme } from 'react-native';
-import { Nullable } from '@/types/utill.types';
-import { Theme } from '@/types/app.types';
+
+import { Theme as TamaguiTheme } from 'tamagui';
+
 import { themeReducer } from '@/core/store/reducers/theme.reducer';
+
+import { Theme } from '@/types/app.types';
+import { Nullable } from '@/types/utill.types';
+
 import { ThemeState, ThemeStore } from '../types/theme.types';
 
 const initialState: ThemeState = {

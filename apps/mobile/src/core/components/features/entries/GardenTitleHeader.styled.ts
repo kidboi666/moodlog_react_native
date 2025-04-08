@@ -1,4 +1,4 @@
-import { H3, Paragraph, styled, YStack } from 'tamagui';
+import { H3, Paragraph, YStack, styled } from 'tamagui';
 
 export const GardenTitleHeaderContainer = styled(YStack, {
   gap: '$2',

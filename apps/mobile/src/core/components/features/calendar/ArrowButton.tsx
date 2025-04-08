@@ -1,4 +1,3 @@
-import React from 'react';
 import * as S from 'src/core/components/features/calendar/ArrowButton.styled';
 
 interface Props {

@@ -1,19 +1,22 @@
-import { UserService } from '@/core/services/user.service';
-import { useApp } from '@/core/store/contexts/app.context';
-import { statusReducer } from '@/core/store/reducers/status.reducer';
-import { userReducer } from '@/core/store/reducers/user.reducer';
-import { UserInfoContextType, UserState } from '@/core/store/types/user.types';
-import { NewUserInfo } from '@/types/user.types';
-import { Nullable } from '@/types/utill.types';
 import {
-  createContext,
   PropsWithChildren,
+  createContext,
   useCallback,
   useContext,
   useEffect,
   useMemo,
   useReducer,
 } from 'react';
+
+import { UserService } from '@/core/services/user.service';
+import { useApp } from '@/core/store/contexts/app.context';
+import { statusReducer } from '@/core/store/reducers/status.reducer';
+import { userReducer } from '@/core/store/reducers/user.reducer';
+import { UserInfoContextType, UserState } from '@/core/store/types/user.types';
+
+import { NewUserInfo } from '@/types/user.types';
+import { Nullable } from '@/types/utill.types';
+
 import { StatusState } from '../types/state.types';
 
 const initialState: UserState = {

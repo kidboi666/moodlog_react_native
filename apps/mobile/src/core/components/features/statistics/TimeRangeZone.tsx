@@ -1,7 +1,10 @@
-import * as S from '@/core/components/features/statistics/TimeRangeZone.styled';
-import { TimeRange } from '@/types/statistic.types';
 import { useTranslation } from 'react-i18next';
+
 import { Group } from 'tamagui';
+
+import * as S from '@/core/components/features/statistics/TimeRangeZone.styled';
+
+import { TimeRange } from '@/types/statistic.types';
 
 interface Props {
   timeRange: TimeRange;

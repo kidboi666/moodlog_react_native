@@ -1,7 +1,10 @@
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { XStackProps } from 'tamagui';
-import * as S from './HeaderContainer.styled';
 import { memo } from 'react';
+
+import { XStackProps } from 'tamagui';
+
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import * as S from './HeaderContainer.styled';
 
 interface Props extends XStackProps {
   edges?: Array<'top' | 'bottom'>;

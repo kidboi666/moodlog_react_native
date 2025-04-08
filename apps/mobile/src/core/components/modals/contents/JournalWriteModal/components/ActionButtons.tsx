@@ -1,8 +1,13 @@
-import { Nullable } from '@/types/utill.types';
-import { Check, ImagePlus, Timer } from '@tamagui/lucide-icons';
 import React, { memo } from 'react';
+
 import { useTranslation } from 'react-i18next';
+
 import { Form, Spinner, XGroup } from 'tamagui';
+
+import { Check, ImagePlus, Timer } from '@tamagui/lucide-icons';
+
+import { Nullable } from '@/types/utill.types';
+
 import * as S from './ActionButtons.styled';
 
 interface Props {

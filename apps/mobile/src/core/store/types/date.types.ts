@@ -1,5 +1,5 @@
-import { Nullable } from '@/types/utill.types';
 import { ISODateString, ISOMonthString } from '@/types/date.types';
+import { Nullable } from '@/types/utill.types';
 
 export type DateAction =
   | { type: 'SET_SELECTED_YEAR'; payload: number }

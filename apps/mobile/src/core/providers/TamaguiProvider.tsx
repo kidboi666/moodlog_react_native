@@ -1,4 +1,5 @@
 import { TamaguiProvider, type TamaguiProviderProps } from 'tamagui';
+
 import config from '../../../tamagui.config';
 
 export const TamaguiBaseProvider = ({

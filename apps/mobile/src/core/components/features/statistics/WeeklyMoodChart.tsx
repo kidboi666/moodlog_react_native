@@ -1,10 +1,9 @@
-import { WEEK_DAY } from '@/core/constants/date';
-import { useWeeklyMoodStats } from '@/core/hooks/useWeeklyMoodStats';
-import { ISOMonthString } from '@/types/date.types';
-import { MoodLevel } from '@/types/mood.types';
-import { getISODateFromMonthString } from '@/utils/date';
 import React, { useEffect } from 'react';
+
 import { useTranslation } from 'react-i18next';
+
+import { H3, Text, YStack } from 'tamagui';
+
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -12,8 +11,17 @@ import Animated, {
   withDelay,
   withTiming,
 } from 'react-native-reanimated';
+
 import * as S from 'src/core/components/features/statistics/MoodChart.styled';
-import { H3, Text, YStack } from 'tamagui';
+
+import { WEEK_DAY } from '@/core/constants/date';
+import { useWeeklyMoodStats } from '@/core/hooks/useWeeklyMoodStats';
+
+import { getISODateFromMonthString } from '@/utils/date';
+
+import { ISOMonthString } from '@/types/date.types';
+import { MoodLevel } from '@/types/mood.types';
+
 import { ChartItem } from './ChartItem';
 
 const AnimatedBox = Animated.createAnimatedComponent(S.AnimatedBox);

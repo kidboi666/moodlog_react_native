@@ -1,13 +1,17 @@
-import * as S from '@/core/components/features/statistics/MoodChart.styled';
-import { moodTheme } from '@/core/constants/themes';
-import { MoodLevel, MoodType } from '@/types/mood.types';
 import React, { useEffect } from 'react';
+
 import { useTranslation } from 'react-i18next';
+
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+
+import * as S from '@/core/components/features/statistics/MoodChart.styled';
+import { moodTheme } from '@/core/constants/themes';
+
+import { MoodLevel, MoodType } from '@/types/mood.types';
 
 const AnimatedChartItem = Animated.createAnimatedComponent(S.ChartItem);
 

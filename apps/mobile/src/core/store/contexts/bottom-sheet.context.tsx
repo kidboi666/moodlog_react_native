@@ -1,18 +1,21 @@
 import React, {
-  createContext,
   ReactNode,
+  createContext,
   useCallback,
   useContext,
   useReducer,
 } from 'react';
+
 import { bottomSheetReducer } from '@/core/store/reducers/bottom-sheet.reducer';
+
+import { Nullable } from '@/types/utill.types';
+
 import {
   BottomSheetContextType,
   BottomSheetProps,
   BottomSheetState,
   BottomSheetType,
 } from '../types/bottom-sheet.types';
-import { Nullable } from '@/types/utill.types';
 
 const initialBottomSheetState: BottomSheetState = {
   isOpen: false,

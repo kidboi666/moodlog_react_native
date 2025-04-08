@@ -1,7 +1,10 @@
-import * as S from '@/core/components/features/write/PickerMood.styled';
-import { MoodLevel, MoodType } from '@/types/mood.types';
-import { Check } from '@tamagui/lucide-icons';
 import React, { memo } from 'react';
+
+import { Check } from '@tamagui/lucide-icons';
+
+import * as S from '@/core/components/features/write/PickerMood.styled';
+
+import { MoodLevel, MoodType } from '@/types/mood.types';
 
 interface Props {
   moodType: MoodType;

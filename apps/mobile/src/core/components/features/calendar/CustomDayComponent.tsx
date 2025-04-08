@@ -1,10 +1,14 @@
-import { DateCountDot } from '@/core/components/features/home/DateCountDot';
-import { DateCounts } from '@/types/date.types';
 import React, { memo } from 'react';
+
 import { DateData } from 'react-native-calendars';
 import { MarkingProps } from 'react-native-calendars/src/calendar/day/marking';
 import { DayState } from 'react-native-calendars/src/types';
+
 import * as S from 'src/core/components/features/calendar/CustomDayComponent.styled';
+
+import { DateCountDot } from '@/core/components/features/home/DateCountDot';
+
+import { DateCounts } from '@/types/date.types';
 
 interface Props {
   date: DateData;

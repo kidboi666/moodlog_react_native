@@ -1,9 +1,11 @@
+import { useEffect } from 'react';
+
+import { Redirect, Tabs } from 'expo-router';
+
 import { ContainerFog } from '@/core/components/shared/ContainerFog';
 import { CustomTabBar } from '@/core/components/shared/CustomTabBar';
 import { FullSpinner } from '@/core/components/shared/FullSpinner';
 import { useApp } from '@/core/store/contexts/app.context';
-import { Redirect, Tabs } from 'expo-router';
-import { useEffect } from 'react';
 
 export default function Layout() {
   const { initAppData, isInitialApp, firstLaunchDate, isLoading } = useApp();

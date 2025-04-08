@@ -2,10 +2,11 @@ import {
   H1,
   H4,
   Separator as TamaguiSeparator,
-  styled,
   XStack,
   YStack,
+  styled,
 } from 'tamagui';
+
 import { HOME_HEADER_LINE_HEIGHT } from '@/core/constants/size';
 
 export const ContentHeaderContainer = styled(YStack, {

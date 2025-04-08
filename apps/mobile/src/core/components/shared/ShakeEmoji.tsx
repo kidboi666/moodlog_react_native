@@ -1,5 +1,7 @@
-import { H1 } from 'tamagui';
 import { memo, useEffect, useState } from 'react';
+
+import { H1 } from 'tamagui';
+
 import * as S from './ShakeEmoji.styled';
 
 interface Props {

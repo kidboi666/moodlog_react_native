@@ -1,5 +1,6 @@
+import { YStack, styled } from 'tamagui';
+
 import { BottomSheetContainer as HOSBottomSheetContainer } from '@/core/components/modals/BottomSheetContainer';
-import { styled, YStack } from 'tamagui';
 
 export const BottomSheetContainer = styled(HOSBottomSheetContainer);
 

@@ -1,6 +1,6 @@
 import { ISODateString } from '@/types/date.types';
-import { Nullable } from '@/types/utill.types';
 import { Mood } from '@/types/mood.types';
+import { Nullable } from '@/types/utill.types';
 
 export type Journal = {
   id: string;
@@ -12,11 +12,6 @@ export type Journal = {
 };
 
 export type Journals = Record<string, Journal>;
-
-export enum CardPosition {
-  LEFT = 'left',
-  RIGHT = 'right',
-}
 
 export type Draft = {
   content: string;

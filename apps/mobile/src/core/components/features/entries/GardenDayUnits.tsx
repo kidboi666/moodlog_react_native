@@ -1,7 +1,10 @@
-import { WEEK_DAY } from '@/core/constants/date';
 import { memo } from 'react';
+
 import { useTranslation } from 'react-i18next';
+
 import * as S from 'src/core/components/features/entries/GardenDayUnits.styled';
+
+import { WEEK_DAY } from '@/core/constants/date';
 
 export const GardenDayUnits = memo(() => {
   const { t } = useTranslation();

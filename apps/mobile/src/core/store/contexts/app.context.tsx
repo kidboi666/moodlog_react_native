@@ -1,28 +1,33 @@
 import {
-  createContext,
   PropsWithChildren,
+  createContext,
   useCallback,
   useContext,
   useMemo,
   useReducer,
 } from 'react';
+
 import * as Localization from 'expo-localization';
-import { Nullable } from '@/types/utill.types';
+
+import { CalendarUtils } from 'react-native-calendars';
+
 import { APP_VERSION } from '@/core/constants/common';
-import { ISODateString } from '@/types/date.types';
-import { Languages, TimeFormat, ViewFontSize } from '@/types/app.types';
+import { AppService } from '@/core/services/app.service';
 import { appReducer } from '@/core/store/reducers/app.reducer';
+import { statusReducer } from '@/core/store/reducers/status.reducer';
 import {
   AppActionContextType,
   AppInfoContextType,
   AppSettingsContextType,
   AppState,
 } from '@/core/store/types/app.types';
-import { AppService } from '@/core/services/app.service';
-import { CalendarUtils } from 'react-native-calendars';
 import { StatusState } from '@/core/store/types/state.types';
-import { statusReducer } from '@/core/store/reducers/status.reducer';
+
 import { camelToConstantCase } from '@/utils/common';
+
+import { Languages, TimeFormat, ViewFontSize } from '@/types/app.types';
+import { ISODateString } from '@/types/date.types';
+import { Nullable } from '@/types/utill.types';
 
 const DEFAULT_LANGUAGE = Localization.getLocales()[0].languageCode as Languages;
 

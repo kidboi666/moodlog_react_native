@@ -1,4 +1,5 @@
 import { Spinner } from 'tamagui';
+
 import * as S from './FullSpinner.styled';
 
 interface Props {

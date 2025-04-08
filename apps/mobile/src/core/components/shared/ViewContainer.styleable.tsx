@@ -1,10 +1,14 @@
+import { ReactNode } from 'react';
+
+import { ViewProps } from 'tamagui';
+
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import {
   CONTAINER_MARGIN_TOP,
   CONTAINER_VERTICAL_PADDING,
 } from '@/core/constants/size';
-import { ReactNode } from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ViewProps } from 'tamagui';
+
 import * as S from './ViewContainer.styled';
 
 interface ViewContainerProps extends ViewProps {

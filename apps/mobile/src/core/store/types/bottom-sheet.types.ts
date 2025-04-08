@@ -1,6 +1,6 @@
-import { Nullable } from '@/types/utill.types';
-import { Mood, MoodLevel, MoodType } from '@/types/mood.types';
 import { Draft } from '@/types/journal.types';
+import { Mood, MoodLevel, MoodType } from '@/types/mood.types';
+import { Nullable } from '@/types/utill.types';
 
 export enum BottomSheetType {
   DELETE_JOURNAL = 'DELETE_JOURNAL',

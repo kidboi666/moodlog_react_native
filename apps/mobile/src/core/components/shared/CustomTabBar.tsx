@@ -1,15 +1,22 @@
+import React, { memo, useCallback, useEffect, useMemo } from 'react';
+
+import { Platform } from 'react-native';
+
+import * as NavigationBar from 'expo-navigation-bar';
+import { Href, usePathname, useRouter } from 'expo-router';
+
+import { useTheme } from 'tamagui';
+
+import Animated from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import { WriteButtonWithEvent } from '@/core/components/shared/WriteButtonWithEvent';
 import { HIDE_TAB_BAR_ROUTES } from '@/core/constants/routes';
 import { TAB_BAR_HEIGHT } from '@/core/constants/size';
 import { useAxisAnimationWithState } from '@/core/hooks/useAxisAnimationWithState';
+
 import { Position } from '@/types/app.types';
-import * as NavigationBar from 'expo-navigation-bar';
-import { Href, usePathname, useRouter } from 'expo-router';
-import React, { memo, useCallback, useEffect, useMemo } from 'react';
-import { Platform } from 'react-native';
-import Animated from 'react-native-reanimated';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme } from 'tamagui';
+
 import * as S from './CustomTabBar.styled';
 import {
   EntriesTab,

@@ -1,3 +1,9 @@
+import { Fragment, useCallback } from 'react';
+
+import { useTranslation } from 'react-i18next';
+
+import { ScrollView } from 'tamagui';
+
 import { GardenSection } from '@/core/components/features/entries/GardenSection';
 import { EmptyJournal } from '@/core/components/features/journal/EmptyJournal';
 import { JournalCard } from '@/core/components/features/journal/JournalCard';
@@ -8,10 +14,8 @@ import { useCalendar } from '@/core/hooks/useCalendar';
 import { useBottomSheet } from '@/core/store/contexts/bottom-sheet.context';
 import { useJournal } from '@/core/store/contexts/journal.context';
 import { BottomSheetType } from '@/core/store/types/bottom-sheet.types';
+
 import * as S from '@/styles/screens/entries/Entries.styled';
-import { Fragment, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import { ScrollView } from 'tamagui';
 
 export default function Screen() {
   const { selectedJournals, selectJournals, isLoading, removeJournal } =

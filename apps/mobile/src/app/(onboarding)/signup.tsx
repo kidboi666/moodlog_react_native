@@ -1,15 +1,21 @@
+import { useEffect } from 'react';
+
+import { useTranslation } from 'react-i18next';
+
+import { useRouter } from 'expo-router';
+
+import { H1, Spinner } from 'tamagui';
+
+import { ArrowLeft, Check } from '@tamagui/lucide-icons';
+
 import { FadeIn } from '@/core/components/shared/FadeIn.styleable';
 import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable';
 import { ANIMATION_DELAY_SECONDS } from '@/core/constants/time';
 import { useApp } from '@/core/store/contexts/app.context';
 import { useStepProgress } from '@/core/store/contexts/step-progress.context';
 import { useUser } from '@/core/store/contexts/user.context';
+
 import * as S from '@/styles/screens/onboarding/Signup.styled';
-import { ArrowLeft, Check } from '@tamagui/lucide-icons';
-import { useRouter } from 'expo-router';
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { H1, Spinner } from 'tamagui';
 
 export default function Screen() {
   const router = useRouter();

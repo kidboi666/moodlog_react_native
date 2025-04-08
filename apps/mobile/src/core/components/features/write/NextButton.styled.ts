@@ -1,4 +1,5 @@
-import { Button, styled, View } from 'tamagui';
+import { Button, View, styled } from 'tamagui';
+
 import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/styles/animations';
 
 export const AnimatedContainer = styled(View, {

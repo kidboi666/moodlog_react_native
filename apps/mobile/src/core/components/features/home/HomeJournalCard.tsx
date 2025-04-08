@@ -1,3 +1,5 @@
+import React, { Fragment } from 'react';
+
 import { EmptyJournal } from '@/core/components/features/journal/EmptyJournal';
 import { JournalCard } from '@/core/components/features/journal/JournalCard';
 import { FadeIn } from '@/core/components/shared/FadeIn.styleable';
@@ -6,9 +8,9 @@ import {
   ANIMATION_DELAY_SECONDS,
 } from '@/core/constants/time';
 import { SelectedJournals } from '@/core/store/types/journal.types';
+
 import { ISODateString } from '@/types/date.types';
 import { Nullable } from '@/types/utill.types';
-import React, { Fragment } from 'react';
 
 interface Props {
   journals: SelectedJournals;

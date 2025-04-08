@@ -1,8 +1,16 @@
+import { useCallback, useEffect, useMemo, useRef } from 'react';
+
+import { useTranslation } from 'react-i18next';
+
+import { ScrollView, View } from 'tamagui';
+
+import * as S from 'src/core/components/features/home/HorizontalCalendar.styled';
+
 import { DateCountDot } from '@/core/components/features/home/DateCountDot';
 import { CALENDAR_SCROLL_SIZE } from '@/core/constants/size';
 import { useCalendar } from '@/core/hooks/useCalendar';
 import { useJournal } from '@/core/store/contexts/journal.context';
-import { ISODateString } from '@/types/date.types';
+
 import {
   getDateFromISODate,
   getDayFromISODate,
@@ -10,10 +18,8 @@ import {
   getISODateString,
   getLastDate,
 } from '@/utils/date';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
-import * as S from 'src/core/components/features/home/HorizontalCalendar.styled';
-import { ScrollView, View } from 'tamagui';
+
+import { ISODateString } from '@/types/date.types';
 
 export const HorizontalCalendar = () => {
   const { getCountForDate, selectJournals } = useJournal();

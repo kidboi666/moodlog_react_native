@@ -1,10 +1,12 @@
 import React, { memo } from 'react';
+
 import {
   CalendarDays,
   FileChartColumnIncreasing,
   Home,
   Settings,
 } from '@tamagui/lucide-icons';
+
 import * as S from './CustomTabBar.styled';
 
 interface TabButtonProps {

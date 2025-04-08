@@ -1,15 +1,21 @@
+import { memo, useCallback } from 'react';
+
+import { useRouter } from 'expo-router';
+
+import { AnimatePresence } from 'tamagui';
+
+import Animated from 'react-native-reanimated';
+
+import * as S from 'src/core/components/features/journal/JournalCard.styled';
+import { ChevronLeft, ChevronRight, Trash } from '@tamagui/lucide-icons';
+
 import { moodTheme } from '@/core/constants/themes';
 import { useAxisAnimationWithState } from '@/core/hooks/useAxisAnimationWithState';
 import { useCardGesture } from '@/core/hooks/useCardGesture';
+
 import { Position } from '@/types/app.types';
 import { MoodLevel, MoodType } from '@/types/mood.types';
 import { Nullable } from '@/types/utill.types';
-import { ChevronLeft, ChevronRight, Trash } from '@tamagui/lucide-icons';
-import { useRouter } from 'expo-router';
-import { memo, useCallback } from 'react';
-import Animated from 'react-native-reanimated';
-import * as S from 'src/core/components/features/journal/JournalCard.styled';
-import { AnimatePresence } from 'tamagui';
 
 const AnimatedCard = Animated.createAnimatedComponent(S.CardContainer);
 

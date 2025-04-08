@@ -1,8 +1,12 @@
-import { MoodTypeBox } from '@/core/components/features/write/MoodTypeBox';
-import { MoodLevel, MoodType } from '@/types/mood.types';
 import React from 'react';
-import * as S from 'src/core/components/features/write/PickerMood.styled';
+
 import { View } from 'tamagui';
+
+import * as S from 'src/core/components/features/write/PickerMood.styled';
+
+import { MoodTypeBox } from '@/core/components/features/write/MoodTypeBox';
+
+import { MoodLevel, MoodType } from '@/types/mood.types';
 
 interface Props {
   selectedMoodType?: MoodType;

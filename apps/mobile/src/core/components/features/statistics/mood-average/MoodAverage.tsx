@@ -1,12 +1,15 @@
+import Animated from 'react-native-reanimated';
+
 import { CollapsedContent } from '@/core/components/features/statistics/mood-average/CollapsedContent';
 import { ExpandedContent } from '@/core/components/features/statistics/mood-average/ExpandedContent';
 import { moodTheme } from '@/core/constants/themes';
 import { useExpandAnimation } from '@/core/hooks/useExpandAnimation';
 import { useMoodStats } from '@/core/hooks/useMoodStats';
+
 import { ISOMonthString } from '@/types/date.types';
 import { MoodLevel, MoodType } from '@/types/mood.types';
 import { ExpansionState, TimeRange } from '@/types/statistic.types';
-import Animated from 'react-native-reanimated';
+
 import * as S from './MoodAverage.styled';
 
 const AnimatedCardContainer = Animated.createAnimatedComponent(S.CardContainer);

@@ -1,5 +1,3 @@
-import { ContentLength } from '@/core/components/modals/contents/JournalWriteModal/components/ContentLength';
-import { Nullable } from '@/types/utill.types';
 import React, {
   forwardRef,
   useCallback,
@@ -8,8 +6,15 @@ import React, {
   useRef,
   useState,
 } from 'react';
+
 import { useTranslation } from 'react-i18next';
+
 import { Input } from 'tamagui';
+
+import { ContentLength } from '@/core/components/modals/contents/JournalWriteModal/components/ContentLength';
+
+import { Nullable } from '@/types/utill.types';
+
 import * as S from './EnhancedTextInput.styled';
 
 interface Props {

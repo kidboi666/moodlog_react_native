@@ -1,8 +1,11 @@
+import { memo, useMemo } from 'react';
+
+import * as S from 'src/core/components/features/entries/Garden.styled';
+
 import { Grass } from '@/core/components/features/entries/Grass';
+
 import { ISODateString, ISOMonthString } from '@/types/date.types';
 import { Mood } from '@/types/mood.types';
-import { memo, useMemo } from 'react';
-import * as S from 'src/core/components/features/entries/Garden.styled';
 
 interface Props {
   weekLength: number;

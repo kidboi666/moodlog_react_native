@@ -1,4 +1,4 @@
-import { Button, styled, View, YStack } from 'tamagui';
+import { Button, View, YStack, styled } from 'tamagui';
 
 export const ViewContainer = styled(View, {
   animation: 'quick',

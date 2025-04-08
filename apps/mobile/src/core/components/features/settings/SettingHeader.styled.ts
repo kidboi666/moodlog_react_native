@@ -1,5 +1,6 @@
+import { View, styled } from 'tamagui';
+
 import { PressableButton } from '@/core/components/shared/PressableButton.styled';
-import { styled, View } from 'tamagui';
 
 export const BackButton = styled(PressableButton, {
   elevate: false,

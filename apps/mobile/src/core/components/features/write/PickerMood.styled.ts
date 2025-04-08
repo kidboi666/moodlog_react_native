@@ -1,5 +1,6 @@
+import { Text, View, XStack, YStack, styled } from 'tamagui';
+
 import { PressableButton } from '@/core/components/shared/PressableButton.styled';
-import { styled, Text, View, XStack, YStack } from 'tamagui';
 
 export const XStackContainer = styled(XStack, {
   justify: 'space-between',

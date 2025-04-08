@@ -1,6 +1,7 @@
-import { Check } from '@tamagui/lucide-icons';
 import React from 'react';
+
 import * as S from 'src/core/components/features/write/NextButton.styled';
+import { Check } from '@tamagui/lucide-icons';
 
 interface Props {
   isSelected: boolean;

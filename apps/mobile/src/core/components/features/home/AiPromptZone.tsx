@@ -1,5 +1,7 @@
-import { Button, Form, Input, Paragraph, Spinner, View } from 'tamagui';
 import { useEffect, useState } from 'react';
+
+import { Button, Form, Input, Paragraph, Spinner, View } from 'tamagui';
+
 import { getGemini } from '@/lib/gemini';
 
 export const AiPromptZone = () => {

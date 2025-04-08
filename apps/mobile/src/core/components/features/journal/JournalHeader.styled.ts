@@ -1,10 +1,11 @@
+import { XStack, YStack, styled } from 'tamagui';
+
 import { HeaderContainer as HOSHeaderContainer } from '@/core/components/shared/HeaderContainer.styleable';
 import { PressableButton } from '@/core/components/shared/PressableButton.styled';
 import { RenderDate } from '@/core/components/shared/RenderDate.styleable';
 import { RenderDay } from '@/core/components/shared/RenderDay.styleable';
 import { RenderTime } from '@/core/components/shared/RenderTime.styleable';
 import { CONTAINER_HORIZONTAL_PADDING } from '@/core/constants/size';
-import { styled, XStack, YStack } from 'tamagui';
 
 export const HeaderContainer = styled(HOSHeaderContainer, {
   items: 'center',

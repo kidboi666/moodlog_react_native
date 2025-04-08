@@ -1,6 +1,8 @@
+import { RadioGroup, Text, styled } from 'tamagui';
+
 import { PressableButton } from '@/core/components/shared/PressableButton.styled';
+
 import { MOUNT_STYLE } from '@/styles/animations';
-import { RadioGroup, styled, Text } from 'tamagui';
 
 export const RadioGroupContainerButton = styled(PressableButton, {
   elevate: false,

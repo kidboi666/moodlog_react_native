@@ -1,4 +1,5 @@
-import { styled, View, XStack } from 'tamagui';
+import { View, XStack, styled } from 'tamagui';
+
 import { HeaderContainer as HOSHeaderContainer } from '@/core/components/shared/HeaderContainer.styleable';
 
 export const HeaderContainer = styled(HOSHeaderContainer, {

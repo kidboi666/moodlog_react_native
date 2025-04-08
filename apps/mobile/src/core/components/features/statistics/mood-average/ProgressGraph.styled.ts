@@ -1,9 +1,9 @@
 import {
   Progress as TamaguiProgress,
-  styled,
   Text,
   XStack,
   YStack,
+  styled,
 } from 'tamagui';
 
 export const GraphContainer = styled(YStack, {

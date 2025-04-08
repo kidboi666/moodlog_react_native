@@ -1,9 +1,6 @@
 import { WEEK_DAY } from '@/core/constants/date';
 import { JournalIndexes, MonthIndexes } from '@/core/store/types/journal.types';
-import { ISODateString, ISOMonthString } from '@/types/date.types';
-import { Journal, Journals } from '@/types/journal.types';
-import { Mood, MoodLevel, SignatureMood } from '@/types/mood.types';
-import { ScoreBoard, TimeRange } from '@/types/statistic.types';
+
 import { castArray, extractKeys } from '@/utils/common';
 import {
   getDayFromISODate,
@@ -11,6 +8,11 @@ import {
   getISOMonthString,
   getThisWeekArray,
 } from '@/utils/date';
+
+import { ISODateString, ISOMonthString } from '@/types/date.types';
+import { Journal, Journals } from '@/types/journal.types';
+import { Mood, MoodLevel, SignatureMood } from '@/types/mood.types';
+import { ScoreBoard, TimeRange } from '@/types/statistic.types';
 
 export class StatisticsService {
   /**

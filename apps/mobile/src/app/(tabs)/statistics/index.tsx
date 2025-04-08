@@ -1,16 +1,20 @@
-import { MoodAverage } from '@/core/components/features/statistics/mood-average/MoodAverage';
+import { useCallback, useState } from 'react';
+
+import { useTranslation } from 'react-i18next';
+
+import { H1, ScrollView } from 'tamagui';
+
 import { TimeRangeZone } from '@/core/components/features/statistics/TimeRangeZone';
-import { TotalCount } from '@/core/components/features/statistics/total-count/TotalCount';
 import { WeeklyMoodChart } from '@/core/components/features/statistics/WeeklyMoodChart';
+import { MoodAverage } from '@/core/components/features/statistics/mood-average/MoodAverage';
+import { TotalCount } from '@/core/components/features/statistics/total-count/TotalCount';
 import { FadeIn } from '@/core/components/shared/FadeIn.styleable';
 import { ANIMATION_DELAY_MS } from '@/core/constants/time';
 import { useCalendar } from '@/core/hooks/useCalendar';
+
 import * as S from '@/styles/screens/statistics/Statistics.styled';
 import { ISOMonthString } from '@/types/date.types';
 import { TimeRange } from '@/types/statistic.types';
-import { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { H1, ScrollView } from 'tamagui';
 
 export default function Screen() {
   const [timeRange, setTimeRange] = useState<TimeRange>(TimeRange.YEARLY);

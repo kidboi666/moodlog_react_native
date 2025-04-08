@@ -1,5 +1,6 @@
+import { View, XStack, styled } from 'tamagui';
+
 import { BottomSheetContainer as HOSBottomSheetContainer } from '@/core/components/modals/BottomSheetContainer';
-import { styled, View, XStack } from 'tamagui';
 
 export const BottomSheetContainer = styled(HOSBottomSheetContainer, {
   pl: 0,

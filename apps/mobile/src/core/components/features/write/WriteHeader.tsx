@@ -1,7 +1,9 @@
-import { ArrowLeft } from '@tamagui/lucide-icons';
-import { useRouter } from 'expo-router';
 import React from 'react';
+
+import { useRouter } from 'expo-router';
+
 import * as S from 'src/core/components/features/write/WriteHeader.styled';
+import { ArrowLeft } from '@tamagui/lucide-icons';
 
 export const WriteHeader = () => {
   const router = useRouter();

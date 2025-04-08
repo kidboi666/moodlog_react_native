@@ -1,14 +1,17 @@
 import { useCallback, useState } from 'react';
-import { ExpansionState } from '@/types/statistic.types';
+
 import {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
+
 import {
   RECORD_CARD_EXPANDED_HEIGHT,
   RECORD_CARD_HEIGHT,
 } from '@/core/constants/size';
+
+import { ExpansionState } from '@/types/statistic.types';
 
 export const useExpandAnimation = () => {
   const [expansionState, setExpansionState] = useState<ExpansionState>(

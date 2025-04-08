@@ -1,5 +1,7 @@
 import { memo } from 'react';
+
 import { useTheme } from 'tamagui';
+
 import * as S from './ContainerFog.styled';
 
 export const ContainerFog = memo(() => {

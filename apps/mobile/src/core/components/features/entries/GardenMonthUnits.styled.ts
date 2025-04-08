@@ -1,4 +1,4 @@
-import { H6, styled, View } from 'tamagui';
+import { H6, View, styled } from 'tamagui';
 
 export const ViewContainer = styled(View, {
   height: '$2',

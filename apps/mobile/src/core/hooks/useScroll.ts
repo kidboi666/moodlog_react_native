@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useNavigation } from 'expo-router';
+
 import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+
+import { useNavigation } from 'expo-router';
 
 export const useScroll = () => {
   const [scrollPosition, setScrollPosition] = useState(0);

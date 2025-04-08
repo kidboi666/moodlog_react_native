@@ -1,6 +1,8 @@
-import * as S from './BottomSheetContainer.styled';
 import { PropsWithChildren } from 'react';
+
 import { ViewProps } from 'tamagui';
+
+import * as S from './BottomSheetContainer.styled';
 
 export const BottomSheetContainer = S.BottomSheetContainer.styleable<
   PropsWithChildren<ViewProps>

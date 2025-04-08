@@ -1,4 +1,5 @@
-import { H1, styled, YStack } from 'tamagui';
+import { H1, YStack, styled } from 'tamagui';
+
 import { ViewContainer as HOSContainer } from '@/core/components/shared/ViewContainer.styleable';
 
 export const ViewContainer = styled(HOSContainer, {

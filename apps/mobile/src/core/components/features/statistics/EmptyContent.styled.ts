@@ -1,4 +1,4 @@
-import { H5, styled, Text, View, YStack } from 'tamagui';
+import { H5, Text, View, YStack, styled } from 'tamagui';
 
 export const ViewContainer = styled(View, {
   flex: 1,

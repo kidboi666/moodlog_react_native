@@ -1,8 +1,9 @@
+import { View, styled } from 'tamagui';
+
 import {
   CONTAINER_HORIZONTAL_PADDING,
   CONTAINER_PADDING_BOTTOM,
 } from '@/core/constants/size';
-import { styled, View } from 'tamagui';
 
 export const ViewContainer = styled(View, {
   flex: 1,

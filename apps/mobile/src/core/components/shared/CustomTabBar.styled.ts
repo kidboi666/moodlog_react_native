@@ -1,6 +1,8 @@
-import { PressableButton } from '@/core/components/shared/PressableButton.styled';
 import { Platform } from 'react-native';
-import { styled, View, XStack } from 'tamagui';
+
+import { View, XStack, styled } from 'tamagui';
+
+import { PressableButton } from '@/core/components/shared/PressableButton.styled';
 
 export const TabBarContainer = styled(XStack, {
   b: 0,

@@ -1,9 +1,12 @@
+import { useTranslation } from 'react-i18next';
+
+import { H3 } from 'tamagui';
+
+import * as S from 'src/core/components/features/statistics/mood-average/ProgressGraph.styled';
+
 import { moodTheme } from '@/core/constants/themes';
 
 import { MoodType } from '@/types/mood.types';
-import { useTranslation } from 'react-i18next';
-import * as S from 'src/core/components/features/statistics/mood-average/ProgressGraph.styled';
-import { H3 } from 'tamagui';
 
 interface Props {
   moodScore: number;

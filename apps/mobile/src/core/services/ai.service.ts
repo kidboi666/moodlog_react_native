@@ -1,9 +1,10 @@
+import { GoogleGenAI } from '@google/genai';
+
 import {
   AI_DAILY_PROMPT,
   AI_SYSTEM_CONTEXT,
   generateComfortPrompt,
 } from '@/core/constants/prompt';
-import { GoogleGenAI } from '@google/genai';
 
 export class GeminiService {
   private gemini: GoogleGenAI;

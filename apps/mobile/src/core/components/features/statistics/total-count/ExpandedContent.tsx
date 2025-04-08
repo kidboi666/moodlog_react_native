@@ -1,11 +1,15 @@
+import { memo } from 'react';
+
+import { useTranslation } from 'react-i18next';
+
+import * as S from 'src/core/components/features/statistics/total-count/ExpandedContent.styled';
+import { Minimize2 } from '@tamagui/lucide-icons';
+
 import { EmptyContent } from '@/core/components/features/statistics/EmptyContent';
 
-import { ExpressiveMonthStats } from '@/types/statistic.types';
 import { getMonthKey } from '@/utils/date';
-import { Minimize2 } from '@tamagui/lucide-icons';
-import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
-import * as S from 'src/core/components/features/statistics/total-count/ExpandedContent.styled';
+
+import { ExpressiveMonthStats } from '@/types/statistic.types';
 
 interface Props {
   frequency: number;

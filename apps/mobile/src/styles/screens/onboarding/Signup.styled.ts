@@ -1,4 +1,4 @@
-import { Button, H3, Paragraph, styled, View, XStack, YStack } from 'tamagui';
+import { Button, H3, Paragraph, View, XStack, YStack, styled } from 'tamagui';
 
 export const YStackContainer = styled(YStack, {
   flex: 1,

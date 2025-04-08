@@ -8,9 +8,7 @@
     "newArchEnabled": true,
     "scheme": "moodlog",
     "userInterfaceStyle": "automatic",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.kidboi666.moodlog"

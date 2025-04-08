@@ -1,4 +1,4 @@
-import { Button, H2, H3, H5, styled, Text, XStack, YStack } from 'tamagui';
+import { Button, H2, H3, H5, Text, XStack, YStack, styled } from 'tamagui';
 
 export const MonthlyStatsContainer = styled(YStack, {
   animation: 'quick',

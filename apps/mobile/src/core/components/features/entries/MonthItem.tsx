@@ -1,8 +1,11 @@
+import { memo } from 'react';
+
+import * as S from 'src/core/components/features/entries/MonthItem.styled';
+
 import { MonthItemContent } from '@/core/components/features/entries/MonthItemContent';
+
 import { ISODateString, ISOMonthString, MonthKey } from '@/types/date.types';
 import { Mood } from '@/types/mood.types';
-import { memo } from 'react';
-import * as S from 'src/core/components/features/entries/MonthItem.styled';
 
 interface Props {
   monthData: {

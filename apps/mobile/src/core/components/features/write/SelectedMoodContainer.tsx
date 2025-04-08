@@ -1,7 +1,10 @@
-import { MoodLevel, MoodType } from '@/types/mood.types';
 import React from 'react';
+
 import { useTranslation } from 'react-i18next';
+
 import * as S from 'src/core/components/features/write/SelectedMoodContainer.styled';
+
+import { MoodLevel, MoodType } from '@/types/mood.types';
 
 interface Props {
   moodType?: MoodType;

@@ -1,6 +1,8 @@
 import { Toast, useToastState } from '@tamagui/toast';
-import * as S from './CurrentToast.styled';
+
 import { useAppTheme } from '@/core/store/contexts/theme.context';
+
+import * as S from './CurrentToast.styled';
 
 export const CurrentToast = () => {
   const currentToast = useToastState();

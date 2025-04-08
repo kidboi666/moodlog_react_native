@@ -1,8 +1,9 @@
 import { STORAGE_KEY } from '@/core/constants/storage';
-import { Settings } from '@/core/store/types/app.types';
-import { Nullable } from '@/types/utill.types';
-import { ISODateString } from '@/types/date.types';
 import { StorageService } from '@/core/services/storage.service';
+import { Settings } from '@/core/store/types/app.types';
+
+import { ISODateString } from '@/types/date.types';
+import { Nullable } from '@/types/utill.types';
 
 export class AppService extends StorageService {
   static async loadSettings(): Promise<Nullable<Settings>> {

@@ -1,6 +1,7 @@
+import { H3, Paragraph, YStack, styled } from 'tamagui';
+
 import { BottomSheetContainer as HOSBottomSheetContainer } from '@/core/components/modals/BottomSheetContainer';
 import { PressableButton } from '@/core/components/shared/PressableButton.styled';
-import { H3, Paragraph, styled, YStack } from 'tamagui';
 
 export const BottomSheetContainer = styled(HOSBottomSheetContainer);
 

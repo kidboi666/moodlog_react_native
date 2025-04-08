@@ -1,11 +1,14 @@
+import { useTranslation } from 'react-i18next';
+
+import { H3, Text } from 'tamagui';
+
+import * as S from 'src/core/components/features/statistics/mood-average/ExpandedContent.styled';
+import { Minimize2 } from '@tamagui/lucide-icons';
+
 import { ProgressGraph } from '@/core/components/features/statistics/mood-average/ProgressGraph';
 
 import { MoodType } from '@/types/mood.types';
 import { ScoreBoard } from '@/types/statistic.types';
-import { Minimize2 } from '@tamagui/lucide-icons';
-import { useTranslation } from 'react-i18next';
-import * as S from 'src/core/components/features/statistics/mood-average/ExpandedContent.styled';
-import { H3, Text } from 'tamagui';
 
 interface Props {
   scoreBoard: ScoreBoard;

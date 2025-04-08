@@ -1,4 +1,5 @@
-import { H1, styled, XStack } from 'tamagui';
+import { H1, XStack, styled } from 'tamagui';
+
 import { LinearGradient } from 'tamagui/linear-gradient';
 
 export const OuterGradientBox = styled(LinearGradient, {

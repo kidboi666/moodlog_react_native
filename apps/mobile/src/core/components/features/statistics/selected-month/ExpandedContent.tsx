@@ -1,11 +1,14 @@
-import { moodTheme } from '@/core/constants/themes';
-import { MoodLevel, MoodType } from '@/types/mood.types';
-
-import { SelectedMonthStats } from '@/types/statistic.types';
-import { getMonthKey } from '@/utils/date';
-import { Minimize2 } from '@tamagui/lucide-icons';
 import { useTranslation } from 'react-i18next';
+
 import * as S from 'src/core/components/features/statistics/selected-month/ExpandedContent.styled';
+import { Minimize2 } from '@tamagui/lucide-icons';
+
+import { moodTheme } from '@/core/constants/themes';
+
+import { getMonthKey } from '@/utils/date';
+
+import { MoodLevel, MoodType } from '@/types/mood.types';
+import { SelectedMonthStats } from '@/types/statistic.types';
 
 interface Props {
   selectedMonthStats: SelectedMonthStats;

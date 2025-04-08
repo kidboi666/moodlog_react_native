@@ -1,10 +1,13 @@
+import { useCallback } from 'react';
+
+import { RadioGroup } from 'tamagui';
+
 import { SettingHeader } from '@/core/components/features/settings/SettingHeader';
 import { RadioGroupItem } from '@/core/components/shared/RadioGroupItem';
 import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable';
 import { useApp } from '@/core/store/contexts/app.context';
+
 import { Languages } from '@/types/app.types';
-import { useCallback } from 'react';
-import { RadioGroup } from 'tamagui';
 
 export default function Screen() {
   const { language, onSettingChange } = useApp();

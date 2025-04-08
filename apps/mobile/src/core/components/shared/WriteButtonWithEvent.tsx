@@ -1,3 +1,12 @@
+import { memo, useCallback, useEffect, useState } from 'react';
+
+import { Keyboard } from 'react-native';
+
+import { useTranslation } from 'react-i18next';
+
+import { Plus } from '@tamagui/lucide-icons';
+import { useToastController } from '@tamagui/toast';
+
 import * as S from '@/core/components/shared/CustomTabBar.styled';
 import {
   JOURNAL_WRITE_SNAP_POINTS,
@@ -6,13 +15,9 @@ import {
 import { useBottomSheet } from '@/core/store/contexts/bottom-sheet.context';
 import { useJournal } from '@/core/store/contexts/journal.context';
 import { BottomSheetType } from '@/core/store/types/bottom-sheet.types';
+
 import { Draft } from '@/types/journal.types';
 import { Mood } from '@/types/mood.types';
-import { Plus } from '@tamagui/lucide-icons';
-import { useToastController } from '@tamagui/toast';
-import { memo, useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Keyboard } from 'react-native';
 
 export const WriteButtonWithEvent = memo(() => {
   const { showBottomSheet, hideBottomSheet } = useBottomSheet();

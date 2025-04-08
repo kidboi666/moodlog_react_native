@@ -1,4 +1,4 @@
-import { styled, XStack, YStack } from 'tamagui';
+import { XStack, YStack, styled } from 'tamagui';
 
 export const GardenContainer = styled(XStack, {
   gap: '$2',

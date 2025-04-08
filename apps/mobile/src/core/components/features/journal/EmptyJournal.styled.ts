@@ -1,5 +1,6 @@
+import { Button, H3, H5, YStack, styled } from 'tamagui';
+
 import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/styles/animations';
-import { Button, H3, H5, styled, YStack } from 'tamagui';
 
 export const TodayContainer = styled(YStack, {
   justify: 'center',

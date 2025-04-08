@@ -1,3 +1,11 @@
+import React, { useCallback, useEffect } from 'react';
+
+import { useTranslation } from 'react-i18next';
+
+import { useLocalSearchParams, useRouter } from 'expo-router';
+
+import { ScrollView } from 'tamagui';
+
 import { JournalHeader } from '@/core/components/features/journal/JournalHeader';
 import { DELETE_JOURNAL_SNAP_POINTS } from '@/core/constants/size';
 import { moodTheme } from '@/core/constants/themes';
@@ -5,12 +13,10 @@ import { useApp } from '@/core/store/contexts/app.context';
 import { useBottomSheet } from '@/core/store/contexts/bottom-sheet.context';
 import { useJournal } from '@/core/store/contexts/journal.context';
 import { BottomSheetType } from '@/core/store/types/bottom-sheet.types';
-import * as S from '@/styles/screens/journal/Journal.styled';
+
 import { toSingle } from '@/utils/common';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useCallback, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { ScrollView } from 'tamagui';
+
+import * as S from '@/styles/screens/journal/Journal.styled';
 
 export default function Screen() {
   const { id } = useLocalSearchParams();

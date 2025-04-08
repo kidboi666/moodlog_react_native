@@ -1,4 +1,4 @@
-import { styled, YStack } from 'tamagui';
+import { YStack, styled } from 'tamagui';
 
 import { ViewContainer as HOSContainer } from '@/core/components/shared/ViewContainer.styleable';
 

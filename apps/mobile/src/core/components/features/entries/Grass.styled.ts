@@ -1,4 +1,4 @@
-import { styled, View } from 'tamagui';
+import { View, styled } from 'tamagui';
 
 export const Grass = styled(View, {
   width: 16,

@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+
 import * as S from './NotificationIcon.styled';
 
 interface Props {

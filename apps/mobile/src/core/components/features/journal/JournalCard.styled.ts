@@ -1,13 +1,16 @@
+import { Card, Image, Paragraph, View, XStack, YStack, styled } from 'tamagui';
+
+import { LinearGradient } from 'tamagui/linear-gradient';
+
 import { PressableButton } from '@/core/components/shared/PressableButton.styled';
 import { RenderTime } from '@/core/components/shared/RenderTime.styleable';
+
 import {
   MOUNT_STYLE,
   MOUNT_STYLE_KEY,
   PRESS_STYLE,
   PRESS_STYLE_KEY,
 } from '@/styles/animations';
-import { Card, Image, Paragraph, styled, View, XStack, YStack } from 'tamagui';
-import { LinearGradient } from 'tamagui/linear-gradient';
 
 export const Container = styled(View, {
   animation: 'quick',

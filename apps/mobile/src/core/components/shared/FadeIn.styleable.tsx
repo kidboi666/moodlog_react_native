@@ -1,8 +1,11 @@
-import { useFadeIn } from '@/core/hooks/useFadeIn';
-import { ViewProps } from 'tamagui';
-import * as S from './FadeIn.styled';
 import { memo } from 'react';
+
+import { ViewProps } from 'tamagui';
+
 import { ANIMATION_DELAY_MS } from '@/core/constants/time';
+import { useFadeIn } from '@/core/hooks/useFadeIn';
+
+import * as S from './FadeIn.styled';
 
 interface Props extends ViewProps {
   delay?: number;

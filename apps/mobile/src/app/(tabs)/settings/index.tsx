@@ -1,11 +1,17 @@
+import { useCallback } from 'react';
+
+import { useTranslation } from 'react-i18next';
+
+import { Href, useRouter } from 'expo-router';
+
+import { Button, H1, ScrollView } from 'tamagui';
+
+import { Clock, Computer, Globe, Moon } from '@tamagui/lucide-icons';
+
 import { NavigationSettingItem } from '@/core/components/features/settings/NavigationSettingItem';
 import { useDev } from '@/core/hooks/useDev';
+
 import * as S from '@/styles/screens/settings/Settings.styled';
-import { Clock, Computer, Globe, Moon } from '@tamagui/lucide-icons';
-import { Href, useRouter } from 'expo-router';
-import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Button, H1, ScrollView } from 'tamagui';
 
 export default function Screen() {
   const { t } = useTranslation();

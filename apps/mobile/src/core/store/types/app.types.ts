@@ -1,6 +1,6 @@
 import { Languages, TimeFormat, ViewFontSize } from '@/types/app.types';
-import { Nullable } from '@/types/utill.types';
 import { ISODateString } from '@/types/date.types';
+import { Nullable } from '@/types/utill.types';
 
 export type Settings = {
   fontSize: ViewFontSize;

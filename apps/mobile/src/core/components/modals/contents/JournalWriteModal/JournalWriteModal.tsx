@@ -1,3 +1,15 @@
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+
+import { KeyboardAvoidingView, Platform } from 'react-native';
+
+import { Form, XStack, useTheme } from 'tamagui';
+
 import { ActionButtons } from '@/core/components/modals/contents/JournalWriteModal/components/ActionButtons';
 import {
   EnhancedTextInput,
@@ -6,17 +18,10 @@ import {
 import { KEYBOARD_VERTICAL_OFFSET } from '@/core/constants/size';
 import { moodTheme } from '@/core/constants/themes';
 import { ImageService } from '@/core/services/image.service';
+
 import { Draft } from '@/types/journal.types';
 import { MoodLevel, MoodType } from '@/types/mood.types';
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
-import { Form, useTheme, XStack } from 'tamagui';
+
 import * as S from './JournalWriteModal.styled';
 
 const initialDraft: Draft = {

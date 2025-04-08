@@ -1,22 +1,30 @@
-import '../../tamagui-web.css';
-import { BottomSheet } from '@/core/components/modals/BottomSheet';
-import { StatusBar } from '@/core/components/shared/StatusBar';
-import { RootProvider } from '@/core/providers/RootProvider';
-import { useAppTheme } from '@/core/store/contexts/theme.context';
-import '@/lib/i18n/index.js';
+import React, { useEffect, useMemo } from 'react';
+
+import { Platform } from 'react-native';
+
+import * as NavigationBar from 'expo-navigation-bar';
+import * as SplashScreen from 'expo-splash-screen';
+import { useFonts } from 'expo-font';
+import { Stack } from 'expo-router';
+
+import { useTheme } from 'tamagui';
+
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import * as NavigationBar from 'expo-navigation-bar';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import React, { useEffect, useMemo } from 'react';
-import { Platform } from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useTheme } from 'tamagui';
+
+import { BottomSheet } from '@/core/components/modals/BottomSheet';
+import { StatusBar } from '@/core/components/shared/StatusBar';
+import { RootProvider } from '@/core/providers/RootProvider';
+import { useAppTheme } from '@/core/store/contexts/theme.context';
+
+import '@/lib/i18n/index.js';
+
+import '../../tamagui-web.css';
 
 const FONTS = {
   'Pretendard-Bold': require('assets/fonts/Pretendard-Bold.ttf'),

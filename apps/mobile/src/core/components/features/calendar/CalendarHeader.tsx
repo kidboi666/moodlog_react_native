@@ -1,8 +1,11 @@
-import { WEEK_DAY } from '@/core/constants/date';
-import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
 import { useTranslation } from 'react-i18next';
-import * as S from 'src/core/components/features/calendar/CalendarHeader.styled';
+
 import { Text } from 'tamagui';
+
+import * as S from 'src/core/components/features/calendar/CalendarHeader.styled';
+import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
+
+import { WEEK_DAY } from '@/core/constants/date';
 
 export const CalendarHeader = () => {
   const { t } = useTranslation();
