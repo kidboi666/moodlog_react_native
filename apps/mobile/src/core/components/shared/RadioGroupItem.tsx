@@ -1,3 +1,5 @@
+import { XStack } from 'tamagui';
+
 import * as S from './RadioGroupItem.styled';
 
 interface Props {

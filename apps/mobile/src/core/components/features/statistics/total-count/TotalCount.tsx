@@ -6,7 +6,7 @@ import { CollapsedContent } from '@/core/components/features/statistics/total-co
 import { ExpandedContent } from '@/core/components/features/statistics/total-count/ExpandedContent';
 import { useExpandAnimation } from '@/core/hooks/useExpandAnimation';
 import { useJournalStats } from '@/core/hooks/useJournalStats';
-import { useUser } from '@/core/store/contexts/user.context';
+import { useUser } from '@/core/store/user.store';
 
 import { ISOMonthString } from '@/types/date.types';
 import { ExpansionState, TimeRange } from '@/types/statistic.types';
@@ -24,11 +24,13 @@ export const TotalCount = ({
   selectedYear,
   selectedMonth,
 }: Props) => {
-  const { stats } = useJournalStats(timeRange, selectedYear, selectedMonth);
-  const { userInfo } = useUser();
+  const userInfo = useUser(state => state.userInfo);
   const { daysSinceSignup } = userInfo ?? null;
+  const { stats } = useJournalStats(timeRange, selectedYear, selectedMonth);
   const { animatedStyle, expansionState, onPress } = useExpandAnimation();
+
   const { expressiveMonth, totalCount, frequency, activeDay } = stats || {};
+
   return (
     <AnimatedCardContainer onPress={onPress} style={animatedStyle}>
       {expansionState === ExpansionState.EXPANDED ? (

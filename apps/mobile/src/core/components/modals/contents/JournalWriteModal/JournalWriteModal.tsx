@@ -24,12 +24,6 @@ import { MoodLevel, MoodType } from '@/types/mood.types';
 
 import * as S from './JournalWriteModal.styled';
 
-const initialDraft: Draft = {
-  content: '',
-  mood: undefined,
-  imageUri: '',
-};
-
 interface Props {
   moodType: MoodType;
   moodLevel: MoodLevel;
@@ -45,31 +39,27 @@ export const JournalWriteModal = ({
   isSubmitted,
   onSubmit,
 }: Props) => {
-  const [draft, setDraft] = useState<Draft>(initialDraft);
+  const theme = useTheme();
+  const [draft, setDraft] = useState<Draft>({
+    content: '',
+    mood: {
+      type: moodType,
+      level: moodLevel,
+    },
+    imageUri: '',
+  });
+  const inputRef = useRef<EnhancedTextInputRef>(null);
 
   const handleContentChange = useCallback((content: string) => {
     setDraft(prev => ({ ...prev, content }));
   }, []);
 
-  useEffect(() => {
-    setDraft(prev => ({
-      ...prev,
-      mood: {
-        type: moodType,
-        level: moodLevel,
-      },
-    }));
-  }, []);
-
-  const inputRef = useRef<EnhancedTextInputRef>(null);
-  const theme = useTheme();
-
   const handleImageUriChange = useCallback(async () => {
     try {
-      const newFilePath = await ImageService.getJournalCoverPath();
-      newFilePath
-        ? setDraft(prev => ({ ...prev, imageUri: newFilePath }))
-        : null;
+      const newFilePath = await ImageService.createNewFileName();
+      setDraft(prev =>
+        newFilePath ? { ...prev, imageUri: newFilePath } : prev,
+      );
     } catch (err) {
       console.error('Image saving error ', err);
       return null;
@@ -78,7 +68,7 @@ export const JournalWriteModal = ({
 
   const handleTimeStamp = useCallback(() => {
     inputRef.current?.insertCurrentTime();
-  }, []);
+  }, [inputRef]);
 
   const contentContainerStyle = useMemo(
     () => ({

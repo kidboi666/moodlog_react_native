@@ -1,7 +1,7 @@
 import { STORAGE_KEY } from '@/core/constants/storage';
 import { StorageService } from '@/core/services/storage.service';
-import { Settings } from '@/core/store/types/app.types';
 
+import { Settings } from '@/types/app.types';
 import { ISODateString } from '@/types/date.types';
 import { Nullable } from '@/types/utill.types';
 

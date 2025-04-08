@@ -10,7 +10,7 @@ import { FadeIn } from '@/core/components/shared/FadeIn.styleable';
 import { ShakeEmoji } from '@/core/components/shared/ShakeEmoji';
 import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable';
 import { ANIMATION_DELAY_SECONDS } from '@/core/constants/time';
-import { useStepProgress } from '@/core/store/contexts/step-progress.context';
+import { useStepProgress } from '@/core/store/step-progress.store';
 
 import * as S from '@/styles/screens/onboarding/Welcome.styled';
 

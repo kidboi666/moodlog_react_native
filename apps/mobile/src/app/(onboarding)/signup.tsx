@@ -11,9 +11,9 @@ import { ArrowLeft, Check } from '@tamagui/lucide-icons';
 import { FadeIn } from '@/core/components/shared/FadeIn.styleable';
 import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable';
 import { ANIMATION_DELAY_SECONDS } from '@/core/constants/time';
-import { useApp } from '@/core/store/contexts/app.context';
-import { useStepProgress } from '@/core/store/contexts/step-progress.context';
-import { useUser } from '@/core/store/contexts/user.context';
+import { useApp } from '@/core/store/app.store';
+import { useStepProgress } from '@/core/store/step-progress.store';
+import { useUser } from '@/core/store/user.store';
 
 import * as S from '@/styles/screens/onboarding/Signup.styled';
 

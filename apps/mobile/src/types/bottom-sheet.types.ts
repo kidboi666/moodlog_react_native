@@ -8,6 +8,20 @@ export enum BottomSheetType {
   JOURNAL_WRITE = 'JOURNAL_WRITE',
 }
 
+export interface BottomSheetStore {
+  isOpen: boolean;
+  type: Nullable<BottomSheetType>;
+  snapPoint: number[] | string[];
+  props: any;
+
+  showBottomSheet: <T extends BottomSheetType>(
+    type: T,
+    snapPoint: number[] | string[],
+    props: BottomSheetProps[T],
+  ) => void;
+  hideBottomSheet: () => void;
+}
+
 export type BottomSheetProps = {
   [BottomSheetType.DELETE_JOURNAL]: {
     journalId: string;
@@ -27,31 +41,3 @@ export type BottomSheetProps = {
     isSubmitted: boolean;
   };
 };
-
-export type BottomSheetState = {
-  isOpen: boolean;
-  type: Nullable<BottomSheetType>;
-  snapPoint: number[] | string[];
-  props: any;
-};
-
-export type BottomSheetAction =
-  | {
-      type: 'OPEN_BOTTOM_SHEET';
-      payload: {
-        type: BottomSheetType;
-        props: any;
-        snapPoint: number[] | string[];
-      };
-    }
-  | { type: 'CLOSE_BOTTOM_SHEET' };
-
-export interface BottomSheetContextType {
-  state: BottomSheetState;
-  showBottomSheet: <T extends BottomSheetType>(
-    type: T,
-    snapPoint: number[] | string[],
-    props: BottomSheetProps[T],
-  ) => void;
-  hideBottomSheet: () => void;
-}

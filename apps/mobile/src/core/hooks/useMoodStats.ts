@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { StatisticsService } from '@/core/services/statistics.service';
-import { useJournal } from '@/core/store/contexts/journal.context';
+import { useJournal } from '@/core/store/journal.store';
 
 import { ISOMonthString } from '@/types/date.types';
 import { TimeRange } from '@/types/statistic.types';
@@ -11,7 +11,9 @@ export const useMoodStats = (
   selectedYear: number,
   selectedMonth: ISOMonthString,
 ) => {
-  const { journals, indexes, isLoading } = useJournal();
+  const journals = useJournal(state => state.store.journals);
+  const indexes = useJournal(state => state.store.indexes);
+  const isLoading = useJournal(state => state.isLoading);
 
   const yearlyStats = useMemo(
     () =>

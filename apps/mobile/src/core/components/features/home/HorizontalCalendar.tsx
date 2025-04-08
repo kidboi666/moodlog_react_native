@@ -9,7 +9,7 @@ import * as S from 'src/core/components/features/home/HorizontalCalendar.styled'
 import { DateCountDot } from '@/core/components/features/home/DateCountDot';
 import { CALENDAR_SCROLL_SIZE } from '@/core/constants/size';
 import { useCalendar } from '@/core/hooks/useCalendar';
-import { useJournal } from '@/core/store/contexts/journal.context';
+import { useJournal } from '@/core/store/journal.store';
 
 import {
   getDateFromISODate,
@@ -22,7 +22,8 @@ import {
 import { ISODateString } from '@/types/date.types';
 
 export const HorizontalCalendar = () => {
-  const { getCountForDate, selectJournals } = useJournal();
+  const selectJournals = useJournal(state => state.selectJournals);
+  const getCountForDate = useJournal(state => state.getCountForDate);
   const { t } = useTranslation();
   const scrollViewRef = useRef<ScrollView>(null);
   const {
@@ -82,52 +83,50 @@ export const HorizontalCalendar = () => {
 
   return (
     <S.CalendarContainer>
-      <View>
-        <ScrollView
-          ref={scrollViewRef}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          decelerationRate="fast"
-          snapToAlignment="start"
-          snapToInterval={CALENDAR_SCROLL_SIZE}
-        >
-          {Object.entries(dates).map(([date, journalCount]) => {
-            const isoDate = date as ISODateString;
-            return (
-              <S.DateContainer
-                key={isoDate}
-                isSelected={isSelected(isoDate)}
-                isToday={isToday(isoDate)}
-                onPress={() => handleCalendarDateChange(isoDate)}
-              >
-                <S.DateWrapper>
-                  <S.DateTextWrapper>
-                    <S.DayText isSelected={isSelected(isoDate)}>
-                      {t(`calendar.days.${getDayFromISODate(isoDate)}`)}
-                    </S.DayText>
-                    <S.DateText
-                      futureDateColor={
-                        isFuture(isoDate)
-                          ? '$gray11'
-                          : isSelected(isoDate)
-                            ? '$gray12'
-                            : '$gray6'
-                      }
-                    >
-                      {getDateFromISODate(isoDate)}
-                    </S.DateText>
-                  </S.DateTextWrapper>
-                  <DateCountDot
-                    variant="contained"
-                    journalCount={journalCount}
-                    isSelected={isSelected(isoDate)}
-                  />
-                </S.DateWrapper>
-              </S.DateContainer>
-            );
-          })}
-        </ScrollView>
-      </View>
+      <ScrollView
+        ref={scrollViewRef}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        decelerationRate="normal"
+        snapToAlignment="start"
+        snapToInterval={CALENDAR_SCROLL_SIZE}
+      >
+        {Object.entries(dates).map(([date, journalCount]) => {
+          const isoDate = date as ISODateString;
+          return (
+            <S.DateContainer
+              key={isoDate}
+              isSelected={isSelected(isoDate)}
+              isToday={isToday(isoDate)}
+              onPress={() => handleCalendarDateChange(isoDate)}
+            >
+              <S.DateWrapper>
+                <S.DateTextWrapper>
+                  <S.DayText isSelected={isSelected(isoDate)}>
+                    {t(`calendar.days.${getDayFromISODate(isoDate)}`)}
+                  </S.DayText>
+                  <S.DateText
+                    futureDateColor={
+                      isFuture(isoDate)
+                        ? '$gray11'
+                        : isSelected(isoDate)
+                          ? '$gray12'
+                          : '$gray6'
+                    }
+                  >
+                    {getDateFromISODate(isoDate)}
+                  </S.DateText>
+                </S.DateTextWrapper>
+                <DateCountDot
+                  variant="contained"
+                  journalCount={journalCount}
+                  isSelected={isSelected(isoDate)}
+                />
+              </S.DateWrapper>
+            </S.DateContainer>
+          );
+        })}
+      </ScrollView>
     </S.CalendarContainer>
   );
 };

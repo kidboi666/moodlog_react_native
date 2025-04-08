@@ -5,14 +5,25 @@ import { Redirect, Tabs } from 'expo-router';
 import { ContainerFog } from '@/core/components/shared/ContainerFog';
 import { CustomTabBar } from '@/core/components/shared/CustomTabBar';
 import { FullSpinner } from '@/core/components/shared/FullSpinner';
-import { useApp } from '@/core/store/contexts/app.context';
+import { useApp } from '@/core/store/app.store';
+import { useJournal } from '@/core/store/journal.store';
 
 export default function Layout() {
-  const { initAppData, isInitialApp, firstLaunchDate, isLoading } = useApp();
+  const isInitialApp = useApp(state => state.isInitialApp);
+  const firstLaunchDate = useApp(state => state.firstLaunchDate);
+  const isLoading = useApp(state => state.isLoading);
+  const initAppData = useApp(state => state.initAppData);
+  const initJournals = useJournal(state => state.initJournals);
 
   useEffect(() => {
     initAppData();
   }, [initAppData]);
+
+  useEffect(() => {
+    if (isInitialApp) {
+      initJournals();
+    }
+  }, [isInitialApp, initJournals]);
 
   if (isLoading || !isInitialApp) {
     return <FullSpinner size="large" />;

@@ -7,9 +7,9 @@ import {
   ANIMATION_DELAY_MS,
   ANIMATION_DELAY_SECONDS,
 } from '@/core/constants/time';
-import { SelectedJournals } from '@/core/store/types/journal.types';
 
 import { ISODateString } from '@/types/date.types';
+import { SelectedJournals } from '@/types/journal.types';
 import { Nullable } from '@/types/utill.types';
 
 interface Props {

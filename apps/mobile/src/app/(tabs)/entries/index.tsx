@@ -11,34 +11,48 @@ import { FadeIn } from '@/core/components/shared/FadeIn.styleable';
 import { DELETE_JOURNAL_SNAP_POINTS } from '@/core/constants/size';
 import { ANIMATION_DELAY_MS } from '@/core/constants/time';
 import { useCalendar } from '@/core/hooks/useCalendar';
-import { useBottomSheet } from '@/core/store/contexts/bottom-sheet.context';
-import { useJournal } from '@/core/store/contexts/journal.context';
-import { BottomSheetType } from '@/core/store/types/bottom-sheet.types';
+import { useBottomSheet } from '@/core/store/bottom-sheet.store';
+import { useJournal } from '@/core/store/journal.store';
 
 import * as S from '@/styles/screens/entries/Entries.styled';
+import { BottomSheetType } from '@/types/bottom-sheet.types';
 
 export default function Screen() {
-  const { selectedJournals, selectJournals, isLoading, removeJournal } =
-    useJournal();
-  const { showBottomSheet, hideBottomSheet } = useBottomSheet();
+  const selectedJournals = useJournal(state => state.selectedJournals);
+  const isLoading = useJournal(state => state.isLoading);
+  const selectJournals = useJournal(state => state.selectJournals);
+  const removeJournal = useJournal(state => state.removeJournal);
+  const showBottomSheet = useBottomSheet(state => state.showBottomSheet);
+  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet);
+
   const { selectedMonth } = useCalendar();
   const { t } = useTranslation();
 
-  const handleDeletePress = useCallback((id: string) => {
-    showBottomSheet(
-      BottomSheetType.DELETE_JOURNAL,
-      DELETE_JOURNAL_SNAP_POINTS,
-      {
-        journalId: id,
-        isLoading,
-        onDelete: removeJournal,
-        hideBottomSheet,
-        onSuccess: () => {
-          selectJournals(selectedMonth);
+  const handleDeletePress = useCallback(
+    (id: string) => {
+      showBottomSheet(
+        BottomSheetType.DELETE_JOURNAL,
+        DELETE_JOURNAL_SNAP_POINTS,
+        {
+          journalId: id,
+          isLoading,
+          onDelete: removeJournal,
+          hideBottomSheet,
+          onSuccess: () => {
+            selectJournals(selectedMonth);
+          },
         },
-      },
-    );
-  }, []);
+      );
+    },
+    [
+      showBottomSheet,
+      hideBottomSheet,
+      isLoading,
+      selectedMonth,
+      removeJournal,
+      selectJournals,
+    ],
+  );
 
   return (
     <ScrollView>

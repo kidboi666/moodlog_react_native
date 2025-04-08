@@ -5,11 +5,9 @@ import { Sheet } from '@tamagui/sheet';
 import { DeleteJournalModal } from '@/core/components/modals/contents/DeleteJournalModal/DeleteJournalModal';
 import { JournalWriteModal } from '@/core/components/modals/contents/JournalWriteModal/JournalWriteModal';
 import { SelectMoodModal } from '@/core/components/modals/contents/SelectMoodModal/SelectMoodModal';
-import { useBottomSheet } from '@/core/store/contexts/bottom-sheet.context';
-import {
-  BottomSheetProps,
-  BottomSheetType,
-} from '@/core/store/types/bottom-sheet.types';
+import { useBottomSheet } from '@/core/store/bottom-sheet.store';
+
+import { BottomSheetProps, BottomSheetType } from '@/types/bottom-sheet.types';
 
 const SheetContentComponents = {
   [BottomSheetType.DELETE_JOURNAL]: memo(
@@ -30,8 +28,7 @@ const SheetContentComponents = {
 };
 
 export const BottomSheet = memo(() => {
-  const { state, hideBottomSheet } = useBottomSheet();
-  const { isOpen, type, snapPoint, props } = state;
+  const { isOpen, type, snapPoint, props, hideBottomSheet } = useBottomSheet();
 
   const renderContent = () => {
     if (!type) return null;

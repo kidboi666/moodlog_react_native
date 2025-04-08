@@ -5,7 +5,6 @@ import { PressableButton } from '@/core/components/shared/PressableButton.styled
 import { MOUNT_STYLE } from '@/styles/animations';
 
 export const RadioGroupContainerButton = styled(PressableButton, {
-  elevate: false,
   width: '100%',
   justify: 'flex-start',
   bg: '$background',

@@ -5,12 +5,13 @@ import { RadioGroup } from 'tamagui';
 import { SettingHeader } from '@/core/components/features/settings/SettingHeader';
 import { RadioGroupItem } from '@/core/components/shared/RadioGroupItem';
 import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable';
-import { useApp } from '@/core/store/contexts/app.context';
+import { useApp } from '@/core/store/app.store';
 
 import { Languages } from '@/types/app.types';
 
 export default function Screen() {
-  const { language, onSettingChange } = useApp();
+  const language = useApp(state => state.settings.language);
+  const onSettingChange = useApp(state => state.onSettingChange);
 
   const handleValueChange = useCallback(
     (language: string) => {

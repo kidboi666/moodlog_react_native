@@ -1,6 +1,6 @@
 import { Toast, useToastState } from '@tamagui/toast';
 
-import { useAppTheme } from '@/core/store/contexts/theme.context';
+import { useAppTheme } from '@/core/store/theme.store';
 
 import * as S from './CurrentToast.styled';
 

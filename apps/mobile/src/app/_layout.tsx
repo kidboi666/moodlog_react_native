@@ -20,7 +20,7 @@ import {
 import { BottomSheet } from '@/core/components/modals/BottomSheet';
 import { StatusBar } from '@/core/components/shared/StatusBar';
 import { RootProvider } from '@/core/providers/RootProvider';
-import { useAppTheme } from '@/core/store/contexts/theme.context';
+import { useAppTheme } from '@/core/store/theme.store';
 
 import '@/lib/i18n/index.js';
 

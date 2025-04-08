@@ -7,12 +7,13 @@ import { RadioGroup } from 'tamagui';
 import { SettingHeader } from '@/core/components/features/settings/SettingHeader';
 import { RadioGroupItem } from '@/core/components/shared/RadioGroupItem';
 import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable';
-import { useAppTheme } from '@/core/store/contexts/theme.context';
+import { useAppTheme } from '@/core/store/theme.store';
 
-import { Theme } from '@/types/app.types';
+import { Theme } from '@/types/theme.types';
 
 export default function Screen() {
-  const { currentTheme, changeTheme } = useAppTheme();
+  const currentTheme = useAppTheme(state => state.currentTheme);
+  const changeTheme = useAppTheme(state => state.changeTheme);
   const { t } = useTranslation();
 
   const handleValueChange = useCallback(
@@ -30,16 +31,21 @@ export default function Screen() {
         name="theme"
         gap="$4"
       >
+        {/* system */}
         <RadioGroupItem
           value="system"
           label={t(`settings.theme.system`)}
           onValueChange={handleValueChange}
         />
+
+        {/* dark */}
         <RadioGroupItem
           value="dark"
           label={t(`settings.theme.dark`)}
           onValueChange={handleValueChange}
         />
+
+        {/* light */}
         <RadioGroupItem
           value="light"
           label={t(`settings.theme.light`)}

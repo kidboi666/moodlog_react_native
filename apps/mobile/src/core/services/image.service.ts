@@ -17,7 +17,7 @@ export class ImageService {
     return `${JOURNAL_IMAGES_DIR}${fileName}`;
   }
 
-  static async getJournalCoverPath() {
+  static async createNewFileName() {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (status !== PermissionStatus.GRANTED) {

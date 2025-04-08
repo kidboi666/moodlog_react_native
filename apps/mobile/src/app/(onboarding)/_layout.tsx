@@ -3,13 +3,13 @@ import { Stack } from 'expo-router';
 import { useTheme } from 'tamagui';
 
 import { OnboardingHeader } from '@/core/components/features/onboarding/OnboardingHeader';
-import { StepProgressContextProvider } from '@/core/store/contexts/step-progress.context';
+import { StepProgressProvider } from '@/core/store/step-progress.store';
 
 export default function Layout() {
   const theme = useTheme();
 
   return (
-    <StepProgressContextProvider totalSteps={3}>
+    <StepProgressProvider totalSteps={3}>
       <Stack
         initialRouteName="welcome"
         screenOptions={{
@@ -26,6 +26,6 @@ export default function Layout() {
         <Stack.Screen name="nickname" />
         <Stack.Screen name="signup" />
       </Stack>
-    </StepProgressContextProvider>
+    </StepProgressProvider>
   );
 }

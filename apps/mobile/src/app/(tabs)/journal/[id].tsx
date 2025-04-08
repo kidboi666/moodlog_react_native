@@ -9,23 +9,26 @@ import { ScrollView } from 'tamagui';
 import { JournalHeader } from '@/core/components/features/journal/JournalHeader';
 import { DELETE_JOURNAL_SNAP_POINTS } from '@/core/constants/size';
 import { moodTheme } from '@/core/constants/themes';
-import { useApp } from '@/core/store/contexts/app.context';
-import { useBottomSheet } from '@/core/store/contexts/bottom-sheet.context';
-import { useJournal } from '@/core/store/contexts/journal.context';
-import { BottomSheetType } from '@/core/store/types/bottom-sheet.types';
+import { useApp } from '@/core/store/app.store';
+import { useBottomSheet } from '@/core/store/bottom-sheet.store';
+import { useJournal } from '@/core/store/journal.store';
 
 import { toSingle } from '@/utils/common';
 
 import * as S from '@/styles/screens/journal/Journal.styled';
+import { BottomSheetType } from '@/types/bottom-sheet.types';
 
 export default function Screen() {
   const { id } = useLocalSearchParams();
   const journalId = toSingle(id);
   const router = useRouter();
-  const { selectedJournal, selectJournal, isLoading, removeJournal } =
-    useJournal();
-  const { showBottomSheet, hideBottomSheet } = useBottomSheet();
-  const { fontSize } = useApp();
+  const selectedJournal = useJournal(state => state.selectedJournal);
+  const selectJournal = useJournal(state => state.selectJournal);
+  const isLoading = useJournal(state => state.isLoading);
+  const removeJournal = useJournal(state => state.removeJournal);
+  const showBottomSheet = useBottomSheet(state => state.showBottomSheet);
+  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet);
+  const fontSize = useApp(state => state.settings.fontSize);
   const { t } = useTranslation();
 
   const handleDeletePress = useCallback(() => {
@@ -42,7 +45,14 @@ export default function Screen() {
         },
       },
     );
-  }, [showBottomSheet, journalId, isLoading, removeJournal, router]);
+  }, [
+    showBottomSheet,
+    journalId,
+    isLoading,
+    removeJournal,
+    router,
+    hideBottomSheet,
+  ]);
 
   useEffect(() => {
     selectJournal(toSingle(journalId));

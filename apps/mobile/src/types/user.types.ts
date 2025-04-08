@@ -13,3 +13,16 @@ export type UserInfo = {
 export type NewUserInfo = {} & Partial<
   Pick<UserInfo, 'email' | 'age' | 'avatarUrl' | 'userName'>
 >;
+
+export interface UserStore {
+  userInfo: UserInfo;
+  draftUserName: string;
+  isLoading: boolean;
+  error: any | null;
+
+  registerUser: (userName: string) => Promise<void>;
+  onUserInfoChange: (updatedUserInfo: NewUserInfo) => Promise<void>;
+  onDraftUserNameChange: (userName: string) => void;
+  updateDaysSinceSignup: () => Promise<void>;
+  loadUserData: () => Promise<void>;
+}

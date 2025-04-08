@@ -1,5 +1,4 @@
 import { WEEK_DAY } from '@/core/constants/date';
-import { JournalIndexes, MonthIndexes } from '@/core/store/types/journal.types';
 
 import { castArray, extractKeys } from '@/utils/common';
 import {
@@ -10,7 +9,12 @@ import {
 } from '@/utils/date';
 
 import { ISODateString, ISOMonthString } from '@/types/date.types';
-import { Journal, Journals } from '@/types/journal.types';
+import {
+  Journal,
+  JournalIndexes,
+  Journals,
+  MonthIndexes,
+} from '@/types/journal.types';
 import { Mood, MoodLevel, SignatureMood } from '@/types/mood.types';
 import { ScoreBoard, TimeRange } from '@/types/statistic.types';
 

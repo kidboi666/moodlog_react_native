@@ -12,20 +12,23 @@ import { WelcomeZone } from '@/core/components/features/home/WelcomeZone';
 import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable';
 import { DELETE_JOURNAL_SNAP_POINTS } from '@/core/constants/size';
 import { useCalendar } from '@/core/hooks/useCalendar';
-import { useBottomSheet } from '@/core/store/contexts/bottom-sheet.context';
-import { useJournal } from '@/core/store/contexts/journal.context';
-import { useUser } from '@/core/store/contexts/user.context';
-import { BottomSheetType } from '@/core/store/types/bottom-sheet.types';
+import { useBottomSheet } from '@/core/store/bottom-sheet.store';
+import { useJournal } from '@/core/store/journal.store';
+import { useUser } from '@/core/store/user.store';
 
 import * as S from '@/styles/screens/home/Home.styled';
+import { BottomSheetType } from '@/types/bottom-sheet.types';
 
 export default function Screen() {
-  const { selectedJournals, selectJournals, isLoading, removeJournal } =
-    useJournal();
+  const selectedJournals = useJournal(state => state.selectedJournals);
+  const selectJournals = useJournal(state => state.selectJournals);
+  const isLoading = useJournal(state => state.isLoading);
+  const removeJournal = useJournal(state => state.removeJournal);
+  const userInfo = useUser(state => state.userInfo);
+  const showBottomSheet = useBottomSheet(state => state.showBottomSheet);
+  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet);
   const { isToday, selectedDate } = useCalendar();
-  const { userInfo } = useUser();
   const toast = useToastController();
-  const { showBottomSheet, hideBottomSheet } = useBottomSheet();
   const { t } = useTranslation();
 
   const handleDeletePress = useCallback(
@@ -58,9 +61,9 @@ export default function Screen() {
 
   useEffect(() => {
     selectJournals(selectedDate);
-  }, [selectJournals]);
+  }, [selectJournals, selectedDate]);
 
-  const { userName } = userInfo || '';
+  const userName = userInfo?.userName || '';
 
   return (
     <ScrollView overScrollMode="always">

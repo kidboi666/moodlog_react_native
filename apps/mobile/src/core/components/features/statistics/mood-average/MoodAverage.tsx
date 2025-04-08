@@ -37,6 +37,7 @@ export const MoodAverage = ({
       : hasSignatureMood
         ? moodTheme[signatureMood?.type as MoodType][MoodLevel.FULL]
         : '$color4';
+
   return (
     <AnimatedCardContainer
       moodColor={bgColor}

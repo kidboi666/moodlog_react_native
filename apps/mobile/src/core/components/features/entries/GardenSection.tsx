@@ -9,7 +9,7 @@ import { GardenTitleHeader } from '@/core/components/features/entries/GardenTitl
 import { MonthItem } from '@/core/components/features/entries/MonthItem';
 import { MONTHS } from '@/core/constants/date';
 import { useCalendar } from '@/core/hooks/useCalendar';
-import { useJournal } from '@/core/store/contexts/journal.context';
+import { useJournal } from '@/core/store/journal.store';
 
 import { getFirstDateDay, getLastDate, getWeekLength } from '@/utils/date';
 

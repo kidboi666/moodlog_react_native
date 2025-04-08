@@ -6,10 +6,7 @@ import { Spinner } from 'tamagui';
 
 import * as S from 'src/core/components/modals/contents/DeleteJournalModal/DeleteJournalModal.styled';
 
-import {
-  BottomSheetProps,
-  BottomSheetType,
-} from '@/core/store/types/bottom-sheet.types';
+import { BottomSheetProps, BottomSheetType } from '@/types/bottom-sheet.types';
 
 export const DeleteJournalModal = memo(
   ({

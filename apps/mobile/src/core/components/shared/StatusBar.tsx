@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { StatusBar as RNStatusBar } from 'react-native';
 
-import { Theme } from '@/types/app.types';
+import { Theme } from '@/types/theme.types';
 
 interface Props {
   resolvedTheme?: Omit<Theme, 'system'>;
