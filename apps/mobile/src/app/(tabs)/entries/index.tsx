@@ -1,4 +1,4 @@
-import { Fragment, useCallback } from 'react';
+import { useCallback } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
@@ -64,23 +64,20 @@ export default function Screen() {
         </FadeIn>
 
         <S.JournalBox>
-          {Array.isArray(selectedJournals) ? (
+          {Array.isArray(selectedJournals) && selectedJournals.length > 0 ? (
             selectedJournals.map(journal => {
               const { content, imageUri, id, createdAt, mood } = journal;
               return (
-                <Fragment key={id}>
-                  <JournalCard
-                    {...{
-                      id,
-                      content,
-                      imageUri,
-                      createdAt,
-                      moodType: mood.type,
-                      moodLevel: mood.level,
-                      openDeleteSheet,
-                    }}
-                  />
-                </Fragment>
+                <JournalCard
+                  key={id}
+                  id={id}
+                  content={content}
+                  imageUri={imageUri}
+                  createdAt={createdAt}
+                  moodType={mood.type}
+                  moodLevel={mood.level}
+                  openDeleteSheet={openDeleteSheet}
+                />
               );
             })
           ) : (

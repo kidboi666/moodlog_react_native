@@ -5,7 +5,7 @@ import { Platform } from 'react-native';
 import * as NavigationBar from 'expo-navigation-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Redirect, Stack } from 'expo-router';
 
 import { useTheme } from 'tamagui';
 
@@ -20,6 +20,7 @@ import {
 import { BottomSheet } from '@/core/components/modals/BottomSheet';
 import { StatusBar } from '@/core/components/shared/StatusBar';
 import { RootProvider } from '@/core/providers/RootProvider';
+import { useAuth } from '@/core/store/auth.store';
 import { useAppTheme } from '@/core/store/theme.store';
 
 import '@/lib/i18n/index.js';
@@ -38,6 +39,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [fontLoaded, fontError] = useFonts(FONTS);
+  const isAuthenticated = useAuth(state => state.isAuthenticated);
 
   useEffect(() => {
     async function hideSplashScreen() {
@@ -56,6 +58,11 @@ export default function RootLayout() {
   if (!fontLoaded && !fontError) {
     return null;
   }
+
+  if (!isAuthenticated) {
+    return <Redirect href="/login" />;
+  }
+
   return (
     <RootProvider>
       <RootLayoutNav />
