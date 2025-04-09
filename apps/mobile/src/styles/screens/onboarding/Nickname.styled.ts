@@ -34,3 +34,14 @@ export const NextButton = styled(ButtonBase, {
     },
   },
 });
+
+export const InputContainer = styled(XStack, {
+  width: '100%',
+  position: 'relative',
+});
+
+export const PasswordIcon = styled(Button, {
+  position: 'absolute',
+  r: '$2',
+  bg: 'transparent',
+});

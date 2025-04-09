@@ -52,3 +52,25 @@ export const ConfirmButton = styled(ButtonBase, {
     },
   },
 });
+
+export const UserInfoSummary = styled(YStack, {
+  mt: '$4',
+  bg: '$backgroundHover',
+  p: '$4',
+  rounded: '$4',
+  width: '100%',
+});
+
+export const InfoItem = styled(XStack, {
+  justify: 'space-between',
+  mb: '$2',
+});
+
+export const InfoLabel = styled(Paragraph, {
+  fontWeight: 'bold',
+});
+
+export const InfoValue = styled(Paragraph, {
+  flex: 1,
+  text: 'right',
+});

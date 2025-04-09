@@ -15,8 +15,8 @@ import { useUser } from '@/core/store/user.store';
 import * as S from '@/styles/screens/onboarding/Nickname.styled';
 
 export default function Screen() {
-  const draftUserName = useUser(state => state.draftUserName);
-  const onDraftUserNameChange = useUser(state => state.onDraftUserNameChange);
+  const draftEmail = useUser(state => state.draftEmail);
+  const onDraftEmailChange = useUser(state => state.onDraftEmailChange);
   const router = useRouter();
   const { t } = useTranslation();
   const { currentStep, goToPrevStep, goToNextStep } = useStepProgress();
@@ -29,26 +29,34 @@ export default function Screen() {
   };
 
   const handleNextStep = () => {
-    if (currentStep === 2) {
+    if (currentStep === 1) {
       goToNextStep();
-      router.push('/password');
+      router.push('/nickname');
     }
+  };
+
+  // 간단한 이메일 유효성 검사
+  const isValidEmail = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(draftEmail);
   };
 
   return (
     <ViewContainer edges={['bottom']}>
       <S.YStackContainer>
         <FadeIn delay={ANIMATION_DELAY_SECONDS[0]}>
-          <S.Title>{t('onboarding.nickname.title')}</S.Title>
+          <S.Title>{t('onboarding.email.title')}</S.Title>
         </FadeIn>
         <FadeIn delay={ANIMATION_DELAY_SECONDS[1]}>
-          <S.Description>{t('onboarding.nickname.description')}</S.Description>
+          <S.Description>{t('onboarding.email.description')}</S.Description>
         </FadeIn>
         <FadeIn delay={ANIMATION_DELAY_SECONDS[2]}>
           <Input
-            value={draftUserName}
-            onChangeText={onDraftUserNameChange}
-            placeholder={t('onboarding.nickname.placeholder')}
+            value={draftEmail}
+            onChangeText={onDraftEmailChange}
+            placeholder={t('onboarding.email.placeholder')}
+            keyboardType="email-address"
+            autoCapitalize="none"
           />
         </FadeIn>
       </S.YStackContainer>
@@ -58,7 +66,7 @@ export default function Screen() {
             {t('common.button.prev')}
           </S.PrevButton>
           <S.NextButton
-            disabled={!draftUserName}
+            disabled={!isValidEmail()}
             onPress={handleNextStep}
             iconAfter={ArrowRight}
           >

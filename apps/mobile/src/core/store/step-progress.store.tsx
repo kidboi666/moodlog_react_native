@@ -6,7 +6,7 @@ import { StepProgressStoreState } from '@/types/step-progress.types';
 
 export const useStepProgress = create<StepProgressStoreState>(set => ({
   currentStep: 0,
-  totalSteps: 1,
+  totalSteps: 5,
 
   isLastStep: false,
   progress: 0,

@@ -1,10 +1,12 @@
+import { useState } from 'react';
+
 import { useTranslation } from 'react-i18next';
 
 import { useRouter } from 'expo-router';
 
 import { Input } from 'tamagui';
 
-import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
+import { ArrowLeft, ArrowRight, Eye, EyeOff } from '@tamagui/lucide-icons';
 
 import { FadeIn } from '@/core/components/shared/FadeIn.styleable';
 import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable';
@@ -15,41 +17,58 @@ import { useUser } from '@/core/store/user.store';
 import * as S from '@/styles/screens/onboarding/Nickname.styled';
 
 export default function Screen() {
-  const draftUserName = useUser(state => state.draftUserName);
-  const onDraftUserNameChange = useUser(state => state.onDraftUserNameChange);
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const draftPassword = useUser(state => state.draftPassword);
+  const onDraftPasswordChange = useUser(state => state.onDraftPasswordChange);
   const router = useRouter();
   const { t } = useTranslation();
   const { currentStep, goToPrevStep, goToNextStep } = useStepProgress();
 
   const handlePrevStep = () => {
-    if (currentStep === 1) {
+    if (currentStep === 3) {
       goToPrevStep();
       router.back();
     }
   };
 
   const handleNextStep = () => {
-    if (currentStep === 2) {
+    if (currentStep === 3) {
       goToNextStep();
-      router.push('/password');
+      router.push('/signup');
     }
+  };
+
+  const isValidPassword = () => {
+    return draftPassword.length >= 8;
+  };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
   };
 
   return (
     <ViewContainer edges={['bottom']}>
       <S.YStackContainer>
         <FadeIn delay={ANIMATION_DELAY_SECONDS[0]}>
-          <S.Title>{t('onboarding.nickname.title')}</S.Title>
+          <S.Title>{t('onboarding.password.title')}</S.Title>
         </FadeIn>
         <FadeIn delay={ANIMATION_DELAY_SECONDS[1]}>
-          <S.Description>{t('onboarding.nickname.description')}</S.Description>
+          <S.Description>{t('onboarding.password.description')}</S.Description>
         </FadeIn>
         <FadeIn delay={ANIMATION_DELAY_SECONDS[2]}>
-          <Input
-            value={draftUserName}
-            onChangeText={onDraftUserNameChange}
-            placeholder={t('onboarding.nickname.placeholder')}
-          />
+          <S.InputContainer>
+            <Input
+              value={draftPassword}
+              onChangeText={onDraftPasswordChange}
+              placeholder={t('onboarding.password.placeholder')}
+              secureTextEntry={!passwordVisible}
+              autoCapitalize="none"
+              flex={1}
+            />
+            <S.PasswordIcon onPress={togglePasswordVisibility}>
+              {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
+            </S.PasswordIcon>
+          </S.InputContainer>
         </FadeIn>
       </S.YStackContainer>
       <FadeIn delay={ANIMATION_DELAY_SECONDS[3]}>
@@ -58,7 +77,7 @@ export default function Screen() {
             {t('common.button.prev')}
           </S.PrevButton>
           <S.NextButton
-            disabled={!draftUserName}
+            disabled={!isValidPassword()}
             onPress={handleNextStep}
             iconAfter={ArrowRight}
           >

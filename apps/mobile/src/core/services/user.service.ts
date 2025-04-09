@@ -19,6 +19,7 @@ export class UserService extends StorageService {
   static async saveNewUser(
     userInfo: UserInfo,
     userName: string,
+    password: string,
   ): Promise<UserInfo> {
     try {
       const newUser = {

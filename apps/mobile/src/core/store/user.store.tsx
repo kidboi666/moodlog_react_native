@@ -21,13 +21,24 @@ const initialUserInfo = {
 export const useUser = create<UserStore>((set, get) => ({
   userInfo: initialUserInfo,
   draftUserName: '',
+  draftEmail: '',
+  draftPassword: '',
   isLoading: false,
   error: null,
 
-  registerUser: async userName => {
+  registerUser: async (userName, email, password) => {
     try {
       set({ isLoading: true, error: null });
-      const newUser = await UserService.saveNewUser(get().userInfo, userName);
+      const updatedUserInfo = {
+        ...get().userInfo,
+        userName,
+        email,
+      };
+      const newUser = await UserService.saveNewUser(
+        updatedUserInfo,
+        userName,
+        password,
+      );
       set({ userInfo: newUser });
 
       await useApp.getState().initFirstLaunchStatus();
@@ -41,6 +52,14 @@ export const useUser = create<UserStore>((set, get) => ({
 
   onDraftUserNameChange: userName => {
     set({ draftUserName: userName });
+  },
+
+  onDraftEmailChange: email => {
+    set({ draftEmail: email });
+  },
+
+  onDraftPasswordChange: password => {
+    set({ draftPassword: password });
   },
 
   updateDaysSinceSignup: async () => {

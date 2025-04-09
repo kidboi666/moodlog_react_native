@@ -22,7 +22,7 @@ export default function Screen() {
   const handleClickNextButton = () => {
     if (currentStep === 0) {
       goToNextStep();
-      router.push('/nickname');
+      router.push('/email');
     }
   };
 

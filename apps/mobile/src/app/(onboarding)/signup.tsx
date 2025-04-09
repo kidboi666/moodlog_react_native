@@ -20,19 +20,20 @@ import * as S from '@/styles/screens/onboarding/Signup.styled';
 export default function Screen() {
   const router = useRouter();
   const { goToPrevStep, currentStep } = useStepProgress();
-  const { draftUserName, registerUser, isLoading } = useUser();
+  const { draftUserName, draftEmail, draftPassword, registerUser, isLoading } =
+    useUser();
   const { firstLaunchDate } = useApp();
   const { t } = useTranslation();
 
   const handlePrevStep = () => {
-    if (currentStep === 2) {
+    if (currentStep === 4) {
       goToPrevStep();
       router.back();
     }
   };
 
-  const handleSubmit = (userName: string) => {
-    registerUser(userName);
+  const handleSubmit = () => {
+    registerUser(draftUserName, draftEmail, draftPassword);
   };
 
   useEffect(() => {
@@ -63,16 +64,27 @@ export default function Screen() {
             </S.BenefitsBox>
           </S.BenefitsContainer>
         </FadeIn>
-        <S.RestBox />
         <FadeIn delay={ANIMATION_DELAY_SECONDS[2]}>
+          <S.UserInfoSummary>
+            <S.InfoItem>
+              <S.InfoLabel>{t('onboarding.signup.summary.email')}:</S.InfoLabel>
+              <S.InfoValue>{draftEmail}</S.InfoValue>
+            </S.InfoItem>
+            <S.InfoItem>
+              <S.InfoLabel>
+                {t('onboarding.signup.summary.nickname')}:
+              </S.InfoLabel>
+              <S.InfoValue>{draftUserName}</S.InfoValue>
+            </S.InfoItem>
+          </S.UserInfoSummary>
+        </FadeIn>
+        <S.RestBox />
+        <FadeIn delay={ANIMATION_DELAY_SECONDS[3]}>
           <S.ButtonContainer>
             <S.PrevButton onPress={handlePrevStep} icon={ArrowLeft}>
               {t('common.button.prev')}
             </S.PrevButton>
-            <S.ConfirmButton
-              disabled={isLoading}
-              onPress={() => handleSubmit(draftUserName)}
-            >
+            <S.ConfirmButton disabled={isLoading} onPress={handleSubmit}>
               {isLoading || firstLaunchDate ? <Spinner /> : <Check />}
               {t('common.button.confirm')}
             </S.ConfirmButton>

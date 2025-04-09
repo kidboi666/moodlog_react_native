@@ -17,12 +17,20 @@ export type NewUserInfo = {} & Partial<
 export interface UserStore {
   userInfo: UserInfo;
   draftUserName: string;
+  draftEmail: string;
+  draftPassword: string;
   isLoading: boolean;
   error: any | null;
 
-  registerUser: (userName: string) => Promise<void>;
+  registerUser: (
+    userName: string,
+    email: string,
+    password: string,
+  ) => Promise<void>;
   onUserInfoChange: (updatedUserInfo: NewUserInfo) => Promise<void>;
   onDraftUserNameChange: (userName: string) => void;
+  onDraftEmailChange: (email: string) => void;
+  onDraftPasswordChange: (password: string) => void;
   updateDaysSinceSignup: () => Promise<void>;
   loadUserData: () => Promise<void>;
 }
