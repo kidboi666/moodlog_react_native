@@ -1,5 +1,4 @@
 import { Platform } from 'react-native';
-
 import { styled } from 'tamagui';
 
 import { LinearGradient as TamaguiLinearGradient } from 'tamagui/linear-gradient';

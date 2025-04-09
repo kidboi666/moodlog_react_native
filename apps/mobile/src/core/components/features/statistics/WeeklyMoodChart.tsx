@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-
 import { useTranslation } from 'react-i18next';
-
 import { H3, Text, YStack } from 'tamagui';
 
 import Animated, {
@@ -17,10 +15,10 @@ import * as S from 'src/core/components/features/statistics/MoodChart.styled';
 import { WEEK_DAY } from '@/core/constants/date';
 import { useWeeklyMoodStats } from '@/core/hooks/useWeeklyMoodStats';
 
-import { getISODateFromMonthString } from '@/utils/date';
-
 import { ISOMonthString } from '@/types/date.types';
 import { MoodLevel } from '@/types/mood.types';
+
+import { getISODateFromMonthString } from '@/utils/date';
 
 import { ChartItem } from './ChartItem';
 

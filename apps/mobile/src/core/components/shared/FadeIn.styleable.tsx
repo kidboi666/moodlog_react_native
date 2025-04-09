@@ -1,5 +1,4 @@
 import { memo } from 'react';
-
 import { ViewProps } from 'tamagui';
 
 import { ANIMATION_DELAY_MS } from '@/core/constants/time';

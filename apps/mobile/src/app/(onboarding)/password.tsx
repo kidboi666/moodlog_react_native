@@ -1,9 +1,6 @@
-import { useState } from 'react';
-
-import { useTranslation } from 'react-i18next';
-
 import { useRouter } from 'expo-router';
-
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Input } from 'tamagui';
 
 import { ArrowLeft, ArrowRight, Eye, EyeOff } from '@tamagui/lucide-icons';

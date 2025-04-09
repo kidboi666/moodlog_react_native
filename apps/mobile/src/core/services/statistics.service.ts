@@ -1,13 +1,5 @@
 import { WEEK_DAY } from '@/core/constants/date';
 
-import { castArray, extractKeys } from '@/utils/common';
-import {
-  getDayFromISODate,
-  getDaysBetweenDates,
-  getISOMonthString,
-  getThisWeekArray,
-} from '@/utils/date';
-
 import { ISODateString, ISOMonthString } from '@/types/date.types';
 import {
   Journal,
@@ -17,6 +9,14 @@ import {
 } from '@/types/journal.types';
 import { Mood, MoodLevel, SignatureMood } from '@/types/mood.types';
 import { ScoreBoard, TimeRange } from '@/types/statistic.types';
+
+import { castArray, extractKeys } from '@/utils/common';
+import {
+  getDayFromISODate,
+  getDaysBetweenDates,
+  getISOMonthString,
+  getThisWeekArray,
+} from '@/utils/date';
 
 export class StatisticsService {
   /**

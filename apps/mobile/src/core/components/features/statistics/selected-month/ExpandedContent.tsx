@@ -5,10 +5,10 @@ import { Minimize2 } from '@tamagui/lucide-icons';
 
 import { moodTheme } from '@/core/constants/themes';
 
-import { getMonthKey } from '@/utils/date';
-
 import { MoodLevel, MoodType } from '@/types/mood.types';
 import { SelectedMonthStats } from '@/types/statistic.types';
+
+import { getMonthKey } from '@/utils/date';
 
 interface Props {
   selectedMonthStats: SelectedMonthStats;

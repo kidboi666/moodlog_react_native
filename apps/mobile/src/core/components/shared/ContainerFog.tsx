@@ -1,7 +1,5 @@
-import { memo } from 'react';
-
 import { usePathname, useRouter } from 'expo-router';
-
+import { memo } from 'react';
 import { useTheme } from 'tamagui';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';

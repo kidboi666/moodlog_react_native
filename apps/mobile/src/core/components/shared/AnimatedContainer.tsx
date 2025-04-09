@@ -1,5 +1,4 @@
 import { PropsWithChildren } from 'react';
-
 import { ScrollViewProps, StyleSheet, ViewProps } from 'react-native';
 
 import Animated, { Easing, FadeIn } from 'react-native-reanimated';

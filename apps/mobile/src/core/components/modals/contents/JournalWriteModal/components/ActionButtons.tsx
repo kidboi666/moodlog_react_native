@@ -1,7 +1,5 @@
 import React, { memo } from 'react';
-
 import { useTranslation } from 'react-i18next';
-
 import { Form, Spinner, XGroup } from 'tamagui';
 
 import { Check, ImagePlus, Timer } from '@tamagui/lucide-icons';

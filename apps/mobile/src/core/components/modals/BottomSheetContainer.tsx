@@ -1,5 +1,4 @@
 import { PropsWithChildren } from 'react';
-
 import { ViewProps } from 'tamagui';
 
 import * as S from './BottomSheetContainer.styled';

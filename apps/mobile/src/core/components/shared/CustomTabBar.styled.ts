@@ -1,5 +1,4 @@
 import { Platform } from 'react-native';
-
 import { View, XStack, styled } from 'tamagui';
 
 import { PressableButton } from '@/core/components/shared/PressableButton.styled';

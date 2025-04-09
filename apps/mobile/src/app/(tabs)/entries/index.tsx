@@ -1,7 +1,5 @@
 import { useCallback } from 'react';
-
 import { useTranslation } from 'react-i18next';
-
 import { ScrollView } from 'tamagui';
 
 import { GardenSection } from '@/core/components/features/entries/GardenSection';

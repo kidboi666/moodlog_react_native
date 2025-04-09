@@ -1,7 +1,5 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
-
 import { useTranslation } from 'react-i18next';
-
 import { Spinner } from 'tamagui';
 
 import * as S from 'src/core/components/modals/contents/DeleteJournalModal/DeleteJournalModal.styled';

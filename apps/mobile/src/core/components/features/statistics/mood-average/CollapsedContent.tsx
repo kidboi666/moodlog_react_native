@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-
 import { XStack, YStack } from 'tamagui';
 
 import * as S from 'src/core/components/features/statistics/mood-average/CollapsedContent.styled';

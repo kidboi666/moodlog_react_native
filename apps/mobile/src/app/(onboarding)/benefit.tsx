@@ -1,0 +1,82 @@
+import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
+import { H1, YStack } from 'tamagui';
+
+import { ArrowLeft } from '@tamagui/lucide-icons';
+
+import { FadeIn } from '@/core/components/shared/FadeIn.styleable';
+import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable';
+import { ANIMATION_DELAY_SECONDS } from '@/core/constants/time';
+import { useStepProgress } from '@/core/store/step-progress.store';
+
+import * as S from '@/styles/screens/onboarding/Signup.styled';
+
+export default function Screen() {
+  const router = useRouter();
+  const { goToPrevStep, goToNextStep, currentStep } = useStepProgress();
+  const { t } = useTranslation();
+  const isBenefitPage = currentStep === 2;
+
+  const handlePrevStep = () => {
+    if (isBenefitPage) {
+      goToPrevStep();
+      router.back();
+    }
+  };
+
+  const handleNextStep = () => {
+    if (isBenefitPage) {
+      goToNextStep();
+      router.push('/register');
+    }
+  };
+
+  const skipStep = () => {
+    if (isBenefitPage) {
+      router.replace('/(tabs)');
+    }
+  };
+
+  return (
+    <ViewContainer edges={['bottom']}>
+      <S.YStackContainer>
+        <FadeIn delay={ANIMATION_DELAY_SECONDS[0]}>
+          <H1>{t('onboarding.benefits.title')}</H1>
+        </FadeIn>
+        <FadeIn delay={ANIMATION_DELAY_SECONDS[1]}>
+          <S.BenefitsContainer>
+            <S.BenefitTitle>{t('onboarding.benefits.ota')}</S.BenefitTitle>
+            <S.BenefitsBox>
+              <S.BenefitText>
+                • {t('onboarding.benefits.benefits.sync')}
+              </S.BenefitText>
+              <S.BenefitText>
+                • {t('onboarding.benefits.benefits.backup')}
+              </S.BenefitText>
+              <S.BenefitText>
+                • {t('onboarding.benefits.benefits.stats')}
+              </S.BenefitText>
+            </S.BenefitsBox>
+          </S.BenefitsContainer>
+        </FadeIn>
+        <S.RestBox />
+        <FadeIn delay={ANIMATION_DELAY_SECONDS[3]}>
+          <S.ButtonContainer>
+            <S.PrevButton onPress={handlePrevStep} icon={ArrowLeft}>
+              {t('common.button.prev')}
+            </S.PrevButton>
+            <YStack>
+              <FadeIn delay={ANIMATION_DELAY_SECONDS[4]}>
+                <S.SkipButton onPress={skipStep}>그냥 시작하기</S.SkipButton>
+              </FadeIn>
+
+              <S.ConfirmButton onPress={handleNextStep}>
+                {t('common.button.join')}
+              </S.ConfirmButton>
+            </YStack>
+          </S.ButtonContainer>
+        </FadeIn>
+      </S.YStackContainer>
+    </ViewContainer>
+  );
+}

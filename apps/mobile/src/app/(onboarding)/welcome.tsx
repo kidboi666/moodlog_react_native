@@ -1,7 +1,5 @@
-import { useTranslation } from 'react-i18next';
-
 import { useRouter } from 'expo-router';
-
+import { useTranslation } from 'react-i18next';
 import { H1, H2 } from 'tamagui';
 
 import { ArrowRight } from '@tamagui/lucide-icons';
@@ -18,11 +16,12 @@ export default function Screen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { currentStep, goToNextStep } = useStepProgress();
+  const isWelcomePage = currentStep === 0;
 
   const handleClickNextButton = () => {
-    if (currentStep === 0) {
+    if (isWelcomePage) {
       goToNextStep();
-      router.push('/email');
+      router.push('/nickname');
     }
   };
 

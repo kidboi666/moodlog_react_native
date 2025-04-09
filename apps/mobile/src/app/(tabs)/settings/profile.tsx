@@ -1,23 +1,13 @@
 import { useCallback, useState } from 'react';
-
 import { useTranslation } from 'react-i18next';
-
-import {
-  Button,
-  H3,
-  Input,
-  Paragraph,
-  Separator,
-  Text,
-  XStack,
-  YStack,
-} from 'tamagui';
 
 import { SettingHeader } from '@/core/components/features/settings/SettingHeader';
 import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable';
 import { useUser } from '@/core/store/user.store';
 
 import { NewUserInfo } from '@/types/user.types';
+
+import * as S from '@/styles/screens/settings/Profile.styled';
 
 export default function Screen() {
   const { t } = useTranslation();
@@ -57,84 +47,90 @@ export default function Screen() {
 
   return (
     <ViewContainer Header={<SettingHeader />}>
-      <YStack space="$4" mb="$4">
-        <H3>{t('settings.profile.title') || 'Profile'}</H3>
-        <Separator />
-      </YStack>
+      <S.ProfileContainer>
+        <S.SectionTitle>
+          {t('settings.profile.title') || 'Profile'}
+        </S.SectionTitle>
+        <S.ProfileDivider />
+      </S.ProfileContainer>
 
-      <YStack space="$6">
+      <S.ProfileSectionContainer>
         {/* User ID */}
-        <YStack space="$2">
-          <Text color="$gray11">{t('settings.profile.id') || 'ID'}</Text>
-          <Paragraph>{userInfo.id}</Paragraph>
-        </YStack>
+        <S.ProfileItemContainer>
+          <S.ProfileLabel>{t('settings.profile.id') || 'ID'}</S.ProfileLabel>
+          <S.ProfileValue>{userInfo.id}</S.ProfileValue>
+        </S.ProfileItemContainer>
 
         {/* Username */}
-        <YStack space="$2">
-          <Text color="$gray11">
+        <S.ProfileItemContainer>
+          <S.ProfileLabel>
             {t('settings.profile.username') || 'Username'}
-          </Text>
+          </S.ProfileLabel>
           {isEditing ? (
-            <Input
+            <S.ProfileInput
               value={form.userName}
               onChangeText={text => handleChange('userName', text)}
             />
           ) : (
-            <Paragraph>{userInfo.userName}</Paragraph>
+            <S.ProfileValue>{userInfo.userName}</S.ProfileValue>
           )}
-        </YStack>
+        </S.ProfileItemContainer>
 
         {/* Email */}
-        <YStack space="$2">
-          <Text color="$gray11">{t('settings.profile.email') || 'Email'}</Text>
+        <S.ProfileItemContainer>
+          <S.ProfileLabel>
+            {t('settings.profile.email') || 'Email'}
+          </S.ProfileLabel>
           {isEditing ? (
-            <Input
+            <S.ProfileInput
               value={form.email || ''}
               onChangeText={text => handleChange('email', text)}
             />
           ) : (
-            <Paragraph>{userInfo.email || '-'}</Paragraph>
+            <S.ProfileValue>{userInfo.email || '-'}</S.ProfileValue>
           )}
-        </YStack>
+        </S.ProfileItemContainer>
 
         {/* Age */}
-        <YStack space="$2">
-          <Text color="$gray11">{t('settings.profile.age') || 'Age'}</Text>
+        <S.ProfileItemContainer>
+          <S.ProfileLabel>{t('settings.profile.age') || 'Age'}</S.ProfileLabel>
           {isEditing ? (
-            <Input
+            <S.ProfileInput
               value={form.age?.toString() || ''}
               onChangeText={text => handleChange('age', parseInt(text) || null)}
               keyboardType="numeric"
             />
           ) : (
-            <Paragraph>{userInfo.age || '-'}</Paragraph>
+            <S.ProfileValue>{userInfo.age || '-'}</S.ProfileValue>
           )}
-        </YStack>
+        </S.ProfileItemContainer>
 
         {/* Days Since Signup */}
-        <YStack space="$2">
-          <Text color="$gray11">
+        <S.ProfileItemContainer>
+          <S.ProfileLabel>
             {t('settings.profile.daysSinceSignup') || 'Days Since Signup'}
-          </Text>
-          <Paragraph>{userInfo.daysSinceSignup}</Paragraph>
-        </YStack>
+          </S.ProfileLabel>
+          <S.ProfileValue>{userInfo.daysSinceSignup}</S.ProfileValue>
+        </S.ProfileItemContainer>
 
         {/* Action Buttons */}
-        <YStack space="$4" mt="$4">
+        <S.ButtonContainer>
           {isEditing ? (
-            <XStack space="$4">
-              <Button flex={1} onPress={handleCancel} variant="outlined">
+            <S.ActionButtonsContainer>
+              <S.CancelButton onPress={handleCancel}>
                 {t('common.cancel') || 'Cancel'}
-              </Button>
-              <Button flex={1} onPress={handleSave} themeInverse>
+              </S.CancelButton>
+              <S.SaveButton onPress={handleSave}>
                 {t('common.save') || 'Save'}
-              </Button>
-            </XStack>
+              </S.SaveButton>
+            </S.ActionButtonsContainer>
           ) : (
-            <Button onPress={handleEdit}>{t('common.edit') || 'Edit'}</Button>
+            <S.EditButton onPress={handleEdit}>
+              {t('common.edit') || 'Edit'}
+            </S.EditButton>
           )}
-        </YStack>
-      </YStack>
+        </S.ButtonContainer>
+      </S.ProfileSectionContainer>
     </ViewContainer>
   );
 }

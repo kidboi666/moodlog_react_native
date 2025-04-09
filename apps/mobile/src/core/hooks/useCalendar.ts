@@ -2,10 +2,10 @@ import { useCallback, useState } from 'react';
 
 import { CalendarUtils } from 'react-native-calendars';
 
-import { getThisWeekIndex } from '@/utils/date';
-
 import { ISODateString, ISOMonthString } from '@/types/date.types';
 import { Nullable } from '@/types/utill.types';
+
+import { getThisWeekIndex } from '@/utils/date';
 
 export const useCalendar = () => {
   const now = new Date();

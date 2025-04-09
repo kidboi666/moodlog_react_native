@@ -1,5 +1,4 @@
 import { useCallback, useMemo } from 'react';
-
 import { ScrollView } from 'tamagui';
 
 import * as S from 'src/core/components/features/entries/GardenSection.styled';
@@ -11,9 +10,9 @@ import { MONTHS } from '@/core/constants/date';
 import { useCalendar } from '@/core/hooks/useCalendar';
 import { useJournal } from '@/core/store/journal.store';
 
-import { getFirstDateDay, getLastDate, getWeekLength } from '@/utils/date';
-
 import { ISOMonthString, MonthKey } from '@/types/date.types';
+
+import { getFirstDateDay, getLastDate, getWeekLength } from '@/utils/date';
 
 export const GardenSection = () => {
   const { getMoodForDate, selectJournals } = useJournal();

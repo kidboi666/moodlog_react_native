@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-
 import { ViewProps } from 'tamagui';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';

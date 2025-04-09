@@ -1,8 +1,6 @@
 import { memo, useCallback, useEffect, useState } from 'react';
-
-import { Keyboard } from 'react-native';
-
 import { useTranslation } from 'react-i18next';
+import { Keyboard } from 'react-native';
 
 import { Plus } from '@tamagui/lucide-icons';
 import { useToastController } from '@tamagui/toast';

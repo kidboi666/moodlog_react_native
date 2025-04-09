@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-
 import { Group } from 'tamagui';
 
 import * as S from '@/core/components/features/statistics/TimeRangeZone.styled';

@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-
 import { Text } from 'tamagui';
 
 import * as S from 'src/core/components/features/calendar/CalendarHeader.styled';

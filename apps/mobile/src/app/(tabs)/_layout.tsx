@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
-
 import { Redirect, Tabs, usePathname } from 'expo-router';
+import { useEffect, useState } from 'react';
 
 import { ContainerFog } from '@/core/components/shared/ContainerFog';
 import { CustomTabBar } from '@/core/components/shared/CustomTabBar';

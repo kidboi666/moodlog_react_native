@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { View } from 'tamagui';
 
 import * as S from 'src/core/components/features/write/PickerMood.styled';

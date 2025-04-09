@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-
 import { RadioGroup } from 'tamagui';
 
 import { SettingHeader } from '@/core/components/features/settings/SettingHeader';

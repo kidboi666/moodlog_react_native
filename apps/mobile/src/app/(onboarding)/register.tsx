@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
-
-import { Alert } from 'react-native';
-
-import { useTranslation } from 'react-i18next';
-
 import { router } from 'expo-router';
-
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Alert } from 'react-native';
 import {
   Button,
   Form,
@@ -17,8 +13,6 @@ import {
   XStack,
   YStack,
 } from 'tamagui';
-
-import { API_URL } from '@/core/constants/api';
 
 export default function RegisterScreen() {
   const { t } = useTranslation();
@@ -40,7 +34,7 @@ export default function RegisterScreen() {
 
     try {
       setIsLoading(true);
-      const response = await fetch(`${API_URL}/users/register`, {
+      const response = await fetch(`${process.env.API_URL}/users/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,11 +66,11 @@ export default function RegisterScreen() {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', padding: 16 }}>
-      <YStack space="$4" width="100%">
+    <View flex={1} justify="center" p={16}>
+      <YStack gap="$4" width="100%">
         <H1>{t('auth.register')}</H1>
         <Form onSubmit={handleRegister}>
-          <YStack space="$4">
+          <YStack gap="$4">
             <Input
               placeholder={t('auth.username')}
               value={username}
@@ -103,10 +97,7 @@ export default function RegisterScreen() {
 
         <Separator />
 
-        <XStack
-          style={{ alignItems: 'center', justifyContent: 'center' }}
-          space="$2"
-        >
+        <XStack items="center" justify="center" gap="$2">
           <Text>{t('auth.hasAccount')}</Text>
           <Text color="$blue10" onPress={navigateToLogin}>
             {t('auth.login')}

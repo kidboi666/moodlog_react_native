@@ -1,6 +1,5 @@
-import { initReactI18next } from 'react-i18next';
-
 import * as Localization from 'expo-localization';
+import { initReactI18next } from 'react-i18next';
 
 import { LocaleConfig } from 'react-native-calendars';
 

@@ -1,10 +1,7 @@
-import React, { memo, useCallback, useEffect, useMemo } from 'react';
-
-import { Platform } from 'react-native';
-
 import * as NavigationBar from 'expo-navigation-bar';
 import { Href, usePathname, useRouter } from 'expo-router';
-
+import React, { memo, useCallback, useEffect, useMemo } from 'react';
+import { Platform } from 'react-native';
 import { useTheme } from 'tamagui';
 
 import Animated from 'react-native-reanimated';

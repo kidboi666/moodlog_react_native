@@ -1,7 +1,5 @@
-import { memo, useCallback } from 'react';
-
 import { useRouter } from 'expo-router';
-
+import { memo, useCallback } from 'react';
 import { AnimatePresence } from 'tamagui';
 
 import Animated from 'react-native-reanimated';

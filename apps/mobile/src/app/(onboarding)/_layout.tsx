@@ -1,5 +1,4 @@
 import { Stack } from 'expo-router';
-
 import { useTheme } from 'tamagui';
 
 import { OnboardingHeader } from '@/core/components/features/onboarding/OnboardingHeader';
@@ -9,7 +8,7 @@ export default function Layout() {
   const theme = useTheme();
 
   return (
-    <StepProgressProvider totalSteps={5}>
+    <StepProgressProvider totalSteps={3}>
       <Stack
         initialRouteName="welcome"
         screenOptions={{
@@ -24,8 +23,7 @@ export default function Layout() {
       >
         <Stack.Screen name="welcome" />
         <Stack.Screen name="nickname" />
-        <Stack.Screen name="signup" />
-        <Stack.Screen name="login" />
+        <Stack.Screen name="benefit" />
         <Stack.Screen name="register" />
       </Stack>
     </StepProgressProvider>

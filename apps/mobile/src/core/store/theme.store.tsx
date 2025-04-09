@@ -1,7 +1,5 @@
 import { PropsWithChildren, useEffect } from 'react';
-
 import { useColorScheme } from 'react-native';
-
 import { Theme as TamaguiTheme } from 'tamagui';
 
 import { create } from 'zustand';

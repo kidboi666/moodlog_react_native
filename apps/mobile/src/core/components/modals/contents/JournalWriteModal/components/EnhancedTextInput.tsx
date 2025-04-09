@@ -6,9 +6,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-
 import { useTranslation } from 'react-i18next';
-
 import { Input, ScrollView } from 'tamagui';
 
 import { ContentLength } from '@/core/components/modals/contents/JournalWriteModal/components/ContentLength';

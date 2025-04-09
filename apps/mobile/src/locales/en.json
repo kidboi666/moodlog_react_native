@@ -24,6 +24,7 @@
       "next": "Next",
       "prev": "Previous",
       "submit": "Submit",
+      "join": "Go to Join",
       "addCover": "Add Cover",
       "timeStamp": "Time Stamp"
     },
@@ -236,7 +237,7 @@
       "description": "What name will you use?",
       "placeholder": "Enter nickname"
     },
-    "signup": {
+    "benefits": {
       "title": "Start your journal",
       "ota": "Features available:",
       "benefits": {

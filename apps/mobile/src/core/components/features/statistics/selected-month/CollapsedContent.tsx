@@ -1,13 +1,12 @@
 import { useTranslation } from 'react-i18next';
-
 import { H2, H3, Text, XStack } from 'tamagui';
 
 import * as S from 'src/core/components/features/statistics/selected-month/CollapsedContent.styled';
 import { Maximize2 } from '@tamagui/lucide-icons';
 
-import { getMonthKey } from '@/utils/date';
-
 import { SelectedMonthStats } from '@/types/statistic.types';
+
+import { getMonthKey } from '@/utils/date';
 
 interface Props {
   selectedMonthStats: SelectedMonthStats;

@@ -1,5 +1,4 @@
 import { memo } from 'react';
-
 import { XStackProps } from 'tamagui';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';

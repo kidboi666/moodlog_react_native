@@ -1,5 +1,4 @@
 import { useColorScheme } from 'react-native';
-
 import { PortalProvider, type TamaguiProviderProps } from 'tamagui';
 
 import { ThemeProvider } from '@/core/store/theme.store';

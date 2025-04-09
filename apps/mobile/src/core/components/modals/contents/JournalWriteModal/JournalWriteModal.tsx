@@ -5,9 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-
 import { KeyboardAvoidingView, Platform } from 'react-native';
-
 import { Form, XStack, useTheme } from 'tamagui';
 
 import { ActionButtons } from '@/core/components/modals/contents/JournalWriteModal/components/ActionButtons';

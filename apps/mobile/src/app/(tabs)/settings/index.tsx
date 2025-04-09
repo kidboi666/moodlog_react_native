@@ -1,9 +1,6 @@
-import { useCallback } from 'react';
-
-import { useTranslation } from 'react-i18next';
-
 import { Href, useRouter } from 'expo-router';
-
+import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, H1, ScrollView, Separator, YStack } from 'tamagui';
 
 import {

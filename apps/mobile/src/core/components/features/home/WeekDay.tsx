@@ -1,7 +1,5 @@
 import React, { memo } from 'react';
-
 import { useTranslation } from 'react-i18next';
-
 import { YStack } from 'tamagui';
 
 import Animated, { BounceInUp, Easing } from 'react-native-reanimated';

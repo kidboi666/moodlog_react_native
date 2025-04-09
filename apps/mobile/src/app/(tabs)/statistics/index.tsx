@@ -1,7 +1,5 @@
 import { useCallback, useState } from 'react';
-
 import { useTranslation } from 'react-i18next';
-
 import { H1, ScrollView } from 'tamagui';
 
 import { TimeRangeZone } from '@/core/components/features/statistics/TimeRangeZone';
@@ -12,9 +10,10 @@ import { FadeIn } from '@/core/components/shared/FadeIn.styleable';
 import { ANIMATION_DELAY_MS } from '@/core/constants/time';
 import { useCalendar } from '@/core/hooks/useCalendar';
 
-import * as S from '@/styles/screens/statistics/Statistics.styled';
 import { ISOMonthString } from '@/types/date.types';
 import { TimeRange } from '@/types/statistic.types';
+
+import * as S from '@/styles/screens/statistics/Statistics.styled';
 
 export default function Screen() {
   const [timeRange, setTimeRange] = useState<TimeRange>(TimeRange.YEARLY);

@@ -5,12 +5,6 @@ import { CalendarUtils } from 'react-native-calendars';
 import { STORAGE_KEY } from '@/core/constants/storage';
 import { StorageService } from '@/core/services/storage.service';
 
-import {
-  getISODateString,
-  getISOMonthString,
-  getYearFromISODate,
-} from '@/utils/date';
-
 import { ISODateString, ISOMonthString, MonthKey } from '@/types/date.types';
 import {
   Draft,
@@ -19,6 +13,12 @@ import {
   JournalStore,
   Journals,
 } from '@/types/journal.types';
+
+import {
+  getISODateString,
+  getISOMonthString,
+  getYearFromISODate,
+} from '@/utils/date';
 
 export class JournalService extends StorageService {
   static async loadJournalStore(): Promise<JournalStore> {

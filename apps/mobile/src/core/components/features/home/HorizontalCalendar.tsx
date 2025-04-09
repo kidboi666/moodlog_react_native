@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
-
 import { useTranslation } from 'react-i18next';
-
 import { ScrollView } from 'tamagui';
 
 import * as S from 'src/core/components/features/home/HorizontalCalendar.styled';

@@ -7,11 +7,7 @@ module.exports = {
   trailingComma: 'all',
   plugins: ['@trivago/prettier-plugin-sort-imports'],
   importOrder: [
-    '^react$',
-    '^react-native$',
-    '^react-i18next$',
-    '^expo(.*)$',
-    '^tamagui$',
+    '^(react$|react-native$|react-i18next$|expo|tamagui$)',
     '^(react|react-native)(.*)$',
     '<THIRD_PARTY_MODULES>',
     '^@/core/(.*)$',

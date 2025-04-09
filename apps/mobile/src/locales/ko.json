@@ -23,6 +23,7 @@
       "back": "뒤로",
       "next": "다음",
       "prev": "이전",
+      "join": "가입하러 가기",
       "submit": "제출",
       "addCover": "커버 추가",
       "timeStamp": "타임 스탬프"
@@ -246,7 +247,7 @@
       "description": "안전한 비밀번호는 8자 이상이어야 합니다",
       "placeholder": "비밀번호"
     },
-    "signup": {
+    "benefits": {
       "title": "시작해보세요",
       "ota": "여러 기능을 사용해보세요:",
       "benefits": {

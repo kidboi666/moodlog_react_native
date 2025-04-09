@@ -1,7 +1,5 @@
 import React, { memo } from 'react';
-
 import { useTranslation } from 'react-i18next';
-
 import { H3 } from 'tamagui';
 
 import { FadeIn } from '@/core/components/shared/FadeIn.styleable';

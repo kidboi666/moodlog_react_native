@@ -1,5 +1,4 @@
 import React, { memo } from 'react';
-
 import { useTranslation } from 'react-i18next';
 
 import * as S from '@/core/components/features/write/PickerMood.styled';

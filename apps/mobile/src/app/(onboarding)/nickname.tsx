@@ -1,7 +1,5 @@
-import { useTranslation } from 'react-i18next';
-
 import { useRouter } from 'expo-router';
-
+import { useTranslation } from 'react-i18next';
 import { Input } from 'tamagui';
 
 import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
@@ -20,18 +18,19 @@ export default function Screen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { currentStep, goToPrevStep, goToNextStep } = useStepProgress();
+  const isNicknamePage = currentStep === 1;
 
   const handlePrevStep = () => {
-    if (currentStep === 1) {
+    if (isNicknamePage) {
       goToPrevStep();
       router.back();
     }
   };
 
   const handleNextStep = () => {
-    if (currentStep === 2) {
+    if (isNicknamePage) {
       goToNextStep();
-      router.push('/password');
+      router.push('/benefit');
     }
   };
 
