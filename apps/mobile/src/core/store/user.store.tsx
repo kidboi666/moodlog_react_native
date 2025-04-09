@@ -3,9 +3,10 @@ import { useEffect } from 'react';
 import { create } from 'zustand';
 
 import { UserService } from '@/core/services/user.service';
-import { useAppStore } from '@/core/store/app.store';
 
 import { UserStore } from '@/types/user.types';
+
+import { useApp } from './app.store';
 
 const initialUserInfo = {
   id: '',
@@ -29,7 +30,7 @@ export const useUser = create<UserStore>((set, get) => ({
       const newUser = await UserService.saveNewUser(get().userInfo, userName);
       set({ userInfo: newUser });
 
-      await useAppStore.getState().initFirstLaunchStatus();
+      await useApp.getState().initFirstLaunchStatus();
     } catch (err) {
       console.error('failed to save user data : ', err);
       set({ error: err });
@@ -39,14 +40,12 @@ export const useUser = create<UserStore>((set, get) => ({
   },
 
   onDraftUserNameChange: userName => {
-    set(state => ({
-      userInfo: { ...state.userInfo, userName },
-    }));
+    set({ draftUserName: userName });
   },
 
   updateDaysSinceSignup: async () => {
     try {
-      const firstLaunchDate = useAppStore.getState().firstLaunchDate;
+      const firstLaunchDate = useApp.getState().firstLaunchDate;
       if (!firstLaunchDate) return;
 
       const newDaysSinceSignup = await UserService.saveDaysSinceSignup(
@@ -89,7 +88,7 @@ export const useUser = create<UserStore>((set, get) => ({
 
       if (savedUserData) {
         set({ userInfo: savedUserData });
-        await useAppStore.getState().initFirstLaunchStatus();
+        await useApp.getState().initFirstLaunchStatus();
       }
     } catch (err) {
       console.error('failed to load user data', err);
@@ -103,7 +102,7 @@ export const useUser = create<UserStore>((set, get) => ({
 export function useInitializeUser() {
   const loadUserData = useUser(state => state.loadUserData);
   const updateDaysSinceSignup = useUser(state => state.updateDaysSinceSignup);
-  const firstLaunchDate = useAppStore(state => state.firstLaunchDate);
+  const firstLaunchDate = useApp(state => state.firstLaunchDate);
 
   useEffect(() => {
     loadUserData();

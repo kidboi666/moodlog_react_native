@@ -15,7 +15,8 @@ import { useUser } from '@/core/store/user.store';
 import * as S from '@/styles/screens/onboarding/Nickname.styled';
 
 export default function Screen() {
-  const { draftUserName, onDraftUserNameChange } = useUser();
+  const draftUserName = useUser(state => state.draftUserName);
+  const onDraftUserNameChange = useUser(state => state.onDraftUserNameChange);
   const router = useRouter();
   const { t } = useTranslation();
   const { currentStep, goToPrevStep, goToNextStep } = useStepProgress();

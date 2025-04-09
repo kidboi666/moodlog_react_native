@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { Platform } from 'react-native';
 
 import * as NavigationBar from 'expo-navigation-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
-import { Redirect, Stack } from 'expo-router';
+import { Stack } from 'expo-router';
 
 import { useTheme } from 'tamagui';
 
@@ -41,6 +41,7 @@ export default function RootLayout() {
   const [fontLoaded, fontError] = useFonts(FONTS);
   const isAuthenticated = useAuth(state => state.isAuthenticated);
 
+  // Handle splash screen
   useEffect(() => {
     async function hideSplashScreen() {
       try {
@@ -51,29 +52,30 @@ export default function RootLayout() {
         console.warn('Error hiding splash screen:', err);
       }
     }
-
     hideSplashScreen();
   }, [fontLoaded, fontError]);
 
+  // Wait for fonts to load
   if (!fontLoaded && !fontError) {
     return null;
   }
 
-  if (!isAuthenticated) {
-    return <Redirect href="/login" />;
-  }
-
   return (
     <RootProvider>
-      <RootLayoutNav />
+      <RootLayoutNav isAuthenticated={isAuthenticated} />
     </RootProvider>
   );
 }
 
-const RootLayoutNav = () => {
+type RootLayoutNavProps = {
+  isAuthenticated: boolean;
+};
+
+const RootLayoutNav = ({ isAuthenticated }: RootLayoutNavProps) => {
   const { resolvedTheme } = useAppTheme();
   const theme = useTheme();
 
+  // Background style based on theme
   const backgroundStyle = useMemo(
     () => ({
       flex: 1,
@@ -82,6 +84,7 @@ const RootLayoutNav = () => {
     [theme.background.val, resolvedTheme],
   );
 
+  // Screen options for all routes
   const screenOptions = useMemo(
     () => ({
       headerShown: false,
@@ -91,6 +94,7 @@ const RootLayoutNav = () => {
     [backgroundStyle],
   );
 
+  // Handle Android navigation bar
   useEffect(() => {
     if (Platform.OS === 'android') {
       NavigationBar.setButtonStyleAsync(
@@ -105,11 +109,17 @@ const RootLayoutNav = () => {
         value={resolvedTheme === 'dark' ? DarkTheme : DefaultTheme}
       >
         <StatusBar resolvedTheme={resolvedTheme} />
-        <Stack screenOptions={screenOptions}>
-          <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="(onboarding)" />
-          <Stack.Screen name="+not-found" />
-        </Stack>
+        {isAuthenticated ? (
+          <Stack screenOptions={screenOptions}>
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        ) : (
+          <Stack screenOptions={screenOptions}>
+            <Stack.Screen name="(onboarding)" />
+            <Stack.Screen name="login" />
+          </Stack>
+        )}
         <BottomSheet />
       </ThemeProvider>
     </GestureHandlerRootView>

@@ -72,8 +72,8 @@ export default function RegisterScreen() {
   };
 
   return (
-    <View flex={1} justifyContent="center" padding="$4">
-      <YStack space="$4">
+    <View style={{ flex: 1, justifyContent: 'center', padding: 16 }}>
+      <YStack space="$4" width="100%">
         <H1>{t('auth.register')}</H1>
         <Form onSubmit={handleRegister}>
           <YStack space="$4">
@@ -95,20 +95,18 @@ export default function RegisterScreen() {
               onChangeText={setConfirmPassword}
               secureTextEntry
             />
-            <Button
-              themeInverse
-              onPress={handleRegister}
-              disabled={isLoading}
-              loading={isLoading}
-            >
-              {t('auth.registerButton')}
+            <Button themeInverse onPress={handleRegister} disabled={isLoading}>
+              {isLoading ? t('common.loading') : t('auth.registerButton')}
             </Button>
           </YStack>
         </Form>
 
         <Separator />
 
-        <XStack justifyContent="center" space="$2">
+        <XStack
+          style={{ alignItems: 'center', justifyContent: 'center' }}
+          space="$2"
+        >
           <Text>{t('auth.hasAccount')}</Text>
           <Text color="$blue10" onPress={navigateToLogin}>
             {t('auth.login')}

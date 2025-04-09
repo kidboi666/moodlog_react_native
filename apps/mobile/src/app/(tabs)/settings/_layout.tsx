@@ -16,6 +16,7 @@ export default function Layout() {
       <Stack.Screen name="theme" />
       <Stack.Screen name="language" />
       <Stack.Screen name="time_format" />
+      <Stack.Screen name="profile" />
     </Stack>
   );
 }

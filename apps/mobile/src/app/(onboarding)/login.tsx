@@ -66,8 +66,8 @@ export default function LoginScreen() {
   };
 
   return (
-    <View flex={1} justifyContent="center" padding="$4">
-      <YStack space="$4">
+    <View style={{ flex: 1, justifyContent: 'center', padding: 16 }}>
+      <YStack space="$4" width="100%">
         <H1>{t('auth.login')}</H1>
         <Form onSubmit={handleLogin}>
           <YStack space="$4">
@@ -83,20 +83,18 @@ export default function LoginScreen() {
               onChangeText={setPassword}
               secureTextEntry
             />
-            <Button
-              themeInverse
-              onPress={handleLogin}
-              disabled={isLoading}
-              loading={isLoading}
-            >
-              {t('auth.loginButton')}
+            <Button themeInverse onPress={handleLogin} disabled={isLoading}>
+              {isLoading ? t('common.loading') : t('auth.loginButton')}
             </Button>
           </YStack>
         </Form>
 
         <Separator />
 
-        <XStack justifyContent="center" space="$2">
+        <XStack
+          style={{ alignItems: 'center', justifyContent: 'center' }}
+          space="$2"
+        >
           <Text>{t('auth.noAccount')}</Text>
           <Text color="$blue10" onPress={navigateToRegister}>
             {t('auth.register')}

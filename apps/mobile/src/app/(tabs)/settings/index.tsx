@@ -6,7 +6,14 @@ import { Href, useRouter } from 'expo-router';
 
 import { Button, H1, ScrollView, Separator, YStack } from 'tamagui';
 
-import { Clock, Computer, Globe, LogOut, Moon } from '@tamagui/lucide-icons';
+import {
+  Clock,
+  Computer,
+  Globe,
+  LogOut,
+  Moon,
+  User,
+} from '@tamagui/lucide-icons';
 
 import { NavigationSettingItem } from '@/core/components/features/settings/NavigationSettingItem';
 import { useDev } from '@/core/hooks/useDev';
@@ -37,6 +44,13 @@ export default function Screen() {
       <S.ViewContainer edges={['top']} padded>
         <H1>{t('settings.title')}</H1>
         <S.ItemContainer>
+          {/* Profile Setting */}
+          <NavigationSettingItem
+            icon={User}
+            label={t('settings.profile.title') || 'Profile'}
+            href={'/settings/profile' as any}
+            onRouteChange={handleRouteChange}
+          />
           {/* Theme Setting */}
           <NavigationSettingItem
             icon={Moon}
