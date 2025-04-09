@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "start:mobile": "yarn workspace @moodlog/mobile start",
+    "start:server": "yarn workspace @moodlog/server start",
     "upgrade:tamagui": "yarn workspace @moodlog/mobile upgrade:tamagui",
     "check:tamagui": "yarn workspace @moodlog/mobile check:tamagui",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
