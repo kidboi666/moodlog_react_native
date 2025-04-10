@@ -24,6 +24,7 @@
       "next": "Next",
       "prev": "Previous",
       "submit": "Submit",
+      "skip": "Skip",
       "join": "Go to Join",
       "addCover": "Add Cover",
       "timeStamp": "Time Stamp"
@@ -185,6 +186,7 @@
     "register": "Register",
     "signup": "Sign Up",
     "logout": "Log Out",
+    "email": "Email",
     "username": "Username",
     "password": "Password",
     "confirmPassword": "Confirm Password",
@@ -238,12 +240,12 @@
       "placeholder": "Enter nickname"
     },
     "benefits": {
-      "title": "Start your journal",
-      "ota": "Features available:",
+      "title": "Join us",
+      "ota": "Features available.",
       "benefits": {
         "sync": "Multi-device sync",
         "backup": "Secure backups",
-        "stats": "Advanced stats"
+        "profile": "Your custom profile"
       }
     }
   }

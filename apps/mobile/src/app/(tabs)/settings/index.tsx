@@ -70,7 +70,7 @@ export default function Screen() {
             href="/settings/time_format"
           />
 
-          <YStack space="$4">
+          <YStack gap="$4">
             <Separator />
 
             {/* Logout Button */}

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { uuid } from 'expo-modules-core';
 
 import { create } from 'zustand';
 
@@ -21,24 +21,18 @@ const initialUserInfo = {
 export const useUser = create<UserStore>((set, get) => ({
   userInfo: initialUserInfo,
   draftUserName: '',
-  draftEmail: '',
-  draftPassword: '',
   isLoading: false,
   error: null,
 
-  registerUser: async (userName, email, password) => {
+  registerUser: async userName => {
     try {
       set({ isLoading: true, error: null });
-      const updatedUserInfo = {
+      const newUserInfo = {
         ...get().userInfo,
         userName,
-        email,
+        id: uuid.v4(),
       };
-      const newUser = await UserService.saveNewUser(
-        updatedUserInfo,
-        userName,
-        password,
-      );
+      const newUser = await UserService.saveNewUser(newUserInfo);
       set({ userInfo: newUser });
 
       await useApp.getState().initFirstLaunchStatus();
@@ -52,14 +46,6 @@ export const useUser = create<UserStore>((set, get) => ({
 
   onDraftUserNameChange: userName => {
     set({ draftUserName: userName });
-  },
-
-  onDraftEmailChange: email => {
-    set({ draftEmail: email });
-  },
-
-  onDraftPasswordChange: password => {
-    set({ draftPassword: password });
   },
 
   updateDaysSinceSignup: async () => {
@@ -117,19 +103,3 @@ export const useUser = create<UserStore>((set, get) => ({
     }
   },
 }));
-
-export function useInitializeUser() {
-  const loadUserData = useUser(state => state.loadUserData);
-  const updateDaysSinceSignup = useUser(state => state.updateDaysSinceSignup);
-  const firstLaunchDate = useApp(state => state.firstLaunchDate);
-
-  useEffect(() => {
-    loadUserData();
-  }, [loadUserData]);
-
-  useEffect(() => {
-    if (firstLaunchDate) {
-      updateDaysSinceSignup();
-    }
-  }, [firstLaunchDate, updateDaysSinceSignup]);
-}

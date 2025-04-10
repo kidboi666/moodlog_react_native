@@ -1,5 +1,3 @@
-import { uuid } from 'expo-modules-core';
-
 import { STORAGE_KEY } from '@/core/constants/storage';
 import { StorageService } from '@/core/services/storage.service';
 
@@ -16,17 +14,8 @@ export class UserService extends StorageService {
     }
   }
 
-  static async saveNewUser(
-    userInfo: UserInfo,
-    userName: string,
-    password: string,
-  ): Promise<UserInfo> {
+  static async saveNewUser(newUser: UserInfo): Promise<UserInfo> {
     try {
-      const newUser = {
-        ...userInfo,
-        id: uuid.v4(),
-        userName,
-      };
       await this.save(STORAGE_KEY.USER_INFO, newUser);
       return newUser;
     } catch (err) {

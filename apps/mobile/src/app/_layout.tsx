@@ -1,9 +1,12 @@
+import { useEffect, useMemo } from 'react';
+
+import { Platform } from 'react-native';
+
 import * as NavigationBar from 'expo-navigation-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
-import { useEffect, useMemo } from 'react';
-import { Platform } from 'react-native';
+
 import { useTheme } from 'tamagui';
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -114,7 +117,6 @@ const RootLayoutNav = ({ isAuthenticated }: RootLayoutNavProps) => {
         ) : (
           <Stack screenOptions={screenOptions}>
             <Stack.Screen name="(onboarding)" />
-            <Stack.Screen name="login" />
           </Stack>
         )}
         <BottomSheet />

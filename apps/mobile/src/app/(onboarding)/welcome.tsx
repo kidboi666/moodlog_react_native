@@ -52,7 +52,7 @@ export default function Screen() {
       </S.WelcomeContainer>
       <FadeIn delay={ANIMATION_DELAY_SECONDS[3]}>
         <S.NextButton iconAfter={ArrowRight} onPress={handleClickNextButton}>
-          {t('common.button.next')}
+          {t('common.next')}
         </S.NextButton>
       </FadeIn>
     </ViewContainer>

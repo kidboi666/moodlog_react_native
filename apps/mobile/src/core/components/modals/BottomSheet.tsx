@@ -2,9 +2,11 @@ import { memo } from 'react';
 
 import { Sheet } from '@tamagui/sheet';
 
-import { DeleteJournalModal } from '@/core/components/modals/contents/DeleteJournalModal/DeleteJournalModal';
-import { JournalWriteModal } from '@/core/components/modals/contents/JournalWriteModal/JournalWriteModal';
-import { SelectMoodModal } from '@/core/components/modals/contents/SelectMoodModal/SelectMoodModal';
+import { DeleteJournalModal } from '@/core/components/modals/contents/DeleteJournalModal';
+import { JournalWriteModal } from '@/core/components/modals/contents/JournalWriteModal';
+import { SelectMoodModal } from '@/core/components/modals/contents/SelectMoodModal';
+import { SignInModal } from '@/core/components/modals/contents/SignInModal';
+import { SignUpModal } from '@/core/components/modals/contents/SignUpModal';
 import { useBottomSheet } from '@/core/store/bottom-sheet.store';
 
 import { BottomSheetProps, BottomSheetType } from '@/types/bottom-sheet.types';
@@ -19,6 +21,12 @@ const SheetContentComponents = {
   [BottomSheetType.JOURNAL_WRITE]: (
     props: BottomSheetProps[BottomSheetType.JOURNAL_WRITE],
   ) => <JournalWriteModal {...props} />,
+  [BottomSheetType.SIGN_UP]: (
+    props: BottomSheetProps[BottomSheetType.SIGN_UP],
+  ) => <SignUpModal {...props} />,
+  [BottomSheetType.SIGN_IN]: (
+    props: BottomSheetProps[BottomSheetType.SIGN_IN],
+  ) => <SignInModal {...props} />,
 };
 
 export const BottomSheet = memo(() => {
@@ -38,7 +46,6 @@ export const BottomSheet = memo(() => {
       forceRemoveScrollEnabled={isOpen}
       modal
       open={isOpen}
-      disableDrag
       onOpenChange={hideBottomSheet}
       snapPoints={snapPoint}
       dismissOnSnapToBottom

@@ -54,14 +54,14 @@ export default function Screen() {
       <FadeIn delay={ANIMATION_DELAY_SECONDS[3]}>
         <S.ButtonContainer>
           <S.PrevButton icon={ArrowLeft} onPress={handlePrevStep}>
-            {t('common.button.prev')}
+            {t('common.prev')}
           </S.PrevButton>
           <S.NextButton
             disabled={!draftUserName}
             onPress={handleNextStep}
             iconAfter={ArrowRight}
           >
-            {t('common.button.next')}
+            {t('common.next')}
           </S.NextButton>
         </S.ButtonContainer>
       </FadeIn>

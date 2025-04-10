@@ -1,4 +1,5 @@
 import { Stack } from 'expo-router';
+
 import { useTheme } from 'tamagui';
 
 import { OnboardingHeader } from '@/core/components/features/onboarding/OnboardingHeader';
@@ -24,7 +25,6 @@ export default function Layout() {
         <Stack.Screen name="welcome" />
         <Stack.Screen name="nickname" />
         <Stack.Screen name="benefit" />
-        <Stack.Screen name="register" />
       </Stack>
     </StepProgressProvider>
   );

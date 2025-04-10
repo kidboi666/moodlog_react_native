@@ -1,5 +1,4 @@
-import { router } from 'expo-router';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert } from 'react-native';
 import {
@@ -9,20 +8,26 @@ import {
   Input,
   Separator,
   Text,
-  View,
   XStack,
   YStack,
 } from 'tamagui';
 
-export default function RegisterScreen() {
+import { BottomSheetContainer } from '@/core/components/modals/BottomSheetContainer';
+
+interface Props {
+  userName: string;
+  goLoginPage: () => void;
+}
+
+export const SignUpModal = ({ userName, goLoginPage }: Props) => {
   const { t } = useTranslation();
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleRegister = async () => {
-    if (!username.trim() || !password.trim() || !confirmPassword.trim()) {
+    if (!email.trim() || !password.trim() || !confirmPassword.trim()) {
       Alert.alert(t('auth.error'), t('auth.emptyFields'));
       return;
     }
@@ -39,7 +44,7 @@ export default function RegisterScreen() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, username: userName, password }),
       });
 
       const data = await response.json();
@@ -51,7 +56,7 @@ export default function RegisterScreen() {
       Alert.alert(t('auth.success'), t('auth.registerSuccess'), [
         {
           text: t('common.ok'),
-          onPress: () => router.push('/login'),
+          onPress: () => goLoginPage(),
         },
       ]);
     } catch (error) {
@@ -61,20 +66,16 @@ export default function RegisterScreen() {
     }
   };
 
-  const navigateToLogin = () => {
-    router.push('/login');
-  };
-
   return (
-    <View flex={1} justify="center" p={16}>
+    <BottomSheetContainer>
       <YStack gap="$4" width="100%">
         <H1>{t('auth.register')}</H1>
         <Form onSubmit={handleRegister}>
           <YStack gap="$4">
             <Input
-              placeholder={t('auth.username')}
-              value={username}
-              onChangeText={setUsername}
+              placeholder={t('auth.email')}
+              value={email}
+              onChangeText={setEmail}
               autoCapitalize="none"
             />
             <Input
@@ -99,11 +100,11 @@ export default function RegisterScreen() {
 
         <XStack items="center" justify="center" gap="$2">
           <Text>{t('auth.hasAccount')}</Text>
-          <Text color="$blue10" onPress={navigateToLogin}>
+          <Text color="$blue10" onPress={goLoginPage}>
             {t('auth.login')}
           </Text>
         </XStack>
       </YStack>
-    </View>
+    </BottomSheetContainer>
   );
-}
+};

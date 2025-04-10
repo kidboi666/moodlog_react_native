@@ -9,15 +9,15 @@ import {
   Input,
   Separator,
   Text,
-  View,
   XStack,
   YStack,
 } from 'tamagui';
 
+import { BottomSheetContainer } from '@/core/components/modals/BottomSheetContainer';
 import { API_URL } from '@/core/constants/api';
 import { useAuth } from '@/core/store/auth.store';
 
-export default function LoginScreen() {
+export const SignInModal = () => {
   const { t } = useTranslation();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -58,15 +58,15 @@ export default function LoginScreen() {
   };
 
   const navigateToRegister = () => {
-    router.push('/register');
+    router.push('/(tabs)');
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', padding: 16 }}>
-      <YStack space="$4" width="100%">
+    <BottomSheetContainer>
+      <YStack gap="$4" width="100%">
         <H1>{t('auth.login')}</H1>
         <Form onSubmit={handleLogin}>
-          <YStack space="$4">
+          <YStack gap="$4">
             <Input
               placeholder={t('auth.username')}
               value={username}
@@ -87,16 +87,13 @@ export default function LoginScreen() {
 
         <Separator />
 
-        <XStack
-          style={{ alignItems: 'center', justifyContent: 'center' }}
-          space="$2"
-        >
+        <XStack items="center" justify="center" gap="$2">
           <Text>{t('auth.noAccount')}</Text>
           <Text color="$blue10" onPress={navigateToRegister}>
             {t('auth.register')}
           </Text>
         </XStack>
       </YStack>
-    </View>
+    </BottomSheetContainer>
   );
-}
+};

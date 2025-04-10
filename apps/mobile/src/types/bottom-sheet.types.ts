@@ -6,6 +6,8 @@ export enum BottomSheetType {
   DELETE_JOURNAL = 'DELETE_JOURNAL',
   SELECT_MOOD = 'SELECT_MOOD',
   JOURNAL_WRITE = 'JOURNAL_WRITE',
+  SIGN_UP = 'SIGN_UP',
+  SIGN_IN = 'SIGN_IN',
 }
 
 export interface BottomSheetStore {
@@ -17,7 +19,7 @@ export interface BottomSheetStore {
   showBottomSheet: <T extends BottomSheetType>(
     type: T,
     snapPoint: number[] | string[],
-    props: BottomSheetProps[T],
+    props?: BottomSheetProps[T],
   ) => void;
   hideBottomSheet: () => void;
 }
@@ -40,4 +42,9 @@ export type BottomSheetProps = {
     isLoading: boolean;
     isSubmitted: boolean;
   };
+  [BottomSheetType.SIGN_UP]: {
+    userName: string;
+    goLoginPage: () => void;
+  };
+  [BottomSheetType.SIGN_IN]: {};
 };

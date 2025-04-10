@@ -74,3 +74,11 @@ export const camelToConstantCase = (str: string): string => {
 
   return upperCase.startsWith('_') ? upperCase.substring(1) : upperCase;
 };
+
+/**
+ * 간단한 이메일 검증
+ */
+export const isValidEmail = (email: string) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};

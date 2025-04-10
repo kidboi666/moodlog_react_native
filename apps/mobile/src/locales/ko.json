@@ -13,21 +13,20 @@
       },
       "text": "없음"
     },
-    "button": {
-      "ok": "확인",
-      "cancel": "취소",
-      "confirm": "확인",
-      "delete": "삭제",
-      "edit": "수정",
-      "save": "저장",
-      "back": "뒤로",
-      "next": "다음",
-      "prev": "이전",
-      "join": "가입하러 가기",
-      "submit": "제출",
-      "addCover": "커버 추가",
-      "timeStamp": "타임 스탬프"
-    },
+    "ok": "확인",
+    "cancel": "취소",
+    "confirm": "확인",
+    "delete": "삭제",
+    "edit": "수정",
+    "save": "저장",
+    "back": "뒤로",
+    "next": "다음",
+    "prev": "이전",
+    "join": "가입하러 가기",
+    "submit": "제출",
+    "addCover": "커버 추가",
+    "timeStamp": "타임 스탬프",
+    "skip": "생략하기",
     "units": {
       "month": "월",
       "count": "개",
@@ -184,6 +183,7 @@
     "login": "로그인",
     "register": "회원가입",
     "signup": "가입하기",
+    "email": "이메일",
     "logout": "로그아웃",
     "username": "사용자 이름",
     "password": "비밀번호",
@@ -248,12 +248,12 @@
       "placeholder": "비밀번호"
     },
     "benefits": {
-      "title": "시작해보세요",
-      "ota": "여러 기능을 사용해보세요:",
+      "title": "가입해보세요.",
+      "ota": "여러 기능을 사용해보세요.",
       "benefits": {
         "sync": "여러 기기에서 동기화",
         "backup": "안전한 백업",
-        "stats": "고급 통계"
+        "profile": "다양한 개인 설정"
       },
       "summary": {
         "email": "이메일",
