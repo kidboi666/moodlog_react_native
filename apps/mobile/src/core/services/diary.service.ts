@@ -1,9 +1,5 @@
 import { uuid } from 'expo-modules-core'
-
 import { CalendarUtils } from 'react-native-calendars'
-
-import { STORAGE_KEY } from '@/core/constants/storage'
-import { StorageService } from '@/core/services/storage.service'
 
 import type {
   ISODateString,
@@ -15,24 +11,14 @@ import type {
   Journal,
   JournalIndexes,
   JournalStore,
-  Journals,
 } from '@/types/journal.types'
-
 import {
   getISODateString,
   getISOMonthString,
   getYearFromISODate,
 } from '@/utils/date'
 
-export class Diary extends StorageService {
-  static async loadJournalStore(): Promise<JournalStore> {
-    return await Diary.load(STORAGE_KEY.JOURNAL_STORE)
-  }
-
-  static async saveJournalStore(journals: JournalStore): Promise<void> {
-    await Diary.save(STORAGE_KEY.JOURNAL_STORE, journals)
-  }
-
+export class Diary {
   static async addJournal(
     store: JournalStore,
     draft: Draft,
@@ -40,6 +26,7 @@ export class Diary extends StorageService {
     if (!draft.content || !draft.mood) {
       throw new Error('not content or mood')
     }
+
     const now = new Date()
     const localDate = CalendarUtils.getCalendarDateString(now)
     const monthString = getISOMonthString(localDate)
@@ -55,7 +42,7 @@ export class Diary extends StorageService {
       imageUri: draft.imageUri ? draft.imageUri : [],
     }
 
-    const newStore = {
+    return {
       journals: {
         ...store.journals,
         [newJournal.id]: newJournal,
@@ -89,10 +76,6 @@ export class Diary extends StorageService {
         },
       },
     }
-
-    await Diary.saveJournalStore(newStore)
-
-    return newStore
   }
 
   static async removeJournal(
@@ -133,7 +116,6 @@ export class Diary extends StorageService {
       newStore.indexes.byYear[year] || []
     ).filter(id => id !== journalId)
 
-    await Diary.saveJournalStore(newStore)
     return newStore
   }
 
@@ -172,10 +154,6 @@ export class Diary extends StorageService {
       return Diary.getJournalsByDate(store, date as ISODateString)
     }
     return Diary.getJournalsByMonth(store, date as ISOMonthString)
-  }
-
-  static getJournalById(journals: Journals, journalId: string): Journal | null {
-    return journals[journalId] || null
   }
 
   static getJournalsByDate(

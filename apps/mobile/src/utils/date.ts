@@ -1,12 +1,12 @@
 import { MONTHS, WEEK_DAY } from '@/core/constants/date'
 
-import {
+import type {
   ISODateString,
   ISOMonthString,
   MonthKey,
   WeekDayValue,
 } from '@/types/date.types'
-
+import type { UserInfo } from '@/types/user.types'
 import { removeLeadingZero } from '@/utils/common'
 
 /**
@@ -63,7 +63,7 @@ export const getDayFromISODate = (date: ISODateString): WeekDayValue => {
  * ISODate(YYYY-MM-DD) 를 받아 년도 추출
  */
 export const getYearFromISODate = (date: ISODateString): number => {
-  return parseInt(date.substring(0, 3))
+  return Number.parseInt(date.substring(0, 3))
 }
 
 /**
@@ -169,7 +169,7 @@ export const getThisWeekArray = (dateString: ISODateString) => {
   const monday = new Date(date)
   monday.setDate(date.getDate() + mondayOffset)
 
-  let weekDate: ISODateString[] = []
+  const weekDate: ISODateString[] = []
 
   // 월요일부터 시작하여 7일 추가
   for (let i = 0; i < 7; i++) {
@@ -195,5 +195,12 @@ export const getDaysBetweenDates = (startDate: string, endDate: string) => {
 
   const diffTime: number = Math.abs(end.getTime() - start.getTime())
 
+  return Math.floor(diffTime / (1000 * 60 * 60 * 24))
+}
+
+export const getDaysSinceSignup = (firstLaunchDate: ISODateString): number => {
+  const today = new Date()
+  const signupDate = new Date(firstLaunchDate)
+  const diffTime = today.getTime() - signupDate.getTime()
   return Math.floor(diffTime / (1000 * 60 * 60 * 24))
 }

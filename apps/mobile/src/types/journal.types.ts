@@ -51,7 +51,7 @@ export interface JournalStoreState {
 
   selectJournal: (journalId: string) => void
   selectJournals: (date: ISODateString | ISOMonthString | null) => void
-  addJournal: (draft: Draft) => Promise<void>
+  addJournal: (draft: Draft) => void
   removeJournal: (id: string) => Promise<void>
   getCountForMonth: (year: number, month: number | MonthKey) => number
   getCountForDate: (
@@ -60,5 +60,4 @@ export interface JournalStoreState {
     date: number,
   ) => number
   getMoodForDate: (date: ISODateString) => any | null
-  initJournals: () => Promise<void>
 }

@@ -1,14 +1,11 @@
-import * as Localization from 'expo-localization'
-
-import { CalendarUtils } from 'react-native-calendars'
-
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import * as Localization from 'expo-localization'
+import { CalendarUtils } from 'react-native-calendars'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
 import { APP_VERSION } from '@/core/constants/common'
-import { AppService } from '@/core/services/app.service'
-
+import { STORAGE_KEY } from '@/core/constants/storage'
 import {
   type AppSettings,
   type AppStore,
@@ -35,50 +32,12 @@ export const useApp = create<AppStore>()(
       isLoading: false,
       error: null,
 
-      initFirstLaunchStatus: async () => {
-        try {
-          set({ isLoading: true, error: null })
-          const firstLaunchDate = CalendarUtils.getCalendarDateString(
-            new Date(),
-          )
-
-          await Promise.all([
-            AppService.saveFirstLaunchStatus(firstLaunchDate),
-            AppService.initSettings(get().settings),
-          ])
-
+      initFirstLaunchStatus: () => {
+        const firstLaunchDate = CalendarUtils.getCalendarDateString(new Date())
+        if (!get().firstLaunchDate) {
           set({
             firstLaunchDate: firstLaunchDate as ISODateString,
           })
-        } catch (err) {
-          console.error('load firstLaunchStatus failed : ', err)
-          set({ error: err })
-        } finally {
-          set({ isLoading: false })
-        }
-      },
-
-      initAppData: async () => {
-        try {
-          set({ isLoading: true, error: null })
-
-          const [firstLaunchDate, settings] = await Promise.all([
-            AppService.loadFirstLaunchStatus(),
-            AppService.loadSettings(),
-          ])
-
-          set({
-            firstLaunchDate: firstLaunchDate as ISODateString,
-          })
-
-          if (settings) {
-            set({ settings })
-          }
-        } catch (err) {
-          console.error('load settings failed : ', err)
-          set({ error: err })
-        } finally {
-          set({ isLoading: false })
         }
       },
 
@@ -87,11 +46,11 @@ export const useApp = create<AppStore>()(
         value: AppSettings[K],
       ) => {
         try {
-          const currentSettings = get().settings
-          const newSettings = { ...currentSettings, [key]: value }
-
-          set({ settings: newSettings })
-          await AppService.saveSetting(currentSettings, key, value)
+          set({ error: null })
+          set(state => ({
+            ...state,
+            settings: { ...state.settings, [key]: value },
+          }))
         } catch (err) {
           console.error(`Failed to save ${key} settings failed : `, err)
           set({ error: err })
@@ -99,9 +58,13 @@ export const useApp = create<AppStore>()(
       },
     }),
     {
-      name: 'app-storage',
+      name: STORAGE_KEY.SETTINGS,
       storage: createJSONStorage(() => AsyncStorage),
-      partialize: state => ({ settings: state.settings }),
+      partialize: state => ({
+        settings: state.settings,
+        firstLaunchDate: state.firstLaunchDate,
+      }),
+      version: 1,
     },
   ),
 )

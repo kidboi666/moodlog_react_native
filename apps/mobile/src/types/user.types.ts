@@ -1,9 +1,8 @@
-import { Nullable } from '@/types/utill.types'
+import type { Nullable } from '@/types/utill.types'
 
 export type UserInfo = {
   id: string
   userName: string
-  daysSinceSignup: number
   age: Nullable<number>
   email: Nullable<string>
   provider: Nullable<string>
@@ -23,6 +22,4 @@ export interface UserStore {
   registerUser: (userName: string) => Promise<void>
   onUserInfoChange: (updatedUserInfo: NewUserInfo) => Promise<void>
   onDraftUserNameChange: (userName: string) => void
-  updateDaysSinceSignup: () => Promise<void>
-  loadUserData: () => Promise<void>
 }

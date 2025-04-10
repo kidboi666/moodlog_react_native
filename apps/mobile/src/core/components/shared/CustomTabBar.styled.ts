@@ -1,5 +1,5 @@
 import { Platform } from 'react-native'
-import { View, XStack, styled } from 'tamagui'
+import { XStack, styled } from 'tamagui'
 
 import { PressableButton } from '@/core/components/shared/PressableButton.styled'
 
@@ -21,6 +21,7 @@ export const Container = styled(XStack, {
   justify: 'space-evenly',
   items: 'center',
 })
+
 const TabButton = styled(PressableButton, {
   color: '$color9',
   bg: '$color5',
@@ -35,6 +36,7 @@ const TabButton = styled(PressableButton, {
     },
   } as const,
 })
+
 export const HomeButton = styled(TabButton, {
   borderTopLeftRadius: '$9',
 })

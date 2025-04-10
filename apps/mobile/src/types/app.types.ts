@@ -1,5 +1,5 @@
-import { ISODateString } from '@/types/date.types'
-import { Nullable } from '@/types/utill.types'
+import type { ISODateString } from '@/types/date.types'
+import type { Nullable } from '@/types/utill.types'
 
 export enum ViewFontSize {
   SMALL = '$6',
@@ -45,15 +45,14 @@ export interface AppSettings {
 
 export interface AppStore {
   appVersion: string
-  firstLaunchDate: ISODateString | null
+  firstLaunchDate: Nullable<ISODateString>
 
   settings: AppSettings
 
   isLoading: boolean
   error: any | null
 
-  initFirstLaunchStatus: () => Promise<void>
-  initAppData: () => Promise<void>
+  initFirstLaunchStatus: () => void
   onSettingChange: <K extends keyof AppSettings>(
     key: K,
     value: AppSettings[K],

@@ -6,42 +6,24 @@ import { CustomTabBar } from '@/core/components/shared/CustomTabBar'
 import { FullSpinner } from '@/core/components/shared/FullSpinner'
 import { HIDE_TAB_BAR_ROUTES } from '@/core/constants/routes'
 import { useApp } from '@/core/store/app.store'
-import { useJournal } from '@/core/store/journal.store'
-import { useUser } from '@/core/store/user.store'
 
 export default function Layout() {
   const firstLaunchDate = useApp(state => state.firstLaunchDate)
+  const initFirstLaunchStatus = useApp(state => state.initFirstLaunchStatus)
   const isLoading = useApp(state => state.isLoading)
-  const initAppData = useApp(state => state.initAppData)
-  const initJournals = useJournal(state => state.initJournals)
   const [initialized, setInitialized] = useState(false)
   const pathname = usePathname()
-  const loadUserData = useUser(state => state.loadUserData)
-  const updateDaysSinceSignup = useUser(state => state.updateDaysSinceSignup)
 
   const shouldHideTabBar = HIDE_TAB_BAR_ROUTES.some(route =>
     pathname.startsWith(route),
   )
 
   useEffect(() => {
-    const initApp = async () => {
-      await initAppData()
-      await initJournals()
-      await loadUserData()
-      if (firstLaunchDate) {
-        updateDaysSinceSignup()
-      }
-      setInitialized(true)
+    if (!firstLaunchDate) {
+      initFirstLaunchStatus()
     }
-
-    initApp()
-  }, [
-    initAppData,
-    initJournals,
-    loadUserData,
-    firstLaunchDate,
-    updateDaysSinceSignup,
-  ])
+    setInitialized(true)
+  }, [firstLaunchDate])
 
   if (!initialized || isLoading) {
     return <FullSpinner size='large' />

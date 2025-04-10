@@ -1,5 +1,6 @@
 export const STORAGE_KEY = {
-  JOURNAL_STORE: 'journals-storage',
+  THEME: 'theme-storage',
+  JOURNAL: 'journals-storage',
   USER_INFO: 'user-info-storage',
   SETTINGS: 'settings-storage',
   BACKUP: 'journals-storage-backup',
