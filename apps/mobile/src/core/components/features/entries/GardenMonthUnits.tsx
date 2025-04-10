@@ -5,16 +5,13 @@ import * as S from './GardenMonthUnits.styled'
 
 interface Props {
   month: string
-  isSelected: boolean
 }
 
-export const GardenMonthUnits = memo(({ month, isSelected }: Props) => {
+export const GardenMonthUnits = memo(({ month }: Props) => {
   const { t } = useTranslation()
   return (
     <S.ViewContainer>
-      <S.MonthText isSelected={isSelected}>
-        {t(`calendar.months.${month}`)}
-      </S.MonthText>
+      <S.MonthText>{t(`calendar.months.${month}`)}</S.MonthText>
     </S.ViewContainer>
   )
 })

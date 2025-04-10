@@ -12,7 +12,6 @@ import type { Mood } from '@/types/mood.types'
 
 interface Props {
   monthKey: MonthKey
-  isSelected: boolean
   weekLength: number
   firstDateDay: number
   monthDate: ISOMonthString
@@ -22,7 +21,6 @@ interface Props {
 export const MonthItemContent = memo(
   ({
     monthKey,
-    isSelected,
     weekLength,
     firstDateDay,
     monthDate,
@@ -31,7 +29,7 @@ export const MonthItemContent = memo(
   }: Props) => {
     return (
       <YStack>
-        <GardenMonthUnits month={monthKey} isSelected={isSelected} />
+        <GardenMonthUnits month={monthKey} />
         <Garden
           weekLength={weekLength}
           firstDateDay={firstDateDay}

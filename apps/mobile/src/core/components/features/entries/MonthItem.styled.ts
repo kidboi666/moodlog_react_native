@@ -5,8 +5,10 @@ export const MonthItemButton = styled(Button, {
   rounded: '$8',
   py: '$4',
   scale: 1,
-  opacity: 0.7,
+  opacity: 0.4,
   position: 'relative',
+  animation: 'lazy',
+  animateOnly: ['opacity'],
 
   variants: {
     isSelected: {
