@@ -11,10 +11,8 @@ import { ANIMATION_DELAY_MS } from '@/core/constants/time'
 import { useCalendar } from '@/core/hooks/useCalendar'
 import { useBottomSheet } from '@/core/store/bottom-sheet.store'
 import { useJournal } from '@/core/store/journal.store'
-
-import { BottomSheetType } from '@/types/bottom-sheet.types'
-
 import * as S from '@/styles/screens/entries/Entries.styled'
+import { BottomSheetType } from '@/types/bottom-sheet.types'
 
 export default function Screen() {
   const selectedJournals = useJournal(state => state.selectedJournals)

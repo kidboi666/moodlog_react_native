@@ -1,5 +1,6 @@
+import { ChevronLeft, ChevronRight, Trash } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
-import { memo, useCallback } from 'react'
+import { memo, useCallback, useState } from 'react'
 import Animated from 'react-native-reanimated'
 import { AnimatePresence } from 'tamagui'
 
@@ -8,7 +9,6 @@ import { useAxisAnimationWithState } from '@/core/hooks/useAxisAnimationWithStat
 import { useCardGesture } from '@/core/hooks/useCardGesture'
 import { Position } from '@/types/app.types'
 import type { MoodLevel, MoodType } from '@/types/mood.types'
-import { ChevronLeft, ChevronRight, Trash } from '@tamagui/lucide-icons'
 import * as S from './JournalCard.styled'
 
 const AnimatedCard = Animated.createAnimatedComponent(S.CardContainer)
@@ -48,6 +48,7 @@ export const JournalCard = memo(
       endValue: -80,
       duration: 300,
     })
+    const [isPressed, setIsPressed] = useState(false)
 
     const isOpenCard = cardPosition === Position.LEFT
 
@@ -76,10 +77,14 @@ export const JournalCard = memo(
       if (isOpenCard) {
         toggleState()
       } else {
-        router.push({
-          pathname: '/journal/[id]',
-          params: { id },
-        })
+        setIsPressed(true)
+        setTimeout(() => {
+          setTimeout(() => setIsPressed(false), 0)
+          router.push({
+            pathname: '/journal/[id]',
+            params: { id },
+          })
+        }, 300)
       }
     }
 
@@ -117,14 +122,15 @@ export const JournalCard = memo(
                 </S.Content>
               </S.CardHeader>
 
-              <AnimatePresence>
-                {Array.isArray(imageUri) && isOpenCard ? (
-                  <S.CardBackground>
-                    <S.JournalCoverImage source={{ uri: imageUri[0] }} />
-                    <S.ImageCoverGradient />
-                  </S.CardBackground>
-                ) : null}
-              </AnimatePresence>
+              {Array.isArray(imageUri) && (
+                <S.CardBackground>
+                  <S.JournalCoverImage source={{ uri: imageUri[0] }} />
+
+                  <AnimatePresence>
+                    {isOpenCard || isPressed ? null : <S.ImageCoverGradient />}
+                  </AnimatePresence>
+                </S.CardBackground>
+              )}
             </AnimatedCard>
           </GestureWrapper>
         </S.Container>
