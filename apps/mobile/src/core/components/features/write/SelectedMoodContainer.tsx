@@ -1,19 +1,18 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React from 'react'
+import { useTranslation } from 'react-i18next'
 
-import * as S from 'src/core/components/features/write/SelectedMoodContainer.styled';
-
-import { MoodLevel, MoodType } from '@/types/mood.types';
+import type { MoodLevel, MoodType } from '@/types/mood.types'
+import * as S from './SelectedMoodContainer.styled'
 
 interface Props {
-  moodType?: MoodType;
-  moodLevel?: MoodLevel;
+  moodType?: MoodType
+  moodLevel?: MoodLevel
 }
 
 export const SelectedMoodContainer = ({ moodType, moodLevel }: Props) => {
-  const { t } = useTranslation();
-  const levelText = moodLevel ? t(`moods.levels.${moodLevel}`) : '??';
-  const typeText = moodType ? t(`moods.types.${moodType}`) : '??';
+  const { t } = useTranslation()
+  const levelText = moodLevel ? t(`moods.levels.${moodLevel}`) : '??'
+  const typeText = moodType ? t(`moods.types.${moodType}`) : '??'
 
   return (
     <S.ViewContainer>
@@ -22,5 +21,5 @@ export const SelectedMoodContainer = ({ moodType, moodLevel }: Props) => {
         <S.MoodTypeText>{typeText}</S.MoodTypeText>
       </S.XStackContainer>
     </S.ViewContainer>
-  );
-};
+  )
+}

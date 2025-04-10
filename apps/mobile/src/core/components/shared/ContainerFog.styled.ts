@@ -1,7 +1,7 @@
-import { Platform } from 'react-native';
-import { styled } from 'tamagui';
+import { Platform } from 'react-native'
+import { styled } from 'tamagui'
 
-import { LinearGradient as TamaguiLinearGradient } from 'tamagui/linear-gradient';
+import { LinearGradient as TamaguiLinearGradient } from 'tamagui/linear-gradient'
 
 export const TopFog = styled(TamaguiLinearGradient, {
   position: 'absolute',
@@ -12,7 +12,7 @@ export const TopFog = styled(TamaguiLinearGradient, {
   z: 100,
   start: [0, 0],
   end: [0, 1],
-});
+})
 
 export const BottomFog = styled(TamaguiLinearGradient, {
   position: 'absolute',
@@ -24,4 +24,4 @@ export const BottomFog = styled(TamaguiLinearGradient, {
   start: [0, 0],
   end: [0, 1],
   pointerEvents: 'none',
-});
+})

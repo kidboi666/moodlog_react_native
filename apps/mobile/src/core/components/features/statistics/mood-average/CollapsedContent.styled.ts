@@ -1,4 +1,4 @@
-import { Button, H2, H3, Text, View, YStack, styled } from 'tamagui';
+import { Button, H2, H3, Text, View, YStack, styled } from 'tamagui'
 
 export const ViewContainer = styled(View, {
   animation: 'quick',
@@ -7,11 +7,11 @@ export const ViewContainer = styled(View, {
   flex: 1,
   enterStyle: { opacity: 0 },
   exitStyle: { opacity: 0 },
-});
+})
 
 export const YStackContainer = styled(YStack, {
   gap: '$2',
-});
+})
 
 export const CardTitle = styled(H3, {
   color: '$gray12',
@@ -23,7 +23,7 @@ export const CardTitle = styled(H3, {
       },
     },
   } as const,
-});
+})
 
 export const CardDescription = styled(Text, {
   color: '$gray12',
@@ -35,7 +35,7 @@ export const CardDescription = styled(Text, {
       },
     },
   } as const,
-});
+})
 
 export const MoodText = styled(H2, {
   color: '$gray12',
@@ -48,7 +48,7 @@ export const MoodText = styled(H2, {
       },
     },
   } as const,
-});
+})
 
 export const MaximizeButton = styled(Button, {
   unstyled: true,
@@ -56,4 +56,4 @@ export const MaximizeButton = styled(Button, {
   self: 'flex-end',
   color: '$gray1',
   opacity: 0.4,
-});
+})

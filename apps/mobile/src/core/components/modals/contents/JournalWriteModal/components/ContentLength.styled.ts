@@ -1,4 +1,4 @@
-import { Text, styled } from 'tamagui';
+import { Text, styled } from 'tamagui'
 
 export const CharNum = styled(Text, {
   color: '$color10',
@@ -25,4 +25,4 @@ export const CharNum = styled(Text, {
       },
     },
   } as const,
-});
+})

@@ -1,10 +1,10 @@
-import { Button, View, styled } from 'tamagui';
+import { Button, View, styled } from 'tamagui'
 
-import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/styles/animations';
+import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/styles/animations'
 
 export const AnimatedContainer = styled(View, {
   items: 'center',
-});
+})
 
 export const NextButton = styled(Button, {
   p: '$4',
@@ -24,4 +24,4 @@ export const NextButton = styled(Button, {
       },
     },
   } as const,
-});
+})

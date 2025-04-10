@@ -1,24 +1,22 @@
-import { WEEK_DAY } from '@/core/constants/date';
-
-import { ISODateString, ISOMonthString } from '@/types/date.types';
-import {
+import { WEEK_DAY } from '@/core/constants/date'
+import type { ISODateString, ISOMonthString } from '@/types/date.types'
+import type {
   Journal,
   JournalIndexes,
   Journals,
   MonthIndexes,
-} from '@/types/journal.types';
-import { Mood, MoodLevel, SignatureMood } from '@/types/mood.types';
-import { ScoreBoard, TimeRange } from '@/types/statistic.types';
-
-import { castArray, extractKeys } from '@/utils/common';
+} from '@/types/journal.types'
+import { type Mood, MoodLevel, type SignatureMood } from '@/types/mood.types'
+import { type ScoreBoard, TimeRange } from '@/types/statistic.types'
+import { castArray, extractKeys } from '@/utils/common'
 import {
   getDayFromISODate,
   getDaysBetweenDates,
   getISOMonthString,
   getThisWeekArray,
-} from '@/utils/date';
+} from '@/utils/date'
 
-export class StatisticsService {
+export class Statistics {
   /**
    * 각 달마다 작성한 일기의 갯수 가져오기
    */
@@ -28,60 +26,63 @@ export class StatisticsService {
   ): Record<string, number> {
     return Object.fromEntries(
       Array.from({ length: 12 }, (_, i) => {
-        const monthString = getISOMonthString(selectedYear, i + 1);
-        const monthData = monthIndexes[monthString] || [];
-        return [monthString, monthData.length];
+        const monthString = getISOMonthString(selectedYear, i + 1)
+        const monthData = monthIndexes[monthString] || []
+        return [monthString, monthData.length]
       }),
-    );
+    )
   }
 
   /**
    * 가장 많은 일기를 작성한 달과 갯수 가져오기
    */
   static getExpressiveMonth(monthIndexes: MonthIndexes, selectedYear: number) {
-    const monthlyCounts = this.getMonthlyCounts(monthIndexes, selectedYear);
+    const monthlyCounts = Statistics.getMonthlyCounts(
+      monthIndexes,
+      selectedYear,
+    )
     return Object.entries(monthlyCounts).reduce(
       (highest, [month, count]) => {
         if (count > highest.count) {
-          return { month, count };
+          return { month, count }
         }
-        return highest;
+        return highest
       },
       { month: '', count: 0 },
-    );
+    )
   }
 
   /**
    * 감정 평균 구하기
    */
   static calculateMoodScoreBoard(journals: Journal[]): ScoreBoard {
-    const moods = journals.map(journal => journal.mood);
+    const moods = journals.map(journal => journal.mood)
 
     const scoreBoard: ScoreBoard = {
       sad: { count: 0, score: 0 },
       angry: { count: 0, score: 0 },
       happy: { count: 0, score: 0 },
       peace: { count: 0, score: 0 },
-    };
+    }
 
     const levelScores = {
       [MoodLevel.ZERO]: 1,
       [MoodLevel.HALF]: 2,
       [MoodLevel.FULL]: 3,
-    };
+    }
 
     moods.forEach(mood => {
-      if (!mood || !mood.type) return;
+      if (!mood || !mood.type) return
 
-      const score = levelScores[mood.level] || 0;
+      const score = levelScores[mood.level] || 0
 
       scoreBoard[mood.type] = {
         count: scoreBoard[mood.type].count + 1,
         score: scoreBoard[mood.type].score + score,
-      };
-    });
+      }
+    })
 
-    return scoreBoard;
+    return scoreBoard
   }
 
   /**
@@ -92,17 +93,17 @@ export class StatisticsService {
       type: '',
       count: 0,
       score: 0,
-    };
+    }
     return Object.entries(scoreBoard).reduce((highest, [type, data]) => {
       if (!highest.type || data.score > highest.score) {
         return {
           type,
           count: data.count,
           score: data.score,
-        };
+        }
       }
-      return highest;
-    }, initialValue);
+      return highest
+    }, initialValue)
   }
 
   /**
@@ -113,25 +114,25 @@ export class StatisticsService {
     timeRange: TimeRange,
     selectedTimeUnit: number | ISOMonthString,
   ) {
-    let dates: string[];
+    let dates: string[]
 
     if (timeRange === TimeRange.MONTHLY) {
-      const dateKeys = extractKeys(indexes.byDate);
+      const dateKeys = extractKeys(indexes.byDate)
       dates = dateKeys.flatMap(date =>
         date.startsWith(selectedTimeUnit as ISOMonthString)
           ? [date as ISODateString]
           : [],
-      );
+      )
     } else {
-      const dateKeys = extractKeys(indexes.byDate);
+      const dateKeys = extractKeys(indexes.byDate)
       dates = dateKeys.flatMap(date =>
         date.startsWith(selectedTimeUnit.toString())
           ? [date as ISODateString]
           : [],
-      );
+      )
     }
 
-    return dates.sort((a, b) => a.localeCompare(b));
+    return dates.sort((a, b) => a.localeCompare(b))
   }
 
   /**
@@ -142,59 +143,59 @@ export class StatisticsService {
     timeRange: TimeRange,
     selectedTimeUnit: number | ISOMonthString,
   ): number {
-    const dates = this.getISODateStringForFrequency(
+    const dates = Statistics.getISODateStringForFrequency(
       indexes,
       timeRange,
       selectedTimeUnit,
-    );
-    let frequency: Record<string, number> = {};
+    )
+    const frequency: Record<string, number> = {}
 
-    if (dates.length === 0) return 0;
+    if (dates.length === 0) return 0
 
     dates.reduce((acc, date) => {
-      const diffNum = getDaysBetweenDates(date, acc);
+      const diffNum = getDaysBetweenDates(date, acc)
       if (diffNum !== 0) {
-        frequency[diffNum] = (frequency[diffNum] || 0) + 1;
+        frequency[diffNum] = (frequency[diffNum] || 0) + 1
       }
-      return date;
-    }, dates[0]);
+      return date
+    }, dates[0])
 
-    if (Object.keys(frequency).length === 0) return 0;
+    if (Object.keys(frequency).length === 0) return 0
 
-    return parseInt(
+    return Number.parseInt(
       Object.entries(frequency).reduce(
         (acc, [num, count]) => (count > frequency[acc] ? num : acc),
         Object.keys(frequency)[0],
       ),
-    );
+    )
   }
 
   /**
    * 가장 자주 일기를 작성한 요일 가져오기
    */
   static getMostActiveDay(journals: Journals): string {
-    const isArray = Array.isArray(journals);
+    const isArray = Array.isArray(journals)
     if (
       (isArray && journals.length === 0) ||
       (!isArray && Object.keys(journals).length === 0)
     ) {
-      return '';
+      return ''
     }
-    const castJournals = isArray ? journals : castArray(journals);
+    const castJournals = isArray ? journals : castArray(journals)
 
     const days = castJournals.map(journal =>
       getDayFromISODate(journal.localDate),
-    );
-    const frequency: Record<string, number> = {};
+    )
+    const frequency: Record<string, number> = {}
 
     days.forEach(day => {
-      frequency[day] = (frequency[day] || 0) + 1;
-    });
+      frequency[day] = (frequency[day] || 0) + 1
+    })
 
     return Object.entries(frequency).reduce(
       (acc, [day, count]) => (count > frequency[acc] ? day : acc),
       Object.keys(frequency)[0],
-    );
+    )
   }
 
   /**
@@ -206,30 +207,34 @@ export class StatisticsService {
     timeRange: TimeRange,
     selectedYear: number,
   ) {
-    const yearIds = indexes.byYear[selectedYear] || [];
+    const yearIds = indexes.byYear[selectedYear] || []
     const yearlyJournals = yearIds
       .map(id => journals[id])
-      .filter(journal => journal !== undefined);
+      .filter(journal => journal !== undefined)
 
-    const expressiveMonth = this.getExpressiveMonth(
+    const expressiveMonth = Statistics.getExpressiveMonth(
       indexes.byMonth,
       selectedYear,
-    );
-    const scoreBoard = this.calculateMoodScoreBoard(yearlyJournals);
+    )
+    const scoreBoard = Statistics.calculateMoodScoreBoard(yearlyJournals)
 
     return {
       totalCount: yearlyJournals.length,
-      frequency: this.getJournalFrequency(indexes, timeRange, selectedYear),
-      activeDay: this.getMostActiveDay(journals),
+      frequency: Statistics.getJournalFrequency(
+        indexes,
+        timeRange,
+        selectedYear,
+      ),
+      activeDay: Statistics.getMostActiveDay(journals),
       moodStats: {
         scoreBoard,
-        signatureMood: this.getSignatureMood(scoreBoard),
+        signatureMood: Statistics.getSignatureMood(scoreBoard),
       },
       expressiveMonth: {
         month: expressiveMonth.month as ISOMonthString,
         count: expressiveMonth.count,
       },
-    };
+    }
   }
 
   /**
@@ -241,25 +246,29 @@ export class StatisticsService {
     timeRange: TimeRange,
     selectedMonth: ISOMonthString,
   ) {
-    const monthIds = indexes.byMonth[selectedMonth] || [];
+    const monthIds = indexes.byMonth[selectedMonth] || []
     const monthlyJournals = monthIds
       .map(id => journals[id])
-      .filter(journal => journal !== undefined);
-    const scoreBoard = this.calculateMoodScoreBoard(monthlyJournals);
+      .filter(journal => journal !== undefined)
+    const scoreBoard = Statistics.calculateMoodScoreBoard(monthlyJournals)
 
     return {
       totalCount: monthlyJournals.length,
-      frequency: this.getJournalFrequency(indexes, timeRange, selectedMonth),
-      activeDay: this.getMostActiveDay(journals),
+      frequency: Statistics.getJournalFrequency(
+        indexes,
+        timeRange,
+        selectedMonth,
+      ),
+      activeDay: Statistics.getMostActiveDay(journals),
       moodStats: {
         scoreBoard,
-        signatureMood: this.getSignatureMood(scoreBoard),
+        signatureMood: Statistics.getSignatureMood(scoreBoard),
       },
       expressiveMonth: {
         month: '0000-00' as ISOMonthString,
         count: 0,
       },
-    };
+    }
   }
 
   /**
@@ -270,18 +279,18 @@ export class StatisticsService {
     indexes: JournalIndexes,
     selectedDate: ISODateString,
   ) {
-    const dates = getThisWeekArray(selectedDate);
+    const dates = getThisWeekArray(selectedDate)
 
     return Object.keys(WEEK_DAY).reduce(
       (scoreBoard, day, index) => {
-        const date = dates[index];
-        const ids = indexes.byDate[date] || [];
-        const dayJournal = ids.map(id => journals[id]).filter(Boolean);
+        const date = dates[index]
+        const ids = indexes.byDate[date] || []
+        const dayJournal = ids.map(id => journals[id]).filter(Boolean)
 
-        scoreBoard[day] = dayJournal.length > 0 ? dayJournal[0].mood : null;
-        return scoreBoard;
+        scoreBoard[day] = dayJournal.length > 0 ? dayJournal[0].mood : null
+        return scoreBoard
       },
       {} as Record<string, Mood | null>,
-    );
+    )
   }
 }

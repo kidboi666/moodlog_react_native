@@ -1,6 +1,6 @@
-import { YStack, styled } from 'tamagui';
+import { YStack, styled } from 'tamagui'
 
-import { PRESS_STYLE } from '@/styles/animations';
+import { PRESS_STYLE } from '@/styles/animations'
 
 export const CardContainer = styled(YStack, {
   flex: 1,
@@ -9,4 +9,4 @@ export const CardContainer = styled(YStack, {
   p: '$4',
   animation: 'medium',
   pressStyle: PRESS_STYLE,
-});
+})

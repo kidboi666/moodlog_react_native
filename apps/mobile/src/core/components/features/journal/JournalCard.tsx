@@ -1,30 +1,26 @@
-import { useRouter } from 'expo-router';
-import { memo, useCallback } from 'react';
-import { AnimatePresence } from 'tamagui';
+import { useRouter } from 'expo-router'
+import { memo, useCallback } from 'react'
+import Animated from 'react-native-reanimated'
+import { AnimatePresence } from 'tamagui'
 
-import Animated from 'react-native-reanimated';
+import { moodTheme } from '@/core/constants/themes'
+import { useAxisAnimationWithState } from '@/core/hooks/useAxisAnimationWithState'
+import { useCardGesture } from '@/core/hooks/useCardGesture'
+import { Position } from '@/types/app.types'
+import type { MoodLevel, MoodType } from '@/types/mood.types'
+import { ChevronLeft, ChevronRight, Trash } from '@tamagui/lucide-icons'
+import * as S from './JournalCard.styled'
 
-import * as S from 'src/core/components/features/journal/JournalCard.styled';
-import { ChevronLeft, ChevronRight, Trash } from '@tamagui/lucide-icons';
-
-import { moodTheme } from '@/core/constants/themes';
-import { useAxisAnimationWithState } from '@/core/hooks/useAxisAnimationWithState';
-import { useCardGesture } from '@/core/hooks/useCardGesture';
-
-import { Position } from '@/types/app.types';
-import { MoodLevel, MoodType } from '@/types/mood.types';
-import { Nullable } from '@/types/utill.types';
-
-const AnimatedCard = Animated.createAnimatedComponent(S.CardContainer);
+const AnimatedCard = Animated.createAnimatedComponent(S.CardContainer)
 
 interface Props {
-  content: string;
-  id: string;
-  createdAt: string;
-  imageUri: string[];
-  moodType: MoodType;
-  moodLevel: MoodLevel;
-  openDeleteSheet: (id: string) => void;
+  content: string
+  id: string
+  createdAt: string
+  imageUri: string[]
+  moodType: MoodType
+  moodLevel: MoodLevel
+  openDeleteSheet: (id: string) => void
 }
 
 export const JournalCard = memo(
@@ -37,7 +33,7 @@ export const JournalCard = memo(
     moodLevel,
     openDeleteSheet,
   }: Props) => {
-    const router = useRouter();
+    const router = useRouter()
     const {
       state: cardPosition,
       animatedStyle,
@@ -51,21 +47,21 @@ export const JournalCard = memo(
       startValue: 0,
       endValue: -80,
       duration: 300,
-    });
+    })
 
-    const isOpenCard = cardPosition === Position.LEFT;
+    const isOpenCard = cardPosition === Position.LEFT
 
     const handleSwipeLeft = useCallback(() => {
       if (cardPosition === Position.CENTER) {
-        changeStateByCondition(true);
+        changeStateByCondition(true)
       }
-    }, [cardPosition, toggleState]);
+    }, [cardPosition, toggleState])
 
     const handleSwipeRight = useCallback(() => {
       if (cardPosition === Position.LEFT) {
-        changeStateByCondition(false);
+        changeStateByCondition(false)
       }
-    }, [cardPosition, toggleState]);
+    }, [cardPosition, toggleState])
 
     const { gesture, GestureWrapper } = useCardGesture({
       onSwipeLeft: handleSwipeLeft,
@@ -74,18 +70,18 @@ export const JournalCard = memo(
         changeStateByCondition(cardPosition === Position.CENTER),
       updateTranslate,
       onGestureEnd: handleGestureEnd,
-    });
+    })
 
     const handlePress = () => {
       if (isOpenCard) {
-        toggleState();
+        toggleState()
       } else {
         router.push({
           pathname: '/journal/[id]',
           params: { id },
-        });
+        })
       }
-    };
+    }
 
     return (
       <>
@@ -133,6 +129,6 @@ export const JournalCard = memo(
           </GestureWrapper>
         </S.Container>
       </>
-    );
+    )
   },
-);
+)

@@ -12,12 +12,12 @@ export enum MoodLevel {
 }
 
 export type Mood = {
-  type: MoodType;
-  level: MoodLevel;
-};
+  type: MoodType
+  level: MoodLevel
+}
 
 export type SignatureMood = {
-  type: MoodType | string;
-  count: number;
-  score: number;
-};
+  type: MoodType | string
+  count: number
+  score: number
+}

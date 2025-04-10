@@ -1,43 +1,43 @@
-import { ISOMonthString } from '@/types/date.types';
-import { MoodType, SignatureMood } from '@/types/mood.types';
+import { ISOMonthString } from '@/types/date.types'
+import { MoodType, SignatureMood } from '@/types/mood.types'
 
 export type SelectedMonthStats = {
-  month: ISOMonthString;
-  count: number;
-  frequency: number;
-  activeDay: string;
-  signatureMood: SignatureMood;
-};
+  month: ISOMonthString
+  count: number
+  frequency: number
+  activeDay: string
+  signatureMood: SignatureMood
+}
 
 export type ExpressiveMonthStats = {
-  month: ISOMonthString;
-  count: number;
-};
+  month: ISOMonthString
+  count: number
+}
 
 export type MonthlyCounts = {
-  [key in ISOMonthString]: number;
-};
+  [key in ISOMonthString]: number
+}
 
 export type JournalStats = {
-  totalCount: number;
-  totalFrequency: number;
-  totalActiveDay: string;
-  monthlyCounts: MonthlyCounts;
-};
+  totalCount: number
+  totalFrequency: number
+  totalActiveDay: string
+  monthlyCounts: MonthlyCounts
+}
 
 export type CountScore = {
-  count: number;
-  score: number;
-};
+  count: number
+  score: number
+}
 
 export type ScoreBoard = {
-  [key in MoodType]: CountScore;
-};
+  [key in MoodType]: CountScore
+}
 
 export type MoodStats = {
-  signatureMood: SignatureMood;
-  scoreBoard: ScoreBoard;
-};
+  signatureMood: SignatureMood
+  scoreBoard: ScoreBoard
+}
 
 export enum ExpansionState {
   COLLAPSED = 'collapsed',

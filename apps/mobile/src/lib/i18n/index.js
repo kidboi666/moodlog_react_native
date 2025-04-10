@@ -1,12 +1,12 @@
-import * as Localization from 'expo-localization';
-import { initReactI18next } from 'react-i18next';
+import * as Localization from 'expo-localization'
+import { initReactI18next } from 'react-i18next'
 
-import { LocaleConfig } from 'react-native-calendars';
+import { LocaleConfig } from 'react-native-calendars'
 
-import i18n from 'i18next';
+import i18n from 'i18next'
 
-import en from '../../locales/en.json';
-import ko from '../../locales/ko.json';
+import en from '../../locales/en.json'
+import ko from '../../locales/ko.json'
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -23,11 +23,11 @@ i18n.use(initReactI18next).init({
   interpolation: {
     escapeValue: false,
   },
-});
+})
 
 i18n.on('languageChanged', lng => {
-  LocaleConfig.defaultLocale = lng;
-});
+  LocaleConfig.defaultLocale = lng
+})
 
 LocaleConfig.locales['ko'] = {
   monthNames: [
@@ -59,7 +59,7 @@ LocaleConfig.locales['ko'] = {
   ],
   dayNames: ['일', '월', '화', '수', '목', '금', '토'],
   dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-};
+}
 LocaleConfig.locales['en'] = {
   monthNames: [
     'January',
@@ -90,7 +90,7 @@ LocaleConfig.locales['en'] = {
   ],
   dayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-};
-LocaleConfig.defaultLocale = 'ko';
+}
+LocaleConfig.defaultLocale = 'ko'
 
-export default i18n;
+export default i18n

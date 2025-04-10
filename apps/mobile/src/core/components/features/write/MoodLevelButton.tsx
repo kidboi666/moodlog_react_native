@@ -1,17 +1,15 @@
-import React, { memo } from 'react';
+import { Check } from '@tamagui/lucide-icons'
+import React, { memo } from 'react'
 
-import { Check } from '@tamagui/lucide-icons';
-
-import * as S from '@/core/components/features/write/PickerMood.styled';
-
-import { MoodLevel, MoodType } from '@/types/mood.types';
+import * as S from '@/core/components/features/write/PickerMood.styled'
+import { MoodLevel, type MoodType } from '@/types/mood.types'
 
 interface Props {
-  moodType: MoodType;
-  moodLevel: MoodLevel;
-  isSelected: boolean;
-  moodColor: string;
-  onMoodChange: (type: MoodType, level: MoodLevel) => void;
+  moodType: MoodType
+  moodLevel: MoodLevel
+  isSelected: boolean
+  moodColor: string
+  onMoodChange: (type: MoodType, level: MoodLevel) => void
 }
 
 export const MoodLevelButton = memo(
@@ -24,14 +22,14 @@ export const MoodLevelButton = memo(
         icon={
           isSelected ? (
             <Check
-              position="absolute"
-              z="$1"
+              position='absolute'
+              z='$1'
               color={moodLevel === MoodLevel.ZERO ? '$gray10' : '$gray4'}
-              size="$1"
+              size='$1'
             />
           ) : null
         }
       />
-    );
+    )
   },
-);
+)

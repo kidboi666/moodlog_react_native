@@ -1,31 +1,31 @@
-import React, { memo, useCallback, useMemo } from 'react';
-
+import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons'
+import React, { memo, useCallback, useMemo } from 'react'
 import {
   Calendar,
-  CalendarProps,
+  type CalendarProps,
   CalendarUtils,
-  DateData,
-} from 'react-native-calendars';
-import { DayProps } from 'react-native-calendars/src/calendar/day';
-import { Direction } from 'react-native-calendars/src/types';
+  type DateData,
+} from 'react-native-calendars'
+import type { DayProps } from 'react-native-calendars/src/calendar/day'
+import type { Direction } from 'react-native-calendars/src/types'
 
-import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
-
-import { ArrowButton } from '@/core/components/features/calendar/ArrowButton';
-import { CalendarCustomHeader } from '@/core/components/features/calendar/CalendarCustomHeader';
-import { CustomDayComponent } from '@/core/components/features/calendar/CustomDayComponent';
-
-import { DateCounts, ISODateString, ISOMonthString } from '@/types/date.types';
-
-import { getISOMonthString } from '@/utils/date';
+import { ArrowButton } from '@/core/components/features/calendar/ArrowButton'
+import { CalendarCustomHeader } from '@/core/components/features/calendar/CalendarCustomHeader'
+import { CustomDayComponent } from '@/core/components/features/calendar/CustomDayComponent'
+import type {
+  DateCounts,
+  ISODateString,
+  ISOMonthString,
+} from '@/types/date.types'
+import { getISOMonthString } from '@/utils/date'
 
 interface Props extends CalendarProps {
-  dateCounts: DateCounts;
-  onSelectedDateChange: (date: ISODateString) => void;
-  onSelectedMonthChange: (month: ISOMonthString) => void;
-  selectedDate?: ISODateString;
-  pastScrollRange: number;
-  futureScrollRange: number;
+  dateCounts: DateCounts
+  onSelectedDateChange: (date: ISODateString) => void
+  onSelectedMonthChange: (month: ISOMonthString) => void
+  selectedDate?: ISODateString
+  pastScrollRange: number
+  futureScrollRange: number
 }
 
 export const CalendarListBase = memo(
@@ -40,10 +40,10 @@ export const CalendarListBase = memo(
   }: Props) => {
     const handleDayPress = useCallback(
       (date: DateData) => {
-        onSelectedDateChange(date.dateString as ISODateString);
+        onSelectedDateChange(date.dateString as ISODateString)
       },
       [onSelectedDateChange],
-    );
+    )
 
     const markedDates = useMemo(() => {
       if (selectedDate) {
@@ -52,17 +52,17 @@ export const CalendarListBase = memo(
             selected: true,
             disableTouchEvent: true,
           },
-        };
+        }
       }
-      return {};
-    }, [selectedDate]);
+      return {}
+    }, [selectedDate])
 
     const DayComponentWrapper = useCallback(
       (props: DayProps) => {
-        const { date, state, marking } = props;
+        const { date, state, marking } = props
 
         if (!date) {
-          return null;
+          return null
         }
 
         return (
@@ -73,15 +73,15 @@ export const CalendarListBase = memo(
             marking={marking!}
             onPress={() => handleDayPress(date as unknown as DateData)}
           />
-        );
+        )
       },
       [dateCounts, handleDayPress],
-    );
+    )
 
     const renderHeader = useCallback(
       (date: any) => <CalendarCustomHeader date={date} />,
       [],
-    );
+    )
 
     const renderArrow = useCallback(
       (direction: Direction) =>
@@ -91,7 +91,7 @@ export const CalendarListBase = memo(
           <ArrowButton icon={ArrowRight} />
         ),
       [],
-    );
+    )
 
     return (
       <Calendar
@@ -117,6 +117,6 @@ export const CalendarListBase = memo(
         animateScroll
         {...props}
       />
-    );
+    )
   },
-);
+)

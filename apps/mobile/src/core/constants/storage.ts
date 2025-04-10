@@ -6,4 +6,4 @@ export const STORAGE_KEY = {
   JOURNALS_STATS: 'journals-statistics',
   MOOD_STATS: 'mood-statistics',
   FIRST_LAUNCH: 'first-launch-date',
-} as const;
+} as const

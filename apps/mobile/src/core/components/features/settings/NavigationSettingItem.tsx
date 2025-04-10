@@ -1,12 +1,12 @@
-import { Href } from 'expo-router';
+import type { Href } from 'expo-router'
 
-import * as S from 'src/core/components/features/settings/NavigationSettingItem.styled';
+import * as S from './NavigationSettingItem.styled'
 
 interface NavigationSettingItemProps {
-  icon?: any;
-  label: string;
-  href: Href;
-  onRouteChange: (href: Href) => void;
+  icon?: any
+  label: string
+  href: Href
+  onRouteChange: (href: Href) => void
 }
 
 export const NavigationSettingItem = ({
@@ -19,5 +19,5 @@ export const NavigationSettingItem = ({
     <S.SettingsNavigationButton icon={icon} onPress={() => onRouteChange(href)}>
       <S.ItemLabel>{label}</S.ItemLabel>
     </S.SettingsNavigationButton>
-  );
-};
+  )
+}

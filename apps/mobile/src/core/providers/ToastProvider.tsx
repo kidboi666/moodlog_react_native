@@ -1,13 +1,12 @@
-import { PropsWithChildren } from 'react';
+import { ToastProvider, ToastViewport } from '@tamagui/toast'
+import type { PropsWithChildren } from 'react'
 
-import { ToastProvider, ToastViewport } from '@tamagui/toast';
-
-import { CurrentToast } from '@/core/components/shared/CurrentToast';
+import { CurrentToast } from '@/core/components/shared/CurrentToast'
 
 export const TamaguiToastProvider = ({ children }: PropsWithChildren) => {
   return (
     <ToastProvider
-      swipeDirection="horizontal"
+      swipeDirection='horizontal'
       duration={6000}
       native={
         [
@@ -18,7 +17,7 @@ export const TamaguiToastProvider = ({ children }: PropsWithChildren) => {
     >
       {children}
       <CurrentToast />
-      <ToastViewport top="$8" left={0} right={0} />
+      <ToastViewport top='$8' left={0} right={0} />
     </ToastProvider>
-  );
-};
+  )
+}

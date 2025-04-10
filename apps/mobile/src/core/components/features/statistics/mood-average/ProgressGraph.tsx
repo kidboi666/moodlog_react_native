@@ -1,19 +1,17 @@
-import { useTranslation } from 'react-i18next';
-import { H3 } from 'tamagui';
+import { useTranslation } from 'react-i18next'
+import { H3 } from 'tamagui'
 
-import * as S from 'src/core/components/features/statistics/mood-average/ProgressGraph.styled';
-
-import { moodTheme } from '@/core/constants/themes';
-
-import { MoodType } from '@/types/mood.types';
+import { moodTheme } from '@/core/constants/themes'
+import type { MoodType } from '@/types/mood.types'
+import * as S from 'src/core/components/features/statistics/mood-average/ProgressGraph.styled'
 
 interface Props {
-  moodScore: number;
-  moodType: MoodType;
+  moodScore: number
+  moodType: MoodType
 }
 
 export const ProgressGraph = ({ moodScore, moodType }: Props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <S.GraphContainer>
@@ -25,5 +23,5 @@ export const ProgressGraph = ({ moodScore, moodType }: Props) => {
         <S.ProgressIndicator moodColor={moodTheme[moodType].full} />
       </S.Progress>
     </S.GraphContainer>
-  );
-};
+  )
+}

@@ -1,7 +1,7 @@
-import { Platform } from 'react-native';
-import { View, XStack, styled } from 'tamagui';
+import { Platform } from 'react-native'
+import { View, XStack, styled } from 'tamagui'
 
-import { PressableButton } from '@/core/components/shared/PressableButton.styled';
+import { PressableButton } from '@/core/components/shared/PressableButton.styled'
 
 export const TabBarContainer = styled(XStack, {
   b: 0,
@@ -12,7 +12,7 @@ export const TabBarContainer = styled(XStack, {
   borderTopRightRadius: '$12',
   borderTopLeftRadius: '$12',
   width: '100%',
-});
+})
 
 export const Container = styled(XStack, {
   flex: 1,
@@ -20,12 +20,7 @@ export const Container = styled(XStack, {
   flexDirection: 'row',
   justify: 'space-evenly',
   items: 'center',
-});
-
-export const WriteTabContainer = styled(View, {
-  position: 'relative',
-});
-
+})
 const TabButton = styled(PressableButton, {
   color: '$color9',
   bg: '$color5',
@@ -39,36 +34,15 @@ const TabButton = styled(PressableButton, {
       },
     },
   } as const,
-});
-
-export const WriteButton = styled(TabButton, {
-  bg: '$color12',
-  color: '$color1',
-});
-
-export const IconBox = styled(View, {
-  animation: 'lazy',
-
-  variants: {
-    menuVisible: {
-      true: {
-        rotate: '45deg',
-      },
-      false: {
-        rotate: '0deg',
-      },
-    },
-  } as const,
-});
-
+})
 export const HomeButton = styled(TabButton, {
   borderTopLeftRadius: '$9',
-});
+})
 
-export const CalendarButton = styled(TabButton);
+export const CalendarButton = styled(TabButton)
 
-export const RecordButton = styled(TabButton);
+export const RecordButton = styled(TabButton)
 
 export const SettingsButton = styled(TabButton, {
   borderTopRightRadius: '$9',
-});
+})

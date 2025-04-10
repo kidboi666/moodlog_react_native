@@ -1,21 +1,20 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react'
 
-import { EmptyJournal } from '@/core/components/features/journal/EmptyJournal';
-import { JournalCard } from '@/core/components/features/journal/JournalCard';
-import { FadeIn } from '@/core/components/shared/FadeIn.styleable';
+import { EmptyJournal } from '@/core/components/features/journal/EmptyJournal'
+import { JournalCard } from '@/core/components/features/journal/JournalCard'
+import { FadeIn } from '@/core/components/shared/FadeIn.styleable'
 import {
   ANIMATION_DELAY_MS,
   ANIMATION_DELAY_SECONDS,
-} from '@/core/constants/time';
-
-import { ISODateString } from '@/types/date.types';
-import { SelectedJournals } from '@/types/journal.types';
-import { Nullable } from '@/types/utill.types';
+} from '@/core/constants/time'
+import type { ISODateString } from '@/types/date.types'
+import type { SelectedJournals } from '@/types/journal.types'
+import type { Nullable } from '@/types/utill.types'
 
 interface Props {
-  journals: SelectedJournals;
-  openDeleteSheet: (id: string) => void;
-  isToday: (date: Nullable<ISODateString>) => boolean;
+  journals: SelectedJournals
+  openDeleteSheet: (id: string) => void
+  isToday: (date: Nullable<ISODateString>) => boolean
 }
 
 export const HomeJournalCard = ({
@@ -25,7 +24,7 @@ export const HomeJournalCard = ({
 }: Props) => {
   return Array.isArray(journals) ? (
     journals.map((journal, index) => {
-      const { id, content, createdAt, mood, imageUri } = journal;
+      const { id, content, createdAt, mood, imageUri } = journal
       return (
         <Fragment key={journal.id}>
           <FadeIn
@@ -42,11 +41,11 @@ export const HomeJournalCard = ({
             />
           </FadeIn>
         </Fragment>
-      );
+      )
     })
   ) : (
     <FadeIn>
       <EmptyJournal isToday={isToday(journals)} />
     </FadeIn>
-  );
-};
+  )
+}

@@ -1,19 +1,19 @@
-import React, { memo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Form, Spinner, XGroup } from 'tamagui';
+import React, { memo } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Form, Spinner, XGroup } from 'tamagui'
 
-import { Check, ImagePlus, Timer } from '@tamagui/lucide-icons';
+import { Check, ImagePlus, Timer } from '@tamagui/lucide-icons'
 
-import { Nullable } from '@/types/utill.types';
+import { Nullable } from '@/types/utill.types'
 
-import * as S from './ActionButtons.styled';
+import * as S from './ActionButtons.styled'
 
 interface Props {
-  onImageUriChange: () => Promise<Nullable<void>>;
-  onTimeStamp: () => void;
-  isSubmitted: boolean;
-  isLoading: boolean;
-  content: string;
+  onImageUriChange: () => Promise<Nullable<void>>
+  onTimeStamp: () => void
+  isSubmitted: boolean
+  isLoading: boolean
+  content: string
 }
 
 export const ActionButtons = memo(
@@ -24,8 +24,8 @@ export const ActionButtons = memo(
     isLoading,
     content,
   }: Props) => {
-    const { t } = useTranslation();
-    const isDisabled = isSubmitted || isLoading || !content;
+    const { t } = useTranslation()
+    const isDisabled = isSubmitted || isLoading || !content
     return (
       <S.XGroupContainer>
         <XGroup.Item>
@@ -44,7 +44,7 @@ export const ActionButtons = memo(
           <Form.Trigger asChild>
             <S.SubmitButton disabled={isDisabled}>
               {isLoading || isSubmitted ? (
-                <Spinner color="$color12" />
+                <Spinner color='$color12' />
               ) : (
                 <Check />
               )}
@@ -52,6 +52,6 @@ export const ActionButtons = memo(
           </Form.Trigger>
         </XGroup.Item>
       </S.XGroupContainer>
-    );
+    )
   },
-);
+)

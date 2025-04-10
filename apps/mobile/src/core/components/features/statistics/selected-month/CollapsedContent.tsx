@@ -1,21 +1,19 @@
-import { useTranslation } from 'react-i18next';
-import { H2, H3, Text, XStack } from 'tamagui';
+import { useTranslation } from 'react-i18next'
+import { H2, H3, Text, XStack } from 'tamagui'
 
-import * as S from 'src/core/components/features/statistics/selected-month/CollapsedContent.styled';
-import { Maximize2 } from '@tamagui/lucide-icons';
-
-import { SelectedMonthStats } from '@/types/statistic.types';
-
-import { getMonthKey } from '@/utils/date';
+import type { SelectedMonthStats } from '@/types/statistic.types'
+import { getMonthKey } from '@/utils/date'
+import { Maximize2 } from '@tamagui/lucide-icons'
+import * as S from './CollapsedContent.styled'
 
 interface Props {
-  selectedMonthStats: SelectedMonthStats;
+  selectedMonthStats: SelectedMonthStats
 }
 
 export const CollapsedContent = ({ selectedMonthStats }: Props) => {
-  const { t } = useTranslation();
-  const { month: ISOMonthString, count } = selectedMonthStats ?? null;
-  const month = getMonthKey(ISOMonthString);
+  const { t } = useTranslation()
+  const { month: ISOMonthString, count } = selectedMonthStats ?? null
+  const month = getMonthKey(ISOMonthString)
 
   return (
     <S.ViewContainer>
@@ -35,5 +33,5 @@ export const CollapsedContent = ({ selectedMonthStats }: Props) => {
         <S.MaximizeButton icon={Maximize2} />
       </XStack>
     </S.ViewContainer>
-  );
-};
+  )
+}

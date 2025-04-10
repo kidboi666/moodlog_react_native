@@ -1,7 +1,7 @@
-import { Platform } from 'react-native';
-import { XStack, styled } from 'tamagui';
+import { Platform } from 'react-native'
+import { XStack, styled } from 'tamagui'
 
-import { CONTAINER_HORIZONTAL_PADDING } from '@/core/constants/size';
+import { CONTAINER_HORIZONTAL_PADDING } from '@/core/constants/size'
 
 export const HeaderContainer = styled(XStack, {
   pt:
@@ -14,13 +14,13 @@ export const HeaderContainer = styled(XStack, {
   variants: {
     topEdge: {
       ':number': mt => {
-        return { mt };
+        return { mt }
       },
     },
     bottomEdge: {
       ':number': mb => {
-        return { mb };
+        return { mb }
       },
     },
   } as const,
-});
+})

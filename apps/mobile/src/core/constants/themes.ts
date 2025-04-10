@@ -19,4 +19,4 @@ export const moodTheme = {
     half: '$blue8',
     full: '$blue10',
   },
-} as const;
+} as const

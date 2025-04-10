@@ -1,10 +1,12 @@
-import { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Spinner } from 'tamagui';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Spinner } from 'tamagui'
 
-import * as S from 'src/core/components/modals/contents/DeleteJournalModal/DeleteJournalModal.styled';
-
-import { BottomSheetProps, BottomSheetType } from '@/types/bottom-sheet.types';
+import type {
+  BottomSheetProps,
+  BottomSheetType,
+} from '@/types/bottom-sheet.types'
+import * as S from './DeleteJournalModal.styled'
 
 export const DeleteJournalModal = memo(
   ({
@@ -14,29 +16,29 @@ export const DeleteJournalModal = memo(
     hideBottomSheet,
     onSuccess,
   }: BottomSheetProps[BottomSheetType.DELETE_JOURNAL]) => {
-    const { t } = useTranslation();
-    const [isSuccess, setIsSuccess] = useState(false);
+    const { t } = useTranslation()
+    const [isSuccess, setIsSuccess] = useState(false)
 
     const handleDelete = useCallback(async () => {
-      await onDelete(journalId);
-      hideBottomSheet();
-      setIsSuccess(true);
-    }, [onDelete, journalId]);
+      await onDelete(journalId)
+      hideBottomSheet()
+      setIsSuccess(true)
+    }, [onDelete, journalId])
 
     useEffect(() => {
       if (isSuccess) {
-        onSuccess?.();
+        onSuccess?.()
       }
 
       return () => {
-        setIsSuccess(false);
-      };
-    }, [isSuccess]);
+        setIsSuccess(false)
+      }
+    }, [isSuccess])
 
     const isDisabled = useMemo(
       () => isLoading || isSuccess,
       [isLoading, isSuccess],
-    );
+    )
 
     return (
       <S.BottomSheetContainer>
@@ -47,7 +49,7 @@ export const DeleteJournalModal = memo(
         <S.ModalContentYStack>
           <S.ConfirmButton onPress={handleDelete} disabled={isDisabled}>
             {isDisabled ? (
-              <Spinner color="$color12" />
+              <Spinner color='$color12' />
             ) : (
               t('common.button.delete')
             )}
@@ -57,6 +59,6 @@ export const DeleteJournalModal = memo(
           </S.CancelButton>
         </S.ModalContentYStack>
       </S.BottomSheetContainer>
-    );
+    )
   },
-);
+)

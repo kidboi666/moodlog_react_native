@@ -1,17 +1,16 @@
-import { Stack } from 'expo-router';
+import { Stack } from 'expo-router'
+import { useTheme } from 'tamagui'
 
-import { useTheme } from 'tamagui';
-
-import { OnboardingHeader } from '@/core/components/features/onboarding/OnboardingHeader';
-import { StepProgressProvider } from '@/core/store/step-progress.store';
+import { OnboardingHeader } from '@/core/components/features/onboarding/OnboardingHeader'
+import { StepProgressProvider } from '@/core/store/step-progress.store'
 
 export default function Layout() {
-  const theme = useTheme();
+  const theme = useTheme()
 
   return (
     <StepProgressProvider totalSteps={3}>
       <Stack
-        initialRouteName="welcome"
+        initialRouteName='welcome'
         screenOptions={{
           headerShown: true,
           header: () => <OnboardingHeader />,
@@ -22,10 +21,10 @@ export default function Layout() {
           gestureEnabled: false,
         }}
       >
-        <Stack.Screen name="welcome" />
-        <Stack.Screen name="nickname" />
-        <Stack.Screen name="benefit" />
+        <Stack.Screen name='welcome' />
+        <Stack.Screen name='nickname' />
+        <Stack.Screen name='benefit' />
       </Stack>
     </StepProgressProvider>
-  );
+  )
 }

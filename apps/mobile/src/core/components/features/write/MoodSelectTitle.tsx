@@ -1,18 +1,17 @@
-import { useTranslation } from 'react-i18next';
-import { View, XStack } from 'tamagui';
+import { useTranslation } from 'react-i18next'
+import { View, XStack } from 'tamagui'
 
-import * as S from 'src/core/components/features/write/MoodSelectTitle.styled';
-
-import { ShakeEmoji } from '@/core/components/shared/ShakeEmoji';
+import { ShakeEmoji } from '@/core/components/shared/ShakeEmoji'
+import * as S from './MoodSelectTitle.styled'
 
 export const MoodSelectTitle = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <View>
       <XStack>
-        <ShakeEmoji emoji="🫥" duration={3000} />
+        <ShakeEmoji emoji='🫥' duration={3000} />
       </XStack>
       <S.Title>{t('placeholders.mood')}</S.Title>
     </View>
-  );
-};
+  )
+}

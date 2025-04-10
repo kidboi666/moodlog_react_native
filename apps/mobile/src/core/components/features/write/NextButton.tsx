@@ -1,11 +1,11 @@
-import React from 'react';
+import { Check } from '@tamagui/lucide-icons'
+import React from 'react'
 
-import * as S from 'src/core/components/features/write/NextButton.styled';
-import { Check } from '@tamagui/lucide-icons';
+import * as S from './NextButton.styled'
 
 interface Props {
-  isSelected: boolean;
-  onPress: () => void;
+  isSelected: boolean
+  onPress: () => void
 }
 
 export const NextButton = ({ isSelected, onPress }: Props) => {
@@ -13,5 +13,5 @@ export const NextButton = ({ isSelected, onPress }: Props) => {
     <S.AnimatedContainer>
       <S.NextButton icon={Check} disabled={!isSelected} onPress={onPress} />
     </S.AnimatedContainer>
-  );
-};
+  )
+}

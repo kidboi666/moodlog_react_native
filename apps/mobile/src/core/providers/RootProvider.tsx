@@ -1,16 +1,15 @@
-import { useColorScheme } from 'react-native';
-import { PortalProvider, type TamaguiProviderProps } from 'tamagui';
+import { useColorScheme } from 'react-native'
+import { PortalProvider, type TamaguiProviderProps } from 'tamagui'
 
-import { ThemeProvider } from '@/core/store/theme.store';
-
-import { TamaguiBaseProvider } from './TamaguiProvider';
-import { TamaguiToastProvider } from './ToastProvider';
+import { ThemeProvider } from '@/core/store/theme.store'
+import { TamaguiBaseProvider } from './TamaguiProvider'
+import { TamaguiToastProvider } from './ToastProvider'
 
 export const RootProvider = ({
   children,
   ...rest
 }: Omit<TamaguiProviderProps, 'config'>) => {
-  const colorScheme = useColorScheme();
+  const colorScheme = useColorScheme()
 
   return (
     <TamaguiBaseProvider colorScheme={colorScheme} {...rest}>
@@ -20,5 +19,5 @@ export const RootProvider = ({
         </TamaguiToastProvider>
       </ThemeProvider>
     </TamaguiBaseProvider>
-  );
-};
+  )
+}

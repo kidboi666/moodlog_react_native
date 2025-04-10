@@ -1,11 +1,9 @@
-import { XStack } from 'tamagui';
-
-import * as S from './RadioGroupItem.styled';
+import * as S from './RadioGroupItem.styled'
 
 interface Props {
-  value: string;
-  label: string;
-  onValueChange: (value: string) => void;
+  value: string
+  label: string
+  onValueChange: (value: string) => void
 }
 
 export const RadioGroupItem = ({ value, label, onValueChange }: Props) => {
@@ -16,5 +14,5 @@ export const RadioGroupItem = ({ value, label, onValueChange }: Props) => {
         <S.StyledRadioGroupIndicator />
       </S.StyledRadioGroupItem>
     </S.RadioGroupContainerButton>
-  );
-};
+  )
+}

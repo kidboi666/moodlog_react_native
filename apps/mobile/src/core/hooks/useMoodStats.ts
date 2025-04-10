@@ -1,55 +1,43 @@
-import { useMemo } from 'react';
+import { useMemo } from 'react'
 
-import { StatisticsService } from '@/core/services/statistics.service';
-import { useJournal } from '@/core/store/journal.store';
-
-import { ISOMonthString } from '@/types/date.types';
-import { TimeRange } from '@/types/statistic.types';
+import { Statistics } from '@/core/services/statistics.service'
+import { useJournal } from '@/core/store/journal.store'
+import type { ISOMonthString } from '@/types/date.types'
+import { TimeRange } from '@/types/statistic.types'
 
 export const useMoodStats = (
   timeRange: TimeRange,
   selectedYear: number,
   selectedMonth: ISOMonthString,
 ) => {
-  const journals = useJournal(state => state.store.journals);
-  const indexes = useJournal(state => state.store.indexes);
-  const isLoading = useJournal(state => state.isLoading);
+  const journals = useJournal(state => state.store.journals)
+  const indexes = useJournal(state => state.store.indexes)
+  const isLoading = useJournal(state => state.isLoading)
 
   const yearlyStats = useMemo(
-    () =>
-      StatisticsService.getYearlyStats(
-        journals,
-        indexes,
-        timeRange,
-        selectedYear,
-      ),
+    () => Statistics.getYearlyStats(journals, indexes, timeRange, selectedYear),
     [journals, indexes, timeRange, selectedYear],
-  );
+  )
 
   const monthlyStats = useMemo(
     () =>
-      StatisticsService.getMonthlyStats(
-        journals,
-        indexes,
-        timeRange,
-        selectedMonth,
-      ),
+      Statistics.getMonthlyStats(journals, indexes, timeRange, selectedMonth),
     [journals, indexes, timeRange, selectedMonth],
-  );
+  )
 
   const initialStats = (timeRange: TimeRange) => {
     switch (timeRange) {
       case TimeRange.YEARLY:
-        return yearlyStats;
+        return yearlyStats
       case TimeRange.MONTHLY:
-        return monthlyStats;
+        return monthlyStats
       default:
-        return yearlyStats;
+        return yearlyStats
     }
-  };
+  }
 
   return {
     stats: initialStats(timeRange),
     isLoading,
-  };
-};
+  }
+}

@@ -1,8 +1,8 @@
-import { Stack } from 'expo-router';
-import { useTheme } from 'tamagui';
+import { Stack } from 'expo-router'
+import { useTheme } from 'tamagui'
 
 export default function Layout() {
-  const theme = useTheme();
+  const theme = useTheme()
   return (
     <Stack
       screenOptions={{
@@ -12,7 +12,7 @@ export default function Layout() {
         },
       }}
     >
-      <Stack.Screen name="index" />
+      <Stack.Screen name='index' />
     </Stack>
-  );
+  )
 }

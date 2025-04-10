@@ -1,24 +1,23 @@
-import React, { memo } from 'react';
-
 import {
   CalendarDays,
   FileChartColumnIncreasing,
   Home,
   Settings,
-} from '@tamagui/lucide-icons';
+} from '@tamagui/lucide-icons'
+import React, { memo } from 'react'
 
-import * as S from './CustomTabBar.styled';
+import * as S from './CustomTabBar.styled'
 
 interface TabButtonProps {
-  isTabActive: boolean;
-  onPress: () => void;
+  isTabActive: boolean
+  onPress: () => void
 }
 
 export const HomeTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
   return (
     <S.HomeButton isTabActive={isTabActive} icon={Home} onPress={onPress} />
-  );
-});
+  )
+})
 
 export const EntriesTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
   return (
@@ -27,8 +26,8 @@ export const EntriesTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
       icon={CalendarDays}
       onPress={onPress}
     />
-  );
-});
+  )
+})
 
 export const StatisticsTab = memo(
   ({ isTabActive, onPress }: TabButtonProps) => {
@@ -38,9 +37,9 @@ export const StatisticsTab = memo(
         icon={FileChartColumnIncreasing}
         onPress={onPress}
       />
-    );
+    )
   },
-);
+)
 
 export const SettingsTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
   return (
@@ -49,5 +48,5 @@ export const SettingsTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
       icon={Settings}
       onPress={onPress}
     />
-  );
-});
+  )
+})

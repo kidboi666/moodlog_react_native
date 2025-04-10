@@ -1,4 +1,4 @@
-import { Button, Text, YStack, styled } from 'tamagui';
+import { Button, Text, YStack, styled } from 'tamagui'
 
 export const DayContainerButton = styled(Button, {
   unstyled: true,
@@ -28,11 +28,11 @@ export const DayContainerButton = styled(Button, {
       },
     },
   } as const,
-});
+})
 
 export const DotBox = styled(YStack, {
   items: 'center',
-});
+})
 
 export const DayText = styled(Text, {
   p: 0,
@@ -47,4 +47,4 @@ export const DayText = styled(Text, {
       },
     },
   } as const,
-});
+})

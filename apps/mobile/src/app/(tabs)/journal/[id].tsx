@@ -1,39 +1,36 @@
-import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { ScrollView, XStack } from 'tamagui';
+import { useLocalSearchParams, useRouter } from 'expo-router'
+import React, { useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { ScrollView, XStack } from 'tamagui'
 
-import { JournalHeader } from '@/core/components/features/journal/JournalHeader';
-import { DELETE_JOURNAL_SNAP_POINTS } from '@/core/constants/size';
-import { moodTheme } from '@/core/constants/themes';
-import { useApp } from '@/core/store/app.store';
-import { useBottomSheet } from '@/core/store/bottom-sheet.store';
-import { useJournal } from '@/core/store/journal.store';
+import { JournalHeader } from '@/core/components/features/journal/JournalHeader'
+import { DELETE_JOURNAL_SNAP_POINTS } from '@/core/constants/size'
+import { moodTheme } from '@/core/constants/themes'
+import { useApp } from '@/core/store/app.store'
+import { useBottomSheet } from '@/core/store/bottom-sheet.store'
+import { useJournal } from '@/core/store/journal.store'
+import * as S from '@/styles/screens/journal/Journal.styled'
+import { BottomSheetType } from '@/types/bottom-sheet.types'
 
-import { BottomSheetType } from '@/types/bottom-sheet.types';
-
-import { toSingle } from '@/utils/common';
-
-import * as S from '@/styles/screens/journal/Journal.styled';
-
+import { toSingle } from '@/utils/common'
 export default function Screen() {
-  const { id } = useLocalSearchParams();
-  const journalId = toSingle(id);
-  const router = useRouter();
-  const selectedJournal = useJournal(state => state.selectedJournal);
-  const selectJournal = useJournal(state => state.selectJournal);
-  const isLoading = useJournal(state => state.isLoading);
-  const removeJournal = useJournal(state => state.removeJournal);
-  const showBottomSheet = useBottomSheet(state => state.showBottomSheet);
-  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet);
-  const fontSize = useApp(state => state.settings.fontSize);
-  const { t } = useTranslation();
-  const [[page, going], setPage] = useState([0, 0]);
+  const { id } = useLocalSearchParams()
+  const journalId = toSingle(id)
+  const router = useRouter()
+  const selectedJournal = useJournal(state => state.selectedJournal)
+  const selectJournal = useJournal(state => state.selectJournal)
+  const isLoading = useJournal(state => state.isLoading)
+  const removeJournal = useJournal(state => state.removeJournal)
+  const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
+  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
+  const fontSize = useApp(state => state.settings.fontSize)
+  const { t } = useTranslation()
+  const [[page, going], setPage] = useState([0, 0])
 
   const wrap = (min: number, max: number, v: number) => {
-    const rangeSize = max - min;
-    return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
-  };
+    const rangeSize = max - min
+    return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min
+  }
 
   const handleDeletePress = useCallback(() => {
     showBottomSheet(
@@ -45,10 +42,10 @@ export default function Screen() {
         onDelete: removeJournal,
         hideBottomSheet,
         onSuccess: () => {
-          router.push('/entries');
+          router.push('/entries')
         },
       },
-    );
+    )
   }, [
     showBottomSheet,
     journalId,
@@ -56,16 +53,16 @@ export default function Screen() {
     removeJournal,
     router,
     hideBottomSheet,
-  ]);
+  ])
 
   useEffect(() => {
-    selectJournal(toSingle(journalId));
-  }, [journalId]);
+    selectJournal(toSingle(journalId))
+  }, [journalId])
 
-  if (!selectedJournal || selectedJournal?.id !== journalId) return null;
+  if (!selectedJournal || selectedJournal?.id !== journalId) return null
 
   return (
-    <ScrollView overScrollMode="always">
+    <ScrollView overScrollMode='always'>
       <S.ViewContainer
         edges={['bottom']}
         Header={
@@ -108,5 +105,5 @@ export default function Screen() {
         </XStack>
       </S.ViewContainer>
     </ScrollView>
-  );
+  )
 }

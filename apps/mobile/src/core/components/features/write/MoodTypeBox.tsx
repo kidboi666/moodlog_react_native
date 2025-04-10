@@ -1,22 +1,21 @@
-import React, { memo } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { memo } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import * as S from '@/core/components/features/write/PickerMood.styled';
-import { MoodLevelButton } from '@/core/components/features/write/MoodLevelButton';
-import { moodTheme } from '@/core/constants/themes';
-
-import { MoodLevel, MoodType } from '@/types/mood.types';
+import { MoodLevelButton } from '@/core/components/features/write/MoodLevelButton'
+import * as S from '@/core/components/features/write/PickerMood.styled'
+import { moodTheme } from '@/core/constants/themes'
+import { MoodLevel, type MoodType } from '@/types/mood.types'
 
 interface Props {
-  moodType: MoodType;
-  selectedMoodType?: MoodType;
-  selectedMoodLevel?: MoodLevel;
-  onMoodChange: (type: MoodType, level: MoodLevel) => void;
+  moodType: MoodType
+  selectedMoodType?: MoodType
+  selectedMoodLevel?: MoodLevel
+  onMoodChange: (type: MoodType, level: MoodLevel) => void
 }
 
 export const MoodTypeBox = memo(
   ({ moodType, selectedMoodType, selectedMoodLevel, onMoodChange }: Props) => {
-    const { t } = useTranslation();
+    const { t } = useTranslation()
     return (
       <S.MoodTypeContainer>
         <S.MoodLevelContainer>
@@ -39,6 +38,6 @@ export const MoodTypeBox = memo(
           </S.SelectedMoodText>
         </S.SelectedMoodBox>
       </S.MoodTypeContainer>
-    );
+    )
   },
-);
+)

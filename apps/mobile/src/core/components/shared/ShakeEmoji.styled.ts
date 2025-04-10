@@ -1,4 +1,4 @@
-import { Button, styled } from 'tamagui';
+import { Button, styled } from 'tamagui'
 
 export const EmojiButton = styled(Button, {
   unstyled: true,
@@ -15,4 +15,4 @@ export const EmojiButton = styled(Button, {
       },
     },
   } as const,
-});
+})

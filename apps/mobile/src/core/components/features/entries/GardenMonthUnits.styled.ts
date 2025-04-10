@@ -1,8 +1,8 @@
-import { H6, View, styled } from 'tamagui';
+import { H6, View, styled } from 'tamagui'
 
 export const ViewContainer = styled(View, {
   height: '$2',
-});
+})
 
 export const MonthText = styled(H6, {
   fontSize: '$4',
@@ -16,4 +16,4 @@ export const MonthText = styled(H6, {
       },
     },
   } as const,
-});
+})

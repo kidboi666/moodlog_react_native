@@ -1,14 +1,13 @@
-import { Toast, useToastState } from '@tamagui/toast';
+import { Toast, useToastState } from '@tamagui/toast'
 
-import { useAppTheme } from '@/core/store/theme.store';
-
-import * as S from './CurrentToast.styled';
+import { useAppTheme } from '@/core/store/theme.store'
+import * as S from './CurrentToast.styled'
 
 export const CurrentToast = () => {
-  const currentToast = useToastState();
-  const { currentTheme } = useAppTheme();
+  const currentToast = useToastState()
+  const { currentTheme } = useAppTheme()
 
-  if (!currentToast || currentToast.isHandledNatively) return null;
+  if (!currentToast || currentToast.isHandledNatively) return null
 
   return (
     <S.ToastContainer
@@ -27,5 +26,5 @@ export const CurrentToast = () => {
         )}
       </S.ToastContent>
     </S.ToastContainer>
-  );
-};
+  )
+}

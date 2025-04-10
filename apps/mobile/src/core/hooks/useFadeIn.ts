@@ -1,30 +1,30 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { type ReactNode, useEffect, useState } from 'react'
 
 interface Props {
-  item: ReactNode;
-  delay: number;
+  item: ReactNode
+  delay: number
 }
 
 interface FadeInResult {
-  isVisible: boolean;
-  item: ReactNode;
+  isVisible: boolean
+  item: ReactNode
 }
 
 export const useFadeIn = ({ delay, item }: Props): FadeInResult => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
     const time = setTimeout(() => {
-      setIsVisible(true);
-    }, delay);
+      setIsVisible(true)
+    }, delay)
 
     return () => {
-      clearTimeout(time);
-    };
-  }, []);
+      clearTimeout(time)
+    }
+  }, [])
 
   return {
     isVisible,
     item,
-  };
-};
+  }
+}

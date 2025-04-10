@@ -1,21 +1,18 @@
-import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Minimize2 } from '@tamagui/lucide-icons'
+import { memo } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import * as S from 'src/core/components/features/statistics/total-count/ExpandedContent.styled';
-import { Minimize2 } from '@tamagui/lucide-icons';
-
-import { EmptyContent } from '@/core/components/features/statistics/EmptyContent';
-
-import { ExpressiveMonthStats } from '@/types/statistic.types';
-
-import { getMonthKey } from '@/utils/date';
+import { EmptyContent } from '@/core/components/features/statistics/EmptyContent'
+import type { ExpressiveMonthStats } from '@/types/statistic.types'
+import { getMonthKey } from '@/utils/date'
+import * as S from './ExpandedContent.styled'
 
 interface Props {
-  frequency: number;
-  activeDay: string;
-  totalCount: number;
-  daysSinceSignup: number;
-  expressiveMonth: ExpressiveMonthStats;
+  frequency: number
+  activeDay: string
+  totalCount: number
+  daysSinceSignup: number
+  expressiveMonth: ExpressiveMonthStats
 }
 
 export const ExpandedContent = memo(
@@ -26,9 +23,9 @@ export const ExpandedContent = memo(
     daysSinceSignup,
     expressiveMonth,
   }: Props) => {
-    const { t } = useTranslation();
+    const { t } = useTranslation()
     if (!totalCount) {
-      return <EmptyContent />;
+      return <EmptyContent />
     }
 
     return (
@@ -78,6 +75,6 @@ export const ExpandedContent = memo(
         </S.ExpressiveMonthBox>
         <S.MinimizeButton icon={Minimize2} />
       </S.ViewContainer>
-    );
+    )
   },
-);
+)

@@ -1,29 +1,31 @@
-import { memo } from 'react';
+import { memo } from 'react'
 
-import * as S from 'src/core/components/features/entries/MonthItem.styled';
-
-import { MonthItemContent } from '@/core/components/features/entries/MonthItemContent';
-
-import { ISODateString, ISOMonthString, MonthKey } from '@/types/date.types';
-import { Mood } from '@/types/mood.types';
+import { MonthItemContent } from '@/core/components/features/entries/MonthItemContent'
+import type {
+  ISODateString,
+  ISOMonthString,
+  MonthKey,
+} from '@/types/date.types'
+import type { Mood } from '@/types/mood.types'
+import * as S from './MonthItem.styled'
 
 interface Props {
   monthData: {
-    monthKey: MonthKey;
-    lastDate: number;
-    monthDate: ISOMonthString;
-    firstDateDay: number;
-    weekLength: number;
-  };
-  isSelected: boolean;
-  onMonthChange: (monthDate: ISOMonthString) => void;
-  getMoodForDate: (date: ISODateString) => Mood[];
+    monthKey: MonthKey
+    lastDate: number
+    monthDate: ISOMonthString
+    firstDateDay: number
+    weekLength: number
+  }
+  isSelected: boolean
+  onMonthChange: (monthDate: ISOMonthString) => void
+  getMoodForDate: (date: ISODateString) => Mood[]
 }
 
 export const MonthItem = memo(
   ({ monthData, isSelected, onMonthChange, getMoodForDate }: Props) => {
     const { monthKey, monthDate, lastDate, firstDateDay, weekLength } =
-      monthData;
+      monthData
     return (
       <S.MonthItemButton
         key={monthKey}
@@ -40,7 +42,7 @@ export const MonthItem = memo(
           getMoodForDate={getMoodForDate}
         />
       </S.MonthItemButton>
-    );
+    )
   },
   (prevProps, nextProps) => {
     return (
@@ -52,6 +54,6 @@ export const MonthItem = memo(
       prevProps.isSelected === nextProps.isSelected &&
       prevProps.getMoodForDate === nextProps.getMoodForDate &&
       prevProps.onMonthChange === nextProps.onMonthChange
-    );
+    )
   },
-);
+)

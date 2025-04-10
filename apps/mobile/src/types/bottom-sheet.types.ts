@@ -1,6 +1,6 @@
-import { Draft } from '@/types/journal.types';
-import { Mood, MoodLevel, MoodType } from '@/types/mood.types';
-import { Nullable } from '@/types/utill.types';
+import type { Draft } from '@/types/journal.types'
+import type { Mood, MoodLevel, MoodType } from '@/types/mood.types'
+import type { Nullable } from '@/types/utill.types'
 
 export enum BottomSheetType {
   DELETE_JOURNAL = 'DELETE_JOURNAL',
@@ -11,40 +11,40 @@ export enum BottomSheetType {
 }
 
 export interface BottomSheetStore {
-  isOpen: boolean;
-  type: Nullable<BottomSheetType>;
-  snapPoint: number[] | string[];
-  props: any;
+  isOpen: boolean
+  type: Nullable<BottomSheetType>
+  snapPoint: number[] | string[]
+  props: any
 
   showBottomSheet: <T extends BottomSheetType>(
     type: T,
     snapPoint: number[] | string[],
     props?: BottomSheetProps[T],
-  ) => void;
-  hideBottomSheet: () => void;
+  ) => void
+  hideBottomSheet: () => void
 }
 
 export type BottomSheetProps = {
   [BottomSheetType.DELETE_JOURNAL]: {
-    journalId: string;
-    isLoading: boolean;
-    onDelete: (id: string) => Promise<void>;
-    onSuccess?: () => void;
-    hideBottomSheet: () => void;
-  };
+    journalId: string
+    isLoading: boolean
+    onDelete: (id: string) => Promise<void>
+    onSuccess?: () => void
+    hideBottomSheet: () => void
+  }
   [BottomSheetType.SELECT_MOOD]: {
-    onPress: (mood: Mood) => void;
-  };
+    onPress: (mood: Mood) => void
+  }
   [BottomSheetType.JOURNAL_WRITE]: {
-    moodType: MoodType;
-    moodLevel: MoodLevel;
-    onSubmit: (draft: Draft) => void;
-    isLoading: boolean;
-    isSubmitted: boolean;
-  };
+    moodType: MoodType
+    moodLevel: MoodLevel
+    onSubmit: (draft: Draft) => void
+    isLoading: boolean
+    isSubmitted: boolean
+  }
   [BottomSheetType.SIGN_UP]: {
-    userName: string;
-    goLoginPage: () => void;
-  };
-  [BottomSheetType.SIGN_IN]: {};
-};
+    userName: string
+    goLoginPage: () => void
+  }
+  [BottomSheetType.SIGN_IN]: {}
+}

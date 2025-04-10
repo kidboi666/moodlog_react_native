@@ -1,30 +1,27 @@
-import { useTranslation } from 'react-i18next';
+import { Minimize2 } from '@tamagui/lucide-icons'
+import { useTranslation } from 'react-i18next'
 
-import * as S from 'src/core/components/features/statistics/selected-month/ExpandedContent.styled';
-import { Minimize2 } from '@tamagui/lucide-icons';
-
-import { moodTheme } from '@/core/constants/themes';
-
-import { MoodLevel, MoodType } from '@/types/mood.types';
-import { SelectedMonthStats } from '@/types/statistic.types';
-
-import { getMonthKey } from '@/utils/date';
+import { moodTheme } from '@/core/constants/themes'
+import { MoodLevel, type MoodType } from '@/types/mood.types'
+import type { SelectedMonthStats } from '@/types/statistic.types'
+import { getMonthKey } from '@/utils/date'
+import * as S from './ExpandedContent.styled'
 
 interface Props {
-  selectedMonthStats: SelectedMonthStats;
+  selectedMonthStats: SelectedMonthStats
 }
 
 export const ExpandedContent = ({ selectedMonthStats }: Props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const {
     month: ISOMonthString,
     count,
     activeDay,
     frequency,
     signatureMood,
-  } = selectedMonthStats;
+  } = selectedMonthStats
 
-  const month = t(`calendar.months.${getMonthKey(ISOMonthString)}`);
+  const month = t(`calendar.months.${getMonthKey(ISOMonthString)}`)
 
   return (
     <S.MonthlyStatsContainer>
@@ -49,7 +46,7 @@ export const ExpandedContent = ({ selectedMonthStats }: Props) => {
             })}
           </S.StatsSectionTitle>
           <S.StatsSectionDescription>
-            {t(`statistics.stats.currentMonth.journalCount.description`, {
+            {t('statistics.stats.currentMonth.journalCount.description', {
               count,
             })}
           </S.StatsSectionDescription>
@@ -86,5 +83,5 @@ export const ExpandedContent = ({ selectedMonthStats }: Props) => {
         <S.MinimizeButton icon={Minimize2} />
       </S.StatsDetailContainer>
     </S.MonthlyStatsContainer>
-  );
-};
+  )
+}

@@ -1,6 +1,6 @@
-import { YStack, styled } from 'tamagui';
+import { YStack, styled } from 'tamagui'
 
-import { Toast } from '@tamagui/toast';
+import { Toast } from '@tamagui/toast'
 
 export const ToastContainer = styled(Toast, {
   animation: 'quick',
@@ -14,27 +14,27 @@ export const ToastContainer = styled(Toast, {
       ':string': preset => {
         switch (preset) {
           case 'error':
-            return { bg: '#e53e3e' };
+            return { bg: '#e53e3e' }
           case 'notice':
-            return { bg: '#3182c3' };
+            return { bg: '#3182c3' }
           case 'success':
-            return { bg: '#38a169' };
+            return { bg: '#38a169' }
         }
       },
     },
   },
-});
+})
 
 export const ToastContent = styled(YStack, {
   items: 'center',
   p: '$2',
   gap: '$2',
-});
+})
 
 export const ToastTitle = styled(Toast.Title, {
   fontWeight: '800',
-});
+})
 
 export const ToastDescription = styled(Toast.Description, {
   color: '$color',
-});
+})

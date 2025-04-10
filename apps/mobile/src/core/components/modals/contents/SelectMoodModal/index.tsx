@@ -1,31 +1,30 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react'
 
-import * as S from '@/core/components/modals/contents/SelectMoodModal/SelectMoodModal.styled';
-import { MoodSelectTitle } from '@/core/components/features/write/MoodSelectTitle';
-import { NextButton } from '@/core/components/features/write/NextButton';
-import { PickerMood } from '@/core/components/features/write/PickerMood';
-import { SelectedMoodContainer } from '@/core/components/features/write/SelectedMoodContainer';
-import { FadeIn } from '@/core/components/shared/FadeIn.styleable';
-
-import { Mood, MoodLevel, MoodType } from '@/types/mood.types';
+import { MoodSelectTitle } from '@/core/components/features/write/MoodSelectTitle'
+import { NextButton } from '@/core/components/features/write/NextButton'
+import { PickerMood } from '@/core/components/features/write/PickerMood'
+import { SelectedMoodContainer } from '@/core/components/features/write/SelectedMoodContainer'
+import { FadeIn } from '@/core/components/shared/FadeIn.styleable'
+import type { Mood, MoodLevel, MoodType } from '@/types/mood.types'
+import * as S from './SelectMoodModal.styled'
 
 interface Props {
-  onPress: (mood: Mood) => void;
+  onPress: (mood: Mood) => void
 }
 
 export const SelectMoodModal = ({ onPress }: Props) => {
-  const [mood, setMood] = useState<Mood>();
+  const [mood, setMood] = useState<Mood>()
 
   const handleMoodChange = useCallback((type: MoodType, level: MoodLevel) => {
-    setMood({ type, level });
-  }, []);
+    setMood({ type, level })
+  }, [])
 
   const handlePress = useCallback(() => {
-    if (!mood) return null;
-    onPress(mood);
-  }, [onPress, mood]);
+    if (!mood) return null
+    onPress(mood)
+  }, [onPress, mood])
 
-  const isSelected = !!(!!mood?.type && mood?.level);
+  const isSelected = !!(!!mood?.type && mood?.level)
 
   return (
     <S.BottomSheetContainer>
@@ -52,5 +51,5 @@ export const SelectMoodModal = ({ onPress }: Props) => {
         <NextButton isSelected={isSelected} onPress={handlePress} />
       </S.YStackContainer>
     </S.BottomSheetContainer>
-  );
-};
+  )
+}

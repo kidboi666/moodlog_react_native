@@ -1,29 +1,27 @@
-import { useRouter } from 'expo-router';
-import { useTranslation } from 'react-i18next';
-import { H1, H2 } from 'tamagui';
+import { useRouter } from 'expo-router'
+import { useTranslation } from 'react-i18next'
+import { H1, H2 } from 'tamagui'
 
-import { ArrowRight } from '@tamagui/lucide-icons';
-
-import { FadeIn } from '@/core/components/shared/FadeIn.styleable';
-import { ShakeEmoji } from '@/core/components/shared/ShakeEmoji';
-import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable';
-import { ANIMATION_DELAY_SECONDS } from '@/core/constants/time';
-import { useStepProgress } from '@/core/store/step-progress.store';
-
-import * as S from '@/styles/screens/onboarding/Welcome.styled';
+import { FadeIn } from '@/core/components/shared/FadeIn.styleable'
+import { ShakeEmoji } from '@/core/components/shared/ShakeEmoji'
+import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable'
+import { ANIMATION_DELAY_SECONDS } from '@/core/constants/time'
+import { useStepProgress } from '@/core/store/step-progress.store'
+import * as S from '@/styles/screens/onboarding/Welcome.styled'
+import { ArrowRight } from '@tamagui/lucide-icons'
 
 export default function Screen() {
-  const router = useRouter();
-  const { t } = useTranslation();
-  const { currentStep, goToNextStep } = useStepProgress();
-  const isWelcomePage = currentStep === 0;
+  const router = useRouter()
+  const { t } = useTranslation()
+  const { currentStep, goToNextStep } = useStepProgress()
+  const isWelcomePage = currentStep === 0
 
   const handleClickNextButton = () => {
     if (isWelcomePage) {
-      goToNextStep();
-      router.push('/nickname');
+      goToNextStep()
+      router.push('/nickname')
     }
-  };
+  }
 
   return (
     <ViewContainer edges={['bottom']}>
@@ -32,7 +30,7 @@ export default function Screen() {
           <FadeIn delay={ANIMATION_DELAY_SECONDS[0]}>
             <S.TitleBox>
               <H1>{t('onboarding.welcome.title')}</H1>
-              <ShakeEmoji emoji="👋" />
+              <ShakeEmoji emoji='👋' />
             </S.TitleBox>
           </FadeIn>
           <FadeIn delay={ANIMATION_DELAY_SECONDS[1]}>
@@ -56,5 +54,5 @@ export default function Screen() {
         </S.NextButton>
       </FadeIn>
     </ViewContainer>
-  );
+  )
 }

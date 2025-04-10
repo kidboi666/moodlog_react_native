@@ -1,8 +1,7 @@
-import { Button, Text, View, XStack, YStack, styled } from 'tamagui';
+import { Button, Text, View, XStack, YStack, styled } from 'tamagui'
 
-import { CALENDAR_SCROLL_SIZE } from '@/core/constants/size';
-
-import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/styles/animations';
+import { CALENDAR_SCROLL_SIZE } from '@/core/constants/size'
+import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/styles/animations'
 
 export const CalendarContainer = styled(XStack, {
   animation: 'quick',
@@ -12,7 +11,7 @@ export const CalendarContainer = styled(XStack, {
   justify: 'center',
   rounded: '$4',
   items: 'center',
-});
+})
 
 export const DateContainer = styled(View, {
   py: '$3',
@@ -32,17 +31,17 @@ export const DateContainer = styled(View, {
       },
     },
   } as const,
-});
+})
 
 export const DateWrapper = styled(Button, {
   unstyled: true,
   items: 'center',
-});
+})
 
 export const DateTextWrapper = styled(YStack, {
   gap: '$2',
   items: 'center',
-});
+})
 
 export const DayText = styled(Text, {
   fontSize: '$2',
@@ -55,7 +54,7 @@ export const DayText = styled(Text, {
       },
     },
   } as const,
-});
+})
 
 export const DateText = styled(Text, {
   fontSize: '$5',
@@ -64,8 +63,8 @@ export const DateText = styled(Text, {
   variants: {
     futureDateColor: {
       ':string': color => {
-        return { color };
+        return { color }
       },
     },
   } as const,
-});
+})

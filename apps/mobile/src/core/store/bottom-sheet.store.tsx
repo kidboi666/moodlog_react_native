@@ -1,10 +1,10 @@
-import { create } from 'zustand';
+import { create } from 'zustand'
 
-import {
+import type {
   BottomSheetProps,
   BottomSheetStore,
   BottomSheetType,
-} from '@/types/bottom-sheet.types';
+} from '@/types/bottom-sheet.types'
 
 export const useBottomSheet = create<BottomSheetStore>(set => ({
   isOpen: false,
@@ -15,14 +15,14 @@ export const useBottomSheet = create<BottomSheetStore>(set => ({
   showBottomSheet: <T extends BottomSheetType>(
     type: T,
     snapPoint: number[] | string[],
-    props: BottomSheetProps[T],
+    props?: BottomSheetProps[T],
   ) => {
     set({
       isOpen: true,
       type,
       snapPoint,
       props,
-    });
+    })
   },
 
   hideBottomSheet: () => {
@@ -30,6 +30,6 @@ export const useBottomSheet = create<BottomSheetStore>(set => ({
       isOpen: false,
       type: null,
       props: {},
-    });
+    })
   },
-}));
+}))

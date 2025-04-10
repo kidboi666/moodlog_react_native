@@ -1,4 +1,4 @@
-import { H5, Text, View, YStack, styled } from 'tamagui';
+import { H5, Text, View, YStack, styled } from 'tamagui'
 
 export const ViewContainer = styled(View, {
   flex: 1,
@@ -7,14 +7,14 @@ export const ViewContainer = styled(View, {
   animateOnly: ['opacity'],
   enterStyle: { opacity: 0 },
   exitStyle: { opacity: 0 },
-});
+})
 
 export const YStackContainer = styled(YStack, {
   gap: '$2',
-});
+})
 
 export const Title = styled(H5, {
   fontWeight: '800',
-});
+})
 
-export const Description = styled(Text);
+export const Description = styled(Text)

@@ -1,21 +1,21 @@
-import { Card, Image, Paragraph, View, XStack, YStack, styled } from 'tamagui';
+import { Card, Image, Paragraph, View, XStack, YStack, styled } from 'tamagui'
 
-import { LinearGradient } from 'tamagui/linear-gradient';
+import { LinearGradient } from 'tamagui/linear-gradient'
 
-import { PressableButton } from '@/core/components/shared/PressableButton.styled';
-import { RenderTime } from '@/core/components/shared/RenderTime.styleable';
+import { PressableButton } from '@/core/components/shared/PressableButton.styled'
+import { RenderTime } from '@/core/components/shared/RenderTime.styleable'
 
 import {
   MOUNT_STYLE,
   MOUNT_STYLE_KEY,
   PRESS_STYLE,
   PRESS_STYLE_KEY,
-} from '@/styles/animations';
+} from '@/styles/animations'
 
 export const Container = styled(View, {
   animation: 'quick',
   enterStyle: MOUNT_STYLE,
-});
+})
 
 export const CardContainer = styled(Card, {
   group: true,
@@ -27,17 +27,17 @@ export const CardContainer = styled(Card, {
   width: '100%',
   bg: '$backgroundHover',
   rounded: '$8',
-});
+})
 
 export const CardHeader = styled(Card.Header, {
   padded: true,
-});
+})
 
 export const Content = styled(XStack, {
   flex: 1,
   gap: '$4',
   items: 'center',
-});
+})
 
 export const MoodBar = styled(View, {
   width: '$0.75',
@@ -48,33 +48,33 @@ export const MoodBar = styled(View, {
   variants: {
     moodColor: {
       ':string': bg => {
-        return { bg };
+        return { bg }
       },
     },
   } as const,
-});
+})
 
 export const JournalContentBox = styled(YStack, {
   flex: 1,
   gap: '$2',
-});
+})
 
 export const JournalContentText = styled(Paragraph, {
   color: '$gray12',
   flex: 1,
   numberOfLines: 4,
-});
+})
 
 export const TimeText = styled(RenderTime, {
   fontSize: '$7',
   lineHeight: 20,
   color: '$gray9',
   fontWeight: '800',
-});
+})
 
 export const CardBackground = styled(Card.Background, {
   rounded: '$8',
-});
+})
 
 export const JournalCoverImage = styled(Image, {
   animation: 'medium',
@@ -82,7 +82,7 @@ export const JournalCoverImage = styled(Image, {
   objectFit: 'cover',
   width: '100%',
   height: '100%',
-});
+})
 
 export const ImageCoverGradient = styled(LinearGradient, {
   animation: 'quick',
@@ -95,9 +95,9 @@ export const ImageCoverGradient = styled(LinearGradient, {
   end: [2.4, 0],
   position: 'absolute',
   pointerEvents: 'none',
-});
+})
 
-export const RightChevronButton = styled(PressableButton);
+export const RightChevronButton = styled(PressableButton)
 
 export const ActionBox = styled(XStack, {
   r: 0,
@@ -111,7 +111,7 @@ export const ActionBox = styled(XStack, {
   justify: 'center',
   px: 16,
   z: -1,
-});
+})
 
 export const DeleteButton = styled(PressableButton, {
   circular: true,
@@ -124,4 +124,4 @@ export const DeleteButton = styled(PressableButton, {
   shadowOpacity: 0.2,
   shadowRadius: 1.5,
   elevation: 2,
-});
+})

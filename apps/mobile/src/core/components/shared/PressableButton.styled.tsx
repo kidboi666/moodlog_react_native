@@ -1,6 +1,6 @@
-import { Button, styled } from 'tamagui';
+import { Button, styled } from 'tamagui'
 
-import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/styles/animations';
+import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/styles/animations'
 
 export const PressableButton = styled(Button, {
   scaleIcon: 1.5,
@@ -17,4 +17,4 @@ export const PressableButton = styled(Button, {
       },
     },
   } as const,
-});
+})

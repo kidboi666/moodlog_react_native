@@ -5,66 +5,66 @@ import React, {
   useImperativeHandle,
   useRef,
   useState,
-} from 'react';
-import { useTranslation } from 'react-i18next';
-import { Input, ScrollView } from 'tamagui';
+} from 'react'
+import { useTranslation } from 'react-i18next'
+import { Input, ScrollView } from 'tamagui'
 
-import { ContentLength } from '@/core/components/modals/contents/JournalWriteModal/components/ContentLength';
+import { ContentLength } from '@/core/components/modals/contents/JournalWriteModal/components/ContentLength'
 
-import { Nullable } from '@/types/utill.types';
+import { Nullable } from '@/types/utill.types'
 
-import * as S from './EnhancedTextInput.styled';
+import * as S from './EnhancedTextInput.styled'
 
 interface Props {
-  imageUri: string[];
-  contentValue: string;
-  onContentChange: (content: string) => void;
-  autoFocus?: boolean;
+  imageUri: string[]
+  contentValue: string
+  onContentChange: (content: string) => void
+  autoFocus?: boolean
 }
 
 export interface EnhancedTextInputRef {
-  insertCurrentTime: () => void;
-  focus: () => void;
+  insertCurrentTime: () => void
+  focus: () => void
 }
 
 export const EnhancedTextInput = forwardRef<EnhancedTextInputRef, Props>(
   ({ contentValue, onContentChange, imageUri }, ref) => {
-    const { t } = useTranslation();
-    const inputRef = useRef<Input>(null);
-    const [selection, setSelection] = useState({ start: 0, end: 0 });
-    const deferredLength = useDeferredValue(contentValue.length);
+    const { t } = useTranslation()
+    const inputRef = useRef<Input>(null)
+    const [selection, setSelection] = useState({ start: 0, end: 0 })
+    const deferredLength = useDeferredValue(contentValue.length)
 
     const getCurrentTime = useCallback(() => {
-      const now = new Date();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      return `${hours}:${minutes}`;
-    }, []);
+      const now = new Date()
+      const hours = String(now.getHours()).padStart(2, '0')
+      const minutes = String(now.getMinutes()).padStart(2, '0')
+      return `${hours}:${minutes}`
+    }, [])
 
     const handleFocus = () => {
       if (inputRef.current) {
-        inputRef.current.focus();
+        inputRef.current.focus()
       }
-    };
+    }
 
     const insertCurrentTime = () => {
-      const currentTime = getCurrentTime();
+      const currentTime = getCurrentTime()
 
       const newContent =
         contentValue.slice(0, selection.start) +
         currentTime +
-        contentValue.slice(selection.end);
-      const newPosition = selection.start + currentTime.length;
-      setSelection({ start: newPosition, end: newPosition });
-      onContentChange(newContent);
+        contentValue.slice(selection.end)
+      const newPosition = selection.start + currentTime.length
+      setSelection({ start: newPosition, end: newPosition })
+      onContentChange(newContent)
 
-      setTimeout(() => handleFocus(), 0);
-    };
+      setTimeout(() => handleFocus(), 0)
+    }
 
     useImperativeHandle(ref, () => ({
       focus: handleFocus,
       insertCurrentTime,
-    }));
+    }))
 
     return (
       <S.InputContainer>
@@ -87,6 +87,6 @@ export const EnhancedTextInput = forwardRef<EnhancedTextInputRef, Props>(
         />
         <ContentLength length={deferredLength} />
       </S.InputContainer>
-    );
+    )
   },
-);
+)

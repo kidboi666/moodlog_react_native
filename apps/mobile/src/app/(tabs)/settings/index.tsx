@@ -1,8 +1,3 @@
-import { Href, useRouter } from 'expo-router';
-import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Button, H1, ScrollView, Separator, YStack } from 'tamagui';
-
 import {
   Clock,
   Computer,
@@ -10,31 +5,34 @@ import {
   LogOut,
   Moon,
   User,
-} from '@tamagui/lucide-icons';
+} from '@tamagui/lucide-icons'
+import { type Href, useRouter } from 'expo-router'
+import { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Button, H1, ScrollView, Separator, YStack } from 'tamagui'
 
-import { NavigationSettingItem } from '@/core/components/features/settings/NavigationSettingItem';
-import { useDev } from '@/core/hooks/useDev';
-import { useAuth } from '@/core/store/auth.store';
-
-import * as S from '@/styles/screens/settings/Settings.styled';
+import { NavigationSettingItem } from '@/core/components/features/settings/NavigationSettingItem'
+import { useDev } from '@/core/hooks/useDev'
+import { useAuth } from '@/core/store/auth.store'
+import * as S from '@/styles/screens/settings/Settings.styled'
 
 export default function Screen() {
-  const { t } = useTranslation();
-  const router = useRouter();
-  const { onClearStorage } = useDev();
-  const logout = useAuth(state => state.logout);
+  const { t } = useTranslation()
+  const router = useRouter()
+  const { onClearStorage } = useDev()
+  const logout = useAuth(state => state.logout)
 
   const handleRouteChange = useCallback(
     (route: Href) => {
-      router.push(route);
+      router.push(route)
     },
     [router],
-  );
+  )
 
   const handleLogout = useCallback(() => {
-    logout();
-    router.replace('/login');
-  }, [logout, router]);
+    logout()
+    router.replace('/(tabs)')
+  }, [logout, router])
 
   return (
     <ScrollView>
@@ -52,7 +50,7 @@ export default function Screen() {
           <NavigationSettingItem
             icon={Moon}
             label={t('settings.theme.title')}
-            href="/settings/theme"
+            href='/settings/theme'
             onRouteChange={handleRouteChange}
           />
           {/* Language Setting */}
@@ -60,21 +58,21 @@ export default function Screen() {
             icon={Globe}
             label={t('settings.language.title')}
             onRouteChange={handleRouteChange}
-            href="/settings/language"
+            href='/settings/language'
           />
           {/* TimeFormat Setting */}
           <NavigationSettingItem
             icon={Clock}
             label={t('settings.timeFormat.title')}
             onRouteChange={handleRouteChange}
-            href="/settings/time_format"
+            href='/settings/time_format'
           />
 
-          <YStack gap="$4">
+          <YStack gap='$4'>
             <Separator />
 
             {/* Logout Button */}
-            <Button icon={LogOut} onPress={handleLogout} color="$red10">
+            <Button icon={LogOut} onPress={handleLogout} color='$red10'>
               {t('auth.logout')}
             </Button>
 
@@ -91,5 +89,5 @@ export default function Screen() {
         </S.ItemContainer>
       </S.ViewContainer>
     </ScrollView>
-  );
+  )
 }

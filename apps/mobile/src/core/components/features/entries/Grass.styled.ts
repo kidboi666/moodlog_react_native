@@ -1,4 +1,4 @@
-import { View, styled } from 'tamagui';
+import { View, styled } from 'tamagui'
 
 export const Grass = styled(View, {
   width: 16,
@@ -8,8 +8,8 @@ export const Grass = styled(View, {
   variants: {
     moodColor: {
       ':string': bg => {
-        return { bg };
+        return { bg }
       },
     },
   } as const,
-});
+})

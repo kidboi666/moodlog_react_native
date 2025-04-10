@@ -1,49 +1,47 @@
-import { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useCallback, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import { SettingHeader } from '@/core/components/features/settings/SettingHeader';
-import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable';
-import { useUser } from '@/core/store/user.store';
-
-import { NewUserInfo } from '@/types/user.types';
-
-import * as S from '@/styles/screens/settings/Profile.styled';
+import { SettingHeader } from '@/core/components/features/settings/SettingHeader'
+import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable'
+import { useUser } from '@/core/store/user.store'
+import * as S from '@/styles/screens/settings/Profile.styled'
+import type { NewUserInfo } from '@/types/user.types'
 
 export default function Screen() {
-  const { t } = useTranslation();
-  const userInfo = useUser(state => state.userInfo);
-  const onUserInfoChange = useUser(state => state.onUserInfoChange);
-  const [isEditing, setIsEditing] = useState(false);
+  const { t } = useTranslation()
+  const userInfo = useUser(state => state.userInfo)
+  const onUserInfoChange = useUser(state => state.onUserInfoChange)
+  const [isEditing, setIsEditing] = useState(false)
   const [form, setForm] = useState<NewUserInfo>({
     userName: userInfo.userName,
     email: userInfo.email,
     age: userInfo.age,
-  });
+  })
 
   const handleEdit = useCallback(() => {
-    setIsEditing(true);
-  }, []);
+    setIsEditing(true)
+  }, [])
 
   const handleSave = useCallback(async () => {
-    await onUserInfoChange(form);
-    setIsEditing(false);
-  }, [form, onUserInfoChange]);
+    await onUserInfoChange(form)
+    setIsEditing(false)
+  }, [form, onUserInfoChange])
 
   const handleCancel = useCallback(() => {
     setForm({
       userName: userInfo.userName,
       email: userInfo.email,
       age: userInfo.age,
-    });
-    setIsEditing(false);
-  }, [userInfo]);
+    })
+    setIsEditing(false)
+  }, [userInfo])
 
   const handleChange = useCallback((key: keyof NewUserInfo, value: any) => {
     setForm(prev => ({
       ...prev,
       [key]: value,
-    }));
-  }, []);
+    }))
+  }, [])
 
   return (
     <ViewContainer Header={<SettingHeader />}>
@@ -97,8 +95,10 @@ export default function Screen() {
           {isEditing ? (
             <S.ProfileInput
               value={form.age?.toString() || ''}
-              onChangeText={text => handleChange('age', parseInt(text) || null)}
-              keyboardType="numeric"
+              onChangeText={text =>
+                handleChange('age', Number.parseInt(text) || null)
+              }
+              keyboardType='numeric'
             />
           ) : (
             <S.ProfileValue>{userInfo.age || '-'}</S.ProfileValue>
@@ -132,5 +132,5 @@ export default function Screen() {
         </S.ButtonContainer>
       </S.ProfileSectionContainer>
     </ViewContainer>
-  );
+  )
 }

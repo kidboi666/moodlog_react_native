@@ -1,48 +1,45 @@
-import { useRouter } from 'expo-router';
-import { useTranslation } from 'react-i18next';
-import { H1, YStack } from 'tamagui';
+import { useRouter } from 'expo-router'
+import { useTranslation } from 'react-i18next'
+import { H1, YStack } from 'tamagui'
 
-import { ArrowLeft } from '@tamagui/lucide-icons';
-
-import { FadeIn } from '@/core/components/shared/FadeIn.styleable';
-import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable';
-import { AUTH_SNAP_POINTS } from '@/core/constants/size';
-import { ANIMATION_DELAY_SECONDS } from '@/core/constants/time';
-import { useBottomSheet } from '@/core/store/bottom-sheet.store';
-import { useStepProgress } from '@/core/store/step-progress.store';
-import { useUser } from '@/core/store/user.store';
-
-import { BottomSheetType } from '@/types/bottom-sheet.types';
-
-import * as S from '@/styles/screens/onboarding/Signup.styled';
+import { FadeIn } from '@/core/components/shared/FadeIn.styleable'
+import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable'
+import { AUTH_SNAP_POINTS } from '@/core/constants/size'
+import { ANIMATION_DELAY_SECONDS } from '@/core/constants/time'
+import { useBottomSheet } from '@/core/store/bottom-sheet.store'
+import { useStepProgress } from '@/core/store/step-progress.store'
+import { useUser } from '@/core/store/user.store'
+import * as S from '@/styles/screens/onboarding/Signup.styled'
+import { BottomSheetType } from '@/types/bottom-sheet.types'
+import { ArrowLeft } from '@tamagui/lucide-icons'
 
 export default function Screen() {
-  const router = useRouter();
-  const { goToPrevStep, goToNextStep, currentStep } = useStepProgress();
-  const draftUserName = useUser(state => state.draftUserName);
-  const registerUser = useUser(state => state.registerUser);
-  const { t } = useTranslation();
-  const { showBottomSheet } = useBottomSheet();
-  const isBenefitPage = currentStep === 2;
+  const router = useRouter()
+  const { goToPrevStep, goToNextStep, currentStep } = useStepProgress()
+  const draftUserName = useUser(state => state.draftUserName)
+  const registerUser = useUser(state => state.registerUser)
+  const { t } = useTranslation()
+  const { showBottomSheet } = useBottomSheet()
+  const isBenefitPage = currentStep === 2
 
   const handlePrevStep = () => {
     if (isBenefitPage) {
-      goToPrevStep();
-      router.back();
+      goToPrevStep()
+      router.back()
     }
-  };
+  }
 
   const handleNextStep = () => {
     if (isBenefitPage) {
-      goToNextStep();
-      showBottomSheet(BottomSheetType.SIGN_UP, AUTH_SNAP_POINTS);
+      goToNextStep()
+      showBottomSheet(BottomSheetType.SIGN_UP, AUTH_SNAP_POINTS)
     }
-  };
+  }
 
   const skipStep = async () => {
-    await registerUser(draftUserName);
-    router.replace('/(tabs)');
-  };
+    await registerUser(draftUserName)
+    router.replace('/(tabs)')
+  }
 
   return (
     <ViewContainer edges={['bottom']}>
@@ -75,7 +72,7 @@ export default function Screen() {
           </S.PrevButton>
           <YStack>
             <FadeIn delay={ANIMATION_DELAY_SECONDS[4]}>
-              <S.SkipButton color="$blue10" onPress={skipStep}>
+              <S.SkipButton color='$blue10' onPress={skipStep}>
                 {t('common.skip')}
               </S.SkipButton>
             </FadeIn>
@@ -87,5 +84,5 @@ export default function Screen() {
         </S.ButtonContainer>
       </FadeIn>
     </ViewContainer>
-  );
+  )
 }

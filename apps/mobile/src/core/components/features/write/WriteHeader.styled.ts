@@ -1,11 +1,11 @@
-import { styled } from 'tamagui';
+import { styled } from 'tamagui'
 
-import { HeaderContainer as HOSHeaderContainer } from '@/core/components/shared/HeaderContainer.styleable';
-import { PressableButton } from '@/core/components/shared/PressableButton.styled';
+import { HeaderContainer as HOSHeaderContainer } from '@/core/components/shared/HeaderContainer.styleable'
+import { PressableButton } from '@/core/components/shared/PressableButton.styled'
 
-export const HeaderContainer = styled(HOSHeaderContainer);
+export const HeaderContainer = styled(HOSHeaderContainer)
 
 export const BackButton = styled(PressableButton, {
   elevate: false,
   bg: '$backgroundTransparent',
-});
+})

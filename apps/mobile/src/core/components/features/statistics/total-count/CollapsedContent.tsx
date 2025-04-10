@@ -1,16 +1,16 @@
-import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { H2, H3, Text, XStack } from 'tamagui';
+import { Maximize2 } from '@tamagui/lucide-icons'
+import { memo } from 'react'
+import { useTranslation } from 'react-i18next'
+import { H2, H3, Text, XStack } from 'tamagui'
 
-import * as S from 'src/core/components/features/statistics/total-count/CollapsedContent.styled';
-import { Maximize2 } from '@tamagui/lucide-icons';
+import * as S from './CollapsedContent.styled'
 
 interface Props {
-  totalCount: number;
+  totalCount: number
 }
 
 export const CollapsedContent = memo(({ totalCount }: Props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <S.ViewContainer>
       <S.YStackContainer>
@@ -25,5 +25,5 @@ export const CollapsedContent = memo(({ totalCount }: Props) => {
         <S.MinimizeButton icon={Maximize2} />
       </XStack>
     </S.ViewContainer>
-  );
-});
+  )
+})

@@ -1,4 +1,4 @@
-import { Circle as TamaguiCircle, styled } from 'tamagui';
+import { Circle as TamaguiCircle, styled } from 'tamagui'
 
 export const Circle = styled(TamaguiCircle, {
   position: 'absolute',
@@ -17,4 +17,4 @@ export const Circle = styled(TamaguiCircle, {
       },
     },
   } as const,
-});
+})

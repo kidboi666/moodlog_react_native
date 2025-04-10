@@ -4,13 +4,13 @@ import {
   XStack,
   YStack,
   styled,
-} from 'tamagui';
+} from 'tamagui'
 
 export const InputContainer = styled(YStack, {
   flex: 1,
   gap: '$4',
   position: 'relative',
-});
+})
 
 export const TextArea = styled(TamaguiTextArea, {
   color: '$gray12',
@@ -20,11 +20,11 @@ export const TextArea = styled(TamaguiTextArea, {
   text: 'left',
   verticalAlign: 'top',
   placeholderTextColor: '$gray7',
-});
+})
 
 export const ImageContainer = styled(XStack, {
   justify: 'flex-start',
-});
+})
 
 export const Image = styled(TamaguiImage, {
   width: 80,
@@ -34,4 +34,4 @@ export const Image = styled(TamaguiImage, {
   shadowColor: 'black',
   shadowOpacity: 0.5,
   shadowRadius: 10,
-});
+})

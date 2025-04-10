@@ -1,19 +1,19 @@
-import { Text, View, XStack, YStack, styled } from 'tamagui';
+import { Text, View, XStack, YStack, styled } from 'tamagui'
 
-import { PressableButton } from '@/core/components/shared/PressableButton.styled';
+import { PressableButton } from '@/core/components/shared/PressableButton.styled'
 
 export const XStackContainer = styled(XStack, {
   justify: 'space-between',
-});
+})
 
 export const MoodTypeContainer = styled(YStack, {
   gap: '$4',
   items: 'center',
-});
+})
 
 export const MoodLevelContainer = styled(YStack, {
   gap: '$4',
-});
+})
 
 export const MoodLevelButton = styled(PressableButton, {
   size: '$5',
@@ -21,16 +21,16 @@ export const MoodLevelButton = styled(PressableButton, {
   variants: {
     moodColor: {
       ':string': bg => {
-        return { bg };
+        return { bg }
       },
     },
   },
-});
+})
 
-export const SelectedMoodBox = styled(View);
+export const SelectedMoodBox = styled(View)
 
 export const SelectedMoodText = styled(Text, {
   fontSize: '$4',
   color: '$gray11',
   fontWeight: '400',
-});
+})

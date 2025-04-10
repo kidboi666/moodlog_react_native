@@ -1,27 +1,24 @@
-import { useCallback, useMemo } from 'react';
-import { ScrollView } from 'tamagui';
+import { useCallback, useMemo } from 'react'
+import { ScrollView } from 'tamagui'
 
-import * as S from 'src/core/components/features/entries/GardenSection.styled';
-
-import { GardenDayUnits } from '@/core/components/features/entries/GardenDayUnits';
-import { GardenTitleHeader } from '@/core/components/features/entries/GardenTitleHeader';
-import { MonthItem } from '@/core/components/features/entries/MonthItem';
-import { MONTHS } from '@/core/constants/date';
-import { useCalendar } from '@/core/hooks/useCalendar';
-import { useJournal } from '@/core/store/journal.store';
-
-import { ISOMonthString, MonthKey } from '@/types/date.types';
-
-import { getFirstDateDay, getLastDate, getWeekLength } from '@/utils/date';
+import { GardenDayUnits } from '@/core/components/features/entries/GardenDayUnits'
+import { GardenTitleHeader } from '@/core/components/features/entries/GardenTitleHeader'
+import { MonthItem } from '@/core/components/features/entries/MonthItem'
+import { MONTHS } from '@/core/constants/date'
+import { useCalendar } from '@/core/hooks/useCalendar'
+import { useJournal } from '@/core/store/journal.store'
+import type { ISOMonthString, MonthKey } from '@/types/date.types'
+import { getFirstDateDay, getLastDate, getWeekLength } from '@/utils/date'
+import * as S from './GardenSection.styled'
 
 export const GardenSection = () => {
-  const { getMoodForDate, selectJournals } = useJournal();
+  const { getMoodForDate, selectJournals } = useJournal()
   const {
     selectedYear,
     selectedMonth,
     onSelectedMonthChange,
     isSelectedMonth,
-  } = useCalendar();
+  } = useCalendar()
 
   const staticMonths = useMemo(
     () =>
@@ -34,18 +31,18 @@ export const GardenSection = () => {
         weekLength: getWeekLength(selectedYear, month),
       })),
     [selectedYear],
-  );
+  )
 
   const handleMonthChange = useCallback(
     (monthDate: ISOMonthString) => {
-      onSelectedMonthChange(selectedMonth === monthDate ? null : monthDate);
+      onSelectedMonthChange(selectedMonth === monthDate ? null : monthDate)
 
       setTimeout(() => {
-        selectJournals(selectedMonth === monthDate ? null : monthDate);
-      }, 0);
+        selectJournals(selectedMonth === monthDate ? null : monthDate)
+      }, 0)
     },
     [selectedMonth, onSelectedMonthChange, selectJournals],
-  );
+  )
 
   return (
     <S.Container>
@@ -65,5 +62,5 @@ export const GardenSection = () => {
         </S.StackBox>
       </ScrollView>
     </S.Container>
-  );
-};
+  )
+}

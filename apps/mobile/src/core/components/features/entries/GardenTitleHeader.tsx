@@ -1,10 +1,10 @@
-import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
+import { memo } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import * as S from 'src/core/components/features/entries/GardenTitleHeader.styled';
+import * as S from './GardenTitleHeader.styled'
 
 export const GardenTitleHeader = memo(() => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <S.GardenTitleHeaderContainer>
       <S.GardenTitle>{t('entries.garden.title')}</S.GardenTitle>
@@ -12,5 +12,5 @@ export const GardenTitleHeader = memo(() => {
         {t('entries.garden.description')}
       </S.GardenDescription>
     </S.GardenTitleHeaderContainer>
-  );
-});
+  )
+})

@@ -1,13 +1,12 @@
-import { useTranslation } from 'react-i18next';
-import { Text } from 'tamagui';
+import { useTranslation } from 'react-i18next'
+import { Text } from 'tamagui'
 
-import * as S from 'src/core/components/features/calendar/CalendarHeader.styled';
-import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
-
-import { WEEK_DAY } from '@/core/constants/date';
+import { WEEK_DAY } from '@/core/constants/date'
+import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons'
+import * as S from './CalendarHeader.styled'
 
 export const CalendarHeader = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <S.HeaderContainer>
       <S.NavigationBox>
@@ -17,9 +16,9 @@ export const CalendarHeader = () => {
       </S.NavigationBox>
       <S.DayContainer>
         {Object.keys(WEEK_DAY).map((week, i) => (
-          <Text key={i}>{t(`calendar.days.${week}`)}</Text>
+          <Text key={`${i}-${week}`}>{t(`calendar.days.${week}`)}</Text>
         ))}
       </S.DayContainer>
     </S.HeaderContainer>
-  );
-};
+  )
+}

@@ -1,21 +1,17 @@
-import React, { memo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { YStack } from 'tamagui';
+import React, { memo } from 'react'
+import { useTranslation } from 'react-i18next'
+import Animated from 'react-native-reanimated'
+import { YStack } from 'tamagui'
 
-import Animated, { BounceInUp, Easing } from 'react-native-reanimated';
+import { HorizontalCalendar } from '@/core/components/features/home/HorizontalCalendar'
+import { DEFAULT_BOUNCE_IN_UP } from '@/styles/animations'
+import { getMonthKey } from '@/utils/date'
+import * as S from './WeekDay.styled'
 
-import * as S from 'src/core/components/features/home/WeekDay.styled';
-
-import { HorizontalCalendar } from '@/core/components/features/home/HorizontalCalendar';
-
-import { getMonthKey } from '@/utils/date';
-
-import { DEFAULT_BOUNCE_IN_UP } from '@/styles/animations';
-
-const AnimatedContainer = Animated.createAnimatedComponent(YStack);
+const AnimatedContainer = Animated.createAnimatedComponent(YStack)
 
 export const WeekDay = memo(() => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <AnimatedContainer entering={DEFAULT_BOUNCE_IN_UP}>
@@ -30,5 +26,5 @@ export const WeekDay = memo(() => {
         </S.InnerGradientBox>
       </S.OuterGradientBox>
     </AnimatedContainer>
-  );
-});
+  )
+})

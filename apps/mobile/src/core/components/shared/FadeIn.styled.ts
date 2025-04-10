@@ -1,6 +1,6 @@
-import { View, styled } from 'tamagui';
+import { View, styled } from 'tamagui'
 
-import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/styles/animations';
+import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/styles/animations'
 
 export const FadeInContainer = styled(View, {
   animation: 'lazy',
@@ -14,4 +14,4 @@ export const FadeInContainer = styled(View, {
       },
     },
   } as const,
-});
+})

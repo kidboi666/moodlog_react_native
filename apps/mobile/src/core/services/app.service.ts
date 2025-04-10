@@ -1,26 +1,17 @@
-import { STORAGE_KEY } from '@/core/constants/storage';
-import { StorageService } from '@/core/services/storage.service';
-
-import { Settings } from '@/types/app.types';
-import { ISODateString } from '@/types/date.types';
-import { Nullable } from '@/types/utill.types';
+import { STORAGE_KEY } from '@/core/constants/storage'
+import { StorageService } from '@/core/services/storage.service'
+import type { Settings } from '@/types/app.types'
+import type { ISODateString } from '@/types/date.types'
+import type { Nullable } from '@/types/utill.types'
 
 export class AppService extends StorageService {
   static async loadSettings(): Promise<Nullable<Settings>> {
-    try {
-      const settings = await this.load(STORAGE_KEY.SETTINGS);
-      return settings ? settings : null;
-    } catch (err) {
-      throw err;
-    }
+    const settings = await AppService.load(STORAGE_KEY.SETTINGS)
+    return settings ? settings : null
   }
 
   static async initSettings(newSettings: Settings): Promise<void> {
-    try {
-      await this.save(STORAGE_KEY.SETTINGS, newSettings);
-    } catch (err) {
-      throw err;
-    }
+    await AppService.save(STORAGE_KEY.SETTINGS, newSettings)
   }
 
   static async saveSetting<K extends keyof Settings>(
@@ -28,30 +19,18 @@ export class AppService extends StorageService {
     key: K,
     value: Settings[K],
   ): Promise<void> {
-    try {
-      const newSettings = { ...settings, [key]: value };
-      await this.save(STORAGE_KEY.SETTINGS, newSettings);
-    } catch (err) {
-      throw err;
-    }
+    const newSettings = { ...settings, [key]: value }
+    await AppService.save(STORAGE_KEY.SETTINGS, newSettings)
   }
 
   static async loadFirstLaunchStatus(): Promise<Nullable<ISODateString>> {
-    try {
-      const firstLaunchDate = await this.load(STORAGE_KEY.FIRST_LAUNCH);
-      return firstLaunchDate ? firstLaunchDate : null;
-    } catch (err) {
-      throw err;
-    }
+    const firstLaunchDate = await AppService.load(STORAGE_KEY.FIRST_LAUNCH)
+    return firstLaunchDate ? firstLaunchDate : null
   }
 
   static async saveFirstLaunchStatus(
     firstLaunchDate: ISODateString,
   ): Promise<void> {
-    try {
-      await this.save(STORAGE_KEY.FIRST_LAUNCH, firstLaunchDate);
-    } catch (err) {
-      throw err;
-    }
+    await AppService.save(STORAGE_KEY.FIRST_LAUNCH, firstLaunchDate)
   }
 }

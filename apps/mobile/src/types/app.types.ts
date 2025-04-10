@@ -1,5 +1,5 @@
-import { ISODateString } from '@/types/date.types';
-import { Nullable } from '@/types/utill.types';
+import { ISODateString } from '@/types/date.types'
+import { Nullable } from '@/types/utill.types'
 
 export enum ViewFontSize {
   SMALL = '$6',
@@ -26,36 +26,36 @@ export enum Position {
 }
 
 export type Settings = {
-  fontSize: ViewFontSize;
-  language: Languages;
-  timeFormat: TimeFormat;
-};
+  fontSize: ViewFontSize
+  language: Languages
+  timeFormat: TimeFormat
+}
 export type AppState = {
-  appVersion: string;
-  isInitialApp: boolean;
-  firstLaunchDate: Nullable<ISODateString>;
-  settings: Settings;
-};
+  appVersion: string
+  isInitialApp: boolean
+  firstLaunchDate: Nullable<ISODateString>
+  settings: Settings
+}
 
 export interface AppSettings {
-  fontSize: ViewFontSize;
-  language: Languages;
-  timeFormat: TimeFormat;
+  fontSize: ViewFontSize
+  language: Languages
+  timeFormat: TimeFormat
 }
 
 export interface AppStore {
-  appVersion: string;
-  firstLaunchDate: ISODateString | null;
+  appVersion: string
+  firstLaunchDate: ISODateString | null
 
-  settings: AppSettings;
+  settings: AppSettings
 
-  isLoading: boolean;
-  error: any | null;
+  isLoading: boolean
+  error: any | null
 
-  initFirstLaunchStatus: () => Promise<void>;
-  initAppData: () => Promise<void>;
+  initFirstLaunchStatus: () => Promise<void>
+  initAppData: () => Promise<void>
   onSettingChange: <K extends keyof AppSettings>(
     key: K,
     value: AppSettings[K],
-  ) => Promise<void>;
+  ) => Promise<void>
 }

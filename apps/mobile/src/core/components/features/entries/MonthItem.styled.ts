@@ -1,4 +1,4 @@
-import { Button, styled } from 'tamagui';
+import { Button, styled } from 'tamagui'
 
 export const MonthItemButton = styled(Button, {
   unstyled: true,
@@ -15,4 +15,4 @@ export const MonthItemButton = styled(Button, {
       },
     },
   } as const,
-});
+})

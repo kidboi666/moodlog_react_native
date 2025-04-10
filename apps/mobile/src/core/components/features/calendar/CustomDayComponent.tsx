@@ -1,29 +1,26 @@
-import React, { memo } from 'react';
+import React, { memo } from 'react'
+import type { DateData } from 'react-native-calendars'
+import type { MarkingProps } from 'react-native-calendars/src/calendar/day/marking'
+import type { DayState } from 'react-native-calendars/src/types'
 
-import { DateData } from 'react-native-calendars';
-import { MarkingProps } from 'react-native-calendars/src/calendar/day/marking';
-import { DayState } from 'react-native-calendars/src/types';
-
-import * as S from 'src/core/components/features/calendar/CustomDayComponent.styled';
-
-import { DateCountDot } from '@/core/components/features/home/DateCountDot';
-
-import { DateCounts } from '@/types/date.types';
+import { DateCountDot } from '@/core/components/features/home/DateCountDot'
+import type { DateCounts } from '@/types/date.types'
+import * as S from './CustomDayComponent.styled'
 
 interface Props {
-  date: DateData;
-  state: DayState;
-  marking: MarkingProps;
-  onPress: () => void;
-  dateCounts?: DateCounts;
+  date: DateData
+  state: DayState
+  marking: MarkingProps
+  onPress: () => void
+  dateCounts?: DateCounts
 }
 
 export const CustomDayComponent = memo(
   ({ date, state, marking, onPress, dateCounts }: Props) => {
-    const { selected } = marking || {};
-    const isSelected = selected;
-    const isToday = state === 'today';
-    const isDisabled = state === 'disabled';
+    const { selected } = marking || {}
+    const isSelected = selected
+    const isToday = state === 'today'
+    const isDisabled = state === 'disabled'
 
     return (
       <S.DayContainerButton
@@ -42,7 +39,7 @@ export const CustomDayComponent = memo(
           />
         </S.DotBox>
       </S.DayContainerButton>
-    );
+    )
   },
   (prevProps, nextProps) => {
     return (
@@ -50,6 +47,6 @@ export const CustomDayComponent = memo(
       prevProps.state === nextProps.state &&
       prevProps.marking === nextProps.marking &&
       prevProps.dateCounts === nextProps.dateCounts
-    );
+    )
   },
-);
+)

@@ -1,7 +1,7 @@
-import { createFont, createTamagui } from 'tamagui';
+import { createFont, createTamagui } from 'tamagui'
 
-import { defaultConfig } from '@tamagui/config/v4';
-import { tokens as tamaguiTokens, themes } from '@tamagui/themes';
+import { defaultConfig } from '@tamagui/config/v4'
+import { tokens as tamaguiTokens, themes } from '@tamagui/themes'
 
 const systemFont = createFont({
   family: 'Pretendard',
@@ -36,7 +36,7 @@ const systemFont = createFont({
     700: { normal: 'Pretendard-SemiBold' },
     800: { normal: 'Pretendard-Bold' },
   },
-});
+})
 
 export const config = createTamagui({
   ...defaultConfig,
@@ -46,7 +46,7 @@ export const config = createTamagui({
   },
   themes,
   tokens: tamaguiTokens,
-});
+})
 
 declare module 'tamagui' {
   interface TamaguiCustomConfig extends Conf {}
@@ -54,11 +54,11 @@ declare module 'tamagui' {
 
 declare module '@tamagui/toast' {
   interface CustomData {
-    preset: 'error' | 'notice' | 'success';
-    isUrgent?: boolean;
+    preset: 'error' | 'notice' | 'success'
+    isUrgent?: boolean
   }
 }
 
-export default config;
+export default config
 
-export type Conf = typeof config;
+export type Conf = typeof config

@@ -1,5 +1,5 @@
-import { Journal } from '@/types/journal.types';
-import { MoodLevel, MoodType } from '@/types/mood.types';
+import { Journal } from '@/types/journal.types'
+import { MoodLevel, MoodType } from '@/types/mood.types'
 
 export const dummyJournals: Journal[] = [
   {
@@ -220,4 +220,4 @@ export const dummyJournals: Journal[] = [
     createdAt: '2025-03-20T11:30:00Z',
     localDate: '2025-03-20',
   },
-];
+]

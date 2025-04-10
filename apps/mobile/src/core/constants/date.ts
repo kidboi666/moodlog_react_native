@@ -6,7 +6,7 @@ export const WEEK_DAY = {
   fri: 'Fri',
   sat: 'Sat',
   sun: 'Sun',
-} as const;
+} as const
 
 export const MONTHS = {
   jan: 'Jan',
@@ -21,4 +21,4 @@ export const MONTHS = {
   oct: 'Oct',
   nov: 'Nov',
   dec: 'Dec',
-} as const;
+} as const

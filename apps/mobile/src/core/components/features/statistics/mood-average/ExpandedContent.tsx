@@ -1,26 +1,24 @@
-import { useTranslation } from 'react-i18next';
-import { H3, Text } from 'tamagui';
+import { Minimize2 } from '@tamagui/lucide-icons'
+import { useTranslation } from 'react-i18next'
+import { H3, Text } from 'tamagui'
 
-import * as S from 'src/core/components/features/statistics/mood-average/ExpandedContent.styled';
-import { Minimize2 } from '@tamagui/lucide-icons';
-
-import { ProgressGraph } from '@/core/components/features/statistics/mood-average/ProgressGraph';
-
-import { MoodType } from '@/types/mood.types';
-import { ScoreBoard } from '@/types/statistic.types';
+import { ProgressGraph } from '@/core/components/features/statistics/mood-average/ProgressGraph'
+import type { MoodType } from '@/types/mood.types'
+import type { ScoreBoard } from '@/types/statistic.types'
+import * as S from './ExpandedContent.styled'
 
 interface Props {
-  scoreBoard: ScoreBoard;
+  scoreBoard: ScoreBoard
 }
 
 export const ExpandedContent = ({ scoreBoard }: Props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
-  let moodTotalScore = 0;
+  let moodTotalScore = 0
 
   Object.values(scoreBoard).forEach(scoreCount => {
-    moodTotalScore += scoreCount.score;
-  });
+    moodTotalScore += scoreCount.score
+  })
 
   return (
     <S.ViewContainer>
@@ -41,5 +39,5 @@ export const ExpandedContent = ({ scoreBoard }: Props) => {
         <S.MinimizeButton icon={Minimize2} />
       </S.YStackContainer>
     </S.ViewContainer>
-  );
-};
+  )
+}

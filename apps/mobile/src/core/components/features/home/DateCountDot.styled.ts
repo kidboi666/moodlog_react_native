@@ -1,10 +1,10 @@
-import { View, XStack, styled } from 'tamagui';
+import { View, XStack, styled } from 'tamagui'
 
 export const DotContainer = styled(XStack, {
   gap: 2,
   position: 'absolute',
   b: '$1',
-});
+})
 
 export const Dot = styled(View, {
   width: '$0.5',
@@ -15,8 +15,8 @@ export const Dot = styled(View, {
   variants: {
     backgroundStyle: {
       ':string': bg => {
-        return { bg };
+        return { bg }
       },
     },
   } as const,
-});
+})

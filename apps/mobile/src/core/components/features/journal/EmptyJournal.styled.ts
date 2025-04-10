@@ -1,6 +1,6 @@
-import { Button, H3, H5, YStack, styled } from 'tamagui';
+import { Button, H3, H5, YStack, styled } from 'tamagui'
 
-import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/styles/animations';
+import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/styles/animations'
 
 export const TodayContainer = styled(YStack, {
   justify: 'center',
@@ -13,12 +13,12 @@ export const TodayContainer = styled(YStack, {
   animation: 'medium',
   enterStyle: MOUNT_STYLE,
   animateOnly: MOUNT_STYLE_KEY,
-});
+})
 
 export const TodayTitle = styled(H3, {
   text: 'center',
   color: '$gray12',
-});
+})
 
 export const PastDaysContainer = styled(Button, {
   unstyled: true,
@@ -29,13 +29,13 @@ export const PastDaysContainer = styled(Button, {
   animation: 'medium',
   enterStyle: MOUNT_STYLE,
   animateOnly: MOUNT_STYLE_KEY,
-});
+})
 
 export const PastDaysTitle = styled(H3, {
   color: '$gray10',
-});
+})
 
 export const PastDaysDescription = styled(H5, {
   color: '$gray10',
   fontSize: '$4',
-});
+})

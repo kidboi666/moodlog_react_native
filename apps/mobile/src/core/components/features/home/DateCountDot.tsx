@@ -1,9 +1,9 @@
-import * as S from 'src/core/components/features/home/DateCountDot.styled';
+import * as S from 'src/core/components/features/home/DateCountDot.styled'
 
 interface Props {
-  journalCount?: number;
-  isSelected?: boolean;
-  variant?: 'default' | 'contained';
+  journalCount?: number
+  isSelected?: boolean
+  variant?: 'default' | 'contained'
 }
 
 export const DateCountDot = ({
@@ -11,11 +11,11 @@ export const DateCountDot = ({
   isSelected,
   variant = 'default',
 }: Props) => {
-  if (!journalCount) return null;
+  if (!journalCount) return null
   return (
     <S.DotContainer>
       {Array.from({ length: journalCount }, (_, i) => {
-        if (i >= 3) return null;
+        if (i >= 3) return null
         return (
           <S.Dot
             key={i}
@@ -29,8 +29,8 @@ export const DateCountDot = ({
                   : '$gray12'
             }
           />
-        );
+        )
       })}
     </S.DotContainer>
-  );
-};
+  )
+}

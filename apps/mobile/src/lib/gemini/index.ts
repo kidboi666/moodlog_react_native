@@ -1,12 +1,12 @@
-import { GeminiService } from '@/core/services/ai.service';
+import { GeminiService } from '@/core/services/ai.service'
 
-const apiKey = process.env.EXPO_PUBLIC_GEMINI_API_KEY || '';
+const apiKey = process.env.EXPO_PUBLIC_GEMINI_API_KEY || ''
 
-let gemini: GeminiService | undefined = undefined;
+let gemini: GeminiService | undefined = undefined
 
 export const getGemini = () => {
   if (!gemini) {
-    gemini = new GeminiService(apiKey);
+    gemini = new GeminiService(apiKey)
   }
-  return gemini;
-};
+  return gemini
+}

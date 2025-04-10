@@ -1,14 +1,13 @@
-import { memo } from 'react';
+import { memo } from 'react'
 
-import * as S from 'src/core/components/features/journal/JournalHeader.styled';
-import { ArrowLeft, Trash2 } from '@tamagui/lucide-icons';
-
-import { Journal } from '@/types/journal.types';
+import type { Journal } from '@/types/journal.types'
+import { ArrowLeft, Trash2 } from '@tamagui/lucide-icons'
+import * as S from './JournalHeader.styled'
 
 interface Props {
-  journal: Journal;
-  onDeletePress: () => void;
-  onBackPress: () => void;
+  journal: Journal
+  onDeletePress: () => void
+  onBackPress: () => void
 }
 
 export const JournalHeader = memo(
@@ -28,6 +27,6 @@ export const JournalHeader = memo(
           <S.DeleteButton icon={Trash2} onPress={onDeletePress} />
         </S.HeaderContainer>
       </>
-    );
+    )
   },
-);
+)

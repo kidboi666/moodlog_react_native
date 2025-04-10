@@ -1,8 +1,8 @@
-import { Stack } from 'expo-router';
-import { useTheme } from 'tamagui';
+import { Stack } from 'expo-router'
+import { useTheme } from 'tamagui'
 
 export default function Layout() {
-  const theme = useTheme();
+  const theme = useTheme()
 
   return (
     <Stack
@@ -11,11 +11,11 @@ export default function Layout() {
         contentStyle: { backgroundColor: theme.background.val },
       }}
     >
-      <Stack.Screen name="index" />
-      <Stack.Screen name="theme" />
-      <Stack.Screen name="language" />
-      <Stack.Screen name="time_format" />
-      <Stack.Screen name="profile" />
+      <Stack.Screen name='index' />
+      <Stack.Screen name='theme' />
+      <Stack.Screen name='language' />
+      <Stack.Screen name='time_format' />
+      <Stack.Screen name='profile' />
     </Stack>
-  );
+  )
 }

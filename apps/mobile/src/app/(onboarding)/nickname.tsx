@@ -1,38 +1,36 @@
-import { useRouter } from 'expo-router';
-import { useTranslation } from 'react-i18next';
-import { Input } from 'tamagui';
+import { useRouter } from 'expo-router'
+import { useTranslation } from 'react-i18next'
+import { Input } from 'tamagui'
 
-import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons';
-
-import { FadeIn } from '@/core/components/shared/FadeIn.styleable';
-import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable';
-import { ANIMATION_DELAY_SECONDS } from '@/core/constants/time';
-import { useStepProgress } from '@/core/store/step-progress.store';
-import { useUser } from '@/core/store/user.store';
-
-import * as S from '@/styles/screens/onboarding/Nickname.styled';
+import { FadeIn } from '@/core/components/shared/FadeIn.styleable'
+import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable'
+import { ANIMATION_DELAY_SECONDS } from '@/core/constants/time'
+import { useStepProgress } from '@/core/store/step-progress.store'
+import { useUser } from '@/core/store/user.store'
+import * as S from '@/styles/screens/onboarding/Nickname.styled'
+import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons'
 
 export default function Screen() {
-  const draftUserName = useUser(state => state.draftUserName);
-  const onDraftUserNameChange = useUser(state => state.onDraftUserNameChange);
-  const router = useRouter();
-  const { t } = useTranslation();
-  const { currentStep, goToPrevStep, goToNextStep } = useStepProgress();
-  const isNicknamePage = currentStep === 1;
+  const draftUserName = useUser(state => state.draftUserName)
+  const onDraftUserNameChange = useUser(state => state.onDraftUserNameChange)
+  const router = useRouter()
+  const { t } = useTranslation()
+  const { currentStep, goToPrevStep, goToNextStep } = useStepProgress()
+  const isNicknamePage = currentStep === 1
 
   const handlePrevStep = () => {
     if (isNicknamePage) {
-      goToPrevStep();
-      router.back();
+      goToPrevStep()
+      router.back()
     }
-  };
+  }
 
   const handleNextStep = () => {
     if (isNicknamePage) {
-      goToNextStep();
-      router.push('/benefit');
+      goToNextStep()
+      router.push('/benefit')
     }
-  };
+  }
 
   return (
     <ViewContainer edges={['bottom']}>
@@ -66,5 +64,5 @@ export default function Screen() {
         </S.ButtonContainer>
       </FadeIn>
     </ViewContainer>
-  );
+  )
 }

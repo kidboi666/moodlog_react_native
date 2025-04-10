@@ -1,13 +1,13 @@
-import { TamaguiProvider, type TamaguiProviderProps } from 'tamagui';
+import { TamaguiProvider, type TamaguiProviderProps } from 'tamagui'
 
-import config from '../../../tamagui.config';
+import config from '../../../tamagui.config'
 
 export const TamaguiBaseProvider = ({
   colorScheme,
   children,
   ...rest
 }: Omit<TamaguiProviderProps, 'config'> & {
-  colorScheme?: 'dark' | 'light' | null;
+  colorScheme?: 'dark' | 'light' | null
 }) => {
   return (
     <TamaguiProvider
@@ -17,5 +17,5 @@ export const TamaguiBaseProvider = ({
     >
       {children}
     </TamaguiProvider>
-  );
-};
+  )
+}

@@ -1,22 +1,21 @@
-import { useTranslation } from 'react-i18next';
-import { XStack, YStack } from 'tamagui';
+import { Maximize2 } from '@tamagui/lucide-icons'
+import { useTranslation } from 'react-i18next'
+import { XStack, YStack } from 'tamagui'
 
-import * as S from 'src/core/components/features/statistics/mood-average/CollapsedContent.styled';
-import { Maximize2 } from '@tamagui/lucide-icons';
-
-import { SignatureMood } from '@/types/mood.types';
-import { Nullable } from '@/types/utill.types';
+import type { SignatureMood } from '@/types/mood.types'
+import type { Nullable } from '@/types/utill.types'
+import * as S from './CollapsedContent.styled'
 
 interface Props {
-  hasSignatureMood: boolean;
-  signatureMood: Nullable<SignatureMood>;
+  hasSignatureMood: boolean
+  signatureMood: Nullable<SignatureMood>
 }
 
 export const CollapsedContent = ({
   hasSignatureMood,
   signatureMood,
 }: Props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <S.ViewContainer>
       <S.YStackContainer>
@@ -38,5 +37,5 @@ export const CollapsedContent = ({
         </XStack>
       </YStack>
     </S.ViewContainer>
-  );
-};
+  )
+}

@@ -1,4 +1,4 @@
-import * as S from 'src/core/components/features/statistics/EmptyContent.styled';
+import * as S from './EmptyContent.styled'
 
 export const EmptyContent = () => {
   return (
@@ -10,5 +10,5 @@ export const EmptyContent = () => {
         </S.Description>
       </S.YStackContainer>
     </S.ViewContainer>
-  );
-};
+  )
+}

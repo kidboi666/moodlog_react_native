@@ -1,9 +1,9 @@
-import * as S from 'src/core/components/features/onboarding/OnboardingHeader.styled';
+import * as S from 'src/core/components/features/onboarding/OnboardingHeader.styled'
 
-import { useStepProgress } from '@/core/store/step-progress.store';
+import { useStepProgress } from '@/core/store/step-progress.store'
 
 export const OnboardingHeader = () => {
-  const { currentStep, totalSteps } = useStepProgress();
+  const { currentStep, totalSteps } = useStepProgress()
 
   return (
     <S.HeaderContainer>
@@ -13,5 +13,5 @@ export const OnboardingHeader = () => {
         ))}
       </S.StepDotBox>
     </S.HeaderContainer>
-  );
-};
+  )
+}

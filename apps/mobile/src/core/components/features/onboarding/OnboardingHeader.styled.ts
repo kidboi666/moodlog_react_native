@@ -1,15 +1,15 @@
-import { View, XStack, styled } from 'tamagui';
+import { View, XStack, styled } from 'tamagui'
 
-import { HeaderContainer as HOSHeaderContainer } from '@/core/components/shared/HeaderContainer.styleable';
+import { HeaderContainer as HOSHeaderContainer } from '@/core/components/shared/HeaderContainer.styleable'
 
 export const HeaderContainer = styled(HOSHeaderContainer, {
   py: '$4',
   justify: 'center',
-});
+})
 
 export const StepDotBox = styled(XStack, {
   gap: '$2',
-});
+})
 
 export const Dot = styled(View, {
   width: '$1',
@@ -24,4 +24,4 @@ export const Dot = styled(View, {
       },
     },
   } as const,
-});
+})
