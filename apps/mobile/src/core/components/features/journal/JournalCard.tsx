@@ -117,14 +117,14 @@ export const JournalCard = memo(
                 </S.Content>
               </S.CardHeader>
 
-              {Array.isArray(imageUri) && (
-                <S.CardBackground>
-                  <S.JournalCoverImage source={{ uri: imageUri[0] }} />
-                  <AnimatePresence>
-                    {isOpenCard ? null : <S.ImageCoverGradient />}
-                  </AnimatePresence>
-                </S.CardBackground>
-              )}
+              <AnimatePresence>
+                {Array.isArray(imageUri) && isOpenCard ? (
+                  <S.CardBackground>
+                    <S.JournalCoverImage source={{ uri: imageUri[0] }} />
+                    <S.ImageCoverGradient />
+                  </S.CardBackground>
+                ) : null}
+              </AnimatePresence>
             </AnimatedCard>
           </GestureWrapper>
         </S.Container>

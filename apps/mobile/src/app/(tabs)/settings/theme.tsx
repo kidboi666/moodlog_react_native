@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { RadioGroup } from 'tamagui'
 
 import { SettingHeader } from '@/core/components/features/settings/SettingHeader'
+import { SettingsContainer } from '@/core/components/features/settings/SettingsContainer'
 import { RadioGroupItem } from '@/core/components/shared/RadioGroupItem'
 import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable'
 import { useAppTheme } from '@/core/store/theme.store'
@@ -30,6 +31,7 @@ export default function Screen() {
       >
         {/* system */}
         <RadioGroupItem
+          key='system'
           value='system'
           label={t('settings.theme.system')}
           onValueChange={handleValueChange}
@@ -37,6 +39,7 @@ export default function Screen() {
 
         {/* dark */}
         <RadioGroupItem
+          key='dark'
           value='dark'
           label={t('settings.theme.dark')}
           onValueChange={handleValueChange}
@@ -44,6 +47,7 @@ export default function Screen() {
 
         {/* light */}
         <RadioGroupItem
+          key='light'
           value='light'
           label={t('settings.theme.light')}
           onValueChange={handleValueChange}

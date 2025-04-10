@@ -7,5 +7,5 @@ export const ViewContainer = styled(HOSContainer, {
 })
 
 export const ItemContainer = styled(YStack, {
-  gap: '$4',
+  gap: '$6',
 })

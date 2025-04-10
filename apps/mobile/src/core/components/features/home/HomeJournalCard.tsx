@@ -1,5 +1,3 @@
-import { Fragment } from 'react'
-
 import { EmptyJournal } from '@/core/components/features/journal/EmptyJournal'
 import { JournalCard } from '@/core/components/features/journal/JournalCard'
 import { FadeIn } from '@/core/components/shared/FadeIn.styleable'
@@ -26,21 +24,20 @@ export const HomeJournalCard = ({
     journals.map((journal, index) => {
       const { id, content, createdAt, mood, imageUri } = journal
       return (
-        <Fragment key={journal.id}>
-          <FadeIn
-            delay={ANIMATION_DELAY_MS[index % ANIMATION_DELAY_SECONDS.length]}
-          >
-            <JournalCard
-              id={id}
-              content={content}
-              moodType={mood.type}
-              moodLevel={mood.level}
-              imageUri={imageUri}
-              createdAt={createdAt}
-              openDeleteSheet={openDeleteSheet}
-            />
-          </FadeIn>
-        </Fragment>
+        <FadeIn
+          key={journal.id}
+          delay={ANIMATION_DELAY_MS[index % ANIMATION_DELAY_SECONDS.length]}
+        >
+          <JournalCard
+            id={id}
+            content={content}
+            moodType={mood.type}
+            moodLevel={mood.level}
+            imageUri={imageUri}
+            createdAt={createdAt}
+            openDeleteSheet={openDeleteSheet}
+          />
+        </FadeIn>
       )
     })
   ) : (

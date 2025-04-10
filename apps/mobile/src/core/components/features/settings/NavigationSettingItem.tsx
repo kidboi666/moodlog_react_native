@@ -1,5 +1,6 @@
 import type { Href } from 'expo-router'
 
+import { ChevronRight } from '@tamagui/lucide-icons'
 import * as S from './NavigationSettingItem.styled'
 
 interface NavigationSettingItemProps {
@@ -18,6 +19,7 @@ export const NavigationSettingItem = ({
   return (
     <S.SettingsNavigationButton icon={icon} onPress={() => onRouteChange(href)}>
       <S.ItemLabel>{label}</S.ItemLabel>
+      <ChevronRight />
     </S.SettingsNavigationButton>
   )
 }

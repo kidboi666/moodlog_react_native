@@ -23,8 +23,6 @@ export const toSingle = <T>(value: T | T[]): T => {
  * 문자열 앞의 0을 제거하고 숫자로 변환
  */
 export const removeLeadingZero = (str: string) => {
-  str = String(str)
-
   if (str.charAt(0) === '0' && str.length > 1) {
     return Number(str.substring(1))
   }

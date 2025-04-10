@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next'
 import { Button, H1, ScrollView, Separator, YStack } from 'tamagui'
 
 import { NavigationSettingItem } from '@/core/components/features/settings/NavigationSettingItem'
+import { SettingsContainer } from '@/core/components/features/settings/SettingsContainer'
 import { useDev } from '@/core/hooks/useDev'
 import { useAuth } from '@/core/store/auth.store'
 import * as S from '@/styles/screens/settings/Settings.styled'
@@ -40,33 +41,35 @@ export default function Screen() {
         <H1>{t('settings.title')}</H1>
         <S.ItemContainer>
           {/* Profile Setting */}
-          <NavigationSettingItem
-            icon={User}
-            label={t('settings.profile.title') || 'Profile'}
-            href={'/settings/profile' as any}
-            onRouteChange={handleRouteChange}
-          />
+          <SettingsContainer title='로그인 정보'>
+            <NavigationSettingItem
+              label={t('settings.profile.title') || 'Profile'}
+              href={'/settings/profile' as any}
+              onRouteChange={handleRouteChange}
+            />
+          </SettingsContainer>
+
           {/* Theme Setting */}
-          <NavigationSettingItem
-            icon={Moon}
-            label={t('settings.theme.title')}
-            href='/settings/theme'
-            onRouteChange={handleRouteChange}
-          />
-          {/* Language Setting */}
-          <NavigationSettingItem
-            icon={Globe}
-            label={t('settings.language.title')}
-            onRouteChange={handleRouteChange}
-            href='/settings/language'
-          />
-          {/* TimeFormat Setting */}
-          <NavigationSettingItem
-            icon={Clock}
-            label={t('settings.timeFormat.title')}
-            onRouteChange={handleRouteChange}
-            href='/settings/time_format'
-          />
+          <SettingsContainer title='시스템 설정'>
+            <NavigationSettingItem
+              label={t('settings.theme.title')}
+              href='/settings/theme'
+              onRouteChange={handleRouteChange}
+            />
+
+            {/* Language Setting */}
+            <NavigationSettingItem
+              label={t('settings.language.title')}
+              onRouteChange={handleRouteChange}
+              href='/settings/language'
+            />
+            {/* TimeFormat Setting */}
+            <NavigationSettingItem
+              label={t('settings.timeFormat.title')}
+              onRouteChange={handleRouteChange}
+              href='/settings/time_format'
+            />
+          </SettingsContainer>
 
           <YStack gap='$4'>
             <Separator />

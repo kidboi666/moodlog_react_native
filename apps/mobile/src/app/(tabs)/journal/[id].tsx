@@ -11,8 +11,8 @@ import { useBottomSheet } from '@/core/store/bottom-sheet.store'
 import { useJournal } from '@/core/store/journal.store'
 import * as S from '@/styles/screens/journal/Journal.styled'
 import { BottomSheetType } from '@/types/bottom-sheet.types'
-
 import { toSingle } from '@/utils/common'
+
 export default function Screen() {
   const { id } = useLocalSearchParams()
   const journalId = toSingle(id)
