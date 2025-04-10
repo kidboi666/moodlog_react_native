@@ -5,28 +5,26 @@ import { ExpandedContent } from '@/core/components/features/statistics/total-cou
 import { useExpandAnimation } from '@/core/hooks/useExpandAnimation'
 import { useJournalStats } from '@/core/hooks/useJournalStats'
 import { useApp } from '@/core/store/app.store'
-import { useUser } from '@/core/store/user.store'
 import type { ISOMonthString } from '@/types/date.types'
-import { ExpansionState, type TimeRange } from '@/types/statistic.types'
+import { ExpansionState, TimeRange } from '@/types/statistic.types'
 import { getDaysSinceSignup } from '@/utils/date'
 import * as S from './TotalCount.styled'
 
 const AnimatedCardContainer = Animated.createAnimatedComponent(S.CardContainer)
 
 interface Props {
-  timeRange: TimeRange
   selectedYear: number
   selectedMonth: ISOMonthString
 }
 
-export const TotalCount = ({
-  timeRange,
-  selectedYear,
-  selectedMonth,
-}: Props) => {
+export const TotalCount = ({ selectedYear, selectedMonth }: Props) => {
   const firstLaunchDate = useApp(state => state.firstLaunchDate)
-  const daysSinceSignup = getDaysSinceSignup(firstLaunchDate)
-  const { stats } = useJournalStats(timeRange, selectedYear, selectedMonth)
+  const daysSinceSignup = getDaysSinceSignup(firstLaunchDate!)
+  const { stats } = useJournalStats(
+    TimeRange.YEARLY,
+    selectedYear,
+    selectedMonth,
+  )
   const { animatedStyle, expansionState, onPress } = useExpandAnimation()
 
   const { expressiveMonth, totalCount, frequency, activeDay } = stats || {}

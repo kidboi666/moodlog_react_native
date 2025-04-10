@@ -2,6 +2,7 @@ import { Minimize2 } from '@tamagui/lucide-icons'
 import { useTranslation } from 'react-i18next'
 import { H3, Text } from 'tamagui'
 
+import { EmptyContent } from '@/core/components/features/statistics/EmptyContent'
 import { ProgressGraph } from '@/core/components/features/statistics/mood-average/ProgressGraph'
 import type { MoodType } from '@/types/mood.types'
 import type { ScoreBoard } from '@/types/statistic.types'
@@ -9,9 +10,14 @@ import * as S from './ExpandedContent.styled'
 
 interface Props {
   scoreBoard: ScoreBoard
+  hasSignatureMood: boolean
 }
 
-export const ExpandedContent = ({ scoreBoard }: Props) => {
+export const ExpandedContent = ({ scoreBoard, hasSignatureMood }: Props) => {
+  if (!hasSignatureMood) {
+    return <EmptyContent />
+  }
+
   const { t } = useTranslation()
 
   let moodTotalScore = 0

@@ -19,7 +19,7 @@ export const NavigationSettingItem = ({
   return (
     <S.SettingsNavigationButton icon={icon} onPress={() => onRouteChange(href)}>
       <S.ItemLabel>{label}</S.ItemLabel>
-      <ChevronRight />
+      <ChevronRight size='$1' />
     </S.SettingsNavigationButton>
   )
 }

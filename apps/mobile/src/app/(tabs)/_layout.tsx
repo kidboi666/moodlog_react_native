@@ -9,19 +9,14 @@ import { useApp } from '@/core/store/app.store'
 
 export default function Layout() {
   const firstLaunchDate = useApp(state => state.firstLaunchDate)
-  const initFirstLaunchStatus = useApp(state => state.initFirstLaunchStatus)
   const isLoading = useApp(state => state.isLoading)
   const [initialized, setInitialized] = useState(false)
   const pathname = usePathname()
-
   const shouldHideTabBar = HIDE_TAB_BAR_ROUTES.some(route =>
     pathname.startsWith(route),
   )
 
   useEffect(() => {
-    if (!firstLaunchDate) {
-      initFirstLaunchStatus()
-    }
     setInitialized(true)
   }, [firstLaunchDate])
 

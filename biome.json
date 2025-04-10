@@ -12,6 +12,9 @@
   "linter": {
     "enabled": true,
     "rules": {
+      "style": {
+        "noNonNullAssertion": "off"
+      },
       "correctness": {
         "useExhaustiveDependencies": "off",
         "noInnerDeclarations": "off",

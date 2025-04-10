@@ -1,5 +1,5 @@
-import { ISOMonthString } from '@/types/date.types'
-import { MoodType, SignatureMood } from '@/types/mood.types'
+import type { ISOMonthString } from '@/types/date.types'
+import type { MoodType, SignatureMood } from '@/types/mood.types'
 
 export type SelectedMonthStats = {
   month: ISOMonthString

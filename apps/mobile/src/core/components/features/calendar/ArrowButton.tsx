@@ -1,4 +1,4 @@
-import * as S from 'src/core/components/features/calendar/ArrowButton.styled'
+import * as S from './ArrowButton.styled'
 
 interface Props {
   icon: any

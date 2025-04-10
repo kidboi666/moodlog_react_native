@@ -30,6 +30,7 @@ export default function Screen() {
       >
         {/* 12hour */}
         <RadioGroupItem
+          key={TimeFormat.HOUR_12}
           value={TimeFormat.HOUR_12}
           label={t('settings.timeFormat.12')}
           onValueChange={handleValueChange}
@@ -37,6 +38,7 @@ export default function Screen() {
 
         {/* 24hor */}
         <RadioGroupItem
+          key={TimeFormat.HOUR_24}
           value={TimeFormat.HOUR_24}
           label={t('settings.timeFormat.24')}
           onValueChange={handleValueChange}

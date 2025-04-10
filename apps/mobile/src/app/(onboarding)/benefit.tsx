@@ -72,9 +72,7 @@ export default function Screen() {
           </S.PrevButton>
           <YStack>
             <FadeIn delay={ANIMATION_DELAY_SECONDS[4]}>
-              <S.SkipButton color='$blue10' onPress={skipStep}>
-                {t('common.skip')}
-              </S.SkipButton>
+              <S.SkipButton onPress={skipStep}>{t('common.skip')}</S.SkipButton>
             </FadeIn>
 
             <S.ConfirmButton onPress={handleNextStep}>

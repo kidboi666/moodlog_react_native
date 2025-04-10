@@ -61,10 +61,10 @@ export const useApp = create<AppStore>()(
       name: STORAGE_KEY.SETTINGS,
       storage: createJSONStorage(() => AsyncStorage),
       partialize: state => ({
+        appVersion: state.appVersion,
         settings: state.settings,
         firstLaunchDate: state.firstLaunchDate,
       }),
-      version: 1,
     },
   ),
 )

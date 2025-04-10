@@ -1,8 +1,8 @@
 import type { PropsWithChildren } from 'react'
-import { Text, View, YStack } from 'tamagui'
+import { Text, View } from 'tamagui'
 
 interface Props {
-  title: string
+  title?: string
 }
 
 export const SettingsContainer = ({
@@ -11,8 +11,14 @@ export const SettingsContainer = ({
 }: PropsWithChildren<Props>) => {
   return (
     <View gap='$3'>
-      <Text ml='$5'>{title}</Text>
-      <YStack gap='$4'>{children}</YStack>
+      {title && (
+        <Text ml='$5' color='$color11'>
+          {title}
+        </Text>
+      )}
+      <View rounded='$4' bg='$color4'>
+        {children}
+      </View>
     </View>
   )
 }

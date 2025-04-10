@@ -7,23 +7,18 @@ import { useExpandAnimation } from '@/core/hooks/useExpandAnimation'
 import { useMoodStats } from '@/core/hooks/useMoodStats'
 import type { ISOMonthString } from '@/types/date.types'
 import { MoodLevel, type MoodType } from '@/types/mood.types'
-import { ExpansionState, type TimeRange } from '@/types/statistic.types'
+import { ExpansionState, TimeRange } from '@/types/statistic.types'
 import * as S from './MoodAverage.styled'
 
 const AnimatedCardContainer = Animated.createAnimatedComponent(S.CardContainer)
 
 interface Props {
-  timeRange: TimeRange
   selectedYear: number
   selectedMonth: ISOMonthString
 }
 
-export const MoodAverage = ({
-  timeRange,
-  selectedYear,
-  selectedMonth,
-}: Props) => {
-  const { stats } = useMoodStats(timeRange, selectedYear, selectedMonth)
+export const MoodAverage = ({ selectedYear, selectedMonth }: Props) => {
+  const { stats } = useMoodStats(TimeRange.YEARLY, selectedYear, selectedMonth)
   const { expansionState, onPress, animatedStyle } = useExpandAnimation()
   const {
     moodStats: { signatureMood, scoreBoard },
@@ -43,7 +38,10 @@ export const MoodAverage = ({
       style={animatedStyle}
     >
       {expansionState === ExpansionState.EXPANDED ? (
-        <ExpandedContent scoreBoard={scoreBoard} />
+        <ExpandedContent
+          hasSignatureMood={hasSignatureMood}
+          scoreBoard={scoreBoard}
+        />
       ) : (
         <CollapsedContent
           hasSignatureMood={hasSignatureMood}

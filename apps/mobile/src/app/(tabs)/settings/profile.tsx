@@ -3,13 +3,16 @@ import { useTranslation } from 'react-i18next'
 
 import { SettingHeader } from '@/core/components/features/settings/SettingHeader'
 import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable'
+import { useApp } from '@/core/store/app.store'
 import { useUser } from '@/core/store/user.store'
 import * as S from '@/styles/screens/settings/Profile.styled'
 import type { NewUserInfo } from '@/types/user.types'
+import { getDaysSinceSignup } from '@/utils/date'
 
 export default function Screen() {
   const { t } = useTranslation()
   const userInfo = useUser(state => state.userInfo)
+  const firstLaunchDate = useApp(state => state.firstLaunchDate)
   const onUserInfoChange = useUser(state => state.onUserInfoChange)
   const [isEditing, setIsEditing] = useState(false)
   const [form, setForm] = useState<NewUserInfo>({
@@ -42,6 +45,8 @@ export default function Screen() {
       [key]: value,
     }))
   }, [])
+
+  if (!firstLaunchDate) return null
 
   return (
     <ViewContainer Header={<SettingHeader />}>
@@ -110,7 +115,7 @@ export default function Screen() {
           <S.ProfileLabel>
             {t('settings.profile.daysSinceSignup') || 'Days Since Signup'}
           </S.ProfileLabel>
-          <S.ProfileValue>{userInfo.daysSinceSignup}</S.ProfileValue>
+          <S.ProfileValue>{getDaysSinceSignup(firstLaunchDate)}</S.ProfileValue>
         </S.ProfileItemContainer>
 
         {/* Action Buttons */}
