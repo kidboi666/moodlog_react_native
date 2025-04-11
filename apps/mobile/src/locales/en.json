@@ -224,7 +224,8 @@
       "username": "Username",
       "email": "Email",
       "age": "Age",
-      "daysSinceSignup": "Days Since Signup"
+      "daysSinceSignup": "Days Since Signup",
+      "guest": "Guest Mode"
     }
   },
   "onboarding": {

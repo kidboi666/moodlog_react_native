@@ -227,7 +227,8 @@
       "username": "사용자 이름",
       "email": "이메일",
       "age": "나이",
-      "daysSinceSignup": "가입 후 일수"
+      "daysSinceSignup": "가입 후 일수",
+      "guest": "게스트 모드"
     },
     "bugReport": {
       "title": "버그 신고"

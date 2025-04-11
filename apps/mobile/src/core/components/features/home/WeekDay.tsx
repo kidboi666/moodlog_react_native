@@ -1,14 +1,14 @@
 import React, { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import Animated from 'react-native-reanimated'
-import { YStack } from 'tamagui'
+import { View } from 'tamagui'
 
 import { HorizontalCalendar } from '@/core/components/features/home/HorizontalCalendar'
 import { DEFAULT_BOUNCE_IN_UP } from '@/styles/animations'
 import { getMonthKey } from '@/utils/date'
 import * as S from './WeekDay.styled'
 
-const AnimatedContainer = Animated.createAnimatedComponent(YStack)
+const AnimatedContainer = Animated.createAnimatedComponent(View)
 
 export const WeekDay = memo(() => {
   const { t } = useTranslation()

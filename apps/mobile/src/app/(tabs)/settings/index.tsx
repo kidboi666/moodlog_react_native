@@ -2,19 +2,25 @@ import { Computer, LogOut } from '@tamagui/lucide-icons'
 import { type Href, useRouter } from 'expo-router'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, H1, ScrollView } from 'tamagui'
+import { Button, H1, ScrollView, Text } from 'tamagui'
 
 import { NavigationSettingItem } from '@/core/components/features/settings/NavigationSettingItem'
 import { SettingsContainer } from '@/core/components/features/settings/SettingsContainer'
+import { AUTH_SNAP_POINTS } from '@/core/constants/size'
 import { useDev } from '@/core/hooks/useDev'
 import { useAuth } from '@/core/store/auth.store'
+import { useBottomSheet } from '@/core/store/bottom-sheet.store'
 import * as S from '@/styles/screens/settings/Settings.styled'
+import { BottomSheetType } from '@/types/bottom-sheet.types'
 
 export default function Screen() {
   const { t } = useTranslation()
   const router = useRouter()
   const { resetStores } = useDev()
   const logout = useAuth(state => state.logout)
+  const isAuthenticated = useAuth(state => state.isAuthenticated)
+  const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
+  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
 
   const handleRouteChange = useCallback(
     (route: Href) => {
@@ -28,6 +34,10 @@ export default function Screen() {
     router.replace('/(tabs)')
   }, [logout, router])
 
+  const handleLogin = useCallback(() => {
+    showBottomSheet(BottomSheetType.SIGN_IN, AUTH_SNAP_POINTS, {})
+  }, [showBottomSheet])
+
   return (
     <ScrollView>
       <S.ViewContainer edges={['top']} padded>
@@ -39,11 +49,17 @@ export default function Screen() {
             </Button>
           )}
           <SettingsContainer title={t('settings.menuTitle.login')}>
-            <NavigationSettingItem
-              label={t('settings.profile.title') || 'Profile'}
-              href={'/settings/profile' as any}
-              onRouteChange={handleRouteChange}
-            />
+            {isAuthenticated ? (
+              <NavigationSettingItem
+                label={t('settings.profile.title')}
+                href={'/settings/profile' as any}
+                onRouteChange={handleRouteChange}
+              />
+            ) : (
+              <S.SignInButton onPress={handleLogin}>
+                <S.SignInText>{t('settings.profile.guest')}</S.SignInText>
+              </S.SignInButton>
+            )}
           </SettingsContainer>
 
           <SettingsContainer title={t('settings.menuTitle.config')}>
@@ -77,7 +93,7 @@ export default function Screen() {
             />
           </SettingsContainer>
 
-          <Button onPress={handleLogout} color='$red10' chromeless>
+          <Button onRouteChange={handleLogout} color='$red10' chromeless>
             {t('auth.logout')}
             <LogOut color='$red10' size='$1' />
           </Button>
