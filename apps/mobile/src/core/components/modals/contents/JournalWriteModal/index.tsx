@@ -13,6 +13,7 @@ import { ImageHelper } from '@/core/services/image-helper.service'
 import type { Draft } from '@/types/journal.types'
 import type { MoodLevel, MoodType } from '@/types/mood.types'
 import * as S from './JournalWriteModal.styled'
+import { InputContainer } from './JournalWriteModal.styled'
 
 interface Props {
   moodType: MoodType
@@ -87,7 +88,7 @@ export const JournalWriteModal = ({
       >
         <S.XStackContainer>
           <Form flex={1} gap='$4' onSubmit={() => onSubmit(draft)}>
-            <XStack flex={1} gap='$4'>
+            <S.InputContainer>
               {draft.mood ? (
                 <S.ColoredMoodBar
                   moodColor={moodTheme[draft.mood.type][draft.mood.level]}
@@ -101,7 +102,7 @@ export const JournalWriteModal = ({
                 contentValue={draft.content}
                 onContentChange={handleContentChange}
               />
-            </XStack>
+            </S.InputContainer>
             <S.ButtonsViewBox>
               <ActionButtons
                 isSubmitted={isSubmitted}

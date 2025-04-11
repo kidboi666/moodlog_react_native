@@ -20,7 +20,6 @@ export default function Screen() {
   const logout = useAuth(state => state.logout)
   const isAuthenticated = useAuth(state => state.isAuthenticated)
   const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
-  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
 
   const handleRouteChange = useCallback(
     (route: Href) => {
@@ -93,7 +92,7 @@ export default function Screen() {
             />
           </SettingsContainer>
 
-          <Button onRouteChange={handleLogout} color='$red10' chromeless>
+          <Button onPress={handleLogout} color='$red10' chromeless>
             {t('auth.logout')}
             <LogOut color='$red10' size='$1' />
           </Button>

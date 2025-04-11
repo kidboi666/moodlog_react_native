@@ -4,7 +4,7 @@ import { Form, Spinner, XGroup } from 'tamagui'
 
 import { Check, ImagePlus, Timer } from '@tamagui/lucide-icons'
 
-import { Nullable } from '@/types/utill.types'
+import type { Nullable } from '@/types/utill.types'
 
 import * as S from './ActionButtons.styled'
 
@@ -30,13 +30,13 @@ export const ActionButtons = memo(
       <S.XGroupContainer>
         <XGroup.Item>
           <S.ActionButton onPress={onImageUriChange} icon={ImagePlus}>
-            {t('common.button.addCover')}
+            {t('common.addCover')}
           </S.ActionButton>
         </XGroup.Item>
         <S.Separator />
         <XGroup.Item>
           <S.ActionButton onPress={onTimeStamp} icon={Timer}>
-            {t('common.button.timeStamp')}
+            {t('common.timeStamp')}
           </S.ActionButton>
         </XGroup.Item>
         <S.Separator />

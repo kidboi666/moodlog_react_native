@@ -1,3 +1,4 @@
+import { STORAGE_KEY } from '@/core/constants/storage'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
@@ -27,7 +28,7 @@ export const useAuth = create<AuthState>()(
       logout: () => set({ user: null, token: null, isAuthenticated: false }),
     }),
     {
-      name: 'auth-storage',
+      name: STORAGE_KEY.AUTH,
       storage: createJSONStorage(() => AsyncStorage),
     },
   ),

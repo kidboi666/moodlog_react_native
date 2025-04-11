@@ -97,33 +97,6 @@ export const useJournal = create<JournalStoreState>()(
       getMoodForDate: (date: ISODateString) => {
         return Diary.getMoodForDate(get().store, date)
       },
-
-      // initJournals: async () => {
-      //   try {
-      //     set({ isLoading: true, error: null })
-      //     const newStore = await Diary.loadJournalStore()
-      //     const safeStore = {
-      //       journals: newStore?.journals || {},
-      //       indexes: {
-      //         byYear: newStore?.indexes?.byYear || {},
-      //         byMonth: newStore?.indexes?.byMonth || {},
-      //         byDate: newStore?.indexes?.byDate || {},
-      //         byMood: newStore?.indexes?.byMood || {
-      //           happy: [],
-      //           sad: [],
-      //           peace: [],
-      //           angry: [],
-      //         },
-      //       },
-      //     }
-      //     set({ store: safeStore })
-      //   } catch (err) {
-      //     console.error('Failed to init journals :', err)
-      //     set({ error: err })
-      //   } finally {
-      //     set({ isLoading: false })
-      //   }
-      // },
     }),
     {
       name: STORAGE_KEY.JOURNAL,
