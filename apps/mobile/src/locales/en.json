@@ -23,6 +23,7 @@
     "next": "Next",
     "prev": "Previous",
     "submit": "Submit",
+    "login": "Login",
     "skip": "Skip",
     "join": "Go to Join",
     "addCover": "Add Cover",
@@ -224,6 +225,12 @@
       "age": "Age",
       "daysSinceSignup": "Days Since Signup",
       "guest": "Guest Mode"
+    },
+    "bugReport": {
+      "title": "Report Bug"
+    },
+    "qna": {
+      "title": "Contact Us"
     }
   },
   "onboarding": {

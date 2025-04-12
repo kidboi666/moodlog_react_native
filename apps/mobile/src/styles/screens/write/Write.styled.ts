@@ -1,8 +1,8 @@
 import { Form, View, XStack, styled } from 'tamagui'
 
-import { BottomSheetContainer as HOSBottomSheetContainer } from '@/core/components/modals/BottomSheetContainer'
+import { ViewContainer as HOSViewContainer } from '@/core/components/shared/ViewContainer.styleable'
 
-export const BottomSheetContainer = styled(HOSBottomSheetContainer, {
+export const ViewContainer = styled(HOSViewContainer, {
   pl: 0,
 })
 
@@ -12,11 +12,6 @@ export const XStackContainer = styled(XStack, {
 })
 
 export const InputContainer = styled(XStack, {
-  flex: 1,
-  gap: '$4',
-})
-
-export const FormContainer = styled(Form, {
   flex: 1,
   gap: '$4',
 })

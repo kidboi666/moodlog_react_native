@@ -1,11 +1,10 @@
 import type { Draft } from '@/types/journal.types'
 import type { Mood, MoodLevel, MoodType } from '@/types/mood.types'
-import type { Nullable } from '@/types/utill.types'
+import type { Nullable } from '@/types/util.types'
 
 export enum BottomSheetType {
   DELETE_JOURNAL = 'DELETE_JOURNAL',
   SELECT_MOOD = 'SELECT_MOOD',
-  JOURNAL_WRITE = 'JOURNAL_WRITE',
   SIGN_UP = 'SIGN_UP',
   SIGN_IN = 'SIGN_IN',
 }
@@ -33,14 +32,8 @@ export type BottomSheetProps = {
     hideBottomSheet: () => void
   }
   [BottomSheetType.SELECT_MOOD]: {
-    onPress: (mood: Mood) => void
-  }
-  [BottomSheetType.JOURNAL_WRITE]: {
-    moodType: MoodType
-    moodLevel: MoodLevel
-    onSubmit: (draft: Draft) => void
-    isLoading: boolean
-    isSubmitted: boolean
+    hideBottomSheet: () => void
+    onPress: () => void
   }
   [BottomSheetType.SIGN_UP]: {
     userName: string

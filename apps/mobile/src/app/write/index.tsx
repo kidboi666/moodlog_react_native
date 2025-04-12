@@ -1,44 +1,53 @@
+import { useToastController } from '@tamagui/toast'
+import { useLocalSearchParams } from 'expo-router'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { KeyboardAvoidingView, Platform } from 'react-native'
-import { Form, XStack, useTheme } from 'tamagui'
+import { useTranslation } from 'react-i18next'
+import { Keyboard, KeyboardAvoidingView, Platform } from 'react-native'
+import { Form, useTheme } from 'tamagui'
 
-import { ActionButtons } from '@/core/components/modals/contents/JournalWriteModal/components/ActionButtons'
+import { ActionButtons } from '@/core/components/features/write/ActionButtons'
 import {
   EnhancedTextInput,
   type EnhancedTextInputRef,
-} from '@/core/components/modals/contents/JournalWriteModal/components/EnhancedTextInput'
+} from '@/core/components/features/write/EnhancedTextInput'
 import { KEYBOARD_VERTICAL_OFFSET } from '@/core/constants/size'
 import { moodTheme } from '@/core/constants/themes'
 import { ImageHelper } from '@/core/services/image-helper.service'
+import { useJournal } from '@/core/store/journal.store'
 import * as S from '@/styles/screens/write/Write.styled'
 import type { Draft } from '@/types/journal.types'
 import type { MoodLevel, MoodType } from '@/types/mood.types'
 
-interface Props {
-  moodType: MoodType
-  moodLevel: MoodLevel
-  isLoading: boolean
-  isSubmitted: boolean
-  onSubmit: (draft: Draft) => void
-}
-
-export default function Screen({
-  moodType,
-  moodLevel,
-  isLoading,
-  isSubmitted,
-  onSubmit,
-}: Props) {
+export default function Screen() {
+  const { moodType, moodLevel } = useLocalSearchParams()
+  const toast = useToastController()
+  const { t } = useTranslation()
   const theme = useTheme()
+  const addJournal = useJournal(state => state.addJournal)
+  const isLoading = useJournal(state => state.isLoading)
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const [draft, setDraft] = useState<Draft>({
     content: '',
     mood: {
-      type: moodType,
-      level: moodLevel,
+      type: moodType as MoodType,
+      level: moodLevel as MoodLevel,
     },
     imageUri: [],
   })
   const inputRef = useRef<EnhancedTextInputRef>(null)
+
+  const handleSubmit = useCallback(
+    async (draft: Draft) => {
+      await addJournal(draft)
+      toast.show(t('notifications.success.journal.title'), {
+        message: t('notifications.success.journal.message'),
+        preset: 'success',
+      })
+      setIsSubmitted(true)
+      Keyboard.dismiss()
+    },
+    [toast, addJournal, t],
+  )
 
   const handleContentChange = useCallback((content: string) => {
     setDraft(prev => ({ ...prev, content }))
@@ -78,7 +87,7 @@ export default function Screen({
   }, [])
 
   return (
-    <S.BottomSheetContainer>
+    <S.ViewContainer edges={['top', 'bottom']}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         contentContainerStyle={contentContainerStyle}
@@ -86,11 +95,11 @@ export default function Screen({
         keyboardVerticalOffset={KEYBOARD_VERTICAL_OFFSET}
       >
         <S.XStackContainer>
-          <Form flex={1} gap='$4' onSubmit={() => onSubmit(draft)}>
+          <Form flex={1} gap='$4' onSubmit={() => handleSubmit(draft)}>
             <S.InputContainer>
               {draft.mood ? (
                 <S.ColoredMoodBar
-                  moodColor={moodTheme[draft.mood.type][draft.mood.level]}
+                  moodColor={moodTheme[draft.mood.type]?.[draft.mood.level]}
                 />
               ) : (
                 <S.UncoloredMoodBar />
@@ -114,6 +123,6 @@ export default function Screen({
           </Form>
         </S.XStackContainer>
       </KeyboardAvoidingView>
-    </S.BottomSheetContainer>
+    </S.ViewContainer>
   )
 }

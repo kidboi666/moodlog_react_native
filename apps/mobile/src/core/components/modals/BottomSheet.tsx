@@ -2,7 +2,6 @@ import { Sheet } from '@tamagui/sheet'
 import { memo } from 'react'
 
 import { DeleteJournalModal } from '@/core/components/modals/contents/DeleteJournalModal'
-import { JournalWriteModal } from '@/core/components/modals/contents/JournalWriteModal'
 import { SelectMoodModal } from '@/core/components/modals/contents/SelectMoodModal'
 import { SignInModal } from '@/core/components/modals/contents/SignInModal'
 import { SignUpModal } from '@/core/components/modals/contents/SignUpModal'
@@ -19,9 +18,6 @@ const SheetContentComponents = {
   [BottomSheetType.SELECT_MOOD]: (
     props: BottomSheetProps[BottomSheetType.SELECT_MOOD],
   ) => <SelectMoodModal {...props} />,
-  [BottomSheetType.JOURNAL_WRITE]: (
-    props: BottomSheetProps[BottomSheetType.JOURNAL_WRITE],
-  ) => <JournalWriteModal {...props} />,
   [BottomSheetType.SIGN_UP]: (
     props: BottomSheetProps[BottomSheetType.SIGN_UP],
   ) => <SignUpModal {...props} />,

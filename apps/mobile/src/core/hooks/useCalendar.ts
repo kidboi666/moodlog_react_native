@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { CalendarUtils } from 'react-native-calendars'
 
 import type { ISODateString, ISOMonthString } from '@/types/date.types'
-import type { Nullable } from '@/types/utill.types'
+import type { Nullable } from '@/types/util.types'
 import { getThisWeekIndex } from '@/utils/date'
 
 export const useCalendar = () => {

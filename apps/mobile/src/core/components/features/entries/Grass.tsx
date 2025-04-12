@@ -2,7 +2,7 @@ import { memo, useMemo } from 'react'
 
 import { moodTheme } from '@/core/constants/themes'
 import { type Mood, MoodLevel, type MoodType } from '@/types/mood.types'
-import type { Nullable } from '@/types/utill.types'
+import type { Nullable } from '@/types/util.types'
 import * as S from 'src/core/components/features/entries/Grass.styled'
 
 const calculateMoodColor = (moods: Nullable<Mood[]>) => {

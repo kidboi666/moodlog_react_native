@@ -1,5 +1,5 @@
 import type { ISODateString } from '@/types/date.types'
-import type { Nullable } from '@/types/utill.types'
+import type { Nullable } from '@/types/util.types'
 
 export enum ViewFontSize {
   SMALL = '$6',

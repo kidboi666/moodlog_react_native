@@ -7,7 +7,7 @@ import {
 } from '@/core/constants/time'
 import type { ISODateString } from '@/types/date.types'
 import type { SelectedJournals } from '@/types/journal.types'
-import type { Nullable } from '@/types/utill.types'
+import type { Nullable } from '@/types/util.types'
 
 interface Props {
   journals: SelectedJournals

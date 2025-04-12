@@ -18,7 +18,6 @@ import { RootProvider } from '@/core/providers/RootProvider'
 import { useAuth } from '@/core/store/auth.store'
 import { useAppTheme } from '@/core/store/theme.store'
 
-import '../../tamagui-web.css'
 import '@/lib/i18n/index.js'
 
 const FONTS = {
@@ -106,6 +105,12 @@ const RootLayoutNav = ({ isAuthenticated }: RootLayoutNavProps) => {
         {isAuthenticated ? (
           <Stack screenOptions={screenOptions}>
             <Stack.Screen name='(tabs)' />
+            <Stack.Screen
+              name='write'
+              options={{
+                presentation: 'modal',
+              }}
+            />
             <Stack.Screen name='+not-found' />
           </Stack>
         ) : (

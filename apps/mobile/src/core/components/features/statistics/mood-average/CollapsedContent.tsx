@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { XStack, YStack } from 'tamagui'
 
 import type { SignatureMood } from '@/types/mood.types'
-import type { Nullable } from '@/types/utill.types'
+import type { Nullable } from '@/types/util.types'
 import * as S from './CollapsedContent.styled'
 
 interface Props {

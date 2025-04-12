@@ -101,7 +101,7 @@ export const SignUpModal = ({ userName, goLoginPage }: Props) => {
         <XStack items='center' justify='center' gap='$2'>
           <Text>{t('auth.hasAccount')}</Text>
           <Text color='$blue10' onPress={goLoginPage}>
-            {t('auth.login')}
+            {t('common.login')}
           </Text>
         </XStack>
       </YStack>

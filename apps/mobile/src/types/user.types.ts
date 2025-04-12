@@ -1,4 +1,4 @@
-import type { Nullable } from '@/types/utill.types'
+import type { Nullable } from '@/types/util.types'
 
 export type UserInfo = {
   id: string

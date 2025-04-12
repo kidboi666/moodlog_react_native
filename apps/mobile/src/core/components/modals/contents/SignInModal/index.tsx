@@ -5,9 +5,10 @@ import { Alert } from 'react-native'
 import {
   Button,
   Form,
-  H1,
+  H3,
   Input,
   Separator,
+  Spinner,
   Text,
   XStack,
   YStack,
@@ -15,7 +16,10 @@ import {
 
 import { BottomSheetContainer } from '@/core/components/modals/BottomSheetContainer'
 import { API_URL } from '@/core/constants/api'
+import { AUTH_SNAP_POINTS } from '@/core/constants/size'
 import { useAuth } from '@/core/store/auth.store'
+import { useBottomSheet } from '@/core/store/bottom-sheet.store'
+import { BottomSheetType } from '@/types/bottom-sheet.types'
 
 export const SignInModal = () => {
   const { t } = useTranslation()
@@ -24,6 +28,7 @@ export const SignInModal = () => {
   const [isLoading, setIsLoading] = useState(false)
   const setUser = useAuth(state => state.setUser)
   const setToken = useAuth(state => state.setToken)
+  const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
 
   const handleLogin = async () => {
     if (!username.trim() || !password.trim()) {
@@ -58,17 +63,17 @@ export const SignInModal = () => {
   }
 
   const navigateToRegister = () => {
-    router.push('/(tabs)')
+    showBottomSheet(BottomSheetType.SIGN_UP, AUTH_SNAP_POINTS)
   }
 
   return (
     <BottomSheetContainer>
       <YStack gap='$4' width='100%'>
-        <H1>{t('auth.login')}</H1>
+        <H3>{t('auth.login')}</H3>
         <Form onSubmit={handleLogin}>
           <YStack gap='$4'>
             <Input
-              placeholder={t('auth.username')}
+              placeholder={t('auth.email')}
               value={username}
               onChangeText={setUsername}
               autoCapitalize='none'
@@ -80,7 +85,7 @@ export const SignInModal = () => {
               secureTextEntry
             />
             <Button themeInverse onPress={handleLogin} disabled={isLoading}>
-              {isLoading ? t('common.loading') : t('auth.loginButton')}
+              {isLoading ? () => <Spinner /> : t('auth.loginButton')}
             </Button>
           </YStack>
         </Form>
@@ -90,7 +95,7 @@ export const SignInModal = () => {
         <XStack items='center' justify='center' gap='$2'>
           <Text>{t('auth.noAccount')}</Text>
           <Text color='$blue10' onPress={navigateToRegister}>
-            {t('auth.register')}
+            {t('common.join')}
           </Text>
         </XStack>
       </YStack>

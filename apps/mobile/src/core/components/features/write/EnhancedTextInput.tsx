@@ -7,11 +7,11 @@ import React, {
   useState,
 } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Input, ScrollView } from 'tamagui'
+import { type Input, ScrollView } from 'tamagui'
 
-import { ContentLength } from '@/core/components/modals/contents/JournalWriteModal/components/ContentLength'
+import { ContentLength } from '@/core/components/features/write/ContentLength'
 
-import { Nullable } from '@/types/utill.types'
+import { Nullable } from '@/types/util.types'
 
 import * as S from './EnhancedTextInput.styled'
 

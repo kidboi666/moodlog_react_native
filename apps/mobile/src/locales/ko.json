@@ -22,6 +22,7 @@
     "back": "뒤로",
     "next": "다음",
     "prev": "이전",
+    "login": "로그인하러 가기",
     "join": "가입하러 가기",
     "submit": "제출",
     "addCover": "커버 추가",
@@ -180,7 +181,7 @@
     }
   },
   "auth": {
-    "login": "로그인",
+    "login": "함께 더 나은 하루를 만들어봐요.",
     "register": "회원가입",
     "signup": "가입하기",
     "email": "이메일",
@@ -244,20 +245,10 @@
       "description2": "매일이 당신 이야기의 새로운 페이지예요",
       "go": "함께 써내려가 볼까요?"
     },
-    "email": {
-      "title": "이메일을 입력해주세요",
-      "description": "이메일은 계정 관리와 알림에 사용됩니다",
-      "placeholder": "이메일 주소"
-    },
     "nickname": {
       "title": "당신의 이야기가 여기서 시작됩니다",
       "description": "어떤 이름으로 이야기를 쓰시겠어요?",
       "placeholder": "닉네임을 입력해주세요"
-    },
-    "password": {
-      "title": "비밀번호를 설정해주세요",
-      "description": "안전한 비밀번호는 8자 이상이어야 합니다",
-      "placeholder": "비밀번호"
     },
     "benefits": {
       "title": "가입해보세요.",
@@ -266,10 +257,6 @@
         "sync": "여러 기기에서 동기화",
         "backup": "안전한 백업",
         "profile": "다양한 개인 설정"
-      },
-      "summary": {
-        "email": "이메일",
-        "nickname": "닉네임"
       }
     }
   }

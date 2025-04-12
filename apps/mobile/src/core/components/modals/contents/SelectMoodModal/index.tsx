@@ -5,15 +5,19 @@ import { NextButton } from '@/core/components/features/write/NextButton'
 import { PickerMood } from '@/core/components/features/write/PickerMood'
 import { SelectedMoodContainer } from '@/core/components/features/write/SelectedMoodContainer'
 import { FadeIn } from '@/core/components/shared/FadeIn.styleable'
+import { ROUTE_DELAY_MS } from '@/core/constants/time'
 import type { Mood, MoodLevel, MoodType } from '@/types/mood.types'
+import { useRouter } from 'expo-router'
 import * as S from './SelectMoodModal.styled'
 
 interface Props {
   onPress: (mood: Mood) => void
+  hideBottomSheet: () => void
 }
 
-export const SelectMoodModal = ({ onPress }: Props) => {
+export const SelectMoodModal = ({ onPress, hideBottomSheet }: Props) => {
   const [mood, setMood] = useState<Mood>()
+  const router = useRouter()
 
   const handleMoodChange = useCallback((type: MoodType, level: MoodLevel) => {
     setMood({ type, level })
@@ -21,8 +25,19 @@ export const SelectMoodModal = ({ onPress }: Props) => {
 
   const handlePress = useCallback(() => {
     if (!mood) return null
-    onPress(mood)
-  }, [onPress, mood])
+    hideBottomSheet()
+    const timer = setTimeout(() => {
+      router.push({
+        pathname: '/write',
+        params: {
+          moodType: mood.type,
+          moodLevel: mood.level,
+        },
+      })
+    }, ROUTE_DELAY_MS)
+
+    return () => clearTimeout(timer)
+  }, [onPress, mood, hideBottomSheet])
 
   const isSelected = !!(!!mood?.type && mood?.level)
 

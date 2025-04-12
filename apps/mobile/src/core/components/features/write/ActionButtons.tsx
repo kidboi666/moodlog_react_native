@@ -4,7 +4,7 @@ import { Form, Spinner, XGroup } from 'tamagui'
 
 import { Check, ImagePlus, Timer } from '@tamagui/lucide-icons'
 
-import type { Nullable } from '@/types/utill.types'
+import type { Nullable } from '@/types/util.types'
 
 import * as S from './ActionButtons.styled'
 
