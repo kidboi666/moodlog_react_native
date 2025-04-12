@@ -3,7 +3,7 @@ import { createFont, createTamagui } from 'tamagui'
 import { defaultConfig } from '@tamagui/config/v4'
 import { tokens as tamaguiTokens, themes } from '@tamagui/themes'
 
-const systemFont = createFont({
+const pretendardFont = createFont({
   family: 'Pretendard',
   size: {
     1: 11,
@@ -41,8 +41,8 @@ const systemFont = createFont({
 export const config = createTamagui({
   ...defaultConfig,
   fonts: {
-    body: systemFont,
-    heading: systemFont,
+    body: pretendardFont,
+    heading: pretendardFont,
   },
   themes,
   tokens: tamaguiTokens,

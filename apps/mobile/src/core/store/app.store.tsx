@@ -7,18 +7,21 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 import { APP_VERSION } from '@/core/constants/common'
 import { STORAGE_KEY } from '@/core/constants/storage'
 import {
-  type AppSettings,
   type AppStore,
+  FontTheme,
   type Languages,
+  type Settings,
   TimeFormat,
   ViewFontSize,
 } from '@/types/app.types'
 import type { ISODateString } from '@/types/date.types'
+import i18n from 'i18next'
 
 const DEFAULT_LANGUAGE = Localization.getLocales()[0].languageCode as Languages
 
-const initialSettings: AppSettings = {
+const initialSettings: Settings = {
   fontSize: ViewFontSize.SMALL,
+  fontTheme: FontTheme.PRETENDARD,
   language: DEFAULT_LANGUAGE,
   timeFormat: TimeFormat.HOUR_24,
 }
@@ -41,19 +44,17 @@ export const useApp = create<AppStore>()(
         }
       },
 
-      onSettingChange: async <K extends keyof AppSettings>(
+      onSettingChange: async <K extends keyof Settings>(
         key: K,
-        value: AppSettings[K],
+        value: Settings[K],
       ) => {
-        try {
-          set({ error: null })
-          set(state => ({
-            ...state,
-            settings: { ...state.settings, [key]: value },
-          }))
-        } catch (err) {
-          console.error(`Failed to save ${key} settings failed : `, err)
-          set({ error: err })
+        set({ error: null })
+        set(state => ({
+          ...state,
+          settings: { ...state.settings, [key]: value },
+        }))
+        if (key === 'language') {
+          await i18n.changeLanguage(value)
         }
       },
     }),
@@ -65,6 +66,11 @@ export const useApp = create<AppStore>()(
         settings: state.settings,
         firstLaunchDate: state.firstLaunchDate,
       }),
+      onRehydrateStorage: () => state => {
+        if (state?.settings.language) {
+          i18n.changeLanguage(state.settings.language)
+        }
+      },
     },
   ),
 )

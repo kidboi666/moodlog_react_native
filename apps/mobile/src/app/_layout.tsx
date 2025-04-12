@@ -20,18 +20,18 @@ import { useAppTheme } from '@/core/store/theme.store'
 
 import '@/lib/i18n/index.js'
 
-const FONTS = {
-  'Pretendard-Bold': require('assets/fonts/Pretendard-Bold.ttf'),
-  'Pretendard-Medium': require('assets/fonts/Pretendard-Medium.ttf'),
-  'Pretendard-Regular': require('assets/fonts/Pretendard-Regular.ttf'),
-  'Pretendard-SemiBold': require('assets/fonts/Pretendard-SemiBold.ttf'),
-}
-
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout() {
-  const [fontLoaded, fontError] = useFonts(FONTS)
+  const [fontLoaded, fontError] = useFonts({
+    'Pretendard-Bold': require('assets/fonts/Pretendard-Bold.ttf'),
+    'Pretendard-Medium': require('assets/fonts/Pretendard-Medium.ttf'),
+    'Pretendard-Regular': require('assets/fonts/Pretendard-Regular.ttf'),
+    'Pretendard-SemiBold': require('assets/fonts/Pretendard-SemiBold.ttf'),
+    Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
+    'Inter-Bold': require('@tamagui/font-inter/otf/Inter-Bold.otf'),
+  })
   const isAuthenticated = useAuth(state => state.isAuthenticated)
 
   // Handle splash screen

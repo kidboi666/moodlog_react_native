@@ -17,6 +17,11 @@ export enum TimeFormat {
   HOUR_12 = 'hour-12',
 }
 
+export enum FontTheme {
+  INTER = 'inter',
+  PRETENDARD = 'pretendard',
+}
+
 export enum Position {
   TOP = 'top',
   BOTTOM = 'bottom',
@@ -27,6 +32,7 @@ export enum Position {
 
 export type Settings = {
   fontSize: ViewFontSize
+  fontTheme: FontTheme
   language: Languages
   timeFormat: TimeFormat
 }
@@ -37,24 +43,18 @@ export type AppState = {
   settings: Settings
 }
 
-export interface AppSettings {
-  fontSize: ViewFontSize
-  language: Languages
-  timeFormat: TimeFormat
-}
-
 export interface AppStore {
   appVersion: string
   firstLaunchDate: Nullable<ISODateString>
 
-  settings: AppSettings
+  settings: Settings
 
   isLoading: boolean
   error: any | null
 
   initFirstLaunchStatus: () => void
-  onSettingChange: <K extends keyof AppSettings>(
+  onSettingChange: <K extends keyof Settings>(
     key: K,
-    value: AppSettings[K],
+    value: Settings[K],
   ) => Promise<void>
 }
