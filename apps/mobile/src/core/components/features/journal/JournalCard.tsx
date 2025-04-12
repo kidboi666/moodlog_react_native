@@ -1,26 +1,26 @@
-import { ChevronLeft, ChevronRight, Trash } from "@tamagui/lucide-icons";
-import { useRouter } from "expo-router";
-import { memo, useCallback, useState } from "react";
-import Animated from "react-native-reanimated";
-import { AnimatePresence } from "tamagui";
+import { ChevronLeft, ChevronRight, Trash } from '@tamagui/lucide-icons'
+import { useRouter } from 'expo-router'
+import { memo, useCallback, useState } from 'react'
+import Animated from 'react-native-reanimated'
+import { AnimatePresence } from 'tamagui'
 
-import { moodTheme } from "@/core/constants/themes";
-import { useAxisAnimationWithState } from "@/core/hooks/useAxisAnimationWithState";
-import { useCardGesture } from "@/core/hooks/useCardGesture";
-import { Position } from "@/types/app.types";
-import type { MoodLevel, MoodType } from "@/types/mood.types";
-import * as S from "./JournalCard.styled";
+import { moodTheme } from '@/core/constants/themes'
+import { useAxisAnimationWithState } from '@/core/hooks/useAxisAnimationWithState'
+import { useCardGesture } from '@/core/hooks/useCardGesture'
+import { Position } from '@/types/app.types'
+import type { MoodLevel, MoodType } from '@/types/mood.types'
+import * as S from './JournalCard.styled'
 
-const AnimatedCard = Animated.createAnimatedComponent(S.CardContainer);
+const AnimatedCard = Animated.createAnimatedComponent(S.CardContainer)
 
 interface Props {
-  content: string;
-  id: string;
-  createdAt: string;
-  imageUri: string[];
-  moodType: MoodType;
-  moodLevel: MoodLevel;
-  openDeleteSheet: (id: string) => void;
+  content: string
+  id: string
+  createdAt: string
+  imageUri: string[]
+  moodType: MoodType
+  moodLevel: MoodLevel
+  openDeleteSheet: (id: string) => void
 }
 
 export const JournalCard = memo(
@@ -33,7 +33,7 @@ export const JournalCard = memo(
     moodLevel,
     openDeleteSheet,
   }: Props) => {
-    const router = useRouter();
+    const router = useRouter()
     const {
       state: cardPosition,
       animatedStyle,
@@ -41,28 +41,28 @@ export const JournalCard = memo(
       changeStateByCondition,
       updateTranslate,
       handleGestureEnd,
-    } = useAxisAnimationWithState("x", {
+    } = useAxisAnimationWithState('x', {
       defaultState: Position.CENTER,
       nextState: Position.LEFT,
       startValue: 0,
       endValue: -80,
       duration: 300,
-    });
-    const [isPressed, setIsPressed] = useState(false);
+    })
+    const [isPressed, setIsPressed] = useState(false)
 
-    const isOpenCard = cardPosition === Position.LEFT;
+    const isOpenCard = cardPosition === Position.LEFT
 
     const handleSwipeLeft = useCallback(() => {
       if (cardPosition === Position.CENTER) {
-        changeStateByCondition(true);
+        changeStateByCondition(true)
       }
-    }, [cardPosition, toggleState]);
+    }, [cardPosition, toggleState])
 
     const handleSwipeRight = useCallback(() => {
       if (cardPosition === Position.LEFT) {
-        changeStateByCondition(false);
+        changeStateByCondition(false)
       }
-    }, [cardPosition, toggleState]);
+    }, [cardPosition, toggleState])
 
     const { gesture, GestureWrapper } = useCardGesture({
       onSwipeLeft: handleSwipeLeft,
@@ -71,22 +71,22 @@ export const JournalCard = memo(
         changeStateByCondition(cardPosition === Position.CENTER),
       updateTranslate,
       onGestureEnd: handleGestureEnd,
-    });
+    })
 
     const handlePress = () => {
       if (isOpenCard) {
-        toggleState();
+        toggleState()
       } else {
-        setIsPressed(true);
+        setIsPressed(true)
         setTimeout(() => {
-          setTimeout(() => setIsPressed(false), 0);
+          setTimeout(() => setIsPressed(false), 0)
           router.push({
-            pathname: "/journal/[id]",
+            pathname: '/journal/[id]',
             params: { id },
-          });
-        }, 300);
+          })
+        }, 300)
       }
-    };
+    }
 
     return (
       <>
@@ -122,7 +122,7 @@ export const JournalCard = memo(
                 </S.Content>
               </S.CardHeader>
 
-              {Array.isArray(imageUri) && (
+              {Array.isArray(imageUri) && imageUri.length > 0 && (
                 <S.CardBackground>
                   <S.JournalCoverImage source={{ uri: imageUri[0] }} />
 
@@ -135,6 +135,6 @@ export const JournalCard = memo(
           </GestureWrapper>
         </S.Container>
       </>
-    );
-  }
-);
+    )
+  },
+)
