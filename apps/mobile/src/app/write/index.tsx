@@ -10,10 +10,9 @@ import {
 import { KEYBOARD_VERTICAL_OFFSET } from '@/core/constants/size'
 import { moodTheme } from '@/core/constants/themes'
 import { ImageHelper } from '@/core/services/image-helper.service'
+import * as S from '@/styles/screens/write/Write.styled'
 import type { Draft } from '@/types/journal.types'
 import type { MoodLevel, MoodType } from '@/types/mood.types'
-import * as S from './JournalWriteModal.styled'
-import { InputContainer } from './JournalWriteModal.styled'
 
 interface Props {
   moodType: MoodType
@@ -23,13 +22,13 @@ interface Props {
   onSubmit: (draft: Draft) => void
 }
 
-export const JournalWriteModal = ({
+export default function Screen({
   moodType,
   moodLevel,
   isLoading,
   isSubmitted,
   onSubmit,
-}: Props) => {
+}: Props) {
   const theme = useTheme()
   const [draft, setDraft] = useState<Draft>({
     content: '',
