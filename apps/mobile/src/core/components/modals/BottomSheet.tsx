@@ -30,10 +30,10 @@ export const BottomSheet = memo(() => {
   const { isOpen, type, snapPoint, props, hideBottomSheet } = useBottomSheet()
 
   const renderContent = () => {
-    if (!type) return null
+    if (!type) return <></>
 
     const ContentComponent = SheetContentComponents[type]
-    if (!ContentComponent) return null
+    if (!ContentComponent) return <></>
 
     return <ContentComponent {...props} />
   }

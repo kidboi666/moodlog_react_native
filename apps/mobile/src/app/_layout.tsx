@@ -29,7 +29,7 @@ export default function RootLayout() {
     'Pretendard-Medium': require('assets/fonts/Pretendard-Medium.ttf'),
     'Pretendard-Regular': require('assets/fonts/Pretendard-Regular.ttf'),
     'Pretendard-SemiBold': require('assets/fonts/Pretendard-SemiBold.ttf'),
-    Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
+    'Inter-Medium': require('@tamagui/font-inter/otf/Inter-Medium.otf'),
     'Inter-Bold': require('@tamagui/font-inter/otf/Inter-Bold.otf'),
   })
   const isAuthenticated = useAuth(state => state.isAuthenticated)

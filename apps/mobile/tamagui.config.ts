@@ -1,7 +1,10 @@
 import { createFont, createTamagui } from 'tamagui'
 
 import { defaultConfig } from '@tamagui/config/v4'
-import { tokens as tamaguiTokens, themes } from '@tamagui/themes'
+import {
+  themes as tamaguiThemes,
+  tokens as tamaguiTokens,
+} from '@tamagui/themes'
 
 const pretendardFont = createFont({
   family: 'Pretendard',
@@ -38,13 +41,60 @@ const pretendardFont = createFont({
   },
 })
 
+export const interFont = createFont({
+  family: 'Inter',
+  size: {
+    1: 11,
+    2: 12,
+    3: 13,
+    4: 14,
+    true: 14,
+    5: 16,
+    6: 18,
+    7: 20,
+    8: 23,
+    9: 30,
+    10: 46,
+    11: 55,
+    12: 62,
+    13: 72,
+    14: 92,
+    15: 114,
+    16: 134,
+  },
+  weight: {
+    4: '400',
+    7: '700',
+  },
+})
+
 export const config = createTamagui({
   ...defaultConfig,
   fonts: {
     body: pretendardFont,
     heading: pretendardFont,
+    inter: interFont,
+    pretendard: pretendardFont,
   },
-  themes,
+  themes: {
+    ...tamaguiThemes,
+    light_inter: {
+      ...tamaguiThemes.light,
+      fontFamily: 'Inter',
+    },
+    dark_inter: {
+      ...tamaguiThemes.dark,
+      fontFamily: 'Inter',
+    },
+    light_pretendard: {
+      ...tamaguiThemes.light,
+      fontFamily: 'Pretendard',
+    },
+    dark_pretendard: {
+      ...tamaguiThemes.dark,
+      fontFamily: 'Pretendard',
+    },
+  },
   tokens: tamaguiTokens,
 })
 
