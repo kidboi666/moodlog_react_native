@@ -1,5 +1,5 @@
 import { useToastController } from '@tamagui/toast'
-import { useLocalSearchParams } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Keyboard, KeyboardAvoidingView, Platform } from 'react-native'
@@ -20,6 +20,7 @@ import type { MoodLevel, MoodType } from '@/types/mood.types'
 
 export default function Screen() {
   const { moodType, moodLevel } = useLocalSearchParams()
+  const router = useRouter()
   const toast = useToastController()
   const { t } = useTranslation()
   const theme = useTheme()
@@ -38,15 +39,26 @@ export default function Screen() {
 
   const handleSubmit = useCallback(
     async (draft: Draft) => {
-      await addJournal(draft)
-      toast.show(t('notifications.success.journal.title'), {
-        message: t('notifications.success.journal.message'),
-        preset: 'success',
-      })
-      setIsSubmitted(true)
-      Keyboard.dismiss()
+      try {
+        await addJournal(draft)
+        toast.show(t('notifications.success.journal.title'), {
+          message: t('notifications.success.journal.message'),
+          preset: 'success',
+        })
+        setIsSubmitted(true)
+        Keyboard.dismiss()
+        
+        setTimeout(() => {
+          router.replace('/(tabs)')
+        }, 300)
+      } catch (error) {
+        console.error('일기 저장 실패:', error)
+        toast.show('저장 실패', {
+          preset: 'error',
+        })
+      }
     },
-    [toast, addJournal, t],
+    [toast, addJournal, t, router],
   )
 
   const handleContentChange = useCallback((content: string) => {

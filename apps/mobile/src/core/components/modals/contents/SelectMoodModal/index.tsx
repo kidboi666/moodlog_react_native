@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react'
+import { useRouter } from 'expo-router'
 
 import { MoodSelectTitle } from '@/core/components/features/write/MoodSelectTitle'
 import { NextButton } from '@/core/components/features/write/NextButton'
@@ -6,17 +7,17 @@ import { PickerMood } from '@/core/components/features/write/PickerMood'
 import { SelectedMoodContainer } from '@/core/components/features/write/SelectedMoodContainer'
 import { FadeIn } from '@/core/components/shared/FadeIn.styleable'
 import { ROUTE_DELAY_MS } from '@/core/constants/time'
+import { useBottomSheet } from '@/core/store/bottom-sheet.store'
 import type { Mood, MoodLevel, MoodType } from '@/types/mood.types'
-import { useRouter } from 'expo-router'
 import * as S from './SelectMoodModal.styled'
 
 interface Props {
   onPress: (mood: Mood) => void
-  hideBottomSheet: () => void
 }
 
-export const SelectMoodModal = ({ onPress, hideBottomSheet }: Props) => {
+export const SelectMoodModal = ({ onPress  }: Props) => {
   const [mood, setMood] = useState<Mood>()
+  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
   const router = useRouter()
 
   const handleMoodChange = useCallback((type: MoodType, level: MoodLevel) => {
@@ -25,7 +26,6 @@ export const SelectMoodModal = ({ onPress, hideBottomSheet }: Props) => {
 
   const handlePress = useCallback(() => {
     if (!mood) return null
-    hideBottomSheet()
     const timer = setTimeout(() => {
       router.push({
         pathname: '/write',
@@ -35,9 +35,10 @@ export const SelectMoodModal = ({ onPress, hideBottomSheet }: Props) => {
         },
       })
     }, ROUTE_DELAY_MS)
-
+    
+    hideBottomSheet()
     return () => clearTimeout(timer)
-  }, [onPress, mood, hideBottomSheet])
+  }, [onPress, mood])
 
   const isSelected = !!(!!mood?.type && mood?.level)
 
