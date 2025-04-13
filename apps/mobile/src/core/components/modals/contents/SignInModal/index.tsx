@@ -7,7 +7,7 @@ import { useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
-import { H1, H3, Input, Separator, Spinner, Text, YStack } from 'tamagui'
+import { H1, H3, Input, Separator, Spinner, Text } from 'tamagui'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 import * as S from './SingInModal.styled'
 
@@ -16,10 +16,10 @@ export const SignInModal = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { showBottomSheet, hideBottomSheet } = useBottomSheet()
-  const { login, isLoading, error, isAuthenticated } = useAuth()
+  const { signin, isLoading, error, isAuthenticated } = useAuth()
   const router = useRouter()
 
-  const handleLogin = async () => {
+  const handleSignIn = async () => {
     if (!email || !password) {
       Alert.alert('모든 필드를 입력해주세요.')
       return
@@ -35,7 +35,7 @@ export const SignInModal = () => {
       return
     }
 
-    await login(email, password)
+    await signin(email, password)
   }
 
   const navigateToRegister = () => {
@@ -44,13 +44,15 @@ export const SignInModal = () => {
 
   useEffect(() => {
     if (error && !isLoading) {
-      Alert.alert('로그인 실패', error)
-      useAuth.setState({ error: null })
+      Alert.alert('로그인 실패', error.message)
     }
 
     if (isAuthenticated) {
       hideBottomSheet()
       router.replace('/(tabs)')
+    }
+    return () => {
+      useAuth.setState({ error: null })
     }
   }, [error, isAuthenticated, isLoading, hideBottomSheet, router])
 
@@ -58,7 +60,7 @@ export const SignInModal = () => {
     <BottomSheetContainer>
       <H1>{t('auth.login')}</H1>
       <H3>{t('auth.loginDescription')}</H3>
-      <YStack gap='$4'>
+      <S.SignInSection>
         <Input
           placeholder={t('auth.email')}
           value={email}
@@ -75,12 +77,12 @@ export const SignInModal = () => {
           autoComplete='password'
         />
         <S.SignInButton
-          onPress={handleLogin}
+          onPress={handleSignIn}
           disabled={isLoading || !email || !password}
         >
           {isLoading ? () => <Spinner /> : t('auth.loginButton')}
         </S.SignInButton>
-      </YStack>
+      </S.SignInSection>
 
       <Separator />
 

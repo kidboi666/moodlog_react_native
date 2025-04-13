@@ -21,7 +21,8 @@ import { UsersModule } from './users.module'
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
         entities: [User],
-        synchronize: process.env.NODE_ENV !== 'production', // 개발 환경에서만 true
+        synchronize: true,
+        dropSchema: true,
       }),
       inject: [ConfigService],
     }),

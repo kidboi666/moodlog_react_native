@@ -15,3 +15,7 @@ export const SignUpButton = styled(PressableButton, {
   bg: 'transparent',
   color: '$blue10',
 })
+
+export const SignInSection = styled(YStack, {
+  gap: '$4',
+})

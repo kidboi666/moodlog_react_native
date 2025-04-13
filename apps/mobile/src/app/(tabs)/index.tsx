@@ -9,9 +9,9 @@ import { WelcomeZone } from '@/core/components/features/home/WelcomeZone'
 import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable'
 import { DELETE_JOURNAL_SNAP_POINTS } from '@/core/constants/size'
 import { useCalendar } from '@/core/hooks/useCalendar'
+import { useAuth } from '@/core/store/auth.store'
 import { useBottomSheet } from '@/core/store/bottom-sheet.store'
 import { useJournal } from '@/core/store/journal.store'
-import { useUser } from '@/core/store/user.store'
 import * as S from '@/styles/screens/home/Home.styled'
 import { BottomSheetType } from '@/types/bottom-sheet.types'
 
@@ -20,7 +20,7 @@ export default function Screen() {
   const selectJournals = useJournal(state => state.selectJournals)
   const isLoading = useJournal(state => state.isLoading)
   const removeJournal = useJournal(state => state.removeJournal)
-  const userInfo = useUser(state => state.userInfo)
+  const userInfo = useAuth(state => state.userInfo)
   const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
   const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
   const { isToday, selectedDate } = useCalendar()

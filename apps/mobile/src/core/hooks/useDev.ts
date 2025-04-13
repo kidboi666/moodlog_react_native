@@ -1,7 +1,6 @@
 import { useApp } from '@/core/store/app.store'
 import { useJournal } from '@/core/store/journal.store'
-import { useUser } from '@/core/store/user.store'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useAuth } from '../store/auth.store'
 
 export const useDev = () => {
   const handleClearUserStorage = async () => {
@@ -14,7 +13,7 @@ export const useDev = () => {
 
   const resetStores = () => {
     console.log('Clearing storage...')
-    useUser.persist.clearStorage()
+    useAuth.persist.clearStorage()
     useApp.persist.clearStorage()
     useJournal.persist.clearStorage()
   }

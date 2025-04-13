@@ -1,48 +1,73 @@
+import type { UserInfo, UserStore } from '@/types/user.types'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { AxiosError } from 'axios'
+import { uuid } from 'expo-modules-core'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { STORAGE_KEY } from '../constants/storage'
 import { api } from '../services/api.service'
+import { useApp } from './app.store'
 
-interface UserInfo {
-  id: number
-  username: string
+const initialUserInfo: UserInfo = {
+  id: '',
+  userName: '',
+  email: '',
+  provider: null,
+  age: null,
+  avatarUrl: null,
 }
 
-interface AuthState {
-  user: UserInfo | null
+interface AuthState extends UserStore {
   token: string | null
   isAuthenticated: boolean
   isLoading: boolean
-  error: string | null
-  setUser: (user: any) => void
-  setToken: (token: string) => void
-  login: (email: string, password: string) => Promise<void>
+  error: AxiosError | null
+  signin: (email: string, password: string) => Promise<void>
   signup: (email: string, password: string) => Promise<void>
   logout: () => void
 }
 
 export const useAuth = create<AuthState>()(
   persist(
-    set => ({
-      user: null,
+    (set, get) => ({
+      userInfo: initialUserInfo,
+      draftUserName: '',
       token: null,
       isAuthenticated: false,
       isLoading: false,
       error: null,
 
-      setUser: user => set({ user, isAuthenticated: !!user }),
-      setToken: token => set({ token }),
-
-      login: async (email: string, password: string) => {
+      signin: async (email: string, password: string) => {
         try {
           set({ isLoading: true, error: null })
           const response = await api.post('/auth/login', { email, password })
-          const { access_token } = response.data
-          set({ token: access_token, isAuthenticated: true })
+          const { access_token, user } = response.data
+
+          set({
+            token: access_token,
+            isAuthenticated: true,
+            userInfo: {
+              ...get().userInfo,
+              id: user.id,
+              email: user.email,
+              userName: user.userName || '',
+            },
+          })
         } catch (error) {
-          console.log(error)
-          set({ error: '로그인에 실패했습니다.' })
+          console.error(error)
+          if (error instanceof AxiosError) {
+            set({
+              error,
+              isAuthenticated: false,
+              token: null,
+            })
+          } else {
+            set({
+              error,
+              isAuthenticated: false,
+              token: null,
+            })
+          }
         } finally {
           set({ isLoading: false })
         }
@@ -51,16 +76,104 @@ export const useAuth = create<AuthState>()(
       signup: async (email: string, password: string) => {
         try {
           set({ isLoading: true, error: null })
-          await api.post('/users', { email, password })
+          const response = await api.post('/auth/register', { email, password })
+          const { access_token, user } = response.data
+
+          set({
+            token: access_token,
+            isAuthenticated: true,
+            userInfo: {
+              ...get().userInfo,
+              id: user.id,
+              email: user.email,
+              userName: user.userName || '',
+            },
+          })
         } catch (error) {
-          set({ error: '회원가입에 실패했습니다.' })
+          console.error(error)
+          if (error instanceof AxiosError) {
+            set({
+              error,
+              isAuthenticated: false,
+              token: null,
+            })
+          } else {
+            set({
+              error,
+              isAuthenticated: false,
+              token: null,
+            })
+          }
         } finally {
           set({ isLoading: false })
         }
       },
 
       logout: () => {
-        set({ user: null, token: null, isAuthenticated: false })
+        set({
+          userInfo: initialUserInfo,
+          token: null,
+          isAuthenticated: false,
+          error: null,
+        })
+      },
+
+      registerUser: async userName => {
+        try {
+          set({ isLoading: true, error: null })
+          const newUserInfo = {
+            ...get().userInfo,
+            userName,
+            id: uuid.v4(),
+          }
+          set({ userInfo: newUserInfo })
+          useApp.getState().initFirstLaunchStatus()
+        } catch (error) {
+          console.error(error)
+          if (error instanceof AxiosError) {
+            set({
+              error,
+              isAuthenticated: false,
+              token: null,
+            })
+          } else {
+            set({
+              error,
+              isAuthenticated: false,
+              token: null,
+            })
+          }
+        } finally {
+          set({ isLoading: false })
+        }
+      },
+
+      onDraftUserNameChange: userName => set({ draftUserName: userName }),
+
+      onUserInfoChange: async updatedUserInfo => {
+        try {
+          set({ isLoading: true, error: null })
+          set(state => ({
+            userInfo: { ...state.userInfo, ...updatedUserInfo },
+          }))
+        } catch (error) {
+          console.log(error)
+          if (error instanceof AxiosError) {
+            set({
+              error,
+              isAuthenticated: false,
+              token: null,
+            })
+          } else {
+            set({
+              error,
+              isAuthenticated: false,
+              token: null,
+            })
+          }
+        } finally {
+          set({ isLoading: false })
+        }
       },
     }),
     {
@@ -68,7 +181,7 @@ export const useAuth = create<AuthState>()(
       storage: createJSONStorage(() => AsyncStorage),
       partialize: state => ({
         token: state.token,
-        user: state.user,
+        userInfo: state.userInfo,
         isAuthenticated: state.isAuthenticated,
       }),
     },

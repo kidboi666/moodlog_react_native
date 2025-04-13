@@ -24,6 +24,7 @@
       },
       "complexity": {
         "noForEach": "off",
+        "noBannedTypes": "off",
         "noStaticOnlyClass": "off"
       },
       "suspicious": {
@@ -54,7 +55,8 @@
     ]
   },
   "organizeImports": {
-    "enabled": true
+    "enabled": true,
+    "ignore": []
   },
   "javascript": {
     "parser": {

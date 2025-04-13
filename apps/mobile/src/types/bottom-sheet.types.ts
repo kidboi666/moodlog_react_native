@@ -1,5 +1,3 @@
-import type { Draft } from '@/types/journal.types'
-import type { Mood, MoodLevel, MoodType } from '@/types/mood.types'
 import type { Nullable } from '@/types/util.types'
 
 export enum BottomSheetType {
@@ -35,11 +33,6 @@ export type BottomSheetProps = {
     hideBottomSheet: () => void
     onPress: () => void
   }
-  [BottomSheetType.SIGN_UP]: {
-    hideBottomSheet: () => void
-    goLoginPage: () => void
-  }
-  [BottomSheetType.SIGN_IN]: {
-    hideBottomSheet: () => void
-  }
+  [BottomSheetType.SIGN_UP]: {}
+  [BottomSheetType.SIGN_IN]: {}
 }

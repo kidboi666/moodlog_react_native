@@ -6,6 +6,7 @@ import {
 import { JwtService } from '@nestjs/jwt'
 import { InjectRepository } from '@nestjs/typeorm'
 import * as bcrypt from 'bcrypt'
+import { ValidatedUserDto } from 'src/dtos/validated-user.dto'
 import { Repository } from 'typeorm'
 import { CreateUserDto } from '../dtos/create-user.dto'
 import { User } from '../entities/user.entity'
@@ -20,22 +21,22 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(email: string, password: string): Promise<any> {
+  async validateUser(
+    email: string,
+    password: string,
+  ): Promise<Omit<User, 'password'>> {
     const user = await this.usersService.findOneByEmail(email)
     if (!user) {
-      throw new UnauthorizedException(
-        '이메일 또는 비밀번호가 올바르지 않습니다.',
-      )
+      throw new UnauthorizedException('Invalid email or password.')
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password)
     if (!isPasswordValid) {
-      throw new UnauthorizedException(
-        '이메일 또는 비밀번호가 올바르지 않습니다.',
-      )
+      throw new UnauthorizedException('Invalid email or password.')
     }
 
     const { password: _, ...result } = user
+
     return result
   }
 
@@ -51,6 +52,7 @@ export class AuthService {
     const user = this.usersRepository.create({
       email: createUserDto.email,
       password: hashedPassword,
+      userName: createUserDto.userName,
     })
 
     return this.usersRepository.save(user)
@@ -64,8 +66,8 @@ export class AuthService {
     }
   }
 
-  async login(user: any) {
-    const payload = { email: user.email, sub: user.id }
+  async login(validatedUserDto: ValidatedUserDto) {
+    const payload = { email: validatedUserDto.email, sub: validatedUserDto.id }
     return {
       access_token: this.jwtService.sign(payload),
     }

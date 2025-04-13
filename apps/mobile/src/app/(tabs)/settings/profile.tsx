@@ -4,16 +4,15 @@ import { useTranslation } from 'react-i18next'
 import { SettingHeader } from '@/core/components/features/settings/SettingHeader'
 import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable'
 import { useApp } from '@/core/store/app.store'
-import { useUser } from '@/core/store/user.store'
+import { useAuth } from '@/core/store/auth.store'
 import * as S from '@/styles/screens/settings/Profile.styled'
 import type { NewUserInfo } from '@/types/user.types'
 import { getDaysSinceSignup } from '@/utils/date'
 
 export default function Screen() {
   const { t } = useTranslation()
-  const userInfo = useUser(state => state.userInfo)
+  const { userInfo, onUserInfoChange, isLoading } = useAuth()
   const firstLaunchDate = useApp(state => state.firstLaunchDate)
-  const onUserInfoChange = useUser(state => state.onUserInfoChange)
   const [isEditing, setIsEditing] = useState(false)
   const [form, setForm] = useState<NewUserInfo>({
     userName: userInfo.userName,
@@ -26,9 +25,15 @@ export default function Screen() {
   }, [])
 
   const handleSave = useCallback(async () => {
-    await onUserInfoChange(form)
-    setIsEditing(false)
-  }, [form, onUserInfoChange])
+    if (isLoading) return
+
+    try {
+      await onUserInfoChange(form)
+      setIsEditing(false)
+    } catch (error) {
+      console.error('Failed to update profile:', error)
+    }
+  }, [form, onUserInfoChange, isLoading])
 
   const handleCancel = useCallback(() => {
     setForm({
@@ -39,12 +44,15 @@ export default function Screen() {
     setIsEditing(false)
   }, [userInfo])
 
-  const handleChange = useCallback((key: keyof NewUserInfo, value: any) => {
-    setForm(prev => ({
-      ...prev,
-      [key]: value,
-    }))
-  }, [])
+  const handleChange = useCallback(
+    (key: keyof NewUserInfo, value: string | number | null) => {
+      setForm(prev => ({
+        ...prev,
+        [key]: value,
+      }))
+    },
+    [],
+  )
 
   if (!firstLaunchDate) return null
 
@@ -73,6 +81,7 @@ export default function Screen() {
             <S.ProfileInput
               value={form.userName}
               onChangeText={text => handleChange('userName', text)}
+              disabled={isLoading}
             />
           ) : (
             <S.ProfileValue>{userInfo.userName}</S.ProfileValue>
@@ -88,6 +97,7 @@ export default function Screen() {
             <S.ProfileInput
               value={form.email || ''}
               onChangeText={text => handleChange('email', text)}
+              disabled={isLoading}
             />
           ) : (
             <S.ProfileValue>{userInfo.email || '-'}</S.ProfileValue>
@@ -101,9 +111,10 @@ export default function Screen() {
             <S.ProfileInput
               value={form.age?.toString() || ''}
               onChangeText={text =>
-                handleChange('age', Number.parseInt(text) || null)
+                handleChange('age', text ? Number.parseInt(text) : null)
               }
               keyboardType='numeric'
+              disabled={isLoading}
             />
           ) : (
             <S.ProfileValue>{userInfo.age || '-'}</S.ProfileValue>
@@ -122,15 +133,15 @@ export default function Screen() {
         <S.ButtonContainer>
           {isEditing ? (
             <S.ActionButtonsContainer>
-              <S.CancelButton onPress={handleCancel}>
+              <S.CancelButton onPress={handleCancel} disabled={isLoading}>
                 {t('common.cancel') || 'Cancel'}
               </S.CancelButton>
-              <S.SaveButton onPress={handleSave}>
+              <S.SaveButton onPress={handleSave} disabled={isLoading}>
                 {t('common.save') || 'Save'}
               </S.SaveButton>
             </S.ActionButtonsContainer>
           ) : (
-            <S.EditButton onPress={handleEdit}>
+            <S.EditButton onPress={handleEdit} disabled={isLoading}>
               {t('common.edit') || 'Edit'}
             </S.EditButton>
           )}

@@ -3,9 +3,9 @@ import type { Nullable } from '@/types/util.types'
 export type UserInfo = {
   id: string
   userName: string
-  age: Nullable<number>
-  email: Nullable<string>
+  email: string
   provider: Nullable<string>
+  age: Nullable<number>
   avatarUrl: Nullable<string>
 }
 
