@@ -21,6 +21,7 @@ export enum FontTheme {
   INTER = 'inter',
   PRETENDARD = 'pretendard',
   NANUM_PEN = 'nanumPenScript',
+  ROBOTO_MONO = 'robotoMono',
 }
 
 export enum Position {

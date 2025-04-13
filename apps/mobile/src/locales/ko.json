@@ -253,8 +253,6 @@
     },
     "font": {
       "title": "글꼴",
-      "pretendard": "프리텐다드",
-      "inter": "인터",
       "nanumPenScript": "나눔펜스크립트"
     },
     "timeFormat": {

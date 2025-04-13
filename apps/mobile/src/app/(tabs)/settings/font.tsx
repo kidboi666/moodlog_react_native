@@ -8,6 +8,25 @@ import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable'
 import { useApp } from '@/core/store/app.store'
 import { FontTheme } from '@/types/app.types'
 
+const fontList = [
+  {
+    value: FontTheme.PRETENDARD,
+    label: 'settings.font.pretendard',
+  },
+  {
+    value: FontTheme.INTER,
+    label: 'settings.font.inter',
+  },
+  {
+    value: FontTheme.NANUM_PEN,
+    label: 'settings.font.nanumPenScript',
+  },
+  {
+    value: FontTheme.ROBOTO_MONO,
+    label: 'settings.font.robotoMono',
+  },
+]
+
 export default function Screen() {
   const { t } = useTranslation()
   const fontTheme = useApp(state => state.settings.fontTheme)
@@ -28,26 +47,14 @@ export default function Screen() {
         name='font'
         gap='$4'
       >
-        {/* Pretendard */}
-        <RadioGroupItem
-          value={FontTheme.PRETENDARD}
-          label={t('settings.font.pretendard')}
-          onValueChange={handleValueChange}
-        />
-
-        {/* Inter */}
-        <RadioGroupItem
-          value={FontTheme.INTER}
-          label={t('settings.font.inter')}
-          onValueChange={handleValueChange}
-        />
-
-        {/* Nanum Pen Script */}
-        <RadioGroupItem
-          value={FontTheme.NANUM_PEN}
-          label={t('settings.font.nanumPenScript')}
-          onValueChange={handleValueChange}
-        />
+        {fontList.map(font => (
+          <RadioGroupItem
+            key={font.value}
+            value={font.value}
+            label={t(font.label)}
+            onValueChange={handleValueChange}
+          />
+        ))}
       </RadioGroup>
     </ViewContainer>
   )
