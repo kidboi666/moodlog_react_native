@@ -22,3 +22,8 @@ export const SignInText = styled(Text, {
   fontSize: '$5',
   flex: 1,
 })
+
+export const CopyrightContainer = styled(YStack, {
+  items: 'center',
+  mt: '$4',
+})

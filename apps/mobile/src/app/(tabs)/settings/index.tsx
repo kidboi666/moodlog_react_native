@@ -34,7 +34,7 @@ export default function Screen() {
   }, [logout, router])
 
   const handleLogin = useCallback(() => {
-    showBottomSheet(BottomSheetType.SIGN_IN, AUTH_SNAP_POINTS, {})
+    showBottomSheet(BottomSheetType.SIGN_IN, AUTH_SNAP_POINTS)
   }, [showBottomSheet])
 
   return (
@@ -92,11 +92,17 @@ export default function Screen() {
             />
           </SettingsContainer>
 
-          <Button onPress={handleLogout} color='$red10' chromeless>
-            {t('auth.logout')}
-            <LogOut color='$red10' size='$1' />
-          </Button>
+          {isAuthenticated && (
+            <Button onPress={handleLogout} color='$red10' chromeless>
+              {t('auth.logout')}
+              <LogOut color='$red10' size='$1' />
+            </Button>
+          )}
         </S.ItemContainer>
+
+        <S.CopyrightContainer>
+          <Text color='$gray10'>© 2025 Moodlog. All rights reserved.</Text>
+        </S.CopyrightContainer>
       </S.ViewContainer>
     </ScrollView>
   )

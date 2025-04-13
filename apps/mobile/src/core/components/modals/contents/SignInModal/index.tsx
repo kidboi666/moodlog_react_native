@@ -2,96 +2,94 @@ import { AUTH_SNAP_POINTS } from '@/core/constants/size'
 import { useAuth } from '@/core/store/auth.store'
 import { useBottomSheet } from '@/core/store/bottom-sheet.store'
 import { BottomSheetType } from '@/types/bottom-sheet.types'
+import { isValidEmail } from '@/utils/common'
 import { useRouter } from 'expo-router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
-import {
-  Button,
-  Form,
-  H3,
-  Input,
-  Separator,
-  Spinner,
-  Text,
-  XStack,
-  YStack,
-} from 'tamagui'
+import { H1, H3, Input, Separator, Spinner, Text, YStack } from 'tamagui'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
+import * as S from './SingInModal.styled'
 
-interface SignInModalProps {
-  hideBottomSheet: () => void
-}
-
-export const SignInModal = ({ hideBottomSheet }: SignInModalProps) => {
+export const SignInModal = () => {
   const { t } = useTranslation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const { showBottomSheet } = useBottomSheet()
-  const { login, isLoading, error } = useAuth()
+  const { showBottomSheet, hideBottomSheet } = useBottomSheet()
+  const { login, isLoading, error, isAuthenticated } = useAuth()
   const router = useRouter()
 
   const handleLogin = async () => {
-    try {
-      if (!email || !password) {
-        Alert.alert('모든 필드를 입력해주세요.')
-        return
-      }
-
-      if (password.length < 8) {
-        Alert.alert('비밀번호는 8자 이상이어야 합니다.')
-        return
-      }
-
-      await login(email, password)
-
-      if (!error) {
-        hideBottomSheet()
-        router.replace('/(tabs)')
-      }
-    } catch (err) {
-      console.log(err)
-      Alert.alert('로그인에 실패했습니다.', err.message)
+    if (!email || !password) {
+      Alert.alert('모든 필드를 입력해주세요.')
+      return
     }
+
+    if (password.length < 8) {
+      Alert.alert('비밀번호는 8자 이상이어야 합니다.')
+      return
+    }
+
+    if (!isValidEmail(email)) {
+      Alert.alert('이메일 형식이 올바르지 않습니다.')
+      return
+    }
+
+    await login(email, password)
   }
 
   const navigateToRegister = () => {
     showBottomSheet(BottomSheetType.SIGN_UP, AUTH_SNAP_POINTS)
   }
 
+  useEffect(() => {
+    if (error && !isLoading) {
+      Alert.alert('로그인 실패', error)
+      useAuth.setState({ error: null })
+    }
+
+    if (isAuthenticated) {
+      hideBottomSheet()
+      router.replace('/(tabs)')
+    }
+  }, [error, isAuthenticated, isLoading, hideBottomSheet, router])
+
   return (
     <BottomSheetContainer>
-      <YStack gap='$4' width='100%'>
-        <H3>{t('auth.login')}</H3>
-        <Form onSubmit={handleLogin}>
-          <YStack gap='$4'>
-            <Input
-              placeholder={t('auth.email')}
-              value={email}
-              onChangeText={setEmail}
-              autoCapitalize='none'
-            />
-            <Input
-              placeholder={t('auth.password')}
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-            />
-            <Button themeInverse onPress={handleLogin} disabled={isLoading}>
-              {isLoading ? () => <Spinner /> : t('auth.loginButton')}
-            </Button>
-          </YStack>
-        </Form>
-
-        <Separator />
-
-        <XStack items='center' justify='center' gap='$2'>
-          <Text>{t('auth.noAccount')}</Text>
-          <Text color='$blue10' onPress={navigateToRegister}>
-            {t('common.join')}
-          </Text>
-        </XStack>
+      <H1>{t('auth.login')}</H1>
+      <H3>{t('auth.loginDescription')}</H3>
+      <YStack gap='$4'>
+        <Input
+          placeholder={t('auth.email')}
+          value={email}
+          onChangeText={setEmail}
+          autoCapitalize='none'
+          keyboardType='email-address'
+          autoComplete='email'
+        />
+        <Input
+          placeholder={t('auth.password')}
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          autoComplete='password'
+        />
+        <S.SignInButton
+          onPress={handleLogin}
+          disabled={isLoading || !email || !password}
+        >
+          {isLoading ? () => <Spinner /> : t('auth.loginButton')}
+        </S.SignInButton>
       </YStack>
+
+      <Separator />
+
+      <S.SignUpSection>
+        <Text>{t('auth.noAccount')}</Text>
+        <S.SignUpButton onPress={navigateToRegister}>
+          {t('common.join')}
+        </S.SignUpButton>
+      </S.SignUpSection>
     </BottomSheetContainer>
   )
 }

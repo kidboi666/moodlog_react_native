@@ -39,9 +39,9 @@ export const useAuth = create<AuthState>()(
           set({ isLoading: true, error: null })
           const response = await api.post('/auth/login', { email, password })
           const { access_token } = response.data
-          await AsyncStorage.setItem('token', access_token)
           set({ token: access_token, isAuthenticated: true })
         } catch (error) {
+          console.log(error)
           set({ error: '로그인에 실패했습니다.' })
         } finally {
           set({ isLoading: false })
@@ -60,13 +60,17 @@ export const useAuth = create<AuthState>()(
       },
 
       logout: () => {
-        AsyncStorage.removeItem('token')
         set({ user: null, token: null, isAuthenticated: false })
       },
     }),
     {
       name: STORAGE_KEY.AUTH,
       storage: createJSONStorage(() => AsyncStorage),
+      partialize: state => ({
+        token: state.token,
+        user: state.user,
+        isAuthenticated: state.isAuthenticated,
+      }),
     },
   ),
 )

@@ -1,5 +1,6 @@
 import { useAuth } from '@/core/store/auth.store'
-import { useState } from 'react'
+import { isValidEmail } from '@/utils/common'
+import { isValidElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
 import {
@@ -43,6 +44,11 @@ export const SignUpModal = ({
 
       if (password.length < 8) {
         Alert.alert('비밀번호는 8자 이상이어야 합니다.')
+        return
+      }
+
+      if (!isValidEmail(email)) {
+        Alert.alert('이메일 형식이 올바르지 않습니다.')
         return
       }
 

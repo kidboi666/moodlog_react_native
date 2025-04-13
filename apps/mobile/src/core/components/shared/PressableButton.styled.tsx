@@ -12,8 +12,7 @@ export const PressableButton = styled(Button, {
   variants: {
     disabled: {
       true: {
-        bg: '$backgroundPress',
-        opacity: 0.5,
+        opacity: 0.4,
       },
     },
   } as const,

@@ -181,8 +181,10 @@
     }
   },
   "auth": {
-    "login": "함께 더 나은 하루를 만들어봐요.",
+    "login": "로그인",
+    "loginDescription": "함께 더 나은 하루를 만들어봐요.",
     "register": "회원가입",
+    "registerDescription": "가입하면 더 많은 기능을 사용할 수 있어요.",
     "signup": "가입하기",
     "email": "이메일",
     "logout": "로그아웃",
