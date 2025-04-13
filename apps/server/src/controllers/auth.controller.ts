@@ -17,14 +17,22 @@ export class AuthController {
       const { id, email } = user
       return this.authService.login({ id, email })
     } catch (error) {
-      throw new UnauthorizedException('Invalid email or password.')
+      throw new UnauthorizedException(error.message)
     }
   }
 
   @Post('register')
   async register(@Body() createUserDto: CreateUserDto) {
     const user = await this.authService.create(createUserDto)
-    const token = await this.authService.generateToken(user)
-    return { access_token: token.access_token }
+    const { id, email, userName } = user
+    const token = await this.authService.login({ id, email })
+    return {
+      access_token: token.access_token,
+      user: {
+        id,
+        email,
+        userName,
+      },
+    }
   }
 }

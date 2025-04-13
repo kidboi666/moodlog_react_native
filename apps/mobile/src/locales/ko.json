@@ -34,6 +34,24 @@
       "day": "요일"
     }
   },
+  "validation": {
+    "allFieldsRequired": "모든 필드를 입력해주세요.",
+    "passwordMustBeAtLeast8Characters": "비밀번호는 8자 이상이어야 합니다.",
+    "invalidEmailFormat": "이메일 형식이 올바르지 않습니다.",
+    "passwordMismatch": "비밀번호가 일치하지 않습니다."
+  },
+  "serverError": {
+    "network": "네트워크 오류가 발생했습니다.",
+    "authFailed": "인증에 실패했습니다.",
+    "signinFailed": "로그인에 실패했습니다.",
+    "signupFailed": "회원가입에 실패했습니다.",
+    "emailConflict": {
+      "title": "이메일이 이미 존재합니다.",
+      "description": "로그인 페이지로 이동하시겠습니까?"
+    },
+    "userRegistrationFailed": "회원가입에 실패했습니다.",
+    "userInfoUpdateFailed": "사용자 정보 업데이트에 실패했습니다."
+  },
   "navigation": {
     "drawer": {
       "index": "홈으로",
@@ -205,6 +223,18 @@
   },
   "settings": {
     "title": "설정",
+    "dev": {
+      "options": "개발자 옵션",
+      "title": "개발자 설정",
+      "store": "스토어 관리",
+      "resetStore": "스토어 초기화",
+      "network": "네트워크",
+      "apiCalls": "API 호출 기록",
+      "serverStatus": "서버 상태 확인",
+      "appStatus": "앱 상태",
+      "appVersion": "앱 버전 정보",
+      "logs": "로그 확인"
+    },
     "menuTitle": {
       "login": "로그인 정보",
       "config": "시스템 설정",

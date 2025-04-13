@@ -67,9 +67,15 @@ export class AuthService {
   }
 
   async login(validatedUserDto: ValidatedUserDto) {
-    const payload = { email: validatedUserDto.email, sub: validatedUserDto.id }
+    const user = await this.usersService.findOneById(validatedUserDto.id)
+    const payload = { email: user.email, sub: user.id }
     return {
       access_token: this.jwtService.sign(payload),
+      user: {
+        id: user.id,
+        email: user.email,
+        userName: user.userName,
+      },
     }
   }
 }

@@ -13,4 +13,9 @@ export class UsersController {
   async getUserByEmail(@Param('email') email: string) {
     return await this.usersService.findOneByEmail(email)
   }
+
+  @Get()
+  async getAllUsers() {
+    return await this.usersService.findAll()
+  }
 }

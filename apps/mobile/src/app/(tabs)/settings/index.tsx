@@ -7,7 +7,6 @@ import { Button, H1, ScrollView, Text } from 'tamagui'
 import { NavigationSettingItem } from '@/core/components/features/settings/NavigationSettingItem'
 import { SettingsContainer } from '@/core/components/features/settings/SettingsContainer'
 import { AUTH_SNAP_POINTS } from '@/core/constants/size'
-import { useDev } from '@/core/hooks/useDev'
 import { useAuth } from '@/core/store/auth.store'
 import { useBottomSheet } from '@/core/store/bottom-sheet.store'
 import * as S from '@/styles/screens/settings/Settings.styled'
@@ -16,7 +15,6 @@ import { BottomSheetType } from '@/types/bottom-sheet.types'
 export default function Screen() {
   const { t } = useTranslation()
   const router = useRouter()
-  const { resetStores } = useDev()
   const logout = useAuth(state => state.logout)
   const isAuthenticated = useAuth(state => state.isAuthenticated)
   const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
@@ -43,9 +41,14 @@ export default function Screen() {
         <H1>{t('settings.title')}</H1>
         <S.ItemContainer>
           {__DEV__ && (
-            <Button icon={Computer} themeInverse onPress={resetStores}>
-              dev
-            </Button>
+            <SettingsContainer title={t('settings.dev.options')}>
+              <NavigationSettingItem
+                label={t('settings.dev.title')}
+                href='/settings/dev'
+                onRouteChange={handleRouteChange}
+                icon={<Computer size='$1' />}
+              />
+            </SettingsContainer>
           )}
           <SettingsContainer title={t('settings.menuTitle.login')}>
             {isAuthenticated ? (

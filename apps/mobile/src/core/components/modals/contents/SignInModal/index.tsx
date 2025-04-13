@@ -1,13 +1,15 @@
-import { AUTH_SNAP_POINTS } from '@/core/constants/size'
-import { useAuth } from '@/core/store/auth.store'
-import { useBottomSheet } from '@/core/store/bottom-sheet.store'
-import { BottomSheetType } from '@/types/bottom-sheet.types'
-import { isValidEmail } from '@/utils/common'
 import { useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
 import { H1, H3, Input, Separator, Spinner, Text } from 'tamagui'
+
+import { AUTH_SNAP_POINTS } from '@/core/constants/size'
+import { HTTP_STATUS } from '@/core/constants/status'
+import { useAuth } from '@/core/store/auth.store'
+import { useBottomSheet } from '@/core/store/bottom-sheet.store'
+import { BottomSheetType } from '@/types/bottom-sheet.types'
+import { isValidEmail } from '@/utils/common'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 import * as S from './SingInModal.styled'
 
@@ -21,17 +23,17 @@ export const SignInModal = () => {
 
   const handleSignIn = async () => {
     if (!email || !password) {
-      Alert.alert('모든 필드를 입력해주세요.')
+      Alert.alert(t('validation.allFieldsRequired'))
       return
     }
 
     if (password.length < 8) {
-      Alert.alert('비밀번호는 8자 이상이어야 합니다.')
+      Alert.alert(t('validation.passwordMustBeAtLeast8Characters'))
       return
     }
 
     if (!isValidEmail(email)) {
-      Alert.alert('이메일 형식이 올바르지 않습니다.')
+      Alert.alert(t('validation.invalidEmailFormat'))
       return
     }
 
@@ -44,7 +46,7 @@ export const SignInModal = () => {
 
   useEffect(() => {
     if (error && !isLoading) {
-      Alert.alert('로그인 실패', error.message)
+      Alert.alert(t('serverError.signinFailed'), t('auth.loginFailed'))
     }
 
     if (isAuthenticated) {
@@ -54,7 +56,7 @@ export const SignInModal = () => {
     return () => {
       useAuth.setState({ error: null })
     }
-  }, [error, isAuthenticated, isLoading, hideBottomSheet, router])
+  }, [error, isAuthenticated, isLoading, hideBottomSheet, router, t])
 
   return (
     <BottomSheetContainer>

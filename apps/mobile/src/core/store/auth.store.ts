@@ -1,9 +1,11 @@
-import type { UserInfo, UserStore } from '@/types/user.types'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { AxiosError } from 'axios'
 import { uuid } from 'expo-modules-core'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
+
+import type { UserInfo, UserStore } from '@/types/user.types'
+import { ERROR_KEY } from '../constants/error-keys'
 import { STORAGE_KEY } from '../constants/storage'
 import { api } from '../services/api.service'
 import { useApp } from './app.store'
@@ -18,13 +20,15 @@ const initialUserInfo: UserInfo = {
 }
 
 interface AuthState extends UserStore {
+  draftUserName: string
+  userInfo: UserInfo
   token: string | null
   isAuthenticated: boolean
   isLoading: boolean
   error: AxiosError | null
   signin: (email: string, password: string) => Promise<void>
-  signup: (email: string, password: string) => Promise<void>
-  logout: () => void
+  signup: (email: string, password: string, userName: string) => Promise<void>
+  logout: () => Promise<void>
 }
 
 export const useAuth = create<AuthState>()(
@@ -43,79 +47,94 @@ export const useAuth = create<AuthState>()(
           const response = await api.post('/auth/login', { email, password })
           const { access_token, user } = response.data
 
-          set({
-            token: access_token,
-            isAuthenticated: true,
-            userInfo: {
-              ...get().userInfo,
-              id: user.id,
-              email: user.email,
-              userName: user.userName || '',
-            },
-          })
-        } catch (error) {
-          console.error(error)
-          if (error instanceof AxiosError) {
+          if (access_token && user) {
+            await AsyncStorage.setItem(STORAGE_KEY.TOKEN, access_token)
+
             set({
-              error,
-              isAuthenticated: false,
-              token: null,
+              token: access_token,
+              isAuthenticated: true,
+              userInfo: {
+                ...get().userInfo,
+                id: user.id,
+                email: user.email,
+                userName: user.userName || '',
+              },
+              error: null,
             })
           } else {
-            set({
-              error,
-              isAuthenticated: false,
-              token: null,
-            })
+            throw new Error(ERROR_KEY.AUTH_LOGIN_INVALID_DATA)
           }
+        } catch (error) {
+          console.error('로그인 오류:', error)
+          set({
+            error:
+              error instanceof AxiosError
+                ? error
+                : new AxiosError(ERROR_KEY.AUTH_LOGIN_FAILED),
+            isAuthenticated: false,
+            token: null,
+          })
         } finally {
           set({ isLoading: false })
         }
       },
 
-      signup: async (email: string, password: string) => {
+      signup: async (email: string, password: string, userName: string) => {
         try {
           set({ isLoading: true, error: null })
-          const response = await api.post('/auth/register', { email, password })
+          const response = await api.post('/auth/register', {
+            email,
+            password,
+            userName,
+          })
+
           const { access_token, user } = response.data
 
-          set({
-            token: access_token,
-            isAuthenticated: true,
-            userInfo: {
-              ...get().userInfo,
-              id: user.id,
-              email: user.email,
-              userName: user.userName || '',
-            },
-          })
-        } catch (error) {
-          console.error(error)
-          if (error instanceof AxiosError) {
+          if (access_token && user) {
+            await AsyncStorage.setItem(STORAGE_KEY.TOKEN, access_token)
+
             set({
-              error,
-              isAuthenticated: false,
-              token: null,
+              token: access_token,
+              isAuthenticated: true,
+              userInfo: {
+                ...get().userInfo,
+                id: user.id,
+                email: user.email,
+                userName: user.userName || userName,
+              },
+              error: null,
             })
           } else {
-            set({
-              error,
-              isAuthenticated: false,
-              token: null,
-            })
+            throw new Error(ERROR_KEY.AUTH_SIGNUP_INVALID_DATA)
           }
+        } catch (error) {
+          console.error('회원가입 오류:', error)
+          set({
+            error:
+              error instanceof AxiosError
+                ? error
+                : new AxiosError(ERROR_KEY.AUTH_SIGNUP_FAILED),
+            isAuthenticated: false,
+            token: null,
+          })
         } finally {
           set({ isLoading: false })
         }
       },
 
-      logout: () => {
-        set({
-          userInfo: initialUserInfo,
-          token: null,
-          isAuthenticated: false,
-          error: null,
-        })
+      logout: async () => {
+        try {
+          await AsyncStorage.removeItem(STORAGE_KEY.TOKEN)
+
+          set({
+            userInfo: initialUserInfo,
+            token: null,
+            isAuthenticated: false,
+            error: null,
+          })
+        } catch (error) {
+          console.error('로그아웃 오류:', error)
+        }
       },
 
       registerUser: async userName => {
@@ -129,20 +148,15 @@ export const useAuth = create<AuthState>()(
           set({ userInfo: newUserInfo })
           useApp.getState().initFirstLaunchStatus()
         } catch (error) {
-          console.error(error)
-          if (error instanceof AxiosError) {
-            set({
-              error,
-              isAuthenticated: false,
-              token: null,
-            })
-          } else {
-            set({
-              error,
-              isAuthenticated: false,
-              token: null,
-            })
-          }
+          console.error('사용자 등록 오류:', error)
+          set({
+            error:
+              error instanceof AxiosError
+                ? error
+                : new AxiosError(ERROR_KEY.USER_REGISTRATION_FAILED),
+            isAuthenticated: false,
+            token: null,
+          })
         } finally {
           set({ isLoading: false })
         }
@@ -157,20 +171,15 @@ export const useAuth = create<AuthState>()(
             userInfo: { ...state.userInfo, ...updatedUserInfo },
           }))
         } catch (error) {
-          console.log(error)
-          if (error instanceof AxiosError) {
-            set({
-              error,
-              isAuthenticated: false,
-              token: null,
-            })
-          } else {
-            set({
-              error,
-              isAuthenticated: false,
-              token: null,
-            })
-          }
+          console.error('사용자 정보 업데이트 오류:', error)
+          set({
+            error:
+              error instanceof AxiosError
+                ? error
+                : new AxiosError(ERROR_KEY.USER_INFO_UPDATE_FAILED),
+            isAuthenticated: false,
+            token: null,
+          })
         } finally {
           set({ isLoading: false })
         }

@@ -9,6 +9,7 @@ interface AuthState {
   login: (email: string, password: string) => Promise<void>
   signup: (email: string, password: string) => Promise<void>
   logout: () => Promise<void>
+  fetchAllUsers: () => Promise<any>
 }
 
 export const useAuthStore = create<AuthState>(set => ({
@@ -44,5 +45,15 @@ export const useAuthStore = create<AuthState>(set => ({
   logout: async () => {
     await AsyncStorage.removeItem('token')
     set({ token: null })
+  },
+
+  fetchAllUsers: async () => {
+    try {
+      const response = await api.get('/users')
+      return response.data
+    } catch (error) {
+      console.error('회원 정보 불러오기 오류:', error)
+      throw error
+    }
   },
 }))

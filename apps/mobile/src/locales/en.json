@@ -203,6 +203,18 @@
   },
   "settings": {
     "title": "Setting",
+    "dev": {
+      "options": "Developer Options",
+      "title": "Developer Settings",
+      "store": "Store Management",
+      "resetStore": "Reset Stores",
+      "network": "Network",
+      "apiCalls": "API Call Logs",
+      "serverStatus": "Server Status",
+      "appStatus": "App Status",
+      "appVersion": "App Version Info",
+      "logs": "View Logs"
+    },
     "theme": {
       "title": "Dark Mode",
       "light": "Light Theme",
