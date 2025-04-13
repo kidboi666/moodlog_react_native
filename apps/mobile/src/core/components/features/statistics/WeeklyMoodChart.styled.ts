@@ -18,6 +18,6 @@ export const AnimatedBox = styled(XStack, {
 })
 
 export const AnimatedText = styled(Text, {
-  fontWeight: '600',
+  fontWeight: '700',
   color: '$color10',
 })

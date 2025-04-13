@@ -1,20 +1,16 @@
 import { TamaguiProvider, type TamaguiProviderProps } from 'tamagui'
+import { useColorScheme } from 'react-native'
 
 import config from '../../../tamagui.config'
 
 export const TamaguiBaseProvider = ({
-  colorScheme,
   children,
   ...rest
-}: Omit<TamaguiProviderProps, 'config'> & {
-  colorScheme?: 'dark' | 'light' | null
-}) => {
+}: Omit<TamaguiProviderProps, 'config'>) => {
+  const colorScheme = useColorScheme()
+
   return (
-    <TamaguiProvider
-      config={config}
-      defaultTheme={colorScheme === 'dark' ? 'dark' : 'light'}
-      {...rest}
-    >
+    <TamaguiProvider config={config} defaultTheme={colorScheme === 'dark' ? 'dark' : 'light'} {...rest}>
       {children}
     </TamaguiProvider>
   )

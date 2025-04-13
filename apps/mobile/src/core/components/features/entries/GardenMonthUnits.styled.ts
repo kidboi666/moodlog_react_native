@@ -6,6 +6,6 @@ export const ViewContainer = styled(View, {
 
 export const MonthText = styled(H6, {
   fontSize: '$4',
-  fontWeight: '600',
+  fontWeight: '500',
   color: '$color10',
 })

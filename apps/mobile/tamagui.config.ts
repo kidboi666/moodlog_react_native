@@ -64,12 +64,50 @@ export const interFont = createFont({
   },
   weight: {
     4: '400',
+    5: '500',
     7: '700',
+    8: '800',
+  },
+  face: {
+    400: { normal: 'Inter-Regular' },
+    500: { normal: 'Inter-Medium' },
+    700: { normal: 'Inter-SemiBold' },
+    800: { normal: 'Inter-Bold' },
+  },
+})
+
+export const nanumPenScriptFont = createFont({
+  family: 'NanumPenScript',
+  size: {
+    1: 11,
+    2: 12,
+    3: 13,
+    4: 14,
+    true: 14,
+    5: 16,
+    6: 18,
+    7: 20,
+    8: 23,
+    9: 30,
+    10: 46,
+    11: 55,
+    12: 62,
+    13: 72,
+    14: 92,
+    15: 114,
+    16: 134,
+  },
+  weight: {
+    4: '400',
+  },
+  face: {
+    400: { normal: 'NanumPenScript-Regular' },
   },
 })
 
 export const config = createTamagui({
   ...defaultConfig,
+  tokens: tamaguiTokens,
   fonts: {
     body: pretendardFont,
     heading: pretendardFont,
@@ -95,7 +133,6 @@ export const config = createTamagui({
       fontFamily: 'Pretendard',
     },
   },
-  tokens: tamaguiTokens,
 })
 
 declare module 'tamagui' {

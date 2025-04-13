@@ -25,14 +25,27 @@ SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout() {
   const [fontLoaded, fontError] = useFonts({
-    'Pretendard-Bold': require('assets/fonts/Pretendard-Bold.ttf'),
-    'Pretendard-Medium': require('assets/fonts/Pretendard-Medium.ttf'),
-    'Pretendard-Regular': require('assets/fonts/Pretendard-Regular.ttf'),
-    'Pretendard-SemiBold': require('assets/fonts/Pretendard-SemiBold.ttf'),
+    'Pretendard-Medium': require('../../assets/fonts/Pretendard-Medium.ttf'),
+    'Pretendard-Regular': require('../../assets/fonts/Pretendard-Regular.ttf'),
+    'Pretendard-SemiBold': require('../../assets/fonts/Pretendard-SemiBold.ttf'),
+    'Pretendard-Bold': require('../../assets/fonts/Pretendard-Bold.ttf'),
+    'NanumPenScript-Regular': require('../../assets/fonts/NanumPenScript-Regular.ttf'),
+    'Inter-Regular': require('@tamagui/font-inter/otf/Inter-Regular.otf'),
     'Inter-Medium': require('@tamagui/font-inter/otf/Inter-Medium.otf'),
     'Inter-Bold': require('@tamagui/font-inter/otf/Inter-Bold.otf'),
+    'Inter-SemiBold': require('@tamagui/font-inter/otf/Inter-SemiBold.otf'),
   })
   const isAuthenticated = useAuth(state => state.isAuthenticated)
+
+  // 폰트 로딩 상태 및 오류 로깅
+  useEffect(() => {
+    if (fontError) {
+      console.error('폰트 로딩 오류:', fontError)
+    }
+    if (fontLoaded) {
+      console.log('모든 폰트가 성공적으로 로드되었습니다.')
+    }
+  }, [fontLoaded, fontError])
 
   // Handle splash screen
   useEffect(() => {

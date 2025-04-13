@@ -1,4 +1,14 @@
-import { Computer, LogOut } from '@tamagui/lucide-icons'
+import {
+  BugPlay,
+  Clock,
+  Computer,
+  Globe,
+  HelpCircle,
+  LogOut,
+  Moon,
+  Type,
+  User,
+} from '@tamagui/lucide-icons'
 import { type Href, useRouter } from 'expo-router'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -56,9 +66,11 @@ export default function Screen() {
                 label={t('settings.profile.title')}
                 href={'/settings/profile' as any}
                 onRouteChange={handleRouteChange}
+                icon={<User size='$1' />}
               />
             ) : (
               <S.SignInButton onPress={handleLogin}>
+                <User size='$1' />
                 <S.SignInText>{t('settings.profile.guest')}</S.SignInText>
               </S.SignInButton>
             )}
@@ -69,16 +81,25 @@ export default function Screen() {
               label={t('settings.theme.title')}
               href='/settings/theme'
               onRouteChange={handleRouteChange}
+              icon={<Moon size='$1' />}
             />
             <NavigationSettingItem
               label={t('settings.language.title')}
               onRouteChange={handleRouteChange}
               href='/settings/language'
+              icon={<Globe size='$1' />}
+            />
+            <NavigationSettingItem
+              label={t('settings.font.title')}
+              onRouteChange={handleRouteChange}
+              href={'/settings/font' as any}
+              icon={<Type size='$1' />}
             />
             <NavigationSettingItem
               label={t('settings.timeFormat.title')}
               onRouteChange={handleRouteChange}
               href='/settings/time_format'
+              icon={<Clock size='$1' />}
             />
           </SettingsContainer>
 
@@ -87,11 +108,13 @@ export default function Screen() {
               label={t('settings.bugReport.title')}
               onRouteChange={handleRouteChange}
               href='/settings/bug_report'
+              icon={<BugPlay size='$1' />}
             />
             <NavigationSettingItem
               label={t('settings.qna.title')}
               onRouteChange={handleRouteChange}
               href='/settings/qna'
+              icon={<HelpCircle size='$1' />}
             />
           </SettingsContainer>
 

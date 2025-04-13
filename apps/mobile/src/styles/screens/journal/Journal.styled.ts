@@ -70,7 +70,6 @@ export const Image = styled(TamaguiImage, {
 })
 
 export const ContentText = styled(Paragraph, {
-  fontWeight: '300',
   ml: '$3',
 
   variants: {

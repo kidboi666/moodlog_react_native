@@ -20,6 +20,7 @@ export enum TimeFormat {
 export enum FontTheme {
   INTER = 'inter',
   PRETENDARD = 'pretendard',
+  NANUM_PEN = 'nanumPenScript',
 }
 
 export enum Position {
@@ -46,9 +47,7 @@ export type AppState = {
 export interface AppStore {
   appVersion: string
   firstLaunchDate: Nullable<ISODateString>
-
   settings: Settings
-
   isLoading: boolean
   error: any | null
 

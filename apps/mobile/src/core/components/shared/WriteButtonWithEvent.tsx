@@ -16,9 +16,7 @@ export const WriteButtonWithEvent = memo(() => {
   const [isSubmitted, setIsSubmitted] = useState(false)
 
   const handleWriteButtonPress = useCallback(() => {
-    showBottomSheet(BottomSheetType.SELECT_MOOD, SELECT_MOOD_SNAP_POINTS, {
-      hideBottomSheet,
-    })
+    showBottomSheet(BottomSheetType.SELECT_MOOD, SELECT_MOOD_SNAP_POINTS)
   }, [showBottomSheet, isSubmitted, hideBottomSheet])
 
   useEffect(() => {
