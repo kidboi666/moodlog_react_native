@@ -1,6 +1,7 @@
 import { useAuth } from '@/core/store/auth.store'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Alert } from 'react-native'
 import {
   Button,
   Form,
@@ -29,15 +30,30 @@ export const SignUpModal = ({
   const { signup, isLoading, error } = useAuth()
 
   const handleSignUp = async () => {
-    if (password !== confirmPassword) {
-      alert('비밀번호가 일치하지 않습니다.')
-      return
-    }
+    try {
+      if (!email || !password || !confirmPassword) {
+        Alert.alert('모든 필드를 입력해주세요.')
+        return
+      }
 
-    await signup(email, password)
-    if (!error) {
-      hideBottomSheet()
-      goLoginPage()
+      if (password !== confirmPassword) {
+        Alert.alert('비밀번호가 일치하지 않습니다.')
+        return
+      }
+
+      if (password.length < 8) {
+        Alert.alert('비밀번호는 8자 이상이어야 합니다.')
+        return
+      }
+
+      await signup(email, password)
+      if (!error) {
+        hideBottomSheet()
+        goLoginPage()
+      }
+    } catch (err) {
+      console.log(err)
+      Alert.alert('회원가입에 실패했습니다.', err.message)
     }
   }
 
