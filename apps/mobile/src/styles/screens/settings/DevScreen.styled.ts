@@ -6,6 +6,7 @@ import { ItemContainer as HOSItemContainer } from '@/styles/screens/settings/Set
 export const ViewContainer = styled(HOSViewContainer, {
   edges: ['top'],
   padded: true,
+  gap: '$4',
 })
 
 export const ItemContainer = styled(HOSItemContainer, {})

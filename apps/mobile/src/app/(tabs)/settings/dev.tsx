@@ -20,7 +20,7 @@ export default function DevScreen() {
         <S.ItemContainer>
           <SettingsContainer title={t('settings.dev.store')}>
             <S.StyledYStack>
-              <Button themeInverse onPress={resetStores}>
+              <Button onPress={resetStores}>
                 {t('settings.dev.resetStore')}
               </Button>
             </S.StyledYStack>
@@ -28,31 +28,21 @@ export default function DevScreen() {
 
           <SettingsContainer title={t('settings.dev.network')}>
             <S.StyledYStack>
-              <Button themeInverse variant='outlined'>
-                {t('settings.dev.apiCalls')}
-              </Button>
-              <Button themeInverse variant='outlined'>
-                {t('settings.dev.serverStatus')}
-              </Button>
+              <Button>{t('settings.dev.apiCalls')}</Button>
+              <Button>{t('settings.dev.serverStatus')}</Button>
             </S.StyledYStack>
           </SettingsContainer>
 
           <SettingsContainer title={t('settings.dev.appStatus')}>
             <S.StyledYStack>
-              <Button themeInverse variant='outlined'>
-                {t('settings.dev.appVersion')}
-              </Button>
-              <Button themeInverse variant='outlined'>
-                {t('settings.dev.logs')}
-              </Button>
+              <Button>{t('settings.dev.appVersion')}</Button>
+              <Button>{t('settings.dev.logs')}</Button>
             </S.StyledYStack>
           </SettingsContainer>
 
           <SettingsContainer title={t('settings.dev.memberInfo')}>
             <S.StyledYStack>
               <Button
-                themeInverse
-                variant='outlined'
                 onPress={async () => {
                   try {
                     const users = await fetchAllUsers()
@@ -62,7 +52,7 @@ export default function DevScreen() {
                   }
                 }}
               >
-                회원 정보 불러오기
+                {t('settings.dev.loadMemberInfo')}
               </Button>
             </S.StyledYStack>
           </SettingsContainer>

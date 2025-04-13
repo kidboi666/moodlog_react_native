@@ -3,6 +3,8 @@ import { Button, Text, YStack, styled } from 'tamagui'
 import { ViewContainer as HOSContainer } from '@/core/components/shared/ViewContainer.styleable'
 
 export const ViewContainer = styled(HOSContainer, {
+  edges: ['top'],
+  padded: true,
   gap: '$4',
 })
 

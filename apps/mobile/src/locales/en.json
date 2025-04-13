@@ -213,7 +213,9 @@
       "serverStatus": "Server Status",
       "appStatus": "App Status",
       "appVersion": "App Version Info",
-      "logs": "View Logs"
+      "logs": "View Logs",
+      "memberInfo": "Member Information",
+      "loadMemberInfo": "Load Member Information"
     },
     "theme": {
       "title": "Dark Mode",

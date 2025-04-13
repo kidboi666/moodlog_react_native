@@ -233,7 +233,9 @@
       "serverStatus": "서버 상태 확인",
       "appStatus": "앱 상태",
       "appVersion": "앱 버전 정보",
-      "logs": "로그 확인"
+      "logs": "로그 확인",
+      "memberInfo": "회원 정보",
+      "loadMemberInfo": "회원 정보 불러오기"
     },
     "menuTitle": {
       "login": "로그인 정보",

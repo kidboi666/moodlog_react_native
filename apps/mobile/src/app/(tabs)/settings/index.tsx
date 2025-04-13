@@ -37,7 +37,7 @@ export default function Screen() {
 
   return (
     <ScrollView>
-      <S.ViewContainer edges={['top']} padded>
+      <S.ViewContainer>
         <H1>{t('settings.title')}</H1>
         <S.ItemContainer>
           {__DEV__ && (
