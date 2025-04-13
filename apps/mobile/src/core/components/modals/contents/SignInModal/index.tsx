@@ -2,8 +2,10 @@ import { AUTH_SNAP_POINTS } from '@/core/constants/size'
 import { useAuth } from '@/core/store/auth.store'
 import { useBottomSheet } from '@/core/store/bottom-sheet.store'
 import { BottomSheetType } from '@/types/bottom-sheet.types'
+import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Alert } from 'react-native'
 import {
   Button,
   Form,
@@ -27,11 +29,29 @@ export const SignInModal = ({ hideBottomSheet }: SignInModalProps) => {
   const [password, setPassword] = useState('')
   const { showBottomSheet } = useBottomSheet()
   const { login, isLoading, error } = useAuth()
+  const router = useRouter()
 
   const handleLogin = async () => {
-    await login(email, password)
-    if (!error) {
-      hideBottomSheet()
+    try {
+      if (!email || !password) {
+        Alert.alert('모든 필드를 입력해주세요.')
+        return
+      }
+
+      if (password.length < 8) {
+        Alert.alert('비밀번호는 8자 이상이어야 합니다.')
+        return
+      }
+
+      await login(email, password)
+
+      if (!error) {
+        hideBottomSheet()
+        router.replace('/(tabs)')
+      }
+    } catch (err) {
+      console.log(err)
+      Alert.alert('로그인에 실패했습니다.', err.message)
     }
   }
 
