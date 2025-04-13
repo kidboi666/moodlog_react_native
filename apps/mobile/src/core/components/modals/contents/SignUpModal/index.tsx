@@ -1,6 +1,6 @@
+import { useAuth } from '@/core/store/auth.store'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert } from 'react-native'
 import {
   Button,
   Form,
@@ -11,58 +11,33 @@ import {
   XStack,
   YStack,
 } from 'tamagui'
+import { BottomSheetContainer } from '../../BottomSheetContainer'
 
-import { BottomSheetContainer } from '@/core/components/modals/BottomSheetContainer'
-
-interface Props {
-  userName: string
+interface SignUpModalProps {
+  hideBottomSheet: () => void
   goLoginPage: () => void
 }
 
-export const SignUpModal = ({ userName, goLoginPage }: Props) => {
+export const SignUpModal = ({
+  hideBottomSheet,
+  goLoginPage,
+}: SignUpModalProps) => {
   const { t } = useTranslation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const { signup, isLoading, error } = useAuth()
 
-  const handleRegister = async () => {
-    if (!email.trim() || !password.trim() || !confirmPassword.trim()) {
-      Alert.alert(t('auth.error'), t('auth.emptyFields'))
-      return
-    }
-
+  const handleSignUp = async () => {
     if (password !== confirmPassword) {
-      Alert.alert(t('auth.error'), t('auth.passwordMismatch'))
+      alert('비밀번호가 일치하지 않습니다.')
       return
     }
 
-    try {
-      setIsLoading(true)
-      const response = await fetch(`${process.env.API_URL}/users/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, username: userName, password }),
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || t('auth.registerFailed'))
-      }
-
-      Alert.alert(t('auth.success'), t('auth.registerSuccess'), [
-        {
-          text: t('common.ok'),
-          onPress: () => goLoginPage(),
-        },
-      ])
-    } catch (error) {
-      Alert.alert(t('auth.error'), error.message)
-    } finally {
-      setIsLoading(false)
+    await signup(email, password)
+    if (!error) {
+      hideBottomSheet()
+      goLoginPage()
     }
   }
 
@@ -70,7 +45,7 @@ export const SignUpModal = ({ userName, goLoginPage }: Props) => {
     <BottomSheetContainer>
       <YStack gap='$4' width='100%'>
         <H1>{t('auth.register')}</H1>
-        <Form onSubmit={handleRegister}>
+        <Form onSubmit={handleSignUp}>
           <YStack gap='$4'>
             <Input
               placeholder={t('auth.email')}
@@ -90,7 +65,7 @@ export const SignUpModal = ({ userName, goLoginPage }: Props) => {
               onChangeText={setConfirmPassword}
               secureTextEntry
             />
-            <Button themeInverse onPress={handleRegister} disabled={isLoading}>
+            <Button themeInverse onPress={handleSignUp} disabled={isLoading}>
               {isLoading ? t('common.loading') : t('auth.registerButton')}
             </Button>
           </YStack>

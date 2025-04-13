@@ -1,7 +1,8 @@
-import { STORAGE_KEY } from '@/core/constants/storage'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
+import { STORAGE_KEY } from '../constants/storage'
+import { api } from '../services/api.service'
 
 interface UserInfo {
   id: number
@@ -12,8 +13,12 @@ interface AuthState {
   user: UserInfo | null
   token: string | null
   isAuthenticated: boolean
-  setUser: (userInfo: UserInfo | null) => void
-  setToken: (token: string | null) => void
+  isLoading: boolean
+  error: string | null
+  setUser: (user: any) => void
+  setToken: (token: string) => void
+  login: (email: string, password: string) => Promise<void>
+  signup: (email: string, password: string) => Promise<void>
   logout: () => void
 }
 
@@ -23,9 +28,41 @@ export const useAuth = create<AuthState>()(
       user: null,
       token: null,
       isAuthenticated: false,
+      isLoading: false,
+      error: null,
+
       setUser: user => set({ user, isAuthenticated: !!user }),
       setToken: token => set({ token }),
-      logout: () => set({ user: null, token: null, isAuthenticated: false }),
+
+      login: async (email: string, password: string) => {
+        try {
+          set({ isLoading: true, error: null })
+          const response = await api.post('/auth/login', { email, password })
+          const { access_token } = response.data
+          await AsyncStorage.setItem('token', access_token)
+          set({ token: access_token, isAuthenticated: true })
+        } catch (error) {
+          set({ error: '로그인에 실패했습니다.' })
+        } finally {
+          set({ isLoading: false })
+        }
+      },
+
+      signup: async (email: string, password: string) => {
+        try {
+          set({ isLoading: true, error: null })
+          await api.post('/users', { email, password })
+        } catch (error) {
+          set({ error: '회원가입에 실패했습니다.' })
+        } finally {
+          set({ isLoading: false })
+        }
+      },
+
+      logout: () => {
+        AsyncStorage.removeItem('token')
+        set({ user: null, token: null, isAuthenticated: false })
+      },
     }),
     {
       name: STORAGE_KEY.AUTH,

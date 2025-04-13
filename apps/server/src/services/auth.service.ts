@@ -1,40 +1,38 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common'
-import { UserService } from './user.service'
-import { LoginDto } from '../dtos/login.dto'
+import { JwtService } from '@nestjs/jwt'
 import * as bcrypt from 'bcrypt'
+import { UsersService } from './users.service'
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private usersService: UsersService,
+    private jwtService: JwtService,
+  ) {}
 
-  async validateUser(username: string, password: string): Promise<any> {
-    try {
-      const user = await this.userService.findOne(username)
-      const isPasswordMatch = await bcrypt.compare(password, user.password)
-
-      if (isPasswordMatch) {
-        const { password, ...result } = user
-        return result
-      }
-
-      return null
-    } catch (error) {
-      return null
+  async validateUser(email: string, password: string): Promise<any> {
+    const user = await this.usersService.findOneByEmail(email)
+    if (!user) {
+      throw new UnauthorizedException(
+        '이메일 또는 비밀번호가 올바르지 않습니다.',
+      )
     }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password)
+    if (!isPasswordValid) {
+      throw new UnauthorizedException(
+        '이메일 또는 비밀번호가 올바르지 않습니다.',
+      )
+    }
+
+    const { password: _, ...result } = user
+    return result
   }
 
-  async login(loginDto: LoginDto) {
-    const user = await this.validateUser(loginDto.username, loginDto.password)
-
-    if (!user) {
-      throw new UnauthorizedException('Invalid credentials')
-    }
-
-    // JWT를 사용하지 않는 간단한 예제이므로 토큰 대신 사용자 정보만 반환
+  async login(user: any) {
+    const payload = { email: user.email, sub: user.id }
     return {
-      user,
-      // 실제 앱에서는 JWT 토큰을 여기서 생성하여 반환
-      token: `fake-jwt-token-${user.id}`,
+      access_token: this.jwtService.sign(payload),
     }
   }
 }

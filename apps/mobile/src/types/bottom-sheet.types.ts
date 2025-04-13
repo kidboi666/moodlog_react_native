@@ -36,8 +36,10 @@ export type BottomSheetProps = {
     onPress: () => void
   }
   [BottomSheetType.SIGN_UP]: {
-    userName: string
+    hideBottomSheet: () => void
     goLoginPage: () => void
   }
-  [BottomSheetType.SIGN_IN]: {}
+  [BottomSheetType.SIGN_IN]: {
+    hideBottomSheet: () => void
+  }
 }

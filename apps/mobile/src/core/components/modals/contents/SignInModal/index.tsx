@@ -1,7 +1,9 @@
-import { router } from 'expo-router'
-import React, { useState } from 'react'
+import { AUTH_SNAP_POINTS } from '@/core/constants/size'
+import { useAuth } from '@/core/store/auth.store'
+import { useBottomSheet } from '@/core/store/bottom-sheet.store'
+import { BottomSheetType } from '@/types/bottom-sheet.types'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert } from 'react-native'
 import {
   Button,
   Form,
@@ -13,52 +15,23 @@ import {
   XStack,
   YStack,
 } from 'tamagui'
+import { BottomSheetContainer } from '../../BottomSheetContainer'
 
-import { BottomSheetContainer } from '@/core/components/modals/BottomSheetContainer'
-import { API_URL } from '@/core/constants/api'
-import { AUTH_SNAP_POINTS } from '@/core/constants/size'
-import { useAuth } from '@/core/store/auth.store'
-import { useBottomSheet } from '@/core/store/bottom-sheet.store'
-import { BottomSheetType } from '@/types/bottom-sheet.types'
+interface SignInModalProps {
+  hideBottomSheet: () => void
+}
 
-export const SignInModal = () => {
+export const SignInModal = ({ hideBottomSheet }: SignInModalProps) => {
   const { t } = useTranslation()
-  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const setUser = useAuth(state => state.setUser)
-  const setToken = useAuth(state => state.setToken)
-  const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
+  const { showBottomSheet } = useBottomSheet()
+  const { login, isLoading, error } = useAuth()
 
   const handleLogin = async () => {
-    if (!username.trim() || !password.trim()) {
-      Alert.alert(t('auth.error'), t('auth.emptyFields'))
-      return
-    }
-
-    try {
-      setIsLoading(true)
-      const response = await fetch(`${API_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || t('auth.loginFailed'))
-      }
-
-      setUser(data.user)
-      setToken(data.token)
-      router.replace('/(tabs)')
-    } catch (error) {
-      Alert.alert(t('auth.error'), error.message)
-    } finally {
-      setIsLoading(false)
+    await login(email, password)
+    if (!error) {
+      hideBottomSheet()
     }
   }
 
@@ -74,8 +47,8 @@ export const SignInModal = () => {
           <YStack gap='$4'>
             <Input
               placeholder={t('auth.email')}
-              value={username}
-              onChangeText={setUsername}
+              value={email}
+              onChangeText={setEmail}
               autoCapitalize='none'
             />
             <Input

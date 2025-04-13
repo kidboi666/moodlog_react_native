@@ -1,14 +1,22 @@
-import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common'
+import { Body, Controller, Post, UnauthorizedException } from '@nestjs/common'
 import { AuthService } from '../services/auth.service'
-import { LoginDto } from '../dtos/login.dto'
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   @Post('login')
-  @HttpCode(HttpStatus.OK)
-  async login(@Body() loginDto: LoginDto) {
-    return this.authService.login(loginDto)
+  async login(@Body() loginDto: { email: string; password: string }) {
+    try {
+      const user = await this.authService.validateUser(
+        loginDto.email,
+        loginDto.password,
+      )
+      return this.authService.login(user)
+    } catch (error) {
+      throw new UnauthorizedException(
+        '이메일 또는 비밀번호가 올바르지 않습니다.',
+      )
+    }
   }
 }

@@ -1,18 +1,17 @@
 import {
-  Injectable,
   ConflictException,
+  Injectable,
   NotFoundException,
 } from '@nestjs/common'
-import { CreateUserDto } from '../dtos/create-user.dto'
 import * as bcrypt from 'bcrypt'
+import type { CreateUserDto } from '../dtos/create-user.dto'
 
 @Injectable()
-export class UserService {
-  // 실제 앱에서는 데이터베이스를 사용하지만, 간단한 예제를 위해 메모리에 저장
+export class UsersService {
   private readonly users: any[] = []
 
-  async findOne(username: string): Promise<any> {
-    const user = this.users.find(user => user.username === username)
+  async findOneByEmail(email: string): Promise<any> {
+    const user = this.users.find(user => user.email === email)
     if (!user) {
       throw new NotFoundException('User not found')
     }
@@ -20,27 +19,23 @@ export class UserService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<any> {
-    // 이미 존재하는 사용자인지 확인
     const existingUser = this.users.find(
-      user => user.username === createUserDto.username,
+      user => user.email === createUserDto.email,
     )
     if (existingUser) {
-      throw new ConflictException('Username already exists')
+      throw new ConflictException('Email already exists')
     }
 
-    // 비밀번호 해싱
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10)
 
-    // 새 사용자 생성
     const newUser = {
       id: this.users.length + 1,
-      username: createUserDto.username,
+      email: createUserDto.email,
       password: hashedPassword,
     }
 
     this.users.push(newUser)
 
-    // 비밀번호 제외하고 반환
     const { password, ...result } = newUser
     return result
   }
