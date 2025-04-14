@@ -47,6 +47,7 @@ export const BottomSheet = memo(() => {
       forceRemoveScrollEnabled={isOpen}
       modal
       open={isOpen}
+      disableDrag
       onOpenChange={hideBottomSheet}
       snapPoints={snapPoint}
       dismissOnSnapToBottom
