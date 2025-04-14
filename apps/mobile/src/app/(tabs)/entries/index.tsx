@@ -19,8 +19,7 @@ export default function Screen() {
   const isLoading = useJournal(state => state.isLoading)
   const selectJournals = useJournal(state => state.selectJournals)
   const removeJournal = useJournal(state => state.removeJournal)
-  const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
-  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
+  const { showBottomSheet, hideBottomSheet } = useBottomSheet()
 
   const { selectedMonth } = useCalendar()
   const { t } = useTranslation()
@@ -34,20 +33,20 @@ export default function Screen() {
           journalId: id,
           isLoading,
           onDelete: removeJournal,
-          hideBottomSheet,
           onSuccess: () => {
             selectJournals(selectedMonth)
           },
+          hideBottomSheet,
         },
       )
     },
     [
       showBottomSheet,
-      hideBottomSheet,
       isLoading,
       selectedMonth,
       removeJournal,
       selectJournals,
+      hideBottomSheet,
     ],
   )
 

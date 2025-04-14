@@ -1,7 +1,7 @@
 import { Button, Text, YStack, styled } from 'tamagui'
 
+import { PressableButton } from '@/core/components/shared/PressableButton.styled'
 import { ViewContainer as HOSContainer } from '@/core/components/shared/ViewContainer.styleable'
-
 export const ViewContainer = styled(HOSContainer, {
   edges: ['top'],
   padded: true,
@@ -28,4 +28,9 @@ export const SignInText = styled(Text, {
 export const CopyrightContainer = styled(YStack, {
   items: 'center',
   mt: '$4',
+})
+
+export const LogoutButton = styled(PressableButton, {
+  bg: 'transparent',
+  color: '$red10',
 })

@@ -223,6 +223,10 @@
   },
   "settings": {
     "title": "Setting",
+    "logout": {
+      "confirmTitle": "Log Out",
+      "confirmMessage": "Are you sure you want to log out?"
+    },
     "dev": {
       "options": "Developer Options",
       "title": "Developer Settings",

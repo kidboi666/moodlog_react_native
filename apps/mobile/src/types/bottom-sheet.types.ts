@@ -5,6 +5,7 @@ export enum BottomSheetType {
   SELECT_MOOD = 'SELECT_MOOD',
   SIGN_UP = 'SIGN_UP',
   SIGN_IN = 'SIGN_IN',
+  LOGOUT = 'LOGOUT',
 }
 
 export interface BottomSheetStore {
@@ -30,9 +31,13 @@ export type BottomSheetProps = {
     hideBottomSheet: () => void
   }
   [BottomSheetType.SELECT_MOOD]: {
-    hideBottomSheet: () => void
     onPress: () => void
+    hideBottomSheet: () => void
   }
   [BottomSheetType.SIGN_UP]: {}
   [BottomSheetType.SIGN_IN]: {}
+  [BottomSheetType.LOGOUT]: {
+    onLogout: () => void
+    hideBottomSheet: () => void
+  }
 }

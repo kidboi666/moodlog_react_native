@@ -1,6 +1,6 @@
 import { useToastController } from '@tamagui/toast'
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Keyboard, KeyboardAvoidingView, Platform } from 'react-native'
 import { Form, useTheme } from 'tamagui'
@@ -47,7 +47,7 @@ export default function Screen() {
         })
         setIsSubmitted(true)
         Keyboard.dismiss()
-        
+
         setTimeout(() => {
           router.replace('/(tabs)')
         }, 300)

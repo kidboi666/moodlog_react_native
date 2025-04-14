@@ -17,7 +17,7 @@ import { ArrowLeft } from '@tamagui/lucide-icons'
 export default function Screen() {
   const router = useRouter()
   const { goToPrevStep, currentStep } = useStepProgress()
-  const { showBottomSheet } = useBottomSheet()
+  const { showBottomSheet, hideBottomSheet } = useBottomSheet()
   const { draftUserName, registerUser, isLoading, error } = useAuth()
   const { t } = useTranslation()
   const toast = useToastController()
@@ -31,7 +31,9 @@ export default function Screen() {
   }
 
   const handleRegister = () => {
-    showBottomSheet(BottomSheetType.SIGN_UP, AUTH_SNAP_POINTS)
+    showBottomSheet(BottomSheetType.SIGN_UP, AUTH_SNAP_POINTS, {
+      hideBottomSheet,
+    })
   }
 
   const handleSkip = async () => {

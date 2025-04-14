@@ -21,8 +21,7 @@ export default function Screen() {
   const isLoading = useJournal(state => state.isLoading)
   const removeJournal = useJournal(state => state.removeJournal)
   const userInfo = useAuth(state => state.userInfo)
-  const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
-  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
+  const { showBottomSheet, hideBottomSheet } = useBottomSheet()
   const { isToday, selectedDate } = useCalendar()
   const toast = useToastController()
   const { t } = useTranslation()
@@ -32,8 +31,8 @@ export default function Screen() {
       const bottomSheetProps = {
         journalId: id,
         isLoading,
-        onDelete: removeJournal,
         hideBottomSheet,
+        onDelete: removeJournal,
         onSuccess: () => {
           selectJournals(selectedDate)
           toast.show(t('notifications.success.delete'))
@@ -51,9 +50,9 @@ export default function Screen() {
       isLoading,
       removeJournal,
       selectJournals,
+      hideBottomSheet,
       selectedDate,
       toast,
-      hideBottomSheet,
       t,
     ],
   )

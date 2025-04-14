@@ -16,7 +16,7 @@ import { Button, H1, ScrollView, Text } from 'tamagui'
 
 import { NavigationSettingItem } from '@/core/components/features/settings/NavigationSettingItem'
 import { SettingsContainer } from '@/core/components/features/settings/SettingsContainer'
-import { AUTH_SNAP_POINTS } from '@/core/constants/size'
+import { AUTH_SNAP_POINTS, LOGOUT_SNAP_POINTS } from '@/core/constants/size'
 import { useAuth } from '@/core/store/auth.store'
 import { useBottomSheet } from '@/core/store/bottom-sheet.store'
 import * as S from '@/styles/screens/settings/Settings.styled'
@@ -27,7 +27,7 @@ export default function Screen() {
   const router = useRouter()
   const logout = useAuth(state => state.logout)
   const isAuthenticated = useAuth(state => state.isAuthenticated)
-  const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
+  const { showBottomSheet, hideBottomSheet } = useBottomSheet()
 
   const handleRouteChange = useCallback(
     (route: Href) => {
@@ -36,10 +36,15 @@ export default function Screen() {
     [router],
   )
 
-  const handleLogout = useCallback(() => {
-    logout()
-    router.replace('/(tabs)')
-  }, [logout, router])
+  const handleLogoutConfirm = useCallback(() => {
+    showBottomSheet(BottomSheetType.LOGOUT, LOGOUT_SNAP_POINTS, {
+      onLogout: () => {
+        logout()
+        router.replace('/(tabs)')
+      },
+      hideBottomSheet,
+    })
+  }, [showBottomSheet, logout, router, hideBottomSheet])
 
   const handleLogin = useCallback(() => {
     showBottomSheet(BottomSheetType.SIGN_IN, AUTH_SNAP_POINTS)
@@ -119,10 +124,10 @@ export default function Screen() {
           </SettingsContainer>
 
           {isAuthenticated && (
-            <Button onPress={handleLogout} color='$red10' chromeless>
+            <S.LogoutButton onPress={handleLogoutConfirm} chromeless>
               {t('auth.logout')}
               <LogOut color='$red10' size='$1' />
-            </Button>
+            </S.LogoutButton>
           )}
         </S.ItemContainer>
 

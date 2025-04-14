@@ -223,6 +223,10 @@
   },
   "settings": {
     "title": "설정",
+    "logout": {
+      "confirmTitle": "로그아웃",
+      "confirmMessage": "정말 로그아웃 하시겠습니까?"
+    },
     "dev": {
       "options": "개발자 옵션",
       "title": "개발자 설정",

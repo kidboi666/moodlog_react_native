@@ -2,6 +2,7 @@ import { Sheet } from '@tamagui/sheet'
 import { memo } from 'react'
 
 import { DeleteJournalModal } from '@/core/components/modals/contents/DeleteJournalModal'
+import { LogoutModal } from '@/core/components/modals/contents/LogoutModal'
 import { SelectMoodModal } from '@/core/components/modals/contents/SelectMoodModal'
 import { SignInModal } from '@/core/components/modals/contents/SignInModal'
 import { SignUpModal } from '@/core/components/modals/contents/SignUpModal'
@@ -24,6 +25,9 @@ const SheetContentComponents = {
   [BottomSheetType.SIGN_IN]: (
     props: BottomSheetProps[BottomSheetType.SIGN_IN],
   ) => <SignInModal {...props} />,
+  [BottomSheetType.LOGOUT]: (
+    props: BottomSheetProps[BottomSheetType.LOGOUT],
+  ) => <LogoutModal {...props} />,
 }
 
 export const BottomSheet = memo(() => {

@@ -1,3 +1,4 @@
+import { PressableButton } from '@/core/components/shared/PressableButton.styled'
 import {
   Button,
   H3,
@@ -36,13 +37,9 @@ export const ProfileLabel = styled(Text, {
   color: '$gray11',
 })
 
-export const ProfileValue = styled(Paragraph, {
-  // 필요한 추가 스타일 속성 설정 가능
-})
+export const ProfileValue = styled(Paragraph)
 
-export const ProfileInput = styled(Input, {
-  // 필요한 추가 스타일 속성 설정 가능
-})
+export const ProfileInput = styled(Input)
 
 export const ButtonContainer = styled(YStack, {
   space: '$4',
@@ -53,11 +50,9 @@ export const ActionButtonsContainer = styled(XStack, {
   space: '$4',
 })
 
-export const EditButton = styled(Button, {
-  // 필요한 추가 스타일 속성 설정 가능
-})
+export const EditButton = styled(PressableButton)
 
-export const CancelButton = styled(Button, {
+export const CancelButton = styled(PressableButton, {
   flex: 1,
   variants: {
     variant: {
@@ -66,7 +61,7 @@ export const CancelButton = styled(Button, {
   },
 })
 
-export const SaveButton = styled(Button, {
+export const SaveButton = styled(PressableButton, {
   flex: 1,
   themeInverse: true,
 })
