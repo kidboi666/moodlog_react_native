@@ -3,6 +3,7 @@ import { SizableText, type TextProps } from 'tamagui'
 
 import { WEEK_DAY } from '@/core/constants/date'
 import { BaseText } from './BaseText'
+
 interface Props extends TextProps {
   createdAt: string
 }

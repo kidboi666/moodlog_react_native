@@ -2,10 +2,12 @@ import { useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
-import { H1, H3, Input, Separator, Spinner, Text } from 'tamagui'
+import { Input, Separator, Spinner } from 'tamagui'
 
+import { BaseText } from '@/core/components/shared/BaseText'
+import { FormInput } from '@/core/components/shared/FormInput'
+import { H1, H3 } from '@/core/components/shared/Heading'
 import { AUTH_SNAP_POINTS } from '@/core/constants/size'
-import { HTTP_STATUS } from '@/core/constants/status'
 import { useAuth } from '@/core/store/auth.store'
 import { useBottomSheet } from '@/core/store/bottom-sheet.store'
 import { BottomSheetType } from '@/types/bottom-sheet.types'
@@ -18,7 +20,10 @@ export const SignInModal = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { showBottomSheet, hideBottomSheet } = useBottomSheet()
-  const { signin, isLoading, error, isAuthenticated } = useAuth()
+  const signin = useAuth(state => state.signin)
+  const isLoading = useAuth(state => state.isLoading)
+  const error = useAuth(state => state.error)
+  const isAuthenticated = useAuth(state => state.isAuthenticated)
   const router = useRouter()
 
   const handleSignIn = async () => {
@@ -63,7 +68,7 @@ export const SignInModal = () => {
       <H1>{t('auth.login')}</H1>
       <H3>{t('auth.loginDescription')}</H3>
       <S.SignInSection>
-        <Input
+        <FormInput
           placeholder={t('auth.email')}
           value={email}
           onChangeText={setEmail}
@@ -71,7 +76,7 @@ export const SignInModal = () => {
           keyboardType='email-address'
           autoComplete='email'
         />
-        <Input
+        <FormInput
           placeholder={t('auth.password')}
           value={password}
           onChangeText={setPassword}
@@ -89,7 +94,7 @@ export const SignInModal = () => {
       <Separator />
 
       <S.SignUpSection>
-        <Text>{t('auth.noAccount')}</Text>
+        <BaseText>{t('auth.noAccount')}</BaseText>
         <S.SignUpButton onPress={navigateToRegister}>
           {t('common.join')}
         </S.SignUpButton>

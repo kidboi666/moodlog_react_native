@@ -1,4 +1,4 @@
-import { PressableButton } from '@/core/components/shared/PressableButton.styled'
+import { PressableButton } from '@/core/components/shared/PressableButton'
 import { XStack, YStack, styled } from 'tamagui'
 
 export const SignUpButton = styled(PressableButton, {

@@ -3,13 +3,14 @@ import { useLocalSearchParams, useRouter } from 'expo-router'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Keyboard, KeyboardAvoidingView, Platform } from 'react-native'
-import { Form, useTheme } from 'tamagui'
+import { Form, H1, useTheme } from 'tamagui'
 
 import { ActionButtons } from '@/core/components/features/write/ActionButtons'
 import {
   EnhancedTextInput,
   type EnhancedTextInputRef,
 } from '@/core/components/features/write/EnhancedTextInput'
+import { WriteHeader } from '@/core/components/features/write/WriteHeader'
 import { KEYBOARD_VERTICAL_OFFSET } from '@/core/constants/size'
 import { moodTheme } from '@/core/constants/themes'
 import { ImageHelper } from '@/core/services/image-helper.service'
@@ -109,7 +110,7 @@ export default function Screen() {
   }, [])
 
   return (
-    <S.ViewContainer edges={['top', 'bottom']}>
+    <S.ViewContainer edges={['bottom']} Header={<WriteHeader />}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         contentContainerStyle={contentContainerStyle}

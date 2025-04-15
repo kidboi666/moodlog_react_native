@@ -2,9 +2,10 @@ import { useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
-import { Input, Separator, Spinner } from 'tamagui'
+import { Separator, Spinner } from 'tamagui'
 
 import { BaseText } from '@/core/components/shared/BaseText'
+import { FormInput } from '@/core/components/shared/FormInput'
 import { H1 } from '@/core/components/shared/Heading'
 import { AUTH_SNAP_POINTS } from '@/core/constants/size'
 import { HTTP_STATUS } from '@/core/constants/status'
@@ -102,7 +103,7 @@ export const SignUpModal = () => {
     <BottomSheetContainer>
       <H1>{t('auth.register')}</H1>
       <S.SignUpSection>
-        <Input
+        <FormInput
           placeholder={t('auth.email')}
           value={email}
           onChangeText={setEmail}
@@ -110,14 +111,14 @@ export const SignUpModal = () => {
           keyboardType='email-address'
           autoComplete='email'
         />
-        <Input
+        <FormInput
           placeholder={t('auth.password')}
           value={password}
           onChangeText={setPassword}
           secureTextEntry
           autoComplete='password'
         />
-        <Input
+        <FormInput
           placeholder={t('auth.confirmPassword')}
           value={confirmPassword}
           onChangeText={setConfirmPassword}

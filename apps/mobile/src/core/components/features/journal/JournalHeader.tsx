@@ -17,7 +17,7 @@ export const JournalHeader = memo(
         <S.HeaderContainer>
           <S.BackButton icon={ArrowLeft} onPress={onBackPress} />
           <S.DateContainer>
-            <S.DateText localDate={journal.localDate} />
+            <S.DateText>{journal.localDate}</S.DateText>
             <S.DayWithTimeBox>
               <S.DayText createdAt={journal.createdAt} />
               <S.TimeText createdAt={journal.createdAt} />
