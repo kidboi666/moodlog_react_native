@@ -1,3 +1,4 @@
+import { GetThemeValueForKey } from 'tamagui'
 import * as S from './RadioGroupItem.styled'
 
 interface Props {
@@ -7,9 +8,13 @@ interface Props {
 }
 
 export const RadioGroupItem = ({ value, label, onValueChange }: Props) => {
+  const computedFontFamily =
+    `$${value}` as unknown as GetThemeValueForKey<'fontFamily'>
   return (
     <S.RadioGroupContainerButton onPress={() => onValueChange(value)}>
-      <S.RadioItemLabel>{label}</S.RadioItemLabel>
+      <S.RadioItemLabel fontFamily={computedFontFamily}>
+        {label}
+      </S.RadioItemLabel>
       <S.StyledRadioGroupItem value={value} id={value}>
         <S.StyledRadioGroupIndicator />
       </S.StyledRadioGroupItem>

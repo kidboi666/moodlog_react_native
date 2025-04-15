@@ -25,6 +25,14 @@ const fontList = [
     value: FontTheme.ROBOTO_MONO,
     label: 'settings.font.robotoMono',
   },
+  {
+    value: FontTheme.ESAMANRU,
+    label: 'settings.font.esamanru',
+  },
+  {
+    value: FontTheme.LEE_SEOYUN,
+    label: 'settings.font.leeSeoyun',
+  },
 ]
 
 export default function Screen() {

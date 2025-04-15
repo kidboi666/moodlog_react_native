@@ -22,6 +22,8 @@ export enum FontTheme {
   PRETENDARD = 'pretendard',
   NANUM_PEN = 'nanumPenScript',
   ROBOTO_MONO = 'robotoMono',
+  ESAMANRU = 'esamanru',
+  LEE_SEOYUN = 'leeSeoyun',
 }
 
 export enum Position {

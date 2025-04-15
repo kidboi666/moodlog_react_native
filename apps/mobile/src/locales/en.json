@@ -260,7 +260,9 @@
       "pretendard": "Pretendard",
       "inter": "Inter",
       "nanumPenScript": "Nanum Pen Script",
-      "robotoMono": "Roboto Mono"
+      "robotoMono": "Roboto Mono",
+      "esamanru": "Esamanru",
+      "leeSeoyun": "Lee Seoyun"
     },
     "timeFormat": {
       "title": "Time Format",
