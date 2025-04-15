@@ -31,7 +31,7 @@ export const KEYBOARD_VERTICAL_OFFSET = Platform.OS === 'ios' ? 120 : 0
 /**
  * SnapPoints
  */
-export const DELETE_JOURNAL_SNAP_POINTS = Platform.OS === 'ios' ? [40] : [30]
+export const DELETE_JOURNAL_SNAP_POINTS = Platform.OS === 'ios' ? [35] : [30]
 
 export const SELECT_MOOD_SNAP_POINTS = Platform.OS === 'ios' ? [80] : [80]
 

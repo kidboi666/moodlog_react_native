@@ -7,7 +7,13 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "ignore": ["node_modules", "./apps/mobile/tamagui-web.css", ".*/**"]
+    "ignore": [
+      "node_modules",
+      "**/node_modules/**",
+      "./apps/mobile/tamagui-web.css",
+      ".*/**",
+      "/node_modules/**"
+    ]
   },
   "linter": {
     "enabled": true,
