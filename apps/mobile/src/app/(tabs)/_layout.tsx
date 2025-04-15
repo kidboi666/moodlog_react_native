@@ -3,13 +3,16 @@ import { useEffect, useState } from 'react'
 
 import { ContainerFog } from '@/core/components/shared/ContainerFog'
 import { CustomTabBar } from '@/core/components/shared/CustomTabBar'
-import { FullSpinner } from '@/core/components/shared/FullSpinner'
+import { FullScreenSpinner } from '@/core/components/shared/FullScreenSpinner'
 import { HIDE_TAB_BAR_ROUTES } from '@/core/constants/routes'
 import { useApp } from '@/core/store/app.store'
+import { useUI } from '@/core/store/ui.store'
 
 export default function Layout() {
   const firstLaunchDate = useApp(state => state.firstLaunchDate)
-  const isLoading = useApp(state => state.isLoading)
+  const appIsLoading = useApp(state => state.isLoading)
+  const setLoading = useUI(state => state.setLoading)
+  const isLoading = useUI(state => state.isLoading)
   const [initialized, setInitialized] = useState(false)
   const pathname = usePathname()
   const shouldHideTabBar = HIDE_TAB_BAR_ROUTES.some(route =>
@@ -20,9 +23,14 @@ export default function Layout() {
     setInitialized(true)
   }, [firstLaunchDate])
 
-  if (!initialized || isLoading) {
-    return <FullSpinner size='large' />
-  }
+  useEffect(() => {
+    setLoading(!initialized || appIsLoading)
+    return () => {
+      setLoading(false)
+    }
+  }, [initialized, appIsLoading, setLoading])
+
+  if (isLoading) return null
 
   if (!firstLaunchDate) {
     return <Redirect href='/(onboarding)/welcome' />
@@ -51,6 +59,7 @@ export default function Layout() {
       </Tabs>
       <ContainerFog />
       {!shouldHideTabBar && <CustomTabBar />}
+      <FullScreenSpinner size='large' />
     </>
   )
 }

@@ -1,3 +1,4 @@
+import type { Mood } from '@/types/mood.types'
 import type { Nullable } from '@/types/util.types'
 
 export enum BottomSheetType {
@@ -31,7 +32,6 @@ export type BottomSheetProps = {
     hideBottomSheet: () => void
   }
   [BottomSheetType.SELECT_MOOD]: {
-    onPress: () => void
     hideBottomSheet: () => void
   }
   [BottomSheetType.SIGN_UP]: {}

@@ -1,4 +1,4 @@
-import { RadioGroup, Text, styled } from 'tamagui'
+import { RadioGroup, SizableText, Text, styled } from 'tamagui'
 
 import { PressableButton } from '@/core/components/shared/PressableButton.styled'
 import { MOUNT_STYLE } from '@/styles/animations'
@@ -10,8 +10,9 @@ export const RadioGroupContainerButton = styled(PressableButton, {
   size: '$5',
 })
 
-export const RadioItemLabel = styled(Text, {
+export const RadioItemLabel = styled(SizableText, {
   fontSize: '$5',
+  fontFamily: '$body',
   flex: 1,
 })
 

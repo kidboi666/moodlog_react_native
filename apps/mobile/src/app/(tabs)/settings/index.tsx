@@ -12,7 +12,7 @@ import {
 import { type Href, useRouter } from 'expo-router'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, H1, ScrollView, Text } from 'tamagui'
+import { H1, ScrollView, Text } from 'tamagui'
 
 import { NavigationSettingItem } from '@/core/components/features/settings/NavigationSettingItem'
 import { SettingsContainer } from '@/core/components/features/settings/SettingsContainer'
@@ -25,8 +25,8 @@ import { BottomSheetType } from '@/types/bottom-sheet.types'
 export default function Screen() {
   const { t } = useTranslation()
   const router = useRouter()
-  const logout = useAuth(state => state.logout)
   const isAuthenticated = useAuth(state => state.isAuthenticated)
+  const logout = useAuth(state => state.logout)
   const { showBottomSheet, hideBottomSheet } = useBottomSheet()
 
   const handleRouteChange = useCallback(

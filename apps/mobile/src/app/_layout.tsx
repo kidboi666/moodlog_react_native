@@ -13,6 +13,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { useTheme } from 'tamagui'
 
 import { BottomSheet } from '@/core/components/modals/BottomSheet'
+import { FullScreenSpinner } from '@/core/components/shared/FullScreenSpinner'
 import { StatusBar } from '@/core/components/shared/StatusBar'
 import { RootProvider } from '@/core/providers/RootProvider'
 import { useAuth } from '@/core/store/auth.store'
@@ -135,6 +136,7 @@ const RootLayoutNav = ({ isAuthenticated }: RootLayoutNavProps) => {
             <Stack.Screen name='(onboarding)' />
           </Stack>
         )}
+        <FullScreenSpinner size='large' />
         <BottomSheet />
       </ThemeProvider>
     </GestureHandlerRootView>

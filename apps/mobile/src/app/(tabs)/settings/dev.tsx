@@ -1,4 +1,3 @@
-import { useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { Button, H1, ScrollView } from 'tamagui'
 
@@ -16,7 +15,6 @@ import {
 
 export default function DevScreen() {
   const { t } = useTranslation()
-  const router = useRouter()
   const { resetStores } = useDev()
   const { fetchAllUsers } = useAuthStore()
 

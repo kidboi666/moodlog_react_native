@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'react'
 import { useRouter } from 'expo-router'
+import { useCallback, useState } from 'react'
 
 import { MoodSelectTitle } from '@/core/components/features/write/MoodSelectTitle'
 import { NextButton } from '@/core/components/features/write/NextButton'
@@ -7,18 +7,18 @@ import { PickerMood } from '@/core/components/features/write/PickerMood'
 import { SelectedMoodContainer } from '@/core/components/features/write/SelectedMoodContainer'
 import { FadeIn } from '@/core/components/shared/FadeIn.styleable'
 import { ROUTE_DELAY_MS } from '@/core/constants/time'
-import { useBottomSheet } from '@/core/store/bottom-sheet.store'
+import { useUI } from '@/core/store/ui.store'
 import type { Mood, MoodLevel, MoodType } from '@/types/mood.types'
 import * as S from './SelectMoodModal.styled'
 
 interface Props {
-  onPress: (mood: Mood) => void
+  hideBottomSheet: () => void
 }
 
-export const SelectMoodModal = ({ onPress  }: Props) => {
+export const SelectMoodModal = ({ hideBottomSheet }: Props) => {
   const [mood, setMood] = useState<Mood>()
-  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
   const router = useRouter()
+  const setNavigating = useUI(state => state.setNavigating)
 
   const handleMoodChange = useCallback((type: MoodType, level: MoodLevel) => {
     setMood({ type, level })
@@ -26,6 +26,10 @@ export const SelectMoodModal = ({ onPress  }: Props) => {
 
   const handlePress = useCallback(() => {
     if (!mood) return null
+
+    hideBottomSheet()
+    setNavigating(true)
+
     const timer = setTimeout(() => {
       router.push({
         pathname: '/write',
@@ -34,11 +38,14 @@ export const SelectMoodModal = ({ onPress  }: Props) => {
           moodLevel: mood.level,
         },
       })
+
+      setTimeout(() => {
+        setNavigating(false)
+      }, 100)
     }, ROUTE_DELAY_MS)
-    
-    hideBottomSheet()
+
     return () => clearTimeout(timer)
-  }, [onPress, mood])
+  }, [mood, router, hideBottomSheet, setNavigating])
 
   const isSelected = !!(!!mood?.type && mood?.level)
 

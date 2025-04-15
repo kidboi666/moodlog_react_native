@@ -35,10 +35,7 @@ export const DeleteJournalModal = memo(
       }
     }, [isSuccess])
 
-    const isDisabled = useMemo(
-      () => isLoading || isSuccess,
-      [isLoading, isSuccess],
-    )
+    const isDisabled = isLoading || isSuccess
 
     return (
       <S.BottomSheetContainer>
@@ -48,14 +45,10 @@ export const DeleteJournalModal = memo(
         </S.ModalDescription>
         <S.ModalContentYStack>
           <S.ConfirmButton onPress={handleDelete} disabled={isDisabled}>
-            {isDisabled ? (
-              <Spinner color='$color12' />
-            ) : (
-              t('common.button.delete')
-            )}
+            {isDisabled ? <Spinner /> : t('common.delete')}
           </S.ConfirmButton>
           <S.CancelButton onPress={hideBottomSheet} disabled={isDisabled}>
-            {t('common.button.cancel')}
+            {t('common.cancel')}
           </S.CancelButton>
         </S.ModalContentYStack>
       </S.BottomSheetContainer>

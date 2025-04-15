@@ -14,6 +14,7 @@ import { KEYBOARD_VERTICAL_OFFSET } from '@/core/constants/size'
 import { moodTheme } from '@/core/constants/themes'
 import { ImageHelper } from '@/core/services/image-helper.service'
 import { useJournal } from '@/core/store/journal.store'
+import { useUI } from '@/core/store/ui.store'
 import * as S from '@/styles/screens/write/Write.styled'
 import type { Draft } from '@/types/journal.types'
 import type { MoodLevel, MoodType } from '@/types/mood.types'
@@ -25,7 +26,11 @@ export default function Screen() {
   const { t } = useTranslation()
   const theme = useTheme()
   const addJournal = useJournal(state => state.addJournal)
-  const isLoading = useJournal(state => state.isLoading)
+  const { isLoading, setLoading, setNavigating } = useUI(state => ({
+    isLoading: state.isLoading,
+    setLoading: state.setLoading,
+    setNavigating: state.setNavigating,
+  }))
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [draft, setDraft] = useState<Draft>({
     content: '',
@@ -40,25 +45,32 @@ export default function Screen() {
   const handleSubmit = useCallback(
     async (draft: Draft) => {
       try {
+        setLoading(true)
         await addJournal(draft)
         toast.show(t('notifications.success.journal.title'), {
           message: t('notifications.success.journal.message'),
           preset: 'success',
         })
         setIsSubmitted(true)
+        setNavigating(true)
         Keyboard.dismiss()
 
         setTimeout(() => {
           router.replace('/(tabs)')
+          setTimeout(() => {
+            setNavigating(false)
+          }, 100)
         }, 300)
       } catch (error) {
         console.error('일기 저장 실패:', error)
         toast.show('저장 실패', {
           preset: 'error',
         })
+      } finally {
+        setLoading(false)
       }
     },
-    [toast, addJournal, t, router],
+    [toast, addJournal, t, router, setNavigating, setLoading],
   )
 
   const handleContentChange = useCallback((content: string) => {

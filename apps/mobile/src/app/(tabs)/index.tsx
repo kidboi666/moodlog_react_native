@@ -15,34 +15,32 @@ import { useJournal } from '@/core/store/journal.store'
 import * as S from '@/styles/screens/home/Home.styled'
 import { BottomSheetType } from '@/types/bottom-sheet.types'
 
-export default function Screen() {
+export default function HomeScreen() {
+  const { t } = useTranslation()
+  const toast = useToastController()
+  const { isToday, selectedDate } = useCalendar()
+  const { showBottomSheet, hideBottomSheet } = useBottomSheet()
+  const { userName = 'Guest' } = useAuth(state => state.userInfo)
   const selectedJournals = useJournal(state => state.selectedJournals)
   const selectJournals = useJournal(state => state.selectJournals)
   const isLoading = useJournal(state => state.isLoading)
   const removeJournal = useJournal(state => state.removeJournal)
-  const userInfo = useAuth(state => state.userInfo)
-  const { showBottomSheet, hideBottomSheet } = useBottomSheet()
-  const { isToday, selectedDate } = useCalendar()
-  const toast = useToastController()
-  const { t } = useTranslation()
 
   const openDeleteSheet = useCallback(
     (id: string) => {
-      const bottomSheetProps = {
-        journalId: id,
-        isLoading,
-        hideBottomSheet,
-        onDelete: removeJournal,
-        onSuccess: () => {
-          selectJournals(selectedDate)
-          toast.show(t('notifications.success.delete'))
-        },
-      }
-
       showBottomSheet(
         BottomSheetType.DELETE_JOURNAL,
         DELETE_JOURNAL_SNAP_POINTS,
-        bottomSheetProps,
+        {
+          journalId: id,
+          isLoading,
+          hideBottomSheet,
+          onDelete: removeJournal,
+          onSuccess: () => {
+            selectJournals(selectedDate)
+            toast.show(t('notifications.success.delete'))
+          },
+        },
       )
     },
     [
@@ -57,15 +55,12 @@ export default function Screen() {
     ],
   )
 
-  const userName = userInfo?.userName || 'Guest'
-
   return (
     <ScrollView overScrollMode='always' keyboardShouldPersistTaps='handled'>
       <ViewContainer edges={['top', 'bottom']} padded>
         <S.ContentHeaderContainer>
           <WelcomeZone userName={userName} />
           <WeekDay />
-
           <HomeJournalCard
             journals={selectedJournals}
             openDeleteSheet={openDeleteSheet}
