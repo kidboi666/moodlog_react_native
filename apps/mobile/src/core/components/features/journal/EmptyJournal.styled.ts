@@ -1,5 +1,6 @@
-import { Button, H3, H5, YStack, styled } from 'tamagui'
+import { Button, YStack, styled } from 'tamagui'
 
+import { H3, H5 } from '@/core/components/shared/Heading'
 import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/styles/animations'
 
 export const TodayContainer = styled(YStack, {
@@ -37,5 +38,4 @@ export const PastDaysTitle = styled(H3, {
 
 export const PastDaysDescription = styled(H5, {
   color: '$gray10',
-  fontSize: '$4',
 })

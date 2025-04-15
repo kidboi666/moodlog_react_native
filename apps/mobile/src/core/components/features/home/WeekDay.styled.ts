@@ -1,5 +1,6 @@
-import { H1, XStack, styled } from 'tamagui'
+import { XStack, styled } from 'tamagui'
 
+import { H1 } from '@/core/components/shared/Heading'
 import { LinearGradient } from 'tamagui/linear-gradient'
 
 export const OuterGradientBox = styled(LinearGradient, {
@@ -23,6 +24,5 @@ export const CurrentMonthBox = styled(XStack, {
 })
 
 export const CurrentMonthText = styled(H1, {
-  fontWeight: '800',
   color: '$gray1',
 })

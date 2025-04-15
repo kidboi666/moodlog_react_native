@@ -89,6 +89,11 @@ export const HorizontalCalendar = () => {
       >
         {Object.entries(dates).map(([date, journalCount]) => {
           const isoDate = date as ISODateString
+          const dateColor = isFuture(isoDate)
+            ? '$color11'
+            : isSelected(isoDate)
+              ? '$color12'
+              : '$color6'
           return (
             <S.DateContainer
               key={isoDate}
@@ -101,15 +106,7 @@ export const HorizontalCalendar = () => {
                   <S.DayText isSelected={isSelected(isoDate)}>
                     {t(`calendar.days.${getDayFromISODate(isoDate)}`)}
                   </S.DayText>
-                  <S.DateText
-                    futureDateColor={
-                      isFuture(isoDate)
-                        ? '$gray11'
-                        : isSelected(isoDate)
-                          ? '$gray12'
-                          : '$gray6'
-                    }
-                  >
+                  <S.DateText futureDateColor={dateColor}>
                     {getDateFromISODate(isoDate)}
                   </S.DateText>
                 </S.DateTextWrapper>

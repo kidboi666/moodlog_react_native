@@ -27,8 +27,6 @@ export const WriteButtonWithEvent = memo(() => {
     }
   }, [isSubmitted, hideBottomSheet])
 
-  useEffect(() => {}, [])
-
   return (
     <S.WriteTabContainer>
       <S.WriteButton onPress={handleWriteButtonPress}>

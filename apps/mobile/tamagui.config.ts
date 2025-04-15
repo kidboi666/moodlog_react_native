@@ -6,7 +6,7 @@ import {
   tokens as tamaguiTokens,
 } from '@tamagui/themes'
 
-const pretendardFont = createFont({
+export const pretendardFont = createFont({
   family: 'Pretendard',
   size: {
     1: 11,
@@ -151,41 +151,7 @@ export const config = createTamagui({
     nanumPenScript: nanumPenScriptFont,
     robotoMono: robotoMonoFont,
   },
-  themes: {
-    ...tamaguiThemes,
-    light_inter: {
-      ...tamaguiThemes.light,
-      fontFamily: 'Inter',
-    },
-    dark_inter: {
-      ...tamaguiThemes.dark,
-      fontFamily: 'Inter',
-    },
-    light_pretendard: {
-      ...tamaguiThemes.light,
-      fontFamily: 'Pretendard',
-    },
-    dark_pretendard: {
-      ...tamaguiThemes.dark,
-      fontFamily: 'Pretendard',
-    },
-    light_nanumPenScript: {
-      ...tamaguiThemes.light,
-      fontFamily: 'NanumPenScript',
-    },
-    dark_nanumPenScript: {
-      ...tamaguiThemes.dark,
-      fontFamily: 'NanumPenScript',
-    },
-    light_robotoMono: {
-      ...tamaguiThemes.light,
-      fontFamily: 'RobotoMono',
-    },
-    dark_robotoMono: {
-      ...tamaguiThemes.dark,
-      fontFamily: 'RobotoMono',
-    },
-  },
+  themes: tamaguiThemes,
 })
 
 declare module 'tamagui' {

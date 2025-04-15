@@ -1,8 +1,8 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { H3 } from 'tamagui'
 
 import { FadeIn } from '@/core/components/shared/FadeIn.styleable'
+import { H3 } from '@/core/components/shared/Heading'
 import { ShakeEmoji } from '@/core/components/shared/ShakeEmoji'
 import { ANIMATION_DELAY_SECONDS } from '@/core/constants/time'
 import * as S from '@/styles/screens/home/Home.styled'

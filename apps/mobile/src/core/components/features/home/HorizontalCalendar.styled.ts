@@ -1,5 +1,6 @@
-import { Button, Text, View, XStack, YStack, styled } from 'tamagui'
+import { Button, View, XStack, YStack, styled } from 'tamagui'
 
+import { BaseText } from '@/core/components/shared/BaseText'
 import { CALENDAR_SCROLL_SIZE } from '@/core/constants/size'
 import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/styles/animations'
 
@@ -43,8 +44,7 @@ export const DateTextWrapper = styled(YStack, {
   items: 'center',
 })
 
-export const DayText = styled(Text, {
-  fontSize: '$2',
+export const DayText = styled(BaseText, {
   color: '$gray9',
 
   variants: {
@@ -56,10 +56,8 @@ export const DayText = styled(Text, {
   } as const,
 })
 
-export const DateText = styled(Text, {
-  fontSize: '$5',
-  fontWeight: '800',
-
+export const DateText = styled(BaseText, {
+  fontSize: '$8',
   variants: {
     futureDateColor: {
       ':string': color => {

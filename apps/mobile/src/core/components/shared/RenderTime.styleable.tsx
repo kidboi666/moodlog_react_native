@@ -1,10 +1,11 @@
-import { Text, type TextProps } from 'tamagui'
+import { SizableText, type TextProps } from 'tamagui'
+import { BaseText } from './BaseText'
 
 interface Props extends TextProps {
   createdAt: string
 }
 
-export const RenderTime = Text.styleable<Props>(
+export const RenderTime = SizableText.styleable<Props>(
   ({ createdAt, ...props }, ref) => {
     const date = new Date(createdAt)
 
@@ -13,9 +14,9 @@ export const RenderTime = Text.styleable<Props>(
 
     const timestamp = `${hours}: ${minutes}`
     return (
-      <Text ref={ref} {...props}>
+      <BaseText ref={ref} {...props}>
         {timestamp}
-      </Text>
+      </BaseText>
     )
   },
 )

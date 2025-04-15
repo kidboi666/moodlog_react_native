@@ -1,10 +1,10 @@
-import { Card, Image, Paragraph, View, XStack, YStack, styled } from 'tamagui'
+import { Card, Image, View, XStack, YStack, styled } from 'tamagui'
 
 import { LinearGradient } from 'tamagui/linear-gradient'
 
+import { BaseText } from '@/core/components/shared/BaseText'
 import { PressableButton } from '@/core/components/shared/PressableButton.styled'
 import { RenderTime } from '@/core/components/shared/RenderTime.styleable'
-
 import {
   MOUNT_STYLE,
   MOUNT_STYLE_KEY,
@@ -59,7 +59,7 @@ export const JournalContentBox = styled(YStack, {
   gap: '$2',
 })
 
-export const JournalContentText = styled(Paragraph, {
+export const JournalContentText = styled(BaseText, {
   color: '$gray12',
   flex: 1,
   numberOfLines: 4,
