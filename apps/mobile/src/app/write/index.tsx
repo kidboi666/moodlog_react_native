@@ -26,11 +26,9 @@ export default function Screen() {
   const { t } = useTranslation()
   const theme = useTheme()
   const addJournal = useJournal(state => state.addJournal)
-  const { isLoading, setLoading, setNavigating } = useUI(state => ({
-    isLoading: state.isLoading,
-    setLoading: state.setLoading,
-    setNavigating: state.setNavigating,
-  }))
+  const isLoading = useUI(state => state.isLoading)
+  const setLoading = useUI(state => state.setLoading)
+  const setNavigating = useUI(state => state.setNavigating)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [draft, setDraft] = useState<Draft>({
     content: '',

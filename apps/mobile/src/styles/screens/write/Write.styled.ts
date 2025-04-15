@@ -1,4 +1,4 @@
-import { Form, View, XStack, styled } from 'tamagui'
+import { View, XStack, styled } from 'tamagui'
 
 import { ViewContainer as HOSViewContainer } from '@/core/components/shared/ViewContainer.styleable'
 

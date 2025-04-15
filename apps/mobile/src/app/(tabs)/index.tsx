@@ -20,7 +20,7 @@ export default function HomeScreen() {
   const toast = useToastController()
   const { isToday, selectedDate } = useCalendar()
   const { showBottomSheet, hideBottomSheet } = useBottomSheet()
-  const { userName = 'Guest' } = useAuth(state => state.userInfo)
+  const userName = useAuth(state => state.userInfo.userName) || 'Guest'
   const selectedJournals = useJournal(state => state.selectedJournals)
   const selectJournals = useJournal(state => state.selectJournals)
   const isLoading = useJournal(state => state.isLoading)
