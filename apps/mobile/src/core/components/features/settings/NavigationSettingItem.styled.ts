@@ -1,4 +1,6 @@
-import { Button, Text, styled } from 'tamagui'
+import { Button, styled } from 'tamagui'
+
+import { BaseText } from '@/core/components/shared/BaseText'
 
 export const SettingsNavigationButton = styled(Button, {
   animation: 'quick',
@@ -8,7 +10,7 @@ export const SettingsNavigationButton = styled(Button, {
   fontSize: '$6',
 })
 
-export const ItemLabel = styled(Text, {
+export const ItemLabel = styled(BaseText, {
   fontSize: '$5',
   flex: 1,
 })

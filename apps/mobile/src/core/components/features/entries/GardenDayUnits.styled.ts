@@ -1,4 +1,6 @@
-import { H6, View, YStack, styled } from 'tamagui'
+import { View, YStack, styled } from 'tamagui'
+
+import { H6 } from '@/core/components/shared/Heading'
 
 export const DaysContainer = styled(YStack, {
   py: '$4',

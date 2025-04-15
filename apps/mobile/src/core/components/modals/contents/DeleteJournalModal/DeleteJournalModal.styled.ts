@@ -1,6 +1,8 @@
-import { H3, Paragraph, YStack, styled } from 'tamagui'
+import { YStack, styled } from 'tamagui'
 
 import { BottomSheetContainer as HOSBottomSheetContainer } from '@/core/components/modals/BottomSheetContainer'
+import { BaseText } from '@/core/components/shared/BaseText'
+import { H3 } from '@/core/components/shared/Heading'
 import { PressableButton } from '@/core/components/shared/PressableButton.styled'
 
 export const BottomSheetContainer = styled(HOSBottomSheetContainer)
@@ -9,7 +11,7 @@ export const ModalTitle = styled(H3, {
   text: 'center',
 })
 
-export const ModalDescription = styled(Paragraph, {
+export const ModalDescription = styled(BaseText, {
   text: 'center',
   color: '$gray11',
 })

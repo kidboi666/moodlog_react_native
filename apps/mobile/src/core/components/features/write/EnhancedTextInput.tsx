@@ -10,9 +10,8 @@ import { useTranslation } from 'react-i18next'
 import { type Input, ScrollView } from 'tamagui'
 
 import { ContentLength } from '@/core/components/features/write/ContentLength'
-
-import { Nullable } from '@/types/util.types'
-
+import { useCustomFont } from '@/core/hooks/useCustomFont'
+import { GetThemeValueForKey } from 'tamagui'
 import * as S from './EnhancedTextInput.styled'
 
 interface Props {
@@ -33,6 +32,7 @@ export const EnhancedTextInput = forwardRef<EnhancedTextInputRef, Props>(
     const inputRef = useRef<Input>(null)
     const [selection, setSelection] = useState({ start: 0, end: 0 })
     const deferredLength = useDeferredValue(contentValue.length)
+    const font = useCustomFont()
 
     const getCurrentTime = useCallback(() => {
       const now = new Date()
@@ -80,6 +80,7 @@ export const EnhancedTextInput = forwardRef<EnhancedTextInputRef, Props>(
 
         <S.TextArea
           ref={inputRef}
+          fontFamily={font as unknown as GetThemeValueForKey<'$fontFamily'>}
           value={contentValue}
           onChangeText={onContentChange}
           onSelectionChange={event => setSelection(event.nativeEvent.selection)}

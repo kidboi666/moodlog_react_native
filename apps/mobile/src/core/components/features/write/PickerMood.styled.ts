@@ -1,5 +1,6 @@
-import { Text, View, XStack, YStack, styled } from 'tamagui'
+import { View, XStack, YStack, styled } from 'tamagui'
 
+import { BaseText } from '@/core/components/shared/BaseText'
 import { PressableButton } from '@/core/components/shared/PressableButton.styled'
 
 export const XStackContainer = styled(XStack, {
@@ -29,7 +30,7 @@ export const MoodLevelButton = styled(PressableButton, {
 
 export const SelectedMoodBox = styled(View)
 
-export const SelectedMoodText = styled(Text, {
+export const SelectedMoodText = styled(BaseText, {
   fontSize: '$4',
   color: '$gray11',
   fontWeight: '400',

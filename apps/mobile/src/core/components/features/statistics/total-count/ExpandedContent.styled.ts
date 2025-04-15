@@ -1,4 +1,7 @@
-import { Button, H5, Text, View, YStack, styled } from 'tamagui'
+import { Button, View, YStack, styled } from 'tamagui'
+
+import { BaseText } from '@/core/components/shared/BaseText'
+import { H5 } from '@/core/components/shared/Heading'
 
 export const ViewContainer = styled(View, {
   animation: 'quick',
@@ -13,11 +16,9 @@ const GapBox = styled(YStack, {
   gap: '$2',
 })
 
-const TitleText = styled(H5, {
-  fontWeight: '800',
-})
+const TitleText = styled(H5)
 
-const DescriptionText = styled(Text, {
+const DescriptionText = styled(BaseText, {
   color: '$gray11',
 })
 

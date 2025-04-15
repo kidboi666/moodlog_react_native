@@ -1,4 +1,7 @@
-import { Button, H2, H3, Text, View, YStack, styled } from 'tamagui'
+import { Button, View, YStack, styled } from 'tamagui'
+
+import { BaseText } from '@/core/components/shared/BaseText'
+import { H2, H3 } from '@/core/components/shared/Heading'
 
 export const ViewContainer = styled(View, {
   animation: 'quick',
@@ -25,7 +28,7 @@ export const CardTitle = styled(H3, {
   } as const,
 })
 
-export const CardDescription = styled(Text, {
+export const CardDescription = styled(BaseText, {
   color: '$gray12',
 
   variants: {

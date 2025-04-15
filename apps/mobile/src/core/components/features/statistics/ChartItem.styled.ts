@@ -1,4 +1,6 @@
-import { Text, View, XStack, styled } from 'tamagui'
+import { View, XStack, styled } from 'tamagui'
+
+import { BaseText } from '@/core/components/shared/BaseText'
 
 export const ChartItemContainer = styled(XStack, {
   flex: 1,
@@ -21,7 +23,7 @@ export const ChartItem = styled(View, {
   } as const,
 })
 
-export const PercentageText = styled(Text, {
+export const PercentageText = styled(BaseText, {
   fontSize: '$1',
   color: '$color10',
   mt: '$1',

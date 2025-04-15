@@ -57,7 +57,9 @@ export const DayText = styled(BaseText, {
 })
 
 export const DateText = styled(BaseText, {
-  fontSize: '$8',
+  fontWeight: '800',
+  fontSize: '$6',
+
   variants: {
     futureDateColor: {
       ':string': color => {

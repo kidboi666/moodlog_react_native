@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
-import { H3 } from 'tamagui'
 
+import { H3 } from '@/core/components/shared/Heading'
 import { moodTheme } from '@/core/constants/themes'
 import type { MoodType } from '@/types/mood.types'
 import * as S from 'src/core/components/features/statistics/mood-average/ProgressGraph.styled'

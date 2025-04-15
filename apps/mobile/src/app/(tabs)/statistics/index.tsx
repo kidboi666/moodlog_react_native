@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next'
-import { H1, ScrollView } from 'tamagui'
+import { ScrollView } from 'tamagui'
+
+import { H1 } from '@/core/components/shared/Heading'
 
 import { WeeklyMoodChart } from '@/core/components/features/statistics/WeeklyMoodChart'
 import { MoodAverage } from '@/core/components/features/statistics/mood-average/MoodAverage'

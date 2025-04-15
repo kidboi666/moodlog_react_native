@@ -1,9 +1,10 @@
 import { Minimize2 } from '@tamagui/lucide-icons'
 import { useTranslation } from 'react-i18next'
-import { H3, Text } from 'tamagui'
 
 import { EmptyContent } from '@/core/components/features/statistics/EmptyContent'
 import { ProgressGraph } from '@/core/components/features/statistics/mood-average/ProgressGraph'
+import { BaseText } from '@/core/components/shared/BaseText'
+import { H3 } from '@/core/components/shared/Heading'
 import type { MoodType } from '@/types/mood.types'
 import type { ScoreBoard } from '@/types/statistic.types'
 import * as S from './ExpandedContent.styled'
@@ -31,7 +32,7 @@ export const ExpandedContent = ({ scoreBoard, hasSignatureMood }: Props) => {
       <S.YStackContainer>
         <S.TitleBox>
           <H3>{t('statistics.mood.title')}</H3>
-          <Text>{t('statistics.mood.description')}</Text>
+          <BaseText>{t('statistics.mood.description')}</BaseText>
         </S.TitleBox>
         <S.MoodGraphBox>
           {Object.entries(scoreBoard).map(([type, countScore], i) => (

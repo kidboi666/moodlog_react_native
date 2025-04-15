@@ -34,7 +34,6 @@ export const MonthItem = memo(
       >
         <MonthItemContent
           monthKey={monthKey}
-          isSelected={isSelected}
           weekLength={weekLength}
           firstDateDay={firstDateDay}
           monthDate={monthDate}

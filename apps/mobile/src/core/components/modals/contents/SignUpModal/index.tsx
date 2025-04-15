@@ -2,8 +2,10 @@ import { useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
-import { H1, Input, Separator, Spinner, Text } from 'tamagui'
+import { Input, Separator, Spinner } from 'tamagui'
 
+import { BaseText } from '@/core/components/shared/BaseText'
+import { H1 } from '@/core/components/shared/Heading'
 import { AUTH_SNAP_POINTS } from '@/core/constants/size'
 import { HTTP_STATUS } from '@/core/constants/status'
 import { useAuth } from '@/core/store/auth.store'
@@ -134,7 +136,7 @@ export const SignUpModal = () => {
       <Separator />
 
       <S.SignInSection>
-        <Text>{t('auth.hasAccount')}</Text>
+        <BaseText>{t('auth.hasAccount')}</BaseText>
         <S.SignInButton onPress={goLoginPage}>
           {t('common.login')}
         </S.SignInButton>

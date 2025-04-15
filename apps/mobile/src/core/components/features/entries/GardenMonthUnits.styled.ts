@@ -1,4 +1,6 @@
-import { H6, View, styled } from 'tamagui'
+import { View, styled } from 'tamagui'
+
+import { H6 } from '@/core/components/shared/Heading'
 
 export const ViewContainer = styled(View, {
   height: '$2',

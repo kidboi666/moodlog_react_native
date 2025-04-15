@@ -1,15 +1,9 @@
-import {
-  H3,
-  Paragraph,
-  Image as TamaguiImage,
-  View,
-  XStack,
-  YStack,
-  styled,
-} from 'tamagui'
+import { Image as TamaguiImage, View, XStack, YStack, styled } from 'tamagui'
 
+import { H3 } from '@/core/components/shared/Heading'
 import { ViewContainer as HOSContainer } from '@/core/components/shared/ViewContainer.styleable'
 
+import { BaseText } from '@/core/components/shared/BaseText'
 import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/styles/animations'
 
 export const ViewContainer = styled(HOSContainer, {
@@ -69,7 +63,7 @@ export const Image = styled(TamaguiImage, {
   ml: '$4',
 })
 
-export const ContentText = styled(Paragraph, {
+export const ContentText = styled(BaseText, {
   ml: '$3',
 
   variants: {

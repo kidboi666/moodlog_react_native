@@ -1,4 +1,6 @@
-import { Text, XStack, YStack, styled } from 'tamagui'
+import { XStack, YStack, styled } from 'tamagui'
+
+import { BaseText } from '@/core/components/shared/BaseText'
 
 export const YStackContainer = styled(YStack, {
   flex: 1,
@@ -17,7 +19,7 @@ export const AnimatedBox = styled(XStack, {
   height: '$2',
 })
 
-export const AnimatedText = styled(Text, {
+export const AnimatedText = styled(BaseText, {
   fontWeight: '700',
   color: '$color10',
 })

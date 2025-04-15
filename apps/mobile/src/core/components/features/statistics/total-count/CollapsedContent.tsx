@@ -1,8 +1,10 @@
 import { Maximize2 } from '@tamagui/lucide-icons'
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { H2, H3, Text, XStack } from 'tamagui'
+import { XStack } from 'tamagui'
 
+import { BaseText } from '@/core/components/shared/BaseText'
+import { H2, H3 } from '@/core/components/shared/Heading'
 import * as S from './CollapsedContent.styled'
 
 interface Props {
@@ -15,7 +17,7 @@ export const CollapsedContent = memo(({ totalCount }: Props) => {
     <S.ViewContainer>
       <S.YStackContainer>
         <H3>{t('statistics.totalCount.title')}</H3>
-        <Text>{t('statistics.totalCount.description')}</Text>
+        <BaseText>{t('statistics.totalCount.description')}</BaseText>
       </S.YStackContainer>
       <XStack>
         <S.StackContainer>

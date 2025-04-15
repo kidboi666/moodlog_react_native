@@ -1,11 +1,10 @@
+import { Check, ImagePlus, Timer } from '@tamagui/lucide-icons'
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Form, Spinner, XGroup } from 'tamagui'
 
-import { Check, ImagePlus, Timer } from '@tamagui/lucide-icons'
-
+import { BaseText } from '@/core/components/shared/BaseText'
 import type { Nullable } from '@/types/util.types'
-
 import * as S from './ActionButtons.styled'
 
 interface Props {

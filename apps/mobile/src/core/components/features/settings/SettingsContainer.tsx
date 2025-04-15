@@ -1,5 +1,7 @@
 import type { PropsWithChildren } from 'react'
-import { Text, View } from 'tamagui'
+import { View } from 'tamagui'
+
+import { BaseText } from '@/core/components/shared/BaseText'
 
 interface Props {
   title?: string
@@ -12,9 +14,9 @@ export const SettingsContainer = ({
   return (
     <View gap='$3'>
       {title && (
-        <Text ml='$5' color='$color11'>
+        <BaseText ml='$5' color='$color11'>
           {title}
-        </Text>
+        </BaseText>
       )}
       <View rounded='$4' bg='$color4'>
         {children}

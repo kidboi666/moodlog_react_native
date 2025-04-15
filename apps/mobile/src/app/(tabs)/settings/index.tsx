@@ -12,10 +12,12 @@ import {
 import { type Href, useRouter } from 'expo-router'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { H1, ScrollView, Text } from 'tamagui'
+import { ScrollView } from 'tamagui'
 
 import { NavigationSettingItem } from '@/core/components/features/settings/NavigationSettingItem'
 import { SettingsContainer } from '@/core/components/features/settings/SettingsContainer'
+import { BaseText } from '@/core/components/shared/BaseText'
+import { H1 } from '@/core/components/shared/Heading'
 import { AUTH_SNAP_POINTS, LOGOUT_SNAP_POINTS } from '@/core/constants/size'
 import { useAuth } from '@/core/store/auth.store'
 import { useBottomSheet } from '@/core/store/bottom-sheet.store'
@@ -132,7 +134,9 @@ export default function Screen() {
         </S.ItemContainer>
 
         <S.CopyrightContainer>
-          <Text color='$gray10'>© 2025 Moodlog. All rights reserved.</Text>
+          <BaseText color='$gray10'>
+            © 2025 Moodlog. All rights reserved.
+          </BaseText>
         </S.CopyrightContainer>
       </S.ViewContainer>
     </ScrollView>

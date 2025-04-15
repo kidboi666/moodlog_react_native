@@ -1,7 +1,9 @@
-import { Button, Text, YStack, styled } from 'tamagui'
+import { Button, YStack, styled } from 'tamagui'
 
+import { BaseText } from '@/core/components/shared/BaseText'
 import { PressableButton } from '@/core/components/shared/PressableButton.styled'
 import { ViewContainer as HOSContainer } from '@/core/components/shared/ViewContainer.styleable'
+
 export const ViewContainer = styled(HOSContainer, {
   edges: ['top'],
   padded: true,
@@ -20,7 +22,7 @@ export const SignInButton = styled(Button, {
   fontSize: '$6',
 })
 
-export const SignInText = styled(Text, {
+export const SignInText = styled(BaseText, {
   fontSize: '$5',
   flex: 1,
 })

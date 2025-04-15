@@ -7,8 +7,10 @@ import Animated, {
   withDelay,
   withTiming,
 } from 'react-native-reanimated'
-import { H3, Text, YStack } from 'tamagui'
+import { YStack } from 'tamagui'
 
+import { BaseText } from '@/core/components/shared/BaseText'
+import { H3 } from '@/core/components/shared/Heading'
 import { WEEK_DAY } from '@/core/constants/date'
 import { useWeeklyMoodStats } from '@/core/hooks/useWeeklyMoodStats'
 import type { ISOMonthString } from '@/types/date.types'
@@ -59,7 +61,7 @@ export const WeeklyMoodChart = ({ selectedMonth }: Props) => {
   return (
     <S.YStackContainer>
       <H3>{t('statistics.weeklyMood.title')}</H3>
-      <Text>{t('statistics.weeklyMood.description')}</Text>
+      <BaseText>{t('statistics.weeklyMood.description')}</BaseText>
 
       <YStack>
         {Object.keys(WEEK_DAY).map((day, index) => {
