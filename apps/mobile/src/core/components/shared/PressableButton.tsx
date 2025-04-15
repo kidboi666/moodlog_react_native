@@ -9,15 +9,7 @@ export const PressableButton = S.PressableButton.styleable<Props>(
     const { color = '$color11' } = props
 
     return (
-      <S.PressableButton
-        $platform-android={{
-          android_ripple: {
-            color: '$color11',
-          },
-        }}
-        {...props}
-        ref={ref}
-      >
+      <S.PressableButton {...props} ref={ref}>
         <BaseText color={color}>{children}</BaseText>
       </S.PressableButton>
     )
