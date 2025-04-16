@@ -1,7 +1,7 @@
 import { useToastController } from '@tamagui/toast'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, useTheme } from 'tamagui'
+import { ScrollView } from 'tamagui'
 
 import { HomeJournalCard } from '@/core/components/features/home/HomeJournalCard'
 import { WeekDay } from '@/core/components/features/home/WeekDay'

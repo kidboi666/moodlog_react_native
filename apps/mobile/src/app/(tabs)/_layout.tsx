@@ -25,9 +25,6 @@ export default function Layout() {
 
   useEffect(() => {
     setLoading(!initialized || appIsLoading)
-    return () => {
-      setLoading(false)
-    }
   }, [initialized, appIsLoading, setLoading])
 
   if (isLoading) return null
@@ -50,12 +47,8 @@ export default function Layout() {
         <Tabs.Screen name='entries' />
         <Tabs.Screen name='statistics' />
         <Tabs.Screen name='settings' />
-        <Tabs.Screen
-          name='journal'
-          options={{
-            href: null,
-          }}
-        />
+        <Tabs.Screen name='write' />
+        <Tabs.Screen name='journal' />
       </Tabs>
       <ContainerFog />
       {!shouldHideTabBar && <CustomTabBar />}

@@ -1,6 +1,4 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { type PropsWithChildren, useEffect } from 'react'
-import { useColorScheme } from 'react-native'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
@@ -36,17 +34,3 @@ export const useAppTheme = create<ThemeStoreState>()(
     },
   ),
 )
-
-export function ThemeProvider({ children }: PropsWithChildren) {
-  const updateSystemTheme = useAppTheme(state => state.updateSystemTheme)
-  const systemColorScheme = useColorScheme()
-
-  useEffect(() => {
-    if (systemColorScheme) {
-      updateSystemTheme(systemColorScheme)
-    }
-  }, [systemColorScheme, updateSystemTheme])
-
-  // TamaguiBaseProvider에서 테마 관리를 담당하므로, 여기서는 children만 반환
-  return <>{children}</>
-}

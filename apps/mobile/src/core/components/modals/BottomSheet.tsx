@@ -3,7 +3,6 @@ import { memo } from 'react'
 
 import { DeleteJournalModal } from '@/core/components/modals/contents/DeleteJournalModal'
 import { LogoutModal } from '@/core/components/modals/contents/LogoutModal'
-import { SelectMoodModal } from '@/core/components/modals/contents/SelectMoodModal'
 import { SignInModal } from '@/core/components/modals/contents/SignInModal'
 import { SignUpModal } from '@/core/components/modals/contents/SignUpModal'
 import { useBottomSheet } from '@/core/store/bottom-sheet.store'
@@ -16,9 +15,6 @@ const SheetContentComponents = {
   [BottomSheetType.DELETE_JOURNAL]: (
     props: BottomSheetProps[BottomSheetType.DELETE_JOURNAL],
   ) => <DeleteJournalModal {...props} />,
-  [BottomSheetType.SELECT_MOOD]: (
-    props: BottomSheetProps[BottomSheetType.SELECT_MOOD],
-  ) => <SelectMoodModal {...props} />,
   [BottomSheetType.SIGN_UP]: (
     props: BottomSheetProps[BottomSheetType.SIGN_UP],
   ) => <SignUpModal {...props} />,

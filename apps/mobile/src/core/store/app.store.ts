@@ -12,7 +12,7 @@ import {
   type Languages,
   type Settings,
   TimeFormat,
-  ViewFontSize,
+  viewFontSize,
 } from '@/types/app.types'
 import type { ISODateString } from '@/types/date.types'
 import i18n from 'i18next'
@@ -20,7 +20,7 @@ import i18n from 'i18next'
 const DEFAULT_LANGUAGE = Localization.getLocales()[0].languageCode as Languages
 
 const initialSettings: Settings = {
-  fontSize: ViewFontSize.SMALL,
+  fontSize: viewFontSize['10'],
   fontTheme: FontTheme.PRETENDARD,
   language: DEFAULT_LANGUAGE,
   timeFormat: TimeFormat.HOUR_24,

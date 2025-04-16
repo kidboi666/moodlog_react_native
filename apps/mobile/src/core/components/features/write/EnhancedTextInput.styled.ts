@@ -9,7 +9,6 @@ import {
 export const InputContainer = styled(YStack, {
   flex: 1,
   gap: '$4',
-  position: 'relative',
 })
 
 export const TextArea = styled(TamaguiTextArea, {

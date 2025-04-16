@@ -1,7 +1,7 @@
 import { PortalProvider, type TamaguiProviderProps } from 'tamagui'
 
-import { ThemeProvider } from '@/core/store/theme.store'
 import { TamaguiBaseProvider } from './TamaguiProvider'
+import { ThemeProvider } from './ThemeProvider'
 import { TamaguiToastProvider } from './ToastProvider'
 
 export const RootProvider = ({

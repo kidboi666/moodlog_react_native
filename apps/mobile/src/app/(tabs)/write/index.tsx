@@ -5,17 +5,16 @@ import { MoodSelectTitle } from '@/core/components/features/write/MoodSelectTitl
 import { NextButton } from '@/core/components/features/write/NextButton'
 import { PickerMood } from '@/core/components/features/write/PickerMood'
 import { SelectedMoodContainer } from '@/core/components/features/write/SelectedMoodContainer'
+import { WriteHeader } from '@/core/components/features/write/WriteHeader'
 import { FadeIn } from '@/core/components/shared/FadeIn.styleable'
 import { ROUTE_DELAY_MS } from '@/core/constants/time'
 import { useUI } from '@/core/store/ui.store'
+import * as S from '@/styles/screens/write/SelectMood.styled'
 import type { Mood, MoodLevel, MoodType } from '@/types/mood.types'
-import * as S from './SelectMoodModal.styled'
+import { ArrowLeft } from '@tamagui/lucide-icons'
+import { AnimatePresence } from 'tamagui'
 
-interface Props {
-  hideBottomSheet: () => void
-}
-
-export const SelectMoodModal = ({ hideBottomSheet }: Props) => {
+export default function Screen() {
   const [mood, setMood] = useState<Mood>()
   const router = useRouter()
   const setNavigating = useUI(state => state.setNavigating)
@@ -27,12 +26,11 @@ export const SelectMoodModal = ({ hideBottomSheet }: Props) => {
   const handlePress = useCallback(() => {
     if (!mood) return null
 
-    hideBottomSheet()
     setNavigating(true)
 
     const timer = setTimeout(() => {
       router.push({
-        pathname: '/write',
+        pathname: '/write/writing_page',
         params: {
           moodType: mood.type,
           moodLevel: mood.level,
@@ -45,18 +43,25 @@ export const SelectMoodModal = ({ hideBottomSheet }: Props) => {
     }, ROUTE_DELAY_MS)
 
     return () => clearTimeout(timer)
-  }, [mood, router, hideBottomSheet, setNavigating])
+  }, [mood, router, setNavigating])
 
-  const isSelected = !!(!!mood?.type && mood?.level)
+  const isSelected = !!(mood?.type && mood?.level)
 
   return (
-    <S.BottomSheetContainer>
+    <S.ViewContainer
+      edges={['bottom']}
+      Header={
+        <S.HeaderContainer>
+          <S.BackButton icon={ArrowLeft} onPress={() => router.back()} />
+        </S.HeaderContainer>
+      }
+    >
       <S.YStackContainer>
         <FadeIn>
           <MoodSelectTitle />
         </FadeIn>
 
-        <FadeIn>
+        <FadeIn flex={1} items='center'>
           <SelectedMoodContainer
             moodType={mood?.type}
             moodLevel={mood?.level}
@@ -71,8 +76,14 @@ export const SelectMoodModal = ({ hideBottomSheet }: Props) => {
           />
         </FadeIn>
 
-        <NextButton isSelected={isSelected} onPress={handlePress} />
+        <S.ButtonContainer>
+          <AnimatePresence presenceAffectsLayout>
+            {isSelected && (
+              <NextButton isSelected={isSelected} onPress={handlePress} />
+            )}
+          </AnimatePresence>
+        </S.ButtonContainer>
       </S.YStackContainer>
-    </S.BottomSheetContainer>
+    </S.ViewContainer>
   )
 }

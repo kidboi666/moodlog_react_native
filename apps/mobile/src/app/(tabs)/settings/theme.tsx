@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { RadioGroup } from 'tamagui'
 
 import { SettingHeader } from '@/core/components/features/settings/SettingHeader'
-import { SettingsContainer } from '@/core/components/features/settings/SettingsContainer'
 import { RadioGroupItem } from '@/core/components/shared/RadioGroupItem'
 import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable'
 import { useAppTheme } from '@/core/store/theme.store'
@@ -23,12 +22,7 @@ export default function Screen() {
 
   return (
     <ViewContainer Header={<SettingHeader />}>
-      <RadioGroup
-        value={currentTheme}
-        onValueChange={handleValueChange}
-        name='theme'
-        gap='$4'
-      >
+      <RadioGroup value={currentTheme} name='theme' gap='$4'>
         {/* system */}
         <RadioGroupItem
           key='system'

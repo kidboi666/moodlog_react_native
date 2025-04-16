@@ -5,7 +5,6 @@ import {
 } from '@tamagui/themes'
 import { createFont, createTamagui } from 'tamagui'
 
-// 공통 폰트 사이즈 설정
 const fontSizes = {
   1: 11,
   2: 12,

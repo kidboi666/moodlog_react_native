@@ -269,6 +269,12 @@
       "24": "24 Hour",
       "12": "12 Hour"
     },
+    "fontSize": {
+      "title": "Font Size",
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large"
+    },
     "profile": {
       "title": "Profile",
       "id": "User ID",

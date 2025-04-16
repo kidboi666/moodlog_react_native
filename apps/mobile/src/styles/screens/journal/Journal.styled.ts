@@ -7,7 +7,7 @@ import { BaseText } from '@/core/components/shared/BaseText'
 import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/styles/animations'
 
 export const ViewContainer = styled(HOSContainer, {
-  px: 0,
+  pl: 0,
   gap: '$6',
 })
 

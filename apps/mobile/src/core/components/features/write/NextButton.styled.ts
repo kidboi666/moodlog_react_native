@@ -1,9 +1,18 @@
 import { Button, View, styled } from 'tamagui'
 
-import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/styles/animations'
+import {
+  MOUNT_STYLE,
+  MOUNT_STYLE_KEY,
+  PRESS_STYLE,
+  PRESS_STYLE_KEY,
+} from '@/styles/animations'
 
 export const AnimatedContainer = styled(View, {
   items: 'center',
+  animation: 'lazy',
+  enterStyle: MOUNT_STYLE,
+  exitStyle: MOUNT_STYLE,
+  animateOnly: MOUNT_STYLE_KEY,
 })
 
 export const NextButton = styled(Button, {

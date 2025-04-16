@@ -15,6 +15,7 @@ export default function Layout() {
       <Stack.Screen name='theme' />
       <Stack.Screen name='language' />
       <Stack.Screen name='time_format' />
+      <Stack.Screen name='font_size' />
       <Stack.Screen name='profile' />
       <Stack.Screen name='bug_report' />
       <Stack.Screen name='qna' />

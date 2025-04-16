@@ -9,4 +9,6 @@ export const STORAGE_KEY = {
   MOOD_STATS: 'mood-statistics',
   FIRST_LAUNCH: 'first-launch-date',
   TOKEN: 'auth-token',
+  APP: 'APP',
+  DRAFT: 'DRAFT',
 } as const

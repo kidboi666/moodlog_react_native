@@ -1,4 +1,5 @@
 import {
+  AlignLeft,
   BugPlay,
   Clock,
   Computer,
@@ -101,6 +102,12 @@ export default function Screen() {
               onRouteChange={handleRouteChange}
               href={'/settings/font' as any}
               icon={<Type size='$1' />}
+            />
+            <NavigationSettingItem
+              label={t('settings.fontSize.title')}
+              onRouteChange={handleRouteChange}
+              href='/settings/font_size'
+              icon={<AlignLeft size='$1' />}
             />
             <NavigationSettingItem
               label={t('settings.timeFormat.title')}

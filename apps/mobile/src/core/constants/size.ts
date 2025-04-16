@@ -26,7 +26,7 @@ export const RECORD_CARD_EXPANDED_HEIGHT = 450
 
 export const TAB_BAR_HEIGHT = Platform.OS === 'ios' ? 60 : 80
 
-export const KEYBOARD_VERTICAL_OFFSET = Platform.OS === 'ios' ? 120 : 0
+export const KEYBOARD_VERTICAL_OFFSET = Platform.OS === 'ios' ? 40 : 0
 
 /**
  * SnapPoints
@@ -39,4 +39,4 @@ export const JOURNAL_WRITE_SNAP_POINTS = Platform.OS === 'ios' ? [80] : [60]
 
 export const LOGOUT_SNAP_POINTS = Platform.OS === 'ios' ? [40] : [30]
 
-export const AUTH_SNAP_POINTS = [90]
+export const AUTH_SNAP_POINTS = [70]

@@ -1,9 +1,7 @@
-import type { Mood } from '@/types/mood.types'
 import type { Nullable } from '@/types/util.types'
 
 export enum BottomSheetType {
   DELETE_JOURNAL = 'DELETE_JOURNAL',
-  SELECT_MOOD = 'SELECT_MOOD',
   SIGN_UP = 'SIGN_UP',
   SIGN_IN = 'SIGN_IN',
   LOGOUT = 'LOGOUT',
@@ -29,9 +27,6 @@ export type BottomSheetProps = {
     isLoading: boolean
     onDelete: (id: string) => Promise<void>
     onSuccess?: () => void
-    hideBottomSheet: () => void
-  }
-  [BottomSheetType.SELECT_MOOD]: {
     hideBottomSheet: () => void
   }
   [BottomSheetType.SIGN_UP]: {}

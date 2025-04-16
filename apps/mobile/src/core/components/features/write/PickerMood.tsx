@@ -1,6 +1,3 @@
-import React from 'react'
-import { View } from 'tamagui'
-
 import { MoodTypeBox } from '@/core/components/features/write/MoodTypeBox'
 import { type MoodLevel, MoodType } from '@/types/mood.types'
 import * as S from './PickerMood.styled'
@@ -17,18 +14,16 @@ export const PickerMood = ({
   onMoodChange,
 }: Props) => {
   return (
-    <View>
-      <S.XStackContainer>
-        {Object.values(MoodType).map(type => (
-          <MoodTypeBox
-            key={type}
-            moodType={type}
-            selectedMoodType={selectedMoodType}
-            selectedMoodLevel={selectedMoodLevel}
-            onMoodChange={onMoodChange}
-          />
-        ))}
-      </S.XStackContainer>
-    </View>
+    <S.XStackContainer>
+      {Object.values(MoodType).map(type => (
+        <MoodTypeBox
+          key={type}
+          moodType={type}
+          selectedMoodType={selectedMoodType}
+          selectedMoodLevel={selectedMoodLevel}
+          onMoodChange={onMoodChange}
+        />
+      ))}
+    </S.XStackContainer>
   )
 }

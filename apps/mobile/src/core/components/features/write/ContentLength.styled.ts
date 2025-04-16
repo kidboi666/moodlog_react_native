@@ -2,10 +2,7 @@ import { Text, styled } from 'tamagui'
 
 export const CharNum = styled(Text, {
   color: '$color10',
-  position: 'absolute',
   fontWeight: '800',
-  r: 8,
-  b: 8,
 
   variants: {
     isGreen: {
