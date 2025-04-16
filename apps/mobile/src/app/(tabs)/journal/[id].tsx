@@ -1,9 +1,11 @@
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { TouchableOpacity } from 'react-native'
 import { ScrollView, XStack } from 'tamagui'
 
 import { JournalHeader } from '@/core/components/features/journal/JournalHeader'
+import { FullScreenImageModal } from '@/core/components/modals/FullScreenImageModal'
 import { DELETE_JOURNAL_SNAP_POINTS } from '@/core/constants/size'
 import { moodTheme } from '@/core/constants/themes'
 import { useApp } from '@/core/store/app.store'
@@ -25,10 +27,21 @@ export default function Screen() {
   const fontSize = useApp(state => state.settings.fontSize)
   const { t } = useTranslation()
   const [[page, going], setPage] = useState([0, 0])
+  const [modalVisible, setModalVisible] = useState(false)
+  const [selectedImage, setSelectedImage] = useState<string>('')
 
   const wrap = (min: number, max: number, v: number) => {
     const rangeSize = max - min
     return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min
+  }
+
+  const handleImagePress = (uri: string) => {
+    setSelectedImage(uri)
+    setModalVisible(true)
+  }
+
+  const handleCloseModal = () => {
+    setModalVisible(false)
   }
 
   const handleDeletePress = useCallback(() => {
@@ -91,7 +104,12 @@ export default function Screen() {
               <ScrollView horizontal>
                 <S.ImageBox>
                   {selectedJournal.imageUri.map(uri => (
-                    <S.Image key={uri} source={{ uri }} />
+                    <TouchableOpacity
+                      key={uri}
+                      onPress={() => handleImagePress(uri)}
+                    >
+                      <S.Image source={{ uri }} />
+                    </TouchableOpacity>
                   ))}
                 </S.ImageBox>
               </ScrollView>
@@ -103,6 +121,12 @@ export default function Screen() {
           </S.ContentBox>
         </XStack>
       </S.ViewContainer>
+
+      <FullScreenImageModal
+        visible={modalVisible}
+        imageUri={selectedImage}
+        onClose={handleCloseModal}
+      />
     </ScrollView>
   )
 }

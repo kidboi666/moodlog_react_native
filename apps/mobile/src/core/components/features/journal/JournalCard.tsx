@@ -1,9 +1,11 @@
 import { ChevronLeft, ChevronRight, Trash } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
 import { memo, useCallback, useState } from 'react'
+import { TouchableOpacity } from 'react-native'
 import Animated from 'react-native-reanimated'
 import { AnimatePresence } from 'tamagui'
 
+import { FullScreenImageModal } from '@/core/components/modals/FullScreenImageModal'
 import { moodTheme } from '@/core/constants/themes'
 import { useAxisAnimationWithState } from '@/core/hooks/useAxisAnimationWithState'
 import { useCardGesture } from '@/core/hooks/useCardGesture'
@@ -34,6 +36,7 @@ export const JournalCard = memo(
     openDeleteSheet,
   }: Props) => {
     const router = useRouter()
+    const [modalVisible, setModalVisible] = useState(false)
     const {
       state: cardPosition,
       animatedStyle,
@@ -88,6 +91,16 @@ export const JournalCard = memo(
       }
     }
 
+    const handleImageLongPress = () => {
+      if (imageUri && imageUri.length > 0) {
+        setModalVisible(true)
+      }
+    }
+
+    const handleCloseModal = () => {
+      setModalVisible(false)
+    }
+
     return (
       <>
         <S.Container>
@@ -124,7 +137,12 @@ export const JournalCard = memo(
 
               {Array.isArray(imageUri) && imageUri.length > 0 && (
                 <S.CardBackground>
-                  <S.JournalCoverImage source={{ uri: imageUri[0] }} />
+                  <TouchableOpacity
+                    onLongPress={handleImageLongPress}
+                    delayLongPress={300}
+                  >
+                    <S.JournalCoverImage source={{ uri: imageUri[0] }} />
+                  </TouchableOpacity>
 
                   <AnimatePresence>
                     {isOpenCard || isPressed ? null : <S.ImageCoverGradient />}
@@ -134,6 +152,14 @@ export const JournalCard = memo(
             </AnimatedCard>
           </GestureWrapper>
         </S.Container>
+
+        {imageUri && imageUri.length > 0 && (
+          <FullScreenImageModal
+            visible={modalVisible}
+            imageUri={imageUri[0]}
+            onClose={handleCloseModal}
+          />
+        )}
       </>
     )
   },

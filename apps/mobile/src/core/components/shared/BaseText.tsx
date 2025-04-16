@@ -7,14 +7,15 @@ interface Props extends TextProps {
   children: ReactNode
 }
 
-export const BaseText = memo(
-  Text.styleable<Props>(({ children, themeInverse, color, ...props }, ref) => {
+export const BaseText = Text.styleable<Props>(
+  ({ children, themeInverse, color, fontSize, ...props }, ref) => {
     const font = useCustomFont()
 
     return (
       <Text
         themeInverse={themeInverse}
         color={color}
+        fontSize={fontSize}
         fontFamily={font as unknown as GetThemeValueForKey<'$fontFamily'>}
         fontWeight={props.fontWeight ? props.fontWeight : '400'}
         ref={ref}
@@ -23,5 +24,7 @@ export const BaseText = memo(
         {children}
       </Text>
     )
-  }),
+  },
 )
+
+BaseText.displayName = 'BaseText'

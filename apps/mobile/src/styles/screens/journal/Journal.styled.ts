@@ -65,6 +65,7 @@ export const Image = styled(TamaguiImage, {
 
 export const ContentText = styled(BaseText, {
   ml: '$3',
+  pr: '$4',
 
   variants: {
     fontSize: {

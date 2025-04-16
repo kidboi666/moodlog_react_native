@@ -71,7 +71,7 @@ export default function Screen() {
         console.log('내용을 지워 저장된 초안 삭제')
       }
     }
-  }, [draft, removeStoredDraft])
+  }, [draft.content, removeStoredDraft])
 
   const saveDraft = useCallback(() => {
     if (!shouldSaveRef.current) return
