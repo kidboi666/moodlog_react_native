@@ -271,9 +271,11 @@
     },
     "fontSize": {
       "title": "글자 크기",
+      "smaller": "더 작게",
       "small": "작게",
       "medium": "중간",
-      "large": "크게"
+      "large": "크게",
+      "larger": "더 크게"
     },
     "profile": {
       "title": "프로필",

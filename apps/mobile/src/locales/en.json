@@ -271,9 +271,11 @@
     },
     "fontSize": {
       "title": "Font Size",
+      "smaller": "Smaller",
       "small": "Small",
       "medium": "Medium",
-      "large": "Large"
+      "large": "Large",
+      "larger": "Larger"
     },
     "profile": {
       "title": "Profile",

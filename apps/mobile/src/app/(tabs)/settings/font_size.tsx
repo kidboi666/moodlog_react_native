@@ -1,12 +1,36 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { RadioGroup } from 'tamagui'
+import { RadioGroup, View } from 'tamagui'
 
 import { SettingHeader } from '@/core/components/features/settings/SettingHeader'
+import { BaseText } from '@/core/components/shared/BaseText'
 import { RadioGroupItem } from '@/core/components/shared/RadioGroupItem'
 import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable'
 import { useApp } from '@/core/store/app.store'
-import { type ViewFontSizeValue, viewFontSize } from '@/types/app.types'
+import { ViewFontSize } from '@/types/app.types'
+
+const fontSizes = [
+  {
+    value: ViewFontSize.XS,
+    label: 'settings.fontSize.smaller',
+  },
+  {
+    value: ViewFontSize.SM,
+    label: 'settings.fontSize.small',
+  },
+  {
+    value: ViewFontSize.MD,
+    label: 'settings.fontSize.medium',
+  },
+  {
+    value: ViewFontSize.LG,
+    label: 'settings.fontSize.large',
+  },
+  {
+    value: ViewFontSize.XL,
+    label: 'settings.fontSize.larger',
+  },
+]
 
 export default function Screen() {
   const fontSize = useApp(state => state.settings.fontSize)
@@ -15,7 +39,7 @@ export default function Screen() {
 
   const handleValueChange = useCallback(
     (value: string) => {
-      onSettingChange('fontSize', value as ViewFontSizeValue)
+      onSettingChange('fontSize', value as ViewFontSize)
     },
     [onSettingChange],
   )
@@ -28,29 +52,17 @@ export default function Screen() {
         name='fontSize'
         gap='$4'
       >
-        {/* 작은 크기 */}
-        <RadioGroupItem
-          key={viewFontSize['8']}
-          value={viewFontSize['8']}
-          label={t('settings.fontSize.small')}
-          onValueChange={handleValueChange}
-        />
-
-        {/* 중간 크기 */}
-        <RadioGroupItem
-          key={viewFontSize['10']}
-          value={viewFontSize['10']}
-          label={t('settings.fontSize.medium')}
-          onValueChange={handleValueChange}
-        />
-
-        {/* 큰 크기 */}
-        <RadioGroupItem
-          key={viewFontSize['12']}
-          value={viewFontSize['12']}
-          label={t('settings.fontSize.large')}
-          onValueChange={handleValueChange}
-        />
+        {fontSizes.map(fontSize => (
+          <RadioGroupItem
+            key={fontSize.value}
+            value={fontSize.value}
+            label={t(fontSize.label)}
+            onValueChange={handleValueChange}
+          />
+        ))}
+        <View>
+          <BaseText fontSize={fontSize}>안녕하세요.</BaseText>
+        </View>
       </RadioGroup>
     </ViewContainer>
   )

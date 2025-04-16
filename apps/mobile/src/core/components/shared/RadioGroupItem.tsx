@@ -1,4 +1,4 @@
-import { GetThemeValueForKey } from 'tamagui'
+import { useCustomFont } from '@/core/hooks/useCustomFont'
 import * as S from './RadioGroupItem.styled'
 
 interface Props {
@@ -8,13 +8,10 @@ interface Props {
 }
 
 export const RadioGroupItem = ({ value, label, onValueChange }: Props) => {
-  const computedFontFamily =
-    `$${value}` as unknown as GetThemeValueForKey<'fontFamily'>
+  const font = useCustomFont()
   return (
     <S.RadioGroupContainerButton onPress={() => onValueChange(value)}>
-      <S.RadioItemLabel fontFamily={computedFontFamily}>
-        {label}
-      </S.RadioItemLabel>
+      <S.RadioItemLabel fontFamily={font}>{label}</S.RadioItemLabel>
       <S.StyledRadioGroupItem value={value} id={value}>
         <S.StyledRadioGroupIndicator />
       </S.StyledRadioGroupItem>

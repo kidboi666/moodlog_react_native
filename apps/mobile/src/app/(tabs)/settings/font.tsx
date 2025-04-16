@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { RadioGroup } from 'tamagui'
 
 import { SettingHeader } from '@/core/components/features/settings/SettingHeader'
-import { RadioGroupItem } from '@/core/components/shared/RadioGroupItem'
+import { FontRadioGroupItem } from '@/core/components/shared/FontRadioGroupItem'
 import { ViewContainer } from '@/core/components/shared/ViewContainer.styleable'
 import { useApp } from '@/core/store/app.store'
 import { FontTheme } from '@/types/app.types'
@@ -56,7 +56,7 @@ export default function Screen() {
         gap='$4'
       >
         {fontList.map(font => (
-          <RadioGroupItem
+          <FontRadioGroupItem
             key={font.value}
             value={font.value}
             label={t(font.label)}
