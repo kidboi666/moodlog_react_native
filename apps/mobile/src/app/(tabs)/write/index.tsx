@@ -1,27 +1,64 @@
+import { useToastController } from '@tamagui/toast'
 import { useRouter } from 'expo-router'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { CalendarUtils } from 'react-native-calendars'
 
 import { MoodSelectTitle } from '@/core/components/features/write/MoodSelectTitle'
 import { NextButton } from '@/core/components/features/write/NextButton'
 import { PickerMood } from '@/core/components/features/write/PickerMood'
 import { SelectedMoodContainer } from '@/core/components/features/write/SelectedMoodContainer'
-import { WriteHeader } from '@/core/components/features/write/WriteHeader'
 import { FadeIn } from '@/core/components/shared/FadeIn.styleable'
 import { ROUTE_DELAY_MS } from '@/core/constants/time'
+import { useJournal } from '@/core/store/journal.store'
 import { useUI } from '@/core/store/ui.store'
 import * as S from '@/styles/screens/write/SelectMood.styled'
 import type { Mood, MoodLevel, MoodType } from '@/types/mood.types'
 import { ArrowLeft } from '@tamagui/lucide-icons'
+import { useTranslation } from 'react-i18next'
 import { AnimatePresence } from 'tamagui'
 
 export default function Screen() {
   const [mood, setMood] = useState<Mood>()
+  const [hasTodayJournal, setHasTodayJournal] = useState(false)
   const router = useRouter()
+  const toast = useToastController()
   const setNavigating = useUI(state => state.setNavigating)
+  const getMoodForDate = useJournal(state => state.getMoodForDate)
+  const { t } = useTranslation()
 
-  const handleMoodChange = useCallback((type: MoodType, level: MoodLevel) => {
-    setMood({ type, level })
-  }, [])
+  // 오늘 날짜에 이미 작성된 일기가 있는지 확인
+  useEffect(() => {
+    const todayDate = CalendarUtils.getCalendarDateString(new Date())
+    const todayMoods = getMoodForDate(todayDate)
+
+    if (todayMoods && todayMoods.length > 0) {
+      // 오늘 이미 작성된 일기가 있으면 첫번째 일기의 감정으로 설정
+      const todayMood = todayMoods[0]
+      setMood(todayMood)
+      setHasTodayJournal(true)
+
+      toast.show(t('notifications.warning.moodLimit.title'), {
+        message: t('notifications.warning.moodLimit.message'),
+        preset: 'notice',
+      })
+    }
+  }, [getMoodForDate, toast, t])
+
+  const handleMoodChange = useCallback(
+    (type: MoodType, level: MoodLevel) => {
+      // 이미 오늘 작성된 일기가 있으면 감정 변경 불가
+      if (hasTodayJournal) {
+        toast.show(t('notifications.warning.moodLimit.title'), {
+          message: t('notifications.warning.moodLimit.message'),
+          preset: 'notice',
+        })
+        return
+      }
+
+      setMood({ type, level })
+    },
+    [hasTodayJournal, toast, t],
+  )
 
   const handlePress = useCallback(() => {
     if (!mood) return null
@@ -73,6 +110,7 @@ export default function Screen() {
             selectedMoodType={mood?.type}
             selectedMoodLevel={mood?.level}
             onMoodChange={handleMoodChange}
+            disabled={hasTodayJournal}
           />
         </FadeIn>
 

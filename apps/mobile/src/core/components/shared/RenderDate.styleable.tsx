@@ -1,4 +1,5 @@
-import { type TextProps } from 'tamagui'
+import { memo } from 'react'
+import { Text, type TextProps } from 'tamagui'
 import { BaseText } from './BaseText'
 
 interface Props extends TextProps {
@@ -7,7 +8,7 @@ interface Props extends TextProps {
   onlyText?: boolean
 }
 
-export const RenderDate = BaseText.styleable<Props>(
+const StyledRenderDate = Text.styleable<Props>(
   ({ timestamp, localDate, onlyText, ...props }, ref) => {
     const renderText = (
       year: string | number,
@@ -58,5 +59,7 @@ export const RenderDate = BaseText.styleable<Props>(
     )
   },
 )
+
+export const RenderDate = memo(StyledRenderDate)
 
 RenderDate.displayName = 'RenderDate'

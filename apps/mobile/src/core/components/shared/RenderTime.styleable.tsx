@@ -1,13 +1,13 @@
 import { useApp } from '@/core/store/app.store'
 import { TimeFormat } from '@/types/app.types'
-import { SizableText, type TextProps } from 'tamagui'
+import { Text, type TextProps } from 'tamagui'
 import { BaseText } from './BaseText'
 
 interface Props extends TextProps {
   createdAt: string | number
 }
 
-export const RenderTime = SizableText.styleable<Props>(
+export const RenderTime = Text.styleable<Props>(
   ({ createdAt, ...props }, ref) => {
     const timeFormat = useApp(state => state.settings.timeFormat)
     const date = new Date(createdAt)

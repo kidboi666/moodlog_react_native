@@ -10,26 +10,27 @@ interface Props {
   isSelected: boolean
   moodColor: string
   onMoodChange: (type: MoodType, level: MoodLevel) => void
+  disabled?: boolean
 }
 
 export const MoodLevelButton = memo(
-  ({ moodType, moodLevel, isSelected, onMoodChange, moodColor }: Props) => {
+  ({
+    moodType,
+    moodLevel,
+    isSelected,
+    moodColor,
+    onMoodChange,
+    disabled = false,
+  }: Props) => {
     return (
       <S.MoodLevelButton
         key={moodType + moodLevel}
         moodColor={moodColor}
-        onPress={() => onMoodChange(moodType, moodLevel)}
-        icon={
-          isSelected ? (
-            <Check
-              position='absolute'
-              z='$1'
-              color={moodLevel === MoodLevel.ZERO ? '$gray10' : '$gray4'}
-              size='$1'
-            />
-          ) : null
-        }
-      />
+        onPress={() => !disabled && onMoodChange(moodType, moodLevel)}
+        disabled={disabled}
+      >
+        {isSelected && <Check size='$1' color='white' position='absolute' />}
+      </S.MoodLevelButton>
     )
   },
 )

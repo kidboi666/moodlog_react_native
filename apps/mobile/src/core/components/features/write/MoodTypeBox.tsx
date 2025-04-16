@@ -11,10 +11,17 @@ interface Props {
   selectedMoodType?: MoodType
   selectedMoodLevel?: MoodLevel
   onMoodChange: (type: MoodType, level: MoodLevel) => void
+  disabled?: boolean
 }
 
 export const MoodTypeBox = memo(
-  ({ moodType, selectedMoodType, selectedMoodLevel, onMoodChange }: Props) => {
+  ({
+    moodType,
+    selectedMoodType,
+    selectedMoodLevel,
+    onMoodChange,
+    disabled = false,
+  }: Props) => {
     const { t } = useTranslation()
     return (
       <S.MoodTypeContainer>
@@ -29,6 +36,7 @@ export const MoodTypeBox = memo(
                 moodType === selectedMoodType && level === selectedMoodLevel
               }
               onMoodChange={onMoodChange}
+              disabled={disabled}
             />
           ))}
         </S.MoodLevelContainer>

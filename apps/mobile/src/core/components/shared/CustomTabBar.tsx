@@ -1,6 +1,6 @@
 import * as NavigationBar from 'expo-navigation-bar'
 import { type Href, usePathname, useRouter } from 'expo-router'
-import React, { memo, useCallback, useEffect, useMemo } from 'react'
+import { memo, useCallback, useEffect, useMemo } from 'react'
 import { Platform } from 'react-native'
 import Animated from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -81,23 +81,14 @@ export const CustomTabBar = memo(() => {
       style={animatedStyle}
     >
       <S.Container>
-        <HomeTab
-          isTabActive={isHomeActive}
-          onPress={() => handleNavigate('/')}
-        />
-        <EntriesTab
-          isTabActive={isCalendarActive}
-          onPress={() => handleNavigate('/entries')}
-        />
+        <HomeTab isTabActive={isHomeActive} onPress={handleNavigate} />
+        <EntriesTab isTabActive={isCalendarActive} onPress={handleNavigate} />
         <WriteButtonWithEvent />
         <StatisticsTab
           isTabActive={isStatisticsActive}
-          onPress={() => handleNavigate('/statistics')}
+          onPress={handleNavigate}
         />
-        <SettingsTab
-          isTabActive={isSettingsActive}
-          onPress={() => handleNavigate('/settings')}
-        />
+        <SettingsTab isTabActive={isSettingsActive} onPress={handleNavigate} />
       </S.Container>
     </AnimatedTabBar>
   )

@@ -29,9 +29,24 @@ export class Diary {
 
     const now = new Date()
     const localDate = CalendarUtils.getCalendarDateString(now)
+
+    // 하루에 최대 3개의 일기만 작성할 수 있도록 제한
+    const dailyJournalIds = store.indexes.byDate[localDate] || []
+    if (dailyJournalIds.length >= 3) {
+      throw new Error('daily_journal_limit_exceeded')
+    }
+
     const monthString = getISOMonthString(localDate)
     const year = now.getFullYear()
     const moodType = draft.mood.type
+
+    // 하루에 한 가지 감정만 선택할 수 있도록 제한
+    // 오늘 작성된 일기가 있으면 가장 최근 일기의 감정 사용
+    if (dailyJournalIds.length > 0) {
+      const latestJournalId = dailyJournalIds[dailyJournalIds.length - 1]
+      const latestJournal = store.journals[latestJournalId]
+      draft.mood = latestJournal.mood
+    }
 
     const newJournal = {
       id: uuid.v4(),

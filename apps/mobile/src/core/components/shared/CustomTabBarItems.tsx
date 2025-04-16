@@ -4,18 +4,22 @@ import {
   Home,
   Settings,
 } from '@tamagui/lucide-icons'
-import React, { memo } from 'react'
+import { memo } from 'react'
 
 import * as S from './CustomTabBar.styled'
 
 interface TabButtonProps {
   isTabActive: boolean
-  onPress: () => void
+  onPress: (route: string) => void
 }
 
 export const HomeTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
   return (
-    <S.HomeButton isTabActive={isTabActive} icon={Home} onPress={onPress} />
+    <S.HomeButton
+      isTabActive={isTabActive}
+      icon={Home}
+      onPress={() => onPress('/')}
+    />
   )
 })
 
@@ -24,7 +28,7 @@ export const EntriesTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
     <S.CalendarButton
       isTabActive={isTabActive}
       icon={CalendarDays}
-      onPress={onPress}
+      onPress={() => onPress('/entries')}
     />
   )
 })
@@ -35,7 +39,7 @@ export const StatisticsTab = memo(
       <S.RecordButton
         isTabActive={isTabActive}
         icon={FileChartColumnIncreasing}
-        onPress={onPress}
+        onPress={() => onPress('/statistics')}
       />
     )
   },
@@ -46,7 +50,7 @@ export const SettingsTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
     <S.SettingsButton
       isTabActive={isTabActive}
       icon={Settings}
-      onPress={onPress}
+      onPress={() => onPress('/settings')}
     />
   )
 })

@@ -1,4 +1,5 @@
 import { useCustomFont } from '@/core/hooks/useCustomFont'
+import { memo } from 'react'
 import * as S from './RadioGroupItem.styled'
 
 interface Props {
@@ -7,7 +8,7 @@ interface Props {
   onValueChange: (value: string) => void
 }
 
-export const RadioGroupItem = ({ value, label, onValueChange }: Props) => {
+export const RadioGroupItem = memo(({ value, label, onValueChange }: Props) => {
   const font = useCustomFont()
   return (
     <S.RadioGroupContainerButton onPress={() => onValueChange(value)}>
@@ -17,4 +18,4 @@ export const RadioGroupItem = ({ value, label, onValueChange }: Props) => {
       </S.StyledRadioGroupItem>
     </S.RadioGroupContainerButton>
   )
-}
+})

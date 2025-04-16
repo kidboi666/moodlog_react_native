@@ -1,9 +1,10 @@
-import { useRouter } from 'expo-router'
-
 import { ArrowLeft } from '@tamagui/lucide-icons'
+import { useRouter } from 'expo-router'
+import { memo } from 'react'
+
 import * as S from './SettingHeader.styled'
 
-export const SettingHeader = () => {
+export const SettingHeader = memo(() => {
   const router = useRouter()
 
   return (
@@ -12,4 +13,4 @@ export const SettingHeader = () => {
       <S.RestBox />
     </S.HeaderContainer>
   )
-}
+})

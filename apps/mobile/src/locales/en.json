@@ -86,6 +86,14 @@
       "mood": {
         "title": "Please select an emotion intensity!",
         "message": "No emotion intensity has been selected"
+      },
+      "dailyLimit": {
+        "title": "Daily Journal Limit",
+        "message": "You can only write up to 3 journals per day."
+      },
+      "moodLimit": {
+        "title": "Daily Mood Limit",
+        "message": "You can only select one mood per day."
       }
     }
   },

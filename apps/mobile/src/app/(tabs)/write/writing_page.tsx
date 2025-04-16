@@ -27,7 +27,6 @@ import * as S from '@/styles/screens/write/Write.styled'
 import type { Draft } from '@/types/journal.types'
 import type { MoodLevel, MoodType } from '@/types/mood.types'
 
-// 자동 저장 간격 (밀리초)
 const AUTO_SAVE_INTERVAL = 5000
 
 export default function Screen() {
@@ -159,11 +158,18 @@ export default function Screen() {
             setNavigating(false)
           }, 100)
         }, 300)
-      } catch (error) {
+      } catch (error: any) {
         console.error('일기 저장 실패:', error)
-        toast.show('저장 실패', {
-          preset: 'error',
-        })
+        if (error.message === 'daily_journal_limit_exceeded') {
+          toast.show(t('notifications.warning.dailyLimit.title'), {
+            message: t('notifications.warning.dailyLimit.message'),
+            preset: 'error',
+          })
+        } else {
+          toast.show('저장 실패', {
+            preset: 'error',
+          })
+        }
       } finally {
         setLoading(false)
       }

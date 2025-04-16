@@ -12,7 +12,6 @@ export const ModalTitle = styled(H3, {
 })
 
 export const ModalDescription = styled(BaseText, {
-  text: 'center',
   color: '$gray11',
 })
 
@@ -23,8 +22,6 @@ export const ModalContentYStack = styled(YStack, {
 
 export const ConfirmButton = styled(PressableButton, {
   bg: '$red9',
-  color: 'white',
-  fontWeight: '800',
 })
 
 export const CancelButton = styled(PressableButton, {

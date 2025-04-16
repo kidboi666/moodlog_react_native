@@ -22,7 +22,6 @@ export const ViewContainer = S.ViewContainer.styleable<ViewContainerProps>(
 
     return (
       <S.ViewContainer
-        ref={ref}
         padded={padded}
         topEdge={edges?.includes('top') ? insets.top + CONTAINER_MARGIN_TOP : 0}
         bottomEdge={
@@ -30,6 +29,7 @@ export const ViewContainer = S.ViewContainer.styleable<ViewContainerProps>(
             ? insets.bottom + CONTAINER_VERTICAL_PADDING
             : 0
         }
+        ref={ref}
         {...props}
       >
         {Header && Header}

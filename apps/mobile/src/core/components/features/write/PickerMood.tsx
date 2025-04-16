@@ -6,12 +6,14 @@ interface Props {
   selectedMoodType?: MoodType
   selectedMoodLevel?: MoodLevel
   onMoodChange: (type: MoodType, level: MoodLevel) => void
+  disabled?: boolean
 }
 
 export const PickerMood = ({
   selectedMoodType,
   selectedMoodLevel,
   onMoodChange,
+  disabled = false,
 }: Props) => {
   return (
     <S.XStackContainer>
@@ -22,6 +24,7 @@ export const PickerMood = ({
           selectedMoodType={selectedMoodType}
           selectedMoodLevel={selectedMoodLevel}
           onMoodChange={onMoodChange}
+          disabled={disabled}
         />
       ))}
     </S.XStackContainer>
