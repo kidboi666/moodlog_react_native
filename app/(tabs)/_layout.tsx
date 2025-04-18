@@ -9,12 +9,14 @@ import { CustomTabBar } from '@/components/shared/CustomTabBar'
 import { FullScreenSpinner } from '@/components/shared/FullScreenSpinner'
 
 export default function Layout() {
+  const pathname = usePathname()
+
   const firstLaunchDate = useApp(state => state.firstLaunchDate)
-  const appIsLoading = useApp(state => state.isLoading)
   const setLoading = useUI(state => state.setLoading)
   const isLoading = useUI(state => state.isLoading)
+  const isAuthenticated = useApp(state => state.isAuthenticated)
+
   const [initialized, setInitialized] = useState(false)
-  const pathname = usePathname()
   const shouldHideTabBar = HIDE_TAB_BAR_ROUTES.some(route =>
     pathname.startsWith(route),
   )
@@ -24,8 +26,8 @@ export default function Layout() {
   }, [firstLaunchDate])
 
   useEffect(() => {
-    setLoading(!initialized || appIsLoading)
-  }, [initialized, appIsLoading, setLoading])
+    setLoading(!initialized)
+  }, [initialized, setLoading])
 
   if (isLoading) return null
 

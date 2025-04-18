@@ -32,7 +32,6 @@ export type BottomSheetProps = {
   [BottomSheetType.SIGN_UP]: {}
   [BottomSheetType.SIGN_IN]: {}
   [BottomSheetType.LOGOUT]: {
-    onLogout: () => void
     hideBottomSheet: () => void
   }
 }

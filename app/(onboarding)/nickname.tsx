@@ -4,18 +4,24 @@ import { useTranslation } from 'react-i18next'
 import { Input } from 'tamagui'
 
 import { ANIMATION_DELAY_SECONDS } from '@/constants'
-import { useAuth, useStepProgress } from '@/store'
+import { useStepProgress } from '@/store'
 
 import { FadeIn } from '@/components/shared/FadeIn.styleable'
+import { PressableButton } from '@/components/shared/PressableButton'
 import { ViewContainer } from '@/components/shared/ViewContainer.styleable'
 import * as S from '@/styles/screens/onboarding/Nickname.styled'
+import { useState } from 'react'
 
 export default function Screen() {
-  const { draftUserName, onDraftUserNameChange } = useAuth()
   const router = useRouter()
   const { t } = useTranslation()
   const { currentStep, goToPrevStep, goToNextStep } = useStepProgress()
   const isNicknamePage = currentStep === 1
+  const [draftUserName, setDraftUserName] = useState('')
+
+  const handleDraftUserNameChange = (text: string) => {
+    setDraftUserName(text)
+  }
 
   const handlePrevStep = () => {
     if (isNicknamePage) {
@@ -27,7 +33,7 @@ export default function Screen() {
   const handleNextStep = () => {
     if (isNicknamePage) {
       goToNextStep()
-      router.push('/benefit')
+      router.push('/emotion-type')
     }
   }
 
@@ -43,23 +49,23 @@ export default function Screen() {
         <FadeIn delay={ANIMATION_DELAY_SECONDS[2]}>
           <Input
             value={draftUserName}
-            onChangeText={onDraftUserNameChange}
+            onChangeText={handleDraftUserNameChange}
             placeholder={t('onboarding.nickname.placeholder')}
           />
         </FadeIn>
       </S.YStackContainer>
       <FadeIn delay={ANIMATION_DELAY_SECONDS[3]}>
         <S.ButtonContainer>
-          <S.PrevButton icon={ArrowLeft} onPress={handlePrevStep}>
+          <PressableButton icon={ArrowLeft} onPress={handlePrevStep}>
             {t('common.prev')}
-          </S.PrevButton>
-          <S.NextButton
+          </PressableButton>
+          <PressableButton
             disabled={!draftUserName}
             onPress={handleNextStep}
             iconAfter={ArrowRight}
           >
             {t('common.next')}
-          </S.NextButton>
+          </PressableButton>
         </S.ButtonContainer>
       </FadeIn>
     </ViewContainer>

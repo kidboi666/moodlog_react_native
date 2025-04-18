@@ -28,6 +28,11 @@ export enum FontTheme {
   LEE_SEOYUN = 'leeSeoyun',
 }
 
+export enum EmotionDisplayType {
+  FOUR_EMOTIONS_THREE_LEVELS = 'four_emotions_three_levels',
+  FIVE_LEVELS_GOOD_BAD = 'five_levels_good_bad',
+}
+
 export enum Position {
   TOP = 'top',
   BOTTOM = 'bottom',
@@ -41,6 +46,7 @@ export type Settings = {
   fontTheme: FontTheme
   language: Languages
   timeFormat: TimeFormat
+  emotionDisplayType?: EmotionDisplayType
 }
 export type AppState = {
   appVersion: string
@@ -53,8 +59,7 @@ export interface AppStore {
   appVersion: string
   firstLaunchDate: Nullable<ISODateString>
   settings: Settings
-  isLoading: boolean
-  error: any | null
+  isAuthenticated: boolean
 
   initFirstLaunchStatus: () => void
   onSettingChange: <K extends keyof Settings>(

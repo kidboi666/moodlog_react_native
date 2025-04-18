@@ -11,26 +11,27 @@ import {
   User,
 } from '@tamagui/lucide-icons'
 import { type Href, useRouter } from 'expo-router'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'tamagui'
 
 import { AUTH_SNAP_POINTS, LOGOUT_SNAP_POINTS } from '@/constants'
-import { useAuth, useBottomSheet } from '@/store'
+import { useBottomSheet } from '@/store'
 import { BottomSheetType } from '@/types'
 
 import { NavigationSettingItem } from '@/components/features/settings/NavigationSettingItem'
 import { SettingsContainer } from '@/components/features/settings/SettingsContainer'
 import { BaseText } from '@/components/shared/BaseText'
 import { H1 } from '@/components/shared/Heading'
+import { supabase } from '@/lib/supabase'
 import * as S from '@/styles/screens/settings/Settings.styled'
+import { Session } from '@supabase/supabase-js'
 
 export default function Screen() {
   const { t } = useTranslation()
   const router = useRouter()
-  const isAuthenticated = useAuth(state => state.isAuthenticated)
-  const logout = useAuth(state => state.logout)
   const { showBottomSheet, hideBottomSheet } = useBottomSheet()
+  const [session, setSession] = useState<Session | null>(null)
 
   const handleRouteChange = useCallback(
     (route: Href) => {
@@ -41,17 +42,22 @@ export default function Screen() {
 
   const handleLogoutConfirm = useCallback(() => {
     showBottomSheet(BottomSheetType.LOGOUT, LOGOUT_SNAP_POINTS, {
-      onLogout: () => {
-        logout()
-        router.replace('/(tabs)')
-      },
       hideBottomSheet,
     })
-  }, [showBottomSheet, logout, router, hideBottomSheet])
+  }, [showBottomSheet, hideBottomSheet])
 
   const handleLogin = useCallback(() => {
     showBottomSheet(BottomSheetType.SIGN_IN, AUTH_SNAP_POINTS)
   }, [showBottomSheet])
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+  }, [])
 
   return (
     <ScrollView>
@@ -69,7 +75,7 @@ export default function Screen() {
             </SettingsContainer>
           )}
           <SettingsContainer title={t('settings.menuTitle.login')}>
-            {isAuthenticated ? (
+            {session?.user ? (
               <NavigationSettingItem
                 label={t('settings.profile.title')}
                 href={'/settings/profile' as any}
@@ -132,7 +138,7 @@ export default function Screen() {
             />
           </SettingsContainer>
 
-          {isAuthenticated && (
+          {session?.user && (
             <S.LogoutButton onPress={handleLogoutConfirm} chromeless>
               {t('auth.logout')}
               <LogOut color='$red10' size='$1' />
@@ -141,7 +147,7 @@ export default function Screen() {
         </S.ItemContainer>
 
         <S.CopyrightContainer>
-          <BaseText color='$gray10'>
+          <BaseText color='$color11'>
             © 2025 Moodlog. All rights reserved.
           </BaseText>
         </S.CopyrightContainer>

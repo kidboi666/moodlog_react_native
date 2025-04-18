@@ -8,7 +8,6 @@ export const PressableButton = styled(Button, {
   animation: 'quick',
   pressStyle: PRESS_STYLE,
   animateOnly: PRESS_STYLE_KEY,
-  noTextWrap: true,
   opacity: 1,
 
   variants: {

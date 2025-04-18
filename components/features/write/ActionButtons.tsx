@@ -5,6 +5,7 @@ import { Spinner, XGroup } from 'tamagui'
 
 import type { Nullable } from '@/types'
 
+import { BaseText } from '@/components/shared/BaseText'
 import * as S from './ActionButtons.styled'
 
 interface Props {
@@ -26,23 +27,25 @@ export const ActionButtons = memo(
     onSubmit,
   }: Props) => {
     const { t } = useTranslation()
-    const isDisabled = isSubmitted || isLoading || !content
     return (
       <S.XGroupContainer>
         <XGroup.Item>
           <S.ActionButton onPress={onImageUriChange} icon={ImagePlus}>
-            {t('common.addCover')}
+            <BaseText>{t('common.addCover')}</BaseText>
           </S.ActionButton>
         </XGroup.Item>
         <S.Separator />
         <XGroup.Item>
           <S.ActionButton onPress={onTimeStamp} icon={Timer}>
-            {t('common.timeStamp')}
+            <BaseText>{t('common.timeStamp')}</BaseText>
           </S.ActionButton>
         </XGroup.Item>
         <S.Separator />
         <XGroup.Item>
-          <S.SubmitButton onPress={onSubmit} disabled={isDisabled}>
+          <S.SubmitButton
+            onPress={onSubmit}
+            disabled={isSubmitted || isLoading || !content}
+          >
             {isLoading ? <Spinner /> : <Check />}
           </S.SubmitButton>
         </XGroup.Item>

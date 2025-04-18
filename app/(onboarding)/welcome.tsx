@@ -1,12 +1,13 @@
 import { ArrowRight } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
-import { H1, H2 } from 'tamagui'
 
+import { H1, H2 } from '@/components/shared/Heading'
 import { ANIMATION_DELAY_SECONDS } from '@/constants'
 import { useStepProgress } from '@/store'
 
 import { FadeIn } from '@/components/shared/FadeIn.styleable'
+import { PressableButton } from '@/components/shared/PressableButton'
 import { ShakeEmoji } from '@/components/shared/ShakeEmoji'
 import { ViewContainer } from '@/components/shared/ViewContainer.styleable'
 import * as S from '@/styles/screens/onboarding/Welcome.styled'
@@ -50,9 +51,14 @@ export default function Screen() {
         </FadeIn>
       </S.WelcomeContainer>
       <FadeIn delay={ANIMATION_DELAY_SECONDS[3]}>
-        <S.NextButton iconAfter={ArrowRight} onPress={handleClickNextButton}>
+        <PressableButton
+          mt='$8'
+          self='flex-end'
+          iconAfter={ArrowRight}
+          onPress={handleClickNextButton}
+        >
           {t('common.next')}
-        </S.NextButton>
+        </PressableButton>
       </FadeIn>
     </ViewContainer>
   )

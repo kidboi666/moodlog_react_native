@@ -14,7 +14,7 @@ export const SignUpSection = styled(XStack, {
 
 export const SignUpButton = styled(PressableButton, {
   bg: 'transparent',
-  color: '$blue10',
+  color: '$blue1',
 })
 
 export const SignInSection = styled(YStack, {

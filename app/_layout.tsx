@@ -7,12 +7,12 @@ import { useFonts } from 'expo-font'
 import * as NavigationBar from 'expo-navigation-bar'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Platform } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { useTheme } from 'tamagui'
 
-import { useAppTheme } from '@/store'
+import { useApp, useAppTheme } from '@/store'
 
 import { BottomSheet } from '@/components/modals/BottomSheet'
 import { FullScreenSpinner } from '@/components/shared/FullScreenSpinner'
@@ -20,8 +20,6 @@ import { StatusBar } from '@/components/shared/StatusBar'
 import { RootProvider } from '@/providers/RootProvider'
 
 import '@/locales'
-import { supabase } from '@/lib/supabase'
-import type { Session } from '@supabase/supabase-js'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -86,7 +84,7 @@ export default function RootLayout() {
 const RootLayoutNav = () => {
   const { resolvedTheme } = useAppTheme()
   const theme = useTheme()
-  const [session, setSession] = useState<Session | null>(null)
+  const firstLaunchDate = useApp(state => state.firstLaunchDate)
 
   // Background style based on theme
   const backgroundStyle = useMemo(
@@ -116,30 +114,15 @@ const RootLayoutNav = () => {
     }
   }, [resolvedTheme])
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-    })
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    })
-  }, [])
-
   return (
     <GestureHandlerRootView style={backgroundStyle}>
       <ThemeProvider
         value={resolvedTheme === 'dark' ? DarkTheme : DefaultTheme}
       >
         <StatusBar resolvedTheme={resolvedTheme} />
-        {session?.user ? (
+        {firstLaunchDate ? (
           <Stack screenOptions={screenOptions}>
             <Stack.Screen name='(tabs)' />
-            <Stack.Screen
-              name='write'
-              options={{
-                presentation: 'modal',
-              }}
-            />
             <Stack.Screen name='+not-found' />
           </Stack>
         ) : (

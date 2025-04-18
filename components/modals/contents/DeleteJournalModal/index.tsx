@@ -2,6 +2,7 @@ import { memo, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Spinner } from 'tamagui'
 
+import { BaseText } from '@/components/shared/BaseText'
 import type { BottomSheetProps, BottomSheetType } from '@/types'
 import * as S from './DeleteJournalModal.styled'
 
@@ -42,10 +43,14 @@ export const DeleteJournalModal = memo(
         </S.ModalDescription>
         <S.ModalContentYStack>
           <S.ConfirmButton onPress={handleDelete} disabled={isDisabled}>
-            {isDisabled ? <Spinner /> : t('common.delete')}
+            {isDisabled ? (
+              <Spinner />
+            ) : (
+              <BaseText color='$color1'>{t('common.delete')}</BaseText>
+            )}
           </S.ConfirmButton>
           <S.CancelButton onPress={hideBottomSheet} disabled={isDisabled}>
-            {t('common.cancel')}
+            <BaseText>{t('common.cancel')}</BaseText>
           </S.CancelButton>
         </S.ModalContentYStack>
       </S.BottomSheetContainer>

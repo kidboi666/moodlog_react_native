@@ -2,30 +2,33 @@ import { useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
-import { Input, Separator, Spinner } from 'tamagui'
+import { Separator, Spinner } from 'tamagui'
 
 import { AUTH_SNAP_POINTS } from '@/constants'
+import { supabase } from '@/lib/supabase'
 import { useAuth, useBottomSheet } from '@/store'
 import { BottomSheetType } from '@/types'
 import { isValidEmail } from '@/utils'
+import { AuthError } from '@supabase/supabase-js'
 
 import { BaseText } from '@/components/shared/BaseText'
 import { FormInput } from '@/components/shared/FormInput'
 import { H1, H3 } from '@/components/shared/Heading'
 
-import { supabase } from '@/lib/supabase'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 import * as S from './SingInModal.styled'
 
 export const SignInModal = () => {
   const { t } = useTranslation()
+  const router = useRouter()
+  const { showBottomSheet, hideBottomSheet } = useBottomSheet()
+  const { setSession, setUserName } = useAuth()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const { showBottomSheet, hideBottomSheet } = useBottomSheet()
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<Error | null>(null)
+  const [error, setError] = useState<AuthError | null>(null)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const router = useRouter()
 
   const handleSignIn = async () => {
     if (!email || !password) {
@@ -43,17 +46,28 @@ export const SignInModal = () => {
       return
     }
 
-    const { error } = await supabase.auth.signInWithPassword({
+    setIsLoading(true)
+
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
 
     if (error) {
       setError(error)
+      setIsLoading(false)
       return
     }
 
+    if (data.session) {
+      setSession(data.session)
+      if (data.session.user.user_metadata.user_name) {
+        setUserName(data.session.user.user_metadata.user_name)
+      }
+    }
+
     setIsAuthenticated(true)
+    setIsLoading(false)
   }
 
   const navigateToRegister = () => {
@@ -68,9 +82,6 @@ export const SignInModal = () => {
     if (isAuthenticated) {
       hideBottomSheet()
       router.replace('/(tabs)')
-    }
-    return () => {
-      useAuth.setState({ error: null })
     }
   }, [error, isAuthenticated, isLoading, hideBottomSheet, router, t])
 
@@ -94,11 +105,8 @@ export const SignInModal = () => {
           secureTextEntry
           autoComplete='password'
         />
-        <S.SignInButton
-          onPress={handleSignIn}
-          disabled={isLoading || !email || !password}
-        >
-          {isLoading ? () => <Spinner /> : t('auth.loginButton')}
+        <S.SignInButton onPress={handleSignIn} disabled={isLoading}>
+          {isLoading ? <Spinner /> : <BaseText>{t('auth.login')}</BaseText>}
         </S.SignInButton>
       </S.SignInSection>
 
@@ -107,7 +115,7 @@ export const SignInModal = () => {
       <S.SignUpSection>
         <BaseText>{t('auth.noAccount')}</BaseText>
         <S.SignUpButton onPress={navigateToRegister}>
-          {t('common.join')}
+          <BaseText color='$blue10'>{t('auth.signup')}</BaseText>
         </S.SignUpButton>
       </S.SignUpSection>
     </BottomSheetContainer>

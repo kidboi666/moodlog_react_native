@@ -8,6 +8,7 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 import { APP_VERSION, STORAGE_KEY } from '@/constants'
 import {
   type AppStore,
+  EmotionDisplayType,
   FontTheme,
   type ISODateString,
   Languages,
@@ -32,8 +33,9 @@ export enum FontSize {
 const initialSettings: Settings = {
   language: Languages.EN,
   timeFormat: TimeFormat.HOUR_12,
-  fontTheme: FontTheme.INTER,
+  fontTheme: FontTheme.LEE_SEOYUN,
   fontSize: ViewFontSize.MD,
+  emotionDisplayType: undefined,
 }
 
 export const useApp = create<AppStore>()(
@@ -42,8 +44,7 @@ export const useApp = create<AppStore>()(
       appVersion: APP_VERSION,
       firstLaunchDate: null,
       settings: initialSettings,
-      isLoading: false,
-      error: null,
+      isAuthenticated: false,
 
       initFirstLaunchStatus: () => {
         const firstLaunchDate = CalendarUtils.getCalendarDateString(new Date())
@@ -54,11 +55,14 @@ export const useApp = create<AppStore>()(
         }
       },
 
+      onIsAuthenticatedChange: (isAuthenticated: boolean) => {
+        set({ isAuthenticated })
+      },
+
       onSettingChange: async <K extends keyof Settings>(
         key: K,
         value: Settings[K],
       ) => {
-        set({ error: null })
         set(state => ({
           ...state,
           settings: { ...state.settings, [key]: value },

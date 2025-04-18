@@ -1,11 +1,12 @@
+import { supabase } from '@/lib/supabase'
 import { useToastController } from '@tamagui/toast'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'tamagui'
 
 import { DELETE_JOURNAL_SNAP_POINTS } from '@/constants'
 import { useCalendar } from '@/hooks'
-import { useAuth, useBottomSheet, useJournal } from '@/store'
+import { useAuth, useBottomSheet, useJournal, useUI } from '@/store'
 import { BottomSheetType } from '@/types'
 
 import { HomeJournalCard } from '@/components/features/home/HomeJournalCard'
@@ -19,11 +20,21 @@ export default function HomeScreen() {
   const toast = useToastController()
   const { isToday, selectedDate } = useCalendar()
   const { showBottomSheet, hideBottomSheet } = useBottomSheet()
-  const userName = useAuth(state => state.userInfo.userName) || 'Guest'
+  const { setSession } = useAuth()
+
   const selectedJournals = useJournal(state => state.selectedJournals)
   const selectJournals = useJournal(state => state.selectJournals)
-  const isLoading = useJournal(state => state.isLoading)
+  const isLoading = useUI(state => state.isLoading)
   const removeJournal = useJournal(state => state.removeJournal)
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+  }, [setSession])
 
   const openDeleteSheet = useCallback(
     (id: string) => {
@@ -58,7 +69,7 @@ export default function HomeScreen() {
     <ScrollView overScrollMode='always' keyboardShouldPersistTaps='handled'>
       <ViewContainer edges={['top', 'bottom']} padded>
         <S.ContentHeaderContainer>
-          <WelcomeZone userName={userName} />
+          <WelcomeZone />
           <WeekDay />
           <HomeJournalCard
             journals={selectedJournals}

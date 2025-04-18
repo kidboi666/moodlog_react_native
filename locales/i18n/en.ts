@@ -234,6 +234,8 @@ export const en = {
     registerSuccess: 'Registration successful! You can now log in.',
     noAccount: "Don't have an account?",
     hasAccount: 'Already have an account?',
+    signInWithGoogle: 'Continue with Google',
+    or: 'or',
   },
   settings: {
     title: 'Setting',
@@ -319,14 +321,25 @@ export const en = {
       description: 'What name will you use?',
       placeholder: 'Enter nickname',
     },
-    benefits: {
-      title: 'Join us',
-      ota: 'Features available.',
-      benefits: {
-        sync: 'Multi-device sync',
-        backup: 'Secure backups',
-        profile: 'Your custom profile',
+    benefit: {
+      title: 'Sign Up',
+      ota: 'Features available after sign up',
+      tip: {
+        1: 'Sync across devices',
+        2: 'Secure backup',
+        3: 'Your own profile',
       },
+    },
+    emotionType: {
+      title: 'Select Emotion Display Type',
+      description: 'Please choose how you want to record your emotions.',
+      fourEmotions: '4 Emotions',
+      fourEmotionsDescription:
+        '4 emotions: Happy, Sad, Angry, Peace with 3 levels of intensity.',
+      fiveLevels: '5 Levels of Good/Bad',
+      fiveLevelsDescription:
+        'Emotion states divided into 5 levels of good and bad.',
+      fiveLevelsScale: 'Very Bad → Very Good',
     },
   },
 }

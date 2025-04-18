@@ -3,16 +3,22 @@ import { useTranslation } from 'react-i18next'
 
 import type { BottomSheetProps, BottomSheetType } from '@/types'
 
+import { supabase } from '@/lib/supabase'
+import { Alert } from 'react-native'
 import * as S from './LogoutModal.styled'
 
 export const LogoutModal = memo(
-  ({ onLogout, hideBottomSheet }: BottomSheetProps[BottomSheetType.LOGOUT]) => {
+  ({ hideBottomSheet }: BottomSheetProps[BottomSheetType.LOGOUT]) => {
     const { t } = useTranslation()
 
-    const handleLogout = useCallback(() => {
-      onLogout()
+    const handleLogout = useCallback(async () => {
+      const { error } = await supabase.auth.signOut()
+      if (error) {
+        Alert.alert(t('common.error'), error.message)
+        console.error(error)
+      }
       hideBottomSheet()
-    }, [onLogout, hideBottomSheet])
+    }, [hideBottomSheet])
 
     return (
       <S.BottomSheetContainer>

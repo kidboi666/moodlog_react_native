@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight, Trash } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
-import { memo, useCallback, useState } from 'react'
+import { Fragment, memo, useCallback, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import Animated from 'react-native-reanimated'
 import { AnimatePresence } from 'tamagui'
@@ -12,6 +12,7 @@ import { Position } from '@/types'
 import type { MoodLevel, MoodType } from '@/types'
 
 import { FullScreenImageModal } from '@/components/modals/contents/FullScreenImageModal'
+import { PressableButton } from '@/components/shared/PressableButton'
 import * as S from './JournalCard.styled'
 
 const AnimatedCard = Animated.createAnimatedComponent(S.CardContainer)
@@ -103,7 +104,7 @@ export const JournalCard = memo(
     }
 
     return (
-      <>
+      <Fragment>
         <S.Container>
           <AnimatePresence>
             {cardPosition === Position.LEFT && (
@@ -125,7 +126,7 @@ export const JournalCard = memo(
                     <S.TimeText createdAt={createdAt} />
                     <S.JournalContentText>{content}</S.JournalContentText>
                   </S.JournalContentBox>
-                  <S.RightChevronButton
+                  <PressableButton
                     icon={
                       cardPosition === Position.CENTER
                         ? ChevronRight
@@ -161,7 +162,7 @@ export const JournalCard = memo(
             onClose={handleCloseModal}
           />
         )}
-      </>
+      </Fragment>
     )
   },
 )

@@ -15,7 +15,7 @@ export const XStackContainer = styled(XStack, {
 })
 
 export const MoodLevelText = styled(H2, {
-  color: '$gray11',
+  color: '$color11',
 })
 
 export const MoodTypeText = styled(H2)

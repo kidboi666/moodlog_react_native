@@ -232,6 +232,8 @@ export const ko = {
     registerSuccess: '회원가입이 완료되었습니다! 이제 로그인 할 수 있습니다.',
     noAccount: '계정이 없으신가요?',
     hasAccount: '이미 계정이 있으신가요?',
+    signInWithGoogle: 'Google로 시작하기',
+    or: '또는',
   },
   settings: {
     title: '설정',
@@ -317,14 +319,24 @@ export const ko = {
       description: '어떤 이름으로 이야기를 쓰시겠어요?',
       placeholder: '닉네임을 입력해주세요',
     },
-    benefits: {
-      title: '가입해보세요.',
-      ota: '여러 기능을 사용해보세요.',
-      benefits: {
-        sync: '여러 기기에서 동기화',
-        backup: '안전한 백업',
-        profile: '다양한 개인 설정',
+    benefit: {
+      title: '회원가입',
+      ota: '가입하면 사용할 수 있는 기능',
+      tip: {
+        1: '여러 기기에서 동기화',
+        2: '안전한 백업',
+        3: '나만의 프로필',
       },
+    },
+    emotionType: {
+      title: '감정 표현 방식 선택',
+      description: '감정을 기록할 방식을 선택해주세요.',
+      fourEmotions: '4가지 감정',
+      fourEmotionsDescription:
+        '행복, 슬픔, 화남, 평화 4가지 감정과 3단계 강도.',
+      fiveLevels: '5단계 좋음/나쁨',
+      fiveLevelsDescription: '좋음과 나쁨을 5단계로 나눈 감정 상태.',
+      fiveLevelsScale: '매우 나쁨 → 매우 좋음',
     },
   },
 }

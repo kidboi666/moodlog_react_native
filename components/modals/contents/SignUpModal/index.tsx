@@ -4,25 +4,29 @@ import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
 import { Separator, Spinner } from 'tamagui'
 
-import { AUTH_SNAP_POINTS } from '@/constants'
-import { useAuth, useBottomSheet } from '@/store'
+import { AUTH_SNAP_POINTS, HTTP_STATUS } from '@/constants'
+import { useBottomSheet } from '@/store'
 import { BottomSheetType } from '@/types'
 import { isValidEmail } from '@/utils'
 
 import { BaseText } from '@/components/shared/BaseText'
 import { FormInput } from '@/components/shared/FormInput'
 import { H1 } from '@/components/shared/Heading'
+import { supabase } from '@/lib/supabase'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 import * as S from './SignUpModal.styled'
 
 export const SignUpModal = () => {
   const { t } = useTranslation()
+  const router = useRouter()
+  const { hideBottomSheet, showBottomSheet } = useBottomSheet()
+
   const [email, setEmail] = useState('')
+  const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const { hideBottomSheet, showBottomSheet } = useBottomSheet()
-  const { signup, isLoading, error, isAuthenticated, userInfo } = useAuth()
-  const router = useRouter()
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const goLoginPage = () => {
     showBottomSheet(BottomSheetType.SIGN_IN, AUTH_SNAP_POINTS)
@@ -49,12 +53,24 @@ export const SignUpModal = () => {
       return
     }
 
-    await signup(email, password, email.split('@')[0])
-  }
+    setIsLoading(true)
 
-  useEffect(() => {
-    if (error && !isLoading) {
-      if (error?.response?.status === HTTP_STATUS.CONFLICT) {
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          user_name: userName,
+        },
+      },
+    })
+
+    if (error) {
+      console.error(error)
+      if (error?.status === HTTP_STATUS.CONFLICT) {
         Alert.alert(
           t('serverError.emailConflict.title'),
           t('serverError.emailConflict.description'),
@@ -75,21 +91,20 @@ export const SignUpModal = () => {
           t('auth.registerFailed'),
         )
       }
+      setIsLoading(false)
+      return
     }
 
+    setIsAuthenticated(true)
+    setIsLoading(false)
+  }
+
+  useEffect(() => {
     if (isAuthenticated) {
       hideBottomSheet()
       router.replace('/(tabs)')
     }
-  }, [
-    error,
-    isAuthenticated,
-    isLoading,
-    hideBottomSheet,
-    router,
-    t,
-    goLoginPage,
-  ])
+  }, [isAuthenticated, hideBottomSheet, router])
 
   const isDisabled =
     isLoading ||
@@ -111,6 +126,13 @@ export const SignUpModal = () => {
           autoComplete='email'
         />
         <FormInput
+          placeholder={t('auth.username')}
+          value={userName}
+          onChangeText={setUserName}
+          autoCapitalize='none'
+          autoComplete='username'
+        />
+        <FormInput
           placeholder={t('auth.password')}
           value={password}
           onChangeText={setPassword}
@@ -129,7 +151,7 @@ export const SignUpModal = () => {
           onPress={handleSignUp}
           disabled={isDisabled}
         >
-          {isLoading ? <Spinner /> : t('auth.registerButton')}
+          {isLoading ? <Spinner /> : <BaseText>{t('auth.register')}</BaseText>}
         </S.SignUpButton>
       </S.SignUpSection>
 
@@ -138,7 +160,7 @@ export const SignUpModal = () => {
       <S.SignInSection>
         <BaseText>{t('auth.hasAccount')}</BaseText>
         <S.SignInButton onPress={goLoginPage}>
-          {t('common.login')}
+          <BaseText color='$blue10'>{t('auth.login')}</BaseText>
         </S.SignInButton>
       </S.SignInSection>
     </BottomSheetContainer>

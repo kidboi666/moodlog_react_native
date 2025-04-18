@@ -8,8 +8,6 @@ import {
 import { useTranslation } from 'react-i18next'
 import { Button, H1, ScrollView } from 'tamagui'
 
-import { useAuthStore } from '@/services'
-
 import { SettingsContainer } from '@/components/features/settings/SettingsContainer'
 import { useDev } from '@/hooks/useDev'
 import * as S from '@/styles/screens/settings/DevScreen.styled'
@@ -17,7 +15,6 @@ import * as S from '@/styles/screens/settings/DevScreen.styled'
 export default function DevScreen() {
   const { t } = useTranslation()
   const { resetStores } = useDev()
-  const { fetchAllUsers } = useAuthStore()
 
   return (
     <ScrollView>
@@ -56,17 +53,7 @@ export default function DevScreen() {
 
           <SettingsContainer title={t('settings.dev.memberInfo')}>
             <S.StyledYStack>
-              <Button
-                icon={<Users size='$1' />}
-                onPress={async () => {
-                  try {
-                    const users = await fetchAllUsers()
-                    console.log('회원 정보:', users)
-                  } catch (error) {
-                    console.error('회원 정보를 불러오는 중 오류 발생:', error)
-                  }
-                }}
-              >
+              <Button icon={<Users size='$1' />}>
                 {t('settings.dev.loadMemberInfo')}
               </Button>
             </S.StyledYStack>

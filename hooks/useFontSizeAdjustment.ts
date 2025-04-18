@@ -3,7 +3,7 @@ import { ViewFontSize } from '@/types'
 import { GetThemeValueForKey } from 'tamagui'
 
 // 기본 크기에서 단계별 상대적 조정을 위한 맵핑
-const fontSizeMapping = {
+const FontSizeMapping = {
   [ViewFontSize.XS]: {
     $5: '$3',
     $6: '$4',
@@ -55,7 +55,7 @@ export const useFontSizeAdjustment = (defaultSize: string) => {
   const fontSize = useApp(state => state.settings.fontSize)
 
   // 맵핑에서 해당 크기 조정값 가져오기
-  const adjustedSize = fontSizeMapping[fontSize]?.[defaultSize] || defaultSize
+  const adjustedSize = FontSizeMapping[fontSize]?.[defaultSize] || defaultSize
 
   return adjustedSize as unknown as GetThemeValueForKey<'fontSize'>
 }
