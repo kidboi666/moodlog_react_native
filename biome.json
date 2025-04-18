@@ -1,0 +1,89 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"files": {
+		"ignoreUnknown": true,
+		"ignore": [
+			".tamagui",
+			"*/ios/**",
+			"*/android/**",
+			"**/*.d.ts",
+			"**/tsconfig.json",
+			"**/package.json",
+			"**/dist/**",
+			"**/build/**",
+			"**/node_modules/**"
+		]
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"style": {
+				"noNonNullAssertion": "off",
+				"useImportType": "off",
+				"useNodejsImportProtocol": "off"
+			},
+			"correctness": {
+				"useExhaustiveDependencies": "off",
+				"noInnerDeclarations": "off",
+				"noUnnecessaryContinue": "off",
+				"noConstructorReturn": "off"
+			},
+			"complexity": {
+				"noForEach": "off",
+				"noBannedTypes": "off",
+				"noStaticOnlyClass": "off"
+			},
+			"suspicious": {
+				"noExplicitAny": "off",
+				"noArrayIndexKey": "warn"
+			}
+		}
+	},
+	"formatter": {
+		"enabled": true,
+		"useEditorconfig": true,
+		"formatWithErrors": false,
+		"indentStyle": "space",
+		"indentWidth": 2,
+		"lineEnding": "lf",
+		"lineWidth": 80,
+		"attributePosition": "auto",
+		"bracketSpacing": true,
+		"ignore": [
+			".tamagui",
+			"*/ios/**",
+			"*/android/**",
+			"**/*.d.ts",
+			"**/tsconfig.json",
+			"**/package.json",
+			"**/dist/**",
+			"**/build/**",
+			"**/node_modules/**"
+		]
+	},
+	"organizeImports": {
+		"enabled": true,
+		"ignore": []
+	},
+	"javascript": {
+		"parser": {
+			"unsafeParameterDecoratorsEnabled": true
+		},
+		"formatter": {
+			"jsxQuoteStyle": "single",
+			"quoteProperties": "asNeeded",
+			"trailingCommas": "all",
+			"semicolons": "asNeeded",
+			"arrowParentheses": "asNeeded",
+			"bracketSameLine": false,
+			"quoteStyle": "single",
+			"attributePosition": "auto",
+			"bracketSpacing": true
+		}
+	}
+}

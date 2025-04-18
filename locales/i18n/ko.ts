@@ -1,0 +1,330 @@
+export const ko = {
+  common: {
+    greeting: {
+      hello: '안녕하세요!',
+      welcome: '{{name}}님.',
+      howAreYou: '오늘 기분은 어떠세요?',
+    },
+    fallback: {
+      today: '당신의 이야기를 기다리고 있어요.',
+      empty: {
+        title: '작성된 일기가 없어요.',
+        description: '작성된 일기가 이곳에 보여집니다.',
+      },
+      text: '없음',
+    },
+    ok: '확인',
+    cancel: '취소',
+    confirm: '확인',
+    delete: '삭제',
+    edit: '수정',
+    save: '저장',
+    back: '뒤로',
+    next: '다음',
+    prev: '이전',
+    login: '로그인하러 가기',
+    join: '가입하러 가기',
+    submit: '제출',
+    addCover: '커버 추가',
+    timeStamp: '타임 스탬프',
+    skip: '생략하기',
+    units: {
+      month: '월',
+      count: '개',
+      day: '요일',
+    },
+  },
+  validation: {
+    allFieldsRequired: '모든 필드를 입력해주세요.',
+    passwordMustBeAtLeast8Characters: '비밀번호는 8자 이상이어야 합니다.',
+    invalidEmailFormat: '이메일 형식이 올바르지 않습니다.',
+    passwordMismatch: '비밀번호가 일치하지 않습니다.',
+  },
+  serverError: {
+    network: '네트워크 오류가 발생했습니다.',
+    authFailed: '인증에 실패했습니다.',
+    signinFailed: '로그인에 실패했습니다.',
+    signupFailed: '회원가입에 실패했습니다.',
+    emailConflict: {
+      title: '이메일이 이미 존재합니다.',
+      description: '로그인 페이지로 이동하시겠습니까?',
+    },
+    userRegistrationFailed: '회원가입에 실패했습니다.',
+    userInfoUpdateFailed: '사용자 정보 업데이트에 실패했습니다.',
+  },
+  navigation: {
+    drawer: {
+      index: '홈으로',
+      settings: '설정',
+    },
+  },
+  modals: {
+    deleteJournal: {
+      title: '일기 삭제',
+      description: '이 일기를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.',
+    },
+  },
+  placeholders: {
+    journal: {
+      title: '오늘 하루는 어땟나요?',
+      content: '오늘의 감정과 경험을 기록해보세요.',
+    },
+    mood: '지금 느끼고 있는 감정을 선택하세요.',
+  },
+  notifications: {
+    success: {
+      journal: {
+        title: '일기가 저장되었습니다.',
+        message: '소중한 기록이 안전하게 보관되었어요.',
+      },
+      delete: '일기가 삭제되었습니다.',
+    },
+    warning: {
+      journal: {
+        title: '일기는 당일에만 작성할 수 있습니다.',
+      },
+      mood: {
+        title: '감정 강도를 선택해주세요!',
+        message: '선택된 감정 강도가 없습니다',
+      },
+      dailyLimit: {
+        title: '일일 일기 작성 제한',
+        message: '하루에 최대 3개의 일기만 작성할 수 있습니다.',
+      },
+      moodLimit: {
+        title: '감정 선택 제한',
+        message: '하루에 한 가지 감정만 선택할 수 있습니다.',
+      },
+    },
+  },
+  entries: {
+    title: '기록',
+    garden: {
+      title: '기록 한눈에 보기',
+      description: '년도 별, 월 별 당신이 기록한 날의 감정을 확인하세요.',
+    },
+  },
+  statistics: {
+    title: '통계',
+    timeRange: {
+      yearly: '연간',
+      monthly: '월간',
+      weekly: '주간',
+    },
+    totalCount: {
+      title: '전체 기록',
+      description: '지금까지 작성한 일기 갯수',
+      daysSinceSignup: {
+        title: '일기를 작성하기 시작한지',
+        description: '{{date}}일 째',
+      },
+      frequency: {
+        title: '평균 작성 빈도',
+        description: '보통 {{date}}일 간격으로 일기를 작성헀어요.',
+        everyDay: '보통 매일 일기를 작성했어요.',
+      },
+      mostDay: {
+        title: '가장 많이 작성한 요일',
+        description: '주로 {{day}}요일에 일기를 작성했어요.',
+      },
+      expressiveMonth: {
+        title: '가장 많이 작성한 달',
+        description: '{{month}}엔 총 {{count}}개의 일기를 작성했어요.',
+      },
+    },
+    mood: {
+      title: '대표 감정',
+      description: '나를 대표하는 감정',
+    },
+    weeklyMood: {
+      title: '주간 감정 분포',
+      description: '주 단위로 가장 많이 선택한 감정 분포표',
+    },
+    currentMonth: {
+      title: '{{month}}의 기록',
+      description: '이번 달 작성한 일기의 갯수',
+      journalCount: {
+        title: '{{month}}의 작성한 일기 갯수',
+        description: '{{count}} 개',
+      },
+      frequency: {
+        title: '{{month}} 평균 작성 빈도',
+        description: '{{month}}엔 보통 {{date}}일 간격으로 일기를 작성했어요.',
+        everyDay: '{{month}}엔 보통 매일 일기를 작성헀어요.',
+      },
+      mostDay: {
+        title: '{{month}} 동안 가장 많이 작성한 요일',
+        description: '{{month}}엔 주로 {{day}}요일에 일기를 작성했어요.',
+      },
+      mood: '{{month}} 대표 감정',
+    },
+    empty: {
+      title: '컨텐츠가 없습니다.',
+      description: '일기를 작성하면 관련된 정보를 볼 수 있습니다.',
+    },
+  },
+  moods: {
+    types: {
+      happy: '행복',
+      sad: '슬픔',
+      angry: '화남',
+      peace: '평온',
+    },
+    levels: {
+      zero: '약간',
+      half: '적당히',
+      full: '매우',
+    },
+  },
+  calendar: {
+    days: {
+      mon: '월',
+      tue: '화',
+      wed: '수',
+      thu: '목',
+      fri: '금',
+      sat: '토',
+      sun: '일',
+    },
+    daysShort: {
+      mon: '월',
+      tue: '화',
+      wed: '수',
+      thu: '목',
+      fri: '금',
+      sat: '토',
+      sun: '일',
+    },
+    months: {
+      jan: '1월',
+      feb: '2월',
+      mar: '3월',
+      apr: '4월',
+      may: '5월',
+      jun: '6월',
+      jul: '7월',
+      aug: '8월',
+      sep: '9월',
+      oct: '10월',
+      nov: '11월',
+      dec: '12월',
+    },
+  },
+  auth: {
+    login: '로그인',
+    loginDescription: '함께 더 나은 하루를 만들어봐요.',
+    register: '회원가입',
+    registerDescription: '가입하면 더 많은 기능을 사용할 수 있어요.',
+    signup: '가입하기',
+    email: '이메일',
+    logout: '로그아웃',
+    username: '사용자 이름',
+    password: '비밀번호',
+    confirmPassword: '비밀번호 확인',
+    loginButton: '로그인',
+    registerButton: '회원가입',
+    error: '오류',
+    emptyFields: '모든 필드를 입력해주세요',
+    passwordMismatch: '비밀번호가 일치하지 않습니다',
+    registerFailed: '회원가입 실패',
+    loginFailed: '로그인 실패',
+    success: '성공',
+    registerSuccess: '회원가입이 완료되었습니다! 이제 로그인 할 수 있습니다.',
+    noAccount: '계정이 없으신가요?',
+    hasAccount: '이미 계정이 있으신가요?',
+  },
+  settings: {
+    title: '설정',
+    logout: {
+      confirmTitle: '로그아웃',
+      confirmMessage: '정말 로그아웃 하시겠습니까?',
+    },
+    dev: {
+      options: '개발자 옵션',
+      title: '개발자 설정',
+      store: '스토어 관리',
+      resetStore: '스토어 초기화',
+      network: '네트워크',
+      apiCalls: 'API 호출 기록',
+      serverStatus: '서버 상태 확인',
+      appStatus: '앱 상태',
+      appVersion: '앱 버전 정보',
+      logs: '로그 확인',
+      memberInfo: '회원 정보',
+      loadMemberInfo: '회원 정보 불러오기',
+    },
+    menuTitle: {
+      login: '로그인 정보',
+      config: '시스템 설정',
+      report: '이용 문의',
+    },
+    theme: {
+      title: '다크 모드',
+      light: '밝은 테마',
+      dark: '어두운 테마',
+      system: '시스템 테마',
+    },
+    language: {
+      title: '언어',
+    },
+    font: {
+      title: '글꼴',
+      pretendard: '프리텐다드',
+      inter: '인터',
+      nanumPenScript: '나눔펜스크립트',
+      robotoMono: '로보토 모노',
+      esamanru: '이사만루',
+      leeSeoyun: '이서윤체',
+    },
+    timeFormat: {
+      title: '시간 형식',
+      '24': '24 시간',
+      '12': '12 시간',
+    },
+    fontSize: {
+      title: '글자 크기',
+      smaller: '더 작게',
+      small: '작게',
+      medium: '중간',
+      large: '크게',
+      larger: '더 크게',
+    },
+    profile: {
+      title: '프로필',
+      id: '사용자 ID',
+      username: '사용자 이름',
+      email: '이메일',
+      age: '나이',
+      daysSinceSignup: '가입 후 일수',
+      guest: '게스트 모드',
+    },
+    bugReport: {
+      title: '버그 신고',
+    },
+    qna: {
+      title: '문의 하기',
+    },
+  },
+  onboarding: {
+    welcome: {
+      title: '안녕하세요!',
+      description: '당신의 일상 여정에 오신 것을 환영합니다',
+      description2: '매일이 당신 이야기의 새로운 페이지예요',
+      go: '함께 써내려가 볼까요?',
+    },
+    nickname: {
+      title: '당신의 이야기가 여기서 시작됩니다',
+      description: '어떤 이름으로 이야기를 쓰시겠어요?',
+      placeholder: '닉네임을 입력해주세요',
+    },
+    benefits: {
+      title: '가입해보세요.',
+      ota: '여러 기능을 사용해보세요.',
+      benefits: {
+        sync: '여러 기기에서 동기화',
+        backup: '안전한 백업',
+        profile: '다양한 개인 설정',
+      },
+    },
+  },
+}

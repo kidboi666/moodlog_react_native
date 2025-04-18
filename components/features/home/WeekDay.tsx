@@ -1,0 +1,31 @@
+import { memo } from 'react'
+import { useTranslation } from 'react-i18next'
+import Animated from 'react-native-reanimated'
+import { View } from 'tamagui'
+
+import { getMonthKey } from '@/utils'
+
+import { HorizontalCalendar } from '@/components/features/home/HorizontalCalendar'
+import { DEFAULT_BOUNCE_IN_UP } from '@/styles/animations'
+import * as S from './WeekDay.styled'
+
+const AnimatedContainer = Animated.createAnimatedComponent(View)
+
+export const WeekDay = memo(() => {
+  const { t } = useTranslation()
+
+  return (
+    <AnimatedContainer entering={DEFAULT_BOUNCE_IN_UP}>
+      <S.OuterGradientBox>
+        <S.InnerGradientBox>
+          <S.CurrentMonthBox>
+            <S.CurrentMonthText>
+              {t(`calendar.months.${getMonthKey(new Date().getMonth())}`)}.
+            </S.CurrentMonthText>
+          </S.CurrentMonthBox>
+          <HorizontalCalendar />
+        </S.InnerGradientBox>
+      </S.OuterGradientBox>
+    </AnimatedContainer>
+  )
+})

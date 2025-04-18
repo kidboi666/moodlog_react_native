@@ -1,45 +1,58 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import { Redirect, Tabs, usePathname } from 'expo-router'
+import { useEffect, useState } from 'react'
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { HIDE_TAB_BAR_ROUTES } from '@/constants'
+import { useApp, useUI } from '@/store'
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+import { ContainerFog } from '@/components/shared/ContainerFog'
+import { CustomTabBar } from '@/components/shared/CustomTabBar'
+import { FullScreenSpinner } from '@/components/shared/FullScreenSpinner'
+
+export default function Layout() {
+  const firstLaunchDate = useApp(state => state.firstLaunchDate)
+  const appIsLoading = useApp(state => state.isLoading)
+  const setLoading = useUI(state => state.setLoading)
+  const isLoading = useUI(state => state.isLoading)
+  const [initialized, setInitialized] = useState(false)
+  const pathname = usePathname()
+  const shouldHideTabBar = HIDE_TAB_BAR_ROUTES.some(route =>
+    pathname.startsWith(route),
+  )
+
+  useEffect(() => {
+    setInitialized(true)
+  }, [firstLaunchDate])
+
+  useEffect(() => {
+    setLoading(!initialized || appIsLoading)
+  }, [initialized, appIsLoading, setLoading])
+
+  if (isLoading) return null
+
+  if (!firstLaunchDate) {
+    return <Redirect href='/(onboarding)/welcome' />
+  }
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+    <>
+      <Tabs
+        screenOptions={{
+          tabBarStyle: { display: 'none' },
+          animation: 'fade',
+          sceneStyle: { backgroundColor: 'transparent' },
+          headerShown: false,
         }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
-    </Tabs>
-  );
+      >
+        <Tabs.Screen name='index' />
+        <Tabs.Screen name='entries' />
+        <Tabs.Screen name='statistics' />
+        <Tabs.Screen name='settings' />
+        <Tabs.Screen name='write' />
+        <Tabs.Screen name='journal' />
+      </Tabs>
+      <ContainerFog />
+      {!shouldHideTabBar && <CustomTabBar />}
+      <FullScreenSpinner size='large' />
+    </>
+  )
 }
