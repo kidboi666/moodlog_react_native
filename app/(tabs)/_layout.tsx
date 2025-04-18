@@ -1,5 +1,5 @@
 import { Redirect, Tabs, usePathname } from 'expo-router'
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 
 import { HIDE_TAB_BAR_ROUTES } from '@/constants'
 import { useApp, useUI } from '@/store'
@@ -34,7 +34,7 @@ export default function Layout() {
   }
 
   return (
-    <>
+    <Fragment>
       <Tabs
         screenOptions={{
           tabBarStyle: { display: 'none' },
@@ -53,6 +53,6 @@ export default function Layout() {
       <ContainerFog />
       {!shouldHideTabBar && <CustomTabBar />}
       <FullScreenSpinner size='large' />
-    </>
+    </Fragment>
   )
 }

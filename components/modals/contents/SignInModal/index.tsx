@@ -13,6 +13,7 @@ import { BaseText } from '@/components/shared/BaseText'
 import { FormInput } from '@/components/shared/FormInput'
 import { H1, H3 } from '@/components/shared/Heading'
 
+import { supabase } from '@/lib/supabase'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 import * as S from './SingInModal.styled'
 
@@ -21,10 +22,9 @@ export const SignInModal = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { showBottomSheet, hideBottomSheet } = useBottomSheet()
-  const signin = useAuth(state => state.signin)
-  const isLoading = useAuth(state => state.isLoading)
-  const error = useAuth(state => state.error)
-  const isAuthenticated = useAuth(state => state.isAuthenticated)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<Error | null>(null)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const router = useRouter()
 
   const handleSignIn = async () => {
@@ -43,7 +43,17 @@ export const SignInModal = () => {
       return
     }
 
-    await signin(email, password)
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    if (error) {
+      setError(error)
+      return
+    }
+
+    setIsAuthenticated(true)
   }
 
   const navigateToRegister = () => {

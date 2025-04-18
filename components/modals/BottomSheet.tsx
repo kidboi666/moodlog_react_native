@@ -1,5 +1,5 @@
 import { Sheet } from '@tamagui/sheet'
-import { memo } from 'react'
+import { Fragment, memo } from 'react'
 
 import { useBottomSheet } from '@/store'
 import { type BottomSheetProps, BottomSheetType } from '@/types'
@@ -28,10 +28,10 @@ export const BottomSheet = memo(() => {
   const { isOpen, type, snapPoint, props, hideBottomSheet } = useBottomSheet()
 
   const renderContent = () => {
-    if (!type) return <></>
+    if (!type) return null
 
     const ContentComponent = SheetContentComponents[type]
-    if (!ContentComponent) return <></>
+    if (!ContentComponent) return null
 
     return <ContentComponent {...props} />
   }

@@ -1,6 +1,6 @@
 import { XStack, YStack, styled } from 'tamagui'
 
-import { PressableButton } from '@/components/shared/PressableButton.styled'
+import { PressableButton } from '@/components/shared/PressableButton'
 
 export const SignInButton = styled(PressableButton, {
   themeInverse: true,

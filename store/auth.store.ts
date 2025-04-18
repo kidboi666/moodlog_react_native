@@ -4,6 +4,7 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
 import { ERROR_KEY, STORAGE_KEY } from '@/constants'
+import { supabase } from '@/lib/supabase'
 import { AuthService } from '@/services'
 import type { UserInfo, UserStore } from '@/types'
 import { useApp } from './app.store'
@@ -46,7 +47,10 @@ export const useAuth = create<AuthState>()(
         try {
           set({ isLoading: true, error: null })
 
-          const { token, user } = await AuthService.signin(email, password)
+          const { error } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+          })
 
           set({
             token,

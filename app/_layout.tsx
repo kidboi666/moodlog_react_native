@@ -7,12 +7,12 @@ import { useFonts } from 'expo-font'
 import * as NavigationBar from 'expo-navigation-bar'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Platform } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { useTheme } from 'tamagui'
 
-import { useAppTheme, useAuth } from '@/store'
+import { useAppTheme } from '@/store'
 
 import { BottomSheet } from '@/components/modals/BottomSheet'
 import { FullScreenSpinner } from '@/components/shared/FullScreenSpinner'
@@ -20,6 +20,8 @@ import { StatusBar } from '@/components/shared/StatusBar'
 import { RootProvider } from '@/providers/RootProvider'
 
 import '@/locales'
+import { supabase } from '@/lib/supabase'
+import type { Session } from '@supabase/supabase-js'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -44,7 +46,6 @@ export default function RootLayout() {
     'Inter-Bold': require('@tamagui/font-inter/otf/Inter-Bold.otf'),
     'Inter-SemiBold': require('@tamagui/font-inter/otf/Inter-SemiBold.otf'),
   })
-  const isAuthenticated = useAuth(state => state.isAuthenticated)
 
   // 폰트 로딩 상태 및 오류 로깅
   useEffect(() => {
@@ -77,18 +78,15 @@ export default function RootLayout() {
 
   return (
     <RootProvider>
-      <RootLayoutNav isAuthenticated={isAuthenticated} />
+      <RootLayoutNav />
     </RootProvider>
   )
 }
 
-type RootLayoutNavProps = {
-  isAuthenticated: boolean
-}
-
-const RootLayoutNav = ({ isAuthenticated }: RootLayoutNavProps) => {
+const RootLayoutNav = () => {
   const { resolvedTheme } = useAppTheme()
   const theme = useTheme()
+  const [session, setSession] = useState<Session | null>(null)
 
   // Background style based on theme
   const backgroundStyle = useMemo(
@@ -118,13 +116,22 @@ const RootLayoutNav = ({ isAuthenticated }: RootLayoutNavProps) => {
     }
   }, [resolvedTheme])
 
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+  }, [])
+
   return (
     <GestureHandlerRootView style={backgroundStyle}>
       <ThemeProvider
         value={resolvedTheme === 'dark' ? DarkTheme : DefaultTheme}
       >
         <StatusBar resolvedTheme={resolvedTheme} />
-        {isAuthenticated ? (
+        {session?.user ? (
           <Stack screenOptions={screenOptions}>
             <Stack.Screen name='(tabs)' />
             <Stack.Screen
