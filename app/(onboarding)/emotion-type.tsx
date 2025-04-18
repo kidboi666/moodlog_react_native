@@ -20,7 +20,7 @@ export default function Screen() {
   const { currentStep, goToPrevStep, goToNextStep } = useStepProgress()
   const { settings, onSettingChange } = useApp()
   const [showNextButton, setShowNextButton] = useState(false)
-  console.log(settings.emotionDisplayType)
+
   const isEmotionTypePage = currentStep === 2
 
   const handlePrevStep = () => {

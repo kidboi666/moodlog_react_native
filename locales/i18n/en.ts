@@ -322,12 +322,20 @@ export const en = {
       placeholder: 'Enter nickname',
     },
     benefit: {
-      title: 'Sign Up',
-      ota: 'Features available after sign up',
+      title: 'Record a more special daily life.',
+      ota: 'Special benefits for premium members',
       tip: {
-        1: 'Sync across devices',
-        2: 'Secure backup',
-        3: 'Your own profile',
+        1: 'Unlimited diary writing',
+        2: 'Secure cloud backup',
+        3: 'Password lock feature',
+        4: 'Advanced statistics',
+        5: 'Premium theme & font',
+      },
+      warn: {
+        1: 'Premium payment is automatically renewed.',
+        2: 'You can cancel anytime after payment, and the premium benefits will remain for the remaining period.',
+        3: 'Please refer to [Terms of Service] and [Refund Policy] for more details.',
+        4: 'Some features may vary depending on the app version.',
       },
     },
     emotionType: {
@@ -340,6 +348,23 @@ export const en = {
       fiveLevelsDescription:
         'Emotion states divided into 5 levels of good and bad.',
       fiveLevelsScale: 'Very Bad → Very Good',
+    },
+  },
+  signup: {
+    title: 'Create Your Account',
+    description: 'Join us to start your journey',
+    email: 'Email',
+    password: 'Password',
+    confirmPassword: 'Confirm Password',
+    emailPlaceholder: 'Enter your email',
+    passwordPlaceholder: 'Enter your password',
+    confirmPasswordPlaceholder: 'Confirm your password',
+    validation: {
+      emailRequired: 'Email is required',
+      invalidEmail: 'Please enter a valid email',
+      passwordRequired: 'Password is required',
+      passwordMinLength: 'Password must be at least 8 characters',
+      passwordMismatch: 'Passwords do not match',
     },
   },
 }

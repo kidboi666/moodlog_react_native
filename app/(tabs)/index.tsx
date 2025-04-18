@@ -1,6 +1,5 @@
-import { supabase } from '@/lib/supabase'
 import { useToastController } from '@tamagui/toast'
-import { useCallback, useEffect } from 'react'
+import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'tamagui'
 
@@ -19,22 +18,13 @@ export default function HomeScreen() {
   const { t } = useTranslation()
   const toast = useToastController()
   const { isToday, selectedDate } = useCalendar()
-  const { showBottomSheet, hideBottomSheet } = useBottomSheet()
-  const { setSession } = useAuth()
 
+  const { showBottomSheet, hideBottomSheet } = useBottomSheet()
+  const session = useAuth(state => state.session)
   const selectedJournals = useJournal(state => state.selectedJournals)
   const selectJournals = useJournal(state => state.selectJournals)
   const isLoading = useUI(state => state.isLoading)
   const removeJournal = useJournal(state => state.removeJournal)
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-    })
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    })
-  }, [setSession])
 
   const openDeleteSheet = useCallback(
     (id: string) => {

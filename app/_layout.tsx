@@ -12,7 +12,7 @@ import { Platform } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { useTheme } from 'tamagui'
 
-import { useApp, useAppTheme } from '@/store'
+import { useApp, useAppTheme, useAuth } from '@/store'
 
 import { BottomSheet } from '@/components/modals/BottomSheet'
 import { FullScreenSpinner } from '@/components/shared/FullScreenSpinner'
@@ -20,6 +20,7 @@ import { StatusBar } from '@/components/shared/StatusBar'
 import { RootProvider } from '@/providers/RootProvider'
 
 import '@/locales'
+import { supabase } from '@/lib/supabase'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -85,6 +86,22 @@ const RootLayoutNav = () => {
   const { resolvedTheme } = useAppTheme()
   const theme = useTheme()
   const firstLaunchDate = useApp(state => state.firstLaunchDate)
+  const setSession = useAuth(state => state.setSession)
+  const clearSession = useAuth(state => state.clearSession)
+
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT') {
+        clearSession()
+      } else if (session) {
+        console.log('session', session.user.id)
+        setSession(session)
+      }
+    })
+    return () => subscription.unsubscribe()
+  }, [setSession, clearSession])
 
   // Background style based on theme
   const backgroundStyle = useMemo(

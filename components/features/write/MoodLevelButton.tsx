@@ -3,7 +3,8 @@ import { memo } from 'react'
 
 import { MoodLevel, type MoodType } from '@/types'
 
-import * as S from './MoodLevelButton.styled'
+import { PressableButton } from '@/components/shared/PressableButton'
+import { GetThemeValueForKey } from 'tamagui'
 
 interface Props {
   moodType: MoodType
@@ -24,14 +25,14 @@ export const MoodLevelButton = memo(
     disabled = false,
   }: Props) => {
     return (
-      <S.MoodLevelButton
-        key={moodType + moodLevel}
-        moodColor={moodColor}
+      <PressableButton
+        size='$5'
+        bg={moodColor as GetThemeValueForKey<'backgroundColor'>}
         onPress={() => !disabled && onMoodChange(moodType, moodLevel)}
         disabled={disabled}
       >
         {isSelected && <Check size='$1' color='white' position='absolute' />}
-      </S.MoodLevelButton>
+      </PressableButton>
     )
   },
 )

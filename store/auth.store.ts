@@ -8,6 +8,7 @@ interface AuthState {
   userName: string
   setSession: (session: Session | null) => void
   setUserName: (userName: string) => void
+  clearSession: () => void
   clearAuth: () => void
 }
 
@@ -18,6 +19,7 @@ export const useAuth = create<AuthState>()(
       userName: '',
       setSession: session => set({ session }),
       setUserName: userName => set({ userName }),
+      clearSession: () => set({ session: null }),
       clearAuth: () => set({ session: null, userName: '' }),
     }),
     {

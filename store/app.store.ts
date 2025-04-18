@@ -31,7 +31,7 @@ export enum FontSize {
 }
 
 const initialSettings: Settings = {
-  language: Languages.EN,
+  language: Languages.KO,
   timeFormat: TimeFormat.HOUR_12,
   fontTheme: FontTheme.LEE_SEOYUN,
   fontSize: ViewFontSize.MD,
