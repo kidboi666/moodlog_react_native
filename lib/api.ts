@@ -7,13 +7,13 @@ export const fetchWithToken = async (
 ) => {
   const token = await AsyncStorage.getItem('token')
 
-  const headers = {
+  const headers = new Headers({
     'Content-Type': 'application/json',
     ...options.headers,
-  }
+  })
 
   if (token) {
-    headers['Authorization'] = `Bearer ${token}`
+    headers.set('Authorization', `Bearer ${token}`)
   }
 
   const fullUrl = url.startsWith('http') ? url : `${API_URL}${url}`

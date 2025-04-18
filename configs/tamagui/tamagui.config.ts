@@ -4,6 +4,7 @@ import {
   tokens as tamaguiTokens,
 } from '@tamagui/themes'
 import { createTamagui } from 'tamagui'
+import { animations } from './animations'
 import {
   esamanruFont,
   interFont,
@@ -15,6 +16,7 @@ import {
 
 export const config = createTamagui({
   ...defaultConfig,
+  animations,
   tokens: tamaguiTokens,
   fonts: {
     body: pretendardFont,
