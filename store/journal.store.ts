@@ -53,7 +53,11 @@ export const useJournal = create<JournalStoreState>()(
         try {
           set({ isLoading: true, error: null })
           const newJournals = await Diary.addJournal(get().store, draft)
-          set({ store: newJournals })
+          if ('error' in newJournals) {
+            set({ error: newJournals.error })
+          } else {
+            set({ store: newJournals })
+          }
         } catch (err) {
           console.error('Failed to save journals :', err)
           set({ error: err })

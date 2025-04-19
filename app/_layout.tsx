@@ -140,6 +140,7 @@ const RootLayoutNav = () => {
         {firstLaunchDate ? (
           <Stack screenOptions={screenOptions}>
             <Stack.Screen name='(tabs)' />
+            <Stack.Screen name='(write)' />
             <Stack.Screen name='+not-found' />
           </Stack>
         ) : (

@@ -13,7 +13,7 @@ export const WriteButtonWithEvent = memo(() => {
       <PressableButton
         bg='$color12'
         color='$color1'
-        onPress={() => router.push('/write')}
+        onPress={() => router.push('/(write)')}
       >
         <S.IconBox>
           <Plus size='$1' color='$color1' />

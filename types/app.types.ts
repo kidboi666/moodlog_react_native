@@ -1,4 +1,5 @@
 import type { ISODateString } from './date.types'
+import type { MyMood, MyMoods } from './mood.types'
 import type { Nullable } from './util.types'
 
 export enum ViewFontSize {
@@ -29,8 +30,13 @@ export enum FontTheme {
 }
 
 export enum EmotionDisplayType {
-  FOUR_EMOTIONS_THREE_LEVELS = 'four_emotions_three_levels',
   FIVE_LEVELS_GOOD_BAD = 'five_levels_good_bad',
+  MY_EMOTIONS = 'my_emotions',
+}
+
+export enum SubscriptionTier {
+  FREE = 'free',
+  PREMIUM = 'premium',
 }
 
 export enum Position {
@@ -47,18 +53,15 @@ export type Settings = {
   language: Languages
   timeFormat: TimeFormat
   emotionDisplayType?: EmotionDisplayType
-}
-export type AppState = {
-  appVersion: string
-  isInitialApp: boolean
-  firstLaunchDate: Nullable<ISODateString>
-  settings: Settings
+  emotionDisplaySettings?: Record<string, EmotionDisplayType>
 }
 
 export interface AppStore {
   appVersion: string
+  subscriptionTier: SubscriptionTier
   firstLaunchDate: Nullable<ISODateString>
   settings: Settings
+  myMoods: MyMoods
   isAuthenticated: boolean
 
   initFirstLaunchStatus: () => void
@@ -66,4 +69,15 @@ export interface AppStore {
     key: K,
     value: Settings[K],
   ) => Promise<void>
+  onIsAuthenticatedChange: (isAuthenticated: boolean) => void
+
+  // 나만의 감정 관리 메서드
+  addMyMood: (myMood: MyMood) => {
+    error?: string
+    success?: boolean
+  }
+  removeMyMood: (myMoodId: string) => {
+    error?: string
+    success?: boolean
+  }
 }

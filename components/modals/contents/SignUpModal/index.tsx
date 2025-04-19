@@ -12,6 +12,7 @@ import { isValidEmail } from '@/utils'
 import { BaseText } from '@/components/shared/BaseText'
 import { FormInput } from '@/components/shared/FormInput'
 import { H1 } from '@/components/shared/Heading'
+import { PressableButton } from '@/components/shared/PressableButton'
 import { supabase } from '@/lib/supabase'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 import * as S from './SignUpModal.styled'
@@ -159,9 +160,9 @@ export const SignUpModal = () => {
 
       <S.SignInSection>
         <BaseText>{t('auth.hasAccount')}</BaseText>
-        <S.SignInButton onPress={goLoginPage}>
-          <BaseText color='$blue10'>{t('auth.login')}</BaseText>
-        </S.SignInButton>
+        <PressableButton bg='transparent' color='$blue10' onPress={goLoginPage}>
+          {t('auth.login')}
+        </PressableButton>
       </S.SignInSection>
     </BottomSheetContainer>
   )

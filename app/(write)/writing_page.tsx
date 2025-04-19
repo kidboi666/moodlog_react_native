@@ -9,29 +9,33 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native'
-import { useTheme } from 'tamagui'
+import { GetThemeValueForKey, View, XStack, useTheme } from 'tamagui'
 
 import { WriteHeader } from '@/components/features/write/WriteHeader'
 import { KEYBOARD_VERTICAL_OFFSET, moodTheme } from '@/constants'
 import { ImageHelper } from '@/services'
 import { useDraft, useJournal, useUI } from '@/store'
-import type { Draft, MoodLevel, MoodType } from '@/types'
+import { type Draft, MoodLevel } from '@/types'
 
 import { ActionButtons } from '@/components/features/write/ActionButtons'
 import {
   EnhancedTextInput,
   type EnhancedTextInputRef,
 } from '@/components/features/write/EnhancedTextInput'
+import { ViewContainer } from '@/components/shared/ViewContainer.styleable'
+import { useApp } from '@/store'
 import * as S from '@/styles/screens/write/Write.styled'
+import { EmotionDisplayType } from '@/types'
 
 const AUTO_SAVE_INTERVAL = 5000
 
 export default function WritingScreen() {
-  const { moodType, moodLevel } = useLocalSearchParams()
+  const { moodName, moodLevel, moodColor } = useLocalSearchParams()
   const router = useRouter()
   const { t } = useTranslation()
   const toast = useToastController()
   const theme = useTheme()
+  const { settings } = useApp()
 
   const addJournal = useJournal(state => state.addJournal)
   const isLoading = useUI(state => state.isLoading)
@@ -51,7 +55,8 @@ export default function WritingScreen() {
   const [draft, setDraft] = useState<Draft>({
     content: '',
     mood: {
-      type: moodType as MoodType,
+      name: moodName as string,
+      color: moodColor as string,
       level: moodLevel as MoodLevel,
     },
     imageUri: [],
@@ -196,8 +201,9 @@ export default function WritingScreen() {
     try {
       setLoading(true)
       await addJournal(draft)
-      removeStoredDraft()
 
+      // 성공 케이스
+      removeStoredDraft()
       toast.show(t('notifications.success.journal.title'), {
         message: t('notifications.success.journal.message'),
         preset: 'success',
@@ -212,6 +218,7 @@ export default function WritingScreen() {
         setTimeout(() => setNavigating(false), 100)
       }, 300)
     } catch (error: any) {
+      // 에러 케이스 처리
       const errorMessage =
         error.message === 'daily_journal_limit_exceeded'
           ? t('notifications.warning.dailyLimit.message')
@@ -226,7 +233,6 @@ export default function WritingScreen() {
         message: errorMessage,
         preset: 'error',
       })
-
       console.error('일기 저장 실패:', error)
     } finally {
       setLoading(false)
@@ -242,31 +248,22 @@ export default function WritingScreen() {
     removeStoredDraft,
   ])
 
-  const contentContainerStyle = useMemo(
-    () => ({
-      backgroundColor: theme.red5.val,
-      flex: 1,
-    }),
-    [theme.red5.val],
-  )
-
   return (
-    <S.ViewContainer edges={['bottom']} Header={<WriteHeader />}>
+    <ViewContainer edges={['bottom']} Header={<WriteHeader />} pl={0}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        contentContainerStyle={contentContainerStyle}
+        contentContainerStyle={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'height' : 'padding'}
         keyboardVerticalOffset={KEYBOARD_VERTICAL_OFFSET}
       >
-        <S.FormContainer>
-          <S.InputContainer>
-            {draft.mood ? (
-              <S.ColoredMoodBar
-                moodColor={moodTheme[draft.mood.type]?.[draft.mood.level]}
-              />
-            ) : (
-              <S.UncoloredMoodBar />
-            )}
+        <View flex={1} gap='$4'>
+          <XStack flex={1} gap='$4'>
+            <View
+              width='3%'
+              borderTopRightRadius='$4'
+              borderBottomRightRadius='$4'
+              bg={moodColor as GetThemeValueForKey<'backgroundColor'>}
+            />
             <EnhancedTextInput
               ref={inputRef}
               imageUri={draft.imageUri}
@@ -274,20 +271,18 @@ export default function WritingScreen() {
               onContentChange={handleContentChange}
               onImageUriChange={handleImagesChange}
             />
-          </S.InputContainer>
+          </XStack>
 
-          <S.ButtonsViewBox>
-            <ActionButtons
-              isSubmitted={isSubmitted}
-              isLoading={isLoading}
-              onTimeStamp={handleTimeStamp}
-              onImageUriChange={handleImageUriChange}
-              content={draft.content}
-              onSubmit={handleSubmit}
-            />
-          </S.ButtonsViewBox>
-        </S.FormContainer>
+          <ActionButtons
+            isSubmitted={isSubmitted}
+            isLoading={isLoading}
+            onTimeStamp={handleTimeStamp}
+            onImageUriChange={handleImageUriChange}
+            content={draft.content}
+            onSubmit={handleSubmit}
+          />
+        </View>
       </KeyboardAvoidingView>
-    </S.ViewContainer>
+    </ViewContainer>
   )
 }

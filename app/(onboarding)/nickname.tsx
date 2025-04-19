@@ -33,7 +33,7 @@ export default function Screen() {
   const handleNextStep = () => {
     if (isNicknamePage) {
       goToNextStep()
-      router.push('/emotion-type')
+      router.push('/benefit')
     }
   }
 

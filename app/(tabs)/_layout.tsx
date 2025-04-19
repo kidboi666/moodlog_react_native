@@ -49,7 +49,6 @@ export default function Layout() {
         <Tabs.Screen name='entries' />
         <Tabs.Screen name='statistics' />
         <Tabs.Screen name='settings' />
-        <Tabs.Screen name='write' />
         <Tabs.Screen name='journal' />
       </Tabs>
       <ContainerFog />

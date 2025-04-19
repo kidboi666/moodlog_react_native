@@ -33,6 +33,17 @@ export const ko = {
       count: '개',
       day: '요일',
     },
+    moods: {
+      zero: '약간',
+      half: '적당히',
+      full: '매우',
+      happy: '행복',
+      sad: '슬픔',
+      angry: '화남',
+      peace: '평화',
+      simple: '감정 점수',
+    },
+    add: '추가',
   },
   validation: {
     allFieldsRequired: '모든 필드를 입력해주세요.',
@@ -69,7 +80,8 @@ export const ko = {
       title: '오늘 하루는 어땟나요?',
       content: '오늘의 감정과 경험을 기록해보세요.',
     },
-    mood: '지금 느끼고 있는 감정을 선택하세요.',
+    moodName: '감정 이름을 입력해주세요.',
+    color: '감정 색상을 선택해주세요.',
   },
   notifications: {
     success: {
@@ -165,15 +177,41 @@ export const ko = {
   },
   moods: {
     types: {
-      happy: '행복',
-      sad: '슬픔',
-      angry: '화남',
-      peace: '평온',
+      simple: '단순',
+      my: '나만의 감정',
     },
     levels: {
       zero: '약간',
       half: '적당히',
       full: '매우',
+    },
+    simpleLevels: {
+      very_bad: '매우 나쁨',
+      bad: '나쁨',
+      neutral: '보통',
+      good: '좋음',
+      very_good: '매우 좋음',
+    },
+    intensity: {
+      low: '약함',
+      medium: '보통',
+      high: '강함',
+    },
+    my: {
+      title: '나만의 감정',
+      selectTitle: '오늘의 감정 선택하기',
+      noMoods: '아직 만든 감정이 없습니다. 새로운 감정을 만들어보세요.',
+      createMoods: '새 감정 만들기',
+      intensity: '감정 강도',
+      save: '감정 저장하기',
+      moodColor: {
+        title: '감정 색상 선택',
+        description: '감정에 어울리는 색상을 선택해주세요',
+      },
+      moodLevel: {
+        title: '감정 강도 선택',
+        description: '감정의 강도를 선택해주세요',
+      },
     },
   },
   calendar: {
@@ -284,12 +322,28 @@ export const ko = {
       '12': '12 시간',
     },
     fontSize: {
-      title: '글자 크기',
-      smaller: '더 작게',
+      title: '글꼴 크기',
+      smaller: '매우 작게',
       small: '작게',
       medium: '중간',
       large: '크게',
-      larger: '더 크게',
+      larger: '매우 크게',
+    },
+    emotionDisplay: {
+      title: '감정 표현 방식',
+      monthly: '월별 감정 표현 방식 설정',
+      description: '감정을 기록할 방식을 선택해주세요.',
+      currentMonth: '{{ month }}의 감정 표현 방식',
+      selectMode: '감정 표현 방식 선택',
+      fourEmotions: '4가지 감정',
+      fourEmotionsDescription:
+        '행복, 슬픔, 화남, 평화 4가지 감정과 3단계 강도.',
+      fiveLevels: '5단계 좋음/나쁨',
+      fiveLevelsDescription: '좋음과 나쁨을 5단계로 나눈 감정 상태.',
+      customEmotions: '나만의 감정',
+      customEmotionsDescription: '직접 만든 감정을 선택하여 기록합니다.',
+      submit: '설정 완료',
+      reset: '모든 월 설정 초기화',
     },
     profile: {
       title: '프로필',
@@ -305,6 +359,17 @@ export const ko = {
     },
     qna: {
       title: '문의 하기',
+    },
+    customEmotions: {
+      title: '감정 직접 만들기',
+      description: '나만의 감정을 직접 만들고 선택해보세요.',
+      create: '새 감정 추가하기',
+      namePlaceholder: '감정 이름',
+      list: '내가 만든 감정 목록',
+      empty: '만든 감정이 없습니다.',
+      limitReached: '무료 회원은 최대 4개의 감정만 만들 수 있습니다.',
+      upgradeToPremium:
+        '프리미엄으로 업그레이드하면 무제한으로 감정을 만들 수 있습니다.',
     },
   },
   onboarding: {
@@ -362,6 +427,17 @@ export const ko = {
       passwordRequired: '비밀번호를 입력해주세요',
       passwordMinLength: '비밀번호는 8자 이상이어야 합니다',
       passwordMismatch: '비밀번호가 일치하지 않습니다',
+    },
+  },
+  warn: {
+    createMood: {
+      name: {
+        1: '감정은 최대 4개 까지 생성할 수 있습니다.',
+        2: '감정 이름은 최대 10자 까지 입력할 수 있습니다.',
+      },
+      color: {
+        1: '감정 색상은 최대 3개 까지 선택할 수 있습니다.',
+      },
     },
   },
 }

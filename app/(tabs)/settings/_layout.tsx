@@ -19,6 +19,7 @@ export default function Layout() {
       <Stack.Screen name='profile' />
       <Stack.Screen name='bug_report' />
       <Stack.Screen name='qna' />
+      <Stack.Screen name='emotion_display' />
     </Stack>
   )
 }

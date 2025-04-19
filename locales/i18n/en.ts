@@ -70,7 +70,8 @@ export const en = {
       title: 'How was your day?',
       content: 'Record your emotions and experiences today.',
     },
-    mood: "Choose the emotion you're feeling right now.",
+    moodName: 'Enter the emotion name.',
+    color: 'Select the emotion color.',
   },
   notifications: {
     success: {
@@ -176,6 +177,25 @@ export const en = {
       zero: 'Slightly',
       half: 'Moderately',
       full: 'Very',
+    },
+    simpleLevels: {
+      very_bad: 'Very Bad',
+      bad: 'Bad',
+      neutral: 'Neutral',
+      good: 'Good',
+      very_good: 'Very Good',
+    },
+    my: {
+      title: 'My Emotions',
+      selectTitle: "Select Today's Emotion",
+      noMoods: "You haven't created any emotions yet. Create a new emotion.",
+      createMoods: 'Create New Emotion',
+      intensity: 'Emotion Intensity',
+      save: 'Save Emotion',
+      moodColor: {
+        title: 'Select Emotion Color',
+        description: 'Choose a color that matches your emotion',
+      },
     },
   },
   calendar: {

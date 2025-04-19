@@ -20,9 +20,9 @@ export class Diary {
   static async addJournal(
     store: JournalStore,
     draft: Draft,
-  ): Promise<JournalStore> {
+  ): Promise<JournalStore | { error: string }> {
     if (!draft.content || !draft.mood) {
-      throw new Error('not content or mood')
+      return { error: 'not_content_or_mood' }
     }
 
     const now = new Date()
@@ -31,7 +31,7 @@ export class Diary {
     // 하루에 최대 3개의 일기만 작성할 수 있도록 제한
     const dailyJournalIds = store.indexes.byDate[localDate] || []
     if (dailyJournalIds.length >= 3) {
-      throw new Error('daily_journal_limit_exceeded')
+      return { error: 'daily_journal_limit_exceeded' }
     }
 
     const monthString = getISOMonthString(localDate)

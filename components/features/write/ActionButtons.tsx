@@ -1,11 +1,12 @@
 import { Check, ImagePlus, Timer } from '@tamagui/lucide-icons'
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Spinner, XGroup } from 'tamagui'
+import { Separator, Spinner, View, XGroup } from 'tamagui'
 
 import type { Nullable } from '@/types'
 
 import { BaseText } from '@/components/shared/BaseText'
+import { PressableButton } from '@/components/shared/PressableButton'
 import * as S from './ActionButtons.styled'
 
 interface Props {
@@ -28,28 +29,30 @@ export const ActionButtons = memo(
   }: Props) => {
     const { t } = useTranslation()
     return (
-      <S.XGroupContainer>
-        <XGroup.Item>
-          <S.ActionButton onPress={onImageUriChange} icon={ImagePlus}>
-            <BaseText>{t('common.addCover')}</BaseText>
-          </S.ActionButton>
-        </XGroup.Item>
-        <S.Separator />
-        <XGroup.Item>
-          <S.ActionButton onPress={onTimeStamp} icon={Timer}>
-            <BaseText>{t('common.timeStamp')}</BaseText>
-          </S.ActionButton>
-        </XGroup.Item>
-        <S.Separator />
-        <XGroup.Item>
-          <S.SubmitButton
-            onPress={onSubmit}
-            disabled={isSubmitted || isLoading || !content}
-          >
-            {isLoading ? <Spinner /> : <Check />}
-          </S.SubmitButton>
-        </XGroup.Item>
-      </S.XGroupContainer>
+      <View items='flex-end'>
+        <XGroup>
+          <XGroup.Item>
+            <PressableButton onPress={onImageUriChange} icon={ImagePlus}>
+              {t('common.addCover')}
+            </PressableButton>
+          </XGroup.Item>
+          <Separator vertical />
+          <XGroup.Item>
+            <PressableButton onPress={onTimeStamp} icon={Timer}>
+              {t('common.timeStamp')}
+            </PressableButton>
+          </XGroup.Item>
+          <Separator vertical />
+          <XGroup.Item>
+            <PressableButton
+              onPress={onSubmit}
+              disabled={isSubmitted || isLoading || !content}
+            >
+              {isLoading ? <Spinner /> : <Check />}
+            </PressableButton>
+          </XGroup.Item>
+        </XGroup>
+      </View>
     )
   },
 )

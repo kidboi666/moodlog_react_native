@@ -31,7 +31,11 @@ export type CountScore = {
 }
 
 export type ScoreBoard = {
-  [key in MoodType]: CountScore
+  [key in MoodType]?: CountScore
+} & {
+  simple?: CountScore
+  custom?: CountScore
+  [customId: string]: CountScore | undefined
 }
 
 export type MoodStats = {

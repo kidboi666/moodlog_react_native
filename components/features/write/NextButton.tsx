@@ -1,20 +1,42 @@
 import { ArrowRight } from '@tamagui/lucide-icons'
 
-import * as S from './NextButton.styled'
+import { PressableButton } from '@/components/shared/PressableButton'
+import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/styles/animations'
+import { MoodLevel } from '@/types/mood.types'
+import { AnimatePresence, View, YStack } from 'tamagui'
 
 interface Props {
-  isSelected: boolean
+  moodName: string
+  moodColor: string
+  moodLevel?: MoodLevel
   onPress: () => void
 }
 
-export const NextButton = ({ isSelected, onPress }: Props) => {
+export const NextButton = ({
+  moodName,
+  moodColor,
+  moodLevel,
+  onPress,
+}: Props) => {
+  const isDisabled = !moodName || !moodColor || !moodLevel
+
   return (
-    <S.AnimatedContainer>
-      <S.NextButton
-        icon={ArrowRight}
-        disabled={!isSelected}
-        onPress={onPress}
-      />
-    </S.AnimatedContainer>
+    <AnimatePresence presenceAffectsLayout>
+      {moodName && moodColor && moodLevel && (
+        <View
+          items='center'
+          animation='lazy'
+          enterStyle={MOUNT_STYLE}
+          exitStyle={MOUNT_STYLE}
+          animateOnly={MOUNT_STYLE_KEY}
+        >
+          <PressableButton
+            icon={ArrowRight}
+            onPress={onPress}
+            disabled={isDisabled}
+          />
+        </View>
+      )}
+    </AnimatePresence>
   )
 }

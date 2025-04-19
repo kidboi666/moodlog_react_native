@@ -32,7 +32,7 @@ export const MoodTypeBox = memo(
               key={`${moodType}-${level}`}
               moodType={moodType}
               moodLevel={level}
-              moodColor={moodTheme[moodType][level]}
+              moodColor={moodTheme?.[moodType]?.[level]}
               isSelected={
                 moodType === selectedMoodType && level === selectedMoodLevel
               }

@@ -8,7 +8,7 @@ export default function Layout() {
   const theme = useTheme()
 
   return (
-    <StepProgressProvider totalSteps={4}>
+    <StepProgressProvider totalSteps={3}>
       <Stack
         initialRouteName='welcome'
         screenOptions={{

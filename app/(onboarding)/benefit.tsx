@@ -3,12 +3,12 @@ import { useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, View, XStack, YStack } from 'tamagui'
 
-import { H1, H3, H4 } from '@/components/shared/Heading'
 import { ANIMATION_DELAY_SECONDS } from '@/constants'
 import { useApp, useStepProgress } from '@/store'
 
 import { BaseText } from '@/components/shared/BaseText'
 import { FadeIn } from '@/components/shared/FadeIn.styleable'
+import { H1, H3, H4 } from '@/components/shared/Heading'
 import { PressableButton } from '@/components/shared/PressableButton'
 import { ViewContainer } from '@/components/shared/ViewContainer.styleable'
 
@@ -17,7 +17,7 @@ export default function Screen() {
   const { t } = useTranslation()
   const initFirstLaunchStatus = useApp(state => state.initFirstLaunchStatus)
   const { currentStep, goToPrevStep, goToNextStep } = useStepProgress()
-  const isBenefitPage = currentStep === 3
+  const isBenefitPage = currentStep === 2
 
   const handlePrevStep = () => {
     if (isBenefitPage) {

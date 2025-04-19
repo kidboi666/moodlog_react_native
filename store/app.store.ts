@@ -8,16 +8,15 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 import { APP_VERSION, STORAGE_KEY } from '@/constants'
 import {
   type AppStore,
-  EmotionDisplayType,
   FontTheme,
   type ISODateString,
   Languages,
+  MyMood,
   type Settings,
+  SubscriptionTier,
   TimeFormat,
   ViewFontSize,
 } from '@/types'
-
-const DEFAULT_LANGUAGE = Localization.getLocales()[0].languageCode as Languages
 
 export enum Language {
   ENGLISH = 'en',
@@ -36,14 +35,17 @@ const initialSettings: Settings = {
   fontTheme: FontTheme.LEE_SEOYUN,
   fontSize: ViewFontSize.MD,
   emotionDisplayType: undefined,
+  emotionDisplaySettings: {},
 }
 
 export const useApp = create<AppStore>()(
   persist(
     (set, get) => ({
       appVersion: APP_VERSION,
+      subscriptionTier: SubscriptionTier.FREE,
       firstLaunchDate: null,
       settings: initialSettings,
+      myMoods: {},
       isAuthenticated: false,
 
       initFirstLaunchStatus: () => {
@@ -68,8 +70,42 @@ export const useApp = create<AppStore>()(
           settings: { ...state.settings, [key]: value },
         }))
         if (key === 'language') {
-          await i18n.changeLanguage(value)
+          await i18n.changeLanguage(value as Languages)
         }
+      },
+
+      addMyMood: (myMood: MyMood) => {
+        const { myMoods, subscriptionTier } = get()
+
+        if (
+          subscriptionTier === SubscriptionTier.FREE &&
+          Object.keys(myMoods).length >= 4 &&
+          !myMoods[myMood.id]
+        ) {
+          return { error: 'free_user_custom_mood_limit' }
+        }
+
+        const newMyMoods = {
+          ...myMoods,
+          [myMood.id]: myMood,
+        }
+
+        set({ myMoods: newMyMoods })
+        return { success: true }
+      },
+
+      removeMyMood: (myMoodId: string) => {
+        const { myMoods = {} } = get()
+
+        if (!myMoods[myMoodId]) {
+          return { error: 'my_mood_not_found' }
+        }
+
+        const newMyMoods = { ...myMoods }
+        delete newMyMoods[myMoodId]
+
+        set({ myMoods: newMyMoods })
+        return { success: true }
       },
     }),
     {

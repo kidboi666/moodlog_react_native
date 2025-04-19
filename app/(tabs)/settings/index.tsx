@@ -7,6 +7,7 @@ import {
   HelpCircle,
   LogOut,
   Moon,
+  SmilePlus,
   Type,
   User,
 } from '@tamagui/lucide-icons'
@@ -117,6 +118,12 @@ export default function Screen() {
               onRouteChange={handleRouteChange}
               href='/settings/time_format'
               icon={<Clock size='$1' />}
+            />
+            <NavigationSettingItem
+              label={t('settings.emotionDisplay.title')}
+              onRouteChange={handleRouteChange}
+              href={'/settings/emotion_display' as any}
+              icon={<SmilePlus size='$1' />}
             />
           </SettingsContainer>
 

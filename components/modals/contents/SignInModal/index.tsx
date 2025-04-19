@@ -119,9 +119,13 @@ export const SignInModal = () => {
 
       <S.SignUpSection>
         <BaseText>{t('auth.noAccount')}</BaseText>
-        <S.SignUpButton onPress={navigateToRegister}>
-          <BaseText color='$blue10'>{t('auth.signup')}</BaseText>
-        </S.SignUpButton>
+        <PressableButton
+          bg='transparent'
+          color='$blue10'
+          onPress={navigateToRegister}
+        >
+          {t('auth.signup')}
+        </PressableButton>
       </S.SignUpSection>
     </BottomSheetContainer>
   )

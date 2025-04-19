@@ -1,18 +1,13 @@
 import Animated from 'react-native-reanimated'
 
-import { moodTheme } from '@/constants'
-import { useMoodStats } from '@/hooks/useMoodStats'
-import {
-  ExpansionState,
-  type ISOMonthString,
-  MoodLevel,
-  type MoodType,
-  TimeRange,
-} from '@/types'
+import { useApp } from '@/store'
+import type { ISOMonthString } from '@/types'
+import { ExpansionState, TimeRange } from '@/types'
 
 import { CollapsedContent } from '@/components/features/statistics/mood-average/CollapsedContent'
 import { ExpandedContent } from '@/components/features/statistics/mood-average/ExpandedContent'
 import { useExpandAnimation } from '@/hooks/useExpandAnimation'
+import { useMoodStats } from '@/hooks/useMoodStats'
 import * as S from './MoodAverage.styled'
 
 const AnimatedCardContainer = Animated.createAnimatedComponent(S.CardContainer)
@@ -24,33 +19,28 @@ interface Props {
 
 export const MoodAverage = ({ selectedYear, selectedMonth }: Props) => {
   const { stats } = useMoodStats(TimeRange.YEARLY, selectedYear, selectedMonth)
-  const { expansionState, onPress, animatedStyle } = useExpandAnimation()
-  const {
-    moodStats: { signatureMood, scoreBoard },
-  } = stats || {}
-  const hasSignatureMood = signatureMood ? signatureMood?.count > 0 : false
-  const bgColor =
-    expansionState === ExpansionState.EXPANDED
-      ? '$colo4'
-      : hasSignatureMood
-        ? moodTheme[signatureMood?.type as MoodType][MoodLevel.FULL]
-        : '$color4'
+  const { moodStats } = stats || {}
+  const { signatureMood, scoreBoard } = moodStats || {}
+  const { animatedStyle, expansionState, onPress } = useExpandAnimation()
+  const emotionDisplayType = useApp(state => state.settings.emotionDisplayType)
+  const emotionDisplaySettings = useApp(
+    state => state.settings.emotionDisplaySettings || {},
+  )
+
+  // 선택된 달에 특정 감정 선택 로직이 설정되어 있으면 그것을 사용
+  const shouldShowSignatureMood = !!signatureMood?.type
 
   return (
-    <AnimatedCardContainer
-      moodColor={bgColor}
-      onPress={onPress}
-      style={animatedStyle}
-    >
+    <AnimatedCardContainer onPress={onPress} style={animatedStyle}>
       {expansionState === ExpansionState.EXPANDED ? (
         <ExpandedContent
-          hasSignatureMood={hasSignatureMood}
-          scoreBoard={scoreBoard}
+          scoreBoard={scoreBoard || {}}
+          hasSignatureMood={shouldShowSignatureMood}
         />
       ) : (
         <CollapsedContent
-          hasSignatureMood={hasSignatureMood}
           signatureMood={signatureMood}
+          hasSignatureMood={shouldShowSignatureMood}
         />
       )}
     </AnimatedCardContainer>
