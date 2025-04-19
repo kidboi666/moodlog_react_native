@@ -1,3 +1,4 @@
+import { supabase } from '@/lib/supabase'
 import { useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -5,7 +6,6 @@ import { Alert } from 'react-native'
 import { Separator, Spinner } from 'tamagui'
 
 import { AUTH_SNAP_POINTS } from '@/constants'
-import { supabase } from '@/lib/supabase'
 import { useAuth, useBottomSheet } from '@/store'
 import { BottomSheetType } from '@/types'
 import { isValidEmail } from '@/utils'
@@ -15,6 +15,7 @@ import { BaseText } from '@/components/shared/BaseText'
 import { FormInput } from '@/components/shared/FormInput'
 import { H1, H3 } from '@/components/shared/Heading'
 
+import { PressableButton } from '@/components/shared/PressableButton'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 import * as S from './SingInModal.styled'
 
@@ -105,9 +106,13 @@ export const SignInModal = () => {
           secureTextEntry
           autoComplete='password'
         />
-        <S.SignInButton onPress={handleSignIn} disabled={isLoading}>
-          {isLoading ? <Spinner /> : <BaseText>{t('auth.login')}</BaseText>}
-        </S.SignInButton>
+        <PressableButton
+          themeInverse
+          onPress={handleSignIn}
+          disabled={isLoading || !email || !password}
+        >
+          {isLoading ? <Spinner /> : t('auth.login')}
+        </PressableButton>
       </S.SignInSection>
 
       <Separator />

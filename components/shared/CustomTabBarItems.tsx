@@ -6,7 +6,7 @@ import {
 } from '@tamagui/lucide-icons'
 import { memo } from 'react'
 
-import * as S from './CustomTabBar.styled'
+import { PressableButton } from './PressableButton'
 
 interface TabButtonProps {
   isTabActive: boolean
@@ -15,8 +15,9 @@ interface TabButtonProps {
 
 export const HomeTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
   return (
-    <S.HomeButton
-      isTabActive={isTabActive}
+    <PressableButton
+      color={isTabActive ? '$color11' : '$color9'}
+      bg={isTabActive ? '$backgroundStrong' : '$color5'}
       icon={Home}
       onPress={() => onPress('/')}
     />
@@ -25,8 +26,9 @@ export const HomeTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
 
 export const EntriesTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
   return (
-    <S.CalendarButton
-      isTabActive={isTabActive}
+    <PressableButton
+      color={isTabActive ? '$color11' : '$color9'}
+      bg={isTabActive ? '$backgroundStrong' : '$color5'}
       icon={CalendarDays}
       onPress={() => onPress('/entries')}
     />
@@ -36,8 +38,9 @@ export const EntriesTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
 export const StatisticsTab = memo(
   ({ isTabActive, onPress }: TabButtonProps) => {
     return (
-      <S.RecordButton
-        isTabActive={isTabActive}
+      <PressableButton
+        color={isTabActive ? '$color11' : '$color9'}
+        bg={isTabActive ? '$backgroundStrong' : '$color5'}
         icon={FileChartColumnIncreasing}
         onPress={() => onPress('/statistics')}
       />
@@ -47,8 +50,9 @@ export const StatisticsTab = memo(
 
 export const SettingsTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
   return (
-    <S.SettingsButton
-      isTabActive={isTabActive}
+    <PressableButton
+      color={isTabActive ? '$color11' : '$color9'}
+      bg={isTabActive ? '$backgroundStrong' : '$color5'}
       icon={Settings}
       onPress={() => onPress('/settings')}
     />

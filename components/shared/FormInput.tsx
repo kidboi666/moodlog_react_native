@@ -21,6 +21,10 @@ export const FormInput = ({
       value={value}
       onChangeText={onChangeText}
       fontFamily={font}
+      borderWidth={1}
+      focusStyle={{
+        borderWidth: 2,
+      }}
       {...props}
     />
   )

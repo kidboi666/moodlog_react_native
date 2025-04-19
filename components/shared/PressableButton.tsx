@@ -1,10 +1,8 @@
 import { useCustomFont } from '@/hooks'
 import { PRESS_STYLE, PRESS_STYLE_KEY } from '@/styles/animations'
-import { Button, ButtonProps, styled } from 'tamagui'
+import { Button, ButtonProps } from 'tamagui'
 
-interface Props extends ButtonProps {
-  disabled?: boolean
-}
+interface Props extends ButtonProps {}
 
 export const PressableButton = ({ children, disabled, ...props }: Props) => {
   const font = useCustomFont()
@@ -17,6 +15,7 @@ export const PressableButton = ({ children, disabled, ...props }: Props) => {
       scaleIcon={1.5}
       fontFamily={font}
       disabled={disabled}
+      opacity={disabled ? 0.5 : 1}
       {...props}
     >
       {children}
