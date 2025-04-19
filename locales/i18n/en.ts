@@ -98,6 +98,10 @@ export const en = {
         message: 'You can only select one mood per day.',
       },
     },
+    premium: {
+      title: 'Premium Feature',
+      message: 'This feature is only available to premium members.',
+    },
   },
   entries: {
     title: 'Entries',

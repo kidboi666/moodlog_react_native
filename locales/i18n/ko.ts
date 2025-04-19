@@ -108,6 +108,10 @@ export const ko = {
         message: '하루에 한 가지 감정만 선택할 수 있습니다.',
       },
     },
+    premium: {
+      title: '프리미엄 기능',
+      message: '이 기능은 프리미엄 회원만 사용할 수 있습니다.',
+    },
   },
   entries: {
     title: '기록',
