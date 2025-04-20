@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
-import { Separator, Spinner } from 'tamagui'
+import { Separator, Spinner, XStack, YStack } from 'tamagui'
 
 import { AUTH_SNAP_POINTS, HTTP_STATUS } from '@/constants'
 import { useBottomSheet } from '@/store'
@@ -15,7 +15,6 @@ import { H1 } from '@/components/shared/Heading'
 import { PressableButton } from '@/components/shared/PressableButton'
 import { supabase } from '@/lib/supabase'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
-import * as S from './SignUpModal.styled'
 
 export const SignUpModal = () => {
   const { t } = useTranslation()
@@ -117,7 +116,7 @@ export const SignUpModal = () => {
   return (
     <BottomSheetContainer>
       <H1>{t('auth.register')}</H1>
-      <S.SignUpSection>
+      <YStack gap='$4'>
         <FormInput
           placeholder={t('auth.email')}
           value={email}
@@ -147,23 +146,23 @@ export const SignUpModal = () => {
           secureTextEntry
           autoComplete='password'
         />
-        <S.SignUpButton
+        <PressableButton
           themeInverse
           onPress={handleSignUp}
           disabled={isDisabled}
         >
-          {isLoading ? <Spinner /> : <BaseText>{t('auth.register')}</BaseText>}
-        </S.SignUpButton>
-      </S.SignUpSection>
+          {isLoading ? <Spinner /> : t('auth.register')}
+        </PressableButton>
+      </YStack>
 
       <Separator />
 
-      <S.SignInSection>
+      <XStack items='center' justify='center' gap='$2'>
         <BaseText>{t('auth.hasAccount')}</BaseText>
         <PressableButton bg='transparent' color='$blue10' onPress={goLoginPage}>
           {t('auth.login')}
         </PressableButton>
-      </S.SignInSection>
+      </XStack>
     </BottomSheetContainer>
   )
 }

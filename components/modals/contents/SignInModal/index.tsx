@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
-import { Separator, Spinner } from 'tamagui'
+import { Separator, Spinner, XStack, YStack } from 'tamagui'
 
 import { AUTH_SNAP_POINTS } from '@/constants'
 import { useAuth, useBottomSheet } from '@/store'
@@ -16,7 +16,6 @@ import { FormInput } from '@/components/shared/FormInput'
 import { H1, H3 } from '@/components/shared/Heading'
 import { PressableButton } from '@/components/shared/PressableButton'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
-import * as S from './SingInModal.styled'
 
 interface LoginFormState {
   email: string
@@ -119,7 +118,7 @@ export const SignInModal = () => {
     <BottomSheetContainer>
       <H1>{t('auth.login')}</H1>
       <H3>{t('auth.loginDescription')}</H3>
-      <S.SignInSection>
+      <XStack items='center' justify='center' gap='$2'>
         <FormInput
           placeholder={t('auth.email')}
           value={email}
@@ -142,9 +141,9 @@ export const SignInModal = () => {
         >
           {isLoading ? <Spinner /> : t('auth.login')}
         </PressableButton>
-      </S.SignInSection>
+      </XStack>
       <Separator />
-      <S.SignUpSection>
+      <YStack gap='$4'>
         <BaseText>{t('auth.noAccount')}</BaseText>
         <PressableButton
           bg='transparent'
@@ -153,7 +152,7 @@ export const SignInModal = () => {
         >
           {t('auth.signup')}
         </PressableButton>
-      </S.SignUpSection>
+      </YStack>
     </BottomSheetContainer>
   )
 }

@@ -1,10 +1,12 @@
 import { memo, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Spinner } from 'tamagui'
+import { Spinner, YStack } from 'tamagui'
 
+import { BottomSheetContainer } from '@/components/modals/BottomSheetContainer'
 import { BaseText } from '@/components/shared/BaseText'
+import { H3 } from '@/components/shared/Heading'
+import { PressableButton } from '@/components/shared/PressableButton'
 import type { BottomSheetProps, BottomSheetType } from '@/types'
-import * as S from './DeleteJournalModal.styled'
 
 export const DeleteJournalModal = memo(
   ({
@@ -36,24 +38,25 @@ export const DeleteJournalModal = memo(
     const isDisabled = isLoading || isSuccess
 
     return (
-      <S.BottomSheetContainer>
-        <S.ModalTitle>{t('modals.deleteJournal.title')}</S.ModalTitle>
-        <S.ModalDescription>
+      <BottomSheetContainer>
+        <H3 text='center'>{t('modals.deleteJournal.title')}</H3>
+        <BaseText color='$color11'>
           {t('modals.deleteJournal.description')}
-        </S.ModalDescription>
-        <S.ModalContentYStack>
-          <S.ConfirmButton onPress={handleDelete} disabled={isDisabled}>
-            {isDisabled ? (
-              <Spinner />
-            ) : (
-              <BaseText color='$color1'>{t('common.delete')}</BaseText>
-            )}
-          </S.ConfirmButton>
-          <S.CancelButton onPress={hideBottomSheet} disabled={isDisabled}>
-            <BaseText>{t('common.cancel')}</BaseText>
-          </S.CancelButton>
-        </S.ModalContentYStack>
-      </S.BottomSheetContainer>
+        </BaseText>
+        <YStack gap='$3' mt='$2'>
+          <PressableButton
+            bg='$red9'
+            color='white'
+            onPress={handleDelete}
+            disabled={isDisabled}
+          >
+            {isDisabled ? <Spinner /> : t('common.delete')}
+          </PressableButton>
+          <PressableButton onPress={hideBottomSheet} disabled={isDisabled}>
+            {t('common.cancel')}
+          </PressableButton>
+        </YStack>
+      </BottomSheetContainer>
     )
   },
 )

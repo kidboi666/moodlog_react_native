@@ -1,11 +1,15 @@
 import { memo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Alert } from 'react-native'
+import { YStack } from 'tamagui'
 
 import type { BottomSheetProps, BottomSheetType } from '@/types'
 
+import { BottomSheetContainer } from '@/components/modals/BottomSheetContainer'
+import { BaseText } from '@/components/shared/BaseText'
+import { H3 } from '@/components/shared/Heading'
+import { PressableButton } from '@/components/shared/PressableButton'
 import { supabase } from '@/lib/supabase'
-import { Alert } from 'react-native'
-import * as S from './LogoutModal.styled'
 
 export const LogoutModal = memo(
   ({ hideBottomSheet }: BottomSheetProps[BottomSheetType.LOGOUT]) => {
@@ -21,22 +25,20 @@ export const LogoutModal = memo(
     }, [hideBottomSheet])
 
     return (
-      <S.BottomSheetContainer>
-        <S.ModalTitle>
-          {t('settings.logout.confirmTitle') || '로그아웃'}
-        </S.ModalTitle>
-        <S.ModalDescription>
-          {t('settings.logout.confirmMessage') || '정말 로그아웃 하시겠습니까?'}
-        </S.ModalDescription>
-        <S.ModalContentYStack>
-          <S.ConfirmButton onPress={handleLogout}>
-            {t('auth.logout') || '로그아웃'}
-          </S.ConfirmButton>
-          <S.CancelButton onPress={hideBottomSheet}>
-            {t('common.cancel') || '취소'}
-          </S.CancelButton>
-        </S.ModalContentYStack>
-      </S.BottomSheetContainer>
+      <BottomSheetContainer>
+        <H3 text='center'>{t('settings.logout.confirmTitle')}</H3>
+        <BaseText text='center' color='$gray11'>
+          {t('settings.logout.confirmMessage')}
+        </BaseText>
+        <YStack gap='$3' mt='$2'>
+          <PressableButton onPress={handleLogout}>
+            {t('auth.logout')}
+          </PressableButton>
+          <PressableButton onPress={hideBottomSheet}>
+            {t('common.cancel')}
+          </PressableButton>
+        </YStack>
+      </BottomSheetContainer>
     )
   },
 )

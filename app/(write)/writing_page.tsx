@@ -1,6 +1,6 @@
 import { useToastController } from '@tamagui/toast'
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   AppState,
@@ -9,10 +9,10 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native'
-import { GetThemeValueForKey, View, XStack, useTheme } from 'tamagui'
+import { GetThemeValueForKey, View, XStack } from 'tamagui'
 
 import { WriteHeader } from '@/components/features/write/WriteHeader'
-import { KEYBOARD_VERTICAL_OFFSET, moodTheme } from '@/constants'
+import { KEYBOARD_VERTICAL_OFFSET } from '@/constants'
 import { ImageHelper } from '@/services'
 import { useDraft, useJournal, useUI } from '@/store'
 import { type Draft, MoodLevel } from '@/types'
@@ -23,9 +23,6 @@ import {
   type EnhancedTextInputRef,
 } from '@/components/features/write/EnhancedTextInput'
 import { ViewContainer } from '@/components/shared/ViewContainer.styleable'
-import { useApp } from '@/store'
-import * as S from '@/styles/screens/write/Write.styled'
-import { EmotionDisplayType } from '@/types'
 
 const AUTO_SAVE_INTERVAL = 5000
 
@@ -34,8 +31,6 @@ export default function WritingScreen() {
   const router = useRouter()
   const { t } = useTranslation()
   const toast = useToastController()
-  const theme = useTheme()
-  const { settings } = useApp()
 
   const addJournal = useJournal(state => state.addJournal)
   const isLoading = useUI(state => state.isLoading)
@@ -73,92 +68,6 @@ export default function WritingScreen() {
       console.error('자동 저장 실패:', error)
     }
   }, [draft, setStoredDraft])
-
-  // =========== 초기 데이터 로딩 ===========
-  useEffect(() => {
-    if (
-      !initialLoadCompletedRef.current &&
-      storedDraft?.content &&
-      !draft.content
-    ) {
-      isUpdatingDraftRef.current = true
-      setDraft(prevDraft => ({
-        ...prevDraft,
-        content: storedDraft.content,
-        imageUri: storedDraft.imageUri || prevDraft.imageUri,
-        mood: storedDraft.mood || prevDraft.mood,
-      }))
-      lastSavedContentRef.current = storedDraft.content
-
-      setTimeout(() => {
-        toast.show('이전 작성 내용', {
-          message: '이전에 작성 중이던 내용을 불러왔습니다.',
-          preset: 'success',
-        })
-        isUpdatingDraftRef.current = false
-      }, 0)
-    }
-
-    initialLoadCompletedRef.current = true
-  }, [storedDraft?.content])
-
-  // =========== 자동 저장 로직 ===========
-  useEffect(() => {
-    if (!initialLoadCompletedRef.current || isUpdatingDraftRef.current) return
-
-    if (lastSavedContentRef.current !== draft.content) {
-      shouldSaveRef.current = true
-
-      if (!draft.content) {
-        removeStoredDraft()
-        console.log('내용을 지워 저장된 초안 삭제')
-      }
-    }
-  }, [draft.content, removeStoredDraft])
-
-  // 자동 저장 타이머
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (shouldSaveRef.current && !isUpdatingDraftRef.current) {
-        saveDraft()
-      }
-    }, AUTO_SAVE_INTERVAL)
-
-    return () => {
-      clearInterval(timer)
-      if (!isUpdatingDraftRef.current) {
-        saveDraft() // 컴포넌트 언마운트 시 저장
-      }
-    }
-  }, [saveDraft])
-
-  // 앱 상태 변경 시 저장
-  useEffect(() => {
-    const handleAppStateChange = (nextAppState: AppStateStatus) => {
-      if (nextAppState === 'background' || nextAppState === 'inactive') {
-        if (!isUpdatingDraftRef.current) {
-          saveDraft()
-        }
-      }
-    }
-
-    const subscription = AppState.addEventListener(
-      'change',
-      handleAppStateChange,
-    )
-    return () => subscription.remove()
-  }, [saveDraft])
-
-  // 초기 포커스 설정
-  useEffect(() => {
-    const focusTimer = setTimeout(() => {
-      requestAnimationFrame(() => {
-        inputRef.current?.focus()
-      })
-    }, 300)
-
-    return () => clearTimeout(focusTimer)
-  }, [])
 
   const handleContentChange = useCallback((content: string) => {
     if (isUpdatingDraftRef.current) return
@@ -247,6 +156,92 @@ export default function WritingScreen() {
     setLoading,
     removeStoredDraft,
   ])
+
+  // =========== 초기 데이터 로딩 ===========
+  useEffect(() => {
+    if (
+      !initialLoadCompletedRef.current &&
+      storedDraft?.content &&
+      !draft.content
+    ) {
+      isUpdatingDraftRef.current = true
+      setDraft(prevDraft => ({
+        ...prevDraft,
+        content: storedDraft.content,
+        imageUri: storedDraft.imageUri || prevDraft.imageUri,
+        mood: storedDraft.mood || prevDraft.mood,
+      }))
+      lastSavedContentRef.current = storedDraft.content
+
+      setTimeout(() => {
+        toast.show('이전 작성 내용', {
+          message: '이전에 작성 중이던 내용을 불러왔습니다.',
+          preset: 'success',
+        })
+        isUpdatingDraftRef.current = false
+      }, 0)
+    }
+
+    initialLoadCompletedRef.current = true
+  }, [storedDraft?.content])
+
+  // =========== 자동 저장 로직 ===========
+  useEffect(() => {
+    if (!initialLoadCompletedRef.current || isUpdatingDraftRef.current) return
+
+    if (lastSavedContentRef.current !== draft.content) {
+      shouldSaveRef.current = true
+
+      if (!draft.content) {
+        removeStoredDraft()
+        console.log('내용을 지워 저장된 초안 삭제')
+      }
+    }
+  }, [draft.content, removeStoredDraft])
+
+  // 자동 저장 타이머
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (shouldSaveRef.current && !isUpdatingDraftRef.current) {
+        saveDraft()
+      }
+    }, AUTO_SAVE_INTERVAL)
+
+    return () => {
+      clearInterval(timer)
+      if (!isUpdatingDraftRef.current) {
+        saveDraft() // 컴포넌트 언마운트 시 저장
+      }
+    }
+  }, [saveDraft])
+
+  // 앱 상태 변경 시 저장
+  useEffect(() => {
+    const handleAppStateChange = (nextAppState: AppStateStatus) => {
+      if (nextAppState === 'background' || nextAppState === 'inactive') {
+        if (!isUpdatingDraftRef.current) {
+          saveDraft()
+        }
+      }
+    }
+
+    const subscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange,
+    )
+    return () => subscription.remove()
+  }, [saveDraft])
+
+  // 초기 포커스 설정
+  useEffect(() => {
+    const focusTimer = setTimeout(() => {
+      requestAnimationFrame(() => {
+        inputRef.current?.focus()
+      })
+    }, 300)
+
+    return () => clearTimeout(focusTimer)
+  }, [])
 
   return (
     <ViewContainer edges={['bottom']} Header={<WriteHeader />} pl={0}>

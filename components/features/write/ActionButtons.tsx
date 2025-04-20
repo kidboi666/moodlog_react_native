@@ -1,13 +1,9 @@
 import { Check, ImagePlus, Timer } from '@tamagui/lucide-icons'
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Separator, Spinner, View, XGroup } from 'tamagui'
+import { Button, Separator, Spinner, View, XGroup } from 'tamagui'
 
 import type { Nullable } from '@/types'
-
-import { BaseText } from '@/components/shared/BaseText'
-import { PressableButton } from '@/components/shared/PressableButton'
-import * as S from './ActionButtons.styled'
 
 interface Props {
   isSubmitted: boolean
@@ -32,24 +28,24 @@ export const ActionButtons = memo(
       <View items='flex-end'>
         <XGroup>
           <XGroup.Item>
-            <PressableButton onPress={onImageUriChange} icon={ImagePlus}>
+            <Button onPress={onImageUriChange} icon={ImagePlus}>
               {t('common.addCover')}
-            </PressableButton>
+            </Button>
           </XGroup.Item>
           <Separator vertical />
           <XGroup.Item>
-            <PressableButton onPress={onTimeStamp} icon={Timer}>
+            <Button onPress={onTimeStamp} icon={Timer}>
               {t('common.timeStamp')}
-            </PressableButton>
+            </Button>
           </XGroup.Item>
           <Separator vertical />
           <XGroup.Item>
-            <PressableButton
+            <Button
               onPress={onSubmit}
               disabled={isSubmitted || isLoading || !content}
             >
               {isLoading ? <Spinner /> : <Check />}
-            </PressableButton>
+            </Button>
           </XGroup.Item>
         </XGroup>
       </View>

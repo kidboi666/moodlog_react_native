@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import { ScrollView, XStack } from 'tamagui'
 
-import { DELETE_JOURNAL_SNAP_POINTS, moodTheme } from '@/constants'
+import { DELETE_JOURNAL_SNAP_POINTS } from '@/constants'
 import { useApp, useBottomSheet, useJournal } from '@/store'
 import { BottomSheetType } from '@/types'
 import { toSingle } from '@/utils'
@@ -66,7 +66,7 @@ export default function Screen() {
   }, [journalId])
 
   if (!selectedJournal || selectedJournal?.id !== journalId) return null
-
+  console.log(selectedJournal)
   return (
     <ScrollView overScrollMode='always'>
       <S.ViewContainer
@@ -80,19 +80,13 @@ export default function Screen() {
         }
       >
         <XStack>
-          <S.MoodBar
-            moodColor={
-              moodTheme[selectedJournal.mood.type][selectedJournal.mood.level]
-            }
-          />
+          <S.MoodBar moodColor={selectedJournal.mood.color} />
           <S.ContentBox>
             <S.MoodTextBox>
               <S.MoodLevelText>
-                {t(`moods.levels.${selectedJournal.mood?.level}`)}
+                {t(`moods.levels.${selectedJournal.mood.level}`)}
               </S.MoodLevelText>
-              <S.MoodTypeText>
-                {t(`moods.types.${selectedJournal.mood?.type}`)}
-              </S.MoodTypeText>
+              <S.MoodTypeText>{selectedJournal.mood.name}</S.MoodTypeText>
             </S.MoodTextBox>
             {Array.isArray(selectedJournal.imageUri) && (
               <ScrollView horizontal>

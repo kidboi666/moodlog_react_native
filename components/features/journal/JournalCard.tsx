@@ -22,21 +22,12 @@ interface Props {
   id: string
   createdAt: string
   imageUri: string[]
-  moodType: MoodType
-  moodLevel: MoodLevel
+  moodColor?: string
   openDeleteSheet: (id: string) => void
 }
 
 export const JournalCard = memo(
-  ({
-    content,
-    id,
-    createdAt,
-    imageUri,
-    moodType,
-    moodLevel,
-    openDeleteSheet,
-  }: Props) => {
+  ({ content, id, createdAt, imageUri, moodColor, openDeleteSheet }: Props) => {
     const router = useRouter()
     const [modalVisible, setModalVisible] = useState(false)
     const {
@@ -121,7 +112,7 @@ export const JournalCard = memo(
             <AnimatedCard onPress={handlePress} style={animatedStyle}>
               <S.CardHeader>
                 <S.Content>
-                  <S.MoodBar moodColor={moodTheme[moodType]?.[moodLevel]} />
+                  <S.MoodBar moodColor={moodColor} />
                   <S.JournalContentBox>
                     <S.TimeText createdAt={createdAt} />
                     <S.JournalContentText>{content}</S.JournalContentText>

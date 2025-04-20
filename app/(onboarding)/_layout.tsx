@@ -23,7 +23,6 @@ export default function Layout() {
       >
         <Stack.Screen name='welcome' />
         <Stack.Screen name='nickname' />
-        <Stack.Screen name='emotion-type' />
         <Stack.Screen name='benefit' />
       </Stack>
     </StepProgressProvider>

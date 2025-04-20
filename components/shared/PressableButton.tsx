@@ -6,12 +6,14 @@ import {
   PRESS_STYLE_KEY,
 } from '@/styles/animations'
 import { memo } from 'react'
-import { Button, ButtonProps } from 'tamagui'
+import { Button, ButtonProps, Spinner } from 'tamagui'
 
-interface Props extends ButtonProps {}
+interface Props extends ButtonProps {
+  isLoading?: boolean
+}
 
 export const PressableButton = memo(
-  ({ children, disabled, ...props }: Props) => {
+  ({ children, disabled, isLoading, ...props }: Props) => {
     const font = useCustomFont()
     return (
       <Button
@@ -27,7 +29,7 @@ export const PressableButton = memo(
         opacity={disabled ? 0.5 : 1}
         {...props}
       >
-        {children}
+        {isLoading ? <Spinner /> : children}
       </Button>
     )
   },

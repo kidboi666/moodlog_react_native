@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import {
   Button,
   Card,
+  GetThemeValueForKey,
   ScrollView,
   Separator,
   View,
@@ -81,8 +82,21 @@ export default function Screen() {
     return () => clearTimeout(timer)
   }
 
+  // 새 감정 만들기 페이지로 이동
+  const handleCreateMood = () => {
+    setNavigating(true)
+    const timer = setTimeout(() => {
+      router.push('/create_mood')
+      setTimeout(() => {
+        setNavigating(false)
+      }, 100)
+    }, ROUTE_DELAY_MS)
+
+    return () => clearTimeout(timer)
+  }
+
   if (Object.keys(myMoods).length === 0) {
-    return null // useEffect에서 리다이렉트하므로 아무것도 렌더링하지 않음
+    return null
   }
 
   return (
@@ -91,12 +105,21 @@ export default function Screen() {
         edges={['bottom']}
         Header={<HeaderContainer leftAction={() => router.back()} />}
       >
-        <YStack flex={1} space='$4' style={{ padding: 16 }}>
+        <YStack flex={1} gap='$4' style={{ padding: 16 }}>
           <H3>{t('moods.my.selectTitle')}</H3>
           <Separator />
 
+          <Button
+            size='$4'
+            theme='blue'
+            onPress={handleCreateMood}
+            style={{ marginVertical: 8 }}
+          >
+            {t('moods.my.createMoods')}
+          </Button>
+
           <ScrollView style={{ flex: 1 }}>
-            <YStack space='$3' style={{ paddingVertical: 8 }}>
+            <YStack gap='$3' style={{ paddingVertical: 8 }}>
               {Object.values(myMoods).map(mood => (
                 <Card
                   key={mood.id}
@@ -108,10 +131,14 @@ export default function Screen() {
                   onPress={() => setSelectedMoodId(mood.id)}
                 >
                   <Card.Header padded>
-                    <XStack space='$2' style={{ alignItems: 'center' }}>
+                    <XStack gap='$2' items='center'>
                       <StyledView
-                        circle
-                        style={{ backgroundColor: mood.color }}
+                        width={16}
+                        height={16}
+                        rounded='$4'
+                        bg={
+                          mood.color as GetThemeValueForKey<'backgroundColor'>
+                        }
                       />
                       <BaseText fontSize='$5'>{mood.name}</BaseText>
                     </XStack>

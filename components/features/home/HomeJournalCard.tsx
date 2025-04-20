@@ -27,8 +27,7 @@ export const HomeJournalCard = ({
           <JournalCard
             id={id}
             content={content}
-            moodType={mood.type}
-            moodLevel={mood.level}
+            moodColor={mood.color}
             imageUri={imageUri}
             createdAt={createdAt}
             openDeleteSheet={openDeleteSheet}

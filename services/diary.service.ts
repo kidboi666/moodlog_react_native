@@ -36,7 +36,7 @@ export class Diary {
 
     const monthString = getISOMonthString(localDate)
     const year = now.getFullYear()
-    const moodType = draft.mood.type
+    const moodName = draft.mood.name
 
     // 하루에 한 가지 감정만 선택할 수 있도록 제한
     // 오늘 작성된 일기가 있으면 가장 최근 일기의 감정 사용
@@ -82,8 +82,8 @@ export class Diary {
         },
         byMood: {
           ...store.indexes.byMood,
-          [moodType]: [
-            ...(store.indexes.byMood[moodType] || []),
+          [moodName]: [
+            ...(store.indexes.byMood[moodName] || []),
             newJournal.id,
           ],
         },
@@ -104,7 +104,7 @@ export class Diary {
     const date = journal.localDate
     const month = getISOMonthString(date)
     const year = getYearFromISODate(journal.localDate)
-    const mood = journal.mood.type
+    const mood = journal.mood.name
 
     const newStore = {
       journals: { ...store.journals },

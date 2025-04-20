@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { PinchGestureHandler, State } from 'react-native-gesture-handler'
-import { View } from 'tamagui'
+import { Button, View } from 'tamagui'
 
 const { width, height } = Dimensions.get('window')
 
@@ -21,12 +21,10 @@ interface Props {
 }
 
 export const FullScreenImageModal = ({ visible, imageUri, onClose }: Props) => {
-  // =========== 상태 및 Ref ===========
   const [currentScale, setCurrentScale] = useState(1)
   const scale = useRef(new Animated.Value(1)).current
   const pinchRef = useRef(null)
 
-  // =========== 이미지 확대/축소 함수 ===========
   const resetScale = () => {
     Animated.timing(scale, {
       toValue: 1,
@@ -43,7 +41,6 @@ export const FullScreenImageModal = ({ visible, imageUri, onClose }: Props) => {
     }).start(() => setCurrentScale(2))
   }
 
-  // =========== 제스처 핸들러 ===========
   const onPinchGestureEvent = Animated.event(
     [{ nativeEvent: { scale: scale } }],
     { useNativeDriver: true },
@@ -77,16 +74,21 @@ export const FullScreenImageModal = ({ visible, imageUri, onClose }: Props) => {
       statusBarTranslucent={true}
       onRequestClose={onClose}
     >
-      <View style={styles.modalContainer}>
+      <View flex={1} bg='rgba(0, 0, 0, 0.9)' justify='center' items='center'>
         <StatusBar hidden={Platform.OS === 'ios'} />
 
-        <TouchableOpacity
-          style={styles.closeButton}
+        <Button
+          unstyled
+          size='$8'
+          icon={X}
+          position='absolute'
+          t={Platform.OS === 'ios' ? 50 : 20}
+          r={20}
+          z={10}
+          p={5}
           onPress={onClose}
-          activeOpacity={0.7}
-        >
-          <X size={24} color='white' />
-        </TouchableOpacity>
+          opacity={0.7}
+        />
 
         <PinchGestureHandler
           ref={pinchRef}
@@ -119,23 +121,10 @@ export const FullScreenImageModal = ({ visible, imageUri, onClose }: Props) => {
 }
 
 const styles = StyleSheet.create({
-  modalContainer: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.9)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   fullImage: {
     width,
     height,
     maxWidth: '100%',
     maxHeight: '100%',
-  },
-  closeButton: {
-    position: 'absolute',
-    top: Platform.OS === 'ios' ? 50 : 20,
-    right: 20,
-    zIndex: 10,
-    padding: 5,
   },
 })

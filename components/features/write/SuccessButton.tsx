@@ -12,7 +12,7 @@ interface Props {
   onPress: () => void
 }
 
-export const NextButton = ({
+export const SuccessButton = ({
   moodName,
   moodColor,
   moodLevel,

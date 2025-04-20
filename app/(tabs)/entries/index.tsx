@@ -100,8 +100,7 @@ export default function Screen() {
                       content={content}
                       imageUri={imageUri}
                       createdAt={createdAt}
-                      moodType={mood.type}
-                      moodLevel={mood.level}
+                      moodColor={mood.color}
                       openDeleteSheet={openDeleteSheet}
                     />
                   )

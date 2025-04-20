@@ -11,7 +11,7 @@ export type MoodColor = string
 export type Mood = {
   name: MoodName
   level: MoodLevel
-  color?: MoodColor
+  color: MoodColor
 }
 
 export type MyMood = {

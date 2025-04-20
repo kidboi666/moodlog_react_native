@@ -1,3 +1,5 @@
+import { Check } from '@tamagui/lucide-icons'
+import { useTranslation } from 'react-i18next'
 import { Button, GetThemeValueForKey, Separator, XStack, YStack } from 'tamagui'
 import { AnimatePresence } from 'tamagui'
 
@@ -10,8 +12,7 @@ import {
   PRESS_STYLE_KEY,
 } from '@/styles/animations'
 import { MoodLevel } from '@/types'
-import { Check } from '@tamagui/lucide-icons'
-import { useTranslation } from 'react-i18next'
+
 export const MoodLevelForm = ({
   moodName,
   moodColor,
