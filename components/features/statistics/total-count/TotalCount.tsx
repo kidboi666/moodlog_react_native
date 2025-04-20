@@ -1,19 +1,27 @@
 import Animated from 'react-native-reanimated'
+import { YStack, styled } from 'tamagui'
 
+import { PRESS_STYLE } from '@/constants'
+import { useExpandAnimation, useJournalStats } from '@/hooks'
 import { useApp } from '@/store'
-import type { ISOMonthString } from '@/types'
-import { ExpansionState, TimeRange } from '@/types'
+import { ExpansionState, type ISOMonthString, TimeRange } from '@/types'
 import { getDaysSinceSignup } from '@/utils'
 
 import {
   TotalCountCollapsedContent,
   TotalCountExpandedContent,
 } from '@/components/features/statistics'
-import { useExpandAnimation } from '@/hooks/useExpandAnimation'
-import { useJournalStats } from '@/hooks/useJournalStats'
-import * as S from './TotalCount.styled'
 
-const AnimatedCardContainer = Animated.createAnimatedComponent(S.CardContainer)
+const CardContainer = styled(YStack, {
+  flex: 1,
+  bg: '$gray4',
+  rounded: '$8',
+  p: '$4',
+  animation: 'medium',
+  pressStyle: PRESS_STYLE,
+})
+
+const AnimatedCardContainer = Animated.createAnimatedComponent(CardContainer)
 
 interface Props {
   selectedYear: number

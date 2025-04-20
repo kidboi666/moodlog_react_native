@@ -5,7 +5,7 @@ import { ScrollView, YStack } from 'tamagui'
 
 import { DELETE_JOURNAL_SNAP_POINTS } from '@/constants'
 import { useCalendar } from '@/hooks'
-import { useAuth, useBottomSheet, useJournal, useUI } from '@/store'
+import { useBottomSheet, useJournal, useUI } from '@/store'
 import { BottomSheetType } from '@/types'
 
 import {
@@ -21,7 +21,6 @@ export default function HomeScreen() {
   const { isToday, selectedDate } = useCalendar()
 
   const { showBottomSheet, hideBottomSheet } = useBottomSheet()
-  const session = useAuth(state => state.session)
   const selectedJournals = useJournal(state => state.selectedJournals)
   const selectJournals = useJournal(state => state.selectJournals)
   const isLoading = useUI(state => state.isLoading)

@@ -7,7 +7,7 @@ import { H1, H2 } from '@/components/shared/Heading'
 import { ANIMATION_DELAY_SECONDS } from '@/constants'
 import { useStepProgress } from '@/store'
 
-import { FadeIn } from '@/components/shared/FadeIn'
+import { AnimateMount } from '@/components/shared/AnimateMount'
 import { PressableButton } from '@/components/shared/PressableButton'
 import { ShakeEmoji } from '@/components/shared/ShakeEmoji'
 import { ViewContainer } from '@/components/shared/ViewContainer'
@@ -29,26 +29,26 @@ export default function Screen() {
     <ViewContainer edges={['bottom']}>
       <YStack flex={1}>
         <YStack flex={1} gap='$6'>
-          <FadeIn delay={ANIMATION_DELAY_SECONDS[0]}>
+          <AnimateMount delay={ANIMATION_DELAY_SECONDS[0]}>
             <XStack gap='$2'>
               <H1>{t('onboarding.welcome.title')}</H1>
               <ShakeEmoji emoji='👋' />
             </XStack>
-          </FadeIn>
-          <FadeIn delay={ANIMATION_DELAY_SECONDS[1]}>
+          </AnimateMount>
+          <AnimateMount delay={ANIMATION_DELAY_SECONDS[1]}>
             <YStack gap='$6'>
               <H3 color='$gray11' mb='$4'>
                 {t('onboarding.welcome.description')}
               </H3>
               <H3 color='$gray11'>{t('onboarding.welcome.description2')}</H3>
             </YStack>
-          </FadeIn>
+          </AnimateMount>
         </YStack>
-        <FadeIn delay={ANIMATION_DELAY_SECONDS[2]}>
+        <AnimateMount delay={ANIMATION_DELAY_SECONDS[2]}>
           <H2>{t('onboarding.welcome.go')}</H2>
-        </FadeIn>
+        </AnimateMount>
       </YStack>
-      <FadeIn delay={ANIMATION_DELAY_SECONDS[3]}>
+      <AnimateMount delay={ANIMATION_DELAY_SECONDS[3]}>
         <PressableButton
           mt='$8'
           self='flex-end'
@@ -57,7 +57,7 @@ export default function Screen() {
         >
           {t('common.next')}
         </PressableButton>
-      </FadeIn>
+      </AnimateMount>
     </ViewContainer>
   )
 }

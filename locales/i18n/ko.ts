@@ -199,6 +199,7 @@ export const ko = {
       selectTitle: '오늘의 감정 선택하기',
       noMoods: '아직 만든 감정이 없습니다. 새로운 감정을 만들어보세요.',
       createMoods: '새 감정 만들기',
+      writeNewDiary: '새 일기 쓰기',
       intensity: '감정 강도',
       save: '감정 저장하기',
       moodColor: {

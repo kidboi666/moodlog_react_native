@@ -56,13 +56,6 @@ const MoodText = styled(H2, {
   } as const,
 })
 
-const MaximizeButton = styled(Button, {
-  unstyled: true,
-  scaleIcon: 1.5,
-  self: 'flex-end',
-  color: '$gray1',
-  opacity: 0.4,
-})
 interface Props {
   hasSignatureMood: boolean
   signatureMood: Nullable<SignatureMood>
@@ -95,7 +88,7 @@ export const MoodAverageCollapsedContent = ({
           <MoodText signatureMood={hasSignatureMood}>
             {hasSignatureMood ? moodName : t('common.fallback.text')}
           </MoodText>
-          <MaximizeButton icon={Maximize2} />
+          <Maximize2 self='flex-end' color='$color8' />
         </XStack>
       </YStack>
     </ViewContainer>

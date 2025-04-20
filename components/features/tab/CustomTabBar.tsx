@@ -6,13 +6,13 @@ import { XStack, styled } from 'tamagui'
 
 import { MOUNT_STYLE, MOUNT_STYLE_KEY, TAB_BAR_HEIGHT } from '@/constants'
 
-import { WriteButtonWithEvent } from '@/components/shared/WriteButtonWithEvent'
 import {
   EntriesTab,
   HomeTab,
   SettingsTab,
   StatisticsTab,
 } from './CustomTabBarItems'
+import { WriteButton } from './WriteButton'
 
 const StyledContainer = styled(XStack, {
   position: 'absolute',
@@ -34,11 +34,7 @@ const StyledContainer = styled(XStack, {
   animateOnly: MOUNT_STYLE_KEY,
 })
 
-interface Props {
-  shouldHideTabBar: boolean
-}
-
-export const CustomTabBar = ({ shouldHideTabBar }: Props) => {
+export const CustomTabBar = () => {
   const pathname = usePathname()
   const insets = useSafeAreaInsets()
   const router = useRouter()
@@ -70,7 +66,7 @@ export const CustomTabBar = ({ shouldHideTabBar }: Props) => {
     >
       <HomeTab isTabActive={isHomeActive} onPress={handleNavigate} />
       <EntriesTab isTabActive={isCalendarActive} onPress={handleNavigate} />
-      <WriteButtonWithEvent />
+      <WriteButton />
       <StatisticsTab
         isTabActive={isStatisticsActive}
         onPress={handleNavigate}

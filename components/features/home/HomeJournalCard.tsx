@@ -1,9 +1,8 @@
-import { ANIMATION_DELAY_MS, ANIMATION_DELAY_SECONDS } from '@/constants'
+import { ANIMATION_DELAY_MS } from '@/constants'
 import type { ISODateString, Nullable, SelectedJournals } from '@/types'
 
-import { EmptyJournal } from '@/components/features/journal/EmptyJournal'
-import { JournalCard } from '@/components/features/journal/JournalCardComponents'
-import { FadeIn } from '@/components/shared/FadeIn'
+import { EmptyJournal, JournalCard } from '@/components/features/journal'
+import { AnimateMount } from '@/components/shared'
 
 interface Props {
   journals: SelectedJournals
@@ -20,9 +19,13 @@ export const HomeJournalCard = ({
     journals.map((journal, index) => {
       const { id, content, createdAt, mood, imageUri } = journal
       return (
-        <FadeIn
+        <AnimateMount
           key={journal.id}
-          delay={ANIMATION_DELAY_MS[index % ANIMATION_DELAY_SECONDS.length]}
+          delay={
+            ANIMATION_DELAY_MS[
+              (index % ANIMATION_DELAY_MS.length) + ANIMATION_DELAY_MS[3]
+            ]
+          }
         >
           <JournalCard
             id={id}
@@ -32,12 +35,12 @@ export const HomeJournalCard = ({
             createdAt={createdAt}
             openDeleteSheet={openDeleteSheet}
           />
-        </FadeIn>
+        </AnimateMount>
       )
     })
   ) : (
-    <FadeIn>
+    <AnimateMount delay={ANIMATION_DELAY_MS[3]}>
       <EmptyJournal isToday={isToday(journals)} />
-    </FadeIn>
+    </AnimateMount>
   )
 }

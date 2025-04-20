@@ -8,10 +8,28 @@ import { Position } from '@/types'
 import { ActionButton } from '@/components/features/journal/JournalCardComponents/ActionButton'
 import { CardContent } from '@/components/features/journal/JournalCardComponents/CardContent'
 import { ImageSection } from '@/components/features/journal/JournalCardComponents/ImageSection'
-import { ModalSection } from '@/components/features/journal/JournalCardComponents/ModalSection'
-import * as S from './JournalCard.styled'
+import { FullScreenImageModal } from '@/components/modals/contents'
+import { MOUNT_STYLE, PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants'
+import { Card, View, styled } from 'tamagui'
 
-const AnimatedCard = Animated.createAnimatedComponent(S.CardContainer)
+const CardContainer = styled(Card, {
+  group: true,
+  animation: 'medium',
+  pressStyle: PRESS_STYLE,
+  animateOnly: PRESS_STYLE_KEY,
+  flex: 1,
+  position: 'relative',
+  width: '100%',
+  bg: '$backgroundHover',
+  rounded: '$8',
+})
+
+const Container = styled(View, {
+  animation: 'quick',
+  enterStyle: MOUNT_STYLE,
+})
+
+const AnimatedCard = Animated.createAnimatedComponent(CardContainer)
 
 interface Props {
   content: string
@@ -92,7 +110,7 @@ export const JournalCard = memo(
 
     return (
       <Fragment>
-        <S.Container>
+        <Container>
           <ActionButton
             cardPosition={cardPosition}
             openDeleteSheet={openDeleteSheet}
@@ -117,12 +135,12 @@ export const JournalCard = memo(
               />
             </AnimatedCard>
           </GestureWrapper>
-        </S.Container>
+        </Container>
 
-        <ModalSection
-          imageUri={imageUri}
-          modalVisible={modalVisible}
-          onCloseModal={handleCloseModal}
+        <FullScreenImageModal
+          visible={modalVisible}
+          imageUri={imageUri[0]}
+          onClose={handleCloseModal}
         />
       </Fragment>
     )

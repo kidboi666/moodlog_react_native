@@ -15,7 +15,7 @@ export default function Layout() {
     >
       <Stack.Screen name='index' />
       <Stack.Screen name='create_mood' />
-      <Stack.Screen name='writing_page' />
+      <Stack.Screen name='write-diary' />
     </Stack>
   )
 }

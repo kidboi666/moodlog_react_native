@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Button,
@@ -16,8 +16,8 @@ import { ROUTE_DELAY_MS } from '@/constants'
 import { useApp, useUI } from '@/store'
 import { MoodLevel } from '@/types'
 
+import { AnimateMount } from '@/components/shared/AnimateMount'
 import { BaseText } from '@/components/shared/BaseText'
-import { FadeIn } from '@/components/shared/FadeIn'
 import { HeaderContent } from '@/components/shared/HeaderContent'
 import { H3 } from '@/components/shared/Heading'
 import { ViewContainer } from '@/components/shared/ViewContainer'
@@ -29,21 +29,6 @@ export default function Screen() {
   const setNavigating = useUI(state => state.setNavigating)
   const [selectedMoodId, setSelectedMoodId] = useState<string | null>(null)
 
-  // 만든 감정이 없으면 감정 만드는 페이지로 리다이렉트
-  useEffect(() => {
-    if (Object.keys(myMoods).length === 0) {
-      setNavigating(true)
-      const timer = setTimeout(() => {
-        router.replace('/create_mood')
-        setTimeout(() => {
-          setNavigating(false)
-        }, 100)
-      }, ROUTE_DELAY_MS)
-
-      return () => clearTimeout(timer)
-    }
-  }, [myMoods, router, setNavigating])
-
   // 선택한 감정으로 일기 작성 페이지로 이동
   const handleNext = () => {
     if (!selectedMoodId) return
@@ -53,7 +38,7 @@ export default function Screen() {
 
     const timer = setTimeout(() => {
       router.push({
-        pathname: '/writing_page',
+        pathname: '/write-diary',
         params: {
           moodName: selectedMood.name,
           moodColor: selectedMood.color,
@@ -87,7 +72,7 @@ export default function Screen() {
   }
 
   return (
-    <FadeIn flex={1}>
+    <AnimateMount flex={1}>
       <ViewContainer
         edges={['bottom']}
         Header={<HeaderContent leftAction={() => router.back()} />}
@@ -146,6 +131,6 @@ export default function Screen() {
           </Button>
         </YStack>
       </ViewContainer>
-    </FadeIn>
+    </AnimateMount>
   )
 }

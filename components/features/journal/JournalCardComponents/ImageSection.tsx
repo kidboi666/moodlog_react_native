@@ -1,8 +1,31 @@
 import { TouchableOpacity } from 'react-native'
-import { AnimatePresence } from 'tamagui'
+import { AnimatePresence, Card, Image, styled } from 'tamagui'
+import { LinearGradient } from 'tamagui/linear-gradient'
 
-import { Position } from '@/types'
-import * as S from './JournalCard.styled'
+const CardBackground = styled(Card.Background, {
+  rounded: '$8',
+})
+
+const JournalCoverImage = styled(Image, {
+  animation: 'medium',
+  opacity: 0.6,
+  objectFit: 'cover',
+  width: '100%',
+  height: '100%',
+})
+
+const ImageCoverGradient = styled(LinearGradient, {
+  animation: 'quick',
+  exitStyle: { opacity: 0 },
+  enterStyle: { opacity: 0 },
+  width: '100%',
+  height: '100%',
+  colors: ['$gray5', 'rgba(0,0,0,0)'],
+  start: [0, 0],
+  end: [2.4, 0],
+  position: 'absolute',
+  pointerEvents: 'none',
+})
 
 interface ImageSectionProps {
   imageUri: string[]
@@ -22,14 +45,14 @@ export const ImageSection = ({
   }
 
   return (
-    <S.CardBackground>
+    <CardBackground>
       <TouchableOpacity onLongPress={onImageLongPress} delayLongPress={300}>
-        <S.JournalCoverImage source={{ uri: imageUri[0] }} />
+        <JournalCoverImage source={{ uri: imageUri[0] }} />
       </TouchableOpacity>
 
       <AnimatePresence>
-        {isOpenCard || isPressed ? null : <S.ImageCoverGradient />}
+        {isOpenCard || isPressed ? null : <ImageCoverGradient />}
       </AnimatePresence>
-    </S.CardBackground>
+    </CardBackground>
   )
 }

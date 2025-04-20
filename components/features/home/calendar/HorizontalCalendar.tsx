@@ -1,26 +1,33 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView } from 'tamagui'
+import { ScrollView, XStack, styled } from 'tamagui'
 
-import { CALENDAR_SCROLL_SIZE } from '@/constants'
+import { CALENDAR_SCROLL_SIZE, MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants'
 import { useCalendar } from '@/hooks'
 import { useJournal } from '@/store'
 import type { ISODateString } from '@/types'
 import {
   getDateFromISODate,
-  getDayFromISODate,
   getDayIndexFromISODate,
   getISODateString,
   getLastDate,
 } from '@/utils'
 
-import { DateCountDot } from './DateCountDot'
-import * as S from './HorizontalCalendar.styled'
+import { HorizontalCalendarContent } from './HorizontalCalendarContent'
+
+const CalendarContainer = styled(XStack, {
+  animation: 'quick',
+  animateOnly: MOUNT_STYLE_KEY,
+  enterStyle: MOUNT_STYLE,
+  flex: 1,
+  justify: 'center',
+  rounded: '$4',
+  items: 'center',
+})
 
 export const HorizontalCalendar = () => {
   const selectJournals = useJournal(state => state.selectJournals)
   const getCountForDate = useJournal(state => state.getCountForDate)
-  const { t } = useTranslation()
   const scrollViewRef = useRef<ScrollView>(null)
   const {
     currentYear,
@@ -79,7 +86,7 @@ export const HorizontalCalendar = () => {
   }, [])
 
   return (
-    <S.CalendarContainer>
+    <CalendarContainer>
       <ScrollView
         ref={scrollViewRef}
         horizontal
@@ -96,31 +103,18 @@ export const HorizontalCalendar = () => {
               ? '$color12'
               : '$color6'
           return (
-            <S.DateContainer
+            <HorizontalCalendarContent
               key={isoDate}
-              isSelected={isSelected(isoDate)}
-              isToday={isToday(isoDate)}
+              selected={isSelected(isoDate)}
+              today={isToday(isoDate)}
               onPress={() => handleCalendarDateChange(isoDate)}
-            >
-              <S.DateWrapper>
-                <S.DateTextWrapper>
-                  <S.DayText isSelected={isSelected(isoDate)}>
-                    {t(`calendar.days.${getDayFromISODate(isoDate)}`)}
-                  </S.DayText>
-                  <S.DateText futureDateColor={dateColor}>
-                    {getDateFromISODate(isoDate)}
-                  </S.DateText>
-                </S.DateTextWrapper>
-                <DateCountDot
-                  variant='contained'
-                  journalCount={journalCount}
-                  isSelected={isSelected(isoDate)}
-                />
-              </S.DateWrapper>
-            </S.DateContainer>
+              futureDateColor={dateColor}
+              date={isoDate}
+              journalCount={journalCount}
+            />
           )
         })}
       </ScrollView>
-    </S.CalendarContainer>
+    </CalendarContainer>
   )
 }

@@ -11,7 +11,7 @@ import { DateHeader } from '@/components/features/entries/DateHeader'
 import { GardenSection } from '@/components/features/entries/GardenSection'
 import { EmptyJournal } from '@/components/features/journal/EmptyJournal'
 import { JournalCard } from '@/components/features/journal/JournalCardComponents'
-import { FadeIn } from '@/components/shared/FadeIn'
+import { AnimateMount } from '@/components/shared/AnimateMount'
 import { H1 } from '@/components/shared/Heading'
 import { ViewContainer } from '@/components/shared/ViewContainer'
 
@@ -83,9 +83,9 @@ export default function Screen() {
     <ScrollView>
       <ViewContainer edges={['top']} padded gap='$4'>
         <H1>{t('entries.title')}</H1>
-        <FadeIn delay={ANIMATION_DELAY_MS[0]}>
+        <AnimateMount delay={ANIMATION_DELAY_MS[0]}>
           <GardenSection />
-        </FadeIn>
+        </AnimateMount>
 
         <YStack gap='$6'>
           {Array.isArray(selectedJournals) && selectedJournals.length > 0 ? (

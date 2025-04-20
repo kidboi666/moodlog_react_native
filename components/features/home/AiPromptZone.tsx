@@ -1,7 +1,6 @@
+import { getGemini } from '@/lib/gemini'
 import { useEffect, useState } from 'react'
 import { Button, Form, Input, Paragraph, Spinner, View } from 'tamagui'
-
-import { getGemini } from '@/configs'
 
 export const AiPromptZone = () => {
   const [text, setText] = useState('')

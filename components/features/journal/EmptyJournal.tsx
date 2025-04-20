@@ -4,8 +4,8 @@ import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, YStack } from 'tamagui'
 
+import { WriteButton } from '@/components/features/tab/WriteButton'
 import { H3, H5 } from '@/components/shared/Heading'
-import { WriteButtonWithEvent } from '@/components/shared/WriteButtonWithEvent'
 
 interface Props {
   isToday: boolean
@@ -31,7 +31,7 @@ export const EmptyJournal = memo(({ isToday }: Props) => {
       <H3 text='center' color='$gray12'>
         {t('common.fallback.today')}
       </H3>
-      <WriteButtonWithEvent />
+      <WriteButton />
     </YStack>
   ) : (
     <Button

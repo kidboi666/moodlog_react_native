@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next'
 import type { ExpressiveMonthStats } from '@/types'
 import { getMonthKey } from '@/utils'
 
-import { EmptyContent } from '@/components/features/statistics/EmptyContent'
+import { EmptyContent } from '@/components/features/statistics'
 import { BaseText, H5 } from '@/components/shared'
-import { Button, View, YStack, styled } from 'tamagui'
+import { View, YStack, styled } from 'tamagui'
 
 export const ViewContainer = styled(View, {
   animation: 'quick',
@@ -22,30 +22,8 @@ const GapBox = styled(YStack, {
   gap: '$2',
 })
 
-const TitleText = styled(H5)
-
 const DescriptionText = styled(BaseText, {
-  color: '$gray11',
-})
-
-export const DaysSinceSignupBox = styled(GapBox)
-export const DaysSinceSignupTitle = styled(TitleText)
-export const DaysSinceSignupDescription = styled(DescriptionText)
-export const FrequencyBox = styled(GapBox)
-export const FrequencyTitle = styled(TitleText)
-export const FrequencyDescription = styled(DescriptionText)
-export const MostDayBox = styled(GapBox)
-export const MostDayTitle = styled(TitleText)
-export const MostDayDescription = styled(DescriptionText)
-export const ExpressiveMonthBox = styled(GapBox)
-export const ExpressiveMonthTitle = styled(TitleText)
-export const ExpressiveMonthDescription = styled(DescriptionText)
-
-export const MinimizeButton = styled(Button, {
-  unstyled: true,
-  self: 'flex-end',
-  opacity: 0.2,
-  scaleIcon: 1.5,
+  color: '$color11',
 })
 
 interface Props {
@@ -71,50 +49,42 @@ export const TotalCountExpandedContent = memo(
 
     return (
       <ViewContainer>
-        <DaysSinceSignupBox>
-          <DaysSinceSignupTitle>
-            {t('statistics.totalCount.daysSinceSignup.title')}
-          </DaysSinceSignupTitle>
-          <DaysSinceSignupDescription>
+        <GapBox>
+          <H5>{t('statistics.totalCount.daysSinceSignup.title')}</H5>
+          <DescriptionText>
             {t('statistics.totalCount.daysSinceSignup.description', {
               date: daysSinceSignup,
             })}
-          </DaysSinceSignupDescription>
-        </DaysSinceSignupBox>
-        <FrequencyBox>
-          <FrequencyTitle>
-            {t('statistics.totalCount.frequency.title')}
-          </FrequencyTitle>
-          <FrequencyDescription>
+          </DescriptionText>
+        </GapBox>
+        <GapBox>
+          <H5>{t('statistics.totalCount.frequency.title')}</H5>
+          <DescriptionText>
             {frequency === 0
               ? t('statistics.totalCount.frequency.everyDay')
               : t('statistics.totalCount.frequency.description', {
                   date: frequency,
                 })}
-          </FrequencyDescription>
-        </FrequencyBox>
-        <MostDayBox>
-          <MostDayTitle>
-            {t('statistics.totalCount.mostDay.title')}
-          </MostDayTitle>
-          <MostDayDescription>
+          </DescriptionText>
+        </GapBox>
+        <GapBox>
+          <H5>{t('statistics.totalCount.mostDay.title')}</H5>
+          <DescriptionText>
             {t('statistics.totalCount.mostDay.description', {
               day: t(`calendar.days.${activeDay}`),
             })}
-          </MostDayDescription>
-        </MostDayBox>
-        <ExpressiveMonthBox>
-          <ExpressiveMonthTitle>
-            {t('statistics.totalCount.expressiveMonth.title')}
-          </ExpressiveMonthTitle>
-          <ExpressiveMonthDescription>
+          </DescriptionText>
+        </GapBox>
+        <GapBox>
+          <H5>{t('statistics.totalCount.expressiveMonth.title')}</H5>
+          <DescriptionText>
             {t('statistics.totalCount.expressiveMonth.description', {
               month: t(`calendar.months.${getMonthKey(expressiveMonth.month)}`),
               count: expressiveMonth.count,
             })}
-          </ExpressiveMonthDescription>
-        </ExpressiveMonthBox>
-        <MinimizeButton icon={Minimize2} />
+          </DescriptionText>
+        </GapBox>
+        <Minimize2 self='flex-end' color='$color8' />
       </ViewContainer>
     )
   },

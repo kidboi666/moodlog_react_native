@@ -1,11 +1,34 @@
 import { Maximize2 } from '@tamagui/lucide-icons'
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { XStack } from 'tamagui'
+import { View, XStack, YStack, styled } from 'tamagui'
 
-import { BaseText } from '@/components/shared/BaseText'
-import { H2, H3 } from '@/components/shared/Heading'
-import * as S from './TotalCountCollapsedContent.styled'
+import { BaseText, H2, H3 } from '@/components/shared'
+import { RECORD_UNIT_LINE_HEIGHT } from '@/constants'
+
+const ViewContainer = styled(View, {
+  flex: 1,
+  animation: 'quick',
+  animateOnly: ['opacity'],
+  justify: 'space-between',
+  enterStyle: { opacity: 0 },
+  exitStyle: { opacity: 0 },
+})
+
+const YStackContainer = styled(YStack, {
+  gap: '$2',
+})
+
+const StackContainer = styled(XStack, {
+  items: 'flex-end',
+  gap: '$2',
+  flex: 1,
+})
+
+const CountText = styled(BaseText, {
+  lineHeight: RECORD_UNIT_LINE_HEIGHT,
+  color: '$gray11',
+})
 
 interface Props {
   totalCount: number
@@ -14,18 +37,18 @@ interface Props {
 export const TotalCountCollapsedContent = memo(({ totalCount }: Props) => {
   const { t } = useTranslation()
   return (
-    <S.ViewContainer>
-      <S.YStackContainer>
+    <ViewContainer>
+      <YStackContainer>
         <H3>{t('statistics.totalCount.title')}</H3>
         <BaseText>{t('statistics.totalCount.description')}</BaseText>
-      </S.YStackContainer>
+      </YStackContainer>
       <XStack>
-        <S.StackContainer>
+        <StackContainer>
           <H2>{totalCount}</H2>
-          <S.CountText>{t('common.units.count')}</S.CountText>
-        </S.StackContainer>
-        <S.MinimizeButton icon={Maximize2} />
+          <CountText>{t('common.units.count')}</CountText>
+        </StackContainer>
+        <Maximize2 self='flex-end' color='$color8' />
       </XStack>
-    </S.ViewContainer>
+    </ViewContainer>
   )
 })

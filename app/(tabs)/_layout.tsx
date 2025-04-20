@@ -7,7 +7,8 @@ import { AnimatePresence, useTheme } from 'tamagui'
 import { HIDE_TAB_BAR_ROUTES } from '@/constants'
 import { useApp, useUI } from '@/store'
 
-import { ContainerFog, CustomTabBar } from '@/components/shared'
+import { CustomTabBar } from '@/components/features/tab'
+import { ContainerFog } from '@/components/shared'
 
 export default function Layout() {
   const pathname = usePathname()
@@ -34,7 +35,7 @@ export default function Layout() {
   useEffect(() => {
     if (Platform.OS === 'android') {
       NavigationBar.setBackgroundColorAsync(
-        shouldHideTabBar ? theme.color5.val : theme.background.val,
+        shouldHideTabBar ? theme.background.val : theme.color5.val,
       )
     }
   }, [shouldHideTabBar, theme, pathname])
@@ -63,9 +64,7 @@ export default function Layout() {
       </Tabs>
       <ContainerFog shouldHideTabBar={shouldHideTabBar} />
       <AnimatePresence exitBeforeEnter>
-        {!shouldHideTabBar && (
-          <CustomTabBar shouldHideTabBar={shouldHideTabBar} />
-        )}
+        {!shouldHideTabBar && <CustomTabBar />}
       </AnimatePresence>
     </Fragment>
   )

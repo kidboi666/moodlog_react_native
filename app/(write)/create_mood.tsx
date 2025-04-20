@@ -14,7 +14,7 @@ import { MoodColorForm } from '@/components/features/write/MoodColorForm'
 import { MoodLevelForm } from '@/components/features/write/MoodLevelForm'
 import { MoodNameForm } from '@/components/features/write/MoodNameForm'
 import { SuccessButton } from '@/components/features/write/SuccessButton'
-import { FadeIn } from '@/components/shared/FadeIn'
+import { AnimateMount } from '@/components/shared/AnimateMount'
 import { HeaderContent } from '@/components/shared/HeaderContent'
 import { ViewContainer } from '@/components/shared/ViewContainer'
 
@@ -71,7 +71,7 @@ export default function Screen() {
   }, [moodName, router, setNavigating])
 
   return (
-    <FadeIn flex={1}>
+    <AnimateMount flex={1}>
       <ViewContainer
         edges={['bottom']}
         Header={<HeaderContent leftAction={() => router.back()} />}
@@ -98,6 +98,6 @@ export default function Screen() {
           />
         </YStack>
       </ViewContainer>
-    </FadeIn>
+    </AnimateMount>
   )
 }

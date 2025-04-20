@@ -187,6 +187,7 @@ export const en = {
       selectTitle: "Select Today's Emotion",
       noMoods: "You haven't created any emotions yet. Create a new emotion.",
       createMoods: 'Create New Emotion',
+      writeNewDiary: 'Write a New Diary',
       intensity: 'Emotion Intensity',
       save: 'Save Emotion',
       moodColor: {

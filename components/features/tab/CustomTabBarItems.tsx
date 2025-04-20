@@ -6,7 +6,7 @@ import {
 } from '@tamagui/lucide-icons'
 import { memo } from 'react'
 
-import { PressableButton } from './PressableButton'
+import { PressableButton } from '@/components/shared'
 
 interface TabButtonProps {
   isTabActive: boolean

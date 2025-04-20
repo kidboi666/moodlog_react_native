@@ -1,4 +1,25 @@
-import * as S from '@/components/features/home/DateCountDot.styled'
+import { View, XStack, styled } from 'tamagui'
+
+const DotContainer = styled(XStack, {
+  gap: 2,
+  position: 'absolute',
+  b: '$1',
+})
+
+const Dot = styled(View, {
+  width: '$0.5',
+  height: '$0.5',
+  b: -8,
+  rounded: '$1',
+
+  variants: {
+    backgroundStyle: {
+      ':string': bg => {
+        return { bg }
+      },
+    },
+  } as const,
+})
 
 interface Props {
   journalCount?: number
@@ -13,12 +34,12 @@ export const DateCountDot = ({
 }: Props) => {
   if (!journalCount) return null
   return (
-    <S.DotContainer>
+    <DotContainer>
       {Array.from({ length: journalCount }, (_, i) => {
         if (i >= 3) return null
         return (
-          <S.Dot
-            key={i}
+          <Dot
+            key={`${i}-${journalCount}`}
             backgroundStyle={
               variant === 'contained'
                 ? isSelected
@@ -31,6 +52,6 @@ export const DateCountDot = ({
           />
         )
       })}
-    </S.DotContainer>
+    </DotContainer>
   )
 }

@@ -10,7 +10,7 @@ import {
   TotalCount,
   WeeklyMoodChart,
 } from '@/components/features/statistics'
-import { FadeIn, H1, ViewContainer } from '@/components/shared'
+import { AnimateMount, H1, ViewContainer } from '@/components/shared'
 
 export default function Screen() {
   const { selectedYear, selectedMonth, todayString } = useCalendar()
@@ -26,7 +26,7 @@ export default function Screen() {
         <XStack justify='space-between' items='flex-end'>
           <H1>{t('statistics.title')}</H1>
         </XStack>
-        <FadeIn delay={ANIMATION_DELAY_MS[0]}>
+        <AnimateMount delay={ANIMATION_DELAY_MS[0]}>
           <YStack gap='$4'>
             <XStack gap='$4'>
               <TotalCount
@@ -40,7 +40,7 @@ export default function Screen() {
             </XStack>
             <WeeklyMoodChart selectedMonth={selectedMonth || monthString} />
           </YStack>
-        </FadeIn>
+        </AnimateMount>
       </ViewContainer>
     </ScrollView>
   )
