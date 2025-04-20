@@ -1,7 +1,7 @@
 import { ArrowRight } from '@tamagui/lucide-icons'
 
 import { PressableButton } from '@/components/shared/PressableButton'
-import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/styles/animations'
+import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants/animations'
 import { MoodLevel } from '@/types/mood.types'
 import { AnimatePresence, View, YStack } from 'tamagui'
 

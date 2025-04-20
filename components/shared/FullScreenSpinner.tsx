@@ -1,9 +1,21 @@
 import { memo } from 'react'
-import { Spinner } from 'tamagui'
+import { Spinner, Stack, styled } from 'tamagui'
 
 import { useUI } from '@/store'
 
-import * as S from './FullScreenSpinner.styled'
+const StyledOverlay = styled(Stack, {
+  flex: 1,
+  position: 'absolute',
+  t: 0,
+  l: 0,
+  r: 0,
+  b: 0,
+  z: 100_000_000,
+  items: 'center',
+  justify: 'center',
+  bg: '$color4',
+  opacity: 0.5,
+})
 
 type SpinnerSize = 'small' | 'large'
 
@@ -21,9 +33,9 @@ export const FullScreenSpinner = memo(
     if (!shouldShow) return null
 
     return (
-      <S.Overlay>
+      <StyledOverlay>
         <Spinner size={size} />
-      </S.Overlay>
+      </StyledOverlay>
     )
   },
 )

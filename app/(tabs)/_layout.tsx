@@ -1,15 +1,17 @@
+import * as NavigationBar from 'expo-navigation-bar'
 import { Redirect, Tabs, usePathname } from 'expo-router'
 import { Fragment, useEffect, useState } from 'react'
+import { Platform } from 'react-native'
+import { AnimatePresence, useTheme } from 'tamagui'
 
 import { HIDE_TAB_BAR_ROUTES } from '@/constants'
 import { useApp, useUI } from '@/store'
 
-import { ContainerFog } from '@/components/shared/ContainerFog'
-import { CustomTabBar } from '@/components/shared/CustomTabBar'
-import { FullScreenSpinner } from '@/components/shared/FullScreenSpinner'
+import { ContainerFog, CustomTabBar } from '@/components/shared'
 
 export default function Layout() {
   const pathname = usePathname()
+  const theme = useTheme()
 
   const firstLaunchDate = useApp(state => state.firstLaunchDate)
   const setLoading = useUI(state => state.setLoading)
@@ -28,6 +30,14 @@ export default function Layout() {
   useEffect(() => {
     setLoading(!initialized)
   }, [initialized, setLoading])
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      NavigationBar.setBackgroundColorAsync(
+        shouldHideTabBar ? theme.color5.val : theme.background.val,
+      )
+    }
+  }, [shouldHideTabBar, theme, pathname])
 
   if (isLoading) return null
 
@@ -51,9 +61,12 @@ export default function Layout() {
         <Tabs.Screen name='settings' />
         <Tabs.Screen name='journal' />
       </Tabs>
-      <ContainerFog />
-      {!shouldHideTabBar && <CustomTabBar />}
-      <FullScreenSpinner size='large' />
+      <ContainerFog shouldHideTabBar={shouldHideTabBar} />
+      <AnimatePresence exitBeforeEnter>
+        {!shouldHideTabBar && (
+          <CustomTabBar shouldHideTabBar={shouldHideTabBar} />
+        )}
+      </AnimatePresence>
     </Fragment>
   )
 }

@@ -6,20 +6,20 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 
-import { moodTheme } from '@/constants'
-import { MoodLevel, type MoodType } from '@/types'
+import { MoodLevel } from '@/types'
 
 import * as S from './ChartItem.styled'
 
 const AnimatedChartItem = Animated.createAnimatedComponent(S.ChartItem)
 
 interface Props {
-  type?: MoodType
+  name?: string
   level?: MoodLevel
+  color?: string
   percentage: number
 }
 
-export const ChartItem = ({ type, level, percentage }: Props) => {
+export const ChartItem = ({ name, level, color, percentage }: Props) => {
   const widthValue = useSharedValue(0)
   const { t } = useTranslation()
   const animatedStyles = useAnimatedStyle(() => ({
@@ -36,16 +36,13 @@ export const ChartItem = ({ type, level, percentage }: Props) => {
     }
   }, [percentage])
 
-  if (!type || !level) return null
+  if (!name || !level || !color) return null
 
   return (
     <S.ChartItemContainer>
-      <AnimatedChartItem
-        style={animatedStyles}
-        moodColor={moodTheme[type][MoodLevel.FULL]}
-      />
+      <AnimatedChartItem style={animatedStyles} moodColor={color} />
       <S.PercentageText>{t(`moods.levels.${level}`)}</S.PercentageText>
-      <S.PercentageText>{t(`moods.types.${type}`)}</S.PercentageText>
+      <S.PercentageText>{name}</S.PercentageText>
     </S.ChartItemContainer>
   )
 }

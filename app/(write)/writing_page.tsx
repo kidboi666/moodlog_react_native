@@ -11,7 +11,6 @@ import {
 } from 'react-native'
 import { GetThemeValueForKey, View, XStack } from 'tamagui'
 
-import { WriteHeader } from '@/components/features/write/WriteHeader'
 import { KEYBOARD_VERTICAL_OFFSET } from '@/constants'
 import { ImageHelper } from '@/services'
 import { useDraft, useJournal, useUI } from '@/store'
@@ -22,7 +21,8 @@ import {
   EnhancedTextInput,
   type EnhancedTextInputRef,
 } from '@/components/features/write/EnhancedTextInput'
-import { ViewContainer } from '@/components/shared/ViewContainer.styleable'
+import { HeaderContent } from '@/components/shared/HeaderContent'
+import { ViewContainer } from '@/components/shared/ViewContainer'
 
 const AUTO_SAVE_INTERVAL = 5000
 
@@ -50,9 +50,11 @@ export default function WritingScreen() {
   const [draft, setDraft] = useState<Draft>({
     content: '',
     mood: {
+      id: (moodName as string) || '',
       name: moodName as string,
       color: moodColor as string,
       level: moodLevel as MoodLevel,
+      createdAt: new Date().toISOString(),
     },
     imageUri: [],
   })
@@ -244,7 +246,11 @@ export default function WritingScreen() {
   }, [])
 
   return (
-    <ViewContainer edges={['bottom']} Header={<WriteHeader />} pl={0}>
+    <ViewContainer
+      edges={['bottom']}
+      Header={<HeaderContent leftAction={() => router.back()} />}
+      pl={0}
+    >
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         contentContainerStyle={{ flex: 1 }}

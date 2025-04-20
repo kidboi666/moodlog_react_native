@@ -4,18 +4,18 @@ import { useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
-import { Separator, Spinner, XStack, YStack } from 'tamagui'
+import { Separator, XStack, YStack } from 'tamagui'
 
 import { AUTH_SNAP_POINTS } from '@/constants'
 import { useAuth, useBottomSheet } from '@/store'
 import { BottomSheetType } from '@/types'
 import { isValidEmail } from '@/utils'
 
+import { BottomSheetContainer } from '@/components/modals/BottomSheetContainer'
 import { BaseText } from '@/components/shared/BaseText'
 import { FormInput } from '@/components/shared/FormInput'
 import { H1, H3 } from '@/components/shared/Heading'
 import { PressableButton } from '@/components/shared/PressableButton'
-import { BottomSheetContainer } from '../../BottomSheetContainer'
 
 interface LoginFormState {
   email: string
@@ -114,11 +114,14 @@ export const SignInModal = () => {
     }
   }, [error, isAuthenticated, isLoading, t, hideBottomSheet, router])
 
+  const isDisabled = !email || !password
+  console.log('isDisabled', isDisabled)
+  console.log('isLoading', isLoading)
   return (
     <BottomSheetContainer>
       <H1>{t('auth.login')}</H1>
       <H3>{t('auth.loginDescription')}</H3>
-      <XStack items='center' justify='center' gap='$2'>
+      <YStack gap='$4'>
         <FormInput
           placeholder={t('auth.email')}
           value={email}
@@ -137,13 +140,14 @@ export const SignInModal = () => {
         <PressableButton
           themeInverse
           onPress={handleSignIn}
-          disabled={isLoading || !email || !password}
+          disabled={isDisabled}
+          loading={isLoading}
         >
-          {isLoading ? <Spinner /> : t('auth.login')}
+          {t('auth.login')}
         </PressableButton>
-      </XStack>
+      </YStack>
       <Separator />
-      <YStack gap='$4'>
+      <XStack items='center' justify='center' gap='$2'>
         <BaseText>{t('auth.noAccount')}</BaseText>
         <PressableButton
           bg='transparent'
@@ -152,7 +156,7 @@ export const SignInModal = () => {
         >
           {t('auth.signup')}
         </PressableButton>
-      </YStack>
+      </XStack>
     </BottomSheetContainer>
   )
 }

@@ -1,5 +1,18 @@
 import { useCustomFont } from '@/hooks/useCustomFont'
-import { Input, InputProps } from 'tamagui'
+import { Input, InputProps, View, styled } from 'tamagui'
+
+const StyledView = styled(View, {
+  animation: 'quick',
+  borderWidth: 1,
+  focusStyle: {
+    borderColor: '$blue8',
+    rounded: 8,
+    shadowColor: '$blue8',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 2,
+  },
+})
 
 interface Props extends InputProps {
   placeholder: string
@@ -16,16 +29,14 @@ export const FormInput = ({
   const font = useCustomFont()
 
   return (
-    <Input
-      placeholder={placeholder}
-      value={value}
-      onChangeText={onChangeText}
-      fontFamily={font}
-      borderWidth={1}
-      focusStyle={{
-        borderWidth: 2,
-      }}
-      {...props}
-    />
+    <StyledView>
+      <Input
+        value={value}
+        onChangeText={onChangeText}
+        fontFamily={font}
+        placeholder={placeholder}
+        {...props}
+      />
+    </StyledView>
   )
 }

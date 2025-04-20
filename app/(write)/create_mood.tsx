@@ -8,15 +8,15 @@ import { View, YStack } from 'tamagui'
 
 import { ROUTE_DELAY_MS } from '@/constants'
 import { useApp, useJournal, useUI } from '@/store'
-import { MoodLevel, type MoodType } from '@/types'
+import { MoodLevel } from '@/types'
 
 import { MoodColorForm } from '@/components/features/write/MoodColorForm'
 import { MoodLevelForm } from '@/components/features/write/MoodLevelForm'
 import { MoodNameForm } from '@/components/features/write/MoodNameForm'
 import { SuccessButton } from '@/components/features/write/SuccessButton'
-import { FadeIn } from '@/components/shared/FadeIn.styleable'
-import { HeaderContainer } from '@/components/shared/HeaderContainer.styleable'
-import * as S from '@/styles/screens/write/SelectMood.styled'
+import { FadeIn } from '@/components/shared/FadeIn'
+import { HeaderContent } from '@/components/shared/HeaderContent'
+import { ViewContainer } from '@/components/shared/ViewContainer'
 
 export default function Screen() {
   const [moodName, setMoodName] = useState('')
@@ -50,7 +50,6 @@ export default function Screen() {
       id: Crypto.randomUUID(),
       name: moodName,
       color: moodColor,
-      level: moodLevel || MoodLevel.FULL,
       createdAt: new Date().toISOString(),
     })
     const timer = setTimeout(() => {
@@ -73,9 +72,9 @@ export default function Screen() {
 
   return (
     <FadeIn flex={1}>
-      <S.ViewContainer
+      <ViewContainer
         edges={['bottom']}
-        Header={<HeaderContainer leftAction={() => router.back()} />}
+        Header={<HeaderContent leftAction={() => router.back()} />}
       >
         <YStack flex={1} gap='$6'>
           <MoodNameForm moodName={moodName} setMoodName={setMoodName} />
@@ -98,7 +97,7 @@ export default function Screen() {
             onPress={handlePress}
           />
         </YStack>
-      </S.ViewContainer>
+      </ViewContainer>
     </FadeIn>
   )
 }

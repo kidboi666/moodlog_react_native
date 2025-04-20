@@ -1,19 +1,40 @@
-import { usePathname } from 'expo-router'
-import { memo } from 'react'
-import { useTheme } from 'tamagui'
+import { Fragment, memo } from 'react'
+import { styled, useTheme } from 'tamagui'
 
-import { HIDE_TAB_BAR_ROUTES } from '@/constants'
+import { Platform } from 'react-native'
+import { LinearGradient } from 'tamagui/linear-gradient'
 
-import * as S from './ContainerFog.styled'
+const TopFog = styled(LinearGradient, {
+  position: 'absolute',
+  t: 0,
+  l: 0,
+  r: 0,
+  height: 80,
+  z: 100,
+  start: [0, 0],
+  end: [0, 1],
+  pointerEvents: 'none',
+})
 
-export const ContainerFog = memo(() => {
+const BottomFog = styled(LinearGradient, {
+  position: 'absolute',
+  b: Platform.OS === 'ios' ? 94 : 80,
+  l: 0,
+  r: 0,
+  height: 30,
+  z: 1,
+  start: [0, 0],
+  end: [0, 1],
+  pointerEvents: 'none',
+})
+
+interface Props {
+  shouldHideTabBar: boolean
+}
+
+export const ContainerFog = memo(({ shouldHideTabBar }: Props) => {
   const theme = useTheme()
-  const backgroundColor = theme.background.val
-  const pathname = usePathname()
 
-  const shouldHideTabBar = HIDE_TAB_BAR_ROUTES.some(route =>
-    pathname.startsWith(route),
-  )
   const hexToRgb = (hex: string) => {
     const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i
     const formattedHex = hex.replace(
@@ -26,16 +47,16 @@ export const ContainerFog = memo(() => {
 
     return result
       ? `${Number.parseInt(result[1], 16)}, ${Number.parseInt(result[2], 16)}, ${Number.parseInt(result[3], 16)}`
-      : '255, 255, 255' // 기본값
+      : '255, 255, 255'
   }
 
-  const bgRgb = hexToRgb(backgroundColor)
+  const bgRgb = hexToRgb(theme.background.val)
 
   const transparentBg = `rgba(${bgRgb}, 0)`
 
   return (
-    <>
-      <S.TopFog
+    <Fragment>
+      <TopFog
         colors={[
           '$background',
           `rgba(${bgRgb}, 0.9)`,
@@ -45,7 +66,7 @@ export const ContainerFog = memo(() => {
         ]}
       />
       {!shouldHideTabBar && (
-        <S.BottomFog
+        <BottomFog
           colors={[
             transparentBg,
             `rgba(${bgRgb}, 0.3)`,
@@ -55,6 +76,6 @@ export const ContainerFog = memo(() => {
           ]}
         />
       )}
-    </>
+    </Fragment>
   )
 })

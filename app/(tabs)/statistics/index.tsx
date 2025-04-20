@@ -1,16 +1,16 @@
 import { useTranslation } from 'react-i18next'
-import { ScrollView } from 'tamagui'
+import { ScrollView, XStack, YStack } from 'tamagui'
 
 import { ANIMATION_DELAY_MS } from '@/constants'
 import { useCalendar } from '@/hooks'
 import type { ISOMonthString } from '@/types'
 
-import { WeeklyMoodChart } from '@/components/features/statistics/WeeklyMoodChart'
-import { MoodAverage } from '@/components/features/statistics/mood-average/MoodAverage'
-import { TotalCount } from '@/components/features/statistics/total-count/TotalCount'
-import { FadeIn } from '@/components/shared/FadeIn.styleable'
-import { H1 } from '@/components/shared/Heading'
-import * as S from '@/styles/screens/statistics/Statistics.styled'
+import {
+  MoodAverage,
+  TotalCount,
+  WeeklyMoodChart,
+} from '@/components/features/statistics'
+import { FadeIn, H1, ViewContainer } from '@/components/shared'
 
 export default function Screen() {
   const { selectedYear, selectedMonth, todayString } = useCalendar()
@@ -22,13 +22,13 @@ export default function Screen() {
 
   return (
     <ScrollView>
-      <S.ViewContainer edges={['top', 'bottom']} padded>
-        <S.OrderBox>
+      <ViewContainer edges={['top', 'bottom']} padded gap='$4'>
+        <XStack justify='space-between' items='flex-end'>
           <H1>{t('statistics.title')}</H1>
-        </S.OrderBox>
+        </XStack>
         <FadeIn delay={ANIMATION_DELAY_MS[0]}>
-          <S.YStackContainer>
-            <S.XStackContainer>
+          <YStack gap='$4'>
+            <XStack gap='$4'>
               <TotalCount
                 selectedYear={selectedYear}
                 selectedMonth={selectedMonth || monthString}
@@ -37,11 +37,11 @@ export default function Screen() {
                 selectedYear={selectedYear}
                 selectedMonth={selectedMonth || monthString}
               />
-            </S.XStackContainer>
+            </XStack>
             <WeeklyMoodChart selectedMonth={selectedMonth || monthString} />
-          </S.YStackContainer>
+          </YStack>
         </FadeIn>
-      </S.ViewContainer>
+      </ViewContainer>
     </ScrollView>
   )
 }

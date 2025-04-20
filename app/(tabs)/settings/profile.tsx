@@ -2,15 +2,16 @@ import { supabase } from '@/lib/supabase'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, Alert } from 'react-native'
+import { Input, Paragraph, Separator, Text, XStack, YStack } from 'tamagui'
 
-import { useApp, useAuth, useUI } from '@/store'
+import { H3 } from '@/components/shared/Heading'
+import { useApp, useAuth } from '@/store'
 import type { NewUserInfo } from '@/types'
 import { getDaysSinceSignup } from '@/utils'
 
-import { SettingHeader } from '@/components/features/settings/SettingHeader'
 import { BaseText } from '@/components/shared/BaseText'
-import { ViewContainer } from '@/components/shared/ViewContainer.styleable'
-import * as S from '@/styles/screens/settings/Profile.styled'
+import { PressableButton } from '@/components/shared/PressableButton'
+import { ViewContainer } from '@/components/shared/ViewContainer'
 
 export default function Screen() {
   const { t } = useTranslation()
@@ -59,7 +60,7 @@ export default function Screen() {
 
   const handleSave = useCallback(async () => {
     try {
-      await handleUserInfoChange(form)
+      await handleUserInfoChange()
       setIsEditing(false)
     } catch (error) {
       console.error('Failed to update profile:', error)
@@ -114,58 +115,54 @@ export default function Screen() {
   if (!firstLaunchDate) return null
 
   return (
-    <ViewContainer Header={<SettingHeader />}>
-      <S.ProfileContainer>
-        <S.SectionTitle>
-          {t('settings.profile.title') || 'Profile'}
-        </S.SectionTitle>
-        <S.ProfileDivider />
-      </S.ProfileContainer>
+    <ViewContainer>
+      <YStack gap='$4' mb='$4'>
+        <H3>{t('settings.profile.title') || 'Profile'}</H3>
+        <Separator />
+      </YStack>
 
-      <S.ProfileSectionContainer>
+      <YStack gap='$6'>
         {/* User ID */}
-        <S.ProfileItemContainer>
-          <S.ProfileLabel>{t('settings.profile.id') || 'ID'}</S.ProfileLabel>
-          <S.ProfileValue>{session?.user.id}</S.ProfileValue>
-        </S.ProfileItemContainer>
+        <YStack gap='$2'>
+          <Text color='$gray11'>{t('settings.profile.id') || 'ID'}</Text>
+          <Paragraph>{session?.user.id}</Paragraph>
+        </YStack>
 
         {/* Username */}
-        <S.ProfileItemContainer>
-          <S.ProfileLabel>
+        <YStack gap='$2'>
+          <Text color='$gray11'>
             {t('settings.profile.username') || 'Username'}
-          </S.ProfileLabel>
+          </Text>
           {isEditing ? (
-            <S.ProfileInput
+            <Input
               value={form.userName}
               onChangeText={text => handleChange('userName', text)}
               disabled={isLoading}
             />
           ) : (
-            <S.ProfileValue>{form.userName}</S.ProfileValue>
+            <Paragraph>{form.userName}</Paragraph>
           )}
-        </S.ProfileItemContainer>
+        </YStack>
 
         {/* Email */}
-        <S.ProfileItemContainer>
-          <S.ProfileLabel>
-            {t('settings.profile.email') || 'Email'}
-          </S.ProfileLabel>
+        <YStack gap='$2'>
+          <Text color='$gray11'>{t('settings.profile.email') || 'Email'}</Text>
           {isEditing ? (
-            <S.ProfileInput
+            <Input
               value={form.email || ''}
               onChangeText={text => handleChange('email', text)}
               disabled={isLoading}
             />
           ) : (
-            <S.ProfileValue>{form.email || '-'}</S.ProfileValue>
+            <Paragraph>{form.email || '-'}</Paragraph>
           )}
-        </S.ProfileItemContainer>
+        </YStack>
 
         {/* Age */}
-        <S.ProfileItemContainer>
-          <S.ProfileLabel>{t('settings.profile.age') || 'Age'}</S.ProfileLabel>
+        <YStack gap='$2'>
+          <Text color='$gray11'>{t('settings.profile.age') || 'Age'}</Text>
           {isEditing ? (
-            <S.ProfileInput
+            <Input
               value={form.age?.toString() || ''}
               onChangeText={text =>
                 handleChange('age', text ? Number.parseInt(text) : null)
@@ -174,40 +171,50 @@ export default function Screen() {
               disabled={isLoading}
             />
           ) : (
-            <S.ProfileValue>{form.age || '-'}</S.ProfileValue>
+            <Paragraph>{form.age || '-'}</Paragraph>
           )}
-        </S.ProfileItemContainer>
+        </YStack>
 
         {/* Days Since Signup */}
-        <S.ProfileItemContainer>
-          <S.ProfileLabel>
+        <YStack gap='$2'>
+          <Text color='$gray11'>
             {t('settings.profile.daysSinceSignup') || 'Days Since Signup'}
-          </S.ProfileLabel>
-          <S.ProfileValue>{getDaysSinceSignup(firstLaunchDate)}</S.ProfileValue>
-        </S.ProfileItemContainer>
+          </Text>
+          <Paragraph>{getDaysSinceSignup(firstLaunchDate)}</Paragraph>
+        </YStack>
 
         {/* Action Buttons */}
-        <S.ButtonContainer>
+        <YStack space='$4' mt='$4'>
           {isEditing ? (
-            <S.ActionButtonsContainer>
-              <S.CancelButton onPress={handleCancel} disabled={isLoading}>
+            <XStack space='$4'>
+              <PressableButton
+                flex={1}
+                variant='outlined'
+                onPress={handleCancel}
+                disabled={isLoading}
+              >
                 {t('common.cancel') || 'Cancel'}
-              </S.CancelButton>
-              <S.SaveButton onPress={handleSave} disabled={isLoading}>
+              </PressableButton>
+              <PressableButton
+                flex={1}
+                themeInverse
+                onPress={handleSave}
+                disabled={isLoading}
+              >
                 {t('common.save') || 'Save'}
-              </S.SaveButton>
-            </S.ActionButtonsContainer>
+              </PressableButton>
+            </XStack>
           ) : (
-            <S.EditButton onPress={handleEdit} disabled={isLoading}>
+            <PressableButton onPress={handleEdit} disabled={isLoading}>
               {isLoading ? (
                 <ActivityIndicator size='small' />
               ) : (
                 <BaseText>{t('common.edit') || 'Edit'}</BaseText>
               )}
-            </S.EditButton>
+            </PressableButton>
           )}
-        </S.ButtonContainer>
-      </S.ProfileSectionContainer>
+        </YStack>
+      </YStack>
     </ViewContainer>
   )
 }

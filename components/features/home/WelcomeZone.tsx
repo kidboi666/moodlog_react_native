@@ -1,14 +1,13 @@
 import { Fragment, memo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { XStack } from 'tamagui'
 
 import { ANIMATION_DELAY_SECONDS } from '@/constants'
-
-import { FadeIn } from '@/components/shared/FadeIn.styleable'
-import { H3 } from '@/components/shared/Heading'
-import { ShakeEmoji } from '@/components/shared/ShakeEmoji'
 import { useAuth } from '@/store'
-import * as S from '@/styles/screens/home/Home.styled'
-import { Session } from '@supabase/supabase-js'
+
+import { FadeIn } from '@/components/shared/FadeIn'
+import { H1, H3, H4 } from '@/components/shared/Heading'
+import { ShakeEmoji } from '@/components/shared/ShakeEmoji'
 
 export const WelcomeZone = memo(() => {
   const { t } = useTranslation()
@@ -17,14 +16,14 @@ export const WelcomeZone = memo(() => {
   return (
     <Fragment>
       <FadeIn delay={ANIMATION_DELAY_SECONDS[0]}>
-        <S.WelcomeEmojiBox>
-          <S.WelcomeTitleText>{t('common.greeting.hello')}</S.WelcomeTitleText>
+        <XStack gap='$2' items='flex-end'>
+          <H1>{t('common.greeting.hello')}</H1>
           <ShakeEmoji emoji='👋' />
-        </S.WelcomeEmojiBox>
+        </XStack>
         <H3>{t('common.greeting.welcome', { name: userName })}</H3>
       </FadeIn>
       <FadeIn delay={ANIMATION_DELAY_SECONDS[1]}>
-        <S.HowAreYouText>{t('common.greeting.howAreYou')}</S.HowAreYouText>
+        <H4 color='$gray11'>{t('common.greeting.howAreYou')}</H4>
       </FadeIn>
     </Fragment>
   )

@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import * as Localization from 'expo-localization'
 import i18n from 'i18next'
 import { CalendarUtils } from 'react-native-calendars'
 import { create } from 'zustand'
@@ -34,8 +33,6 @@ const initialSettings: Settings = {
   timeFormat: TimeFormat.HOUR_12,
   fontTheme: FontTheme.LEE_SEOYUN,
   fontSize: ViewFontSize.MD,
-  emotionDisplayType: undefined,
-  emotionDisplaySettings: {},
 }
 
 export const useApp = create<AppStore>()(

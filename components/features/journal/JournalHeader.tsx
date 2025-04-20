@@ -1,9 +1,15 @@
 import { ArrowLeft, Trash2 } from '@tamagui/lucide-icons'
 import { memo } from 'react'
+import { XStack, YStack } from 'tamagui'
 
+import { CONTAINER_HORIZONTAL_PADDING } from '@/constants'
 import type { Journal } from '@/types'
 
-import * as S from './JournalHeader.styled'
+import { HeaderContent } from '@/components/shared/HeaderContent'
+import { PressableButton } from '@/components/shared/PressableButton'
+import { RenderDate } from '@/components/shared/RenderDate'
+import { RenderDay } from '@/components/shared/RenderDay'
+import { RenderTime } from '@/components/shared/RenderTime'
 
 interface Props {
   journal: Journal
@@ -14,18 +20,30 @@ interface Props {
 export const JournalHeader = memo(
   ({ journal, onDeletePress, onBackPress }: Props) => {
     return (
-      <S.HeaderContainer>
-        <S.BackButton icon={ArrowLeft} onPress={onBackPress} />
-        <S.DateContainer>
-          <S.DateText>{journal.localDate}</S.DateText>
-          <S.DayWithTimeBox>
-            <S.DayText createdAt={journal.createdAt} />
-            <S.TimeText createdAt={journal.createdAt} />
-          </S.DayWithTimeBox>
-        </S.DateContainer>
+      <HeaderContent items='center' px={CONTAINER_HORIZONTAL_PADDING} gap='$4'>
+        <PressableButton icon={ArrowLeft} onPress={onBackPress} />
+        <YStack items='center'>
+          <RenderDate color='$gray8' fontSize='$5' fontWeight='800'>
+            {journal.localDate}
+          </RenderDate>
+          <XStack gap='$2'>
+            <RenderDay
+              color='$gray8'
+              fontSize='$5'
+              fontWeight='800'
+              createdAt={journal.createdAt}
+            />
+            <RenderTime
+              color='$gray8'
+              fontSize='$5'
+              fontWeight='800'
+              createdAt={journal.createdAt}
+            />
+          </XStack>
+        </YStack>
 
-        <S.DeleteButton icon={Trash2} onPress={onDeletePress} />
-      </S.HeaderContainer>
+        <PressableButton icon={Trash2} onPress={onDeletePress} />
+      </HeaderContent>
     )
   },
 )

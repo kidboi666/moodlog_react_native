@@ -5,10 +5,9 @@ import { RadioGroup, View } from 'tamagui'
 import { useApp } from '@/store'
 import { ViewFontSize } from '@/types'
 
-import { SettingHeader } from '@/components/features/settings/SettingHeader'
+import { RadioGroupItem } from '@/components/features/settings/RadioGroupItem'
 import { BaseText } from '@/components/shared/BaseText'
-import { RadioGroupItem } from '@/components/shared/RadioGroupItem'
-import { ViewContainer } from '@/components/shared/ViewContainer.styleable'
+import { ViewContainer } from '@/components/shared/ViewContainer'
 
 const fontSizes = [
   {
@@ -46,7 +45,7 @@ export default function Screen() {
   )
 
   return (
-    <ViewContainer Header={<SettingHeader />}>
+    <ViewContainer>
       <RadioGroup
         value={fontSize}
         onValueChange={handleValueChange}

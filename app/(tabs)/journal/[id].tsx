@@ -2,7 +2,13 @@ import { useLocalSearchParams, useRouter } from 'expo-router'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
-import { ScrollView, XStack } from 'tamagui'
+import {
+  ScrollView,
+  Image as TamaguiImage,
+  View,
+  XStack,
+  YStack,
+} from 'tamagui'
 
 import { DELETE_JOURNAL_SNAP_POINTS } from '@/constants'
 import { useApp, useBottomSheet, useJournal } from '@/store'
@@ -11,7 +17,9 @@ import { toSingle } from '@/utils'
 
 import { JournalHeader } from '@/components/features/journal/JournalHeader'
 import { FullScreenImageModal } from '@/components/modals/contents/FullScreenImageModal'
-import * as S from '@/styles/screens/journal/Journal.styled'
+import { BaseText } from '@/components/shared/BaseText'
+import { H3 } from '@/components/shared/Heading'
+import { ViewContainer } from '@/components/shared/ViewContainer'
 
 export default function Screen() {
   const { id } = useLocalSearchParams()
@@ -66,11 +74,13 @@ export default function Screen() {
   }, [journalId])
 
   if (!selectedJournal || selectedJournal?.id !== journalId) return null
-  console.log(selectedJournal)
+
   return (
     <ScrollView overScrollMode='always'>
-      <S.ViewContainer
+      <ViewContainer
         edges={['bottom']}
+        px={0}
+        gap='$6'
         Header={
           <JournalHeader
             journal={selectedJournal}
@@ -80,35 +90,60 @@ export default function Screen() {
         }
       >
         <XStack>
-          <S.MoodBar moodColor={selectedJournal.mood.color} />
-          <S.ContentBox>
-            <S.MoodTextBox>
-              <S.MoodLevelText>
+          <View
+            width='3%'
+            animation='medium'
+            animateOnly={['transform']}
+            enterStyle={{ x: -20 }}
+            borderTopRightRadius='$4'
+            borderBottomRightRadius='$4'
+            bg={selectedJournal.mood.color as any}
+          />
+          <YStack flex={1} gap='$4'>
+            <XStack
+              gap='$2'
+              self='flex-start'
+              ml='$3'
+              justify='center'
+              animation='bouncy'
+              enterStyle={{ opacity: 0, scale: 0.9, y: 10 }}
+            >
+              <H3 color='$gray11'>
                 {t(`moods.levels.${selectedJournal.mood.level}`)}
-              </S.MoodLevelText>
-              <S.MoodTypeText>{selectedJournal.mood.name}</S.MoodTypeText>
-            </S.MoodTextBox>
+              </H3>
+              <H3>{selectedJournal.mood.name}</H3>
+            </XStack>
             {Array.isArray(selectedJournal.imageUri) && (
               <ScrollView horizontal>
-                <S.ImageBox>
+                <XStack
+                  animation='bouncy'
+                  enterStyle={{ opacity: 0, scale: 0.9, y: 10 }}
+                  elevation='$2'
+                >
                   {selectedJournal.imageUri.map(uri => (
                     <TouchableOpacity
                       key={uri}
                       onPress={() => handleImagePress(uri)}
                     >
-                      <S.Image source={{ uri }} />
+                      <TamaguiImage
+                        source={{ uri }}
+                        width={300}
+                        height={300}
+                        rounded='$8'
+                        ml='$4'
+                      />
                     </TouchableOpacity>
                   ))}
-                </S.ImageBox>
+                </XStack>
               </ScrollView>
             )}
 
-            <S.ContentText fontSize={fontSize}>
+            <BaseText ml='$3' pr='$4' fontSize={fontSize}>
               {selectedJournal.content}
-            </S.ContentText>
-          </S.ContentBox>
+            </BaseText>
+          </YStack>
         </XStack>
-      </S.ViewContainer>
+      </ViewContainer>
 
       <FullScreenImageModal
         visible={modalVisible}

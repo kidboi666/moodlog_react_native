@@ -6,11 +6,12 @@ import {
   Users,
 } from '@tamagui/lucide-icons'
 import { useTranslation } from 'react-i18next'
-import { Button, H1, ScrollView } from 'tamagui'
+import { Button, H1, ScrollView, YStack } from 'tamagui'
+
+import { useDev } from '@/hooks/useDev'
 
 import { SettingsContainer } from '@/components/features/settings/SettingsContainer'
-import { useDev } from '@/hooks/useDev'
-import * as S from '@/styles/screens/settings/DevScreen.styled'
+import { ViewContainer } from '@/components/shared/ViewContainer'
 
 export default function DevScreen() {
   const { t } = useTranslation()
@@ -18,48 +19,48 @@ export default function DevScreen() {
 
   return (
     <ScrollView>
-      <S.ViewContainer>
+      <ViewContainer edges={['top']} padded gap='$4'>
         <H1>{t('settings.dev.title')}</H1>
-        <S.ItemContainer>
+        <YStack>
           <SettingsContainer title={t('settings.dev.store')}>
-            <S.StyledYStack>
+            <YStack gap='$2'>
               <Button onPress={resetStores} icon={<RefreshCw size='$1' />}>
                 {t('settings.dev.resetStore')}
               </Button>
-            </S.StyledYStack>
+            </YStack>
           </SettingsContainer>
 
           <SettingsContainer title={t('settings.dev.network')}>
-            <S.StyledYStack>
+            <YStack gap='$2'>
               <Button icon={<Activity size='$1' />}>
                 {t('settings.dev.apiCalls')}
               </Button>
               <Button icon={<Server size='$1' />}>
                 {t('settings.dev.serverStatus')}
               </Button>
-            </S.StyledYStack>
+            </YStack>
           </SettingsContainer>
 
           <SettingsContainer title={t('settings.dev.appStatus')}>
-            <S.StyledYStack>
+            <YStack gap='$2'>
               <Button icon={<Database size='$1' />}>
                 {t('settings.dev.appVersion')}
               </Button>
               <Button icon={<Activity size='$1' />}>
                 {t('settings.dev.logs')}
               </Button>
-            </S.StyledYStack>
+            </YStack>
           </SettingsContainer>
 
           <SettingsContainer title={t('settings.dev.memberInfo')}>
-            <S.StyledYStack>
+            <YStack gap='$2'>
               <Button icon={<Users size='$1' />}>
                 {t('settings.dev.loadMemberInfo')}
               </Button>
-            </S.StyledYStack>
+            </YStack>
           </SettingsContainer>
-        </S.ItemContainer>
-      </S.ViewContainer>
+        </YStack>
+      </ViewContainer>
     </ScrollView>
   )
 }

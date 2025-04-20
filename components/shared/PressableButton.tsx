@@ -1,36 +1,63 @@
-import { useCustomFont } from '@/hooks'
-import {
-  MOUNT_STYLE,
-  MOUNT_STYLE_KEY,
-  PRESS_STYLE,
-  PRESS_STYLE_KEY,
-} from '@/styles/animations'
 import { memo } from 'react'
 import { Button, ButtonProps, Spinner } from 'tamagui'
 
+import {
+  MOUNT_STYLE_KEY,
+  PRESS_STYLE,
+  PRESS_STYLE_KEY,
+} from '@/constants/animations'
+import { useCustomFont } from '@/hooks'
+
 interface Props extends ButtonProps {
-  isLoading?: boolean
+  loading?: boolean
 }
 
+/**
+ * !important - 스타일링을 styled로 적용할 경우 안드로이드에서 터치 피드백 사운드가 부담스러워짐.
+ */
 export const PressableButton = memo(
-  ({ children, disabled, isLoading, ...props }: Props) => {
+  ({
+    children,
+    loading,
+    bg,
+    color,
+    animation,
+    pressStyle,
+    enterStyle,
+    exitStyle,
+    scaleIcon,
+    fontFamily,
+    disabled,
+    themeInverse,
+    ...props
+  }: Props) => {
     const font = useCustomFont()
+    const animateOnly =
+      enterStyle || exitStyle
+        ? [...PRESS_STYLE_KEY, ...MOUNT_STYLE_KEY]
+        : undefined
+    const isDisabled = disabled || loading
     return (
       <Button
-        bg='$backgroundHover'
-        animation='quick'
-        pressStyle={PRESS_STYLE}
-        enterStyle={MOUNT_STYLE}
-        exitStyle={MOUNT_STYLE}
-        animateOnly={[...PRESS_STYLE_KEY, ...MOUNT_STYLE_KEY]}
-        scaleIcon={1.5}
-        fontFamily={font}
-        disabled={disabled}
-        opacity={disabled ? 0.5 : 1}
+        bg={bg || '$backgroundHover'}
+        color={color || '$color11'}
+        animation={animation || 'quick'}
+        pressStyle={pressStyle || PRESS_STYLE}
+        enterStyle={enterStyle}
+        exitStyle={exitStyle}
+        animateOnly={animateOnly}
+        scaleIcon={scaleIcon || 1.5}
+        fontFamily={fontFamily || font}
+        themeInverse={themeInverse}
+        opacity={isDisabled ? 0.4 : 1}
+        disabled={isDisabled}
         {...props}
       >
-        {isLoading ? <Spinner /> : children}
+        {loading && <Spinner />}
+        {children}
       </Button>
     )
   },
 )
+
+PressableButton.displayName = 'PressableButton'

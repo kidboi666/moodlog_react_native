@@ -1,0 +1,51 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Your rule content
+
+- You can @ files here
+- You can use markdown but dont have to
+
+- tamagui를 사용하고 있고 shorthand는
+
+```
+ text: 'textAlign',
+  // view
+  b: 'bottom',
+  bg: 'backgroundColor',
+  content: 'alignContent',
+  grow: 'flexGrow',
+  items: 'alignItems',
+  justify: 'justifyContent',
+  l: 'left',
+  m: 'margin',
+  maxH: 'maxHeight',
+  maxW: 'maxWidth',
+  mb: 'marginBottom',
+  minH: 'minHeight',
+  minW: 'minWidth',
+  ml: 'marginLeft',
+  mr: 'marginRight',
+  mt: 'marginTop',
+  mx: 'marginHorizontal',
+  my: 'marginVertical',
+  p: 'padding',
+  pb: 'paddingBottom',
+  pl: 'paddingLeft',
+  pr: 'paddingRight',
+  pt: 'paddingTop',
+  px: 'paddingHorizontal',
+  py: 'paddingVertical',
+  r: 'right',
+  rounded: 'borderRadius',
+  select: 'userSelect',
+  self: 'alignSelf',
+  shrink: 'flexShrink',
+  t: 'top',
+  z: 'zIndex',
+```
+
+위의 방식대로 사용하고 있어

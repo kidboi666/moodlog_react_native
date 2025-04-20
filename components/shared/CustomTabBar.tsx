@@ -1,17 +1,12 @@
-import * as NavigationBar from 'expo-navigation-bar'
 import { type Href, usePathname, useRouter } from 'expo-router'
-import { memo, useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { Platform } from 'react-native'
-import Animated from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useTheme } from 'tamagui'
+import { XStack, styled } from 'tamagui'
 
-import { HIDE_TAB_BAR_ROUTES, TAB_BAR_HEIGHT } from '@/constants'
-import { Position } from '@/types'
+import { MOUNT_STYLE, MOUNT_STYLE_KEY, TAB_BAR_HEIGHT } from '@/constants'
 
 import { WriteButtonWithEvent } from '@/components/shared/WriteButtonWithEvent'
-import { useAxisAnimationWithState } from '@/hooks/useAxisAnimationWithState'
-import * as S from './CustomTabBar.styled'
 import {
   EntriesTab,
   HomeTab,
@@ -19,41 +14,34 @@ import {
   StatisticsTab,
 } from './CustomTabBarItems'
 
-const AnimatedTabBar = Animated.createAnimatedComponent(S.TabBarContainer)
+const StyledContainer = styled(XStack, {
+  position: 'absolute',
+  b: 0,
+  l: 0,
+  r: 0,
+  z: 100,
+  bg: '$color5',
+  borderTopRightRadius: '$10',
+  borderTopLeftRadius: '$10',
+  width: '100%',
+  flex: 1,
+  justify: 'space-evenly',
+  items: 'center',
 
-export const CustomTabBar = memo(() => {
-  const theme = useTheme()
+  animation: 'lazy',
+  enterStyle: MOUNT_STYLE,
+  exitStyle: MOUNT_STYLE,
+  animateOnly: MOUNT_STYLE_KEY,
+})
+
+interface Props {
+  shouldHideTabBar: boolean
+}
+
+export const CustomTabBar = ({ shouldHideTabBar }: Props) => {
   const pathname = usePathname()
   const insets = useSafeAreaInsets()
   const router = useRouter()
-
-  const shouldHideTabBar = HIDE_TAB_BAR_ROUTES.some(route =>
-    pathname.startsWith(route),
-  )
-
-  const {
-    state: position,
-    animatedStyle,
-    changeStateByCondition,
-  } = useAxisAnimationWithState('y', {
-    defaultState: Position.TOP,
-    nextState: Position.BOTTOM,
-    startValue: 0,
-    endValue: 140,
-    duration: 1000,
-  })
-
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      NavigationBar.setBackgroundColorAsync(
-        position === Position.BOTTOM ? theme.background.val : theme.color5.val,
-      )
-    }
-  }, [position, theme, pathname])
-
-  useEffect(() => {
-    changeStateByCondition(shouldHideTabBar)
-  }, [pathname])
 
   const isActive = useCallback(
     (path: string) => {
@@ -75,21 +63,19 @@ export const CustomTabBar = memo(() => {
   )
 
   return (
-    <AnimatedTabBar
+    <StyledContainer
       height={TAB_BAR_HEIGHT + insets.bottom}
       pb={insets.bottom}
-      style={animatedStyle}
+      pt={Platform.OS === 'ios' ? '$4' : undefined}
     >
-      <S.Container>
-        <HomeTab isTabActive={isHomeActive} onPress={handleNavigate} />
-        <EntriesTab isTabActive={isCalendarActive} onPress={handleNavigate} />
-        <WriteButtonWithEvent />
-        <StatisticsTab
-          isTabActive={isStatisticsActive}
-          onPress={handleNavigate}
-        />
-        <SettingsTab isTabActive={isSettingsActive} onPress={handleNavigate} />
-      </S.Container>
-    </AnimatedTabBar>
+      <HomeTab isTabActive={isHomeActive} onPress={handleNavigate} />
+      <EntriesTab isTabActive={isCalendarActive} onPress={handleNavigate} />
+      <WriteButtonWithEvent />
+      <StatisticsTab
+        isTabActive={isStatisticsActive}
+        onPress={handleNavigate}
+      />
+      <SettingsTab isTabActive={isSettingsActive} onPress={handleNavigate} />
+    </StyledContainer>
   )
-})
+}

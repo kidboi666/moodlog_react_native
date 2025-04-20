@@ -4,9 +4,8 @@ import { RadioGroup } from 'tamagui'
 import { useApp } from '@/store'
 import type { Languages } from '@/types'
 
-import { SettingHeader } from '@/components/features/settings/SettingHeader'
-import { RadioGroupItem } from '@/components/shared/RadioGroupItem'
-import { ViewContainer } from '@/components/shared/ViewContainer.styleable'
+import { RadioGroupItem } from '@/components/features/settings/RadioGroupItem'
+import { ViewContainer } from '@/components/shared/ViewContainer'
 
 export default function Screen() {
   const language = useApp(state => state.settings.language)
@@ -20,7 +19,7 @@ export default function Screen() {
   )
 
   return (
-    <ViewContainer Header={<SettingHeader />}>
+    <ViewContainer>
       <RadioGroup
         value={language}
         onValueChange={handleValueChange}

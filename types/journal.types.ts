@@ -1,14 +1,10 @@
-import type {
-  ISODateString,
-  ISOMonthString,
-  MonthKey,
-} from './date.types'
-import type { Mood, MoodType } from './mood.types'
+import type { ISODateString, ISOMonthString, MonthKey } from './date.types'
+import type { JournalMood } from './mood.types'
 
 export type Journal = {
   id: string
   content: string
-  mood: Mood
+  mood: JournalMood
   createdAt: string
   localDate: ISODateString // YYYY-MM-DD
   imageUri: string[]
@@ -18,7 +14,7 @@ export type Journals = Record<string, Journal>
 
 export type Draft = {
   content: string
-  mood?: Mood
+  mood?: JournalMood
   imageUri: string[]
 }
 /**
@@ -27,7 +23,7 @@ export type Draft = {
 export type YearIndexes = Record<number, string[]>
 export type MonthIndexes = Record<ISOMonthString, string[]>
 export type DateIndexes = Record<ISODateString, string[]>
-export type MoodIndexes = Record<MoodType, string[]>
+export type MoodIndexes = Record<string, string[]>
 export type SelectedJournals = Journal[] | ISODateString | null
 export type SelectedJournal = Journal | null
 export type JournalIndexes = {

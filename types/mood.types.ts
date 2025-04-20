@@ -5,21 +5,19 @@ export enum MoodLevel {
 }
 
 export type MoodName = string
-export type MoodType = MoodName
 export type MoodColor = string
 
-export type Mood = {
-  name: MoodName
-  level: MoodLevel
-  color: MoodColor
-}
-
+// 감정 기본 타입 (사용자가 생성하는 커스텀 감정)
 export type MyMood = {
   id: string
   name: MoodName
   color: MoodColor
-  level: MoodLevel
   createdAt: string
+}
+
+// 일기장에서 사용할 때는 level을 추가함
+export type JournalMood = MyMood & {
+  level: MoodLevel
 }
 
 export type MyMoods = {
@@ -27,7 +25,7 @@ export type MyMoods = {
 }
 
 export type SignatureMood = {
-  name: string
+  type: string
   count: number
   score: number
 }

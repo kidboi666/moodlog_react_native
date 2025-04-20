@@ -1,18 +1,19 @@
 import { useToastController } from '@tamagui/toast'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView } from 'tamagui'
+import { ScrollView, YStack } from 'tamagui'
 
 import { DELETE_JOURNAL_SNAP_POINTS } from '@/constants'
 import { useCalendar } from '@/hooks'
 import { useAuth, useBottomSheet, useJournal, useUI } from '@/store'
 import { BottomSheetType } from '@/types'
 
-import { HomeJournalCard } from '@/components/features/home/HomeJournalCard'
-import { WeekDay } from '@/components/features/home/WeekDay'
-import { WelcomeZone } from '@/components/features/home/WelcomeZone'
-import { ViewContainer } from '@/components/shared/ViewContainer.styleable'
-import * as S from '@/styles/screens/home/Home.styled'
+import {
+  HomeJournalCard,
+  WeekDay,
+  WelcomeZone,
+} from '@/components/features/home'
+import { ViewContainer } from '@/components/shared'
 
 export default function HomeScreen() {
   const { t } = useTranslation()
@@ -58,7 +59,7 @@ export default function HomeScreen() {
   return (
     <ScrollView overScrollMode='always' keyboardShouldPersistTaps='handled'>
       <ViewContainer edges={['top', 'bottom']} padded>
-        <S.ContentHeaderContainer>
+        <YStack gap='$4'>
           <WelcomeZone />
           <WeekDay />
           <HomeJournalCard
@@ -66,7 +67,7 @@ export default function HomeScreen() {
             openDeleteSheet={openDeleteSheet}
             isToday={isToday}
           />
-        </S.ContentHeaderContainer>
+        </YStack>
       </ViewContainer>
     </ScrollView>
   )

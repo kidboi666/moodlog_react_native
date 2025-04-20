@@ -1,51 +1,52 @@
-import { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Progress as TamaguiProgress, XStack, YStack, styled } from 'tamagui'
 
-import { moodTheme } from '@/constants'
 import { useApp } from '@/store'
-import { MoodType } from '@/types'
 
 import { BaseText } from '@/components/shared/BaseText'
 import { H3 } from '@/components/shared/Heading'
-import * as S from './ProgressGraph.styled'
 
+export const GraphContainer = styled(YStack, {
+  gap: '$2',
+})
+
+export const GraphNameBox = styled(XStack, {
+  justify: 'space-between',
+  items: 'flex-end',
+})
+
+export const GraphName = styled(BaseText, {
+  color: '$gray9',
+})
+
+export const Progress = styled(TamaguiProgress, {
+  size: '$1',
+  height: 20,
+})
+
+export const ProgressIndicator = styled(TamaguiProgress.Indicator, {
+  animation: 'bouncy',
+})
 interface Props {
-  moodType: MoodType
   moodScore: number
+  moodId: string
+  moodColor: string
 }
 
-export const ProgressGraph = ({ moodType, moodScore }: Props) => {
+export const ProgressGraph = ({ moodScore, moodId, moodColor }: Props) => {
   const { t } = useTranslation()
-  const emotionDisplayType = useApp(state => state.settings.emotionDisplayType)
-
-  const getMoodLabel = useCallback(
-    (moodType: MoodType) => {
-      if (moodType === MoodType.SIMPLE) {
-        return t('common.moods.simple')
-      }
-
-      return t(`moods.types.${moodType}`)
-    },
-    [t],
-  )
-
-  const getMoodColor = useCallback((moodType: MoodType) => {
-    if (moodType === MoodType.SIMPLE) {
-      return '$blue10'
-    }
-
-    return moodTheme[moodType]?.full || '$gray10'
-  }, [])
+  const myMoods = useApp(state => state.myMoods)
+  const mood = myMoods[moodId]
 
   return (
-    <S.GraphContainer>
-      <S.GraphNameBox>
-        <H3>{getMoodLabel(moodType)}</H3>
-        <S.GraphName>{`${Math.floor(moodScore)}%`}</S.GraphName>
-      </S.GraphNameBox>
-      <S.Progress value={moodScore}>
-        <S.ProgressIndicator moodColor={getMoodColor(moodType)} />
-      </S.Progress>
-    </S.GraphContainer>
+    <GraphContainer>
+      <GraphNameBox>
+        <H3>{mood?.name || moodId}</H3>
+        <GraphName>{`${Math.floor(moodScore)}%`}</GraphName>
+      </GraphNameBox>
+      <Progress value={moodScore}>
+        <ProgressIndicator bg={moodColor as any} />
+      </Progress>
+    </GraphContainer>
   )
 }

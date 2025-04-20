@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RadioGroup } from 'tamagui'
@@ -5,9 +6,9 @@ import { RadioGroup } from 'tamagui'
 import { useApp } from '@/store'
 import { FontTheme } from '@/types'
 
-import { SettingHeader } from '@/components/features/settings/SettingHeader'
-import { FontRadioGroupItem } from '@/components/shared/FontRadioGroupItem'
-import { ViewContainer } from '@/components/shared/ViewContainer.styleable'
+import { FontRadioGroupItem } from '@/components/features/settings/FontRadioGroupItem'
+import { HeaderContent } from '@/components/shared/HeaderContent'
+import { ViewContainer } from '@/components/shared/ViewContainer'
 
 const fontList = [
   {
@@ -38,6 +39,7 @@ const fontList = [
 
 export default function Screen() {
   const { t } = useTranslation()
+  const router = useRouter()
   const fontTheme = useApp(state => state.settings.fontTheme)
   const onSettingChange = useApp(state => state.onSettingChange)
 
@@ -49,7 +51,7 @@ export default function Screen() {
   )
 
   return (
-    <ViewContainer Header={<SettingHeader />}>
+    <ViewContainer>
       <RadioGroup
         value={fontTheme}
         onValueChange={handleValueChange}

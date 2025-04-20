@@ -2,8 +2,9 @@ import { NotebookPen } from '@tamagui/lucide-icons'
 import { useToastController } from '@tamagui/toast'
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Button, YStack } from 'tamagui'
 
-import * as S from '@/components/features/journal/EmptyJournal.styled'
+import { H3, H5 } from '@/components/shared/Heading'
 import { WriteButtonWithEvent } from '@/components/shared/WriteButtonWithEvent'
 
 interface Props {
@@ -15,12 +16,33 @@ export const EmptyJournal = memo(({ isToday }: Props) => {
   const toast = useToastController()
 
   return isToday ? (
-    <S.TodayContainer>
-      <S.TodayTitle>{t('common.fallback.today')}</S.TodayTitle>
+    <YStack
+      justify='center'
+      items='center'
+      gap='$3'
+      p='$6'
+      px='$9'
+      rounded='$8'
+      bg='$gray4'
+      animation='medium'
+      enterStyle={{ opacity: 0, scale: 0.9, y: 10 }}
+      animateOnly={['opacity', 'scale', 'transform']}
+    >
+      <H3 text='center' color='$gray12'>
+        {t('common.fallback.today')}
+      </H3>
       <WriteButtonWithEvent />
-    </S.TodayContainer>
+    </YStack>
   ) : (
-    <S.PastDaysContainer
+    <Button
+      unstyled
+      p='$6'
+      justify='center'
+      items='center'
+      gap='$3'
+      animation='medium'
+      enterStyle={{ opacity: 0, scale: 0.9, y: 10 }}
+      animateOnly={['opacity', 'scale', 'transform']}
       onPress={() =>
         toast.show(t('notifications.warning.journal.title'), {
           preset: 'error',
@@ -28,10 +50,8 @@ export const EmptyJournal = memo(({ isToday }: Props) => {
       }
     >
       <NotebookPen size='$1' color='$gray10' />
-      <S.PastDaysTitle>{t('common.fallback.empty.title')}</S.PastDaysTitle>
-      <S.PastDaysDescription>
-        {t('common.fallback.empty.description')}
-      </S.PastDaysDescription>
-    </S.PastDaysContainer>
+      <H3 color='$gray10'>{t('common.fallback.empty.title')}</H3>
+      <H5 color='$gray10'>{t('common.fallback.empty.description')}</H5>
+    </Button>
   )
 })

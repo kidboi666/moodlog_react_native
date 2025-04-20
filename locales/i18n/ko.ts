@@ -189,13 +189,6 @@ export const ko = {
       half: '적당히',
       full: '매우',
     },
-    simpleLevels: {
-      very_bad: '매우 나쁨',
-      bad: '나쁨',
-      neutral: '보통',
-      good: '좋음',
-      very_good: '매우 좋음',
-    },
     intensity: {
       low: '약함',
       medium: '보통',
@@ -333,22 +326,6 @@ export const ko = {
       large: '크게',
       larger: '매우 크게',
     },
-    emotionDisplay: {
-      title: '감정 표현 방식',
-      monthly: '월별 감정 표현 방식 설정',
-      description: '감정을 기록할 방식을 선택해주세요.',
-      currentMonth: '{{ month }}의 감정 표현 방식',
-      selectMode: '감정 표현 방식 선택',
-      fourEmotions: '4가지 감정',
-      fourEmotionsDescription:
-        '행복, 슬픔, 화남, 평화 4가지 감정과 3단계 강도.',
-      fiveLevels: '5단계 좋음/나쁨',
-      fiveLevelsDescription: '좋음과 나쁨을 5단계로 나눈 감정 상태.',
-      customEmotions: '나만의 감정',
-      customEmotionsDescription: '직접 만든 감정을 선택하여 기록합니다.',
-      submit: '설정 완료',
-      reset: '모든 월 설정 초기화',
-    },
     profile: {
       title: '프로필',
       id: '사용자 ID',
@@ -404,16 +381,6 @@ export const ko = {
         3: '환불 정책 등 자세한 내용은 [이용약관]과 [환불정책]을 참고해 주세요.',
         4: '일부 기능은 앱 버전에 따라 제공 범위가 다를 수 있습니다.',
       },
-    },
-    emotionType: {
-      title: '감정 표현 방식 선택',
-      description: '감정을 기록할 방식을 선택해주세요.',
-      fourEmotions: '4가지 감정',
-      fourEmotionsDescription:
-        '행복, 슬픔, 화남, 평화 4가지 감정과 3단계 강도.',
-      fiveLevels: '5단계 좋음/나쁨',
-      fiveLevelsDescription: '좋음과 나쁨을 5단계로 나눈 감정 상태.',
-      fiveLevelsScale: '매우 나쁨 → 매우 좋음',
     },
   },
   signup: {

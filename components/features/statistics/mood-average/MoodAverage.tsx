@@ -1,16 +1,34 @@
 import Animated from 'react-native-reanimated'
 
-import { useApp } from '@/store'
 import type { ISOMonthString } from '@/types'
 import { ExpansionState, TimeRange } from '@/types'
 
-import { CollapsedContent } from '@/components/features/statistics/mood-average/CollapsedContent'
-import { ExpandedContent } from '@/components/features/statistics/mood-average/ExpandedContent'
-import { useExpandAnimation } from '@/hooks/useExpandAnimation'
-import { useMoodStats } from '@/hooks/useMoodStats'
-import * as S from './MoodAverage.styled'
+import { useExpandAnimation, useMoodStats } from '@/hooks'
 
-const AnimatedCardContainer = Animated.createAnimatedComponent(S.CardContainer)
+import { YStack, styled } from 'tamagui'
+import { MoodAverageCollapsedContent } from './MoodAverageCollapsedContent'
+import { MoodAverageExpandedContent } from './MoodAverageExpandedContent'
+
+import { PRESS_STYLE } from '@/constants/animations'
+
+export const CardContainer = styled(YStack, {
+  flex: 1,
+  bg: '$gray4',
+  rounded: '$8',
+  p: '$4',
+  animation: 'medium',
+  pressStyle: PRESS_STYLE,
+
+  variants: {
+    moodColor: {
+      ':string': bg => {
+        return { bg }
+      },
+    },
+  } as const,
+})
+
+const AnimatedCardContainer = Animated.createAnimatedComponent(CardContainer)
 
 interface Props {
   selectedYear: number
@@ -22,10 +40,6 @@ export const MoodAverage = ({ selectedYear, selectedMonth }: Props) => {
   const { moodStats } = stats || {}
   const { signatureMood, scoreBoard } = moodStats || {}
   const { animatedStyle, expansionState, onPress } = useExpandAnimation()
-  const emotionDisplayType = useApp(state => state.settings.emotionDisplayType)
-  const emotionDisplaySettings = useApp(
-    state => state.settings.emotionDisplaySettings || {},
-  )
 
   // 선택된 달에 특정 감정 선택 로직이 설정되어 있으면 그것을 사용
   const shouldShowSignatureMood = !!signatureMood?.type
@@ -33,12 +47,12 @@ export const MoodAverage = ({ selectedYear, selectedMonth }: Props) => {
   return (
     <AnimatedCardContainer onPress={onPress} style={animatedStyle}>
       {expansionState === ExpansionState.EXPANDED ? (
-        <ExpandedContent
+        <MoodAverageExpandedContent
           scoreBoard={scoreBoard || {}}
           hasSignatureMood={shouldShowSignatureMood}
         />
       ) : (
-        <CollapsedContent
+        <MoodAverageCollapsedContent
           signatureMood={signatureMood}
           hasSignatureMood={shouldShowSignatureMood}
         />

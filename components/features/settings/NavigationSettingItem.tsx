@@ -1,30 +1,31 @@
 import { ChevronRight } from '@tamagui/lucide-icons'
-import type { Href } from 'expo-router'
 import { memo } from 'react'
 
 import { BaseText } from '@/components/shared/BaseText'
-import { PRESS_STYLE } from '@/styles/animations'
+import { PRESS_STYLE } from '@/constants/animations'
 import { Button } from 'tamagui'
 
 interface NavigationSettingItemProps {
   icon?: any
   label: string
-  href: Href
-  onRouteChange: (href: Href) => void
+  onRouteChange: () => void
 }
 
 export const NavigationSettingItem = memo(
-  ({ icon, label, href, onRouteChange }: NavigationSettingItemProps) => {
+  ({ icon, label, onRouteChange }: NavigationSettingItemProps) => {
     return (
       <Button
+        justify='space-between'
         animation='quick'
         pressStyle={PRESS_STYLE}
         icon={icon}
-        onPress={() => onRouteChange(href)}
+        onPress={onRouteChange}
       >
-        <BaseText>{label}</BaseText>
+        <BaseText flex={1}>{label}</BaseText>
         <ChevronRight size='$1' />
       </Button>
     )
   },
 )
+
+NavigationSettingItem.displayName = 'NavigationSettingItem'

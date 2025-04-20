@@ -3,7 +3,7 @@ import { Button, View, XStack, YStack, styled } from 'tamagui'
 import { CALENDAR_SCROLL_SIZE } from '@/constants'
 
 import { BaseText } from '@/components/shared/BaseText'
-import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/styles/animations'
+import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants/animations'
 
 export const CalendarContainer = styled(XStack, {
   animation: 'quick',

@@ -1,21 +1,16 @@
 import { WEEK_DAY } from '@/constants'
-import {
-  EmotionDisplayType,
-  type Mood,
-  MoodLevel,
-  MoodType,
-  type SignatureMood,
-  TimeRange,
-} from '@/types'
 import type {
   ISODateString,
   ISOMonthString,
   Journal,
   JournalIndexes,
+  JournalMood,
   Journals,
   MonthIndexes,
   ScoreBoard,
+  SignatureMood,
 } from '@/types'
+import { MoodLevel, TimeRange } from '@/types'
 import {
   castArray,
   extractKeys,
@@ -64,88 +59,44 @@ export class Statistics {
   /**
    * 감정 평균 구하기
    */
-  static calculateMoodScoreBoard(
-    journals: Journal[],
-    emotionDisplayType?: EmotionDisplayType,
-  ): ScoreBoard {
+  static calculateMoodScoreBoard(journals: Journal[]): ScoreBoard {
     const moods = journals.map(journal => journal.mood)
 
-    // 5단계 좋음/나쁨 감정 표현 방식인 경우
-    if (emotionDisplayType === EmotionDisplayType.FIVE_LEVELS_GOOD_BAD) {
-      // 5단계 좋음/나쁨에서는 simple 타입만 사용
-      const simpleScoreBoard = {
-        simple: { count: 0, score: 0 },
-      } as unknown as ScoreBoard
+    // 나만의 감정별로 count와 score 집계
+    const myScoreBoard: ScoreBoard = {}
 
-      moods.forEach(mood => {
-        if (!mood || !mood.type) return
+    moods.forEach(mood => {
+      if (!mood || !mood.id) return
 
-        if (mood.type === MoodType.SIMPLE) {
-          // 5단계 좋음/나쁨의 레벨은 문자열로 1-5까지의 값을 가짐
-          const level = Number.parseInt(mood.level || '0', 10)
+      // 감정 ID를 키로 사용
+      const moodId = mood.id
 
-          if (simpleScoreBoard.simple) {
-            simpleScoreBoard.simple = {
-              count: simpleScoreBoard.simple.count + 1,
-              score: simpleScoreBoard.simple.score + level,
-            }
-          }
+      // 해당 감정이 없으면 초기화
+      if (!myScoreBoard[moodId]) {
+        myScoreBoard[moodId] = {
+          count: 0,
+          score: 0,
+          color: mood.color,
         }
-      })
-
-      return simpleScoreBoard
-    }
-
-    // 사용자 정의 감정 표현 방식인 경우
-    if (emotionDisplayType === EmotionDisplayType.MY_EMOTIONS) {
-      const myScoreBoard: ScoreBoard = {
-        my: { count: 0, score: 0 },
       }
 
-      // 나만의 감정별로 count와 score 집계
-      moods.forEach(mood => {
-        if (!mood || !mood.type) return
+      const levelScores = {
+        [MoodLevel.ZERO]: 1,
+        [MoodLevel.HALF]: 2,
+        [MoodLevel.FULL]: 3,
+      }
 
-        if (mood.type === MoodType.MY && mood.myId) {
-          // myId를 키로 사용
-          const myId = mood.myId
+      const score = levelScores[mood.level] || 0
 
-          // 해당 감정이 없으면 초기화
-          if (!myScoreBoard[myId]) {
-            myScoreBoard[myId] = { count: 0, score: 0 }
-          }
+      // 해당 감정의 count와 score 업데이트
+      myScoreBoard[moodId] = {
+        count: (myScoreBoard[moodId]?.count || 0) + 1,
+        score: (myScoreBoard[moodId]?.score || 0) + score,
+        color: mood.color,
+      }
+    })
 
-          const levelScores = {
-            [MoodLevel.ZERO]: 1,
-            [MoodLevel.HALF]: 2,
-            [MoodLevel.FULL]: 3,
-          }
-
-          const score = levelScores[mood.level] || 0
-
-          // 해당 감정의 count와 score 업데이트
-          if (myScoreBoard[myId]) {
-            myScoreBoard[myId] = {
-              count: (myScoreBoard[myId]?.count || 0) + 1,
-              score: (myScoreBoard[myId]?.score || 0) + score,
-            }
-          }
-
-          // 전체 my 카테고리 집계에도 추가
-          if (myScoreBoard.my) {
-            myScoreBoard.my = {
-              count: myScoreBoard.my.count + 1,
-              score: myScoreBoard.my.score + score,
-            }
-          }
-        }
-      })
-
-      return myScoreBoard
-    }
-
-    // 5단계 좋음/나쁨 방식만 남김
-    return {}
+    return myScoreBoard
   }
 
   /**
@@ -267,9 +218,9 @@ export class Statistics {
    * 월별 감정 선택 로직 정보 저장하기
    */
   static getEmotionDisplayTypeByMonth(
-    emotionDisplaySettings: Record<string, EmotionDisplayType>,
+    emotionDisplaySettings: Record<string, any>,
     month: ISOMonthString,
-  ): EmotionDisplayType | undefined {
+  ): any | undefined {
     return emotionDisplaySettings?.[month]
   }
 
@@ -281,8 +232,6 @@ export class Statistics {
     indexes: JournalIndexes,
     timeRange: TimeRange,
     selectedYear: number,
-    emotionDisplayType?: EmotionDisplayType,
-    emotionDisplaySettings?: Record<string, EmotionDisplayType>,
   ) {
     const yearIds = indexes.byYear[selectedYear] || []
     const yearlyJournals = yearIds
@@ -293,10 +242,7 @@ export class Statistics {
       indexes.byMonth,
       selectedYear,
     )
-    const scoreBoard = Statistics.calculateMoodScoreBoard(
-      yearlyJournals,
-      emotionDisplayType,
-    )
+    const scoreBoard = Statistics.calculateMoodScoreBoard(yearlyJournals)
 
     return {
       totalCount: yearlyJournals.length,
@@ -325,23 +271,13 @@ export class Statistics {
     indexes: JournalIndexes,
     timeRange: TimeRange,
     selectedMonth: ISOMonthString,
-    emotionDisplayType?: EmotionDisplayType,
-    emotionDisplaySettings?: Record<string, EmotionDisplayType>,
   ) {
     const monthIds = indexes.byMonth[selectedMonth] || []
     const monthlyJournals = monthIds
       .map(id => journals[id])
       .filter(journal => journal !== undefined)
 
-    // 선택된 달에 특정 감정 선택 로직이 설정되어 있으면 그것을 사용
-    const monthDisplayType = emotionDisplaySettings?.[selectedMonth]
-      ? emotionDisplaySettings[selectedMonth]
-      : emotionDisplayType
-
-    const scoreBoard = Statistics.calculateMoodScoreBoard(
-      monthlyJournals,
-      monthDisplayType,
-    )
+    const scoreBoard = Statistics.calculateMoodScoreBoard(monthlyJournals)
 
     return {
       totalCount: monthlyJournals.length,
@@ -363,7 +299,7 @@ export class Statistics {
   }
 
   /**
-   * 주간 통계 계산
+   * 월간 통계 계산
    */
   static getWeeklyStats(
     journals: Journals,
@@ -381,7 +317,7 @@ export class Statistics {
         scoreBoard[day] = dayJournal.length > 0 ? dayJournal[0].mood : null
         return scoreBoard
       },
-      {} as Record<string, Mood | null>,
+      {} as Record<string, JournalMood | null>,
     )
   }
 }

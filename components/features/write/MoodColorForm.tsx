@@ -18,7 +18,7 @@ import {
   MOUNT_STYLE_KEY,
   PRESS_STYLE,
   PRESS_STYLE_KEY,
-} from '@/styles/animations'
+} from '@/constants/animations'
 import { Check } from '@tamagui/lucide-icons'
 
 // 감정 색상 팔레트

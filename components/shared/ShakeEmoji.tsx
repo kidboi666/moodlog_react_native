@@ -1,7 +1,22 @@
 import { memo, useEffect, useState } from 'react'
-import { H1 } from 'tamagui'
+import { Button, H1, styled } from 'tamagui'
 
-import * as S from './ShakeEmoji.styled'
+const EmojiButton = styled(Button, {
+  unstyled: true,
+  animation: 'medium',
+  rotate: '0deg',
+  pressStyle: {
+    scale: 0.85,
+  },
+
+  variants: {
+    isRotate: {
+      true: {
+        rotate: '40deg',
+      },
+    },
+  } as const,
+})
 
 interface Props {
   duration?: number
@@ -36,11 +51,11 @@ export const ShakeEmoji = memo(({ duration, emoji }: Props) => {
   }, [duration, isShaking])
 
   return (
-    <S.EmojiButton
+    <EmojiButton
       isRotate={isRotate}
       onPress={() => setIsShaking(prev => !prev)}
     >
       <H1>{emoji}</H1>
-    </S.EmojiButton>
+    </EmojiButton>
   )
 })

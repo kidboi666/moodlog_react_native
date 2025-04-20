@@ -1,46 +1,18 @@
 import type { ISOMonthString } from './date.types'
-import type { MoodType, SignatureMood } from './mood.types'
-
-export type SelectedMonthStats = {
-  month: ISOMonthString
-  count: number
-  frequency: number
-  activeDay: string
-  signatureMood: SignatureMood
-}
 
 export type ExpressiveMonthStats = {
   month: ISOMonthString
   count: number
 }
 
-export type MonthlyCounts = {
-  [key in ISOMonthString]: number
-}
-
-export type JournalStats = {
-  totalCount: number
-  totalFrequency: number
-  totalActiveDay: string
-  monthlyCounts: MonthlyCounts
-}
-
 export type CountScore = {
   count: number
   score: number
+  color?: string
 }
 
 export type ScoreBoard = {
-  [key in MoodType]?: CountScore
-} & {
-  simple?: CountScore
-  custom?: CountScore
-  [customId: string]: CountScore | undefined
-}
-
-export type MoodStats = {
-  signatureMood: SignatureMood
-  scoreBoard: ScoreBoard
+  [key: string]: CountScore | undefined
 }
 
 export enum ExpansionState {

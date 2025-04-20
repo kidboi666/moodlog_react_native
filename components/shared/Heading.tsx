@@ -1,40 +1,52 @@
-import { GetThemeValueForKey, Text, TextProps } from 'tamagui'
+import { GetThemeValueForKey, SizableText, TextProps } from 'tamagui'
 
 import { useCustomFont } from '@/hooks/useCustomFont'
 import { useFontSizeAdjustment } from '@/hooks/useFontSizeAdjustment'
 import { memo } from 'react'
 
 type HeadingFontSize = '$10' | '$9' | '$8' | '$7' | '$6' | '$5'
+type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6
 
-interface Props extends TextProps {}
+interface HeadingProps extends TextProps {
+  level?: HeadingLevel
+}
 
 const createHeading = (initSize: HeadingFontSize) =>
-  Text.styleable<Props>(({ children, fontSize, ...props }, ref) => {
-    const font = useCustomFont()
-    const size = useFontSizeAdjustment(initSize)
-    return (
-      <Text
-        fontFamily={font as unknown as GetThemeValueForKey<'$fontFamily'>}
-        fontSize={fontSize ? fontSize : size}
-        fontWeight={props.fontWeight ? props.fontWeight : '800'}
-        {...props}
-        ref={ref}
-      >
-        {children}
-      </Text>
-    )
-  })
+  SizableText.styleable<HeadingProps>(
+    ({ children, fontSize, fontWeight, text: textAlign, ...props }, ref) => {
+      const font = useCustomFont()
+      const size = useFontSizeAdjustment(initSize)
 
-export const H1 = memo(createHeading('$10'))
-export const H2 = memo(createHeading('$9'))
-export const H3 = memo(createHeading('$8'))
-export const H4 = memo(createHeading('$7'))
-export const H5 = memo(createHeading('$6'))
-export const H6 = memo(createHeading('$5'))
+      return (
+        <SizableText
+          fontFamily={font as unknown as GetThemeValueForKey<'$fontFamily'>}
+          fontSize={fontSize ?? size}
+          fontWeight={fontWeight ?? '800'}
+          text={textAlign}
+          {...props}
+          ref={ref}
+        >
+          {children}
+        </SizableText>
+      )
+    },
+  )
 
-H1.displayName = 'Heading1'
-H2.displayName = 'Heading2'
-H3.displayName = 'Heading3'
-H4.displayName = 'Heading4'
-H5.displayName = 'Heading5'
-H6.displayName = 'Heading6'
+const HEADING_SIZES: Record<HeadingLevel, HeadingFontSize> = {
+  1: '$10',
+  2: '$9',
+  3: '$8',
+  4: '$7',
+  5: '$6',
+  6: '$5',
+}
+
+export const H1 = memo(createHeading(HEADING_SIZES[1]))
+export const H2 = memo(createHeading(HEADING_SIZES[2]))
+export const H3 = memo(createHeading(HEADING_SIZES[3]))
+export const H4 = memo(createHeading(HEADING_SIZES[4]))
+export const H5 = memo(createHeading(HEADING_SIZES[5]))
+export const H6 = memo(createHeading(HEADING_SIZES[6]))
+;[H1, H2, H3, H4, H5, H6].forEach((Component, index) => {
+  Component.displayName = `Heading${index + 1}`
+})

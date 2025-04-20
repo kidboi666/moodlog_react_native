@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView } from 'tamagui'
+import { ScrollView, YStack } from 'tamagui'
 
 import { ANIMATION_DELAY_MS, DELETE_JOURNAL_SNAP_POINTS } from '@/constants'
 import { useCalendar } from '@/hooks'
@@ -10,9 +10,10 @@ import { BottomSheetType, type Journal } from '@/types'
 import { DateHeader } from '@/components/features/entries/DateHeader'
 import { GardenSection } from '@/components/features/entries/GardenSection'
 import { EmptyJournal } from '@/components/features/journal/EmptyJournal'
-import { JournalCard } from '@/components/features/journal/JournalCard'
-import { FadeIn } from '@/components/shared/FadeIn.styleable'
-import * as S from '@/styles/screens/entries/Entries.styled'
+import { JournalCard } from '@/components/features/journal/JournalCardComponents'
+import { FadeIn } from '@/components/shared/FadeIn'
+import { H1 } from '@/components/shared/Heading'
+import { ViewContainer } from '@/components/shared/ViewContainer'
 
 // 일기를 날짜별로 그룹화하는 함수
 const groupJournalsByDate = (journals: Journal[]) => {
@@ -80,16 +81,16 @@ export default function Screen() {
 
   return (
     <ScrollView>
-      <S.ViewContainer edges={['top']} padded>
-        <S.Title>{t('entries.title')}</S.Title>
+      <ViewContainer edges={['top']} padded gap='$4'>
+        <H1>{t('entries.title')}</H1>
         <FadeIn delay={ANIMATION_DELAY_MS[0]}>
           <GardenSection />
         </FadeIn>
 
-        <S.JournalBox>
+        <YStack gap='$6'>
           {Array.isArray(selectedJournals) && selectedJournals.length > 0 ? (
             groupedJournals.map(([date, journals]) => (
-              <S.DateGroup key={date}>
+              <YStack key={date} gap='$2'>
                 <DateHeader date={date} />
                 {journals.map(journal => {
                   const { content, imageUri, id, createdAt, mood } = journal
@@ -105,13 +106,13 @@ export default function Screen() {
                     />
                   )
                 })}
-              </S.DateGroup>
+              </YStack>
             ))
           ) : (
             <EmptyJournal isToday={false} />
           )}
-        </S.JournalBox>
-      </S.ViewContainer>
+        </YStack>
+      </ViewContainer>
     </ScrollView>
   )
 }

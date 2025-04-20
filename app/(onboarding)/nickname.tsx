@@ -3,17 +3,16 @@ import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { H2, H3, XStack, YStack } from 'tamagui'
 
 import { ANIMATION_DELAY_SECONDS } from '@/constants'
 import { useStepProgress } from '@/store'
 
 import { BaseText } from '@/components/shared/BaseText'
-import { FadeIn } from '@/components/shared/FadeIn.styleable'
+import { FadeIn } from '@/components/shared/FadeIn'
 import { FormInput } from '@/components/shared/FormInput'
 import { PressableButton } from '@/components/shared/PressableButton'
-import { ViewContainer } from '@/components/shared/ViewContainer.styleable'
-import * as S from '@/styles/screens/onboarding/Nickname.styled'
-import { Spinner } from 'tamagui'
+import { ViewContainer } from '@/components/shared/ViewContainer'
 
 export default function Screen() {
   const router = useRouter()
@@ -65,12 +64,12 @@ export default function Screen() {
 
   return (
     <ViewContainer edges={['bottom']}>
-      <S.YStackContainer>
+      <YStack flex={1} gap='$6'>
         <FadeIn delay={ANIMATION_DELAY_SECONDS[0]}>
-          <S.Title>{t('onboarding.nickname.title')}</S.Title>
+          <H2>{t('onboarding.nickname.title')}</H2>
         </FadeIn>
         <FadeIn delay={ANIMATION_DELAY_SECONDS[1]}>
-          <S.Description>{t('onboarding.nickname.description')}</S.Description>
+          <H3 color='$gray11'>{t('onboarding.nickname.description')}</H3>
         </FadeIn>
         <FadeIn delay={ANIMATION_DELAY_SECONDS[2]}>
           <FormInput
@@ -80,9 +79,9 @@ export default function Screen() {
           />
           {error && <BaseText color='$red9'>{error}</BaseText>}
         </FadeIn>
-      </S.YStackContainer>
+      </YStack>
       <FadeIn delay={ANIMATION_DELAY_SECONDS[3]}>
-        <S.ButtonContainer>
+        <XStack justify='space-between'>
           <PressableButton
             icon={ArrowLeft}
             onPress={handlePrevStep}
@@ -94,11 +93,11 @@ export default function Screen() {
             disabled={!draftUserName || isLoading}
             onPress={handleNextStep}
             iconAfter={ArrowRight}
-            isLoading={isLoading}
+            loading={isLoading}
           >
             {t('common.next')}
           </PressableButton>
-        </S.ButtonContainer>
+        </XStack>
       </FadeIn>
     </ViewContainer>
   )

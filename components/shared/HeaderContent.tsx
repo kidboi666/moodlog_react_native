@@ -1,0 +1,68 @@
+import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons'
+import { memo } from 'react'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { XStack, XStackProps, styled } from 'tamagui'
+
+import {
+  CONTAINER_HORIZONTAL_PADDING,
+  CONTAINER_VERTICAL_PADDING,
+} from '@/constants'
+
+import { PressableButton } from './PressableButton'
+
+export const StyledHeaderContent = styled(XStack, {
+  py: CONTAINER_VERTICAL_PADDING,
+  px: CONTAINER_HORIZONTAL_PADDING,
+  // pt:
+  //   Platform.OS === 'ios'
+  //     ? CONTAINER_HORIZONTAL_PADDING
+  //     : CONTAINER_HORIZONTAL_PADDING * 2,
+  justify: 'space-between',
+  items: 'center',
+
+  variants: {
+    topEdge: {
+      ':number': mt => {
+        return { mt }
+      },
+    },
+    bottomEdge: {
+      ':number': mb => {
+        return { mb }
+      },
+    },
+  } as const,
+})
+
+interface Props extends XStackProps {
+  edges?: Array<'top' | 'bottom'>
+  leftAction?: () => void
+  rightAction?: () => void
+}
+
+const StyledHeaderContainer = StyledHeaderContent.styleable<Props>(
+  ({ children, edges = ['top'], leftAction, rightAction, ...props }, ref) => {
+    const insets = useSafeAreaInsets()
+
+    return (
+      <StyledHeaderContent
+        ref={ref}
+        topEdge={edges?.includes('top') ? insets.top : 0}
+        bottomEdge={edges?.includes('bottom') ? insets.bottom : 0}
+        {...props}
+      >
+        {leftAction && (
+          <PressableButton icon={ArrowLeft} onPress={leftAction} />
+        )}
+        {children}
+        {rightAction && (
+          <PressableButton icon={ArrowRight} onPress={rightAction} />
+        )}
+      </StyledHeaderContent>
+    )
+  },
+)
+
+export const HeaderContent = memo(StyledHeaderContainer)
+
+HeaderContent.displayName = 'HeaderContent'

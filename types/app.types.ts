@@ -29,11 +29,6 @@ export enum FontTheme {
   LEE_SEOYUN = 'leeSeoyun',
 }
 
-export enum EmotionDisplayType {
-  FIVE_LEVELS_GOOD_BAD = 'five_levels_good_bad',
-  MY_EMOTIONS = 'my_emotions',
-}
-
 export enum SubscriptionTier {
   FREE = 'free',
   PREMIUM = 'premium',
@@ -52,8 +47,6 @@ export type Settings = {
   fontTheme: FontTheme
   language: Languages
   timeFormat: TimeFormat
-  emotionDisplayType?: EmotionDisplayType
-  emotionDisplaySettings?: Record<string, EmotionDisplayType>
 }
 
 export interface AppStore {

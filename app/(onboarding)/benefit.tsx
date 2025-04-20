@@ -7,10 +7,10 @@ import { ANIMATION_DELAY_SECONDS } from '@/constants'
 import { useApp, useStepProgress } from '@/store'
 
 import { BaseText } from '@/components/shared/BaseText'
-import { FadeIn } from '@/components/shared/FadeIn.styleable'
+import { FadeIn } from '@/components/shared/FadeIn'
 import { H1, H3, H4 } from '@/components/shared/Heading'
 import { PressableButton } from '@/components/shared/PressableButton'
-import { ViewContainer } from '@/components/shared/ViewContainer.styleable'
+import { ViewContainer } from '@/components/shared/ViewContainer'
 
 export default function Screen() {
   const router = useRouter()

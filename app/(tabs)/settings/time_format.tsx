@@ -5,9 +5,8 @@ import { RadioGroup } from 'tamagui'
 import { useApp } from '@/store'
 import { TimeFormat } from '@/types'
 
-import { SettingHeader } from '@/components/features/settings/SettingHeader'
-import { RadioGroupItem } from '@/components/shared/RadioGroupItem'
-import { ViewContainer } from '@/components/shared/ViewContainer.styleable'
+import { RadioGroupItem } from '@/components/features/settings/RadioGroupItem'
+import { ViewContainer } from '@/components/shared/ViewContainer'
 
 export default function Screen() {
   const timeFormat = useApp(state => state.settings.timeFormat)
@@ -22,7 +21,7 @@ export default function Screen() {
   )
 
   return (
-    <ViewContainer Header={<SettingHeader />}>
+    <ViewContainer>
       <RadioGroup
         value={timeFormat}
         onValueChange={handleValueChange}

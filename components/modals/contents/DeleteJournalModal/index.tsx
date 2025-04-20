@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Spinner, YStack } from 'tamagui'
+import { YStack } from 'tamagui'
 
 import { BottomSheetContainer } from '@/components/modals/BottomSheetContainer'
 import { BaseText } from '@/components/shared/BaseText'
@@ -49,8 +49,9 @@ export const DeleteJournalModal = memo(
             color='white'
             onPress={handleDelete}
             disabled={isDisabled}
+            loading={isLoading}
           >
-            {isDisabled ? <Spinner /> : t('common.delete')}
+            {t('common.delete')}
           </PressableButton>
           <PressableButton onPress={hideBottomSheet} disabled={isDisabled}>
             {t('common.cancel')}

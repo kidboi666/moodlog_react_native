@@ -1,17 +1,20 @@
-import { Stack } from 'expo-router'
+import { HeaderContent } from '@/components/shared/HeaderContent'
+import { Stack, useRouter } from 'expo-router'
 import { useTheme } from 'tamagui'
 
 export default function Layout() {
   const theme = useTheme()
+  const router = useRouter()
 
   return (
     <Stack
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
+        header: () => <HeaderContent leftAction={() => router.back()} />,
         contentStyle: { backgroundColor: theme.background.val },
       }}
     >
-      <Stack.Screen name='index' />
+      <Stack.Screen name='index' options={{ headerShown: false }} />
       <Stack.Screen name='theme' />
       <Stack.Screen name='language' />
       <Stack.Screen name='time_format' />

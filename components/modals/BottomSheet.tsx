@@ -1,13 +1,15 @@
 import { Sheet } from '@tamagui/sheet'
-import { Fragment, memo } from 'react'
+import { memo } from 'react'
 
 import { useBottomSheet } from '@/store'
 import { type BottomSheetProps, BottomSheetType } from '@/types'
 
-import { DeleteJournalModal } from '@/components/modals/contents/DeleteJournalModal'
-import { LogoutModal } from '@/components/modals/contents/LogoutModal'
-import { SignInModal } from '@/components/modals/contents/SignInModal'
-import { SignUpModal } from '@/components/modals/contents/SignUpModal'
+import {
+  DeleteJournalModal,
+  LogoutModal,
+  SignInModal,
+  SignUpModal,
+} from '@/components/modals/contents'
 
 const SheetContentComponents = {
   [BottomSheetType.DELETE_JOURNAL]: (

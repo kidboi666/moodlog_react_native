@@ -10,7 +10,6 @@ import {
   View,
   XStack,
   YStack,
-  styled,
 } from 'tamagui'
 
 import { ROUTE_DELAY_MS } from '@/constants'
@@ -18,22 +17,10 @@ import { useApp, useUI } from '@/store'
 import { MoodLevel } from '@/types'
 
 import { BaseText } from '@/components/shared/BaseText'
-import { FadeIn } from '@/components/shared/FadeIn.styleable'
-import { HeaderContainer } from '@/components/shared/HeaderContainer.styleable'
+import { FadeIn } from '@/components/shared/FadeIn'
+import { HeaderContent } from '@/components/shared/HeaderContent'
 import { H3 } from '@/components/shared/Heading'
-import { ViewContainer } from '@/components/shared/ViewContainer.styleable'
-
-const StyledView = styled(View, {
-  variants: {
-    circle: {
-      true: {
-        width: 16,
-        height: 16,
-        borderRadius: 8,
-      },
-    },
-  },
-})
+import { ViewContainer } from '@/components/shared/ViewContainer'
 
 export default function Screen() {
   const router = useRouter()
@@ -103,7 +90,7 @@ export default function Screen() {
     <FadeIn flex={1}>
       <ViewContainer
         edges={['bottom']}
-        Header={<HeaderContainer leftAction={() => router.back()} />}
+        Header={<HeaderContent leftAction={() => router.back()} />}
       >
         <YStack flex={1} gap='$4' style={{ padding: 16 }}>
           <H3>{t('moods.my.selectTitle')}</H3>
@@ -132,7 +119,7 @@ export default function Screen() {
                 >
                   <Card.Header padded>
                     <XStack gap='$2' items='center'>
-                      <StyledView
+                      <View
                         width={16}
                         height={16}
                         rounded='$4'

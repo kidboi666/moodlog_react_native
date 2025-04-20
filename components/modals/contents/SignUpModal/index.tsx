@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
-import { Separator, Spinner, XStack, YStack } from 'tamagui'
+import { Separator, XStack, YStack } from 'tamagui'
 
 import { AUTH_SNAP_POINTS, HTTP_STATUS } from '@/constants'
 import { useBottomSheet } from '@/store'
@@ -150,8 +150,9 @@ export const SignUpModal = () => {
           themeInverse
           onPress={handleSignUp}
           disabled={isDisabled}
+          loading={isLoading}
         >
-          {isLoading ? <Spinner /> : t('auth.register')}
+          {t('auth.register')}
         </PressableButton>
       </YStack>
 

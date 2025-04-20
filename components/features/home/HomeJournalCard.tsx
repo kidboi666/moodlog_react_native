@@ -2,8 +2,8 @@ import { ANIMATION_DELAY_MS, ANIMATION_DELAY_SECONDS } from '@/constants'
 import type { ISODateString, Nullable, SelectedJournals } from '@/types'
 
 import { EmptyJournal } from '@/components/features/journal/EmptyJournal'
-import { JournalCard } from '@/components/features/journal/JournalCard'
-import { FadeIn } from '@/components/shared/FadeIn.styleable'
+import { JournalCard } from '@/components/features/journal/JournalCardComponents'
+import { FadeIn } from '@/components/shared/FadeIn'
 
 interface Props {
   journals: SelectedJournals

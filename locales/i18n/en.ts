@@ -182,13 +182,6 @@ export const en = {
       half: 'Moderately',
       full: 'Very',
     },
-    simpleLevels: {
-      very_bad: 'Very Bad',
-      bad: 'Bad',
-      neutral: 'Neutral',
-      good: 'Good',
-      very_good: 'Very Good',
-    },
     my: {
       title: 'My Emotions',
       selectTitle: "Select Today's Emotion",
@@ -361,17 +354,6 @@ export const en = {
         3: 'Please refer to [Terms of Service] and [Refund Policy] for more details.',
         4: 'Some features may vary depending on the app version.',
       },
-    },
-    emotionType: {
-      title: 'Select Emotion Display Type',
-      description: 'Please choose how you want to record your emotions.',
-      fourEmotions: '4 Emotions',
-      fourEmotionsDescription:
-        '4 emotions: Happy, Sad, Angry, Peace with 3 levels of intensity.',
-      fiveLevels: '5 Levels of Good/Bad',
-      fiveLevelsDescription:
-        'Emotion states divided into 5 levels of good and bad.',
-      fiveLevelsScale: 'Very Bad → Very Good',
     },
   },
   signup: {

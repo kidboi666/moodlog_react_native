@@ -5,8 +5,10 @@ import type { ISOMonthString } from '@/types'
 import { ExpansionState, TimeRange } from '@/types'
 import { getDaysSinceSignup } from '@/utils'
 
-import { CollapsedContent } from '@/components/features/statistics/total-count/CollapsedContent'
-import { ExpandedContent } from '@/components/features/statistics/total-count/ExpandedContent'
+import {
+  TotalCountCollapsedContent,
+  TotalCountExpandedContent,
+} from '@/components/features/statistics'
 import { useExpandAnimation } from '@/hooks/useExpandAnimation'
 import { useJournalStats } from '@/hooks/useJournalStats'
 import * as S from './TotalCount.styled'
@@ -33,7 +35,7 @@ export const TotalCount = ({ selectedYear, selectedMonth }: Props) => {
   return (
     <AnimatedCardContainer onPress={onPress} style={animatedStyle}>
       {expansionState === ExpansionState.EXPANDED ? (
-        <ExpandedContent
+        <TotalCountExpandedContent
           expressiveMonth={expressiveMonth}
           totalCount={totalCount}
           daysSinceSignup={daysSinceSignup}
@@ -41,7 +43,7 @@ export const TotalCount = ({ selectedYear, selectedMonth }: Props) => {
           activeDay={activeDay}
         />
       ) : (
-        <CollapsedContent totalCount={totalCount} />
+        <TotalCountCollapsedContent totalCount={totalCount} />
       )}
     </AnimatedCardContainer>
   )

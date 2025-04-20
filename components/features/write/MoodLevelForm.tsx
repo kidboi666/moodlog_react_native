@@ -10,7 +10,7 @@ import {
   MOUNT_STYLE_KEY,
   PRESS_STYLE,
   PRESS_STYLE_KEY,
-} from '@/styles/animations'
+} from '@/constants/animations'
 import { MoodLevel } from '@/types'
 
 export const MoodLevelForm = ({

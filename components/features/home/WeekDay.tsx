@@ -6,7 +6,7 @@ import { View } from 'tamagui'
 import { getMonthKey } from '@/utils'
 
 import { HorizontalCalendar } from '@/components/features/home/HorizontalCalendar'
-import { DEFAULT_BOUNCE_IN_UP } from '@/styles/animations'
+import { DEFAULT_BOUNCE_IN_UP } from '@/constants/animations'
 import * as S from './WeekDay.styled'
 
 const AnimatedContainer = Animated.createAnimatedComponent(View)

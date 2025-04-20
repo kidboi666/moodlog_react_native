@@ -14,9 +14,8 @@ import { useWeeklyMoodStats } from '@/hooks'
 import { type ISOMonthString, MoodLevel } from '@/types'
 import { getISODateFromMonthString } from '@/utils'
 
-import { BaseText } from '@/components/shared/BaseText'
-import { H3 } from '@/components/shared/Heading'
-import { ChartItem } from './ChartItem'
+import { ChartItem } from '@/components/features/statistics'
+import { BaseText, H3 } from '@/components/shared'
 import * as S from './WeeklyMoodChart.styled'
 
 const AnimatedBox = Animated.createAnimatedComponent(S.AnimatedBox)
@@ -87,8 +86,9 @@ export const WeeklyMoodChart = ({ selectedMonth }: Props) => {
               <AnimatedText>{t(`calendar.daysShort.${day}`)}</AnimatedText>
               <S.ChartBox>
                 <ChartItem
-                  type={stats[day]?.type}
+                  name={stats[day]?.name}
                   level={stats[day]?.level}
+                  color={stats[day]?.color}
                   percentage={percentages}
                 />
               </S.ChartBox>

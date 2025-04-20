@@ -9,8 +9,7 @@ import React, {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, TouchableOpacity } from 'react-native'
-import { type Input, ScrollView } from 'tamagui'
-import { GetThemeValueForKey } from 'tamagui'
+import { GetThemeValueForKey, type Input, ScrollView } from 'tamagui'
 
 import { useApp } from '@/store'
 import { TimeFormat } from '@/types'
