@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button, H1, styled } from 'tamagui'
 
 const EmojiButton = styled(Button, {
@@ -23,7 +23,7 @@ interface Props {
   emoji: string
 }
 
-export const ShakeEmoji = memo(({ duration, emoji }: Props) => {
+export const ShakeEmoji = ({ duration, emoji }: Props) => {
   const [isRotate, setIsRotate] = useState(false)
   const [isShaking, setIsShaking] = useState(true)
 
@@ -58,4 +58,4 @@ export const ShakeEmoji = memo(({ duration, emoji }: Props) => {
       <H1>{emoji}</H1>
     </EmojiButton>
   )
-})
+}

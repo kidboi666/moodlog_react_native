@@ -12,15 +12,16 @@ import {
   YStack,
 } from 'tamagui'
 
+import {
+  AnimateMount,
+  BaseText,
+  H3,
+  HeaderContent,
+  ViewContainer,
+} from '@/components/shared'
 import { ROUTE_DELAY_MS } from '@/constants'
 import { useApp, useUI } from '@/store'
 import { MoodLevel } from '@/types'
-
-import { AnimateMount } from '@/components/shared/AnimateMount'
-import { BaseText } from '@/components/shared/BaseText'
-import { HeaderContent } from '@/components/shared/HeaderContent'
-import { H3 } from '@/components/shared/Heading'
-import { ViewContainer } from '@/components/shared/ViewContainer'
 
 export default function Screen() {
   const router = useRouter()

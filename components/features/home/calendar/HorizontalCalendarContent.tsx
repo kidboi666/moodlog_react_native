@@ -2,7 +2,8 @@ import { Button, View, styled } from 'tamagui'
 
 import { CALENDAR_SCROLL_SIZE } from '@/constants'
 
-import { DateCountDot, DayAndDate } from '@/components/features/home'
+import { DateCountDot } from './DateCountDot'
+import { DayAndDate } from './DayAndDate'
 
 const DateContainer = styled(View, {
   py: '$3',
