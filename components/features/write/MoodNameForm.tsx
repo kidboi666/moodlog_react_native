@@ -1,20 +1,16 @@
 import { useToastController } from '@tamagui/toast'
+import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { AnimatePresence, View, YStack } from 'tamagui'
+import { YStack } from 'tamagui'
 
-import { BaseText } from '@/components/shared/BaseText'
 import { FormInput } from '@/components/shared/FormInput'
-import { H3 } from '@/components/shared/Heading'
-import { ShakeEmoji } from '@/components/shared/ShakeEmoji'
-import { useCallback, useEffect } from 'react'
-import { XStack } from 'tamagui'
 
 export const MoodNameForm = ({
-  moodName,
-  setMoodName,
+  name,
+  setName,
 }: {
-  moodName: string
-  setMoodName: (text: string) => void
+  name: string
+  setName: (text: string) => void
 }) => {
   const { t } = useTranslation()
   const toast = useToastController()
@@ -27,25 +23,16 @@ export const MoodNameForm = ({
         })
         return
       }
-      setMoodName(text)
+      setName(text)
     },
-    [moodName, setMoodName, toast, t],
+    [name, setName, toast, t],
   )
 
   return (
     <YStack gap='$4'>
-      <XStack>
-        <ShakeEmoji emoji='🫥' duration={3000} />
-      </XStack>
-      <YStack gap='$2'>
-        <H3>{t('placeholders.moodName')}</H3>
-        <BaseText fontSize='$4' color='$color10'>
-          {t('warn.createMood.name.1')}
-        </BaseText>
-      </YStack>
       <FormInput
         placeholder={t('placeholders.moodName')}
-        value={moodName}
+        value={name}
         maxLength={10}
         onChangeText={handleChangeText}
       />

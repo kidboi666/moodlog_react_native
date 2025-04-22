@@ -6,23 +6,17 @@ import { MoodLevel } from '@/types/mood.types'
 import { AnimatePresence, View, YStack } from 'tamagui'
 
 interface Props {
-  moodName: string
-  moodColor: string
-  moodLevel?: MoodLevel
+  name: string
+  color: string
   onPress: () => void
 }
 
-export const SuccessButton = ({
-  moodName,
-  moodColor,
-  moodLevel,
-  onPress,
-}: Props) => {
-  const isDisabled = !moodName || !moodColor || !moodLevel
+export const SuccessButton = ({ name, color, onPress }: Props) => {
+  const isDisabled = !name || !color
 
   return (
     <AnimatePresence presenceAffectsLayout>
-      {moodName && moodColor && moodLevel && (
+      {name && color && (
         <View
           items='center'
           animation='lazy'

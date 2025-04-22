@@ -7,19 +7,18 @@ import Animated, {
   withDelay,
   withTiming,
 } from 'react-native-reanimated'
-import { YStack } from 'tamagui'
+import { XStack, YStack } from 'tamagui'
 
 import { WEEK_DAY } from '@/constants'
 import { useWeeklyMoodStats } from '@/hooks'
 import { type ISOMonthString, MoodLevel } from '@/types'
 import { getISODateFromMonthString } from '@/utils'
 
-import { ChartItem } from '@/components/features/statistics'
 import { BaseText, H3 } from '@/components/shared'
-import * as S from './WeeklyMoodChart.styled'
+import { ChartItem } from './ChartItem'
 
-const AnimatedBox = Animated.createAnimatedComponent(S.AnimatedBox)
-const AnimatedText = Animated.createAnimatedComponent(S.AnimatedText)
+const AnimatedBox = Animated.createAnimatedComponent(XStack)
+const AnimatedText = Animated.createAnimatedComponent(BaseText)
 
 interface Props {
   selectedMonth: ISOMonthString
@@ -58,44 +57,43 @@ export const WeeklyMoodChart = ({ selectedMonth }: Props) => {
   }, [])
 
   return (
-    <S.YStackContainer>
+    <YStack flex={1} rounded='$8' bg='$color4' p='$4' gap='$3'>
       <H3>{t('statistics.weeklyMood.title')}</H3>
       <BaseText>{t('statistics.weeklyMood.description')}</BaseText>
 
       <YStack>
         {Object.keys(WEEK_DAY).map((day, index) => {
-          let percentages: number
-          switch (stats[day]?.level) {
-            case MoodLevel.ZERO: {
-              percentages = 25
-              break
-            }
-            case MoodLevel.HALF: {
-              percentages = 110
-              break
-            }
-            case MoodLevel.FULL: {
-              percentages = 220
-              break
-            }
-            default:
-              percentages = 0
+          const MOOD_LEVEL_PERCENTAGES: Record<MoodLevel, number> = {
+            [MoodLevel.ZERO]: 25,
+            [MoodLevel.HALF]: 110,
+            [MoodLevel.FULL]: 220,
           }
+
+          const percentages = stats[day]?.level
+            ? MOOD_LEVEL_PERCENTAGES[stats[day].level]
+            : 0
           return (
-            <AnimatedBox key={`${index}-${day}`} style={animatedStyles[index]}>
-              <AnimatedText>{t(`calendar.daysShort.${day}`)}</AnimatedText>
-              <S.ChartBox>
+            <AnimatedBox
+              gap='$4'
+              height='$2'
+              key={`${index}-${day}`}
+              style={animatedStyles[index]}
+            >
+              <AnimatedText fontWeight='700' color='$color10'>
+                {t(`calendar.daysShort.${day}`)}
+              </AnimatedText>
+              <XStack flex={1}>
                 <ChartItem
                   name={stats[day]?.name}
                   level={stats[day]?.level}
                   color={stats[day]?.color}
                   percentage={percentages}
                 />
-              </S.ChartBox>
+              </XStack>
             </AnimatedBox>
           )
         })}
       </YStack>
-    </S.YStackContainer>
+    </YStack>
   )
 }

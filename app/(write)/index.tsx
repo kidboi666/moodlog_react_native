@@ -13,7 +13,7 @@ import {
 } from 'tamagui'
 
 import {
-  AnimateMount,
+  AnimatedEntry,
   BaseText,
   H3,
   HeaderContent,
@@ -23,7 +23,7 @@ import { ROUTE_DELAY_MS } from '@/constants'
 import { useApp, useUI } from '@/store'
 import { MoodLevel } from '@/types'
 
-export default function Screen() {
+export default function SelectMoodScreen() {
   const router = useRouter()
   const { t } = useTranslation()
   const myMoods = useApp(state => state.myMoods)
@@ -39,7 +39,7 @@ export default function Screen() {
 
     const timer = setTimeout(() => {
       router.push({
-        pathname: '/write-diary',
+        pathname: '/write_diary',
         params: {
           moodName: selectedMood.name,
           moodColor: selectedMood.color,
@@ -73,7 +73,7 @@ export default function Screen() {
   }
 
   return (
-    <AnimateMount flex={1}>
+    <AnimatedEntry flex={1}>
       <ViewContainer
         edges={['bottom']}
         Header={<HeaderContent leftAction={() => router.back()} />}
@@ -132,6 +132,6 @@ export default function Screen() {
           </Button>
         </YStack>
       </ViewContainer>
-    </AnimateMount>
+    </AnimatedEntry>
   )
 }

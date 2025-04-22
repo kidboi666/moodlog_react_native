@@ -1,13 +1,13 @@
 import { Minimize2 } from '@tamagui/lucide-icons'
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { View, YStack, styled } from 'tamagui'
 
 import type { ExpressiveMonthStats } from '@/types'
 import { getMonthKey } from '@/utils'
 
-import { EmptyContent } from '@/components/features/statistics'
 import { BaseText, H5 } from '@/components/shared'
-import { View, YStack, styled } from 'tamagui'
+import { EmptyContent } from '../EmptyContent'
 
 export const ViewContainer = styled(View, {
   animation: 'quick',

@@ -1,7 +1,5 @@
 import { useToastController } from '@tamagui/toast'
-import { BlurView } from 'expo-blur'
-import { useRouter } from 'expo-router'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, YStack } from 'tamagui'
 
@@ -16,7 +14,6 @@ import {
   WelcomeZone,
 } from '@/components/features/home'
 import { ViewContainer } from '@/components/shared'
-import { WaveEffect } from '@/components/shared/WaveEffect'
 
 export default function HomeScreen() {
   const { t } = useTranslation()
@@ -70,8 +67,6 @@ export default function HomeScreen() {
             isToday={isToday}
           />
         </YStack>
-
-        <WaveEffect />
       </ViewContainer>
     </ScrollView>
   )

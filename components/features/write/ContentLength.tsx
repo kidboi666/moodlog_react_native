@@ -1,12 +1,34 @@
 import { memo, useEffect } from 'react'
-import { View } from 'react-native'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated'
+import { Text, styled } from 'tamagui'
 
-import * as S from './ContentLength.styled'
+const CharNum = styled(Text, {
+  color: '$color10',
+  fontWeight: '800',
+
+  variants: {
+    isGreen: {
+      true: {
+        color: '$green10',
+      },
+    },
+
+    isYellow: {
+      true: {
+        color: '$yellow10',
+      },
+    },
+    isRed: {
+      true: {
+        color: '$red10',
+      },
+    },
+  } as const,
+})
 
 interface Props {
   length: number
@@ -36,9 +58,9 @@ export const ContentLength = memo(({ length }: Props) => {
 
   return (
     <Animated.View style={animatedStyle}>
-      <S.CharNum isGreen={isGreen} isYellow={isYellow} isRed={isRed}>
+      <CharNum isGreen={isGreen} isYellow={isYellow} isRed={isRed}>
         {length} / 300
-      </S.CharNum>
+      </CharNum>
     </Animated.View>
   )
 })

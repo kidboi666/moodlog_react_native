@@ -1,6 +1,5 @@
 export * from './ChartItem'
 export * from './EmptyContent'
 export * from './mood-average'
-export * from './TimeRangeZone'
 export * from './total-count'
 export * from './WeeklyMoodChart'

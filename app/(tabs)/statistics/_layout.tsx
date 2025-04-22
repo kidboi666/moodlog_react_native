@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router'
 import { useTheme } from 'tamagui'
 
-export default function Layout() {
+export default function StatisticsLayout() {
   const theme = useTheme()
   return (
     <Stack

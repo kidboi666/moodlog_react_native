@@ -1,10 +1,11 @@
 import { Maximize2 } from '@tamagui/lucide-icons'
 import { useTranslation } from 'react-i18next'
-import { Button, H2, View, XStack, YStack, styled } from 'tamagui'
+import { H2, View, XStack, YStack, styled } from 'tamagui'
 
-import { BaseText, H3 } from '@/components/shared'
 import { useApp } from '@/store'
 import type { Nullable, SignatureMood } from '@/types'
+
+import { BaseText, H3 } from '@/components/shared'
 
 const ViewContainer = styled(View, {
   animation: 'quick',

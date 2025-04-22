@@ -4,30 +4,30 @@ import { useRouter } from 'expo-router'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CalendarUtils } from 'react-native-calendars'
-import { View, YStack } from 'tamagui'
+import { useSharedValue } from 'react-native-reanimated'
+import { YStack } from 'tamagui'
 
 import { ROUTE_DELAY_MS } from '@/constants'
 import { useApp, useJournal, useUI } from '@/store'
-import { MoodLevel } from '@/types'
 
-import { MoodColorForm } from '@/components/features/write/MoodColorForm'
-import { MoodLevelForm } from '@/components/features/write/MoodLevelForm'
-import { MoodNameForm } from '@/components/features/write/MoodNameForm'
-import { SuccessButton } from '@/components/features/write/SuccessButton'
-import { AnimateMount } from '@/components/shared/AnimateMount'
-import { HeaderContent } from '@/components/shared/HeaderContent'
-import { ViewContainer } from '@/components/shared/ViewContainer'
+import {
+  FormSection,
+  MoodPreview,
+  SuccessButton,
+} from '@/components/features/write'
+import { AnimatedEntry, ViewContainer } from '@/components/shared'
 
-export default function Screen() {
-  const [moodName, setMoodName] = useState('')
-  const [moodColor, setMoodColor] = useState('')
-  const [moodLevel, setMoodLevel] = useState<MoodLevel>()
+export default function CreateMoodScreen() {
   const router = useRouter()
   const toast = useToastController()
+  const { t } = useTranslation()
+  const [moodName, setMoodName] = useState('')
+  const [moodColor, setMoodColor] = useState('')
+  const sharedMoodColor = useSharedValue('#000000')
+
   const addMyMood = useApp(state => state.addMyMood)
   const setNavigating = useUI(state => state.setNavigating)
   const getMoodForDate = useJournal(state => state.getMoodForDate)
-  const { t } = useTranslation()
 
   useEffect(() => {
     const todayDate = CalendarUtils.getCalendarDateString(new Date())
@@ -58,7 +58,6 @@ export default function Screen() {
         params: {
           moodName,
           moodColor,
-          moodLevel,
         },
       })
 
@@ -71,33 +70,22 @@ export default function Screen() {
   }, [moodName, router, setNavigating])
 
   return (
-    <AnimateMount flex={1}>
-      <ViewContainer
-        edges={['bottom']}
-        Header={<HeaderContent leftAction={() => router.back()} />}
-      >
+    <AnimatedEntry flex={1}>
+      <ViewContainer edges={['bottom']}>
         <YStack flex={1} gap='$6'>
-          <MoodNameForm moodName={moodName} setMoodName={setMoodName} />
-          <MoodColorForm
-            moodName={moodName}
-            moodColor={moodColor}
-            setMoodColor={setMoodColor}
+          <MoodPreview name={moodName} color={sharedMoodColor} />
+          <FormSection
+            name={moodName}
+            setName={setMoodName}
+            sharedColor={sharedMoodColor}
           />
-          <MoodLevelForm
-            moodName={moodName}
-            moodColor={moodColor}
-            moodLevel={moodLevel}
-            setMoodLevel={setMoodLevel}
-          />
-          <View flex={1} />
           <SuccessButton
-            moodName={moodName}
-            moodColor={moodColor}
-            moodLevel={moodLevel}
+            name={moodName}
+            color={moodColor}
             onPress={handlePress}
           />
         </YStack>
       </ViewContainer>
-    </AnimateMount>
+    </AnimatedEntry>
   )
 }

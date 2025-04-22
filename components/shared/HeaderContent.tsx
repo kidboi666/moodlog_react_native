@@ -1,7 +1,7 @@
 import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons'
 import { memo } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { XStack, XStackProps, styled } from 'tamagui'
+import { View, XStack, XStackProps, styled } from 'tamagui'
 
 import {
   CONTAINER_HORIZONTAL_PADDING,
@@ -13,10 +13,6 @@ import { PressableButton } from './PressableButton'
 export const StyledHeaderContent = styled(XStack, {
   py: CONTAINER_VERTICAL_PADDING,
   px: CONTAINER_HORIZONTAL_PADDING,
-  // pt:
-  //   Platform.OS === 'ios'
-  //     ? CONTAINER_HORIZONTAL_PADDING
-  //     : CONTAINER_HORIZONTAL_PADDING * 2,
   justify: 'space-between',
   items: 'center',
 
@@ -37,11 +33,24 @@ export const StyledHeaderContent = styled(XStack, {
 interface Props extends XStackProps {
   edges?: Array<'top' | 'bottom'>
   leftAction?: () => void
+  leftActionIcon?: any
+  rightActionIcon?: any
   rightAction?: () => void
 }
 
 const StyledHeaderContainer = StyledHeaderContent.styleable<Props>(
-  ({ children, edges = ['top'], leftAction, rightAction, ...props }, ref) => {
+  (
+    {
+      children,
+      edges = ['top'],
+      leftAction,
+      leftActionIcon = ArrowLeft,
+      rightAction,
+      rightActionIcon = ArrowRight,
+      ...props
+    },
+    ref,
+  ) => {
     const insets = useSafeAreaInsets()
 
     return (
@@ -52,11 +61,20 @@ const StyledHeaderContainer = StyledHeaderContent.styleable<Props>(
         {...props}
       >
         {leftAction && (
-          <PressableButton icon={ArrowLeft} onPress={leftAction} />
+          <PressableButton
+            icon={leftActionIcon ?? ArrowLeft}
+            onPress={leftAction}
+          />
         )}
         {children}
         {rightAction && (
-          <PressableButton icon={ArrowRight} onPress={rightAction} />
+          <>
+            <View flex={1} />
+            <PressableButton
+              icon={rightActionIcon ?? ArrowRight}
+              onPress={rightAction}
+            />
+          </>
         )}
       </StyledHeaderContent>
     )

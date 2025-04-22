@@ -7,10 +7,8 @@ import { useApp } from '@/store'
 import { ExpansionState, type ISOMonthString, TimeRange } from '@/types'
 import { getDaysSinceSignup } from '@/utils'
 
-import {
-  TotalCountCollapsedContent,
-  TotalCountExpandedContent,
-} from '@/components/features/statistics'
+import { TotalCountCollapsedContent } from './TotalCountCollapsedContent'
+import { TotalCountExpandedContent } from './TotalCountExpandedContent'
 
 const CardContainer = styled(YStack, {
   flex: 1,

@@ -1,11 +1,10 @@
 import { type Href, usePathname, useRouter } from 'expo-router'
-import { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { Platform } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { XStack, styled } from 'tamagui'
 
 import { MOUNT_STYLE, MOUNT_STYLE_KEY, TAB_BAR_HEIGHT } from '@/constants'
-
 import {
   EntriesTab,
   HomeTab,
@@ -27,6 +26,7 @@ const StyledContainer = styled(XStack, {
   flex: 1,
   justify: 'space-evenly',
   items: 'center',
+  elevation: '$8',
 
   animation: 'lazy',
   enterStyle: MOUNT_STYLE,
@@ -59,19 +59,21 @@ export const CustomTabBar = () => {
   )
 
   return (
-    <StyledContainer
-      height={TAB_BAR_HEIGHT + insets.bottom}
-      pb={insets.bottom}
-      pt={Platform.OS === 'ios' ? '$4' : undefined}
-    >
-      <HomeTab isTabActive={isHomeActive} onPress={handleNavigate} />
-      <EntriesTab isTabActive={isCalendarActive} onPress={handleNavigate} />
-      <WriteButton />
-      <StatisticsTab
-        isTabActive={isStatisticsActive}
-        onPress={handleNavigate}
-      />
-      <SettingsTab isTabActive={isSettingsActive} onPress={handleNavigate} />
-    </StyledContainer>
+    <>
+      <StyledContainer
+        height={TAB_BAR_HEIGHT + insets.bottom}
+        pb={insets.bottom}
+        pt={Platform.OS === 'ios' ? '$4' : undefined}
+      >
+        <HomeTab isTabActive={isHomeActive} onPress={handleNavigate} />
+        <EntriesTab isTabActive={isCalendarActive} onPress={handleNavigate} />
+        <WriteButton />
+        <StatisticsTab
+          isTabActive={isStatisticsActive}
+          onPress={handleNavigate}
+        />
+        <SettingsTab isTabActive={isSettingsActive} onPress={handleNavigate} />
+      </StyledContainer>
+    </>
   )
 }

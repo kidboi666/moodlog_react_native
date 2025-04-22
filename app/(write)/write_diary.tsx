@@ -21,12 +21,11 @@ import {
   EnhancedTextInput,
   type EnhancedTextInputRef,
 } from '@/components/features/write/EnhancedTextInput'
-import { HeaderContent } from '@/components/shared/HeaderContent'
 import { ViewContainer } from '@/components/shared/ViewContainer'
 
 const AUTO_SAVE_INTERVAL = 5000
 
-export default function WritingScreen() {
+export default function WriteDiaryScreen() {
   const { moodName, moodLevel, moodColor } = useLocalSearchParams()
   const router = useRouter()
   const { t } = useTranslation()
@@ -113,7 +112,6 @@ export default function WritingScreen() {
       setLoading(true)
       await addJournal(draft)
 
-      // 성공 케이스
       removeStoredDraft()
       toast.show(t('notifications.success.journal.title'), {
         message: t('notifications.success.journal.message'),
@@ -129,7 +127,6 @@ export default function WritingScreen() {
         setTimeout(() => setNavigating(false), 100)
       }, 300)
     } catch (error: any) {
-      // 에러 케이스 처리
       const errorMessage =
         error.message === 'daily_journal_limit_exceeded'
           ? t('notifications.warning.dailyLimit.message')
@@ -246,11 +243,7 @@ export default function WritingScreen() {
   }, [])
 
   return (
-    <ViewContainer
-      edges={['bottom']}
-      Header={<HeaderContent leftAction={() => router.back()} />}
-      pl={0}
-    >
+    <ViewContainer edges={['bottom']} pl={0}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         contentContainerStyle={{ flex: 1 }}

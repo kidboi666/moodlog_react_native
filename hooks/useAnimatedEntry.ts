@@ -10,7 +10,7 @@ interface FadeInResult {
   item: ReactNode
 }
 
-export const useFadeIn = ({ delay, item }: Props): FadeInResult => {
+export const useAnimatedEntry = ({ delay, item }: Props): FadeInResult => {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {

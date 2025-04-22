@@ -7,7 +7,7 @@ import { H1, H2 } from '@/components/shared/Heading'
 import { ANIMATION_DELAY_SECONDS } from '@/constants'
 import { useStepProgress } from '@/store'
 
-import { AnimateMount } from '@/components/shared/AnimateMount'
+import { AnimatedEntry } from '@/components/shared/AnimatedEntry'
 import { PressableButton } from '@/components/shared/PressableButton'
 import { ShakeEmoji } from '@/components/shared/ShakeEmoji'
 import { ViewContainer } from '@/components/shared/ViewContainer'
@@ -29,26 +29,26 @@ export default function Screen() {
     <ViewContainer edges={['bottom']}>
       <YStack flex={1}>
         <YStack flex={1} gap='$6'>
-          <AnimateMount delay={ANIMATION_DELAY_SECONDS[0]}>
+          <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[0]}>
             <XStack gap='$2'>
               <H1>{t('onboarding.welcome.title')}</H1>
               <ShakeEmoji emoji='👋' />
             </XStack>
-          </AnimateMount>
-          <AnimateMount delay={ANIMATION_DELAY_SECONDS[1]}>
+          </AnimatedEntry>
+          <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[1]}>
             <YStack gap='$6'>
               <H3 color='$gray11' mb='$4'>
                 {t('onboarding.welcome.description')}
               </H3>
               <H3 color='$gray11'>{t('onboarding.welcome.description2')}</H3>
             </YStack>
-          </AnimateMount>
+          </AnimatedEntry>
         </YStack>
-        <AnimateMount delay={ANIMATION_DELAY_SECONDS[2]}>
+        <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[2]}>
           <H2>{t('onboarding.welcome.go')}</H2>
-        </AnimateMount>
+        </AnimatedEntry>
       </YStack>
-      <AnimateMount delay={ANIMATION_DELAY_SECONDS[3]}>
+      <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[3]}>
         <PressableButton
           mt='$8'
           self='flex-end'
@@ -57,7 +57,7 @@ export default function Screen() {
         >
           {t('common.next')}
         </PressableButton>
-      </AnimateMount>
+      </AnimatedEntry>
     </ViewContainer>
   )
 }

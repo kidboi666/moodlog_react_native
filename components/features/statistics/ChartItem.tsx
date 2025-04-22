@@ -6,11 +6,38 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 
+import { BaseText } from '@/components/shared'
 import { MoodLevel } from '@/types'
+import { View, XStack, styled } from 'tamagui'
 
-import * as S from './ChartItem.styled'
+const ChartItemContainer = styled(XStack, {
+  flex: 1,
+  gap: '$2',
+})
 
-const AnimatedChartItem = Animated.createAnimatedComponent(S.ChartItem)
+const Item = styled(View, {
+  height: '$1',
+  rounded: '$4',
+  width: '100%',
+
+  variants: {
+    moodColor: {
+      ':string': bg => {
+        return {
+          bg,
+        }
+      },
+    },
+  } as const,
+})
+
+const PercentageText = styled(BaseText, {
+  fontSize: '$1',
+  color: '$color10',
+  mt: '$1',
+})
+
+const AnimatedChartItem = Animated.createAnimatedComponent(Item)
 
 interface Props {
   name?: string
@@ -39,10 +66,10 @@ export const ChartItem = ({ name, level, color, percentage }: Props) => {
   if (!name || !level || !color) return null
 
   return (
-    <S.ChartItemContainer>
+    <ChartItemContainer>
       <AnimatedChartItem style={animatedStyles} moodColor={color} />
-      <S.PercentageText>{t(`moods.levels.${level}`)}</S.PercentageText>
-      <S.PercentageText>{name}</S.PercentageText>
-    </S.ChartItemContainer>
+      <PercentageText>{t(`moods.levels.${level}`)}</PercentageText>
+      <PercentageText>{name}</PercentageText>
+    </ChartItemContainer>
   )
 }

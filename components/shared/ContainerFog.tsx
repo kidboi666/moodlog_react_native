@@ -65,17 +65,6 @@ export const ContainerFog = memo(({ shouldHideTabBar }: Props) => {
           transparentBg,
         ]}
       />
-      {!shouldHideTabBar && (
-        <BottomFog
-          colors={[
-            transparentBg,
-            `rgba(${bgRgb}, 0.3)`,
-            `rgba(${bgRgb}, 0.7)`,
-            `rgba(${bgRgb}, 0.9)`,
-            '$background',
-          ]}
-        />
-      )}
     </Fragment>
   )
 })

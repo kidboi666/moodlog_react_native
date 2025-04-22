@@ -5,9 +5,9 @@ import { LinearGradient } from 'tamagui/linear-gradient'
 
 import { getMonthKey } from '@/utils'
 
-import { HorizontalCalendar } from '@/components/features/home'
-import { AnimateMount, H1 } from '@/components/shared'
+import { AnimatedEntry, H1 } from '@/components/shared'
 import { ANIMATION_DELAY_MS } from '@/constants'
+import { HorizontalCalendar } from './calendar/HorizontalCalendar'
 
 const OuterGradientBox = styled(LinearGradient, {
   p: '$1.5',
@@ -37,7 +37,7 @@ export const WeekDay = memo(() => {
   const { t } = useTranslation()
 
   return (
-    <AnimateMount delay={ANIMATION_DELAY_MS[2]}>
+    <AnimatedEntry delay={ANIMATION_DELAY_MS[2]}>
       <OuterGradientBox>
         <InnerGradientBox>
           <CurrentMonthBox>
@@ -48,6 +48,6 @@ export const WeekDay = memo(() => {
           <HorizontalCalendar />
         </InnerGradientBox>
       </OuterGradientBox>
-    </AnimateMount>
+    </AnimatedEntry>
   )
 })

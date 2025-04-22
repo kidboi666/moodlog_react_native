@@ -2,14 +2,12 @@ import { View, XStack, styled } from 'tamagui'
 
 import { useStepProgress } from '@/store'
 
-import { HeaderContent as HOSHeaderContainer } from '@/components/shared'
-
-const HeaderContainer = styled(HOSHeaderContainer, {
-  py: '$4',
-  justify: 'center',
+const Container = styled(View, {
+  width: '100%',
+  items: 'center',
 })
 
-const StepDotBox = styled(XStack, {
+const SpacingBox = styled(XStack, {
   gap: '$2',
 })
 
@@ -28,16 +26,17 @@ const Dot = styled(View, {
   } as const,
 })
 
-export const OnboardingHeader = () => {
-  const { currentStep, totalSteps } = useStepProgress()
+export const StepDot = () => {
+  const currentStep = useStepProgress(state => state.currentStep)
+  const totalSteps = useStepProgress(state => state.totalSteps)
 
   return (
-    <HeaderContainer>
-      <StepDotBox>
+    <Container>
+      <SpacingBox>
         {Array.from({ length: totalSteps }, (_, i) => (
           <Dot key={i} isCurrentStep={i === currentStep} />
         ))}
-      </StepDotBox>
-    </HeaderContainer>
+      </SpacingBox>
+    </Container>
   )
 }

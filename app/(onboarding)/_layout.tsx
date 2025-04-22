@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router'
 import { useTheme } from 'tamagui'
 
-import { OnboardingHeader } from '@/components/features/onboarding/OnboardingHeader'
+import { HeaderContent, StepDot } from '@/components/shared'
 import { StepProgressProvider } from '@/providers/StepProgressProvider'
 
 export default function Layout() {
@@ -13,7 +13,11 @@ export default function Layout() {
         initialRouteName='welcome'
         screenOptions={{
           headerShown: true,
-          header: () => <OnboardingHeader />,
+          header: () => (
+            <HeaderContent>
+              <StepDot />
+            </HeaderContent>
+          ),
           contentStyle: {
             backgroundColor: theme.background.val,
           },

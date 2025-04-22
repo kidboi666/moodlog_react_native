@@ -1,6 +1,6 @@
 import * as NavigationBar from 'expo-navigation-bar'
 import { Redirect, Tabs, usePathname } from 'expo-router'
-import { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { AnimatePresence, useTheme } from 'tamagui'
 
@@ -10,14 +10,13 @@ import { useApp, useUI } from '@/store'
 import { CustomTabBar } from '@/components/features/tab'
 import { ContainerFog } from '@/components/shared'
 
-export default function Layout() {
+export default function TabsLayout() {
   const pathname = usePathname()
   const theme = useTheme()
 
   const firstLaunchDate = useApp(state => state.firstLaunchDate)
   const setLoading = useUI(state => state.setLoading)
   const isLoading = useUI(state => state.isLoading)
-  const isAuthenticated = useApp(state => state.isAuthenticated)
 
   const [initialized, setInitialized] = useState(false)
   const shouldHideTabBar = HIDE_TAB_BAR_ROUTES.some(route =>

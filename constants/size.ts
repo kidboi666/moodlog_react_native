@@ -3,7 +3,7 @@ import { Platform } from 'react-native'
 /**
  * Space
  */
-export const CONTAINER_HORIZONTAL_PADDING = 18
+export const CONTAINER_HORIZONTAL_PADDING = 12
 
 export const CONTAINER_VERTICAL_PADDING = 12
 
@@ -16,7 +16,6 @@ export const CALENDAR_SCROLL_SIZE = 44
 /**
  * Height
  */
-export const HOME_HEADER_LINE_HEIGHT = 48
 
 export const RECORD_UNIT_LINE_HEIGHT = 26
 

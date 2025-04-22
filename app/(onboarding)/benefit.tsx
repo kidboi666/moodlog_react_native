@@ -6,7 +6,7 @@ import { ScrollView, View, XStack, YStack } from 'tamagui'
 import { ANIMATION_DELAY_SECONDS } from '@/constants'
 import { useApp, useStepProgress } from '@/store'
 
-import { AnimateMount } from '@/components/shared/AnimateMount'
+import { AnimatedEntry } from '@/components/shared/AnimatedEntry'
 import { BaseText } from '@/components/shared/BaseText'
 import { H1, H3, H4 } from '@/components/shared/Heading'
 import { PressableButton } from '@/components/shared/PressableButton'
@@ -46,7 +46,7 @@ export default function Screen() {
     <ViewContainer edges={['bottom']}>
       <YStack flex={1} gap='$4'>
         <ScrollView>
-          <AnimateMount delay={ANIMATION_DELAY_SECONDS[0]}>
+          <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[0]}>
             <H1>{t('onboarding.benefit.title')}</H1>
             <YStack bg='$color12' mt='$4' p='$5' gap='$4' rounded='$8'>
               <H3 themeInverse>{t('onboarding.benefit.ota')}</H3>
@@ -58,21 +58,21 @@ export default function Screen() {
                 ))}
               </YStack>
             </YStack>
-          </AnimateMount>
+          </AnimatedEntry>
 
-          <AnimateMount mt='$4' delay={ANIMATION_DELAY_SECONDS[1]}>
+          <AnimatedEntry mt='$4' delay={ANIMATION_DELAY_SECONDS[1]}>
             <YStack gap='$2'>
               <H4>⚠️ {t('onboarding.benefit.warn.1')}</H4>
               <BaseText>{t('onboarding.benefit.warn.2')}</BaseText>
               <BaseText>{t('onboarding.benefit.warn.3')}</BaseText>
               <BaseText>{t('onboarding.benefit.warn.4')}</BaseText>
             </YStack>
-          </AnimateMount>
+          </AnimatedEntry>
         </ScrollView>
 
         <View flex={1} />
 
-        <AnimateMount delay={ANIMATION_DELAY_SECONDS[2]}>
+        <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[2]}>
           <XStack justify='space-between' items='flex-end'>
             <PressableButton icon={ArrowLeft} onPress={handlePrevStep}>
               {t('common.prev')}
@@ -87,7 +87,7 @@ export default function Screen() {
               </PressableButton>
             </YStack>
           </XStack>
-        </AnimateMount>
+        </AnimatedEntry>
       </YStack>
     </ViewContainer>
   )

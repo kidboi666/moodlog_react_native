@@ -1,7 +1,7 @@
 import { View, type ViewProps, styled } from 'tamagui'
 
 import { ANIMATION_DELAY_MS } from '@/constants'
-import { useFadeIn } from '@/hooks/useFadeIn'
+import { useAnimatedEntry } from '@/hooks/useAnimatedEntry'
 
 import { MOUNT_STYLE } from '@/constants/animations'
 
@@ -17,15 +17,26 @@ const StyledAnimateMount = styled(View, {
         enterStyle: {
           opacity: 0,
         },
+        exitStyle: {
+          opacity: 0,
+        },
       },
       falldown: {
         enterStyle: {
           opacity: 0,
           y: -80,
         },
+        exitStyle: {
+          opacity: 0,
+          y: -80,
+        },
       },
       float: {
         enterStyle: {
+          opacity: 0,
+          y: 80,
+        },
+        exitStyle: {
           opacity: 0,
           y: 80,
         },
@@ -39,12 +50,12 @@ interface Props extends ViewProps {
   variant?: 'falldown' | 'float' | 'fade'
 }
 
-export const AnimateMount = StyledAnimateMount.styleable<Props>(
+export const AnimatedEntry = StyledAnimateMount.styleable<Props>(
   (
     { delay = ANIMATION_DELAY_MS[0], variant = 'fade', children, ...props },
     ref,
   ) => {
-    const { isVisible, item } = useFadeIn({ delay, item: children })
+    const { isVisible, item } = useAnimatedEntry({ delay, item: children })
     return (
       <StyledAnimateMount
         key={`${isVisible}-${delay}`}
@@ -59,4 +70,4 @@ export const AnimateMount = StyledAnimateMount.styleable<Props>(
   },
 )
 
-AnimateMount.displayName = 'AnimateMount'
+AnimatedEntry.displayName = 'AnimateMount'

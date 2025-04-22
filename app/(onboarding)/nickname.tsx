@@ -8,7 +8,7 @@ import { H2, H3, XStack, YStack } from 'tamagui'
 import { ANIMATION_DELAY_SECONDS } from '@/constants'
 import { useStepProgress } from '@/store'
 
-import { AnimateMount } from '@/components/shared/AnimateMount'
+import { AnimatedEntry } from '@/components/shared/AnimatedEntry'
 import { BaseText } from '@/components/shared/BaseText'
 import { FormInput } from '@/components/shared/FormInput'
 import { PressableButton } from '@/components/shared/PressableButton'
@@ -65,22 +65,22 @@ export default function Screen() {
   return (
     <ViewContainer edges={['bottom']}>
       <YStack flex={1} gap='$6'>
-        <AnimateMount delay={ANIMATION_DELAY_SECONDS[0]}>
+        <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[0]}>
           <H2>{t('onboarding.nickname.title')}</H2>
-        </AnimateMount>
-        <AnimateMount delay={ANIMATION_DELAY_SECONDS[1]}>
+        </AnimatedEntry>
+        <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[1]}>
           <H3 color='$gray11'>{t('onboarding.nickname.description')}</H3>
-        </AnimateMount>
-        <AnimateMount delay={ANIMATION_DELAY_SECONDS[2]}>
+        </AnimatedEntry>
+        <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[2]}>
           <FormInput
             value={draftUserName}
             onChangeText={handleDraftUserNameChange}
             placeholder={t('onboarding.nickname.placeholder')}
           />
           {error && <BaseText color='$red9'>{error}</BaseText>}
-        </AnimateMount>
+        </AnimatedEntry>
       </YStack>
-      <AnimateMount delay={ANIMATION_DELAY_SECONDS[3]}>
+      <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[3]}>
         <XStack justify='space-between'>
           <PressableButton
             icon={ArrowLeft}
@@ -98,7 +98,7 @@ export default function Screen() {
             {t('common.next')}
           </PressableButton>
         </XStack>
-      </AnimateMount>
+      </AnimatedEntry>
     </ViewContainer>
   )
 }
