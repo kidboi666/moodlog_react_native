@@ -13,6 +13,7 @@ import {
 } from '@/constants'
 
 import { AnimatedEntry, H3, PressableButton } from '@/components/shared'
+import { useApp } from '@/store'
 
 const menuList = [
   {
@@ -52,12 +53,19 @@ export const WriteButton = memo(() => {
   const router = useRouter()
   const { t } = useTranslation()
   const [isMenuVisible, setIsMenuVisible] = useState(false)
+  const journalEntryCount = useApp(state => state.journalEntryCount)
+  const maxJournalCount = useApp(state => state.maxJournalCount)
 
   const toggleMenu = () => {
     setIsMenuVisible(!isMenuVisible)
   }
 
   const handleNavigate = (route: string) => {
+    if (
+      route === '/(write)/write_diary' &&
+      journalEntryCount >= maxJournalCount
+    ) {
+    }
     setIsMenuVisible(false)
     router.push(route as any)
   }
@@ -95,6 +103,7 @@ export const WriteButton = memo(() => {
                   >
                     <Button
                       unstyled
+                      hitSlop={20}
                       animation='quick'
                       animateOnly={['opacity']}
                       pressStyle={{

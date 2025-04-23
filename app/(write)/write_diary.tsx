@@ -9,10 +9,9 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native'
-import { GetThemeValueForKey, View, XStack } from 'tamagui'
+import { YStack } from 'tamagui'
 
-import { KEYBOARD_VERTICAL_OFFSET } from '@/constants'
-import { ImageHelper } from '@/services'
+import { ImageService } from '@/services'
 import { useDraft, useJournal, useUI } from '@/store'
 import { type Draft, MoodLevel } from '@/types'
 
@@ -22,11 +21,15 @@ import {
   type EnhancedTextInputRef,
 } from '@/components/features/write/EnhancedTextInput'
 import { ViewContainer } from '@/components/shared/ViewContainer'
+import { KEYBOARD_VERTICAL_OFFSET } from '@/constants'
 
 const AUTO_SAVE_INTERVAL = 5000
 
 export default function WriteDiaryScreen() {
-  const { moodName, moodLevel, moodColor } = useLocalSearchParams()
+  const { moodName, moodLevel } = useLocalSearchParams<{
+    moodName: string
+    moodLevel: string
+  }>()
   const router = useRouter()
   const { t } = useTranslation()
   const toast = useToastController()
@@ -49,11 +52,8 @@ export default function WriteDiaryScreen() {
   const [draft, setDraft] = useState<Draft>({
     content: '',
     mood: {
-      id: (moodName as string) || '',
-      name: moodName as string,
-      color: moodColor as string,
+      name: moodName,
       level: moodLevel as MoodLevel,
-      createdAt: new Date().toISOString(),
     },
     imageUri: [],
   })
@@ -80,7 +80,7 @@ export default function WriteDiaryScreen() {
     if (isUpdatingDraftRef.current) return
 
     try {
-      const newFilePath = await ImageHelper.createNewFileName()
+      const newFilePath = await ImageService.createNewFileName()
       if (newFilePath) {
         setDraft(prev => ({
           ...prev,
@@ -243,29 +243,21 @@ export default function WriteDiaryScreen() {
   }, [])
 
   return (
-    <ViewContainer edges={['bottom']} pl={0}>
+    <ViewContainer edges={['bottom']}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         contentContainerStyle={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'height' : 'padding'}
         keyboardVerticalOffset={KEYBOARD_VERTICAL_OFFSET}
       >
-        <View flex={1} gap='$4'>
-          <XStack flex={1} gap='$4'>
-            <View
-              width='3%'
-              borderTopRightRadius='$4'
-              borderBottomRightRadius='$4'
-              bg={moodColor as GetThemeValueForKey<'backgroundColor'>}
-            />
-            <EnhancedTextInput
-              ref={inputRef}
-              imageUri={draft.imageUri}
-              contentValue={draft.content}
-              onContentChange={handleContentChange}
-              onImageUriChange={handleImagesChange}
-            />
-          </XStack>
+        <YStack flex={1} gap='$4'>
+          <EnhancedTextInput
+            ref={inputRef}
+            imageUri={draft.imageUri}
+            contentValue={draft.content}
+            onContentChange={handleContentChange}
+            onImageUriChange={handleImagesChange}
+          />
 
           <ActionButtons
             isSubmitted={isSubmitted}
@@ -275,7 +267,7 @@ export default function WriteDiaryScreen() {
             content={draft.content}
             onSubmit={handleSubmit}
           />
-        </View>
+        </YStack>
       </KeyboardAvoidingView>
     </ViewContainer>
   )

@@ -1,3 +1,4 @@
+import { ExceptionState } from '@/types/util.types'
 import type { ISODateString, ISOMonthString, MonthKey } from './date.types'
 import type { JournalMood } from './mood.types'
 
@@ -14,7 +15,7 @@ export type Journals = Record<string, Journal>
 
 export type Draft = {
   content: string
-  mood?: JournalMood
+  mood: JournalMood
   imageUri: string[]
 }
 /**
@@ -37,13 +38,10 @@ export type JournalStore = {
   indexes: JournalIndexes
 }
 
-export interface JournalStoreState {
+export interface JournalStoreState extends ExceptionState {
   store: JournalStore
   selectedJournals: SelectedJournals
   selectedJournal: SelectedJournal
-
-  isLoading: boolean
-  error: any | null
 
   selectJournal: (journalId: string) => void
   selectJournals: (date: ISODateString | ISOMonthString | null) => void

@@ -1,13 +1,14 @@
 import { ChevronLeft, ChevronRight } from '@tamagui/lucide-icons'
 import { useTranslation } from 'react-i18next'
-import { Button, XStack, YStack } from 'tamagui'
+import { Button, XStack, YStack, useControllableState } from 'tamagui'
 
-import { MOUNT_STYLE } from '@/constants'
-import { StepProgressProvider } from '@/providers'
+import { CONTAINER_HORIZONTAL_PADDING, MOUNT_STYLE } from '@/constants'
 import { useStepProgress } from '@/store'
 
 import { ColorPicker, MoodNameForm } from '@/components/features/write'
 import { BaseText, H3, StepDot } from '@/components/shared'
+import { useEffect } from 'react'
+import { Keyboard, useWindowDimensions } from 'react-native'
 
 interface Props {
   name: string
@@ -25,11 +26,40 @@ const menuList = [
 
 export const FormSection = ({ name, setName, sharedColor }: Props) => {
   const { t } = useTranslation()
+  const { width } = useWindowDimensions()
   const { goToNextStep, goToPrevStep, currentStep } = useStepProgress()
+  const [positionI, setPositionI] = useControllableState({
+    strategy: 'most-recent-wins',
+    defaultProp: 0,
+  })
+
+  const positionList = [{ x: 0 }, { x: -width }]
+  const position = positionList[positionI]
+  const handleLeftPress = () => {
+    if (currentStep === 1) {
+      goToPrevStep()
+      setPositionI(
+        prev => (prev + positionList.length - 1) % positionList.length,
+      )
+    }
+  }
+  const handleRightPress = () => {
+    if (currentStep === 0) {
+      goToNextStep()
+      setPositionI(prev => (prev + 1) % positionList.length)
+    }
+  }
+
+  useEffect(() => {
+    if (currentStep === 1) {
+      Keyboard.dismiss()
+    }
+  }, [currentStep])
+
   return (
-    <StepProgressProvider totalSteps={2}>
+    <>
       <XStack width='100%' justify='space-between'>
-        <Button icon={ChevronLeft} onPress={goToPrevStep} />
+        <Button icon={ChevronLeft} onPress={handleLeftPress} />
         <YStack
           key={currentStep}
           animation='lazy'
@@ -43,11 +73,24 @@ export const FormSection = ({ name, setName, sharedColor }: Props) => {
             {t(menuList[currentStep].description)}
           </BaseText>
         </YStack>
-        <Button icon={ChevronRight} onPress={goToNextStep} />
+        <Button icon={ChevronRight} onPress={handleRightPress} />
       </XStack>
-      {currentStep === 0 && <MoodNameForm name={name} setName={setName} />}
-      {currentStep === 1 && <ColorPicker sharedColor={sharedColor} />}
+      <XStack
+        gap={CONTAINER_HORIZONTAL_PADDING * 2}
+        animation='quick'
+        {...position}
+      >
+        <MoodNameForm
+          name={name}
+          setName={setName}
+          width={width - CONTAINER_HORIZONTAL_PADDING * 2}
+        />
+        <ColorPicker
+          sharedColor={sharedColor}
+          width={width - CONTAINER_HORIZONTAL_PADDING * 2}
+        />
+      </XStack>
       <StepDot />
-    </StepProgressProvider>
+    </>
   )
 }

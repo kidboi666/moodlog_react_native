@@ -5,13 +5,13 @@ import { YStack } from 'tamagui'
 
 import { FormInput } from '@/components/shared/FormInput'
 
-export const MoodNameForm = ({
-  name,
-  setName,
-}: {
+interface Props {
+  width: number
   name: string
   setName: (text: string) => void
-}) => {
+}
+
+export const MoodNameForm = ({ width, name, setName }: Props) => {
   const { t } = useTranslation()
   const toast = useToastController()
 
@@ -29,7 +29,7 @@ export const MoodNameForm = ({
   )
 
   return (
-    <YStack gap='$4'>
+    <YStack gap='$4' width={width}>
       <FormInput
         placeholder={t('placeholders.moodName')}
         value={name}

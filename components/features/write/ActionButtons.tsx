@@ -3,6 +3,7 @@ import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Separator, Spinner, View, XGroup } from 'tamagui'
 
+import { BaseText } from '@/components/shared'
 import type { Nullable } from '@/types'
 
 interface Props {
@@ -28,14 +29,14 @@ export const ActionButtons = memo(
       <View items='flex-end'>
         <XGroup>
           <XGroup.Item>
-            <Button onPress={onImageUriChange} icon={ImagePlus}>
-              {t('common.addCover')}
+            <Button noTextWrap onPress={onImageUriChange} icon={ImagePlus}>
+              <BaseText>{t('common.addCover')}</BaseText>
             </Button>
           </XGroup.Item>
           <Separator vertical />
           <XGroup.Item>
-            <Button onPress={onTimeStamp} icon={Timer}>
-              {t('common.timeStamp')}
+            <Button noTextWrap onPress={onTimeStamp} icon={Timer}>
+              <BaseText>{t('common.timeStamp')}</BaseText>
             </Button>
           </XGroup.Item>
           <Separator vertical />
@@ -43,6 +44,7 @@ export const ActionButtons = memo(
             <Button
               onPress={onSubmit}
               disabled={isSubmitted || isLoading || !content}
+              opacity={isSubmitted || isLoading || !content ? 0.5 : 1}
             >
               {isLoading ? <Spinner /> : <Check />}
             </Button>

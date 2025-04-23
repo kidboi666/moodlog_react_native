@@ -3,7 +3,7 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
 import { STORAGE_KEY } from '@/constants'
-import { Diary } from '@/services'
+import { DiaryService } from '@/services'
 import type {
   Draft,
   ISODateString,
@@ -30,7 +30,7 @@ const initialStore: JournalStore = {
   journals: {},
   indexes: initialIndexes,
 }
-
+// TODO 상태 관리만 하고 예외처리는 서비스에서...
 export const useJournal = create<JournalStoreState>()(
   persist(
     (set, get) => ({
@@ -45,22 +45,22 @@ export const useJournal = create<JournalStoreState>()(
       },
 
       selectJournals: (date: ISODateString | ISOMonthString | null) => {
-        const journals = Diary.getJournals(get().store, date)
+        const journals = DiaryService.getJournals(get().store, date)
         set({ selectedJournals: journals })
       },
 
-      addJournal: async (draft: Draft) => {
+      addJournal: (draft: Draft) => {
         try {
           set({ isLoading: true, error: null })
-          const newJournals = await Diary.addJournal(get().store, draft)
-          if ('error' in newJournals) {
-            set({ error: newJournals.error })
-          } else {
-            set({ store: newJournals })
-          }
+          const newJournals = DiaryService.addJournal(get().store, draft)
+          set({ store: newJournals })
         } catch (err) {
           console.error('Failed to save journals :', err)
-          set({ error: err })
+          if (err instanceof Error) {
+            set({ error: err })
+          } else {
+            set({ error: new Error('An unknown error occurred') })
+          }
         } finally {
           set({ isLoading: false })
         }
@@ -69,18 +69,22 @@ export const useJournal = create<JournalStoreState>()(
       removeJournal: async (id: string) => {
         try {
           set({ isLoading: true, error: null })
-          const newStore = await Diary.removeJournal(get().store, id)
+          const newStore = DiaryService.removeJournal(get().store, id)
           set({ store: newStore })
         } catch (err) {
           console.error('Failed to remove journal :', err)
-          set({ error: err })
+          if (err instanceof Error) {
+            set({ error: err })
+          } else {
+            set({ error: new Error('An unknown error occurred') })
+          }
         } finally {
           set({ isLoading: false })
         }
       },
 
       getCountForDate: (year: number, month: number | string, date: number) => {
-        return Diary.getCountForDate(
+        return DiaryService.getCountForDate(
           get().store.indexes || initialIndexes,
           year,
           month,
@@ -89,7 +93,7 @@ export const useJournal = create<JournalStoreState>()(
       },
 
       getCountForMonth: (year: number, month: number | MonthKey) => {
-        return Diary.getCountForMonth(
+        return DiaryService.getCountForMonth(
           get().store.indexes || initialIndexes,
           year,
           month,
@@ -97,7 +101,7 @@ export const useJournal = create<JournalStoreState>()(
       },
 
       getMoodForDate: (date: ISODateString) => {
-        return Diary.getMoodForDate(get().store, date)
+        return DiaryService.getMoodForDate(get().store, date)
       },
     }),
     {

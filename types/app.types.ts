@@ -1,5 +1,4 @@
 import type { ISODateString } from './date.types'
-import type { MyMood, MyMoods } from './mood.types'
 import type { Nullable } from './util.types'
 
 export enum ViewFontSize {
@@ -42,6 +41,11 @@ export enum Position {
   CENTER = 'center',
 }
 
+export enum MoodLimits {
+  FREE = 10,
+  PREMIUM = 100,
+}
+
 export type Settings = {
   fontSize: ViewFontSize
   fontTheme: FontTheme
@@ -53,24 +57,18 @@ export interface AppStore {
   appVersion: string
   subscriptionTier: SubscriptionTier
   firstLaunchDate: Nullable<ISODateString>
+  lastJournalCountDate: Nullable<ISODateString>
   settings: Settings
-  myMoods: MyMoods
+  dailyJournalLimit: number
+  dailyJournalCount: number
   isAuthenticated: boolean
 
   initFirstLaunchStatus: () => void
+  updateDailyJournalCount: () => void
+  countJournal: () => void
   onSettingChange: <K extends keyof Settings>(
     key: K,
     value: Settings[K],
   ) => Promise<void>
   onIsAuthenticatedChange: (isAuthenticated: boolean) => void
-
-  // 나만의 감정 관리 메서드
-  addMyMood: (myMood: MyMood) => {
-    error?: string
-    success?: boolean
-  }
-  removeMyMood: (myMoodId: string) => {
-    error?: string
-    success?: boolean
-  }
 }

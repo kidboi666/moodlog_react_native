@@ -14,7 +14,6 @@ export const InputContainer = styled(YStack, {
 export const TextArea = styled(TamaguiTextArea, {
   color: '$gray12',
   fontSize: '$6',
-  numberOfLines: 17,
   flex: 1,
   text: 'left',
   verticalAlign: 'top',

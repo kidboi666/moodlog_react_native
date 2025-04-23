@@ -7,9 +7,10 @@ import RnColorPicker, {
 
 interface Props {
   sharedColor: SharedValue<string>
+  width: number
 }
 
-export const ColorPicker = ({ sharedColor }: Props) => {
+export const ColorPicker = ({ sharedColor, width }: Props) => {
   const onSelectColor = (color: ColorFormatsObject) => {
     'worklet'
 
@@ -18,7 +19,7 @@ export const ColorPicker = ({ sharedColor }: Props) => {
 
   return (
     <RnColorPicker
-      style={{ gap: 12, flexDirection: 'row' }}
+      style={{ gap: 12, flexDirection: 'row', width }}
       value={sharedColor.value}
       onComplete={onSelectColor}
     >

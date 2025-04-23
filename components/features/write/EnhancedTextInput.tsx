@@ -11,11 +11,11 @@ import { useTranslation } from 'react-i18next'
 import { Alert, TouchableOpacity } from 'react-native'
 import { GetThemeValueForKey, type Input, ScrollView } from 'tamagui'
 
+import { useCustomFont } from '@/hooks'
 import { useApp } from '@/store'
 import { TimeFormat } from '@/types'
 
-import { ContentLength } from '@/components/features/write/ContentLength'
-import { useCustomFont } from '@/hooks/useCustomFont'
+import { ContentLength } from './ContentLength'
 import * as S from './EnhancedTextInput.styled'
 
 interface Props {

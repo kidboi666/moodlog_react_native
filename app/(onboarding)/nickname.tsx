@@ -8,11 +8,13 @@ import { H2, H3, XStack, YStack } from 'tamagui'
 import { ANIMATION_DELAY_SECONDS } from '@/constants'
 import { useStepProgress } from '@/store'
 
-import { AnimatedEntry } from '@/components/shared/AnimatedEntry'
-import { BaseText } from '@/components/shared/BaseText'
-import { FormInput } from '@/components/shared/FormInput'
-import { PressableButton } from '@/components/shared/PressableButton'
-import { ViewContainer } from '@/components/shared/ViewContainer'
+import {
+  AnimatedEntry,
+  BaseText,
+  FormInput,
+  PressableButton,
+  ViewContainer,
+} from '@/components/shared'
 
 export default function Screen() {
   const router = useRouter()
@@ -53,8 +55,7 @@ export default function Screen() {
         // 다음 단계로
         goToNextStep()
         router.push('/benefit')
-      } catch (error) {
-        console.error('닉네임 저장 오류:', error)
+      } catch (err) {
         setError('닉네임을 저장하는 중 오류가 발생했습니다')
       } finally {
         setIsLoading(false)

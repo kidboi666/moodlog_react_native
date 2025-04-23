@@ -16,13 +16,10 @@ import {
   getYearFromISODate,
 } from '@/utils'
 
-export class Diary {
-  static async addJournal(
-    store: JournalStore,
-    draft: Draft,
-  ): Promise<JournalStore | { error: string }> {
+export const DiaryService = {
+  addJournal: (store: JournalStore, draft: Draft): JournalStore => {
     if (!draft.content || !draft.mood) {
-      return { error: 'not_content_or_mood' }
+      throw new Error('not_content_or_mood')
     }
 
     const now = new Date()
@@ -31,7 +28,7 @@ export class Diary {
     // 하루에 최대 3개의 일기만 작성할 수 있도록 제한
     const dailyJournalIds = store.indexes.byDate[localDate] || []
     if (dailyJournalIds.length >= 3) {
-      return { error: 'daily_journal_limit_exceeded' }
+      throw new Error('daily_journal_limit_exceeded')
     }
 
     const monthString = getISOMonthString(localDate)
@@ -89,12 +86,9 @@ export class Diary {
         },
       },
     }
-  }
+  },
 
-  static async removeJournal(
-    store: JournalStore,
-    journalId: string,
-  ): Promise<JournalStore> {
+  removeJournal: (store: JournalStore, journalId: string): JournalStore => {
     const journal = store.journals[journalId]
 
     if (!journal) {
@@ -130,57 +124,57 @@ export class Diary {
     ).filter(id => id !== journalId)
 
     return newStore
-  }
+  },
 
-  static getCountForDate(
+  getCountForDate: (
     indexes: JournalIndexes,
     year: number,
     month: number | string,
     date: number,
-  ): number {
+  ): number => {
     const dateString = getISODateString(year, month, date)
     return (indexes?.byDate[dateString] || []).length
-  }
+  },
 
-  static getCountForMonth(
+  getCountForMonth: (
     indexes: JournalIndexes,
     year: number,
     month: number | MonthKey,
-  ): number {
+  ): number => {
     const monthString = getISOMonthString(year, month)
     return (indexes?.byMonth[monthString] || []).length
-  }
+  },
 
-  static getMoodForDate(store: JournalStore, date: ISODateString) {
+  getMoodForDate: (store: JournalStore, date: ISODateString) => {
     const thatDays = store.indexes.byDate[date] || []
     return thatDays.map(day => store.journals[day].mood)
-  }
+  },
 
-  static getJournals(
+  getJournals: (
     store: JournalStore,
     date: ISODateString | ISOMonthString | null,
-  ): Journal[] | ISODateString | null {
+  ): Journal[] | ISODateString | null => {
     if (!date) return null
     const splitDate = date.split('-')
 
     if (splitDate?.[2]) {
-      return Diary.getJournalsByDate(store, date as ISODateString)
+      return DiaryService.getJournalsByDate(store, date as ISODateString)
     }
-    return Diary.getJournalsByMonth(store, date as ISOMonthString)
-  }
+    return DiaryService.getJournalsByMonth(store, date as ISOMonthString)
+  },
 
-  static getJournalsByDate(
+  getJournalsByDate: (
     store: JournalStore,
     date: ISODateString,
-  ): Journal[] | ISODateString | null {
+  ): Journal[] | ISODateString | null => {
     const dailyJournalsIndex = store.indexes.byDate[date] || []
     if (dailyJournalsIndex.length === 0) {
       return date
     }
     return dailyJournalsIndex.map(journalIndex => store.journals[journalIndex])
-  }
+  },
 
-  static getJournalsByMonth(store: JournalStore, monthDate: ISOMonthString) {
+  getJournalsByMonth: (store: JournalStore, monthDate: ISOMonthString) => {
     const monthlyJournalsIndex = store.indexes.byMonth[monthDate] || []
     if (monthlyJournalsIndex.length === 0) {
       return null
@@ -188,5 +182,5 @@ export class Diary {
     return monthlyJournalsIndex.map(
       journalIndex => store.journals[journalIndex],
     )
-  }
+  },
 }

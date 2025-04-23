@@ -3,11 +3,13 @@ import * as Crypto from 'expo-crypto'
 import { useRouter } from 'expo-router'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { KeyboardAvoidingView, Platform } from 'react-native'
 import { CalendarUtils } from 'react-native-calendars'
 import { useSharedValue } from 'react-native-reanimated'
 import { YStack } from 'tamagui'
 
-import { ROUTE_DELAY_MS } from '@/constants'
+import { KEYBOARD_VERTICAL_OFFSET, ROUTE_DELAY_MS } from '@/constants'
+import { StepProgressProvider } from '@/providers'
 import { useApp, useJournal, useUI } from '@/store'
 
 import {
@@ -23,7 +25,7 @@ export default function CreateMoodScreen() {
   const { t } = useTranslation()
   const [moodName, setMoodName] = useState('')
   const [moodColor, setMoodColor] = useState('')
-  const sharedMoodColor = useSharedValue('#000000')
+  const sharedMoodColor = useSharedValue('#73bd79')
 
   const addMyMood = useApp(state => state.addMyMood)
   const setNavigating = useUI(state => state.setNavigating)
@@ -72,19 +74,27 @@ export default function CreateMoodScreen() {
   return (
     <AnimatedEntry flex={1}>
       <ViewContainer edges={['bottom']}>
-        <YStack flex={1} gap='$6'>
-          <MoodPreview name={moodName} color={sharedMoodColor} />
-          <FormSection
-            name={moodName}
-            setName={setMoodName}
-            sharedColor={sharedMoodColor}
-          />
-          <SuccessButton
-            name={moodName}
-            color={moodColor}
-            onPress={handlePress}
-          />
-        </YStack>
+        <StepProgressProvider totalSteps={2}>
+          <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={KEYBOARD_VERTICAL_OFFSET}
+          >
+            <YStack flex={1} gap='$6'>
+              <MoodPreview name={moodName} color={sharedMoodColor} />
+              <FormSection
+                name={moodName}
+                setName={setMoodName}
+                sharedColor={sharedMoodColor}
+              />
+              <SuccessButton
+                name={moodName}
+                color={moodColor}
+                onPress={handlePress}
+              />
+            </YStack>
+          </KeyboardAvoidingView>
+        </StepProgressProvider>
       </ViewContainer>
     </AnimatedEntry>
   )

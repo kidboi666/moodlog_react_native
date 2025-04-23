@@ -6,27 +6,15 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 
 import { APP_VERSION, STORAGE_KEY } from '@/constants'
 import {
-  type AppStore,
+  AppStore,
   FontTheme,
-  type ISODateString,
+  ISODateString,
   Languages,
-  MyMood,
-  type Settings,
+  Settings,
   SubscriptionTier,
   TimeFormat,
   ViewFontSize,
 } from '@/types'
-
-export enum Language {
-  ENGLISH = 'en',
-  KOREAN = 'ko',
-}
-
-export enum FontSize {
-  SMALL = 'small',
-  MEDIUM = 'medium',
-  LARGE = 'large',
-}
 
 const initialSettings: Settings = {
   language: Languages.KO,
@@ -42,7 +30,9 @@ export const useApp = create<AppStore>()(
       subscriptionTier: SubscriptionTier.FREE,
       firstLaunchDate: null,
       settings: initialSettings,
-      myMoods: {},
+      lastJournalCountDate: null,
+      dailyJournalLimit: 3,
+      dailyJournalCount: 0,
       isAuthenticated: false,
 
       initFirstLaunchStatus: () => {
@@ -51,6 +41,29 @@ export const useApp = create<AppStore>()(
           set({
             firstLaunchDate: firstLaunchDate as ISODateString,
           })
+        }
+      },
+
+      updateDailyJournalCount: () => {
+        const today = CalendarUtils.getCalendarDateString(new Date())
+
+        if (today !== get().lastJournalCountDate) {
+          set({
+            lastJournalCountDate: today as ISODateString,
+            dailyJournalCount: 0,
+          })
+        }
+
+        if (get().dailyJournalCount >= get().dailyJournalLimit) {
+          return 'daily_journal_limit_reached'
+        }
+
+        set({ dailyJournalCount: get().dailyJournalCount + 1 })
+      },
+
+      countJournal: () => {
+        if (get().dailyJournalCount < get().dailyJournalLimit) {
+          set({ dailyJournalCount: get().dailyJournalCount + 1 })
         }
       },
 
@@ -70,40 +83,6 @@ export const useApp = create<AppStore>()(
           await i18n.changeLanguage(value as Languages)
         }
       },
-
-      addMyMood: (myMood: MyMood) => {
-        const { myMoods, subscriptionTier } = get()
-
-        if (
-          subscriptionTier === SubscriptionTier.FREE &&
-          Object.keys(myMoods).length >= 4 &&
-          !myMoods[myMood.id]
-        ) {
-          return { error: 'free_user_custom_mood_limit' }
-        }
-
-        const newMyMoods = {
-          ...myMoods,
-          [myMood.id]: myMood,
-        }
-
-        set({ myMoods: newMyMoods })
-        return { success: true }
-      },
-
-      removeMyMood: (myMoodId: string) => {
-        const { myMoods = {} } = get()
-
-        if (!myMoods[myMoodId]) {
-          return { error: 'my_mood_not_found' }
-        }
-
-        const newMyMoods = { ...myMoods }
-        delete newMyMoods[myMoodId]
-
-        set({ myMoods: newMyMoods })
-        return { success: true }
-      },
     }),
     {
       name: STORAGE_KEY.SETTINGS,
@@ -112,6 +91,10 @@ export const useApp = create<AppStore>()(
         appVersion: state.appVersion,
         settings: state.settings,
         firstLaunchDate: state.firstLaunchDate,
+        dailyJournalLimit: state.dailyJournalLimit,
+        dailyJournalCount: state.dailyJournalCount,
+        isAuthenticated: state.isAuthenticated,
+        subscriptionTier: state.subscriptionTier,
       }),
       onRehydrateStorage: () => state => {
         if (state?.settings.language) {

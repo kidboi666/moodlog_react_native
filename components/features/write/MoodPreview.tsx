@@ -1,6 +1,9 @@
+import { useStepProgress } from '@/store'
 import {
+  Blur,
   Canvas,
   Circle,
+  Color,
   Paragraph,
   Skia,
   TextAlign,
@@ -24,6 +27,7 @@ interface Props {
 }
 
 export const MoodPreview = ({ name, color }: Props) => {
+  const { currentStep } = useStepProgress()
   const fontMgr = useFonts({
     LeeSeoyun: [require('../../../assets/fonts/LeeSeoyun-Regular.ttf')],
   })
@@ -45,7 +49,7 @@ export const MoodPreview = ({ name, color }: Props) => {
       .pop()
       .build()
   }, [name])
-  const skiaColor = Skia.Color(color)
+  const skiaColor = Skia.Color(color as unknown as Color)
   const r = 100
   const p = 80
   const canvasSize = r * 2 + p
@@ -58,32 +62,32 @@ export const MoodPreview = ({ name, color }: Props) => {
 
   useEffect(() => {
     fullMoodPath.value = withSequence(
-      withTiming(r, {
+      withTiming(currentStep === 1 ? r : center, {
         duration: 1200,
         easing: Easing.inOut(Easing.quad),
       }),
       withRepeat(
-        withTiming(r + 8, {
-          duration: 5000,
+        withTiming(currentStep === 1 ? r + 8 : center + 8, {
+          duration: 3000,
         }),
         -1,
         true,
       ),
     )
     zeroMoodPath.value = withSequence(
-      withTiming(r + p, {
+      withTiming(currentStep === 1 ? r + p : center, {
         duration: 1200,
         easing: Easing.inOut(Easing.quad),
       }),
       withRepeat(
-        withTiming(r + p - 8, {
-          duration: 5000,
+        withTiming(currentStep === 1 ? r + p - 8 : center + 8, {
+          duration: 3000,
         }),
         -1,
         true,
       ),
     )
-  }, [color])
+  }, [color, currentStep])
 
   return (
     <View items='center' justify='center' flex={1}>
@@ -99,7 +103,16 @@ export const MoodPreview = ({ name, color }: Props) => {
           cy={halfMoodPath}
           r={r}
           color={skiaColor}
-          opacity={0.8}
+          opacity={0.4}
+        >
+          <Blur blur={20} />
+        </Circle>
+        <Circle
+          cx={halfMoodPath}
+          cy={halfMoodPath}
+          r={r}
+          color={skiaColor}
+          opacity={0.4}
         />
         <Circle
           cx={zeroMoodPath}

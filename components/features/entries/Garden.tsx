@@ -1,6 +1,6 @@
 import { memo, useMemo } from 'react'
 
-import type { ISODateString, ISOMonthString, Mood } from '@/types'
+import type { ISODateString, ISOMonthString } from '@/types'
 
 import { Grass } from '@/components/features/entries/Grass'
 import * as S from './Garden.styled'
@@ -10,7 +10,7 @@ interface Props {
   firstDateDay: number
   monthDate: ISOMonthString
   lastDate: number
-  getMoodForDate: (date: ISODateString) => Mood[]
+  getMoodForDate: (date: ISODateString) => string[]
 }
 
 export const Garden = memo(
