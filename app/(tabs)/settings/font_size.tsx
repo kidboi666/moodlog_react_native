@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next'
 import { RadioGroup, View } from 'tamagui'
 
 import { useApp } from '@/store'
-import { ViewFontSize } from '@/types'
+import { ViewFontSize } from 'shared/types'
 
-import { RadioGroupItem } from '@/components/features/settings/RadioGroupItem'
-import { BaseText } from '@/components/shared/BaseText'
-import { ViewContainer } from '@/components/shared/ViewContainer'
+import { RadioGroupItem } from '@/features/setting/components/RadioGroupItem'
+import { BaseText } from '@/shared/components/BaseText'
+import { ViewContainer } from '@/shared/components/ViewContainer'
 
 const fontSizes = [
   {

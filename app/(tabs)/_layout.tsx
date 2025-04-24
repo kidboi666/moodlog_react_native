@@ -1,14 +1,14 @@
 import * as NavigationBar from 'expo-navigation-bar'
 import { Redirect, Tabs, usePathname } from 'expo-router'
-import React, { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { AnimatePresence, useTheme } from 'tamagui'
 
-import { HIDE_TAB_BAR_ROUTES } from '@/constants'
 import { useApp, useUI } from '@/store'
+import { HIDE_TAB_BAR_ROUTES } from 'shared/constants'
 
-import { CustomTabBar } from '@/components/features/tab'
-import { ContainerFog } from '@/components/shared'
+import { CustomTabBar } from '@/features/tab/components'
+import { ContainerFog } from '@/shared/components'
 
 export default function TabsLayout() {
   const pathname = usePathname()

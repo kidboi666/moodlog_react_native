@@ -12,21 +12,22 @@ import {
   YStack,
 } from 'tamagui'
 
+import { useMood, useUI } from '@/store'
+import { ROUTE_DELAY_MS } from 'shared/constants'
+import { MoodLevel } from 'shared/types'
+
 import {
   AnimatedEntry,
   BaseText,
   H3,
   HeaderContent,
   ViewContainer,
-} from '@/components/shared'
-import { ROUTE_DELAY_MS } from '@/constants'
-import { useApp, useUI } from '@/store'
-import { MoodLevel } from '@/types'
+} from '@/shared/components'
 
 export default function SelectMoodScreen() {
   const router = useRouter()
   const { t } = useTranslation()
-  const myMoods = useApp(state => state.myMoods)
+  const myMoods = useMood(state => state.moods)
   const setNavigating = useUI(state => state.setNavigating)
   const [selectedMoodId, setSelectedMoodId] = useState<string | null>(null)
 

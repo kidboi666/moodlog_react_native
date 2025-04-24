@@ -1,4 +1,4 @@
-import { H3, ViewContainer } from '@/components/shared'
+import { H3, ViewContainer } from '@/shared/components'
 import * as ImagePicker from 'expo-image-picker'
 import { useRouter } from 'expo-router'
 import { useState } from 'react'

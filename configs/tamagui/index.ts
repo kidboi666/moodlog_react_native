@@ -13,7 +13,7 @@ import {
   robotoMonoFont,
 } from './font'
 
-export const config = {
+export const tamaguiConfig = {
   ...defaultConfig,
   animations,
   tokens: tamaguiTokens,

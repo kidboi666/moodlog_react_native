@@ -1,26 +1,26 @@
-import { STORAGE_KEY } from '@/constants'
-import { ExceptionState } from '@/types'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Session } from '@supabase/supabase-js'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
-interface AuthState extends ExceptionState {
+import { STORAGE_KEY } from 'shared/constants'
+
+interface StoreState {
   session: Session | null
   userName: string
+
   setSession: (session: Session | null) => void
   setUserName: (userName: string) => void
   clearSession: () => void
   clearAuth: () => void
 }
 
-export const useAuth = create<AuthState>()(
+export const useAuth = create<StoreState>()(
   persist(
-    (set, get) => ({
+    set => ({
       session: null,
       userName: '',
-      isLoading: false,
-      error: null,
+
       setSession: session => set({ session }),
       setUserName: userName => set({ userName }),
       clearSession: () => set({ session: null }),

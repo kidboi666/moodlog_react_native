@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next'
 import { RadioGroup } from 'tamagui'
 
 import { useApp } from '@/store'
-import { TimeFormat } from '@/types'
+import { TimeFormat } from 'shared/types'
 
-import { RadioGroupItem } from '@/components/features/settings/RadioGroupItem'
-import { ViewContainer } from '@/components/shared/ViewContainer'
+import { RadioGroupItem } from '@/features/setting/components/RadioGroupItem'
+import { ViewContainer } from '@/shared/components/ViewContainer'
 
 export default function Screen() {
   const timeFormat = useApp(state => state.settings.timeFormat)

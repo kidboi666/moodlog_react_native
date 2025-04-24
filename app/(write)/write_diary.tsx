@@ -11,17 +11,17 @@ import {
 } from 'react-native'
 import { YStack } from 'tamagui'
 
-import { ImageService } from '@/services'
 import { useDraft, useJournal, useUI } from '@/store'
-import { type Draft, MoodLevel } from '@/types'
+import { KEYBOARD_VERTICAL_OFFSET } from 'shared/constants'
+import { ImageService, JournalService } from 'shared/services'
+import { type Draft, MoodLevel } from 'shared/types'
 
-import { ActionButtons } from '@/components/features/write/ActionButtons'
 import {
+  ActionButtons,
   EnhancedTextInput,
   type EnhancedTextInputRef,
-} from '@/components/features/write/EnhancedTextInput'
-import { ViewContainer } from '@/components/shared/ViewContainer'
-import { KEYBOARD_VERTICAL_OFFSET } from '@/constants'
+} from '@/features/write/components'
+import { ViewContainer } from '@/shared/components'
 
 const AUTO_SAVE_INTERVAL = 5000
 
@@ -34,7 +34,8 @@ export default function WriteDiaryScreen() {
   const { t } = useTranslation()
   const toast = useToastController()
 
-  const addJournal = useJournal(state => state.addJournal)
+  const store = useJournal(state => state.store)
+  const updateStore = useJournal(state => state.updateStore)
   const isLoading = useUI(state => state.isLoading)
   const setLoading = useUI(state => state.setLoading)
   const setNavigating = useUI(state => state.setNavigating)
@@ -110,7 +111,8 @@ export default function WriteDiaryScreen() {
 
     try {
       setLoading(true)
-      await addJournal(draft)
+      const newStore = JournalService.addJournal(store, draft)
+      await updateStore(newStore)
 
       removeStoredDraft()
       toast.show(t('notifications.success.journal.title'), {
@@ -148,7 +150,7 @@ export default function WriteDiaryScreen() {
   }, [
     draft,
     toast,
-    addJournal,
+    updateStore,
     t,
     router,
     setNavigating,

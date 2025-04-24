@@ -16,9 +16,9 @@ import { useTheme } from 'tamagui'
 import '@/locales'
 import { useApp, useAppTheme, useAuth } from '@/store'
 
-import { BottomSheet } from '@/components/modals'
-import { FullScreenSpinner, StatusBar } from '@/components/shared'
+import { BottomSheet } from '@/features/modal/components'
 import { RootProvider } from '@/providers/RootProvider'
+import { FullScreenSpinner, StatusBar } from '@/shared/components'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()

@@ -1,12 +1,22 @@
 import { create } from 'zustand'
 
-import type {
-  BottomSheetProps,
-  BottomSheetStore,
-  BottomSheetType,
-} from '@/types'
+import type { BottomSheetProps, BottomSheetType, Nullable } from 'shared/types'
 
-export const useBottomSheet = create<BottomSheetStore>(set => ({
+interface StoreState {
+  isOpen: boolean
+  type: Nullable<BottomSheetType>
+  snapPoint: number[] | string[]
+  props: any
+
+  showBottomSheet: <T extends BottomSheetType>(
+    type: T,
+    snapPoint: number[] | string[],
+    props?: BottomSheetProps[T],
+  ) => void
+  hideBottomSheet: () => void
+}
+
+export const useBottomSheet = create<StoreState>(set => ({
   isOpen: false,
   type: null,
   snapPoint: [0],
@@ -24,7 +34,6 @@ export const useBottomSheet = create<BottomSheetStore>(set => ({
       props,
     })
   },
-
   hideBottomSheet: () => {
     set({
       isOpen: false,

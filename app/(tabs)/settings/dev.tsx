@@ -8,10 +8,10 @@ import {
 import { useTranslation } from 'react-i18next'
 import { Button, H1, ScrollView, YStack } from 'tamagui'
 
-import { useDev } from '@/hooks/useDev'
+import { useDev } from '@/shared/hooks/useDev'
 
-import { SettingsContainer } from '@/components/features/settings/SettingsContainer'
-import { ViewContainer } from '@/components/shared/ViewContainer'
+import { SettingsContainer } from '@/features/setting/components/SettingsContainer'
+import { ViewContainer } from '@/shared/components/ViewContainer'
 
 export default function DevScreen() {
   const { t } = useTranslation()

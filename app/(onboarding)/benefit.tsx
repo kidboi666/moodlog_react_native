@@ -3,14 +3,14 @@ import { useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, View, XStack, YStack } from 'tamagui'
 
-import { ANIMATION_DELAY_SECONDS } from '@/constants'
 import { useApp, useStepProgress } from '@/store'
+import { ANIMATION_DELAY_MS_LONG } from 'shared/constants'
 
-import { AnimatedEntry } from '@/components/shared/AnimatedEntry'
-import { BaseText } from '@/components/shared/BaseText'
-import { H1, H3, H4 } from '@/components/shared/Heading'
-import { PressableButton } from '@/components/shared/PressableButton'
-import { ViewContainer } from '@/components/shared/ViewContainer'
+import { AnimatedEntry } from '@/shared/components/AnimatedEntry'
+import { BaseText } from '@/shared/components/BaseText'
+import { H1, H3, H4 } from '@/shared/components/Heading'
+import { PressableButton } from '@/shared/components/PressableButton'
+import { ViewContainer } from '@/shared/components/ViewContainer'
 
 export default function Screen() {
   const router = useRouter()
@@ -46,7 +46,7 @@ export default function Screen() {
     <ViewContainer edges={['bottom']}>
       <YStack flex={1} gap='$4'>
         <ScrollView>
-          <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[0]}>
+          <AnimatedEntry delay={ANIMATION_DELAY_MS_LONG[0]}>
             <H1>{t('onboarding.benefit.title')}</H1>
             <YStack bg='$color12' mt='$4' p='$5' gap='$4' rounded='$8'>
               <H3 themeInverse>{t('onboarding.benefit.ota')}</H3>
@@ -60,7 +60,7 @@ export default function Screen() {
             </YStack>
           </AnimatedEntry>
 
-          <AnimatedEntry mt='$4' delay={ANIMATION_DELAY_SECONDS[1]}>
+          <AnimatedEntry mt='$4' delay={ANIMATION_DELAY_MS_LONG[1]}>
             <YStack gap='$2'>
               <H4>⚠️ {t('onboarding.benefit.warn.1')}</H4>
               <BaseText>{t('onboarding.benefit.warn.2')}</BaseText>
@@ -72,7 +72,7 @@ export default function Screen() {
 
         <View flex={1} />
 
-        <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[2]}>
+        <AnimatedEntry delay={ANIMATION_DELAY_MS_LONG[2]}>
           <XStack justify='space-between' items='flex-end'>
             <PressableButton icon={ArrowLeft} onPress={handlePrevStep}>
               {t('common.prev')}

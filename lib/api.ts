@@ -1,5 +1,5 @@
-import { API_URL } from '@/constants'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { API_URL } from 'shared/constants'
 
 export const fetchWithToken = async (
   url: string,

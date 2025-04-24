@@ -4,14 +4,14 @@ import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, Alert } from 'react-native'
 import { Input, Paragraph, Separator, Text, XStack, YStack } from 'tamagui'
 
-import { H3 } from '@/components/shared/Heading'
+import { H3 } from '@/shared/components/Heading'
 import { useApp, useAuth } from '@/store'
-import type { NewUserInfo } from '@/types'
-import { getDaysSinceSignup } from '@/utils'
+import type { NewUserInfo } from 'shared/types'
+import { getDaysSinceSignup } from 'shared/utils'
 
-import { BaseText } from '@/components/shared/BaseText'
-import { PressableButton } from '@/components/shared/PressableButton'
-import { ViewContainer } from '@/components/shared/ViewContainer'
+import { BaseText } from '@/shared/components/BaseText'
+import { PressableButton } from '@/shared/components/PressableButton'
+import { ViewContainer } from '@/shared/components/ViewContainer'
 
 export default function Screen() {
   const { t } = useTranslation()

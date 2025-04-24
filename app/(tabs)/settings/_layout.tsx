@@ -1,4 +1,4 @@
-import { HeaderContent } from '@/components/shared/HeaderContent'
+import { HeaderContent } from '@/shared/components/HeaderContent'
 import { Stack, useRouter } from 'expo-router'
 import { useTheme } from 'tamagui'
 

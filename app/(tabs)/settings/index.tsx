@@ -17,16 +17,16 @@ import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, YStack } from 'tamagui'
 
-import { AUTH_SNAP_POINTS, LOGOUT_SNAP_POINTS } from '@/constants'
 import { useBottomSheet } from '@/store'
-import { BottomSheetType } from '@/types'
+import { AUTH_SNAP_POINTS, LOGOUT_SNAP_POINTS } from 'shared/constants'
+import { BottomSheetType } from 'shared/types'
 
-import { NavigationSettingItem } from '@/components/features/settings/NavigationSettingItem'
-import { SettingsContainer } from '@/components/features/settings/SettingsContainer'
-import { BaseText } from '@/components/shared/BaseText'
-import { H1 } from '@/components/shared/Heading'
-import { PressableButton } from '@/components/shared/PressableButton'
-import { ViewContainer } from '@/components/shared/ViewContainer'
+import { NavigationSettingItem } from '@/features/setting/components/NavigationSettingItem'
+import { SettingsContainer } from '@/features/setting/components/SettingsContainer'
+import { BaseText } from '@/shared/components/BaseText'
+import { H1 } from '@/shared/components/Heading'
+import { PressableButton } from '@/shared/components/PressableButton'
+import { ViewContainer } from '@/shared/components/ViewContainer'
 
 type SettingSection = {
   title: string

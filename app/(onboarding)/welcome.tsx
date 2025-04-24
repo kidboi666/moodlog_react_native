@@ -3,14 +3,14 @@ import { useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { H3, XStack, YStack } from 'tamagui'
 
-import { H1, H2 } from '@/components/shared/Heading'
-import { ANIMATION_DELAY_SECONDS } from '@/constants'
+import { H1, H2 } from '@/shared/components/Heading'
 import { useStepProgress } from '@/store'
+import { ANIMATION_DELAY_MS_LONG } from 'shared/constants'
 
-import { AnimatedEntry } from '@/components/shared/AnimatedEntry'
-import { PressableButton } from '@/components/shared/PressableButton'
-import { ShakeEmoji } from '@/components/shared/ShakeEmoji'
-import { ViewContainer } from '@/components/shared/ViewContainer'
+import { AnimatedEntry } from '@/shared/components/AnimatedEntry'
+import { PressableButton } from '@/shared/components/PressableButton'
+import { ShakeEmoji } from '@/shared/components/ShakeEmoji'
+import { ViewContainer } from '@/shared/components/ViewContainer'
 
 export default function Screen() {
   const router = useRouter()
@@ -29,13 +29,13 @@ export default function Screen() {
     <ViewContainer edges={['bottom']}>
       <YStack flex={1}>
         <YStack flex={1} gap='$6'>
-          <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[0]}>
+          <AnimatedEntry delay={ANIMATION_DELAY_MS_LONG[0]}>
             <XStack gap='$2'>
               <H1>{t('onboarding.welcome.title')}</H1>
               <ShakeEmoji emoji='👋' />
             </XStack>
           </AnimatedEntry>
-          <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[1]}>
+          <AnimatedEntry delay={ANIMATION_DELAY_MS_LONG[1]}>
             <YStack gap='$6'>
               <H3 color='$gray11' mb='$4'>
                 {t('onboarding.welcome.description')}
@@ -44,11 +44,11 @@ export default function Screen() {
             </YStack>
           </AnimatedEntry>
         </YStack>
-        <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[2]}>
+        <AnimatedEntry delay={ANIMATION_DELAY_MS_LONG[2]}>
           <H2>{t('onboarding.welcome.go')}</H2>
         </AnimatedEntry>
       </YStack>
-      <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[3]}>
+      <AnimatedEntry delay={ANIMATION_DELAY_MS_LONG[3]}>
         <PressableButton
           mt='$8'
           self='flex-end'

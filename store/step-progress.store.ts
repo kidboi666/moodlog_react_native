@@ -1,11 +1,20 @@
 import { create } from 'zustand'
 
-import type { StepProgressStoreState } from '@/types'
+interface StoreState {
+  currentStep: number
+  totalSteps: number
+  isLastStep: boolean
+  progress: number
 
-export const useStepProgress = create<StepProgressStoreState>(set => ({
+  initialize: (totalSteps: number) => void
+  goToNextStep: () => void
+  goToPrevStep: () => void
+  setStep: (step: number) => void
+}
+
+export const useStepProgress = create<StoreState>(set => ({
   currentStep: 0,
   totalSteps: 5,
-
   isLastStep: false,
   progress: 0,
 
@@ -19,7 +28,6 @@ export const useStepProgress = create<StepProgressStoreState>(set => ({
         progress: totalStepsValue > 1 ? 0 : 100,
       }
     }),
-
   goToNextStep: () =>
     set(state => {
       const nextStep = Math.min(state.currentStep + 1, state.totalSteps - 1)
@@ -29,7 +37,6 @@ export const useStepProgress = create<StepProgressStoreState>(set => ({
 
       return { currentStep: nextStep, isLastStep, progress }
     }),
-
   goToPrevStep: () =>
     set(state => {
       const prevStep = Math.max(state.currentStep - 1, 0)
@@ -39,7 +46,6 @@ export const useStepProgress = create<StepProgressStoreState>(set => ({
 
       return { currentStep: prevStep, isLastStep, progress }
     }),
-
   setStep: step =>
     set(state => {
       const safeStep = Math.max(0, Math.min(step, state.totalSteps - 1))

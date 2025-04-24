@@ -5,8 +5,8 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { H2, H3, XStack, YStack } from 'tamagui'
 
-import { ANIMATION_DELAY_SECONDS } from '@/constants'
 import { useStepProgress } from '@/store'
+import { ANIMATION_DELAY_MS_LONG } from 'shared/constants'
 
 import {
   AnimatedEntry,
@@ -14,7 +14,9 @@ import {
   FormInput,
   PressableButton,
   ViewContainer,
-} from '@/components/shared'
+} from '@/shared/components'
+import { AuthError } from '@supabase/supabase-js'
+import { AuthService } from 'shared/services'
 
 export default function Screen() {
   const router = useRouter()
@@ -23,7 +25,7 @@ export default function Screen() {
   const isNicknamePage = currentStep === 1
   const [draftUserName, setDraftUserName] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<AuthError | Error | null>(null)
 
   const handleDraftUserNameChange = (text: string) => {
     setDraftUserName(text)
@@ -42,21 +44,18 @@ export default function Screen() {
       setError(null)
 
       try {
-        const { data, error } = await supabase.auth.signInAnonymously({
-          options: {
-            data: { user_name: draftUserName },
-          },
-        })
-
-        if (error) {
-          throw error
-        }
-
-        // 다음 단계로
+        await AuthService.signInAnonymously(supabase, draftUserName)
         goToNextStep()
         router.push('/benefit')
       } catch (err) {
-        setError('닉네임을 저장하는 중 오류가 발생했습니다')
+        console.error('Failed to sign in anonymously :', err)
+
+        if (err instanceof AuthError) {
+          setError(err)
+        }
+        if (err instanceof Error) {
+          setError(err)
+        }
       } finally {
         setIsLoading(false)
       }
@@ -66,13 +65,13 @@ export default function Screen() {
   return (
     <ViewContainer edges={['bottom']}>
       <YStack flex={1} gap='$6'>
-        <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[0]}>
+        <AnimatedEntry delay={ANIMATION_DELAY_MS_LONG[0]}>
           <H2>{t('onboarding.nickname.title')}</H2>
         </AnimatedEntry>
-        <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[1]}>
+        <AnimatedEntry delay={ANIMATION_DELAY_MS_LONG[1]}>
           <H3 color='$gray11'>{t('onboarding.nickname.description')}</H3>
         </AnimatedEntry>
-        <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[2]}>
+        <AnimatedEntry delay={ANIMATION_DELAY_MS_LONG[2]}>
           <FormInput
             value={draftUserName}
             onChangeText={handleDraftUserNameChange}
@@ -81,7 +80,7 @@ export default function Screen() {
           {error && <BaseText color='$red9'>{error}</BaseText>}
         </AnimatedEntry>
       </YStack>
-      <AnimatedEntry delay={ANIMATION_DELAY_SECONDS[3]}>
+      <AnimatedEntry delay={ANIMATION_DELAY_MS_LONG[3]}>
         <XStack justify='space-between'>
           <PressableButton
             icon={ArrowLeft}

@@ -8,52 +8,56 @@ import { CalendarUtils } from 'react-native-calendars'
 import { useSharedValue } from 'react-native-reanimated'
 import { YStack } from 'tamagui'
 
-import { KEYBOARD_VERTICAL_OFFSET, ROUTE_DELAY_MS } from '@/constants'
 import { StepProgressProvider } from '@/providers'
-import { useApp, useJournal, useUI } from '@/store'
+import { useJournal, useMood, useUI } from '@/store'
+import { KEYBOARD_VERTICAL_OFFSET, ROUTE_DELAY_MS } from 'shared/constants'
 
 import {
   FormSection,
   MoodPreview,
   SuccessButton,
-} from '@/components/features/write'
-import { AnimatedEntry, ViewContainer } from '@/components/shared'
+} from '@/features/write/components'
+import { AnimatedEntry, ViewContainer } from '@/shared/components'
+import { JournalService, MoodService } from 'shared/services'
+import { MoodName } from 'shared/types'
 
 export default function CreateMoodScreen() {
   const router = useRouter()
   const toast = useToastController()
   const { t } = useTranslation()
-  const [moodName, setMoodName] = useState('')
+  const store = useJournal(state => state.store)
+  const [moodName, setMoodName] = useState<MoodName>('')
   const [moodColor, setMoodColor] = useState('')
   const sharedMoodColor = useSharedValue('#73bd79')
-
-  const addMyMood = useApp(state => state.addMyMood)
+  const moods = useMood(state => state.moods)
+  const addMyMood = useMood(state => state.addMood)
   const setNavigating = useUI(state => state.setNavigating)
-  const getMoodForDate = useJournal(state => state.getMoodForDate)
 
   useEffect(() => {
     const todayDate = CalendarUtils.getCalendarDateString(new Date())
-    const todayMoods = getMoodForDate(todayDate)
+    const todayMoods = JournalService.getMoodForDate(store, todayDate)
 
     if (todayMoods && todayMoods.length > 0) {
       const todayMood = todayMoods[0]
-      setMoodName(todayMood)
+      setMoodName(todayMood.name)
 
       toast.show(t('notifications.warning.moodLimit.title'), {
         message: t('notifications.warning.moodLimit.message'),
         preset: 'notice',
       })
     }
-  }, [getMoodForDate, toast, t])
+  }, [toast, t])
 
   const handlePress = useCallback(() => {
     if (!moodName || !moodColor) setNavigating(true)
-    addMyMood({
+    const newMood = {
       id: Crypto.randomUUID(),
       name: moodName,
       color: moodColor,
       createdAt: new Date().toISOString(),
-    })
+    }
+    const updatedMoods = MoodService.addMood(moods, newMood)
+    addMyMood(updatedMoods)
     const timer = setTimeout(() => {
       router.push({
         pathname: '/(write)',

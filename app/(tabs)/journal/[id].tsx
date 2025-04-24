@@ -1,7 +1,9 @@
+import { useApp, useJournal } from '@/store'
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
+import { toSingle } from 'shared/utils'
 import {
   ScrollView,
   Image as TamaguiImage,
@@ -10,29 +12,20 @@ import {
   YStack,
 } from 'tamagui'
 
-import { DELETE_JOURNAL_SNAP_POINTS } from '@/constants'
-import { useApp, useBottomSheet, useJournal } from '@/store'
-import { BottomSheetType } from '@/types'
-import { toSingle } from '@/utils'
-
-import { JournalHeader } from '@/components/features/journal/JournalHeader'
-import { FullScreenImageModal } from '@/components/modals/contents/FullScreenImageModal'
-import { BaseText } from '@/components/shared/BaseText'
-import { H3 } from '@/components/shared/Heading'
-import { ViewContainer } from '@/components/shared/ViewContainer'
+import { JournalHeader } from '@/features/journal/components/JournalHeader'
+import { useDeleteJournal } from '@/features/journal/hooks/useDeleteJournal'
+import { FullScreenImageModal } from '@/features/modal/components/contents/FullScreenImageModal'
+import { BaseText, H3, ViewContainer } from '@/shared/components'
 
 export default function Screen() {
   const { id } = useLocalSearchParams()
   const journalId = toSingle(id)
   const router = useRouter()
   const { t } = useTranslation()
-
   const selectedJournal = useJournal(state => state.selectedJournal)
   const selectJournal = useJournal(state => state.selectJournal)
-  const isLoading = useJournal(state => state.isLoading)
-  const removeJournal = useJournal(state => state.removeJournal)
   const fontSize = useApp(state => state.settings.fontSize)
-  const { showBottomSheet, hideBottomSheet } = useBottomSheet()
+  const { openDeleteSheet } = useDeleteJournal()
 
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedImage, setSelectedImage] = useState<string>('')
@@ -45,29 +38,6 @@ export default function Screen() {
   const handleCloseModal = () => {
     setModalVisible(false)
   }
-
-  const handleDeletePress = useCallback(() => {
-    showBottomSheet(
-      BottomSheetType.DELETE_JOURNAL,
-      DELETE_JOURNAL_SNAP_POINTS,
-      {
-        journalId,
-        isLoading,
-        onDelete: removeJournal,
-        hideBottomSheet,
-        onSuccess: () => {
-          router.push('/entries')
-        },
-      },
-    )
-  }, [
-    showBottomSheet,
-    journalId,
-    isLoading,
-    removeJournal,
-    router,
-    hideBottomSheet,
-  ])
 
   useEffect(() => {
     selectJournal(toSingle(journalId))
@@ -84,7 +54,7 @@ export default function Screen() {
         Header={
           <JournalHeader
             journal={selectedJournal}
-            onDeletePress={handleDeletePress}
+            onDeletePress={() => openDeleteSheet(journalId)}
             onBackPress={() => router.back()}
           />
         }

@@ -2,10 +2,10 @@ import { useCallback } from 'react'
 import { RadioGroup } from 'tamagui'
 
 import { useApp } from '@/store'
-import type { Languages } from '@/types'
+import type { Languages } from 'shared/types'
 
-import { RadioGroupItem } from '@/components/features/settings/RadioGroupItem'
-import { ViewContainer } from '@/components/shared/ViewContainer'
+import { RadioGroupItem } from '@/features/setting/components/RadioGroupItem'
+import { ViewContainer } from '@/shared/components/ViewContainer'
 
 export default function Screen() {
   const language = useApp(state => state.settings.language)

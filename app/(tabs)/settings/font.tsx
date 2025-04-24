@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next'
 import { RadioGroup } from 'tamagui'
 
 import { useApp } from '@/store'
-import { FontTheme } from '@/types'
+import { FontTheme } from 'shared/types'
 
-import { FontRadioGroupItem } from '@/components/features/settings/FontRadioGroupItem'
-import { HeaderContent } from '@/components/shared/HeaderContent'
-import { ViewContainer } from '@/components/shared/ViewContainer'
+import { FontRadioGroupItem } from '@/features/setting/components/FontRadioGroupItem'
+import { HeaderContent } from '@/shared/components/HeaderContent'
+import { ViewContainer } from '@/shared/components/ViewContainer'
 
 const fontList = [
   {
