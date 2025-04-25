@@ -1,4 +1,3 @@
-import { useStepProgress } from '@/store'
 import {
   Blur,
   Canvas,
@@ -20,6 +19,8 @@ import {
   withTiming,
 } from 'react-native-reanimated'
 import { View } from 'tamagui'
+
+import { useStepProgress } from 'shared/store'
 
 interface Props {
   name: string

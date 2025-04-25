@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next'
 import { Button, Separator, Spinner, View, XGroup } from 'tamagui'
 
 import { BaseText } from '@/shared/components'
-import type { Nullable } from 'shared/types'
+import { useUI } from '@/shared/store'
+import type { Nullable } from '@/shared/types'
 
 interface Props {
   isSubmitted: boolean
-  isLoading: boolean
   content: string
   onImageUriChange: () => Promise<Nullable<void>>
   onTimeStamp: () => void
@@ -18,12 +18,12 @@ interface Props {
 export const ActionButtons = memo(
   ({
     isSubmitted,
-    isLoading,
     content,
     onImageUriChange,
     onTimeStamp,
     onSubmit,
   }: Props) => {
+    const isLoading = useUI(state => state.isLoading)
     const { t } = useTranslation()
     return (
       <View items='flex-end'>

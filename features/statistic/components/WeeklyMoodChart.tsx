@@ -9,12 +9,12 @@ import Animated, {
 } from 'react-native-reanimated'
 import { XStack, YStack } from 'tamagui'
 
-import { WEEK_DAY } from 'shared/constants'
-import { useWeeklyMoodStats } from 'shared/hooks'
-import { type ISOMonthString, MoodLevel } from 'shared/types'
-import { getISODateFromMonthString } from 'shared/utils'
-
 import { BaseText, H3 } from '@/shared/components'
+import { WEEK_DAY } from '@/shared/constants'
+import { useWeeklyMoodStats } from '@/shared/hooks'
+import { type ISOMonthString, MoodLevel } from '@/shared/types'
+import { getISODateFromMonthString } from '@/shared/utils'
+
 import { ChartItem } from './ChartItem'
 
 const AnimatedBox = Animated.createAnimatedComponent(XStack)

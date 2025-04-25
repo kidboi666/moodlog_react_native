@@ -1,6 +1,6 @@
 import { Toast, useToastState } from '@tamagui/toast'
 
-import { useAppTheme } from '@/store'
+import { useAppTheme } from 'shared/store'
 import { YStack, styled } from 'tamagui'
 
 const ToastContainer = styled(Toast, {

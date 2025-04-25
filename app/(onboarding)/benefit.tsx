@@ -3,8 +3,8 @@ import { useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, View, XStack, YStack } from 'tamagui'
 
-import { useApp, useStepProgress } from '@/store'
 import { ANIMATION_DELAY_MS_LONG } from 'shared/constants'
+import { useApp, useStepProgress } from 'shared/store'
 
 import { AnimatedEntry } from '@/shared/components/AnimatedEntry'
 import { BaseText } from '@/shared/components/BaseText'
@@ -15,7 +15,6 @@ import { ViewContainer } from '@/shared/components/ViewContainer'
 export default function Screen() {
   const router = useRouter()
   const { t } = useTranslation()
-  const initFirstLaunchStatus = useApp(state => state.initFirstLaunchStatus)
   const { currentStep, goToPrevStep, goToNextStep } = useStepProgress()
   const isBenefitPage = currentStep === 2
 
@@ -28,7 +27,6 @@ export default function Screen() {
 
   const handleClickAgree = () => {
     if (isBenefitPage) {
-      initFirstLaunchStatus()
       goToNextStep()
       router.replace('/(tabs)')
     }

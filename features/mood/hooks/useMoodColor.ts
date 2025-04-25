@@ -1,6 +1,6 @@
 import { JournalMood, MoodLevel } from '@/shared/types'
 import { hexToRgba } from '@/shared/utils'
-import { useMood } from '@/store'
+import { useMood } from 'shared/store'
 
 export const useMoodColor = (journalMood: JournalMood) => {
   const moods = useMood(state => state.moods)

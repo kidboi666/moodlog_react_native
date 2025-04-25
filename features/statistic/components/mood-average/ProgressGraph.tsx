@@ -1,30 +1,27 @@
-import { useTranslation } from 'react-i18next'
 import { Progress as TamaguiProgress, XStack, YStack, styled } from 'tamagui'
 
-import { useApp } from '@/store'
+import { BaseText, H3 } from '@/shared/components'
+import { useMood } from 'shared/store'
 
-import { BaseText } from '@/shared/components/BaseText'
-import { H3 } from '@/shared/components/Heading'
-
-export const GraphContainer = styled(YStack, {
+const GraphContainer = styled(YStack, {
   gap: '$2',
 })
 
-export const GraphNameBox = styled(XStack, {
+const GraphNameBox = styled(XStack, {
   justify: 'space-between',
   items: 'flex-end',
 })
 
-export const GraphName = styled(BaseText, {
+const GraphName = styled(BaseText, {
   color: '$gray9',
 })
 
-export const Progress = styled(TamaguiProgress, {
+const Progress = styled(TamaguiProgress, {
   size: '$1',
   height: 20,
 })
 
-export const ProgressIndicator = styled(TamaguiProgress.Indicator, {
+const ProgressIndicator = styled(TamaguiProgress.Indicator, {
   animation: 'bouncy',
 })
 interface Props {
@@ -34,9 +31,8 @@ interface Props {
 }
 
 export const ProgressGraph = ({ moodScore, moodId, moodColor }: Props) => {
-  const { t } = useTranslation()
-  const myMoods = useApp(state => state.myMoods)
-  const mood = myMoods[moodId]
+  const moods = useMood(state => state.moods)
+  const mood = moods[moodId]
 
   return (
     <GraphContainer>

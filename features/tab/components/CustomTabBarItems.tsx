@@ -24,37 +24,35 @@ export const HomeTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
   )
 })
 
-export const EntriesTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
+export const CalendarTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
   return (
     <PressableButton
       color={isTabActive ? '$color11' : '$color9'}
       bg={isTabActive ? '$backgroundStrong' : '$color5'}
       icon={CalendarDays}
-      onPress={() => onPress('/entries')}
+      onPress={() => onPress('/calendar')}
     />
   )
 })
 
-export const StatisticsTab = memo(
-  ({ isTabActive, onPress }: TabButtonProps) => {
-    return (
-      <PressableButton
-        color={isTabActive ? '$color11' : '$color9'}
-        bg={isTabActive ? '$backgroundStrong' : '$color5'}
-        icon={FileChartColumnIncreasing}
-        onPress={() => onPress('/statistics')}
-      />
-    )
-  },
-)
+export const StatisticTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
+  return (
+    <PressableButton
+      color={isTabActive ? '$color11' : '$color9'}
+      bg={isTabActive ? '$backgroundStrong' : '$color5'}
+      icon={FileChartColumnIncreasing}
+      onPress={() => onPress('/statistic')}
+    />
+  )
+})
 
-export const SettingsTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
+export const SettingTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
   return (
     <PressableButton
       color={isTabActive ? '$color11' : '$color9'}
       bg={isTabActive ? '$backgroundStrong' : '$color5'}
       icon={Settings}
-      onPress={() => onPress('/settings')}
+      onPress={() => onPress('/setting')}
     />
   )
 })

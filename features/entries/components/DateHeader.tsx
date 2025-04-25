@@ -2,11 +2,10 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { XStack, YStack, styled } from 'tamagui'
 
-import { useFontSizeAdjustment } from 'shared/hooks'
-import type { ISODateString } from 'shared/types'
-import { getDateFromISODate, getDayIndexFromISODate } from 'shared/utils'
-
 import { BaseText } from '@/shared/components'
+import { useFontSizeAdjustment } from '@/shared/hooks'
+import type { ISODateString } from '@/shared/types'
+import { getDateFromISODate, getDayIndexFromISODate } from '@/shared/utils'
 
 const DateHeaderContainer = styled(XStack, {
   mt: '$6',

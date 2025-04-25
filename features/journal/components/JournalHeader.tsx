@@ -2,14 +2,15 @@ import { ArrowLeft, Trash2 } from '@tamagui/lucide-icons'
 import { memo } from 'react'
 import { XStack, YStack } from 'tamagui'
 
-import { CONTAINER_HORIZONTAL_PADDING } from 'shared/constants'
-import type { Journal } from 'shared/types'
-
-import { HeaderContent } from '@/shared/components/HeaderContent'
-import { PressableButton } from '@/shared/components/PressableButton'
-import { RenderDate } from '@/shared/components/RenderDate'
-import { RenderDay } from '@/shared/components/RenderDay'
-import { RenderTime } from '@/shared/components/RenderTime'
+import {
+  HeaderContent,
+  PressableButton,
+  RenderDate,
+  RenderDay,
+  RenderTime,
+} from '@/shared/components'
+import { CONTAINER_HORIZONTAL_PADDING } from '@/shared/constants'
+import type { Journal } from '@/shared/types'
 
 interface Props {
   journal: Journal

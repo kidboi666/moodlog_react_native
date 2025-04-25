@@ -25,6 +25,12 @@ export enum FontTheme {
   LEE_SEOYUN = 'leeSeoyun',
 }
 
+export enum Theme {
+  LIGHT = 'light',
+  DARK = 'dark',
+  SYSTEM = 'system',
+}
+
 export enum SubscriptionTier {
   FREE = 'free',
   PREMIUM = 'premium',

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { View, XStack, YStack, styled } from 'tamagui'
 
 import { BaseText, H2, H3 } from '@/shared/components'
-import { RECORD_UNIT_LINE_HEIGHT } from 'shared/constants'
+import { RECORD_UNIT_LINE_HEIGHT } from '@/shared/constants'
 
 const ViewContainer = styled(View, {
   flex: 1,

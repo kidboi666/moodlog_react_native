@@ -17,21 +17,22 @@ export type Draft = {
   mood: JournalMood
   imageUri: string[]
 }
-/**
- * Types
- */
+
 export type YearIndexes = Record<number, string[]>
 export type MonthIndexes = Record<ISOMonthString, string[]>
 export type DateIndexes = Record<ISODateString, string[]>
-export type MoodIndexes = Record<string, string[]>
-export type SelectedJournals = Journal[] | ISODateString | ISOMonthString | null
+export type SelectedJournalsByDate = Journal[] | ISODateString | null
+export type SelectedJournalsByMonth = Omit<
+  SelectedJournalsByDate,
+  'ISODateString'
+> &
+  ISOMonthString
 export type SelectedJournal = Journal | null
-export type LastJournalCountDate = ISODateString | null
+export type SelectedJournals = SelectedJournalsByDate | SelectedJournalsByMonth
 export type JournalIndexes = {
   byYear: YearIndexes
   byMonth: MonthIndexes
   byDate: DateIndexes
-  byMood: MoodIndexes
 }
 
 export type JournalStore = {

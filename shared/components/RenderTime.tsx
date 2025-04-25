@@ -1,6 +1,6 @@
 import { Text, type TextProps } from 'tamagui'
 
-import { useApp } from '@/store'
+import { useApp } from 'shared/store'
 import { TimeFormat } from 'shared/types'
 
 import { BaseText } from './BaseText'

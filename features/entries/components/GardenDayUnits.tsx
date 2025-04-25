@@ -2,9 +2,8 @@ import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View, YStack, styled } from 'tamagui'
 
-import { WEEK_DAY } from 'shared/constants'
-
 import { H6 } from '@/shared/components'
+import { WEEK_DAY } from '@/shared/constants'
 
 const DaysContainer = styled(YStack, {
   py: '$4',

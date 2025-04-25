@@ -1,12 +1,9 @@
-import { supabase } from '@/lib/supabase'
+import { AuthError } from '@supabase/supabase-js'
 import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { H2, H3, XStack, YStack } from 'tamagui'
-
-import { useStepProgress } from '@/store'
-import { ANIMATION_DELAY_MS_LONG } from 'shared/constants'
 
 import {
   AnimatedEntry,
@@ -15,17 +12,18 @@ import {
   PressableButton,
   ViewContainer,
 } from '@/shared/components'
-import { AuthError } from '@supabase/supabase-js'
-import { AuthService } from 'shared/services'
+import { ANIMATION_DELAY_MS_LONG } from '@/shared/constants'
+import { AuthService } from '@/shared/services'
+import { useStepProgress } from 'shared/store'
 
 export default function Screen() {
   const router = useRouter()
   const { t } = useTranslation()
   const { currentStep, goToPrevStep, goToNextStep } = useStepProgress()
-  const isNicknamePage = currentStep === 1
   const [draftUserName, setDraftUserName] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<AuthError | Error | null>(null)
+  const isNicknamePage = currentStep === 1
 
   const handleDraftUserNameChange = (text: string) => {
     setDraftUserName(text)
@@ -44,12 +42,11 @@ export default function Screen() {
       setError(null)
 
       try {
-        await AuthService.signInAnonymously(supabase, draftUserName)
+        const session = await AuthService.signInAnonymously(draftUserName)
         goToNextStep()
         router.push('/benefit')
       } catch (err) {
-        console.error('Failed to sign in anonymously :', err)
-
+        console.error('Failed to sign in :', err)
         if (err instanceof AuthError) {
           setError(err)
         }
@@ -77,7 +74,7 @@ export default function Screen() {
             onChangeText={handleDraftUserNameChange}
             placeholder={t('onboarding.nickname.placeholder')}
           />
-          {error && <BaseText color='$red9'>{error}</BaseText>}
+          {error && <BaseText color='$red9'>{error.message}</BaseText>}
         </AnimatedEntry>
       </YStack>
       <AnimatedEntry delay={ANIMATION_DELAY_MS_LONG[3]}>

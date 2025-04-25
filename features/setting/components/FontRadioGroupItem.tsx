@@ -1,7 +1,7 @@
-import { BaseText } from '@/shared/components'
-import { PressableButton } from '@/shared/components/PressableButton'
-import { MOUNT_STYLE } from 'shared/constants'
 import { GetThemeValueForKey, RadioGroup, styled } from 'tamagui'
+
+import { BaseText, PressableButton } from '@/shared/components'
+import { MOUNT_STYLE } from '@/shared/constants'
 
 const FontItemLabel = styled(BaseText, {
   flex: 1,

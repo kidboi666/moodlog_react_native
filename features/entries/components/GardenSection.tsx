@@ -1,15 +1,15 @@
 import { useCallback, useMemo } from 'react'
 import { ScrollView, XStack, YStack, styled } from 'tamagui'
 
-import { useJournal } from '@/store'
-import { MONTHS } from 'shared/constants'
-import { useCalendar } from 'shared/hooks'
-import type { ISOMonthString, MonthKey } from 'shared/types'
-import { getFirstDateDay, getLastDate, getWeekLength } from 'shared/utils'
+import { MONTHS } from '@/shared/constants'
+import { useCalendar } from '@/shared/hooks'
+import type { ISOMonthString, MonthKey } from '@/shared/types'
+import { getFirstDateDay, getLastDate, getWeekLength } from '@/shared/utils'
+import { useJournal } from 'shared/store'
 
-import { GardenDayUnits } from '@/features/entries/components/GardenDayUnits'
-import { GardenTitleHeader } from '@/features/entries/components/GardenTitleHeader'
-import { MonthItem } from '@/features/entries/components/MonthItem'
+import { GardenDayUnits } from './GardenDayUnits'
+import { GardenTitleHeader } from './GardenTitleHeader'
+import { MonthItem } from './MonthItem'
 
 const Container = styled(YStack, {
   bg: '$gray4',
@@ -23,7 +23,7 @@ const StackBox = styled(XStack, {
 })
 
 export const GardenSection = () => {
-  const { selectJournals } = useJournal()
+  const selectJournals = useJournal(state => state.selectJournals)
   const {
     selectedYear,
     selectedMonth,

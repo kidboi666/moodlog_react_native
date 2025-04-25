@@ -1,5 +1,4 @@
 import { Plus } from '@tamagui/lucide-icons'
-import { useToastController } from '@tamagui/toast'
 import { BlurView } from 'expo-blur'
 import { useRouter } from 'expo-router'
 import React, { memo, useState } from 'react'
@@ -8,13 +7,11 @@ import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 import { Button, Portal, View, styled } from 'tamagui'
 
-import { useJournal } from '@/store'
+import { AnimatedEntry, H3, PressableButton } from '@/shared/components'
 import {
   ANIMATION_DELAY_MS_QUICK,
   CONTAINER_HORIZONTAL_PADDING,
-} from 'shared/constants'
-
-import { AnimatedEntry, H3, PressableButton } from '@/shared/components'
+} from '@/shared/constants'
 
 const menuList = [
   {
@@ -52,29 +49,21 @@ const IconBox = styled(View, {
 
 export const WriteButton = memo(() => {
   const router = useRouter()
-  const toast = useToastController()
   const { t } = useTranslation()
   const [isMenuVisible, setIsMenuVisible] = useState(false)
-  const canWrite = useJournal(state => state.canWrite())
-  const toggleMenu = () => {
-    setIsMenuVisible(!isMenuVisible)
-  }
 
   const handleNavigate = (route: string) => {
-    if (canWrite) {
-      setIsMenuVisible(false)
-      router.push(route as any)
-    } else {
-      toast.show(t('notifications.warning.dailyLimit.title'), {
-        preset: 'error',
-        message: t('notifications.warning.dailyLimit.description'),
-      })
-    }
+    setIsMenuVisible(false)
+    router.push(route as any)
   }
 
   return (
     <WriteTabContainer>
-      <PressableButton bg='$color12' color='$color1' onPress={toggleMenu}>
+      <PressableButton
+        bg='$color12'
+        color='$color1'
+        onPress={() => setIsMenuVisible(true)}
+      >
         <IconBox menuVisible={isMenuVisible}>
           <Plus size='$1' color='$color1' />
         </IconBox>
@@ -88,7 +77,7 @@ export const WriteButton = memo(() => {
             style={styles.flexible}
           >
             <TouchableWithoutFeedback
-              onPress={toggleMenu}
+              onPress={() => setIsMenuVisible(false)}
               style={styles.flexible}
             >
               <BlurView

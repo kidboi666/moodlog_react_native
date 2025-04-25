@@ -1,10 +1,9 @@
 import { ChevronLeft, ChevronRight } from '@tamagui/lucide-icons'
-
-import { BaseText, RenderTime } from '@/shared/components'
-import { PressableButton } from '@/shared/components/PressableButton'
-import { useMood } from '@/store'
-import { JournalMood, Position } from 'shared/types'
 import { Card, View, YStack, styled } from 'tamagui'
+
+import { BaseText, PressableButton, RenderTime } from '@/shared/components'
+import { JournalMood, Position } from '@/shared/types'
+import { useMood } from 'shared/store'
 
 const CardHeader = styled(Card.Header, {
   padded: true,

@@ -1,5 +1,3 @@
-import { HeaderContent } from '@/shared/components'
-import { X } from '@tamagui/lucide-icons'
 import { Stack, useRouter } from 'expo-router'
 import { useTheme } from 'tamagui'
 
@@ -10,13 +8,7 @@ export default function WriteLayout() {
   return (
     <Stack
       screenOptions={{
-        headerShown: true,
-        header: () => (
-          <HeaderContent
-            rightAction={() => router.back()}
-            rightActionIcon={X}
-          />
-        ),
+        headerShown: false,
         contentStyle: {
           backgroundColor: theme.background.val,
         },

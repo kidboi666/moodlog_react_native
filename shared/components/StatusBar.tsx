@@ -1,10 +1,10 @@
 import { memo } from 'react'
 import { StatusBar as RNStatusBar } from 'react-native'
 
-import type { Theme } from 'shared/types'
+import { Theme } from '@/shared/types'
 
 interface Props {
-  resolvedTheme?: Omit<Theme, 'system'>
+  resolvedTheme?: Omit<Theme, Theme.SYSTEM>
 }
 
 export const StatusBar = memo(({ resolvedTheme }: Props) => {

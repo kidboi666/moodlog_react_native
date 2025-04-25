@@ -23,7 +23,7 @@ export type Moods = {
 }
 
 export type SignatureMood = {
-  type: string
+  name: string
   count: number
   score: number
 }

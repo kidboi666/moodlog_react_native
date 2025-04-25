@@ -1,4 +1,4 @@
-import { useApp } from '@/store'
+import { useApp } from 'shared/store'
 import { GetThemeValueForKey } from 'tamagui'
 
 export const useCustomFont = () => {

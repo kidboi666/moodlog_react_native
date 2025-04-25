@@ -4,12 +4,16 @@ import { Platform } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { XStack, styled } from 'tamagui'
 
-import { MOUNT_STYLE, MOUNT_STYLE_KEY, TAB_BAR_HEIGHT } from 'shared/constants'
 import {
-  EntriesTab,
+  MOUNT_STYLE,
+  MOUNT_STYLE_KEY,
+  TAB_BAR_HEIGHT,
+} from '@/shared/constants'
+import {
+  CalendarTab,
   HomeTab,
-  SettingsTab,
-  StatisticsTab,
+  SettingTab,
+  StatisticTab,
 } from './CustomTabBarItems'
 import { WriteButton } from './WriteButton'
 
@@ -47,9 +51,9 @@ export const CustomTabBar = () => {
   )
 
   const isHomeActive = useMemo(() => isActive('/'), [isActive])
-  const isCalendarActive = useMemo(() => isActive('/entries'), [isActive])
-  const isStatisticsActive = useMemo(() => isActive('/statistics'), [isActive])
-  const isSettingsActive = useMemo(() => isActive('/settings'), [isActive])
+  const isCalendarActive = useMemo(() => isActive('/calendar'), [isActive])
+  const isStatisticActive = useMemo(() => isActive('/statistic'), [isActive])
+  const isSettingActive = useMemo(() => isActive('/setting'), [isActive])
 
   const handleNavigate = useCallback(
     (path: string) => {
@@ -66,13 +70,13 @@ export const CustomTabBar = () => {
         pt={Platform.OS === 'ios' ? '$4' : undefined}
       >
         <HomeTab isTabActive={isHomeActive} onPress={handleNavigate} />
-        <EntriesTab isTabActive={isCalendarActive} onPress={handleNavigate} />
+        <CalendarTab isTabActive={isCalendarActive} onPress={handleNavigate} />
         <WriteButton />
-        <StatisticsTab
-          isTabActive={isStatisticsActive}
+        <StatisticTab
+          isTabActive={isStatisticActive}
           onPress={handleNavigate}
         />
-        <SettingsTab isTabActive={isSettingsActive} onPress={handleNavigate} />
+        <SettingTab isTabActive={isSettingActive} onPress={handleNavigate} />
       </StyledContainer>
     </>
   )

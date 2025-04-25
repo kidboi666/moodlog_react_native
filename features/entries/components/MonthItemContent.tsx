@@ -1,9 +1,10 @@
 import { memo } from 'react'
 import { YStack } from 'tamagui'
 
-import { Garden } from '@/features/entries/components/Garden'
-import { GardenMonthUnits } from '@/features/entries/components/GardenMonthUnits'
-import type { ISOMonthString, MonthKey } from 'shared/types'
+import type { ISOMonthString, MonthKey } from '@/shared/types'
+
+import { Garden } from './Garden'
+import { GardenMonthUnits } from './GardenMonthUnits'
 
 interface Props {
   monthKey: MonthKey

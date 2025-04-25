@@ -2,10 +2,10 @@ import { Minimize2 } from '@tamagui/lucide-icons'
 import { useTranslation } from 'react-i18next'
 import { Button, View, YStack } from 'tamagui'
 
-import { useApp } from '@/store'
-import type { ScoreBoard } from 'shared/types'
-
 import { BaseText, H3 } from '@/shared/components'
+import type { ScoreBoard } from '@/shared/types'
+import { useMood } from 'shared/store'
+
 import { EmptyContent } from '../EmptyContent'
 import { ProgressGraph } from './ProgressGraph'
 
@@ -23,7 +23,7 @@ export const MoodAverageExpandedContent = ({
   }
 
   const { t } = useTranslation()
-  const myMoods = useApp(state => state.myMoods)
+  const moods = useMood(state => state.moods)
 
   let moodTotalScore = 0
 
@@ -47,7 +47,7 @@ export const MoodAverageExpandedContent = ({
         </YStack>
         <YStack flex={1} justify='space-between'>
           {Object.entries(scoreBoard).map(([id, countScore], i) => {
-            const mood = myMoods[id]
+            const mood = moods[id]
             return (
               <ProgressGraph
                 key={`${i}-${id}`}

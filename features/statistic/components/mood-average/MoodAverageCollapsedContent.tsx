@@ -2,10 +2,9 @@ import { Maximize2 } from '@tamagui/lucide-icons'
 import { useTranslation } from 'react-i18next'
 import { H2, View, XStack, YStack, styled } from 'tamagui'
 
-import { useApp } from '@/store'
-import type { Nullable, SignatureMood } from 'shared/types'
-
 import { BaseText, H3 } from '@/shared/components'
+import type { Nullable, SignatureMood } from '@/shared/types'
+import { useMood } from 'shared/store'
 
 const ViewContainer = styled(View, {
   animation: 'quick',
@@ -67,11 +66,11 @@ export const MoodAverageCollapsedContent = ({
   signatureMood,
 }: Props) => {
   const { t } = useTranslation()
-  const myMoods = useApp(state => state.myMoods)
+  const moods = useMood(state => state.moods)
 
   // 해당 감정 ID로 이름 찾기
   const moodName = signatureMood?.type
-    ? myMoods[signatureMood.type]?.name || signatureMood.type
+    ? moods[signatureMood.type]?.name || signatureMood.type
     : t('common.fallback.text')
 
   return (

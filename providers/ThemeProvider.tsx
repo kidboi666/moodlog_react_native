@@ -2,7 +2,7 @@ import { PropsWithChildren, useEffect, useState } from 'react'
 import { useColorScheme } from 'react-native'
 import { Theme } from 'tamagui'
 
-import { useAppTheme } from '@/store'
+import { useAppTheme } from 'shared/store'
 
 export const ThemeProvider = ({ children }: PropsWithChildren) => {
   const updateSystemTheme = useAppTheme(state => state.updateSystemTheme)

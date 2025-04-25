@@ -1,7 +1,8 @@
 import { Button, View, styled } from 'tamagui'
 
-import { CALENDAR_SCROLL_SIZE } from 'shared/constants'
+import { CALENDAR_SCROLL_SIZE } from '@/shared/constants'
 
+import { useJournal } from '@/shared/store'
 import { DateCountDot } from './DateCountDot'
 import { DayAndDate } from './DayAndDate'
 

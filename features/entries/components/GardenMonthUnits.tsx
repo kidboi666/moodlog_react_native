@@ -1,8 +1,8 @@
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { View, styled } from 'tamagui'
 
 import { H6 } from '@/shared/components'
-import { View, styled } from 'tamagui'
 
 const ViewContainer = styled(View, {
   height: '$2',

@@ -1,9 +1,9 @@
 import { ChevronRight } from '@tamagui/lucide-icons'
 import { memo } from 'react'
-
-import { BaseText } from '@/shared/components/BaseText'
-import { PRESS_STYLE } from '@/shared/constants/animations'
 import { Button } from 'tamagui'
+
+import { BaseText } from '@/shared/components'
+import { PRESS_STYLE } from '@/shared/constants'
 
 interface NavigationSettingItemProps {
   icon?: any

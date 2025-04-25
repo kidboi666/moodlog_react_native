@@ -1,6 +1,6 @@
 import { View, XStack, styled } from 'tamagui'
 
-import { useStepProgress } from '@/store'
+import { useStepProgress } from 'shared/store'
 
 const Container = styled(View, {
   width: '100%',

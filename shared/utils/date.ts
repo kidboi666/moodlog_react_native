@@ -197,9 +197,9 @@ export const getDaysBetweenDates = (startDate: string, endDate: string) => {
   return Math.floor(diffTime / (1000 * 60 * 60 * 24))
 }
 
-export const getDaysSinceSignup = (firstLaunchDate: ISODateString): number => {
+export const getDaysSinceSignup = (createdAt: string): number => {
   const today = new Date()
-  const signupDate = new Date(firstLaunchDate)
+  const signupDate = new Date(createdAt)
   const diffTime = today.getTime() - signupDate.getTime()
-  return Math.floor(diffTime / (1000 * 60 * 60 * 24))
+  return Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1
 }

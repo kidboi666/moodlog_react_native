@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router'
 import { useTheme } from 'tamagui'
 
-import { StepProgressProvider } from '@/providers/StepProgressProvider'
+import { StepProgressProvider } from '@/providers'
 import { HeaderContent, StepDot } from '@/shared/components'
 
 export default function Layout() {
@@ -10,7 +10,6 @@ export default function Layout() {
   return (
     <StepProgressProvider totalSteps={3}>
       <Stack
-        initialRouteName='welcome'
         screenOptions={{
           headerShown: true,
           header: () => (

@@ -1,7 +1,8 @@
-import { BaseText } from '@/shared/components'
 import { useTranslation } from 'react-i18next'
-import { getDateFromISODate, getDayFromISODate } from 'shared/utils'
 import { YStack, styled } from 'tamagui'
+
+import { BaseText } from '@/shared/components'
+import { getDateFromISODate, getDayFromISODate } from '@/shared/utils'
 
 const DateTextWrapper = styled(YStack, {
   gap: '$2',

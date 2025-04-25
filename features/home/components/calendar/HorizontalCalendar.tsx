@@ -1,23 +1,22 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { ScrollView, XStack, styled } from 'tamagui'
 
-import { useJournal } from '@/store'
+import { HorizontalCalendarContent } from '@/features/home/components'
+import { JournalUtils } from '@/features/journal/utils'
 import {
   CALENDAR_SCROLL_SIZE,
   MOUNT_STYLE,
   MOUNT_STYLE_KEY,
-} from 'shared/constants'
-import { useCalendar } from 'shared/hooks'
-import { JournalService } from 'shared/services'
-import type { ISODateString } from 'shared/types'
+} from '@/shared/constants'
+import { useCalendar } from '@/shared/hooks'
+import { useJournal } from '@/shared/store'
+import { ISODateString } from '@/shared/types'
 import {
   getDateFromISODate,
   getDayIndexFromISODate,
   getISODateString,
   getLastDate,
-} from 'shared/utils'
-
-import { HorizontalCalendarContent } from './HorizontalCalendarContent'
+} from '@/shared/utils'
 
 const CalendarContainer = styled(XStack, {
   animation: 'quick',
@@ -31,7 +30,7 @@ const CalendarContainer = styled(XStack, {
 
 export const HorizontalCalendar = () => {
   const selectJournals = useJournal(state => state.selectJournals)
-  const store = useJournal(state => state.store)
+  const journals = useJournal(state => state.store.journals)
   const indexes = useJournal(state => state.store.indexes)
   const scrollViewRef = useRef<ScrollView>(null)
   const {
@@ -46,11 +45,14 @@ export const HorizontalCalendar = () => {
 
   const handlePress = useCallback(
     (date: ISODateString) => {
-      const selectedJournals = JournalService.getJournals(store, date)
+      const selectedJournals = JournalUtils.getJournals(
+        { journals, indexes },
+        date,
+      )
       onSelectedDateChange(date)
       selectJournals(selectedJournals)
     },
-    [onSelectedDateChange, selectJournals],
+    [onSelectedDateChange],
   )
 
   const dates: Record<ISODateString, number> = useMemo(() => {
@@ -59,7 +61,7 @@ export const HorizontalCalendar = () => {
 
     for (let i = 1; i <= lastDate; i++) {
       const dateKey = getISODateString(currentYear, currentMonth, i)
-      datesWithJournalCount[dateKey] = JournalService.getCountForDate(
+      datesWithJournalCount[dateKey] = JournalUtils.getCountForDate(
         indexes,
         currentYear,
         currentMonth,
@@ -67,7 +69,7 @@ export const HorizontalCalendar = () => {
       )
     }
     return datesWithJournalCount
-  }, [currentYear, currentMonth])
+  }, [currentYear, currentMonth, indexes])
 
   useEffect(() => {
     let timeout: NodeJS.Timeout
@@ -87,10 +89,6 @@ export const HorizontalCalendar = () => {
 
     return () => clearTimeout(timeout)
   }, [dates, selectedDate])
-
-  useEffect(() => {
-    selectJournals(selectedDate)
-  }, [])
 
   return (
     <CalendarContainer>

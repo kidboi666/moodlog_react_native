@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { YStack } from 'tamagui'
 
-import { FormInput } from '@/shared/components/FormInput'
+import { FormInput } from '@/shared/components'
 
 interface Props {
   width: number

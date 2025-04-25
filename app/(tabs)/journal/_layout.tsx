@@ -1,8 +1,9 @@
-import { Stack } from 'expo-router'
+import { Stack, useRouter } from 'expo-router'
 import { useTheme } from 'tamagui'
 
 export default function Layout() {
   const theme = useTheme()
+  const router = useRouter()
 
   return (
     <Stack
@@ -14,7 +15,7 @@ export default function Layout() {
         gestureEnabled: true,
       }}
     >
-      <Stack.Screen name='[id]' />
+      <Stack.Screen name='[journalId]' />
     </Stack>
   )
 }

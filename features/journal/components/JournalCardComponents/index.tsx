@@ -1,16 +1,21 @@
 import { useRouter } from 'expo-router'
 import { Fragment, memo, useCallback, useState } from 'react'
 import Animated from 'react-native-reanimated'
-
-import { useAxisAnimationWithState, useCardGesture } from 'shared/hooks'
-import { JournalMood, Position } from 'shared/types'
-
-import { ActionButton } from '@/features/journal/components/JournalCardComponents/ActionButton'
-import { CardContent } from '@/features/journal/components/JournalCardComponents/CardContent'
-import { ImageSection } from '@/features/journal/components/JournalCardComponents/ImageSection'
-import { FullScreenImageModal } from 'features/modal/components/contents'
-import { MOUNT_STYLE, PRESS_STYLE, PRESS_STYLE_KEY } from 'shared/constants'
 import { Card, View, styled } from 'tamagui'
+
+import { FullScreenImageModal } from '@/features/modal/contents'
+import {
+  MOUNT_STYLE,
+  PRESS_STYLE,
+  PRESS_STYLE_KEY,
+  ROUTE_DELAY_MS,
+} from '@/shared/constants'
+import { useAxisAnimationWithState, useCardGesture } from '@/shared/hooks'
+import { JournalMood, Position } from '@/shared/types'
+
+import { ActionButton } from './ActionButton'
+import { CardContent } from './CardContent'
+import { ImageSection } from './ImageSection'
 
 const CardContainer = styled(Card, {
   group: true,
@@ -33,7 +38,7 @@ const AnimatedCard = Animated.createAnimatedComponent(CardContainer)
 
 interface Props {
   content: string
-  id: string
+  journalId: string
   createdAt: string
   imageUri: string[]
   mood: JournalMood
@@ -41,7 +46,14 @@ interface Props {
 }
 
 export const JournalCard = memo(
-  ({ content, id, createdAt, imageUri, mood, openDeleteSheet }: Props) => {
+  ({
+    content,
+    journalId,
+    createdAt,
+    imageUri,
+    mood,
+    openDeleteSheet,
+  }: Props) => {
     const router = useRouter()
     const [modalVisible, setModalVisible] = useState(false)
     const {
@@ -91,10 +103,10 @@ export const JournalCard = memo(
         setTimeout(() => {
           setTimeout(() => setIsPressed(false), 0)
           router.push({
-            pathname: '/journal/[id]',
-            params: { id },
+            pathname: '/journal/[journalId]',
+            params: { journalId: journalId, isNewJournal: 'false' },
           })
-        }, 300)
+        }, ROUTE_DELAY_MS)
       }
     }
 
@@ -113,8 +125,7 @@ export const JournalCard = memo(
         <Container>
           <ActionButton
             cardPosition={cardPosition}
-            openDeleteSheet={openDeleteSheet}
-            id={id}
+            onPress={() => openDeleteSheet(journalId)}
           />
 
           <GestureWrapper gesture={gesture}>

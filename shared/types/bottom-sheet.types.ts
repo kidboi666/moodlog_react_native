@@ -10,7 +10,6 @@ export type BottomSheetProps = {
     journalId: string
     isLoading: boolean
     onDelete: (journalId: string) => void
-    onSuccess?: () => void
     hideBottomSheet: () => void
   }
   [BottomSheetType.SIGN_UP]: {}

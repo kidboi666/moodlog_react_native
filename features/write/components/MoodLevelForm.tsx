@@ -3,15 +3,14 @@ import { useTranslation } from 'react-i18next'
 import { Button, GetThemeValueForKey, Separator, XStack, YStack } from 'tamagui'
 import { AnimatePresence } from 'tamagui'
 
-import { BaseText } from '@/shared/components/BaseText'
-import { H3 } from '@/shared/components/Heading'
+import { BaseText, H3 } from '@/shared/components'
 import {
   MOUNT_STYLE,
   MOUNT_STYLE_KEY,
   PRESS_STYLE,
   PRESS_STYLE_KEY,
-} from '@/shared/constants/animations'
-import { MoodLevel } from 'shared/types'
+} from '@/shared/constants'
+import { MoodLevel } from '@/shared/types'
 
 export const MoodLevelForm = ({
   moodName,

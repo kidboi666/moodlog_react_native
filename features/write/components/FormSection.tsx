@@ -1,14 +1,15 @@
 import { ChevronLeft, ChevronRight } from '@tamagui/lucide-icons'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Keyboard, useWindowDimensions } from 'react-native'
 import { Button, XStack, YStack, useControllableState } from 'tamagui'
 
-import { useStepProgress } from '@/store'
-import { CONTAINER_HORIZONTAL_PADDING, MOUNT_STYLE } from 'shared/constants'
-
-import { ColorPicker, MoodNameForm } from '@/features/write/components/index'
 import { BaseText, H3, StepDot } from '@/shared/components'
-import { useEffect } from 'react'
-import { Keyboard, useWindowDimensions } from 'react-native'
+import { CONTAINER_HORIZONTAL_PADDING, MOUNT_STYLE } from '@/shared/constants'
+import { useStepProgress } from 'shared/store'
+
+import { ColorPicker } from './ColorPicker'
+import { MoodNameForm } from './MoodNameForm'
 
 interface Props {
   name: string

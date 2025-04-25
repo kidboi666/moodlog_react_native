@@ -1,5 +1,5 @@
 import { ViewFontSize } from '@/shared/types'
-import { useApp } from '@/store'
+import { useApp } from 'shared/store'
 import { GetThemeValueForKey } from 'tamagui'
 
 // 기본 크기에서 단계별 상대적 조정을 위한 맵핑

@@ -1,11 +1,11 @@
 import Animated from 'react-native-reanimated'
 import { YStack, styled } from 'tamagui'
 
-import { useApp } from '@/store'
-import { PRESS_STYLE } from 'shared/constants'
-import { useExpandAnimation, useJournalStats } from 'shared/hooks'
-import { ExpansionState, type ISOMonthString, TimeRange } from 'shared/types'
-import { getDaysSinceSignup } from 'shared/utils'
+import { PRESS_STYLE } from '@/shared/constants'
+import { useExpandAnimation, useJournalStats } from '@/shared/hooks'
+import { ExpansionState, type ISOMonthString, TimeRange } from '@/shared/types'
+import { getDaysSinceSignup } from '@/shared/utils'
+import { useApp } from 'shared/store'
 
 import { TotalCountCollapsedContent } from './TotalCountCollapsedContent'
 import { TotalCountExpandedContent } from './TotalCountExpandedContent'
@@ -27,8 +27,6 @@ interface Props {
 }
 
 export const TotalCount = ({ selectedYear, selectedMonth }: Props) => {
-  const firstLaunchDate = useApp(state => state.firstLaunchDate)
-  const daysSinceSignup = getDaysSinceSignup(firstLaunchDate!)
   const { stats } = useJournalStats(
     TimeRange.YEARLY,
     selectedYear,
@@ -44,7 +42,6 @@ export const TotalCount = ({ selectedYear, selectedMonth }: Props) => {
         <TotalCountExpandedContent
           expressiveMonth={expressiveMonth}
           totalCount={totalCount}
-          daysSinceSignup={daysSinceSignup}
           frequency={frequency}
           activeDay={activeDay}
         />

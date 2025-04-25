@@ -1,15 +1,13 @@
-import { useJournal } from '@/store'
-import { ANIMATION_DELAY_MS } from 'shared/constants'
-import { useCalendar } from 'shared/hooks'
+import { AnimatedEntry } from '@/shared/components'
+import { ANIMATION_DELAY_MS } from '@/shared/constants'
+import { useJournal } from '@/shared/store'
 
 import { EmptyJournal, JournalCard } from '@/features/journal/components'
-import { useDeleteJournal } from '@/features/journal/hooks/useDeleteJournal'
-import { AnimatedEntry } from '@/shared/components'
+import { useDeleteJournal } from '@/features/journal/hooks'
 
 export const HomeJournalCardContainer = () => {
-  const { isToday, selectedDate } = useCalendar()
-  const { openDeleteSheet } = useDeleteJournal(selectedDate)
   const selectedJournals = useJournal(state => state.selectedJournals)
+  const { openDeleteSheet } = useDeleteJournal()
 
   return Array.isArray(selectedJournals) ? (
     selectedJournals.map((journal, index) => {
@@ -24,7 +22,7 @@ export const HomeJournalCardContainer = () => {
           }
         >
           <JournalCard
-            id={id}
+            journalId={id}
             content={content}
             mood={mood}
             imageUri={imageUri}
@@ -36,7 +34,7 @@ export const HomeJournalCardContainer = () => {
     })
   ) : (
     <AnimatedEntry delay={ANIMATION_DELAY_MS[3]}>
-      <EmptyJournal isToday={isToday(selectedJournals)} />
+      <EmptyJournal />
     </AnimatedEntry>
   )
 }

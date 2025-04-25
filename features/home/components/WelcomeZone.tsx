@@ -2,10 +2,9 @@ import { Fragment, memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { XStack } from 'tamagui'
 
-import { useAuth } from '@/store'
-import { ANIMATION_DELAY_MS } from 'shared/constants'
-
 import { AnimatedEntry, H1, H3, H4, ShakeEmoji } from '@/shared/components'
+import { ANIMATION_DELAY_MS } from '@/shared/constants'
+import { useAuth } from 'shared/store'
 
 export const WelcomeZone = memo(() => {
   const { t } = useTranslation()

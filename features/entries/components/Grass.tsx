@@ -1,9 +1,8 @@
 import { memo, useMemo } from 'react'
-
-import { JournalMood, Nullable } from 'shared/types'
-
-import { MoodService } from 'shared/services'
 import { View, styled } from 'tamagui'
+
+import { MoodService } from '@/features/mood/services'
+import { JournalMood, Nullable } from '@/shared/types'
 
 export const StyledGrass = styled(View, {
   width: 16,

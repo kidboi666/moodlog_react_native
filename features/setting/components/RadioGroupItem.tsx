@@ -1,9 +1,8 @@
 import { memo } from 'react'
 import { RadioGroup } from 'tamagui'
 
-import { BaseText } from '@/shared/components/BaseText'
-import { PressableButton } from '@/shared/components/PressableButton'
-import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/shared/constants/animations'
+import { BaseText, PressableButton } from '@/shared/components'
+import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/shared/constants'
 
 interface Props {
   value: string

@@ -8,18 +8,18 @@ import { CalendarUtils } from 'react-native-calendars'
 import { useSharedValue } from 'react-native-reanimated'
 import { YStack } from 'tamagui'
 
-import { StepProgressProvider } from '@/providers'
-import { useJournal, useMood, useUI } from '@/store'
-import { KEYBOARD_VERTICAL_OFFSET, ROUTE_DELAY_MS } from 'shared/constants'
-
+import { JournalUtils } from '@/features/journal/utils'
+import { MoodService } from '@/features/mood/services'
 import {
   FormSection,
   MoodPreview,
   SuccessButton,
 } from '@/features/write/components'
+import { StepProgressProvider } from '@/providers'
 import { AnimatedEntry, ViewContainer } from '@/shared/components'
-import { JournalService, MoodService } from 'shared/services'
-import { MoodName } from 'shared/types'
+import { KEYBOARD_VERTICAL_OFFSET, ROUTE_DELAY_MS } from '@/shared/constants'
+import { useJournal, useMood, useUI } from '@/shared/store'
+import { MoodName } from '@/shared/types'
 
 export default function CreateMoodScreen() {
   const router = useRouter()
@@ -35,7 +35,7 @@ export default function CreateMoodScreen() {
 
   useEffect(() => {
     const todayDate = CalendarUtils.getCalendarDateString(new Date())
-    const todayMoods = JournalService.getMoodForDate(store, todayDate)
+    const todayMoods = JournalUtils.getMoodForDate(store, todayDate)
 
     if (todayMoods && todayMoods.length > 0) {
       const todayMood = todayMoods[0]

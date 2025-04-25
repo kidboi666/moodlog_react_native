@@ -66,7 +66,6 @@ const StyledHeaderContainer = StyledHeaderContent.styleable<Props>(
             onPress={leftAction}
           />
         )}
-        {children}
         {rightAction && (
           <>
             <View flex={1} />

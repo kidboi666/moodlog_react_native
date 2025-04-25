@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 
 import { type ISOMonthString, TimeRange } from '@/shared/types'
-import { useJournal } from '@/store'
 import { StatisticService } from 'shared/services'
+import { useJournal } from 'shared/store'
 
 export const useMoodStats = (
   timeRange: TimeRange,

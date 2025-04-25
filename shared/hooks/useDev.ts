@@ -1,4 +1,4 @@
-import { useApp, useAuth, useJournal } from '@/store'
+import { useApp, useAuth, useJournal } from '@/shared/store'
 
 export const useDev = () => {
   const handleClearUserStorage = async () => {

@@ -1,10 +1,9 @@
 import { Trash } from '@tamagui/lucide-icons'
 import { AnimatePresence, XStack, styled } from 'tamagui'
 
-import { MOUNT_STYLE, MOUNT_STYLE_KEY } from 'shared/constants'
-import { Position } from 'shared/types'
-
 import { PressableButton } from '@/shared/components'
+import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/shared/constants'
+import { Position } from '@/shared/types'
 
 const ActionBox = styled(XStack, {
   r: 0,
@@ -22,15 +21,10 @@ const ActionBox = styled(XStack, {
 
 interface ActionButtonProps {
   cardPosition: Position
-  openDeleteSheet: (id: string) => void
-  id: string
+  onPress: () => void
 }
 
-export const ActionButton = ({
-  cardPosition,
-  openDeleteSheet,
-  id,
-}: ActionButtonProps) => {
+export const ActionButton = ({ cardPosition, onPress }: ActionButtonProps) => {
   return (
     <AnimatePresence>
       {cardPosition === Position.LEFT && (
@@ -47,7 +41,7 @@ export const ActionButton = ({
             shadowRadius={1.5}
             elevation={2}
             icon={Trash}
-            onPress={() => openDeleteSheet(id)}
+            onPress={onPress}
           />
         </ActionBox>
       )}

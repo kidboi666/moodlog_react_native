@@ -3,14 +3,16 @@ import { useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { H3, XStack, YStack } from 'tamagui'
 
-import { H1, H2 } from '@/shared/components/Heading'
-import { useStepProgress } from '@/store'
-import { ANIMATION_DELAY_MS_LONG } from 'shared/constants'
-
-import { AnimatedEntry } from '@/shared/components/AnimatedEntry'
-import { PressableButton } from '@/shared/components/PressableButton'
-import { ShakeEmoji } from '@/shared/components/ShakeEmoji'
-import { ViewContainer } from '@/shared/components/ViewContainer'
+import {
+  AnimatedEntry,
+  H1,
+  H2,
+  PressableButton,
+  ShakeEmoji,
+  ViewContainer,
+} from '@/shared/components'
+import { ANIMATION_DELAY_MS_LONG } from '@/shared/constants'
+import { useStepProgress } from 'shared/store'
 
 export default function Screen() {
   const router = useRouter()

@@ -3,10 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { XStack, styled } from 'tamagui'
 import { LinearGradient } from 'tamagui/linear-gradient'
 
-import { getMonthKey } from 'shared/utils'
-
 import { AnimatedEntry, H1 } from '@/shared/components'
-import { ANIMATION_DELAY_MS } from 'shared/constants'
+import { ANIMATION_DELAY_MS } from '@/shared/constants'
+import { getMonthKey } from '@/shared/utils'
 import { HorizontalCalendar } from './calendar/HorizontalCalendar'
 
 const OuterGradientBox = styled(LinearGradient, {

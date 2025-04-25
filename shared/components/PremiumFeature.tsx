@@ -3,7 +3,7 @@ import { ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'tamagui'
 
-import { useApp } from '@/store'
+import { useApp } from 'shared/store'
 import { SubscriptionTier } from 'shared/types'
 
 interface Props {

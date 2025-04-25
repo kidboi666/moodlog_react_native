@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { Spinner, Stack, styled } from 'tamagui'
 
-import { useUI } from '@/store'
+import { useUI } from 'shared/store'
 
 const StyledOverlay = styled(Stack, {
   flex: 1,

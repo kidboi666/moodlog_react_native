@@ -1,9 +1,9 @@
 import { memo } from 'react'
 import { Button, styled } from 'tamagui'
 
-import type { ISOMonthString, MonthKey } from 'shared/types'
+import type { ISOMonthString, MonthKey } from '@/shared/types'
 
-import { MonthItemContent } from '@/features/entries/components/MonthItemContent'
+import { MonthItemContent } from './MonthItemContent'
 
 export const MonthItemButton = styled(Button, {
   unstyled: true,

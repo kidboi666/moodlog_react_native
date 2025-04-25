@@ -1,9 +1,8 @@
 import { ArrowRight } from '@tamagui/lucide-icons'
+import { AnimatePresence, View } from 'tamagui'
 
-import { PressableButton } from '@/shared/components/PressableButton'
-import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/shared/constants/animations'
-import { MoodLevel } from '@/shared/types/mood.types'
-import { AnimatePresence, View, YStack } from 'tamagui'
+import { PressableButton } from '@/shared/components'
+import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/shared/constants'
 
 interface Props {
   name: string

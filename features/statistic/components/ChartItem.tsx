@@ -5,10 +5,10 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
+import { View, XStack, styled } from 'tamagui'
 
 import { BaseText } from '@/shared/components'
-import { MoodLevel } from 'shared/types'
-import { View, XStack, styled } from 'tamagui'
+import { MoodLevel } from '@/shared/types'
 
 const ChartItemContainer = styled(XStack, {
   flex: 1,

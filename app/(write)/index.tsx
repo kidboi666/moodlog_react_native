@@ -12,8 +12,8 @@ import {
   YStack,
 } from 'tamagui'
 
-import { useMood, useUI } from '@/store'
 import { ROUTE_DELAY_MS } from 'shared/constants'
+import { useMood, useUI } from 'shared/store'
 import { MoodLevel } from 'shared/types'
 
 import {

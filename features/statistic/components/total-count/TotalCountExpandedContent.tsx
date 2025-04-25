@@ -3,10 +3,11 @@ import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View, YStack, styled } from 'tamagui'
 
-import type { ExpressiveMonthStats } from 'shared/types'
-import { getMonthKey } from 'shared/utils'
-
 import { BaseText, H5 } from '@/shared/components'
+import type { ExpressiveMonthStats } from '@/shared/types'
+import { getDaysSinceSignup, getMonthKey } from '@/shared/utils'
+
+import { useAuth } from '@/shared/store'
 import { EmptyContent } from '../EmptyContent'
 
 export const ViewContainer = styled(View, {
@@ -30,21 +31,19 @@ interface Props {
   frequency: number
   activeDay: string
   totalCount: number
-  daysSinceSignup: number
   expressiveMonth: ExpressiveMonthStats
 }
 
 export const TotalCountExpandedContent = memo(
-  ({
-    frequency,
-    activeDay,
-    totalCount,
-    daysSinceSignup,
-    expressiveMonth,
-  }: Props) => {
+  ({ frequency, activeDay, totalCount, expressiveMonth }: Props) => {
+    const session = useAuth(state => state.session)
     const { t } = useTranslation()
     if (!totalCount) {
       return <EmptyContent />
+    }
+
+    if (!session) {
+      return null
     }
 
     return (
@@ -53,7 +52,7 @@ export const TotalCountExpandedContent = memo(
           <H5>{t('statistics.totalCount.daysSinceSignup.title')}</H5>
           <DescriptionText>
             {t('statistics.totalCount.daysSinceSignup.description', {
-              date: daysSinceSignup,
+              date: getDaysSinceSignup(session.user.created_at),
             })}
           </DescriptionText>
         </GapBox>

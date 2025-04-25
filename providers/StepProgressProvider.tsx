@@ -1,6 +1,6 @@
 import { ReactNode, useEffect } from 'react'
 
-import { useStepProgress } from '@/store'
+import { useStepProgress } from 'shared/store'
 
 export const StepProgressProvider = ({
   children,

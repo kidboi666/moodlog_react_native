@@ -12,9 +12,7 @@ export const useCalendar = () => {
   const now = new Date()
   const todayString: ISODateString = CalendarUtils.getCalendarDateString(now)
 
-  const [selectedDate, setSelectedDate] = useState<ISODateString | null>(
-    todayString,
-  )
+  const [selectedDate, setSelectedDate] = useState<ISODateString>(todayString)
   const [selectedMonth, setSelectedMonth] = useState<ISOMonthString | null>(
     todayString.substring(0, 7) as ISOMonthString,
   )

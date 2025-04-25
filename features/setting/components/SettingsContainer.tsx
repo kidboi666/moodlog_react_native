@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
 import { View } from 'tamagui'
 
-import { BaseText } from '@/shared/components/BaseText'
+import { BaseText } from '@/shared/components'
 
 interface Props {
   title?: string
