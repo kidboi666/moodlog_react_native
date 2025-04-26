@@ -2,8 +2,22 @@ import { View, XStack, styled } from 'tamagui'
 
 import { useStepProgress } from 'shared/store'
 
+export const StepDot = () => {
+  const currentStep = useStepProgress(state => state.currentStep)
+  const totalSteps = useStepProgress(state => state.totalSteps)
+
+  return (
+    <Container>
+      <SpacingBox>
+        {Array.from({ length: totalSteps }, (_, i) => (
+          <Dot key={i} isCurrentStep={i === currentStep} />
+        ))}
+      </SpacingBox>
+    </Container>
+  )
+}
+
 const Container = styled(View, {
-  width: '100%',
   items: 'center',
 })
 
@@ -25,18 +39,3 @@ const Dot = styled(View, {
     },
   } as const,
 })
-
-export const StepDot = () => {
-  const currentStep = useStepProgress(state => state.currentStep)
-  const totalSteps = useStepProgress(state => state.totalSteps)
-
-  return (
-    <Container>
-      <SpacingBox>
-        {Array.from({ length: totalSteps }, (_, i) => (
-          <Dot key={i} isCurrentStep={i === currentStep} />
-        ))}
-      </SpacingBox>
-    </Container>
-  )
-}

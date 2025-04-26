@@ -28,17 +28,15 @@ const SpacingBox = styled(XStack, {
 })
 
 const Dot = styled(View, {
-  width: '$1',
+  width: '$0.75',
   height: '$0.75',
   rounded: '$4',
   bg: '$color7',
-  scale: 1,
 
   variants: {
     isCurrentStep: {
       true: {
         bg: '$color12',
-        scaleX: 1.2,
       },
     },
   } as const,
