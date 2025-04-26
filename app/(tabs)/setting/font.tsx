@@ -3,11 +3,10 @@ import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RadioGroup } from 'tamagui'
 
-import { useApp } from 'shared/store'
-import { FontTheme } from 'shared/types'
-
-import { FontRadioGroupItem } from '@/features/setting/components/FontRadioGroupItem'
-import { ViewContainer } from '@/shared/components/ViewContainer'
+import { FontRadioGroupItem } from '@/features/setting/components'
+import { ViewContainer } from '@/shared/components'
+import { useApp } from '@/shared/store'
+import { FontTheme } from '@/shared/types'
 
 const fontList = [
   {

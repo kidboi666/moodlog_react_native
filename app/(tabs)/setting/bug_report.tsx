@@ -1,4 +1,3 @@
-import { H3, ViewContainer } from '@/shared/components'
 import * as ImagePicker from 'expo-image-picker'
 import { useRouter } from 'expo-router'
 import { useState } from 'react'
@@ -14,6 +13,8 @@ import {
   XStack,
   YStack,
 } from 'tamagui'
+
+import { H3, ViewContainer } from '@/shared/components'
 
 export default function BugReport() {
   const router = useRouter()

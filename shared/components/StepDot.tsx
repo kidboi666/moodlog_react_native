@@ -19,6 +19,8 @@ export const StepDot = () => {
 
 const Container = styled(View, {
   items: 'center',
+  flex: 1,
+  my: '$2',
 })
 
 const SpacingBox = styled(XStack, {

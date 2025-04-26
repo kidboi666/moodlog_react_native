@@ -9,7 +9,12 @@ import { YStack } from 'tamagui'
 import { FormSection, MoodPreview } from '@/features/mood/components'
 import { MoodService } from '@/features/mood/services'
 import { StepProgressProvider } from '@/providers'
-import { Delay, HeaderContent, ViewContainer } from '@/shared/components'
+import {
+  Delay,
+  HeaderContent,
+  StepDot,
+  ViewContainer,
+} from '@/shared/components'
 import { ROUTE_DELAY_MS } from '@/shared/constants'
 import { useMood, useUI } from '@/shared/store'
 import { MoodName } from '@/shared/types'
@@ -60,7 +65,9 @@ export default function CreateMoodScreen() {
             rightAction={handlePress}
             rightActionIcon={Check}
             rightActionDisabled={!moodName || !sharedMoodColor.value}
-          />
+          >
+            <StepDot />
+          </HeaderContent>
         }
       >
         <StepProgressProvider totalSteps={2}>

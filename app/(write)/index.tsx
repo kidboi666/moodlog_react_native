@@ -1,11 +1,15 @@
+import { Trash } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
 import { useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { FlatList, useWindowDimensions } from 'react-native'
 import { View } from 'tamagui'
 
-import { MoodPreview } from '@/features/mood/components'
-import { FormSectionFromChooseMoodScreen } from '@/features/mood/components/FormSectionFromChooseMoodScreen'
+import {
+  FormSectionFromChooseMoodScreen,
+  MoodLevelForm,
+  MoodPreview,
+  PaginationButton,
+} from '@/features/mood/components'
 import { useDeleteMood } from '@/features/mood/hooks'
 import { StepProgressProvider } from '@/providers'
 import {
@@ -14,22 +18,20 @@ import {
   StepDot,
   ViewContainer,
 } from '@/shared/components'
-import {
-  CONTAINER_HORIZONTAL_PADDING,
-  ROUTE_DELAY_MS,
-} from '@/shared/constants'
+import { ROUTE_DELAY_MS } from '@/shared/constants'
 import { useMood, useStepProgress, useUI } from '@/shared/store'
-import { Trash } from '@tamagui/lucide-icons'
+import { MoodLevel } from '@/shared/types'
 
 export default function SelectMoodScreen() {
   const router = useRouter()
-  const { goToNextStep, goToPrevStep } = useStepProgress()
+  const { goToNextStep, goToPrevStep, currentStep } = useStepProgress()
   const { width } = useWindowDimensions()
   const { openDeleteSheet } = useDeleteMood()
   const moods = useMood(state => state.moods)
   const [selectedMoodId, setSelectedMoodId] = useState(
     Object.keys(moods)[0] || '',
   )
+  const [moodLevel, setMoodLevel] = useState<MoodLevel>()
   const [[page, totalPage], setPage] = useState([0, Object.keys(moods).length])
   const flatListRef = useRef<FlatList<any>>(null)
   const setNavigating = useUI(state => state.setNavigating)
@@ -82,15 +84,15 @@ export default function SelectMoodScreen() {
       <Delay flex={1}>
         <ViewContainer
           edges={['bottom']}
-          px={0}
           gap='$4'
           Header={
             <HeaderContent
-              px={CONTAINER_HORIZONTAL_PADDING}
               leftAction={() => router.back()}
               rightAction={() => openDeleteSheet(selectedMoodId)}
               rightActionIcon={Trash}
-            />
+            >
+              <StepDot />
+            </HeaderContent>
           }
         >
           <FlatList
@@ -116,15 +118,27 @@ export default function SelectMoodScreen() {
             decelerationRate='fast'
             horizontal
           />
-          <FormSectionFromChooseMoodScreen
-            selectedMoodId={selectedMoodId}
-            onNext={goToNextStep}
+          <PaginationButton
+            page={page}
+            totalPage={totalPage}
             onLeftPress={handleLeftPress}
             onRightPress={handleRightPress}
+          />
+          <FormSectionFromChooseMoodScreen
+            selectedMoodId={selectedMoodId}
             totalPage={totalPage}
             page={page}
+            onNext={goToNextStep}
+            onPrev={goToPrevStep}
+            currentStep={currentStep}
           />
-          <StepDot />
+          {currentStep >= 1 && (
+            <MoodLevelForm
+              moodColor={moods[selectedMoodId].color}
+              moodLevel={moodLevel}
+              setMoodLevel={setMoodLevel}
+            />
+          )}
         </ViewContainer>
       </Delay>
     </StepProgressProvider>

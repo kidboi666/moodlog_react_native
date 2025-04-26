@@ -13,40 +13,6 @@ import {
   CONTAINER_HORIZONTAL_PADDING,
 } from '@/shared/constants'
 
-const menuList = [
-  {
-    title: 'moods.my.selectTitle',
-    route: '/(write)',
-  },
-  {
-    title: 'moods.my.createMoods',
-    route: '/(write)/create_mood',
-  },
-  {
-    title: 'moods.my.writeNewDiary',
-    route: '/(write)/write_diary',
-  },
-]
-
-const WriteTabContainer = styled(View, {
-  position: 'relative',
-})
-
-const IconBox = styled(View, {
-  animation: 'quick',
-
-  variants: {
-    menuVisible: {
-      true: {
-        rotate: '45deg',
-      },
-      false: {
-        rotate: '0deg',
-      },
-    },
-  } as const,
-})
-
 export const WriteButton = memo(() => {
   const router = useRouter()
   const { t } = useTranslation()
@@ -93,7 +59,8 @@ export const WriteButton = memo(() => {
                     delay={ANIMATION_DELAY_MS_QUICK[i]}
                   >
                     <Button
-                      unstyled
+                      variant='outlined'
+                      borderWidth={0}
                       hitSlop={20}
                       animation='quick'
                       animateOnly={['opacity']}
@@ -113,6 +80,40 @@ export const WriteButton = memo(() => {
       </Portal>
     </WriteTabContainer>
   )
+})
+
+const menuList = [
+  {
+    title: 'moods.my.selectTitle',
+    route: '/(write)',
+  },
+  {
+    title: 'moods.my.createMoods',
+    route: '/(write)/create_mood',
+  },
+  {
+    title: 'moods.my.writeNewDiary',
+    route: '/(write)/write_diary',
+  },
+]
+
+const WriteTabContainer = styled(View, {
+  position: 'relative',
+})
+
+const IconBox = styled(View, {
+  animation: 'quick',
+
+  variants: {
+    menuVisible: {
+      true: {
+        rotate: '45deg',
+      },
+      false: {
+        rotate: '0deg',
+      },
+    },
+  } as const,
 })
 
 const styles = StyleSheet.create({

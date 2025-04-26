@@ -4,10 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { Keyboard, useWindowDimensions } from 'react-native'
 import { Button, Spinner, XStack, YStack, useControllableState } from 'tamagui'
 
-import { BaseText, H3, StepDot } from '@/shared/components'
+import { BaseText, H3 } from '@/shared/components'
 import { CONTAINER_HORIZONTAL_PADDING, MOUNT_STYLE } from '@/shared/constants'
 import { useStepProgress } from '@/shared/store'
-
 import { MoodNameForm } from './MoodNameForm'
 const ColorPicker = lazy(() => import('../../write/components/ColorPicker'))
 
@@ -98,7 +97,6 @@ export const FormSection = ({ name, setName, sharedColor }: Props) => {
           />
         </Suspense>
       </XStack>
-      <StepDot />
     </>
   )
 }

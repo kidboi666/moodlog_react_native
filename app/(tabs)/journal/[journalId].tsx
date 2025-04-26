@@ -1,13 +1,8 @@
-import { useDeleteJournal } from '@/features/journal/hooks'
-import { FullScreenImageModal } from '@/features/modal'
-import { BaseText, H3, HeaderContent, ViewContainer } from '@/shared/components'
 import { Trash } from '@tamagui/lucide-icons'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
-import { useApp, useJournal } from 'shared/store'
-import { toSingle } from 'shared/utils'
 import {
   ScrollView,
   Image as TamaguiImage,
@@ -15,6 +10,12 @@ import {
   XStack,
   YStack,
 } from 'tamagui'
+
+import { useDeleteJournal } from '@/features/journal/hooks'
+import { FullScreenImageModal } from '@/features/modal'
+import { BaseText, H3, HeaderContent, ViewContainer } from '@/shared/components'
+import { useApp, useJournal } from '@/shared/store'
+import { toSingle } from '@/shared/utils'
 
 export default function JournalScreen() {
   const params = useLocalSearchParams()

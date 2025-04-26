@@ -1,9 +1,8 @@
-import { Stack, useRouter } from 'expo-router'
+import { Stack } from 'expo-router'
 import { useTheme } from 'tamagui'
 
 export default function WriteLayout() {
   const theme = useTheme()
-  const router = useRouter()
 
   return (
     <Stack

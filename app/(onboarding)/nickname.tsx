@@ -14,7 +14,7 @@ import {
 } from '@/shared/components'
 import { ANIMATION_DELAY_MS_LONG } from '@/shared/constants'
 import { AuthService } from '@/shared/services'
-import { useStepProgress } from 'shared/store'
+import { useStepProgress } from '@/shared/store'
 
 export default function Screen() {
   const router = useRouter()

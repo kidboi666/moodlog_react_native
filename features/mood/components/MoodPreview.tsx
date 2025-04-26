@@ -6,7 +6,6 @@ import {
   Paragraph,
   Skia,
   TextAlign,
-  useFonts,
 } from '@shopify/react-native-skia'
 import { useEffect, useMemo } from 'react'
 import {

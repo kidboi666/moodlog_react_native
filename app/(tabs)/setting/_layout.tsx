@@ -1,6 +1,7 @@
-import { HeaderContent } from '@/shared/components/HeaderContent'
 import { Stack, useRouter } from 'expo-router'
 import { useTheme } from 'tamagui'
+
+import { HeaderContent } from '@/shared/components'
 
 export default function SettingsLayout() {
   const theme = useTheme()
@@ -22,7 +23,6 @@ export default function SettingsLayout() {
       <Stack.Screen name='profile' />
       <Stack.Screen name='bug_report' />
       <Stack.Screen name='qna' />
-      <Stack.Screen name='emotion_display' />
     </Stack>
   )
 }

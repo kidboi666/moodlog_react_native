@@ -6,13 +6,14 @@ import { View, XStack, XStackProps, styled } from 'tamagui'
 import {
   CONTAINER_HORIZONTAL_PADDING,
   CONTAINER_VERTICAL_PADDING,
-} from 'shared/constants'
-
+} from '@/shared/constants'
 import { PressableButton } from './PressableButton'
 
-export const StyledHeaderContent = styled(XStack, {
+const StyledHeaderContent = styled(XStack, {
   py: CONTAINER_VERTICAL_PADDING,
+  px: CONTAINER_HORIZONTAL_PADDING,
   justify: 'space-between',
+  width: '100%',
   items: 'center',
 
   variants: {
@@ -69,14 +70,12 @@ const StyledHeaderContainer = StyledHeaderContent.styleable<Props>(
         )}
         {children}
         {rightAction && (
-          <>
-            <View flex={1} />
-            <PressableButton
-              icon={rightActionIcon ?? ArrowRight}
-              onPress={rightAction}
-              disabled={rightActionDisabled}
-            />
-          </>
+          <PressableButton
+            self='flex-end'
+            icon={rightActionIcon ?? ArrowRight}
+            onPress={rightAction}
+            disabled={rightActionDisabled}
+          />
         )}
       </StyledHeaderContent>
     )

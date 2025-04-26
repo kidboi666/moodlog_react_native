@@ -12,7 +12,7 @@ import {
   ViewContainer,
 } from '@/shared/components'
 import { ANIMATION_DELAY_MS_LONG } from '@/shared/constants'
-import { useStepProgress } from 'shared/store'
+import { useStepProgress } from '@/shared/store'
 
 export default function Screen() {
   const router = useRouter()

@@ -2,11 +2,10 @@ import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RadioGroup } from 'tamagui'
 
-import { useAppTheme } from 'shared/store'
-import type { Theme } from 'shared/types'
-
-import { RadioGroupItem } from '@/features/setting/components/RadioGroupItem'
-import { ViewContainer } from '@/shared/components/ViewContainer'
+import { RadioGroupItem } from '@/features/setting/components'
+import { ViewContainer } from '@/shared/components'
+import { useAppTheme } from '@/shared/store'
+import type { Theme } from '@/shared/types'
 
 export default function Screen() {
   const currentTheme = useAppTheme(state => state.currentTheme)

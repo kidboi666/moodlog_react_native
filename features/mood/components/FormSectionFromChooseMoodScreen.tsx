@@ -1,42 +1,72 @@
+import {
+  BaseText,
+  H3,
+  PaginationDot,
+  PressableButton,
+} from '@/shared/components'
+import { CONTAINER_HORIZONTAL_PADDING, MOUNT_STYLE } from '@/shared/constants'
 import { ChevronLeft, ChevronRight } from '@tamagui/lucide-icons'
 import { useTranslation } from 'react-i18next'
-import { Button, XStack, YStack, styled } from 'tamagui'
+import { XStack, YStack, styled } from 'tamagui'
 
-import { H3, PaginationDot, PressableButton } from '@/shared/components'
-import { CONTAINER_HORIZONTAL_PADDING } from '@/shared/constants'
+const menuList = [
+  {
+    title: 'moods.my.moodSelect.title',
+    description: 'moods.my.moodSelect.description',
+  },
+  {
+    title: 'moods.my.moodLevel.title',
+    description: 'moods.my.moodLevel.description',
+  },
+]
 
 interface Props {
   selectedMoodId: string
-  onLeftPress: () => void
-  onRightPress: () => void
   totalPage: number
-  onNext: () => void
   page: number
+  onNext: () => void
+  onPrev: () => void
+  currentStep: number
 }
 
 export const FormSectionFromChooseMoodScreen = ({
   selectedMoodId,
-  onLeftPress,
-  onRightPress,
   totalPage,
   page,
   onNext,
+  onPrev,
+  currentStep,
 }: Props) => {
   const { t } = useTranslation()
+
   return (
     <>
       <SpacingYStack spacing>
-        <BetweenXStack>
-          <Button bg='transparent' icon={ChevronLeft} onPress={onLeftPress} />
-          <H3>{t('moods.my.selectTitle')}</H3>
-          <Button bg='transparent' icon={ChevronRight} onPress={onRightPress} />
-        </BetweenXStack>
         <PaginationDot totalPage={totalPage} page={page} />
-      </SpacingYStack>
-      <SpacingYStack>
-        <PressableButton disabled={!selectedMoodId} onPress={onNext} my='$8'>
-          {t('common.ok')}
-        </PressableButton>
+        <BetweenXStack>
+          <PressableButton
+            bg='transparent'
+            icon={ChevronLeft}
+            onPress={onPrev}
+          />
+          <YStack
+            key={currentStep}
+            animation='lazy'
+            enterStyle={MOUNT_STYLE}
+            exitStyle={MOUNT_STYLE}
+            gap='$2'
+            overflow='hidden'
+          >
+            <H3>{t(menuList[currentStep].title)}</H3>
+            <BaseText>{t(menuList[currentStep].description)}</BaseText>
+          </YStack>
+          <PressableButton
+            bg='transparent'
+            icon={ChevronRight}
+            disabled={!selectedMoodId}
+            onPress={onNext}
+          />
+        </BetweenXStack>
       </SpacingYStack>
     </>
   )

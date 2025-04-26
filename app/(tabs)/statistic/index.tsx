@@ -1,16 +1,15 @@
 import { useTranslation } from 'react-i18next'
 import { ScrollView, XStack, YStack } from 'tamagui'
 
-import { Delay, H1, ViewContainer } from '@/shared/components'
-import { ANIMATION_DELAY_MS } from '@/shared/constants'
-import { useCalendar } from '@/shared/hooks'
-import type { ISOMonthString } from '@/shared/types'
-
 import {
   MoodAverage,
   TotalCount,
   WeeklyMoodChart,
 } from '@/features/statistic/components'
+import { Delay, H1, ViewContainer } from '@/shared/components'
+import { ANIMATION_DELAY_MS } from '@/shared/constants'
+import { useCalendar } from '@/shared/hooks'
+import type { ISOMonthString } from '@/shared/types'
 
 export default function StatisticScreen() {
   const { selectedYear, selectedMonth, todayString } = useCalendar()

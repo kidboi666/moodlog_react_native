@@ -202,6 +202,10 @@ export const ko = {
       writeNewDiary: '새 일기 쓰기',
       intensity: '감정 강도',
       save: '감정 저장하기',
+      moodSelect: {
+        title: '오늘의 감정 선택하기',
+        description: '당신의 현재 감정을 선택하세요.',
+      },
       moodColor: {
         title: '감정 색상 선택',
         description: '감정에 어울리는 색상을 선택해주세요',
