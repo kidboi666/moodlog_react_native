@@ -6,10 +6,11 @@ import { useBottomSheet } from 'shared/store'
 
 import {
   DeleteJournalModal,
+  DeleteMoodModal,
   LogoutModal,
   SignInModal,
   SignUpModal,
-} from '@/features/modal/contents'
+} from './contents'
 
 const SheetContentComponents = {
   [BottomSheetType.DELETE_JOURNAL]: (
@@ -24,6 +25,9 @@ const SheetContentComponents = {
   [BottomSheetType.LOGOUT]: (
     props: BottomSheetProps[BottomSheetType.LOGOUT],
   ) => <LogoutModal {...props} />,
+  [BottomSheetType.DELETE_MOOD]: (
+    props: BottomSheetProps[BottomSheetType.DELETE_MOOD],
+  ) => <DeleteMoodModal {...props} />,
 }
 
 export const BottomSheet = memo(() => {

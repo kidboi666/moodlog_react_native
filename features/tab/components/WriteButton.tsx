@@ -7,7 +7,7 @@ import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 import { Button, Portal, View, styled } from 'tamagui'
 
-import { AnimatedEntry, H3, PressableButton } from '@/shared/components'
+import { Delay, H3, PressableButton } from '@/shared/components'
 import {
   ANIMATION_DELAY_MS_QUICK,
   CONTAINER_HORIZONTAL_PADDING,
@@ -87,7 +87,7 @@ export const WriteButton = memo(() => {
                 experimentalBlurMethod='dimezisBlurView'
               >
                 {menuList.map((menu, i) => (
-                  <AnimatedEntry
+                  <Delay
                     key={menu.title}
                     variant='float'
                     delay={ANIMATION_DELAY_MS_QUICK[i]}
@@ -104,7 +104,7 @@ export const WriteButton = memo(() => {
                     >
                       <H3 color='white'>{t(menu.title)}</H3>
                     </Button>
-                  </AnimatedEntry>
+                  </Delay>
                 ))}
               </BlurView>
             </TouchableWithoutFeedback>

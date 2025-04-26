@@ -1,15 +1,15 @@
 import { ChevronLeft, ChevronRight } from '@tamagui/lucide-icons'
-import { useEffect } from 'react'
+import { Suspense, lazy, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Keyboard, useWindowDimensions } from 'react-native'
-import { Button, XStack, YStack, useControllableState } from 'tamagui'
+import { Button, Spinner, XStack, YStack, useControllableState } from 'tamagui'
 
 import { BaseText, H3, StepDot } from '@/shared/components'
 import { CONTAINER_HORIZONTAL_PADDING, MOUNT_STYLE } from '@/shared/constants'
-import { useStepProgress } from 'shared/store'
+import { useStepProgress } from '@/shared/store'
 
-import { ColorPicker } from './ColorPicker'
 import { MoodNameForm } from './MoodNameForm'
+const ColorPicker = lazy(() => import('../../write/components/ColorPicker'))
 
 interface Props {
   name: string
@@ -36,6 +36,7 @@ export const FormSection = ({ name, setName, sharedColor }: Props) => {
 
   const positionList = [{ x: 0 }, { x: -width }]
   const position = positionList[positionI]
+
   const handleLeftPress = () => {
     if (currentStep === 1) {
       goToPrevStep()
@@ -60,7 +61,7 @@ export const FormSection = ({ name, setName, sharedColor }: Props) => {
   return (
     <>
       <XStack width='100%' justify='space-between'>
-        <Button icon={ChevronLeft} onPress={handleLeftPress} />
+        <Button bg='transparent' icon={ChevronLeft} onPress={handleLeftPress} />
         <YStack
           key={currentStep}
           animation='lazy'
@@ -74,7 +75,11 @@ export const FormSection = ({ name, setName, sharedColor }: Props) => {
             {t(menuList[currentStep].description)}
           </BaseText>
         </YStack>
-        <Button icon={ChevronRight} onPress={handleRightPress} />
+        <Button
+          bg='transparent'
+          icon={ChevronRight}
+          onPress={handleRightPress}
+        />
       </XStack>
       <XStack
         gap={CONTAINER_HORIZONTAL_PADDING * 2}
@@ -86,10 +91,12 @@ export const FormSection = ({ name, setName, sharedColor }: Props) => {
           setName={setName}
           width={width - CONTAINER_HORIZONTAL_PADDING * 2}
         />
-        <ColorPicker
-          sharedColor={sharedColor}
-          width={width - CONTAINER_HORIZONTAL_PADDING * 2}
-        />
+        <Suspense fallback={<Spinner />}>
+          <ColorPicker
+            sharedColor={sharedColor}
+            width={width - CONTAINER_HORIZONTAL_PADDING * 2}
+          />
+        </Suspense>
       </XStack>
       <StepDot />
     </>

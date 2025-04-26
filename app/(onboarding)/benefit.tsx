@@ -6,8 +6,8 @@ import { ScrollView, View, XStack, YStack } from 'tamagui'
 import { ANIMATION_DELAY_MS_LONG } from 'shared/constants'
 import { useApp, useStepProgress } from 'shared/store'
 
-import { AnimatedEntry } from '@/shared/components/AnimatedEntry'
 import { BaseText } from '@/shared/components/BaseText'
+import { Delay } from '@/shared/components/Delay'
 import { H1, H3, H4 } from '@/shared/components/Heading'
 import { PressableButton } from '@/shared/components/PressableButton'
 import { ViewContainer } from '@/shared/components/ViewContainer'
@@ -44,7 +44,7 @@ export default function Screen() {
     <ViewContainer edges={['bottom']}>
       <YStack flex={1} gap='$4'>
         <ScrollView>
-          <AnimatedEntry delay={ANIMATION_DELAY_MS_LONG[0]}>
+          <Delay delay={ANIMATION_DELAY_MS_LONG[0]}>
             <H1>{t('onboarding.benefit.title')}</H1>
             <YStack bg='$color12' mt='$4' p='$5' gap='$4' rounded='$8'>
               <H3 themeInverse>{t('onboarding.benefit.ota')}</H3>
@@ -56,21 +56,21 @@ export default function Screen() {
                 ))}
               </YStack>
             </YStack>
-          </AnimatedEntry>
+          </Delay>
 
-          <AnimatedEntry mt='$4' delay={ANIMATION_DELAY_MS_LONG[1]}>
+          <Delay mt='$4' delay={ANIMATION_DELAY_MS_LONG[1]}>
             <YStack gap='$2'>
               <H4>⚠️ {t('onboarding.benefit.warn.1')}</H4>
               <BaseText>{t('onboarding.benefit.warn.2')}</BaseText>
               <BaseText>{t('onboarding.benefit.warn.3')}</BaseText>
               <BaseText>{t('onboarding.benefit.warn.4')}</BaseText>
             </YStack>
-          </AnimatedEntry>
+          </Delay>
         </ScrollView>
 
         <View flex={1} />
 
-        <AnimatedEntry delay={ANIMATION_DELAY_MS_LONG[2]}>
+        <Delay delay={ANIMATION_DELAY_MS_LONG[2]}>
           <XStack justify='space-between' items='flex-end'>
             <PressableButton icon={ArrowLeft} onPress={handlePrevStep}>
               {t('common.prev')}
@@ -85,7 +85,7 @@ export default function Screen() {
               </PressableButton>
             </YStack>
           </XStack>
-        </AnimatedEntry>
+        </Delay>
       </YStack>
     </ViewContainer>
   )

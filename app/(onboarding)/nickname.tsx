@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next'
 import { H2, H3, XStack, YStack } from 'tamagui'
 
 import {
-  AnimatedEntry,
   BaseText,
+  Delay,
   FormInput,
   PressableButton,
   ViewContainer,
@@ -62,22 +62,22 @@ export default function Screen() {
   return (
     <ViewContainer edges={['bottom']}>
       <YStack flex={1} gap='$6'>
-        <AnimatedEntry delay={ANIMATION_DELAY_MS_LONG[0]}>
+        <Delay delay={ANIMATION_DELAY_MS_LONG[0]}>
           <H2>{t('onboarding.nickname.title')}</H2>
-        </AnimatedEntry>
-        <AnimatedEntry delay={ANIMATION_DELAY_MS_LONG[1]}>
+        </Delay>
+        <Delay delay={ANIMATION_DELAY_MS_LONG[1]}>
           <H3 color='$gray11'>{t('onboarding.nickname.description')}</H3>
-        </AnimatedEntry>
-        <AnimatedEntry delay={ANIMATION_DELAY_MS_LONG[2]}>
+        </Delay>
+        <Delay delay={ANIMATION_DELAY_MS_LONG[2]}>
           <FormInput
             value={draftUserName}
             onChangeText={handleDraftUserNameChange}
             placeholder={t('onboarding.nickname.placeholder')}
           />
           {error && <BaseText color='$red9'>{error.message}</BaseText>}
-        </AnimatedEntry>
+        </Delay>
       </YStack>
-      <AnimatedEntry delay={ANIMATION_DELAY_MS_LONG[3]}>
+      <Delay delay={ANIMATION_DELAY_MS_LONG[3]}>
         <XStack justify='space-between'>
           <PressableButton
             icon={ArrowLeft}
@@ -95,7 +95,7 @@ export default function Screen() {
             {t('common.next')}
           </PressableButton>
         </XStack>
-      </AnimatedEntry>
+      </Delay>
     </ViewContainer>
   )
 }

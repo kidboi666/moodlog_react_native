@@ -1,4 +1,4 @@
-import { AnimatedEntry } from '@/shared/components'
+import { Delay } from '@/shared/components'
 import { ANIMATION_DELAY_MS } from '@/shared/constants'
 import { useJournal } from '@/shared/store'
 
@@ -13,7 +13,7 @@ export const HomeJournalCardContainer = () => {
     selectedJournals.map((journal, index) => {
       const { id, content, createdAt, mood, imageUri } = journal
       return (
-        <AnimatedEntry
+        <Delay
           key={journal.id}
           delay={
             ANIMATION_DELAY_MS[
@@ -29,12 +29,12 @@ export const HomeJournalCardContainer = () => {
             createdAt={createdAt}
             openDeleteSheet={openDeleteSheet}
           />
-        </AnimatedEntry>
+        </Delay>
       )
     })
   ) : (
-    <AnimatedEntry delay={ANIMATION_DELAY_MS[3]}>
+    <Delay delay={ANIMATION_DELAY_MS[3]}>
       <EmptyJournal />
-    </AnimatedEntry>
+    </Delay>
   )
 }

@@ -28,6 +28,7 @@ export const en = {
     join: 'Go to Join',
     addCover: 'Add Cover',
     timeStamp: 'Time Stamp',
+    write: 'Write a Diary',
     units: {
       month: 'Month',
       count: 'entries',
@@ -63,6 +64,11 @@ export const en = {
       title: 'Delete Journal',
       description:
         'Are you sure you want to delete this journal? This action cannot be undone.',
+    },
+    deleteMood: {
+      title: 'Delete Mood',
+      description:
+        'Are you sure you want to delete this mood? This action cannot be undone.',
     },
   },
   placeholders: {
@@ -183,16 +189,16 @@ export const en = {
       full: 'Very',
     },
     my: {
-      title: 'My Emotions',
-      selectTitle: "Select Today's Emotion",
-      noMoods: "You haven't created any emotions yet. Create a new emotion.",
-      createMoods: 'Create New Emotion',
+      title: 'My Moods',
+      selectTitle: "Select Today's Mood",
+      noMoods: "You haven't created any moods yet. Create a new mood.",
+      createMoods: 'Create New Moods',
       writeNewDiary: 'Write a New Diary',
-      intensity: 'Emotion Intensity',
-      save: 'Save Emotion',
+      intensity: 'Mood Intensity',
+      save: 'Save Mood',
       moodColor: {
-        title: 'Select Emotion Color',
-        description: 'Choose a color that matches your emotion',
+        title: 'Select Mood Color',
+        description: 'Choose a color that matches your mood',
       },
     },
   },

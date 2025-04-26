@@ -90,3 +90,7 @@ export const isValidEmail = (email: string) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   return emailRegex.test(email)
 }
+
+export const delay = (fn: any, ms = 300) => {
+  return Promise.resolve(setTimeout(fn, ms))
+}

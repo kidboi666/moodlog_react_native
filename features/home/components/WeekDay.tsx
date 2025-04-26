@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { XStack, styled } from 'tamagui'
 import { LinearGradient } from 'tamagui/linear-gradient'
 
-import { AnimatedEntry, H1 } from '@/shared/components'
+import { Delay, H1 } from '@/shared/components'
 import { ANIMATION_DELAY_MS } from '@/shared/constants'
 import { getMonthKey } from '@/shared/utils'
 import { HorizontalCalendar } from './calendar/HorizontalCalendar'
@@ -36,7 +36,7 @@ export const WeekDay = memo(() => {
   const { t } = useTranslation()
 
   return (
-    <AnimatedEntry delay={ANIMATION_DELAY_MS[2]}>
+    <Delay delay={ANIMATION_DELAY_MS[2]}>
       <OuterGradientBox>
         <InnerGradientBox>
           <CurrentMonthBox>
@@ -47,6 +47,6 @@ export const WeekDay = memo(() => {
           <HorizontalCalendar />
         </InnerGradientBox>
       </OuterGradientBox>
-    </AnimatedEntry>
+    </Delay>
   )
 })

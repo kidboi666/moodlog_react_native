@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { ScrollView, XStack, YStack } from 'tamagui'
 
-import { AnimatedEntry, H1, ViewContainer } from '@/shared/components'
+import { Delay, H1, ViewContainer } from '@/shared/components'
 import { ANIMATION_DELAY_MS } from '@/shared/constants'
 import { useCalendar } from '@/shared/hooks'
 import type { ISOMonthString } from '@/shared/types'
@@ -26,7 +26,7 @@ export default function StatisticScreen() {
         <XStack justify='space-between' items='flex-end'>
           <H1>{t('statistics.title')}</H1>
         </XStack>
-        <AnimatedEntry delay={ANIMATION_DELAY_MS[0]}>
+        <Delay delay={ANIMATION_DELAY_MS[0]}>
           <YStack gap='$4'>
             <XStack gap='$4'>
               <TotalCount
@@ -40,7 +40,7 @@ export default function StatisticScreen() {
             </XStack>
             <WeeklyMoodChart selectedMonth={selectedMonth || monthString} />
           </YStack>
-        </AnimatedEntry>
+        </Delay>
       </ViewContainer>
     </ScrollView>
   )

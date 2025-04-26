@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import { useCallback, useEffect, useRef } from 'react'
 import { KeyboardAvoidingView, Platform } from 'react-native'
 import { YStack } from 'tamagui'
@@ -9,21 +9,20 @@ import {
   type EnhancedTextInputRef,
 } from '@/features/write/components'
 import { useAddJournal, useDraftManage } from '@/features/write/hooks'
-import { ViewContainer } from '@/shared/components'
-import { KEYBOARD_VERTICAL_OFFSET, ROUTE_DELAY_MS } from '@/shared/constants'
+import { HeaderContent, ViewContainer } from '@/shared/components'
+import { ROUTE_DELAY_MS } from '@/shared/constants'
 
 export default function WriteDiaryScreen() {
+  const router = useRouter()
   const { moodName, moodLevel } = useLocalSearchParams<{
     moodName: string
     moodLevel: string
   }>()
-
   const { onContentChange, onImageUriChange, draft } = useDraftManage(
     moodName,
     moodLevel,
   )
   const { onSubmit, isSubmitted } = useAddJournal(draft)
-
   const inputRef = useRef<EnhancedTextInputRef>(null)
 
   const handleTimeStamp = useCallback(() => {
@@ -41,12 +40,13 @@ export default function WriteDiaryScreen() {
   }, [])
 
   return (
-    <ViewContainer edges={['bottom']}>
+    <ViewContainer
+      edges={['bottom']}
+      Header={<HeaderContent leftAction={() => router.back()} />}
+    >
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        contentContainerStyle={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'height' : 'padding'}
-        keyboardVerticalOffset={KEYBOARD_VERTICAL_OFFSET}
       >
         <YStack flex={1} gap='$4'>
           <EnhancedTextInput

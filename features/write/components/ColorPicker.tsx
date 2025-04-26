@@ -1,3 +1,4 @@
+import { StyleSheet } from 'react-native'
 import { SharedValue } from 'react-native-reanimated'
 import RnColorPicker, {
   ColorFormatsObject,
@@ -10,7 +11,7 @@ interface Props {
   width: number
 }
 
-export const ColorPicker = ({ sharedColor, width }: Props) => {
+export default function ColorPicker({ sharedColor, width }: Props) {
   const onSelectColor = (color: ColorFormatsObject) => {
     'worklet'
 
@@ -19,12 +20,20 @@ export const ColorPicker = ({ sharedColor, width }: Props) => {
 
   return (
     <RnColorPicker
-      style={{ gap: 12, flexDirection: 'row', width }}
+      style={[styles.container, { width }]}
       value={sharedColor.value}
       onComplete={onSelectColor}
     >
-      <Panel1 style={{ flex: 1 }} />
+      <Panel1 style={styles.panel} />
       <HueSlider vertical />
     </RnColorPicker>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    gap: 12,
+    flexDirection: 'row',
+  },
+  panel: { flex: 1 },
+})

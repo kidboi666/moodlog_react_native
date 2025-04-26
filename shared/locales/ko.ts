@@ -28,6 +28,7 @@ export const ko = {
     addCover: '커버 추가',
     timeStamp: '타임 스탬프',
     skip: '생략하기',
+    write: '일기 작성하러 가기',
     units: {
       month: '월',
       count: '개',
@@ -37,11 +38,6 @@ export const ko = {
       zero: '약간',
       half: '적당히',
       full: '매우',
-      happy: '행복',
-      sad: '슬픔',
-      angry: '화남',
-      peace: '평화',
-      simple: '감정 점수',
     },
     add: '추가',
   },
@@ -73,6 +69,10 @@ export const ko = {
     deleteJournal: {
       title: '일기 삭제',
       description: '이 일기를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.',
+    },
+    deleteMood: {
+      title: '감정 삭제',
+      description: '이 감정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.',
     },
   },
   placeholders: {

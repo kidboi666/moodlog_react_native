@@ -20,22 +20,16 @@ import {
 } from 'react-native-reanimated'
 import { View } from 'tamagui'
 
-import { useStepProgress } from 'shared/store'
+import { useStepProgress } from '@/shared/store'
 
 interface Props {
   name: string
-  color: SharedValue<string>
+  color: SharedValue<string> | string
 }
 
 export const MoodPreview = ({ name, color }: Props) => {
   const { currentStep } = useStepProgress()
-  const fontMgr = useFonts({
-    LeeSeoyun: [require('../../../assets/fonts/LeeSeoyun-Regular.ttf')],
-  })
   const paragraph = useMemo(() => {
-    if (!fontMgr) {
-      return null
-    }
     const paragraphStyle = {
       textAlign: TextAlign.Center,
     }
@@ -43,8 +37,9 @@ export const MoodPreview = ({ name, color }: Props) => {
       color: Skia.Color('white'),
       fontFamily: 'LeeSeoyun',
       fontSize: 24,
+      fontWeight: '600',
     }
-    return Skia.ParagraphBuilder.Make(paragraphStyle, fontMgr)
+    return Skia.ParagraphBuilder.Make(paragraphStyle)
       .pushStyle(textStyle)
       .addText(name)
       .pop()

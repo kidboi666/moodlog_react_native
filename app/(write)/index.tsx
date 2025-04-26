@@ -1,37 +1,55 @@
 import { useRouter } from 'expo-router'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  Button,
-  Card,
-  GetThemeValueForKey,
-  ScrollView,
-  Separator,
-  View,
-  XStack,
-  YStack,
-} from 'tamagui'
+import { FlatList, useWindowDimensions } from 'react-native'
+import { Button, View, XStack, YStack } from 'tamagui'
 
-import { ROUTE_DELAY_MS } from 'shared/constants'
-import { useMood, useUI } from 'shared/store'
-import { MoodLevel } from 'shared/types'
-
+import { MoodPreview } from '@/features/mood/components'
+import { useDeleteMood } from '@/features/mood/hooks'
 import {
-  AnimatedEntry,
-  BaseText,
+  Delay,
   H3,
   HeaderContent,
+  PaginationDot,
+  PressableButton,
   ViewContainer,
 } from '@/shared/components'
+import {
+  CONTAINER_HORIZONTAL_PADDING,
+  CONTAINER_MARGIN_TOP,
+  ROUTE_DELAY_MS,
+} from '@/shared/constants'
+import { useMood, useUI } from '@/shared/store'
+import { MoodLevel } from '@/shared/types'
+import { ChevronLeft, ChevronRight, Trash } from '@tamagui/lucide-icons'
 
 export default function SelectMoodScreen() {
   const router = useRouter()
   const { t } = useTranslation()
+  const { width } = useWindowDimensions()
+  const { openDeleteSheet } = useDeleteMood()
   const myMoods = useMood(state => state.moods)
   const setNavigating = useUI(state => state.setNavigating)
-  const [selectedMoodId, setSelectedMoodId] = useState<string | null>(null)
+  const [selectedMoodId, setSelectedMoodId] = useState(
+    Object.keys(myMoods)[0] || '',
+  )
+  const [[page, totalPage], setPage] = useState([
+    0,
+    Object.keys(myMoods).length,
+  ])
+  const flatListRef = useRef<FlatList<any>>(null)
 
-  // 선택한 감정으로 일기 작성 페이지로 이동
+  const handleLeftPress = () => {
+    setPage(([page, totalPage]) => [
+      (page + totalPage - 1) % totalPage,
+      totalPage,
+    ])
+  }
+
+  const handleRightPress = () => {
+    setPage(([page, totalPage]) => [(page + 1) % totalPage, totalPage])
+  }
+
   const handleNext = () => {
     if (!selectedMoodId) return
 
@@ -73,66 +91,83 @@ export default function SelectMoodScreen() {
     return null
   }
 
+  useEffect(() => {
+    if (flatListRef.current) {
+      flatListRef.current.scrollToIndex({
+        index: page,
+        animated: true,
+      })
+    }
+  }, [page])
+
   return (
-    <AnimatedEntry flex={1}>
+    <Delay flex={1}>
       <ViewContainer
         edges={['bottom']}
-        Header={<HeaderContent leftAction={() => router.back()} />}
+        px={0}
+        Header={
+          <HeaderContent
+            px={CONTAINER_HORIZONTAL_PADDING}
+            leftAction={() => router.back()}
+            rightAction={() => openDeleteSheet(selectedMoodId)}
+            rightActionIcon={Trash}
+          />
+        }
       >
-        <YStack flex={1} gap='$4' style={{ padding: 16 }}>
-          <H3>{t('moods.my.selectTitle')}</H3>
-          <Separator />
-
-          <Button
-            size='$4'
-            theme='blue'
-            onPress={handleCreateMood}
-            style={{ marginVertical: 8 }}
-          >
-            {t('moods.my.createMoods')}
-          </Button>
-
-          <ScrollView style={{ flex: 1 }}>
-            <YStack gap='$3' style={{ paddingVertical: 8 }}>
-              {Object.values(myMoods).map(mood => (
-                <Card
-                  key={mood.id}
-                  pressStyle={{ scale: 0.98 }}
-                  animation='quick'
-                  bordered={selectedMoodId === mood.id}
-                  borderWidth={selectedMoodId === mood.id ? 2 : 0}
-                  borderColor='$blue10'
-                  onPress={() => setSelectedMoodId(mood.id)}
-                >
-                  <Card.Header padded>
-                    <XStack gap='$2' items='center'>
-                      <View
-                        width={16}
-                        height={16}
-                        rounded='$4'
-                        bg={
-                          mood.color as GetThemeValueForKey<'backgroundColor'>
-                        }
-                      />
-                      <BaseText fontSize='$5'>{mood.name}</BaseText>
-                    </XStack>
-                  </Card.Header>
-                </Card>
-              ))}
-            </YStack>
-          </ScrollView>
-
-          <Button
-            size='$5'
-            theme='active'
-            disabled={!selectedMoodId}
-            onPress={handleNext}
-            style={{ marginTop: 8 }}
-          >
-            {t('common.next')}
-          </Button>
+        <YStack flex={1} gap='$4' mt={CONTAINER_MARGIN_TOP}>
+          <FlatList
+            ref={flatListRef}
+            data={Object.values(myMoods)}
+            renderItem={({ item }) => (
+              <View width={width}>
+                <MoodPreview name={item.name} color={item.color} />
+              </View>
+            )}
+            showsHorizontalScrollIndicator={false}
+            snapToAlignment='start'
+            snapToInterval={width}
+            keyExtractor={item => item.id}
+            onViewableItemsChanged={({ viewableItems }) => {
+              setSelectedMoodId(viewableItems[0]?.item?.id || '')
+            }}
+            onMomentumScrollEnd={({ nativeEvent }) => {
+              const page = Math.round(nativeEvent.contentOffset.x / width)
+              setPage([page, totalPage])
+            }}
+            pagingEnabled
+            decelerationRate='fast'
+            horizontal
+          />
+          <YStack gap='$4' px={CONTAINER_HORIZONTAL_PADDING}>
+            <XStack justify='space-between' items='center'>
+              <Button
+                bg='transparent'
+                icon={ChevronLeft}
+                onPress={handleLeftPress}
+              />
+              <H3>{t('moods.my.selectTitle')}</H3>
+              <Button
+                bg='transparent'
+                icon={ChevronRight}
+                onPress={handleRightPress}
+              />
+            </XStack>
+            <PaginationDot totalPage={totalPage} page={page} />
+          </YStack>
+          <YStack px={CONTAINER_HORIZONTAL_PADDING}>
+            <PressableButton onPress={handleCreateMood}>
+              {t('moods.my.createMoods')}
+            </PressableButton>
+            <PressableButton
+              disabled={!selectedMoodId}
+              onPress={handleNext}
+              style={{ marginTop: 8 }}
+            >
+              {t('common.ok')}
+            </PressableButton>
+          </YStack>
         </YStack>
       </ViewContainer>
-    </AnimatedEntry>
+    </Delay>
   )
 }

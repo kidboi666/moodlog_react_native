@@ -6,20 +6,20 @@ import { BaseText, H3, PressableButton } from '@/shared/components'
 import type { BottomSheetProps, BottomSheetType } from '@/shared/types'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 
-export const DeleteJournalModal = memo(
+export const DeleteMoodModal = memo(
   ({
-    journalId,
+    moodId,
+    onDelete,
     isLoading,
     hideBottomSheet,
-    onDelete,
-  }: BottomSheetProps[BottomSheetType.DELETE_JOURNAL]) => {
+  }: BottomSheetProps[BottomSheetType.DELETE_MOOD]) => {
     const { t } = useTranslation()
     const [isSuccess, setIsSuccess] = useState(false)
 
     const handleDelete = useCallback(() => {
-      onDelete(journalId)
+      onDelete(moodId)
       setIsSuccess(true)
-    }, [journalId, onDelete, hideBottomSheet])
+    }, [moodId, onDelete, hideBottomSheet])
 
     useEffect(() => {
       if (isSuccess) {
@@ -35,9 +35,9 @@ export const DeleteJournalModal = memo(
 
     return (
       <BottomSheetContainer>
-        <H3 text='center'>{t('modals.deleteJournal.title')}</H3>
+        <H3 text='center'>{t('modals.deleteMood.title')}</H3>
         <BaseText color='$color11'>
-          {t('modals.deleteJournal.description')}
+          {t('modals.deleteMood.description')}
         </BaseText>
         <YStack gap='$3' mt='$2'>
           <PressableButton

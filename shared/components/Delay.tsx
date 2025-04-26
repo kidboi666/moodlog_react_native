@@ -50,7 +50,7 @@ interface Props extends ViewProps {
   variant?: 'falldown' | 'float' | 'fade'
 }
 
-export const AnimatedEntry = StyledAnimateMount.styleable<Props>(
+export const Delay = StyledAnimateMount.styleable<Props>(
   (
     { delay = ANIMATION_DELAY_MS[0], variant = 'fade', children, ...props },
     ref,
@@ -70,4 +70,4 @@ export const AnimatedEntry = StyledAnimateMount.styleable<Props>(
   },
 )
 
-AnimatedEntry.displayName = 'AnimateMount'
+Delay.displayName = 'DelayComponent'

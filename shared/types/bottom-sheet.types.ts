@@ -3,6 +3,7 @@ export enum BottomSheetType {
   SIGN_UP = 'SIGN_UP',
   SIGN_IN = 'SIGN_IN',
   LOGOUT = 'LOGOUT',
+  DELETE_MOOD = 'DELETE_MOOD',
 }
 
 export type BottomSheetProps = {
@@ -15,6 +16,12 @@ export type BottomSheetProps = {
   [BottomSheetType.SIGN_UP]: {}
   [BottomSheetType.SIGN_IN]: {}
   [BottomSheetType.LOGOUT]: {
+    hideBottomSheet: () => void
+  }
+  [BottomSheetType.DELETE_MOOD]: {
+    moodId: string
+    isLoading: boolean
+    onDelete: (moodId: string) => void
     hideBottomSheet: () => void
   }
 }

@@ -12,7 +12,6 @@ import { PressableButton } from './PressableButton'
 
 export const StyledHeaderContent = styled(XStack, {
   py: CONTAINER_VERTICAL_PADDING,
-  px: CONTAINER_HORIZONTAL_PADDING,
   justify: 'space-between',
   items: 'center',
 
@@ -36,6 +35,7 @@ interface Props extends XStackProps {
   leftActionIcon?: any
   rightActionIcon?: any
   rightAction?: () => void
+  rightActionDisabled?: boolean
 }
 
 const StyledHeaderContainer = StyledHeaderContent.styleable<Props>(
@@ -47,6 +47,7 @@ const StyledHeaderContainer = StyledHeaderContent.styleable<Props>(
       leftActionIcon = ArrowLeft,
       rightAction,
       rightActionIcon = ArrowRight,
+      rightActionDisabled = false,
       ...props
     },
     ref,
@@ -72,6 +73,7 @@ const StyledHeaderContainer = StyledHeaderContent.styleable<Props>(
             <PressableButton
               icon={rightActionIcon ?? ArrowRight}
               onPress={rightAction}
+              disabled={rightActionDisabled}
             />
           </>
         )}

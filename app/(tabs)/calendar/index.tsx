@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, YStack } from 'tamagui'
 
-import { AnimatedEntry, H1, ViewContainer } from '@/shared/components'
+import { Delay, H1, ViewContainer } from '@/shared/components'
 import { ANIMATION_DELAY_MS } from '@/shared/constants'
 import { useJournal } from '@/shared/store'
 
@@ -27,9 +27,9 @@ export default function EntriesScreen() {
     <ScrollView>
       <ViewContainer edges={['top']} padded gap='$4'>
         <H1>{t('entries.title')}</H1>
-        <AnimatedEntry delay={ANIMATION_DELAY_MS[0]}>
+        <Delay delay={ANIMATION_DELAY_MS[0]}>
           <GardenSection />
-        </AnimatedEntry>
+        </Delay>
 
         <YStack gap='$6'>
           {Array.isArray(selectedJournals) && selectedJournals.length > 0 ? (
