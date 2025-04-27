@@ -6,20 +6,18 @@ import { View } from 'tamagui'
 
 import {
   FormSectionFromChooseMoodScreen,
-  MoodLevelForm,
   MoodPreview,
-  PaginationButton,
 } from '@/features/mood/components'
 import { useDeleteMood } from '@/features/mood/hooks'
+import { MoodRecordFlow } from '@/features/write/components'
 import { StepProgressProvider } from '@/providers'
 import {
   Delay,
   HeaderContent,
-  PaginationDot,
   StepDot,
   ViewContainer,
 } from '@/shared/components'
-import { DelayMS, Layout } from '@/shared/constants'
+import { DelayMS } from '@/shared/constants'
 import { useMood, useStepProgress, useUI } from '@/shared/store'
 import { MoodLevel } from '@/shared/types'
 
@@ -119,26 +117,18 @@ export default function SelectMoodScreen() {
             decelerationRate='fast'
             horizontal
           />
-          <View height={Layout.HEIGHT.WRITE_PROGRESS_BAR_HEIGHT}>
-            {currentStep === 0 && (
-              <>
-                <PaginationButton
-                  page={page}
-                  totalPage={totalPage}
-                  onLeftPress={handleLeftPress}
-                  onRightPress={handleRightPress}
-                />
-                <PaginationDot totalPage={totalPage} page={page} />
-              </>
-            )}
-            {currentStep === 1 && (
-              <MoodLevelForm
-                moodColor={moods[selectedMoodId].color}
-                moodLevel={moodLevel}
-                setMoodLevel={setMoodLevel}
-              />
-            )}
-          </View>
+          <MoodRecordFlow
+            page={page}
+            totalPage={totalPage}
+            currentStep={currentStep}
+            moods={moods}
+            moodLevel={moodLevel}
+            setMoodLevel={setMoodLevel}
+            selectedMoodId={selectedMoodId}
+            onLeftPress={handleLeftPress}
+            onRightPress={handleRightPress}
+            onSubmit={handleSubmit}
+          />
           <FormSectionFromChooseMoodScreen
             selectedMoodId={selectedMoodId}
             totalPage={totalPage}

@@ -18,7 +18,6 @@ export const Layout = {
   },
   SNAP_POINTS: {
     DELETE: Platform.OS === 'ios' ? [35] : [30],
-    SELECT_MOOD: [80],
     JOURNAL_WRITE: Platform.OS === 'ios' ? [80] : [60],
     LOGOUT: Platform.OS === 'ios' ? [40] : [30],
     AUTH: [70],

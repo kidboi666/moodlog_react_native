@@ -17,15 +17,17 @@ import {
 } from '@/shared/constants'
 import { MoodLevel } from '@/shared/types'
 
+interface Props {
+  moodColor: string
+  moodLevel?: MoodLevel
+  setMoodLevel: (moodLevel: MoodLevel) => void
+}
+
 export const MoodLevelForm = ({
   moodColor,
   moodLevel,
   setMoodLevel,
-}: {
-  moodColor: string
-  moodLevel?: MoodLevel
-  setMoodLevel: (moodLevel: MoodLevel) => void
-}) => {
+}: Props) => {
   const { t } = useTranslation()
 
   return (

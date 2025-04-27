@@ -15,7 +15,7 @@ export const useDraftManage = (moodName: string, moodLevel: string) => {
   const [draft, setDraft] = useState<Draft>({
     content: '',
     mood: {
-      name: moodName,
+      id: moodName,
       level: moodLevel as MoodLevel,
     },
     imageUri: [],

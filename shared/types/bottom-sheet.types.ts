@@ -4,6 +4,7 @@ export enum BottomSheetType {
   SIGN_IN = 'SIGN_IN',
   LOGOUT = 'LOGOUT',
   DELETE_MOOD = 'DELETE_MOOD',
+  WRITE_JOURNAL = 'WRITE_JOURNAL',
 }
 
 export type BottomSheetProps = {
@@ -24,4 +25,5 @@ export type BottomSheetProps = {
     onDelete: (moodId: string) => void
     hideBottomSheet: () => void
   }
+  [BottomSheetType.WRITE_JOURNAL]: {}
 }

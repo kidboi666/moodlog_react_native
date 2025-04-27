@@ -81,16 +81,12 @@ export const WriteButton = memo(() => {
 
 const menuList = [
   {
-    title: 'moods.my.selectTitle',
-    route: '/(write)',
-  },
-  {
     title: 'moods.my.createMoods',
     route: '/(write)/create_mood',
   },
   {
     title: 'moods.my.writeNewDiary',
-    route: '/(write)/write_diary',
+    route: '/(write)',
   },
 ]
 
