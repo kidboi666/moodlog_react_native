@@ -4,6 +4,16 @@ import { YStack, styled } from 'tamagui'
 
 import { BaseText, H3 } from '@/shared/components'
 
+export const GardenTitleHeader = memo(() => {
+  const { t } = useTranslation()
+  return (
+    <GardenTitleHeaderContainer>
+      <GardenTitle>{t('entries.garden.title')}</GardenTitle>
+      <GardenDescription>{t('entries.garden.description')}</GardenDescription>
+    </GardenTitleHeaderContainer>
+  )
+})
+
 const GardenTitleHeaderContainer = styled(YStack, {
   gap: '$2',
 })
@@ -14,14 +24,4 @@ const GardenTitle = styled(H3, {
 
 const GardenDescription = styled(BaseText, {
   color: '$color12',
-})
-
-export const GardenTitleHeader = memo(() => {
-  const { t } = useTranslation()
-  return (
-    <GardenTitleHeaderContainer>
-      <GardenTitle>{t('entries.garden.title')}</GardenTitle>
-      <GardenDescription>{t('entries.garden.description')}</GardenDescription>
-    </GardenTitleHeaderContainer>
-  )
 })

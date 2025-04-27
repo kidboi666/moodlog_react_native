@@ -1,4 +1,4 @@
-import {Nullable} from "./util.types";
+import { Nullable } from './util.types'
 
 export type UserInfo = {
   id: string
@@ -9,7 +9,7 @@ export type UserInfo = {
   avatarUrl: Nullable<string>
 }
 
-export type NewUserInfo = {} & Partial<
+export type NewUserInfo = Partial<
   Pick<UserInfo, 'email' | 'age' | 'avatarUrl' | 'userName'>
 >
 

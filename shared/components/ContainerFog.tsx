@@ -4,35 +4,7 @@ import { styled, useTheme } from 'tamagui'
 import { Platform } from 'react-native'
 import { LinearGradient } from 'tamagui/linear-gradient'
 
-const TopFog = styled(LinearGradient, {
-  position: 'absolute',
-  t: 0,
-  l: 0,
-  r: 0,
-  height: 80,
-  z: 100,
-  start: [0, 0],
-  end: [0, 1],
-  pointerEvents: 'none',
-})
-
-const BottomFog = styled(LinearGradient, {
-  position: 'absolute',
-  b: Platform.OS === 'ios' ? 94 : 80,
-  l: 0,
-  r: 0,
-  height: 30,
-  z: 1,
-  start: [0, 0],
-  end: [0, 1],
-  pointerEvents: 'none',
-})
-
-interface Props {
-  shouldHideTabBar: boolean
-}
-
-export const ContainerFog = memo(({ shouldHideTabBar }: Props) => {
+export const ContainerFog = memo(() => {
   const theme = useTheme()
 
   const hexToRgb = (hex: string) => {
@@ -67,4 +39,28 @@ export const ContainerFog = memo(({ shouldHideTabBar }: Props) => {
       />
     </Fragment>
   )
+})
+
+const TopFog = styled(LinearGradient, {
+  position: 'absolute',
+  t: 0,
+  l: 0,
+  r: 0,
+  height: 80,
+  z: 100,
+  start: [0, 0],
+  end: [0, 1],
+  pointerEvents: 'none',
+})
+
+const BottomFog = styled(LinearGradient, {
+  position: 'absolute',
+  b: Platform.OS === 'ios' ? 94 : 80,
+  l: 0,
+  r: 0,
+  height: 30,
+  z: 1,
+  start: [0, 0],
+  end: [0, 1],
+  pointerEvents: 'none',
 })

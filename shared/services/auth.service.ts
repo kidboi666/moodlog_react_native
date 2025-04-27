@@ -1,12 +1,12 @@
 import { supabase } from '@/lib/supabase'
 import { Session } from '@supabase/supabase-js'
 
-export const AuthService = {
-  checkPremiumStatus: async () => {
+export class AuthService {
+  static async checkPremiumStatus(): Promise<boolean> {
     return Promise.resolve(false)
-  },
+  }
 
-  signInAnonymously: async (draftUserName: string) => {
+  static async signInAnonymously(draftUserName: string) {
     const { data, error } = await supabase.auth.signInAnonymously({
       options: {
         data: { user_name: draftUserName },
@@ -19,12 +19,12 @@ export const AuthService = {
     }
 
     return data
-  },
+  }
 
-  onAuthStateChange: (
+  static onAuthStateChange(
     setSession: (session: Session | null) => void,
     clearSession: () => void,
-  ) => {
+  ) {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
@@ -37,5 +37,5 @@ export const AuthService = {
     })
 
     return subscription
-  },
+  }
 }

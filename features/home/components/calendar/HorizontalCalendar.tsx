@@ -4,29 +4,15 @@ import { ScrollView, XStack, styled } from 'tamagui'
 import { HorizontalCalendarContent } from '@/features/home/components'
 import { JournalUtils } from '@/features/journal/utils'
 import {
-  CALENDAR_SCROLL_SIZE,
+  DelayMS,
+  Layout,
   MOUNT_STYLE,
   MOUNT_STYLE_KEY,
 } from '@/shared/constants'
 import { useCalendar } from '@/shared/hooks'
 import { useJournal } from '@/shared/store'
 import { ISODateString } from '@/shared/types'
-import {
-  getDateFromISODate,
-  getDayIndexFromISODate,
-  getISODateString,
-  getLastDate,
-} from '@/shared/utils'
-
-const CalendarContainer = styled(XStack, {
-  animation: 'quick',
-  animateOnly: MOUNT_STYLE_KEY,
-  enterStyle: MOUNT_STYLE,
-  flex: 1,
-  justify: 'center',
-  rounded: '$4',
-  items: 'center',
-})
+import { DateUtils } from '@/shared/utils'
 
 export const HorizontalCalendar = () => {
   const selectJournals = useJournal(state => state.selectJournals)
@@ -43,7 +29,7 @@ export const HorizontalCalendar = () => {
     isSelected,
   } = useCalendar()
 
-  const handlePress = useCallback(
+  const handleSelectedJournalsChange = useCallback(
     (date: ISODateString) => {
       const selectedJournals = JournalUtils.getJournals(
         { journals, indexes },
@@ -52,15 +38,15 @@ export const HorizontalCalendar = () => {
       onSelectedDateChange(date)
       selectJournals(selectedJournals)
     },
-    [onSelectedDateChange],
+    [onSelectedDateChange, journals, indexes, selectJournals],
   )
 
   const dates: Record<ISODateString, number> = useMemo(() => {
-    const lastDate = getLastDate(currentYear, currentMonth)
+    const lastDate = DateUtils.getLastDate(currentYear, currentMonth)
     const datesWithJournalCount: Record<ISODateString, number> = {}
 
     for (let i = 1; i <= lastDate; i++) {
-      const dateKey = getISODateString(currentYear, currentMonth, i)
+      const dateKey = DateUtils.getISODateString(currentYear, currentMonth, i)
       datesWithJournalCount[dateKey] = JournalUtils.getCountForDate(
         indexes,
         currentYear,
@@ -75,20 +61,26 @@ export const HorizontalCalendar = () => {
     let timeout: NodeJS.Timeout
 
     if (selectedDate) {
-      const selectedIndex = getDateFromISODate(selectedDate)
-      const day = getDayIndexFromISODate(selectedDate) || 7
+      const selectedIndex = DateUtils.getDateFromISODate(selectedDate)
+      const day = DateUtils.getDayIndexFromISODate(selectedDate) || 7
       timeout = setTimeout(() => {
         if (selectedIndex !== -1 && scrollViewRef.current) {
           scrollViewRef.current.scrollTo({
-            x: (selectedIndex - day) * CALENDAR_SCROLL_SIZE,
+            x: (selectedIndex - day) * Layout.SPACE.CALENDAR_SCROLL_SIZE,
             animated: true,
           })
         }
-      }, 1300)
+      }, DelayMS.ANIMATION.LONG[0])
     }
 
     return () => clearTimeout(timeout)
   }, [dates, selectedDate])
+
+  useEffect(() => {
+    if (selectedDate) {
+      handleSelectedJournalsChange(selectedDate)
+    }
+  }, [])
 
   return (
     <CalendarContainer>
@@ -98,7 +90,7 @@ export const HorizontalCalendar = () => {
         showsHorizontalScrollIndicator={false}
         decelerationRate='normal'
         snapToAlignment='start'
-        snapToInterval={CALENDAR_SCROLL_SIZE}
+        snapToInterval={Layout.SPACE.CALENDAR_SCROLL_SIZE}
       >
         {Object.entries(dates).map(([date, journalCount]) => {
           const isoDate = date as ISODateString
@@ -112,7 +104,7 @@ export const HorizontalCalendar = () => {
               key={isoDate}
               selected={isSelected(isoDate)}
               today={isToday(isoDate)}
-              onPress={() => handlePress(isoDate)}
+              onPress={() => handleSelectedJournalsChange(isoDate)}
               futureDateColor={dateColor}
               date={isoDate}
               journalCount={journalCount}
@@ -123,3 +115,13 @@ export const HorizontalCalendar = () => {
     </CalendarContainer>
   )
 }
+
+const CalendarContainer = styled(XStack, {
+  animation: 'quick',
+  animateOnly: MOUNT_STYLE_KEY,
+  enterStyle: MOUNT_STYLE,
+  flex: 1,
+  justify: 'center',
+  rounded: '$4',
+  items: 'center',
+})

@@ -4,11 +4,7 @@ import { Platform } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { XStack, styled } from 'tamagui'
 
-import {
-  MOUNT_STYLE,
-  MOUNT_STYLE_KEY,
-  TAB_BAR_HEIGHT,
-} from '@/shared/constants'
+import { Layout, MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/shared/constants'
 import {
   CalendarTab,
   HomeTab,
@@ -44,7 +40,7 @@ export const CustomTabBar = () => {
   return (
     <>
       <StyledContainer
-        height={TAB_BAR_HEIGHT + insets.bottom}
+        height={Layout.HEIGHT.TAB_BAR_HEIGHT + insets.bottom}
         pb={insets.bottom}
         pt={Platform.OS === 'ios' ? '$4' : undefined}
       >

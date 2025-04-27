@@ -7,7 +7,7 @@ import {
   WeeklyMoodChart,
 } from '@/features/statistic/components'
 import { Delay, H1, ViewContainer } from '@/shared/components'
-import { ANIMATION_DELAY_MS } from '@/shared/constants'
+import { DelayMS } from '@/shared/constants'
 import { useCalendar } from '@/shared/hooks'
 import type { ISOMonthString } from '@/shared/types'
 
@@ -25,7 +25,7 @@ export default function StatisticScreen() {
         <XStack justify='space-between' items='flex-end'>
           <H1>{t('statistics.title')}</H1>
         </XStack>
-        <Delay delay={ANIMATION_DELAY_MS[0]}>
+        <Delay delay={DelayMS.ANIMATION.LONG[0]}>
           <YStack gap='$4'>
             <XStack gap='$4'>
               <TotalCount

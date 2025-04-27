@@ -3,16 +3,18 @@ import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { H2, H3, XStack, YStack } from 'tamagui'
+import { XStack, YStack } from 'tamagui'
 
 import {
   BaseText,
   Delay,
   FormInput,
+  H2,
+  H3,
   PressableButton,
   ViewContainer,
 } from '@/shared/components'
-import { ANIMATION_DELAY_MS_LONG } from '@/shared/constants'
+import { DelayMS } from '@/shared/constants'
 import { AuthService } from '@/shared/services'
 import { useStepProgress } from '@/shared/store'
 
@@ -62,13 +64,13 @@ export default function Screen() {
   return (
     <ViewContainer edges={['bottom']}>
       <YStack flex={1} gap='$6'>
-        <Delay delay={ANIMATION_DELAY_MS_LONG[0]}>
+        <Delay delay={DelayMS.ANIMATION.LONG[0]}>
           <H2>{t('onboarding.nickname.title')}</H2>
         </Delay>
-        <Delay delay={ANIMATION_DELAY_MS_LONG[1]}>
+        <Delay delay={DelayMS.ANIMATION.LONG[1]}>
           <H3 color='$gray11'>{t('onboarding.nickname.description')}</H3>
         </Delay>
-        <Delay delay={ANIMATION_DELAY_MS_LONG[2]}>
+        <Delay delay={DelayMS.ANIMATION.LONG[2]}>
           <FormInput
             value={draftUserName}
             onChangeText={handleDraftUserNameChange}
@@ -77,7 +79,7 @@ export default function Screen() {
           {error && <BaseText color='$red9'>{error.message}</BaseText>}
         </Delay>
       </YStack>
-      <Delay delay={ANIMATION_DELAY_MS_LONG[3]}>
+      <Delay delay={DelayMS.ANIMATION.LONG[3]}>
         <XStack justify='space-between'>
           <PressableButton
             icon={ArrowLeft}

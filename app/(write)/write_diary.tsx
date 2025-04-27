@@ -10,7 +10,7 @@ import {
 } from '@/features/write/components'
 import { useAddJournal, useDraftManage } from '@/features/write/hooks'
 import { HeaderContent, ViewContainer } from '@/shared/components'
-import { ROUTE_DELAY_MS } from '@/shared/constants'
+import { DelayMS } from '@/shared/constants'
 
 export default function WriteDiaryScreen() {
   const router = useRouter()
@@ -34,7 +34,7 @@ export default function WriteDiaryScreen() {
       requestAnimationFrame(() => {
         inputRef.current?.focus()
       })
-    }, ROUTE_DELAY_MS)
+    }, DelayMS.ROUTE)
 
     return () => clearTimeout(focusTimer)
   }, [])

@@ -2,7 +2,6 @@ import { memo } from 'react'
 import { YStack } from 'tamagui'
 
 import type { ISOMonthString, MonthKey } from '@/shared/types'
-
 import { Garden } from './Garden'
 import { GardenMonthUnits } from './GardenMonthUnits'
 

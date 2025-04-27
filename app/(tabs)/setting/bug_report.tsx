@@ -26,7 +26,7 @@ export default function BugReport() {
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: 'images',
       allowsEditing: true,
       quality: 1,
     })
@@ -46,7 +46,6 @@ export default function BugReport() {
 
     try {
       // TODO: 실제 제출 기능 구현
-      // 예: 이메일 전송 API 호출 또는 데이터베이스에 저장
       await new Promise(resolve => setTimeout(resolve, 1000)) // 가상 지연
 
       Alert.alert(

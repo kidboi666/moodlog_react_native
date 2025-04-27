@@ -86,7 +86,7 @@ export default function JournalScreen() {
                 <H3 color='$gray11'>
                   {t(`moods.levels.${selectedJournal.mood.level}`)}
                 </H3>
-                <H3>{selectedJournal.mood.name}</H3>
+                <H3>{selectedJournal.mood.id}</H3>
               </XStack>
               {Array.isArray(selectedJournal.imageUri) && (
                 <ScrollView horizontal>

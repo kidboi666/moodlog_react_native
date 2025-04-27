@@ -1,5 +1,3 @@
-import { BounceInUp, Easing } from 'react-native-reanimated'
-
 export const MOUNT_STYLE = {
   opacity: 0,
   scale: 0.92,
@@ -20,7 +18,3 @@ export const PRESS_STYLE_KEY = [
   'color',
   'scale',
 ]
-
-export const DEFAULT_BOUNCE_IN_UP = BounceInUp.duration(700).easing(
-  Easing.inOut(Easing.quad),
-)

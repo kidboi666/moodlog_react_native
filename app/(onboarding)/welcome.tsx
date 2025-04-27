@@ -11,7 +11,7 @@ import {
   ShakeEmoji,
   ViewContainer,
 } from '@/shared/components'
-import { ANIMATION_DELAY_MS_LONG } from '@/shared/constants'
+import { DelayMS } from '@/shared/constants'
 import { useStepProgress } from '@/shared/store'
 
 export default function Screen() {
@@ -31,13 +31,13 @@ export default function Screen() {
     <ViewContainer edges={['bottom']}>
       <YStack flex={1}>
         <YStack flex={1} gap='$6'>
-          <Delay delay={ANIMATION_DELAY_MS_LONG[0]}>
+          <Delay delay={DelayMS.ANIMATION.LONG[0]}>
             <XStack gap='$2'>
               <H1>{t('onboarding.welcome.title')}</H1>
               <ShakeEmoji emoji='👋' />
             </XStack>
           </Delay>
-          <Delay delay={ANIMATION_DELAY_MS_LONG[1]}>
+          <Delay delay={DelayMS.ANIMATION.LONG[1]}>
             <YStack gap='$6'>
               <H3 color='$gray11' mb='$4'>
                 {t('onboarding.welcome.description')}
@@ -46,11 +46,11 @@ export default function Screen() {
             </YStack>
           </Delay>
         </YStack>
-        <Delay delay={ANIMATION_DELAY_MS_LONG[2]}>
+        <Delay delay={DelayMS.ANIMATION.LONG[2]}>
           <H2>{t('onboarding.welcome.go')}</H2>
         </Delay>
       </YStack>
-      <Delay delay={ANIMATION_DELAY_MS_LONG[3]}>
+      <Delay delay={DelayMS.ANIMATION.LONG[3]}>
         <PressableButton
           mt='$8'
           self='flex-end'

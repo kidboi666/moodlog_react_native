@@ -29,7 +29,7 @@ export const MoodLevelForm = ({
   const { t } = useTranslation()
 
   return (
-    <AnimatePresence presenceAffectsLayout>
+    <AnimatePresence>
       <YStack
         gap='$4'
         animation='lazy'

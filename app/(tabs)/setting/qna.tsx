@@ -1,18 +1,12 @@
 import { ChevronDown, ChevronLeft } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
-import {
-  Button,
-  Input,
-  ScrollView,
-  Select,
-  Text,
-  TextArea,
-  XStack,
-  YStack,
-} from 'tamagui'
+import { Button, ScrollView, Select, XStack, YStack } from 'tamagui'
+
+import { FormInput, H3, H6, PressableButton } from '@/shared/components'
+import { FormInputArea } from '@/shared/components'
 
 export default function QnA() {
   const router = useRouter()
@@ -70,13 +64,11 @@ export default function QnA() {
             onPress={() => router.back()}
             p={0}
           />
-          <Text fontSize={20} fontWeight='bold'>
-            {t('settings.qna.title')}
-          </Text>
+          <H3>{t('settings.qna.title')}</H3>
         </XStack>
 
         <YStack gap={8}>
-          <Text fontWeight='bold'>{t('settings.qna.categoryLabel')}</Text>
+          <H6>{t('settings.qna.categoryLabel')}</H6>
           <Select value={category} onValueChange={setCategory}>
             <Select.Trigger iconAfter={ChevronDown}>
               <Select.Value
@@ -84,15 +76,24 @@ export default function QnA() {
               />
             </Select.Trigger>
 
-            <Select.Content>
+            <Select.Content zIndex={200_000}>
               <Select.ScrollUpButton />
-              <Select.Viewport>
+              <Select.Viewport minW={200}>
                 <Select.Group>
-                  {categories.map(item => (
-                    <Select.Item key={item.value} value={item.value}>
-                      <Select.ItemText>{item.name}</Select.ItemText>
-                    </Select.Item>
-                  ))}
+                  <Select.Label>Menu</Select.Label>
+                  {useMemo(
+                    () =>
+                      categories.map((item, i) => (
+                        <Select.Item
+                          key={item.value}
+                          index={i}
+                          value={item.value}
+                        >
+                          <Select.ItemText>{item.name}</Select.ItemText>
+                        </Select.Item>
+                      )),
+                    [],
+                  )}
                 </Select.Group>
               </Select.Viewport>
               <Select.ScrollDownButton />
@@ -101,8 +102,8 @@ export default function QnA() {
         </YStack>
 
         <YStack gap={8}>
-          <Text fontWeight='bold'>{t('settings.qna.questionLabel')}</Text>
-          <TextArea
+          <H6>{t('settings.qna.questionLabel')}</H6>
+          <FormInputArea
             height={200}
             placeholder={t('settings.qna.questionPlaceholder')}
             value={question}
@@ -112,8 +113,8 @@ export default function QnA() {
         </YStack>
 
         <YStack gap={8}>
-          <Text fontWeight='bold'>{t('settings.qna.emailLabel')}</Text>
-          <Input
+          <H6>{t('settings.qna.emailLabel')}</H6>
+          <FormInput
             placeholder={t('settings.qna.emailPlaceholder')}
             value={email}
             onChangeText={setEmail}
@@ -122,7 +123,7 @@ export default function QnA() {
           />
         </YStack>
 
-        <Button
+        <PressableButton
           mt={16}
           bg='$blue10'
           color='white'
@@ -132,7 +133,7 @@ export default function QnA() {
           {isSubmitting
             ? t('settings.qna.submitting')
             : t('settings.qna.submitButton')}
-        </Button>
+        </PressableButton>
       </YStack>
     </ScrollView>
   )

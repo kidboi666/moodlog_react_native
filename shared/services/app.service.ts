@@ -1,1 +1,1 @@
-export const AppService = {}
+export class AppService {}

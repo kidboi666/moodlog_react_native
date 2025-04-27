@@ -216,6 +216,10 @@ export const ko = {
       },
     },
   },
+  write: {
+    title: '감정 일기 작성',
+    description: '짧은 나의 감정을 기록하세요.',
+  },
   calendar: {
     days: {
       mon: '월',

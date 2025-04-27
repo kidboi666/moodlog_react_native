@@ -13,36 +13,29 @@ import type {
   SignatureMood,
 } from '@/shared/types'
 import { MoodLevel, TimeRange } from '@/shared/types'
-import {
-  castArray,
-  extractKeys,
-  getDayFromISODate,
-  getDaysBetweenDates,
-  getISOMonthString,
-  getThisWeekArray,
-} from '@/shared/utils'
+import { DateUtils, castArray, extractKeys } from '@/shared/utils'
 
-export const StatisticUtils = {
+export class StatisticUtils {
   /**
    * 각 달마다 작성한 일기의 갯수 가져오기
    */
-  getMonthlyCounts: (
+  static getMonthlyCounts(
     monthIndexes: MonthIndexes,
     selectedYear: number,
-  ): Record<string, number> => {
+  ): Record<string, number> {
     return Object.fromEntries(
       Array.from({ length: 12 }, (_, i) => {
-        const monthString = getISOMonthString(selectedYear, i + 1)
+        const monthString = DateUtils.getISOMonthString(selectedYear, i + 1)
         const monthData = monthIndexes[monthString] || []
         return [monthString, monthData.length]
       }),
     )
-  },
+  }
 
   /**
    * 가장 많은 일기를 작성한 달과 갯수 가져오기
    */
-  getExpressiveMonth: (monthIndexes: MonthIndexes, selectedYear: number) => {
+  static getExpressiveMonth(monthIndexes: MonthIndexes, selectedYear: number) {
     const monthlyCounts = StatisticUtils.getMonthlyCounts(
       monthIndexes,
       selectedYear,
@@ -56,18 +49,20 @@ export const StatisticUtils = {
       },
       { month: '', count: 0 },
     )
-  },
+  }
 
   /**
    * 감정 평균 구하기
    */
-  calculateMoodScoreBoard: (journals: Journal[], moods: Moods): ScoreBoard => {
+  static calculateMoodScoreBoard(
+    journals: Journal[],
+    moods: Moods,
+  ): ScoreBoard {
     const journalMoods = journals.map(journal => journal.mood)
-    console.log(journalMoods)
     const myMoods = journalMoods.map(mood => ({
-      id: moods[mood.name].id,
-      name: mood.name,
-      color: moods[mood.name].color,
+      id: moods[mood.id].id,
+      name: mood.id,
+      color: moods[mood.id].color,
       level: mood.level,
     }))
 
@@ -105,12 +100,12 @@ export const StatisticUtils = {
     })
 
     return myScoreBoard
-  },
+  }
 
   /**
    * 대표 감정 가져오기
    */
-  getSignatureMood: (scoreBoard: ScoreBoard): SignatureMood => {
+  static getSignatureMood(scoreBoard: ScoreBoard): SignatureMood {
     const initialValue: SignatureMood = {
       name: '',
       count: 0,
@@ -128,16 +123,16 @@ export const StatisticUtils = {
       }
       return highest
     }, initialValue)
-  },
+  }
 
   /**
    * 작성 빈도를 구하기 위해 필요한 date 가져오기
    */
-  getISODateStringForFrequency: (
+  static getISODateStringForFrequency(
     indexes: JournalIndexes,
     timeRange: TimeRange,
     selectedTimeUnit: number | ISOMonthString,
-  ) => {
+  ) {
     let dates: string[]
 
     if (timeRange === TimeRange.MONTHLY) {
@@ -157,16 +152,16 @@ export const StatisticUtils = {
     }
 
     return dates.sort((a, b) => a.localeCompare(b))
-  },
+  }
 
   /**
    * 일기 작성 빈도 가져오기
    */
-  getJournalFrequency: (
+  static getJournalFrequency(
     indexes: JournalIndexes,
     timeRange: TimeRange,
     selectedTimeUnit: number | ISOMonthString,
-  ) => {
+  ) {
     const dates = StatisticUtils.getISODateStringForFrequency(
       indexes,
       timeRange,
@@ -177,7 +172,7 @@ export const StatisticUtils = {
     if (dates.length === 0) return 0
 
     dates.reduce((acc, date) => {
-      const diffNum = getDaysBetweenDates(date, acc)
+      const diffNum = DateUtils.getDaysBetweenDates(date, acc)
       if (diffNum !== 0) {
         frequency[diffNum] = (frequency[diffNum] || 0) + 1
       }
@@ -192,12 +187,12 @@ export const StatisticUtils = {
         Object.keys(frequency)[0],
       ),
     )
-  },
+  }
 
   /**
    * 가장 자주 일기를 작성한 요일 가져오기
    */
-  getMostActiveDay: (journals: Journals) => {
+  static getMostActiveDay(journals: Journals) {
     const isArray = Array.isArray(journals)
     if (
       (isArray && journals.length === 0) ||
@@ -208,7 +203,7 @@ export const StatisticUtils = {
     const castJournals = isArray ? journals : castArray(journals)
 
     const days = castJournals.map(journal =>
-      getDayFromISODate(journal.localDate),
+      DateUtils.getDayFromISODate(journal.localDate),
     )
     const frequency: Record<string, number> = {}
 
@@ -220,12 +215,12 @@ export const StatisticUtils = {
       (acc, [day, count]) => (count > frequency[acc] ? day : acc),
       Object.keys(frequency)[0],
     )
-  },
+  }
 
   /**
    * 연간 통계 계산
    */
-  getYearlyStats(
+  static getYearlyStats(
     journalStore: JournalStore,
     moods: Moods,
     timeRange: TimeRange,
@@ -263,17 +258,17 @@ export const StatisticUtils = {
         count: expressiveMonth.count,
       },
     }
-  },
+  }
 
   /**
    * 월간 통계 계산
    */
-  getMonthlyStats: (
+  static getMonthlyStats(
     journalStore: JournalStore,
     moods: Moods,
     timeRange: TimeRange,
     selectedMonth: ISOMonthString,
-  ) => {
+  ) {
     const { journals, indexes } = journalStore
     const monthIds = indexes.byMonth[selectedMonth] || []
     const monthlyJournals = monthIds
@@ -302,17 +297,17 @@ export const StatisticUtils = {
         count: 0,
       },
     }
-  },
+  }
 
   /**
    * 주간 통계 계산
    */
-  getWeeklyStats: (
+  static getWeeklyStats(
     journals: Journals,
     indexes: JournalIndexes,
     selectedDate: ISODateString,
-  ) => {
-    const dates = getThisWeekArray(selectedDate)
+  ) {
+    const dates = DateUtils.getThisWeekArray(selectedDate)
 
     return Object.keys(WEEK_DAY).reduce(
       (scoreBoard, day, index) => {
@@ -325,5 +320,5 @@ export const StatisticUtils = {
       },
       {} as Record<string, JournalMood | null>,
     )
-  },
+  }
 }

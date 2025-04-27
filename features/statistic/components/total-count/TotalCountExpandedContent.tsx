@@ -4,10 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { View, YStack, styled } from 'tamagui'
 
 import { BaseText, H5 } from '@/shared/components'
-import type { ExpressiveMonthStats } from '@/shared/types'
-import { getDaysSinceSignup, getMonthKey } from '@/shared/utils'
-
 import { useAuth } from '@/shared/store'
+import type { ExpressiveMonthStats } from '@/shared/types'
+import { DateUtils } from '@/shared/utils'
 import { EmptyContent } from '../EmptyContent'
 
 export const ViewContainer = styled(View, {
@@ -52,7 +51,7 @@ export const TotalCountExpandedContent = memo(
           <H5>{t('statistics.totalCount.daysSinceSignup.title')}</H5>
           <DescriptionText>
             {t('statistics.totalCount.daysSinceSignup.description', {
-              date: getDaysSinceSignup(session.user.created_at),
+              date: DateUtils.getDaysSinceSignup(session.user.created_at),
             })}
           </DescriptionText>
         </GapBox>
@@ -78,7 +77,9 @@ export const TotalCountExpandedContent = memo(
           <H5>{t('statistics.totalCount.expressiveMonth.title')}</H5>
           <DescriptionText>
             {t('statistics.totalCount.expressiveMonth.description', {
-              month: t(`calendar.months.${getMonthKey(expressiveMonth.month)}`),
+              month: t(
+                `calendar.months.${DateUtils.getMonthKey(expressiveMonth.month)}`,
+              ),
               count: expressiveMonth.count,
             })}
           </DescriptionText>

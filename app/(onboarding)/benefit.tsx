@@ -3,9 +3,6 @@ import { useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, View, XStack, YStack } from 'tamagui'
 
-import { ANIMATION_DELAY_MS_LONG } from '@/shared/constants'
-import { useStepProgress } from '@/shared/store'
-
 import {
   BaseText,
   Delay,
@@ -15,6 +12,8 @@ import {
   PressableButton,
   ViewContainer,
 } from '@/shared/components'
+import { DelayMS } from '@/shared/constants'
+import { useStepProgress } from '@/shared/store'
 
 export default function Screen() {
   const router = useRouter()
@@ -48,7 +47,7 @@ export default function Screen() {
     <ViewContainer edges={['bottom']}>
       <YStack flex={1} gap='$4'>
         <ScrollView>
-          <Delay delay={ANIMATION_DELAY_MS_LONG[0]}>
+          <Delay delay={DelayMS.ANIMATION.LONG[0]}>
             <H1>{t('onboarding.benefit.title')}</H1>
             <YStack bg='$color12' mt='$4' p='$5' gap='$4' rounded='$8'>
               <H3 themeInverse>{t('onboarding.benefit.ota')}</H3>
@@ -62,7 +61,7 @@ export default function Screen() {
             </YStack>
           </Delay>
 
-          <Delay mt='$4' delay={ANIMATION_DELAY_MS_LONG[1]}>
+          <Delay mt='$4' delay={DelayMS.ANIMATION.LONG[1]}>
             <YStack gap='$2'>
               <H4>⚠️ {t('onboarding.benefit.warn.1')}</H4>
               <BaseText>{t('onboarding.benefit.warn.2')}</BaseText>
@@ -74,7 +73,7 @@ export default function Screen() {
 
         <View flex={1} />
 
-        <Delay delay={ANIMATION_DELAY_MS_LONG[2]}>
+        <Delay delay={DelayMS.ANIMATION.LONG[2]}>
           <XStack justify='space-between' items='flex-end'>
             <PressableButton icon={ArrowLeft} onPress={handlePrevStep}>
               {t('common.prev')}

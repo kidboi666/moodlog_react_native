@@ -1,22 +1,9 @@
 import { memo, useMemo } from 'react'
-import { View, styled } from 'tamagui'
+import { GetThemeValueForKey, View, styled } from 'tamagui'
 
-import { MoodService } from '@/features/mood/services'
+import { MoodUtils } from '@/features/mood/utils'
+import { useMood } from '@/shared/store'
 import { JournalMood, Nullable } from '@/shared/types'
-
-export const StyledGrass = styled(View, {
-  width: 16,
-  height: 16,
-  rounded: '$1',
-
-  variants: {
-    moodColor: {
-      ':string': bg => {
-        return { bg }
-      },
-    },
-  } as const,
-})
 
 interface Props {
   mood: Nullable<JournalMood[]>
@@ -25,16 +12,27 @@ interface Props {
 
 export const Grass = memo(
   ({ mood, isEmpty = false }: Props) => {
+    const moods = useMood(state => state.moods)
+
     if (isEmpty && !mood) {
       return <StyledGrass />
     }
 
-    const moodColor = useMemo(
-      () => MoodService.calculateMoodColor(mood),
+    const signatureMood = useMemo(
+      () => MoodUtils.calculateSignatureJournalMood(mood),
       [mood, isEmpty],
     )
+    let moodColor: string | undefined
 
-    return <StyledGrass moodColor={moodColor || '$gray10'} />
+    if (signatureMood) {
+      moodColor = MoodUtils.paintMood(moods, signatureMood)
+    }
+
+    return (
+      <StyledGrass
+        bg={(moodColor as GetThemeValueForKey<'backgroundColor'>) || '$gray10'}
+      />
+    )
   },
   (prevProps, nextProps) => {
     if (prevProps.isEmpty !== nextProps.isEmpty) return false
@@ -43,3 +41,11 @@ export const Grass = memo(
     return prevProps.mood.length === nextProps.mood.length
   },
 )
+
+const StyledGrass = styled(View, {
+  width: 16,
+  height: 16,
+  rounded: '$1',
+})
+
+Grass.displayName = 'Grass'

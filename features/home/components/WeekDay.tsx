@@ -4,9 +4,32 @@ import { XStack, styled } from 'tamagui'
 import { LinearGradient } from 'tamagui/linear-gradient'
 
 import { Delay, H1 } from '@/shared/components'
-import { ANIMATION_DELAY_MS } from '@/shared/constants'
-import { getMonthKey } from '@/shared/utils'
+import { DelayMS } from '@/shared/constants'
+import { DateUtils } from '@/shared/utils'
 import { HorizontalCalendar } from './calendar/HorizontalCalendar'
+
+export const WeekDay = memo(() => {
+  const { t } = useTranslation()
+
+  return (
+    <Delay delay={DelayMS.ANIMATION.MEDIUM[2]}>
+      <OuterGradientBox>
+        <InnerGradientBox>
+          <CurrentMonthBox>
+            <CurrentMonthText>
+              {t(
+                `calendar.months.${DateUtils.getMonthKey(new Date().getMonth())}`,
+              )}
+              .
+            </CurrentMonthText>
+          </CurrentMonthBox>
+
+          <HorizontalCalendar />
+        </InnerGradientBox>
+      </OuterGradientBox>
+    </Delay>
+  )
+})
 
 const OuterGradientBox = styled(LinearGradient, {
   p: '$1.5',
@@ -30,23 +53,4 @@ const CurrentMonthBox = styled(XStack, {
 
 const CurrentMonthText = styled(H1, {
   color: '$gray1',
-})
-
-export const WeekDay = memo(() => {
-  const { t } = useTranslation()
-
-  return (
-    <Delay delay={ANIMATION_DELAY_MS[2]}>
-      <OuterGradientBox>
-        <InnerGradientBox>
-          <CurrentMonthBox>
-            <CurrentMonthText>
-              {t(`calendar.months.${getMonthKey(new Date().getMonth())}`)}.
-            </CurrentMonthText>
-          </CurrentMonthBox>
-          <HorizontalCalendar />
-        </InnerGradientBox>
-      </OuterGradientBox>
-    </Delay>
-  )
 })

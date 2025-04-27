@@ -1,10 +1,10 @@
 import { memo, useMemo } from 'react'
 import { XStack, YStack, styled } from 'tamagui'
 
-import type { ISODateString, ISOMonthString } from '@/shared/types'
-import { useJournal } from 'shared/store'
-
 import { JournalUtils } from '@/features/journal/utils'
+import { useJournal } from '@/shared/store'
+import type { ISOMonthString } from '@/shared/types'
+import { DateUtils } from '@/shared/utils'
 import { Grass } from './Grass'
 
 const GardenContainer = styled(XStack, {
@@ -35,8 +35,10 @@ export const Garden = memo(
           if (dateNum <= 0 || dateNum > lastDate) {
             weekData.push(null)
           } else {
-            const dateString =
-              `${monthDate}-${dateNum.toString().padStart(2, '0')}` as ISODateString
+            const dateString = DateUtils.getISODateFromMonthString(
+              monthDate,
+              dateNum,
+            )
             weekData.push(JournalUtils.getMoodForDate(store, dateString))
           }
         }

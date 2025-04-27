@@ -1,23 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button, H1, styled } from 'tamagui'
 
-const EmojiButton = styled(Button, {
-  unstyled: true,
-  animation: 'medium',
-  rotate: '0deg',
-  pressStyle: {
-    scale: 0.85,
-  },
-
-  variants: {
-    isRotate: {
-      true: {
-        rotate: '40deg',
-      },
-    },
-  } as const,
-})
-
 interface Props {
   duration?: number
   emoji: string
@@ -59,3 +42,20 @@ export const ShakeEmoji = ({ duration, emoji }: Props) => {
     </EmojiButton>
   )
 }
+
+const EmojiButton = styled(Button, {
+  unstyled: true,
+  animation: 'medium',
+  rotate: '0deg',
+  pressStyle: {
+    scale: 0.85,
+  },
+
+  variants: {
+    isRotate: {
+      true: {
+        rotate: '40deg',
+      },
+    },
+  } as const,
+})

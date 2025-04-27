@@ -1,34 +1,10 @@
 import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons'
 import { memo } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { View, XStack, XStackProps, styled } from 'tamagui'
+import { XStack, XStackProps, styled } from 'tamagui'
 
-import {
-  CONTAINER_HORIZONTAL_PADDING,
-  CONTAINER_VERTICAL_PADDING,
-} from '@/shared/constants'
+import { Layout } from '@/shared/constants'
 import { PressableButton } from './PressableButton'
-
-const StyledHeaderContent = styled(XStack, {
-  py: CONTAINER_VERTICAL_PADDING,
-  px: CONTAINER_HORIZONTAL_PADDING,
-  justify: 'space-between',
-  width: '100%',
-  items: 'center',
-
-  variants: {
-    topEdge: {
-      ':number': mt => {
-        return { mt }
-      },
-    },
-    bottomEdge: {
-      ':number': mb => {
-        return { mb }
-      },
-    },
-  } as const,
-})
 
 interface Props extends XStackProps {
   edges?: Array<'top' | 'bottom'>
@@ -39,7 +15,7 @@ interface Props extends XStackProps {
   rightActionDisabled?: boolean
 }
 
-const StyledHeaderContainer = StyledHeaderContent.styleable<Props>(
+const StyledHeaderContainer = XStack.styleable<Props>(
   (
     {
       children,
@@ -81,6 +57,27 @@ const StyledHeaderContainer = StyledHeaderContent.styleable<Props>(
     )
   },
 )
+
+const StyledHeaderContent = styled(XStack, {
+  py: Layout.SPACE.CONTAINER_VERTICAL_PADDING,
+  px: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
+  justify: 'space-between',
+  width: '100%',
+  items: 'center',
+
+  variants: {
+    topEdge: {
+      ':number': mt => {
+        return { mt }
+      },
+    },
+    bottomEdge: {
+      ':number': mb => {
+        return { mb }
+      },
+    },
+  } as const,
+})
 
 export const HeaderContent = memo(StyledHeaderContainer)
 

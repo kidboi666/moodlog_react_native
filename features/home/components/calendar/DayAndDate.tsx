@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { YStack, styled } from 'tamagui'
 
 import { BaseText } from '@/shared/components'
-import { getDateFromISODate, getDayFromISODate } from '@/shared/utils'
+import { DateUtils } from '@/shared/utils'
 
 const DateTextWrapper = styled(YStack, {
   gap: '$2',
@@ -49,10 +49,10 @@ export const DayAndDate = ({
   return (
     <DateTextWrapper>
       <DayText isSelected={selected}>
-        {t(`calendar.days.${getDayFromISODate(date)}`)}
+        {t(`calendar.days.${DateUtils.getDayFromISODate(date)}`)}
       </DayText>
       <DateText futureDateColor={futureDateColor}>
-        {getDateFromISODate(date)}
+        {DateUtils.getDateFromISODate(date)}
       </DateText>
     </DateTextWrapper>
   )

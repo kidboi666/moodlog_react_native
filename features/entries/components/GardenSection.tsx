@@ -1,29 +1,19 @@
 import { useCallback, useMemo } from 'react'
 import { ScrollView, XStack, YStack, styled } from 'tamagui'
 
-import { MONTHS } from '@/shared/constants'
+import { JournalUtils } from '@/features/journal/utils'
+import { DelayMS, MONTHS } from '@/shared/constants'
 import { useCalendar } from '@/shared/hooks'
+import { useJournal } from '@/shared/store'
 import type { ISOMonthString, MonthKey } from '@/shared/types'
-import { getFirstDateDay, getLastDate, getWeekLength } from '@/shared/utils'
-import { useJournal } from 'shared/store'
-
+import { DateUtils } from '@/shared/utils'
 import { GardenDayUnits } from './GardenDayUnits'
 import { GardenTitleHeader } from './GardenTitleHeader'
 import { MonthItem } from './MonthItem'
 
-const Container = styled(YStack, {
-  bg: '$gray4',
-  p: '$4',
-  rounded: '$8',
-  gap: '$4',
-})
-
-const StackBox = styled(XStack, {
-  gap: '$2',
-})
-
 export const GardenSection = () => {
   const selectJournals = useJournal(state => state.selectJournals)
+  const store = useJournal(state => state.store)
   const {
     selectedYear,
     selectedMonth,
@@ -35,22 +25,26 @@ export const GardenSection = () => {
     () =>
       Object.keys(MONTHS).map((month, i) => ({
         monthKey: month as MonthKey,
-        monthDate:
-          `${selectedYear}-${(i + 1).toString().padStart(2, '0')}` as ISOMonthString,
-        lastDate: getLastDate(selectedYear, month as MonthKey),
-        firstDateDay: getFirstDateDay(selectedYear, month),
-        weekLength: getWeekLength(selectedYear, month),
+        monthDate: DateUtils.getISOMonthString(selectedYear, i + 1),
+        lastDate: DateUtils.getLastDate(selectedYear, month as MonthKey),
+        firstDateDay: DateUtils.getFirstDateDay(selectedYear, month),
+        weekLength: DateUtils.getWeekLength(selectedYear, month),
       })),
     [selectedYear],
   )
 
-  const handleMonthChange = useCallback(
+  const handleMonthPress = useCallback(
     (monthDate: ISOMonthString) => {
+      const { journals, indexes } = store
+      const selectedJournals = JournalUtils.getJournals(
+        { journals, indexes },
+        monthDate,
+      )
       onSelectedMonthChange(selectedMonth === monthDate ? null : monthDate)
 
       setTimeout(() => {
-        selectJournals(selectedMonth === monthDate ? null : monthDate)
-      }, 0)
+        selectJournals(selectedMonth === monthDate ? null : selectedJournals)
+      }, DelayMS.ANIMATION.LONG[0])
     },
     [selectedMonth, onSelectedMonthChange, selectJournals],
   )
@@ -64,9 +58,13 @@ export const GardenSection = () => {
           {staticMonths.map(staticMonth => (
             <MonthItem
               key={staticMonth.monthKey}
-              monthData={staticMonth}
+              monthKey={staticMonth.monthKey}
+              monthDate={staticMonth.monthDate}
+              lastDate={staticMonth.lastDate}
+              firstDateDay={staticMonth.firstDateDay}
+              weekLength={staticMonth.weekLength}
               isSelected={isSelectedMonth(staticMonth.monthDate)}
-              onMonthChange={handleMonthChange}
+              onMonthPress={handleMonthPress}
             />
           ))}
         </StackBox>
@@ -74,3 +72,14 @@ export const GardenSection = () => {
     </Container>
   )
 }
+
+const Container = styled(YStack, {
+  bg: '$gray4',
+  p: '$4',
+  rounded: '$8',
+  gap: '$4',
+})
+
+const StackBox = styled(XStack, {
+  gap: '$2',
+})

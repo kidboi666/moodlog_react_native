@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { View, XStack, YStack, styled } from 'tamagui'
 
 import { BaseText, H2, H3 } from '@/shared/components'
-import { RECORD_UNIT_LINE_HEIGHT } from '@/shared/constants'
+import { Layout } from '@/shared/constants'
 
 const ViewContainer = styled(View, {
   flex: 1,
@@ -26,7 +26,7 @@ const StackContainer = styled(XStack, {
 })
 
 const CountText = styled(BaseText, {
-  lineHeight: RECORD_UNIT_LINE_HEIGHT,
+  lineHeight: Layout.HEIGHT.RECORD_UNIT_LINE_HEIGHT,
   color: '$gray11',
 })
 

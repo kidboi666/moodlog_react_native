@@ -3,9 +3,10 @@ import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { JournalUtils } from '@/features/journal/utils'
-import { DELETE_JOURNAL_SNAP_POINTS } from '@/shared/constants'
+import { Layout } from '@/shared/constants'
 import { BottomSheetType } from '@/shared/types'
 import { useBottomSheet, useJournal, useUI } from 'shared/store'
+import { JournalService } from '../services'
 
 export const useDeleteJournal = (onSuccess?: () => void) => {
   const { t } = useTranslation()
@@ -20,7 +21,7 @@ export const useDeleteJournal = (onSuccess?: () => void) => {
 
   const handleDeleteJournal = useCallback(
     (id: string) => {
-      const newStore = JournalUtils.removeJournal(store, id)
+      const newStore = JournalService.removeJournal(store, id)
       updateStore(newStore)
       const newSelectedJournals = JournalUtils.syncSelectedJournalsAfterDelete(
         selectedJournals,
@@ -38,7 +39,7 @@ export const useDeleteJournal = (onSuccess?: () => void) => {
     (id: string) =>
       showBottomSheet(
         BottomSheetType.DELETE_JOURNAL,
-        DELETE_JOURNAL_SNAP_POINTS,
+        Layout.SNAP_POINTS.DELETE,
         {
           journalId: id,
           isLoading,

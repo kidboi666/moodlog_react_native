@@ -15,10 +15,11 @@ import { StepProgressProvider } from '@/providers'
 import {
   Delay,
   HeaderContent,
+  PaginationDot,
   StepDot,
   ViewContainer,
 } from '@/shared/components'
-import { ROUTE_DELAY_MS } from '@/shared/constants'
+import { DelayMS, Layout } from '@/shared/constants'
 import { useMood, useStepProgress, useUI } from '@/shared/store'
 import { MoodLevel } from '@/shared/types'
 
@@ -65,7 +66,7 @@ export default function SelectMoodScreen() {
       setTimeout(() => {
         setNavigating(false)
       }, 100)
-    }, ROUTE_DELAY_MS)
+    }, DelayMS.ROUTE)
 
     return () => clearTimeout(timer)
   }
@@ -80,7 +81,7 @@ export default function SelectMoodScreen() {
   }, [page])
 
   return (
-    <StepProgressProvider totalSteps={2}>
+    <StepProgressProvider totalSteps={3}>
       <Delay flex={1}>
         <ViewContainer
           edges={['bottom']}
@@ -118,12 +119,26 @@ export default function SelectMoodScreen() {
             decelerationRate='fast'
             horizontal
           />
-          <PaginationButton
-            page={page}
-            totalPage={totalPage}
-            onLeftPress={handleLeftPress}
-            onRightPress={handleRightPress}
-          />
+          <View height={Layout.HEIGHT.WRITE_PROGRESS_BAR_HEIGHT}>
+            {currentStep === 0 && (
+              <>
+                <PaginationButton
+                  page={page}
+                  totalPage={totalPage}
+                  onLeftPress={handleLeftPress}
+                  onRightPress={handleRightPress}
+                />
+                <PaginationDot totalPage={totalPage} page={page} />
+              </>
+            )}
+            {currentStep === 1 && (
+              <MoodLevelForm
+                moodColor={moods[selectedMoodId].color}
+                moodLevel={moodLevel}
+                setMoodLevel={setMoodLevel}
+              />
+            )}
+          </View>
           <FormSectionFromChooseMoodScreen
             selectedMoodId={selectedMoodId}
             totalPage={totalPage}
@@ -132,13 +147,6 @@ export default function SelectMoodScreen() {
             onPrev={goToPrevStep}
             currentStep={currentStep}
           />
-          {currentStep >= 1 && (
-            <MoodLevelForm
-              moodColor={moods[selectedMoodId].color}
-              moodLevel={moodLevel}
-              setMoodLevel={setMoodLevel}
-            />
-          )}
         </ViewContainer>
       </Delay>
     </StepProgressProvider>

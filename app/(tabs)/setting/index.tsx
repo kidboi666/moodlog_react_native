@@ -25,7 +25,7 @@ import {
   PressableButton,
   ViewContainer,
 } from '@/shared/components'
-import { AUTH_SNAP_POINTS, LOGOUT_SNAP_POINTS } from '@/shared/constants'
+import { Layout } from '@/shared/constants'
 import { useAuth, useBottomSheet } from '@/shared/store'
 import { BottomSheetType } from '@/shared/types'
 
@@ -37,6 +37,78 @@ type SettingSection = {
     route?: any
     action?: () => void
   }[]
+}
+
+export default function SettingsScreen() {
+  const { t } = useTranslation()
+  const router = useRouter()
+  const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
+  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
+  const session = useAuth(state => state.session)
+
+  const handleRouteChange = useCallback(
+    (route: Href) => {
+      router.push(route)
+    },
+    [router],
+  )
+
+  const handleLogoutConfirm = useCallback(() => {
+    showBottomSheet(BottomSheetType.LOGOUT, Layout.SNAP_POINTS.LOGOUT, {
+      hideBottomSheet,
+    })
+  }, [showBottomSheet, hideBottomSheet])
+
+  const handleLogin = useCallback(() => {
+    showBottomSheet(BottomSheetType.SIGN_IN, Layout.SNAP_POINTS.AUTH)
+  }, [showBottomSheet])
+
+  const sections = [
+    devSection,
+    loginSection,
+    configSection,
+    supportSection,
+  ].filter(Boolean) as SettingSection[]
+
+  return (
+    <ScrollView>
+      <ViewContainer edges={['top']} padded gap='$4'>
+        <H1>{t('settings.title')}</H1>
+        <YStack gap='$6'>
+          {sections.map(({ title, items }) => (
+            <SettingsContainer key={title} title={t(title)}>
+              {items.map(menu => (
+                <NavigationSettingItem
+                  key={menu.label}
+                  label={t(menu.label)}
+                  icon={menu.icon}
+                  onRouteChange={() => handleRouteChange(menu.route)}
+                />
+              ))}
+            </SettingsContainer>
+          ))}
+
+          {session && (
+            <PressableButton
+              onPress={handleLogoutConfirm}
+              chromeless
+              bg='transparent'
+              color='$red10'
+            >
+              {t('auth.logout')}
+              <LogOut color='$red10' size='$1' />
+            </PressableButton>
+          )}
+        </YStack>
+
+        <YStack items='center' mt='$4'>
+          <BaseText color='$color11'>
+            © 2025 Moodlog. All rights reserved.
+          </BaseText>
+        </YStack>
+      </ViewContainer>
+    </ScrollView>
+  )
 }
 
 const devSection = __DEV__
@@ -108,76 +180,4 @@ const loginSection = {
       route: '/setting/profile',
     },
   ],
-}
-
-export default function SettingsScreen() {
-  const { t } = useTranslation()
-  const router = useRouter()
-  const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
-  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
-  const session = useAuth(state => state.session)
-
-  const handleRouteChange = useCallback(
-    (route: Href) => {
-      router.push(route)
-    },
-    [router],
-  )
-
-  const handleLogoutConfirm = useCallback(() => {
-    showBottomSheet(BottomSheetType.LOGOUT, LOGOUT_SNAP_POINTS, {
-      hideBottomSheet,
-    })
-  }, [showBottomSheet, hideBottomSheet])
-
-  const handleLogin = useCallback(() => {
-    showBottomSheet(BottomSheetType.SIGN_IN, AUTH_SNAP_POINTS)
-  }, [showBottomSheet])
-
-  const sections = [
-    devSection,
-    loginSection,
-    configSection,
-    supportSection,
-  ].filter(Boolean) as SettingSection[]
-
-  return (
-    <ScrollView>
-      <ViewContainer edges={['top']} padded gap='$4'>
-        <H1>{t('settings.title')}</H1>
-        <YStack gap='$6'>
-          {sections.map(({ title, items }) => (
-            <SettingsContainer key={title} title={t(title)}>
-              {items.map(menu => (
-                <NavigationSettingItem
-                  key={menu.label}
-                  label={t(menu.label)}
-                  icon={menu.icon}
-                  onRouteChange={() => handleRouteChange(menu.route)}
-                />
-              ))}
-            </SettingsContainer>
-          ))}
-
-          {session && (
-            <PressableButton
-              onPress={handleLogoutConfirm}
-              chromeless
-              bg='transparent'
-              color='$red10'
-            >
-              {t('auth.logout')}
-              <LogOut color='$red10' size='$1' />
-            </PressableButton>
-          )}
-        </YStack>
-
-        <YStack items='center' mt='$4'>
-          <BaseText color='$color11'>
-            © 2025 Moodlog. All rights reserved.
-          </BaseText>
-        </YStack>
-      </ViewContainer>
-    </ScrollView>
-  )
 }

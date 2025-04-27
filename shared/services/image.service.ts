@@ -7,17 +7,17 @@ const JOURNAL_IMAGES_DIR = FileSystem.documentDirectory
   ? `${FileSystem.documentDirectory}journal_images/`
   : ''
 
-export const ImageService = {
-  createFilePath: (result: ImagePickerAsset) => {
+export class ImageService {
+  static createFilePath(result: ImagePickerAsset) {
     const dateString = new Date().toISOString().split('T')[0]
     const timestamp = Date.now()
     const randomString = Math.random().toString(36).substring(2, 8)
     const fileExt = result.uri.split('.').pop()
     const fileName = `${dateString}-${timestamp}-${randomString}.${fileExt}`
     return `${JOURNAL_IMAGES_DIR}${fileName}`
-  },
+  }
 
-  createNewFileName: async () => {
+  static async createNewFileName() {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
 
     if (status !== PermissionStatus.GRANTED) {
@@ -52,5 +52,5 @@ export const ImageService = {
     })
 
     return newFilePath
-  },
+  }
 }

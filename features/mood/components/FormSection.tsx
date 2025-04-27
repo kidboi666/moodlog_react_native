@@ -5,9 +5,10 @@ import { Keyboard, useWindowDimensions } from 'react-native'
 import { Button, Spinner, XStack, YStack, useControllableState } from 'tamagui'
 
 import { BaseText, H3 } from '@/shared/components'
-import { CONTAINER_HORIZONTAL_PADDING, MOUNT_STYLE } from '@/shared/constants'
+import { Layout, MOUNT_STYLE } from '@/shared/constants'
 import { useStepProgress } from '@/shared/store'
 import { MoodNameForm } from './MoodNameForm'
+
 const ColorPicker = lazy(() => import('../../write/components/ColorPicker'))
 
 interface Props {
@@ -81,19 +82,19 @@ export const FormSection = ({ name, setName, sharedColor }: Props) => {
         />
       </XStack>
       <XStack
-        gap={CONTAINER_HORIZONTAL_PADDING * 2}
+        gap={Layout.SPACE.CONTAINER_HORIZONTAL_PADDING * 2}
         animation='quick'
         {...position}
       >
         <MoodNameForm
           name={name}
           setName={setName}
-          width={width - CONTAINER_HORIZONTAL_PADDING * 2}
+          width={width - Layout.SPACE.CONTAINER_HORIZONTAL_PADDING * 2}
         />
         <Suspense fallback={<Spinner />}>
           <ColorPicker
             sharedColor={sharedColor}
-            width={width - CONTAINER_HORIZONTAL_PADDING * 2}
+            width={width - Layout.SPACE.CONTAINER_HORIZONTAL_PADDING * 2}
           />
         </Suspense>
       </XStack>

@@ -9,7 +9,7 @@ import {
   RenderDay,
   RenderTime,
 } from '@/shared/components'
-import { CONTAINER_HORIZONTAL_PADDING } from '@/shared/constants'
+import { Layout } from '@/shared/constants'
 import type { Journal } from '@/shared/types'
 
 interface Props {
@@ -21,7 +21,11 @@ interface Props {
 export const JournalHeader = memo(
   ({ journal, onDeletePress, onBackPress }: Props) => {
     return (
-      <HeaderContent items='center' px={CONTAINER_HORIZONTAL_PADDING} gap='$4'>
+      <HeaderContent
+        items='center'
+        px={Layout.SPACE.CONTAINER_HORIZONTAL_PADDING}
+        gap='$4'
+      >
         <PressableButton icon={ArrowLeft} onPress={onBackPress} />
         <YStack items='center'>
           <RenderDate color='$gray8' fontSize='$5' fontWeight='800'>

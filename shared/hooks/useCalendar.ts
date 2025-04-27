@@ -6,13 +6,15 @@ import {
   type ISOMonthString,
   Nullable,
 } from '@/shared/types'
-import { getThisWeekIndex } from '@/shared/utils'
+import { DateUtils } from '@/shared/utils'
 
 export const useCalendar = () => {
   const now = new Date()
   const todayString: ISODateString = CalendarUtils.getCalendarDateString(now)
 
-  const [selectedDate, setSelectedDate] = useState<ISODateString>(todayString)
+  const [selectedDate, setSelectedDate] = useState<ISODateString | null>(
+    todayString,
+  )
   const [selectedMonth, setSelectedMonth] = useState<ISOMonthString | null>(
     todayString.substring(0, 7) as ISOMonthString,
   )
@@ -20,7 +22,7 @@ export const useCalendar = () => {
     Number(todayString.split('-')[0]),
   )
   const [selectedWeek, setSelectedWeek] = useState(
-    getThisWeekIndex(todayString),
+    DateUtils.getThisWeekIndex(todayString),
   )
 
   const handleSelectedDateChange = useCallback((date: ISODateString | null) => {
@@ -39,7 +41,7 @@ export const useCalendar = () => {
   }, [])
 
   const handleSelectedWeekChange = useCallback((date: ISODateString) => {
-    setSelectedWeek(getThisWeekIndex(date))
+    setSelectedWeek(DateUtils.getThisWeekIndex(date))
   }, [])
 
   return {

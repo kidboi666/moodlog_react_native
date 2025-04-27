@@ -15,7 +15,7 @@ import {
   StepDot,
   ViewContainer,
 } from '@/shared/components'
-import { ROUTE_DELAY_MS } from '@/shared/constants'
+import { DelayMS } from '@/shared/constants'
 import { useMood, useUI } from '@/shared/store'
 import { MoodName } from '@/shared/types'
 
@@ -50,7 +50,7 @@ export default function CreateMoodScreen() {
       setTimeout(() => {
         setNavigating(false)
       }, 100)
-    }, ROUTE_DELAY_MS)
+    }, DelayMS.ROUTE)
 
     return () => clearTimeout(timer)
   }, [moodName, router, setNavigating])

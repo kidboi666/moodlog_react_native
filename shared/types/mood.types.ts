@@ -14,7 +14,7 @@ export type Mood = {
   createdAt: string
 }
 
-export type JournalMood = Pick<Mood, 'name'> & {
+export type JournalMood = Pick<Mood, 'id'> & {
   level: MoodLevel
 }
 

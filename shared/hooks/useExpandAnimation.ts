@@ -5,17 +5,14 @@ import {
   withSpring,
 } from 'react-native-reanimated'
 
-import {
-  RECORD_CARD_EXPANDED_HEIGHT,
-  RECORD_CARD_HEIGHT,
-} from '@/shared/constants'
+import { Layout } from '@/shared/constants'
 import { ExpansionState } from '@/shared/types'
 
 export const useExpandAnimation = () => {
   const [expansionState, setExpansionState] = useState<ExpansionState>(
     ExpansionState.COLLAPSED,
   )
-  const height = useSharedValue(RECORD_CARD_HEIGHT)
+  const height = useSharedValue(Layout.HEIGHT.RECORD_CARD_HEIGHT)
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -33,8 +30,8 @@ export const useExpandAnimation = () => {
 
     height.value = withSpring(
       newState === ExpansionState.EXPANDED
-        ? RECORD_CARD_EXPANDED_HEIGHT
-        : RECORD_CARD_HEIGHT,
+        ? Layout.HEIGHT.RECORD_CARD_EXPANDED_HEIGHT
+        : Layout.HEIGHT.RECORD_CARD_HEIGHT,
     )
   }, [expansionState, height])
 

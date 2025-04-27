@@ -4,8 +4,9 @@ import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Keyboard } from 'react-native'
 
+import { JournalService } from '@/features/journal/services'
 import { JournalUtils } from '@/features/journal/utils'
-import { ROUTE_DELAY_MS } from '@/shared/constants'
+import { DelayMS } from '@/shared/constants'
 import { useDraft, useJournal, useUI } from '@/shared/store'
 import { Draft } from '@/shared/types'
 
@@ -29,7 +30,10 @@ export const useAddJournal = (draft: Draft) => {
 
     try {
       setLoading(true)
-      const { newStore, newJournal } = JournalUtils.createJournal(store, draft)
+      const { newStore, newJournal } = JournalService.createJournal(
+        store,
+        draft,
+      )
       updateStore(newStore)
       const newSelectedJournals = JournalUtils.syncSelectedJournalsAfterCreate(
         selectedJournals,
@@ -53,7 +57,7 @@ export const useAddJournal = (draft: Draft) => {
           params: { journalId: newJournal.id, isNewJournal: 'true' },
         })
         setTimeout(() => setNavigating(false), 0)
-      }, ROUTE_DELAY_MS)
+      }, DelayMS.ROUTE)
     } catch (error) {
       console.error('일기 저장 실패:', error)
     } finally {

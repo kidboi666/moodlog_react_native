@@ -1,25 +1,22 @@
+import { supabase } from '@/lib/supabase'
 import { useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
 import { Separator, XStack, YStack } from 'tamagui'
 
-import { AUTH_SNAP_POINTS, HTTP_STATUS } from '@/shared/constants'
+import { BaseText, FormInput, H1, PressableButton } from '@/shared/components'
+import { HTTP_STATUS, Layout } from '@/shared/constants'
 import { BottomSheetType } from '@/shared/types'
 import { isValidEmail } from '@/shared/utils'
 import { useBottomSheet } from 'shared/store'
-
-import { supabase } from '@/lib/supabase'
-import { BaseText } from '@/shared/components/BaseText'
-import { FormInput } from '@/shared/components/FormInput'
-import { H1 } from '@/shared/components/Heading'
-import { PressableButton } from '@/shared/components/PressableButton'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 
 export const SignUpModal = () => {
   const { t } = useTranslation()
   const router = useRouter()
-  const { hideBottomSheet, showBottomSheet } = useBottomSheet()
+  const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
+  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
 
   const [email, setEmail] = useState('')
   const [userName, setUserName] = useState('')
@@ -29,7 +26,7 @@ export const SignUpModal = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const goLoginPage = () => {
-    showBottomSheet(BottomSheetType.SIGN_IN, AUTH_SNAP_POINTS)
+    showBottomSheet(BottomSheetType.SIGN_IN, Layout.SNAP_POINTS.AUTH)
   }
 
   const handleSignUp = async () => {

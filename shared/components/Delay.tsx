@@ -1,9 +1,39 @@
 import { View, type ViewProps, styled } from 'tamagui'
 
 import { useAnimatedEntry } from '@/shared/hooks/useAnimatedEntry'
-import { ANIMATION_DELAY_MS } from 'shared/constants'
+import { DelayMS } from 'shared/constants'
 
 import { MOUNT_STYLE } from '@/shared/constants/animations'
+
+interface Props extends ViewProps {
+  delay?: number
+  variant?: 'falldown' | 'float' | 'fade'
+}
+
+export const Delay = View.styleable<Props>(
+  (
+    {
+      delay = DelayMS.ANIMATION.MEDIUM[0],
+      variant = 'fade',
+      children,
+      ...props
+    },
+    ref,
+  ) => {
+    const { isVisible, item } = useAnimatedEntry({ delay, item: children })
+    return (
+      <StyledAnimateMount
+        key={`${isVisible}-${delay}`}
+        ref={ref}
+        opacity={isVisible ? 1 : 0}
+        variant={variant}
+        {...props}
+      >
+        {item}
+      </StyledAnimateMount>
+    )
+  },
+)
 
 const StyledAnimateMount = styled(View, {
   animation: 'lazy',
@@ -44,30 +74,5 @@ const StyledAnimateMount = styled(View, {
     },
   } as const,
 })
-
-interface Props extends ViewProps {
-  delay?: number
-  variant?: 'falldown' | 'float' | 'fade'
-}
-
-export const Delay = StyledAnimateMount.styleable<Props>(
-  (
-    { delay = ANIMATION_DELAY_MS[0], variant = 'fade', children, ...props },
-    ref,
-  ) => {
-    const { isVisible, item } = useAnimatedEntry({ delay, item: children })
-    return (
-      <StyledAnimateMount
-        key={`${isVisible}-${delay}`}
-        ref={ref}
-        opacity={isVisible ? 1 : 0}
-        variant={variant}
-        {...props}
-      >
-        {item}
-      </StyledAnimateMount>
-    )
-  },
-)
 
 Delay.displayName = 'DelayComponent'

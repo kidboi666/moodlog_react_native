@@ -3,6 +3,32 @@ import { Toast, useToastState } from '@tamagui/toast'
 import { useAppTheme } from 'shared/store'
 import { YStack, styled } from 'tamagui'
 
+export const CurrentToast = () => {
+  const currentToast = useToastState()
+  const { currentTheme } = useAppTheme()
+
+  if (!currentToast || currentToast.isHandledNatively) return null
+
+  return (
+    <ToastContainer
+      key={currentToast.id}
+      duration={currentToast.duration}
+      viewportName={currentToast.viewportName}
+      theme={currentTheme === 'dark' ? 'light' : 'dark'}
+      presetColor={currentToast.preset}
+    >
+      <ToastContent>
+        <ToastTitle>{currentToast.title}</ToastTitle>
+        {!!currentToast.message && (
+          <Toast.Description>
+            <ToastDescription>{currentToast.message}</ToastDescription>
+          </Toast.Description>
+        )}
+      </ToastContent>
+    </ToastContainer>
+  )
+}
+
 const ToastContainer = styled(Toast, {
   animation: 'quick',
   enterStyle: { opacity: 0, scale: 0.5, y: -25 },
@@ -39,29 +65,3 @@ const ToastTitle = styled(Toast.Title, {
 const ToastDescription = styled(Toast.Description, {
   color: '$color',
 })
-
-export const CurrentToast = () => {
-  const currentToast = useToastState()
-  const { currentTheme } = useAppTheme()
-
-  if (!currentToast || currentToast.isHandledNatively) return null
-
-  return (
-    <ToastContainer
-      key={currentToast.id}
-      duration={currentToast.duration}
-      viewportName={currentToast.viewportName}
-      theme={currentTheme === 'dark' ? 'light' : 'dark'}
-      presetColor={currentToast.preset}
-    >
-      <ToastContent>
-        <ToastTitle>{currentToast.title}</ToastTitle>
-        {!!currentToast.message && (
-          <Toast.Description>
-            <ToastDescription>{currentToast.message}</ToastDescription>
-          </Toast.Description>
-        )}
-      </ToastContent>
-    </ToastContainer>
-  )
-}

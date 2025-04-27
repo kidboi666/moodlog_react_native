@@ -1,9 +1,10 @@
-import { DELETE_MOOD_SNAP_POINTS } from '@/shared/constants'
-import { useBottomSheet, useMood, useUI } from '@/shared/store'
-import { BottomSheetType } from '@/shared/types'
 import { useToastController } from '@tamagui/toast'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { Layout } from '@/shared/constants'
+import { useBottomSheet, useMood, useUI } from '@/shared/store'
+import { BottomSheetType } from '@/shared/types'
 import { MoodService } from '../services'
 
 export const useDeleteMood = (onSuccess?: () => void) => {
@@ -28,7 +29,7 @@ export const useDeleteMood = (onSuccess?: () => void) => {
 
   const openDeleteSheet = useCallback(
     (id: string) =>
-      showBottomSheet(BottomSheetType.DELETE_MOOD, DELETE_MOOD_SNAP_POINTS, {
+      showBottomSheet(BottomSheetType.DELETE_MOOD, Layout.SNAP_POINTS.DELETE, {
         moodId: id,
         onDelete: handleDeleteMood,
         isLoading,

@@ -1,19 +1,18 @@
-import { GetThemeValueForKey, SizableText, TextProps } from 'tamagui'
-
-import { useCustomFont } from '@/shared/hooks/useCustomFont'
-import { useFontSizeAdjustment } from '@/shared/hooks/useFontSizeAdjustment'
 import { memo } from 'react'
+import { GetThemeValueForKey, SizableText, SizableTextProps } from 'tamagui'
+
+import { useCustomFont, useFontSizeAdjustment } from '@/shared/hooks'
 
 type HeadingFontSize = '$10' | '$9' | '$8' | '$7' | '$6' | '$5'
 type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6
 
-interface HeadingProps extends TextProps {
+interface HeadingProps extends SizableTextProps {
   level?: HeadingLevel
 }
 
 const createHeading = (initSize: HeadingFontSize) =>
   SizableText.styleable<HeadingProps>(
-    ({ children, fontSize, fontWeight, text: textAlign, ...props }, ref) => {
+    ({ children, fontSize, fontWeight, text, ...props }, ref) => {
       const font = useCustomFont()
       const size = useFontSizeAdjustment(initSize)
 
@@ -22,7 +21,7 @@ const createHeading = (initSize: HeadingFontSize) =>
           fontFamily={font as unknown as GetThemeValueForKey<'$fontFamily'>}
           fontSize={fontSize ?? size}
           fontWeight={fontWeight ?? '800'}
-          text={textAlign}
+          text={text}
           {...props}
           ref={ref}
         >

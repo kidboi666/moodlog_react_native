@@ -13,8 +13,7 @@ import { BaseText, H3 } from '@/shared/components'
 import { WEEK_DAY } from '@/shared/constants'
 import { useWeeklyMoodStats } from '@/shared/hooks'
 import { type ISOMonthString, MoodLevel } from '@/shared/types'
-import { getISODateFromMonthString } from '@/shared/utils'
-
+import { DateUtils } from '@/shared/utils'
 import { ChartItem } from './ChartItem'
 
 const AnimatedBox = Animated.createAnimatedComponent(XStack)
@@ -27,7 +26,7 @@ interface Props {
 export const WeeklyMoodChart = ({ selectedMonth }: Props) => {
   const now = new Date()
   const date = now.getDate()
-  const dateString = getISODateFromMonthString(selectedMonth, date)
+  const dateString = DateUtils.getISODateFromMonthString(selectedMonth, date)
   const { t } = useTranslation()
   const { stats } = useWeeklyMoodStats(dateString)
 

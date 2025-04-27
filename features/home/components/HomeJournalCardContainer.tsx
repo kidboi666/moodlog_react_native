@@ -1,5 +1,5 @@
 import { Delay } from '@/shared/components'
-import { ANIMATION_DELAY_MS } from '@/shared/constants'
+import { DelayMS } from '@/shared/constants'
 import { useJournal } from '@/shared/store'
 
 import { EmptyJournal, JournalCard } from '@/features/journal/components'
@@ -16,8 +16,9 @@ export const HomeJournalCardContainer = () => {
         <Delay
           key={journal.id}
           delay={
-            ANIMATION_DELAY_MS[
-              (index % ANIMATION_DELAY_MS.length) + ANIMATION_DELAY_MS[3]
+            DelayMS.ANIMATION.MEDIUM[
+              (index % DelayMS.ANIMATION.MEDIUM.length) +
+                DelayMS.ANIMATION.MEDIUM[3]
             ]
           }
         >
@@ -33,7 +34,7 @@ export const HomeJournalCardContainer = () => {
       )
     })
   ) : (
-    <Delay delay={ANIMATION_DELAY_MS[3]}>
+    <Delay delay={DelayMS.ANIMATION.MEDIUM[3]}>
       <EmptyJournal />
     </Delay>
   )

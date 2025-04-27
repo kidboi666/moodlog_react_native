@@ -4,9 +4,6 @@ import { YStack, styled } from 'tamagui'
 import { PRESS_STYLE } from '@/shared/constants'
 import { useExpandAnimation, useJournalStats } from '@/shared/hooks'
 import { ExpansionState, type ISOMonthString, TimeRange } from '@/shared/types'
-import { getDaysSinceSignup } from '@/shared/utils'
-import { useApp } from 'shared/store'
-
 import { TotalCountCollapsedContent } from './TotalCountCollapsedContent'
 import { TotalCountExpandedContent } from './TotalCountExpandedContent'
 

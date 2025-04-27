@@ -1,14 +1,12 @@
 import { Button, View, styled } from 'tamagui'
 
-import { CALENDAR_SCROLL_SIZE } from '@/shared/constants'
-
-import { useJournal } from '@/shared/store'
+import { Layout } from '@/shared/constants'
 import { DateCountDot } from './DateCountDot'
 import { DayAndDate } from './DayAndDate'
 
 const DateContainer = styled(View, {
   py: '$3',
-  width: CALENDAR_SCROLL_SIZE,
+  width: Layout.SPACE.CALENDAR_SCROLL_SIZE,
   rounded: '$4',
   borderColor: '$gray1',
 

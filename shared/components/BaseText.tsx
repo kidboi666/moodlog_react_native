@@ -2,7 +2,7 @@ import { memo } from 'react'
 import type { ReactNode } from 'react'
 import { GetThemeValueForKey, Text, type TextProps } from 'tamagui'
 
-import { useCustomFont, useFontSizeAdjustment } from 'shared/hooks'
+import { useCustomFont, useFontSizeAdjustment } from '@/shared/hooks'
 
 interface Props extends TextProps {
   children: ReactNode

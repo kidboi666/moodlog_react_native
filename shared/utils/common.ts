@@ -41,37 +41,6 @@ export const hexToRgba = (hex: string, alpha: number) => {
 }
 
 /**
- * animateOnly 에 필요한 배열을 애니메이션 객체에서 추출
- */
-export const extractKeysFromAnimationObj = (
-  animationObj: Record<string, any>,
-) => {
-  const resultKeys = [...Object.keys(animationObj)]
-  const transformShorthands = ['x', 'y', 'scale']
-
-  const bgIndex = resultKeys.indexOf('bg')
-  if (bgIndex !== -1) {
-    resultKeys[bgIndex] = 'backgroundColor'
-  }
-
-  let hasTransform = resultKeys.includes('transform')
-
-  for (const shorthand of transformShorthands) {
-    const index = resultKeys.indexOf(shorthand)
-    if (index !== -1) {
-      resultKeys.splice(index, 1)
-
-      if (!hasTransform) {
-        resultKeys.push('transform')
-        hasTransform = true
-      }
-    }
-  }
-
-  return resultKeys
-}
-
-/**
  * 카멜 케이스 문자열을 상수 케이스로 변환
  * @param str
  */

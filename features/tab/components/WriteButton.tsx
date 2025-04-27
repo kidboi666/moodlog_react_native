@@ -8,10 +8,7 @@ import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 import { Button, Portal, View, styled } from 'tamagui'
 
 import { Delay, H3, PressableButton } from '@/shared/components'
-import {
-  ANIMATION_DELAY_MS_QUICK,
-  CONTAINER_HORIZONTAL_PADDING,
-} from '@/shared/constants'
+import { DelayMS, Layout } from '@/shared/constants'
 
 export const WriteButton = memo(() => {
   const router = useRouter()
@@ -56,7 +53,7 @@ export const WriteButton = memo(() => {
                   <Delay
                     key={menu.title}
                     variant='float'
-                    delay={ANIMATION_DELAY_MS_QUICK[i]}
+                    delay={DelayMS.ANIMATION.QUICK[i]}
                   >
                     <Button
                       variant='outlined'
@@ -122,7 +119,7 @@ const styles = StyleSheet.create({
   },
   spacing: {
     gap: 28,
-    paddingHorizontal: CONTAINER_HORIZONTAL_PADDING,
+    paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
     justifyContent: 'center',
   },
 })

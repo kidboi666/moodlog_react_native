@@ -4,21 +4,10 @@ import {
   PaginationDot,
   PressableButton,
 } from '@/shared/components'
-import { CONTAINER_HORIZONTAL_PADDING, MOUNT_STYLE } from '@/shared/constants'
+import { Layout, MOUNT_STYLE } from '@/shared/constants'
 import { ChevronLeft, ChevronRight } from '@tamagui/lucide-icons'
 import { useTranslation } from 'react-i18next'
 import { XStack, YStack, styled } from 'tamagui'
-
-const menuList = [
-  {
-    title: 'moods.my.moodSelect.title',
-    description: 'moods.my.moodSelect.description',
-  },
-  {
-    title: 'moods.my.moodLevel.title',
-    description: 'moods.my.moodLevel.description',
-  },
-]
 
 interface Props {
   selectedMoodId: string
@@ -42,7 +31,6 @@ export const FormSectionFromChooseMoodScreen = ({
   return (
     <>
       <SpacingYStack spacing>
-        <PaginationDot totalPage={totalPage} page={page} />
         <BetweenXStack>
           <PressableButton
             bg='transparent'
@@ -73,7 +61,7 @@ export const FormSectionFromChooseMoodScreen = ({
 }
 
 const SpacingYStack = styled(YStack, {
-  px: CONTAINER_HORIZONTAL_PADDING,
+  px: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
 
   variants: {
     spacing: {
@@ -88,3 +76,18 @@ const BetweenXStack = styled(XStack, {
   justify: 'space-between',
   items: 'center',
 })
+
+const menuList = [
+  {
+    title: 'moods.my.moodSelect.title',
+    description: 'moods.my.moodSelect.description',
+  },
+  {
+    title: 'moods.my.moodLevel.title',
+    description: 'moods.my.moodLevel.description',
+  },
+  {
+    title: 'write.title',
+    description: 'write.description',
+  },
+]

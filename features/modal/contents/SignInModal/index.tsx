@@ -6,16 +6,18 @@ import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
 import { Separator, XStack, YStack } from 'tamagui'
 
-import { AUTH_SNAP_POINTS } from '@/shared/constants'
+import { BottomSheetContainer } from '@/features/modal'
+import {
+  BaseText,
+  FormInput,
+  H1,
+  H3,
+  PressableButton,
+} from '@/shared/components'
+import { Layout } from '@/shared/constants'
+import { useAuth, useBottomSheet } from '@/shared/store'
 import { BottomSheetType } from '@/shared/types'
 import { isValidEmail } from '@/shared/utils'
-import { useAuth, useBottomSheet } from 'shared/store'
-
-import { BottomSheetContainer } from '@/features/modal/BottomSheetContainer'
-import { BaseText } from '@/shared/components/BaseText'
-import { FormInput } from '@/shared/components/FormInput'
-import { H1, H3 } from '@/shared/components/Heading'
-import { PressableButton } from '@/shared/components/PressableButton'
 
 interface LoginFormState {
   email: string
@@ -100,7 +102,7 @@ export const SignInModal = () => {
   }
 
   const navigateToRegister = () => {
-    showBottomSheet(BottomSheetType.SIGN_UP, AUTH_SNAP_POINTS)
+    showBottomSheet(BottomSheetType.SIGN_UP, Layout.SNAP_POINTS.AUTH)
   }
 
   useEffect(() => {

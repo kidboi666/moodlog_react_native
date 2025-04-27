@@ -2,14 +2,13 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, YStack } from 'tamagui'
 
-import { Delay, H1, ViewContainer } from '@/shared/components'
-import { ANIMATION_DELAY_MS } from '@/shared/constants'
-import { useJournal } from '@/shared/store'
-
 import { DateHeader, GardenSection } from '@/features/entries/components'
 import { EmptyJournal, JournalCard } from '@/features/journal/components'
 import { useDeleteJournal } from '@/features/journal/hooks'
 import { JournalUtils } from '@/features/journal/utils'
+import { Delay, H1, ViewContainer } from '@/shared/components'
+import { DelayMS } from '@/shared/constants'
+import { useJournal } from '@/shared/store'
 
 export default function EntriesScreen() {
   const { t } = useTranslation()
@@ -27,7 +26,7 @@ export default function EntriesScreen() {
     <ScrollView>
       <ViewContainer edges={['top']} padded gap='$4'>
         <H1>{t('entries.title')}</H1>
-        <Delay delay={ANIMATION_DELAY_MS[0]}>
+        <Delay delay={DelayMS.ANIMATION.MEDIUM[0]}>
           <GardenSection />
         </Delay>
 

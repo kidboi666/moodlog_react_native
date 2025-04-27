@@ -12,7 +12,7 @@ import {
 } from '@/shared/components'
 import { useAuth } from '@/shared/store'
 import type { NewUserInfo } from '@/shared/types'
-import { getDaysSinceSignup } from '@/shared/utils'
+import { DateUtils } from '@/shared/utils'
 
 export default function ProfileScreen() {
   const { t } = useTranslation()
@@ -150,7 +150,9 @@ export default function ProfileScreen() {
           <Text color='$gray11'>
             {t('settings.profile.daysSinceSignup') || 'Days Since Signup'}
           </Text>
-          <Paragraph>{getDaysSinceSignup(session.user.created_at)}</Paragraph>
+          <Paragraph>
+            {DateUtils.getDaysSinceSignup(session.user.created_at)}
+          </Paragraph>
         </YStack>
 
         {/* Action Buttons */}

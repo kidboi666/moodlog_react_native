@@ -5,10 +5,10 @@ import { Card, View, styled } from 'tamagui'
 
 import { FullScreenImageModal } from '@/features/modal/contents'
 import {
+  DelayMS,
   MOUNT_STYLE,
   PRESS_STYLE,
   PRESS_STYLE_KEY,
-  ROUTE_DELAY_MS,
 } from '@/shared/constants'
 import { useAxisAnimationWithState, useCardGesture } from '@/shared/hooks'
 import { JournalMood, Position } from '@/shared/types'
@@ -106,7 +106,7 @@ export const JournalCard = memo(
             pathname: '/journal/[journalId]',
             params: { journalId: journalId, isNewJournal: 'false' },
           })
-        }, ROUTE_DELAY_MS)
+        }, DelayMS.ROUTE)
       }
     }
 
