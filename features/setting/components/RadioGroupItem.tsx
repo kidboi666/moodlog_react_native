@@ -1,7 +1,7 @@
 import { memo } from 'react'
-import { RadioGroup } from 'tamagui'
+import { Button, RadioGroup } from 'tamagui'
 
-import { BaseText, PressableButton } from '@/shared/components'
+import { BaseText } from '@/shared/components'
 import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/shared/constants'
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 
 export const RadioGroupItem = memo(({ value, label, onValueChange }: Props) => {
   return (
-    <PressableButton onPress={() => onValueChange(value)}>
+    <Button animation='quick' chromeless onPress={() => onValueChange(value)}>
       <BaseText flex={1}>{label}</BaseText>
       <RadioGroup.Item value={value} id={value}>
         <RadioGroup.Indicator
@@ -21,7 +21,7 @@ export const RadioGroupItem = memo(({ value, label, onValueChange }: Props) => {
           animateOnly={MOUNT_STYLE_KEY}
         />
       </RadioGroup.Item>
-    </PressableButton>
+    </Button>
   )
 })
 

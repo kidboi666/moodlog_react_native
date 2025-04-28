@@ -3,9 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Button, View, YStack } from 'tamagui'
 
 import { BaseText, H3 } from '@/shared/components'
+import { useMood } from '@/shared/store'
 import type { ScoreBoard } from '@/shared/types'
-import { useMood } from 'shared/store'
-
 import { EmptyContent } from '../EmptyContent'
 import { ProgressGraph } from './ProgressGraph'
 
@@ -47,7 +46,6 @@ export const MoodAverageExpandedContent = ({
         </YStack>
         <YStack flex={1} justify='space-between'>
           {Object.entries(scoreBoard).map(([id, countScore], i) => {
-            const mood = moods[id]
             return (
               <ProgressGraph
                 key={`${i}-${id}`}
@@ -55,7 +53,7 @@ export const MoodAverageExpandedContent = ({
                 moodScore={Math.round(
                   ((countScore?.score || 0) / moodTotalScore) * 100,
                 )}
-                moodColor={countScore?.color || '$gray10'}
+                moodColor={moods[id].color || '$gray10'}
               />
             )
           })}

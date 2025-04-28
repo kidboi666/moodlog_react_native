@@ -1,18 +1,7 @@
-import { GetThemeValueForKey, RadioGroup, styled } from 'tamagui'
+import { Button, GetThemeValueForKey, RadioGroup, styled } from 'tamagui'
 
-import { BaseText, PressableButton } from '@/shared/components'
+import { BaseText } from '@/shared/components'
 import { MOUNT_STYLE } from '@/shared/constants'
-
-const FontItemLabel = styled(BaseText, {
-  flex: 1,
-})
-
-const StyledFontGroupItem = styled(RadioGroup.Item)
-
-const StyledFontGroupIndicator = styled(RadioGroup.Indicator, {
-  animation: 'medium',
-  enterStyle: MOUNT_STYLE,
-})
 
 interface Props {
   value: string
@@ -24,11 +13,22 @@ export const FontRadioGroupItem = ({ value, label, onValueChange }: Props) => {
   const computedFontFamily =
     `$${value}` as unknown as GetThemeValueForKey<'fontFamily'>
   return (
-    <PressableButton onPress={() => onValueChange(value)}>
+    <Button animation='quick' chromeless onPress={() => onValueChange(value)}>
       <FontItemLabel fontFamily={computedFontFamily}>{label}</FontItemLabel>
       <StyledFontGroupItem value={value} id={value}>
         <StyledFontGroupIndicator />
       </StyledFontGroupItem>
-    </PressableButton>
+    </Button>
   )
 }
+
+const FontItemLabel = styled(BaseText, {
+  flex: 1,
+})
+
+const StyledFontGroupItem = styled(RadioGroup.Item)
+
+const StyledFontGroupIndicator = styled(RadioGroup.Indicator, {
+  animation: 'medium',
+  enterStyle: MOUNT_STYLE,
+})

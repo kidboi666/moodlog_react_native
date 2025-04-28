@@ -61,6 +61,7 @@ export const MoodPreviewItem = ({ name, color, ...props }: Props) => {
   const fullMoodPath = useSharedValue(center)
   const halfMoodPath = useSharedValue(center)
   const zeroMoodPath = useSharedValue(center)
+  const blur = useSharedValue(10)
   const textX = useDerivedValue(() => fullMoodPath.value - r)
   const textY = useDerivedValue(() => fullMoodPath.value - 12)
 
@@ -78,6 +79,7 @@ export const MoodPreviewItem = ({ name, color, ...props }: Props) => {
         true,
       ),
     )
+    blur.value = withRepeat(withTiming(30, { duration: 2000 }), -1, true)
     zeroMoodPath.value = withSequence(
       withTiming(currentStep === 1 ? r + p : center, {
         duration: 1200,
@@ -85,13 +87,13 @@ export const MoodPreviewItem = ({ name, color, ...props }: Props) => {
       }),
       withRepeat(
         withTiming(currentStep === 1 ? r + p - 8 : center + 8, {
-          duration: 3000,
+          duration: 4000,
         }),
         -1,
         true,
       ),
     )
-  }, [color, currentStep])
+  }, [currentStep])
 
   return (
     <Container {...props}>
@@ -109,7 +111,7 @@ export const MoodPreviewItem = ({ name, color, ...props }: Props) => {
           color={skiaColor}
           opacity={0.4}
         >
-          <Blur blur={20} />
+          <Blur blur={blur} />
         </Circle>
         <Circle
           cx={halfMoodPath}

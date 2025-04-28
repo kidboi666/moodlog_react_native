@@ -8,7 +8,6 @@ export type ExpressiveMonthStats = {
 export type CountScore = {
   count: number
   score: number
-  color?: string
 }
 
 export type ScoreBoard = {

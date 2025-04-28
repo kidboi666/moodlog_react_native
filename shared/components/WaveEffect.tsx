@@ -1,22 +1,34 @@
-import { Blur, Canvas, Circle } from '@shopify/react-native-skia'
-import React, { PropsWithChildren, useEffect } from 'react'
+import {
+  BlendColor,
+  Blur,
+  Canvas,
+  Circle,
+  Group,
+  SRGBToLinearGamma,
+} from '@shopify/react-native-skia'
+import React, { useEffect } from 'react'
 import { useWindowDimensions } from 'react-native'
-import { useSharedValue, withTiming } from 'react-native-reanimated'
-import { AnimatePresence, Portal, useTheme } from 'tamagui'
+import {
+  SharedValue,
+  useDerivedValue,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated'
+import { Portal } from 'tamagui'
 
 interface Props {
   active: boolean
+  color: SharedValue<string>
 }
 
-export const WaveEffect = ({ children, active }: PropsWithChildren<Props>) => {
+export const WaveEffect = ({ active, color }: Props) => {
   const { width, height } = useWindowDimensions()
-  const theme = useTheme()
   const duration = 800
-  const blur = 200
   const r = useSharedValue(0)
   const topY = useSharedValue(height)
   const leftY = useSharedValue(height)
   const rightY = useSharedValue(height)
+  const blur = useDerivedValue(() => r.value / 4 + 40)
 
   useEffect(() => {
     if (active) {
@@ -35,35 +47,21 @@ export const WaveEffect = ({ children, active }: PropsWithChildren<Props>) => {
   return (
     <Portal>
       <Canvas style={{ flex: 1, pointerEvents: 'none' }}>
-        <Circle
-          cx={width / 4}
-          cy={leftY}
-          r={r}
-          color={theme.red9.val}
-          opacity={0.9}
-        >
+        <Circle cx={width / 4} cy={leftY} r={r} color={color} opacity={0.9}>
           <Blur blur={blur} />
         </Circle>
-        <Circle
-          cx={width / 1.2}
-          cy={rightY}
-          r={r}
-          color={theme.blue9.val}
-          opacity={0.9}
-        >
+        <Circle cx={width / 1.2} cy={rightY} r={r} color={color}>
           <Blur blur={blur} />
         </Circle>
-        <Circle
-          cx={width / 3.2}
-          cy={topY}
-          r={r}
-          color={theme.purple9.val}
-          opacity={0.8}
-        >
-          <Blur blur={blur} />
-        </Circle>
+        <Group>
+          <SRGBToLinearGamma>
+            <BlendColor color={color} mode='srcIn' />
+          </SRGBToLinearGamma>
+          <Circle cx={width / 3.2} cy={topY} r={r} color={color} opacity={0.6}>
+            <Blur blur={blur} />
+          </Circle>
+        </Group>
       </Canvas>
-      <AnimatePresence>{children}</AnimatePresence>
     </Portal>
   )
 }

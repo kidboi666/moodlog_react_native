@@ -3,7 +3,6 @@ import { memo } from 'react'
 import { Button } from 'tamagui'
 
 import { BaseText } from '@/shared/components'
-import { PRESS_STYLE } from '@/shared/constants'
 
 interface NavigationSettingItemProps {
   icon?: any
@@ -15,9 +14,8 @@ export const NavigationSettingItem = memo(
   ({ icon, label, onRouteChange }: NavigationSettingItemProps) => {
     return (
       <Button
-        justify='space-between'
         animation='quick'
-        pressStyle={PRESS_STYLE}
+        justify='space-between'
         icon={icon}
         onPress={onRouteChange}
       >

@@ -8,7 +8,9 @@ import { useAuth } from 'shared/store'
 
 export const WelcomeZone = memo(() => {
   const { t } = useTranslation()
-  const { userName } = useAuth()
+  const userName = useAuth(
+    state => state.session?.user?.user_metadata.user_name,
+  )
 
   return (
     <Fragment>

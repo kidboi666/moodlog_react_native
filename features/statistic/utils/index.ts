@@ -83,7 +83,6 @@ export class StatisticUtils {
         myScoreBoard[moodId] = {
           count: 0,
           score: 0,
-          color: mood.color,
         }
       }
 
@@ -99,7 +98,6 @@ export class StatisticUtils {
       myScoreBoard[moodId] = {
         count: myScoreBoard[moodId].count + 1,
         score: myScoreBoard[moodId].score + score,
-        color: mood.color,
       }
     })
 
@@ -111,16 +109,16 @@ export class StatisticUtils {
    */
   static getSignatureMood(scoreBoard: ScoreBoard): SignatureMood {
     const initialValue: SignatureMood = {
-      name: '',
+      id: '',
       count: 0,
       score: 0,
     }
-    return Object.entries(scoreBoard).reduce((highest, [name, data]) => {
+    return Object.entries(scoreBoard).reduce((highest, [id, data]) => {
       if (!data) return highest
 
-      if (!highest.name || data.score > highest.score) {
+      if (!highest.id || data.score > highest.score) {
         return {
-          name,
+          id,
           count: data.count,
           score: data.score,
         }

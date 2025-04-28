@@ -38,7 +38,7 @@ export const MoodAverage = ({ selectedYear, selectedMonth }: Props) => {
   const { signatureMood, scoreBoard } = moodStats || {}
   const { animatedStyle, expansionState, onPress } = useExpandAnimation()
 
-  const shouldShowSignatureMood = !!signatureMood?.type
+  const shouldShowSignatureMood = !!signatureMood?.id
 
   return (
     <AnimatedCardContainer onPress={onPress} style={animatedStyle}>

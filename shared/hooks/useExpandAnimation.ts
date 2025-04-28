@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react'
 import {
+  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
@@ -26,7 +27,7 @@ export const useExpandAnimation = () => {
         ? ExpansionState.COLLAPSED
         : ExpansionState.EXPANDED
 
-    setExpansionState(newState)
+    runOnJS(setExpansionState)(newState)
 
     height.value = withSpring(
       newState === ExpansionState.EXPANDED

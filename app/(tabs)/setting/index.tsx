@@ -13,18 +13,13 @@ import {
 import { type Href, useRouter } from 'expo-router'
 import { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, YStack } from 'tamagui'
+import { Button, ScrollView, YStack } from 'tamagui'
 
 import {
   NavigationSettingItem,
   SettingsContainer,
 } from '@/features/setting/components'
-import {
-  BaseText,
-  H1,
-  PressableButton,
-  ViewContainer,
-} from '@/shared/components'
+import { BaseText, H1, ViewContainer } from '@/shared/components'
 import { Layout } from '@/shared/constants'
 import { useAuth, useBottomSheet } from '@/shared/store'
 import { BottomSheetType } from '@/shared/types'
@@ -89,15 +84,15 @@ export default function SettingsScreen() {
           ))}
 
           {session && (
-            <PressableButton
+            <Button
+              animation='quick'
               onPress={handleLogoutConfirm}
               chromeless
-              bg='transparent'
               color='$red10'
             >
               {t('auth.logout')}
               <LogOut color='$red10' size='$1' />
-            </PressableButton>
+            </Button>
           )}
         </YStack>
 

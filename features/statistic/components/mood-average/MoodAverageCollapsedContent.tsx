@@ -1,10 +1,49 @@
 import { Maximize2 } from '@tamagui/lucide-icons'
 import { useTranslation } from 'react-i18next'
-import { H2, View, XStack, YStack, styled } from 'tamagui'
+import { View, XStack, YStack, styled } from 'tamagui'
 
 import { BaseText, H3 } from '@/shared/components'
 import type { Nullable, SignatureMood } from '@/shared/types'
 import { useMood } from 'shared/store'
+
+interface Props {
+  hasSignatureMood: boolean
+  signatureMood: Nullable<SignatureMood>
+}
+
+export const MoodAverageCollapsedContent = ({
+  hasSignatureMood,
+  signatureMood,
+}: Props) => {
+  const { t } = useTranslation()
+  const moods = useMood(state => state.moods)
+
+  // 해당 감정 ID로 이름 찾기
+  const moodName = signatureMood?.id
+    ? moods[signatureMood.id]?.name || signatureMood.id
+    : t('common.fallback.text')
+
+  return (
+    <ViewContainer>
+      <YStackContainer>
+        <CardTitle signatureMood={hasSignatureMood}>
+          {t('statistics.mood.title')}
+        </CardTitle>
+        <CardDescription signatureMood={hasSignatureMood}>
+          {t('statistics.mood.description')}
+        </CardDescription>
+      </YStackContainer>
+      <YStack>
+        <XStack>
+          <MoodText signatureMood={hasSignatureMood}>
+            {hasSignatureMood ? moodName : t('common.fallback.text')}
+          </MoodText>
+          <Maximize2 self='flex-end' color='$color8' />
+        </XStack>
+      </YStack>
+    </ViewContainer>
+  )
+}
 
 const ViewContainer = styled(View, {
   animation: 'quick',
@@ -43,7 +82,7 @@ const CardDescription = styled(BaseText, {
   } as const,
 })
 
-const MoodText = styled(H2, {
+const MoodText = styled(H3, {
   color: '$gray12',
   flex: 1,
 
@@ -55,42 +94,3 @@ const MoodText = styled(H2, {
     },
   } as const,
 })
-
-interface Props {
-  hasSignatureMood: boolean
-  signatureMood: Nullable<SignatureMood>
-}
-
-export const MoodAverageCollapsedContent = ({
-  hasSignatureMood,
-  signatureMood,
-}: Props) => {
-  const { t } = useTranslation()
-  const moods = useMood(state => state.moods)
-
-  // 해당 감정 ID로 이름 찾기
-  const moodName = signatureMood?.type
-    ? moods[signatureMood.type]?.name || signatureMood.type
-    : t('common.fallback.text')
-
-  return (
-    <ViewContainer>
-      <YStackContainer>
-        <CardTitle signatureMood={hasSignatureMood}>
-          {t('statistics.mood.title')}
-        </CardTitle>
-        <CardDescription signatureMood={hasSignatureMood}>
-          {t('statistics.mood.description')}
-        </CardDescription>
-      </YStackContainer>
-      <YStack>
-        <XStack>
-          <MoodText signatureMood={hasSignatureMood}>
-            {hasSignatureMood ? moodName : t('common.fallback.text')}
-          </MoodText>
-          <Maximize2 self='flex-end' color='$color8' />
-        </XStack>
-      </YStack>
-    </ViewContainer>
-  )
-}

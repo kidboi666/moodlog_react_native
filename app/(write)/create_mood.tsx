@@ -15,6 +15,7 @@ import {
   StepDot,
   ViewContainer,
 } from '@/shared/components'
+import { WaveEffect } from '@/shared/components/WaveEffect'
 import { DelayMS } from '@/shared/constants'
 import { useMood, useUI } from '@/shared/store'
 import { MoodName } from '@/shared/types'
@@ -26,6 +27,7 @@ export default function CreateMoodScreen() {
   const moods = useMood(state => state.moods)
   const addMyMood = useMood(state => state.addMood)
   const setNavigating = useUI(state => state.setNavigating)
+  const [isActive, setIsActive] = useState(false)
 
   const handlePress = useCallback(() => {
     setNavigating(true)
@@ -62,7 +64,8 @@ export default function CreateMoodScreen() {
         Header={
           <HeaderContent
             leftAction={() => router.back()}
-            rightAction={handlePress}
+            rightAction={() => setIsActive(prev => !prev)}
+            // rightAction={handlePress}
             rightActionIcon={Check}
             rightActionDisabled={!moodName || !sharedMoodColor.value}
           >
@@ -75,6 +78,7 @@ export default function CreateMoodScreen() {
           contentContainerStyle={styles.keyboardAvoidingViewInner}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
+          <WaveEffect active={isActive} color={sharedMoodColor} />
           <Delay flex={1}>
             <MoodPreviewItem name={moodName} color={sharedMoodColor} />
           </Delay>

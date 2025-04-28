@@ -13,11 +13,7 @@ export const SettingsContainer = ({
 }: PropsWithChildren<Props>) => {
   return (
     <View gap='$3'>
-      {title && (
-        <BaseText ml='$5' color='$color11'>
-          {title}
-        </BaseText>
-      )}
+      {title && <BaseText ml='$5'>{title}</BaseText>}
       <View rounded='$4' bg='$color4'>
         {children}
       </View>
