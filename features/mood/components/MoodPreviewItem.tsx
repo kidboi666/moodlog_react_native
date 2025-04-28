@@ -6,6 +6,7 @@ import {
   Paragraph,
   Skia,
   TextAlign,
+  useFonts,
 } from '@shopify/react-native-skia'
 import { useEffect, useMemo } from 'react'
 import {
@@ -19,6 +20,7 @@ import {
 } from 'react-native-reanimated'
 import { View, ViewProps, styled } from 'tamagui'
 
+import { useCustomFont } from '@/shared/hooks'
 import { useStepProgress } from '@/shared/store'
 
 interface Props extends ViewProps {
@@ -30,21 +32,27 @@ export const MoodPreviewItem = ({ name, color, ...props }: Props) => {
   const {
     state: { currentStep },
   } = useStepProgress()
+  const { fontName } = useCustomFont()
+  const customFontMgr = useFonts(fontList)
   const paragraph = useMemo(() => {
+    if (!customFontMgr) {
+      return null
+    }
     const paragraphStyle = {
       textAlign: TextAlign.Center,
     }
     const textStyle = {
       color: Skia.Color('white'),
       fontSize: 24,
+      fontFamilies: [fontName],
       fontWeight: '600',
     }
-    return Skia.ParagraphBuilder.Make(paragraphStyle)
+    return Skia.ParagraphBuilder.Make(paragraphStyle, customFontMgr)
       .pushStyle(textStyle)
       .addText(name)
       .pop()
       .build()
-  }, [name])
+  }, [name, customFontMgr])
   const skiaColor = Skia.Color(color as unknown as Color)
   const r = 100
   const p = 80
@@ -53,8 +61,8 @@ export const MoodPreviewItem = ({ name, color, ...props }: Props) => {
   const fullMoodPath = useSharedValue(center)
   const halfMoodPath = useSharedValue(center)
   const zeroMoodPath = useSharedValue(center)
-  const textX = useDerivedValue(() => fullMoodPath.value / 8)
-  const textY = useDerivedValue(() => fullMoodPath.value / 1.2)
+  const textX = useDerivedValue(() => fullMoodPath.value - r)
+  const textY = useDerivedValue(() => fullMoodPath.value - 12)
 
   useEffect(() => {
     fullMoodPath.value = withSequence(
@@ -134,3 +142,11 @@ const Container = styled(View, {
   justify: 'center',
   flex: 1,
 })
+
+const fontList = {
+  pretendard: [require('../../../assets/fonts/Pretendard-Bold.ttf')],
+  esamanru: [require('../../../assets/fonts/Esamanru-Bold.otf')],
+  leeSeoyun: [require('../../../assets/fonts/LeeSeoyun-Regular.ttf')],
+  nanumPenScript: [require('../../../assets/fonts/NanumPenScript-Regular.ttf')],
+  robotoMono: [require('../../../assets/fonts/RobotoMono-Bold.ttf')],
+}

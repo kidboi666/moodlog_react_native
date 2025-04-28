@@ -29,7 +29,7 @@ export const PressableButton = ({
   themeInverse,
   ...props
 }: Props) => {
-  const font = useCustomFont()
+  const { fontNameWithTokenPrefix } = useCustomFont()
   const animateOnly =
     enterStyle || exitStyle
       ? [...PRESS_STYLE_KEY, ...MOUNT_STYLE_KEY]
@@ -45,7 +45,7 @@ export const PressableButton = ({
       exitStyle={exitStyle}
       animateOnly={animateOnly}
       scaleIcon={scaleIcon || 1.5}
-      fontFamily={fontFamily || font}
+      fontFamily={fontFamily || fontNameWithTokenPrefix}
       themeInverse={themeInverse}
       opacity={isDisabled ? 0.4 : 1}
       disabled={isDisabled}

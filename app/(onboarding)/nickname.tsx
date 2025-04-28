@@ -21,7 +21,11 @@ import { useStepProgress } from '@/shared/store'
 export default function Screen() {
   const router = useRouter()
   const { t } = useTranslation()
-  const { currentStep, goToPrevStep, goToNextStep } = useStepProgress()
+  const {
+    state: { currentStep },
+    goToPrevStep,
+    goToNextStep,
+  } = useStepProgress()
   const [draftUserName, setDraftUserName] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<AuthError | Error | null>(null)

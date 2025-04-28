@@ -15,14 +15,14 @@ export const FormInputArea = ({
   height = 200,
   ...props
 }: Props) => {
-  const font = useCustomFont()
+  const { fontNameWithTokenPrefix } = useCustomFont()
 
   return (
     <StyledView>
       <TextArea
         value={value}
         onChangeText={onChangeText}
-        fontFamily={font}
+        fontFamily={fontNameWithTokenPrefix}
         placeholder={placeholder}
         {...props}
         height={height}

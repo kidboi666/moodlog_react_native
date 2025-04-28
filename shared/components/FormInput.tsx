@@ -13,14 +13,14 @@ export const FormInput = ({
   placeholder,
   ...props
 }: Props) => {
-  const font = useCustomFont()
+  const { fontNameWithTokenPrefix } = useCustomFont()
 
   return (
     <StyledView>
       <Input
         value={value}
         onChangeText={onChangeText}
-        fontFamily={font}
+        fontFamily={fontNameWithTokenPrefix}
         placeholder={placeholder}
         {...props}
       />

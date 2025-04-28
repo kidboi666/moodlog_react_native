@@ -1,6 +1,6 @@
-import { memo } from 'react'
 import type { ReactNode } from 'react'
-import { GetThemeValueForKey, Text, type TextProps } from 'tamagui'
+import { memo } from 'react'
+import { Text, type TextProps } from 'tamagui'
 
 import { useCustomFont, useFontSizeAdjustment } from '@/shared/hooks'
 
@@ -10,7 +10,7 @@ interface Props extends TextProps {
 
 export const StyledBaseText = Text.styleable<Props>(
   ({ children, themeInverse, color, fontSize, ...props }, ref) => {
-    const font = useCustomFont()
+    const { fontNameWithTokenPrefix } = useCustomFont()
     const defaultFontSize = useFontSizeAdjustment('$5')
 
     return (
@@ -18,7 +18,7 @@ export const StyledBaseText = Text.styleable<Props>(
         themeInverse={themeInverse}
         color={color}
         fontSize={fontSize || defaultFontSize}
-        fontFamily={font as unknown as GetThemeValueForKey<'$fontFamily'>}
+        fontFamily={fontNameWithTokenPrefix}
         fontWeight={props.fontWeight ? props.fontWeight : '400'}
         ref={ref}
         {...props}

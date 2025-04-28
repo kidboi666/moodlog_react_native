@@ -1,4 +1,4 @@
-import { useApp, useAuth, useJournal } from '@/shared/store'
+import { useApp, useAuth, useJournal, useMood } from '@/shared/store'
 
 export const useDev = () => {
   const handleClearUserStorage = async () => {
@@ -14,6 +14,7 @@ export const useDev = () => {
     useAuth.persist.clearStorage()
     useApp.persist.clearStorage()
     useJournal.persist.clearStorage()
+    useMood.persist.clearStorage()
   }
 
   const insertDummyData = async () => {

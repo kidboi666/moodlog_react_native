@@ -17,7 +17,10 @@ import { useStepProgress } from '@/shared/store'
 export default function Screen() {
   const router = useRouter()
   const { t } = useTranslation()
-  const { currentStep, goToNextStep } = useStepProgress()
+  const {
+    state: { currentStep },
+    goToNextStep,
+  } = useStepProgress()
   const isWelcomePage = currentStep === 0
 
   const handleClickNextButton = () => {

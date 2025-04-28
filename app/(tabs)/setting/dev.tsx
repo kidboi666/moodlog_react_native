@@ -6,9 +6,10 @@ import {
   Users,
 } from '@tamagui/lucide-icons'
 import { useTranslation } from 'react-i18next'
-import { Button, H1, ScrollView, YStack } from 'tamagui'
+import { Button, ScrollView, YStack } from 'tamagui'
 
 import { SettingsContainer } from '@/features/setting/components'
+import { H1 } from '@/shared/components'
 import { ViewContainer } from '@/shared/components'
 import { useDev } from '@/shared/hooks/useDev'
 
@@ -18,9 +19,9 @@ export default function DevScreen() {
 
   return (
     <ScrollView>
-      <ViewContainer edges={['top']} padded gap='$4'>
+      <ViewContainer padded gap='$4'>
         <H1>{t('settings.dev.title')}</H1>
-        <YStack>
+        <YStack gap='$4'>
           <SettingsContainer title={t('settings.dev.store')}>
             <YStack gap='$2'>
               <Button onPress={resetStores} icon={<RefreshCw size='$1' />}>

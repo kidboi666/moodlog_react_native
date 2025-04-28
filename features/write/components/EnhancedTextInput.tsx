@@ -57,7 +57,7 @@ export const EnhancedTextInput = forwardRef<EnhancedTextInputRef, Props>(
     const [selection, setSelection] = useState({ start: 0, end: 0 })
     const [prevLength, setPrevLength] = useState(0)
     const deferredLength = useDeferredValue(contentValue.length)
-    const font = useCustomFont()
+    const { fontNameWithTokenPrefix } = useCustomFont()
 
     const getCurrentTime = useCallback(() => {
       const now = new Date()
@@ -163,7 +163,7 @@ export const EnhancedTextInput = forwardRef<EnhancedTextInputRef, Props>(
 
         <TextArea
           ref={inputRef}
-          fontFamily={font as unknown as GetThemeValueForKey<'$fontFamily'>}
+          fontFamily={fontNameWithTokenPrefix}
           value={contentValue}
           onChangeText={handleContentChange}
           onSelectionChange={event => setSelection(event.nativeEvent.selection)}
