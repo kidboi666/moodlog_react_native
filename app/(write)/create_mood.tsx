@@ -16,7 +16,6 @@ import {
   ViewContainer,
 } from '@/shared/components'
 import { DelayMS } from '@/shared/constants'
-import { ImageService } from '@/shared/services'
 import { useMood, useUI } from '@/shared/store'
 import { MoodName } from '@/shared/types'
 
@@ -40,7 +39,7 @@ export default function CreateMoodScreen() {
     addMyMood(updatedMoods)
 
     const timer = setTimeout(() => {
-      router.push({
+      router.replace({
         pathname: '/(tabs)',
         params: {
           moodName,
