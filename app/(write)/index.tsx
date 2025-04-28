@@ -10,6 +10,7 @@ import {
 } from '@/features/mood/components'
 import { useDeleteMood } from '@/features/mood/hooks'
 import { MoodRecordFlow } from '@/features/write/components'
+import { useAddJournal, useDraftManage } from '@/features/write/hooks'
 import { StepProgressProvider } from '@/providers'
 import {
   Delay,
@@ -17,7 +18,6 @@ import {
   StepDot,
   ViewContainer,
 } from '@/shared/components'
-import { DelayMS } from '@/shared/constants'
 import { useMood, useStepProgress, useUI } from '@/shared/store'
 import { MoodLevel } from '@/shared/types'
 
@@ -30,10 +30,16 @@ export default function SelectMoodScreen() {
   const [selectedMoodId, setSelectedMoodId] = useState(
     Object.keys(moods)[0] || '',
   )
-  const [moodLevel, setMoodLevel] = useState<MoodLevel>()
+  const [moodLevel, setMoodLevel] = useState<MoodLevel>(MoodLevel.HALF)
   const [[page, totalPage], setPage] = useState([0, Object.keys(moods).length])
   const flatListRef = useRef<FlatList<any>>(null)
   const setNavigating = useUI(state => state.setNavigating)
+
+  const { onContentChange, onImageUriChange, draft } = useDraftManage(
+    selectedMoodId,
+    moodLevel,
+  )
+  const { onSubmit, isSubmitted } = useAddJournal(draft)
 
   const handleLeftPress = () => {
     setPage(([page, totalPage]) => [
@@ -44,29 +50,6 @@ export default function SelectMoodScreen() {
 
   const handleRightPress = () => {
     setPage(([page, totalPage]) => [(page + 1) % totalPage, totalPage])
-  }
-
-  const handleSubmit = () => {
-    if (!selectedMoodId) return
-
-    const selectedMood = moods[selectedMoodId]
-    setNavigating(true)
-
-    const timer = setTimeout(() => {
-      router.push({
-        pathname: '/write_diary',
-        params: {
-          moodName: selectedMood.name,
-          moodColor: selectedMood.color,
-        },
-      })
-
-      setTimeout(() => {
-        setNavigating(false)
-      }, 100)
-    }, DelayMS.ROUTE)
-
-    return () => clearTimeout(timer)
   }
 
   useEffect(() => {
@@ -127,7 +110,7 @@ export default function SelectMoodScreen() {
             selectedMoodId={selectedMoodId}
             onLeftPress={handleLeftPress}
             onRightPress={handleRightPress}
-            onSubmit={handleSubmit}
+            onSubmit={onSubmit}
           />
           <FormSectionFromChooseMoodScreen
             selectedMoodId={selectedMoodId}

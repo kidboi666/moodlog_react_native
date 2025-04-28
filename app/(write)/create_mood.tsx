@@ -56,21 +56,21 @@ export default function CreateMoodScreen() {
   }, [moodName, router, setNavigating])
 
   return (
-    <Delay flex={1}>
-      <ViewContainer
-        edges={['bottom']}
-        Header={
-          <HeaderContent
-            leftAction={() => router.back()}
-            rightAction={handlePress}
-            rightActionIcon={Check}
-            rightActionDisabled={!moodName || !sharedMoodColor.value}
-          >
-            <StepDot />
-          </HeaderContent>
-        }
-      >
-        <StepProgressProvider totalSteps={2}>
+    <StepProgressProvider totalSteps={2}>
+      <Delay flex={1}>
+        <ViewContainer
+          edges={['bottom']}
+          Header={
+            <HeaderContent
+              leftAction={() => router.back()}
+              rightAction={handlePress}
+              rightActionIcon={Check}
+              rightActionDisabled={!moodName || !sharedMoodColor.value}
+            >
+              <StepDot />
+            </HeaderContent>
+          }
+        >
           <YStack flex={1} gap='$6'>
             <KeyboardAvoidingView
               style={{ flex: 1 }}
@@ -86,8 +86,8 @@ export default function CreateMoodScreen() {
               </YStack>
             </KeyboardAvoidingView>
           </YStack>
-        </StepProgressProvider>
-      </ViewContainer>
-    </Delay>
+        </ViewContainer>
+      </Delay>
+    </StepProgressProvider>
   )
 }

@@ -2,13 +2,19 @@ import { ChevronLeft, ChevronRight } from '@tamagui/lucide-icons'
 import { Suspense, lazy, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Keyboard, useWindowDimensions } from 'react-native'
-import { Button, Spinner, XStack, YStack, useControllableState } from 'tamagui'
+import {
+  Button,
+  Spinner,
+  XStack,
+  YStack,
+  styled,
+  useControllableState,
+} from 'tamagui'
 
 import { BaseText, H3 } from '@/shared/components'
 import { Layout, MOUNT_STYLE } from '@/shared/constants'
 import { useStepProgress } from '@/shared/store'
 import { MoodNameForm } from './MoodNameForm'
-
 const ColorPicker = lazy(() => import('../../write/components/ColorPicker'))
 
 interface Props {
@@ -16,14 +22,6 @@ interface Props {
   setName: (name: string) => void
   sharedColor: any
 }
-
-const menuList = [
-  { title: 'placeholders.moodName', description: 'warn.createMood.name.1' },
-  {
-    title: 'moods.my.moodColor.title',
-    description: 'moods.my.moodColor.description',
-  },
-]
 
 export const FormSection = ({ name, setName, sharedColor }: Props) => {
   const { t } = useTranslation()
@@ -60,32 +58,17 @@ export const FormSection = ({ name, setName, sharedColor }: Props) => {
 
   return (
     <>
-      <XStack width='100%' justify='space-between'>
-        <Button bg='transparent' icon={ChevronLeft} onPress={handleLeftPress} />
-        <YStack
-          key={currentStep}
-          animation='lazy'
-          enterStyle={MOUNT_STYLE}
-          exitStyle={MOUNT_STYLE}
-          gap='$2'
-          overflow='hidden'
-        >
+      <TitleContainer>
+        <LeftButton icon={ChevronLeft} onPress={handleLeftPress} />
+        <TitleBox key={currentStep}>
           <H3>{t(menuList[currentStep].title)}</H3>
           <BaseText fontSize='$4' color='$color10'>
             {t(menuList[currentStep].description)}
           </BaseText>
-        </YStack>
-        <Button
-          bg='transparent'
-          icon={ChevronRight}
-          onPress={handleRightPress}
-        />
-      </XStack>
-      <XStack
-        gap={Layout.SPACE.CONTAINER_HORIZONTAL_PADDING * 2}
-        animation='quick'
-        {...position}
-      >
+        </TitleBox>
+        <RightButton icon={ChevronRight} onPress={handleRightPress} />
+      </TitleContainer>
+      <FormContainer {...position}>
         <MoodNameForm
           name={name}
           setName={setName}
@@ -97,7 +80,41 @@ export const FormSection = ({ name, setName, sharedColor }: Props) => {
             width={width - Layout.SPACE.CONTAINER_HORIZONTAL_PADDING * 2}
           />
         </Suspense>
-      </XStack>
+      </FormContainer>
     </>
   )
 }
+
+const TitleContainer = styled(XStack, {
+  width: '100%',
+  justify: 'space-between',
+})
+
+const LeftButton = styled(Button, {
+  bg: 'transparent',
+})
+
+const RightButton = styled(Button, {
+  bg: 'transparent',
+})
+
+const TitleBox = styled(YStack, {
+  animation: 'lazy',
+  enterStyle: MOUNT_STYLE,
+  exitStyle: MOUNT_STYLE,
+  gap: '$2',
+  overflow: 'hidden',
+})
+
+const FormContainer = styled(XStack, {
+  gap: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING * 2,
+  animation: 'quick',
+})
+
+const menuList = [
+  { title: 'placeholders.moodName', description: 'warn.createMood.name.1' },
+  {
+    title: 'moods.my.moodColor.title',
+    description: 'moods.my.moodColor.description',
+  },
+]

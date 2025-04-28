@@ -25,5 +25,7 @@ export type BottomSheetProps = {
     onDelete: (moodId: string) => void
     hideBottomSheet: () => void
   }
-  [BottomSheetType.WRITE_JOURNAL]: {}
+  [BottomSheetType.WRITE_JOURNAL]: {
+    onSubmit: () => void
+  }
 }

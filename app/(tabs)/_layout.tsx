@@ -36,7 +36,7 @@ export default function TabsLayout() {
         <Tabs.Screen name='setting' />
         <Tabs.Screen name='statistic' />
       </Tabs>
-      <ContainerFog shouldHideTabBar={shouldHideTabBar} />
+      <ContainerFog />
       <AnimatePresence exitBeforeEnter>
         {!shouldHideTabBar && <CustomTabBar />}
       </AnimatePresence>

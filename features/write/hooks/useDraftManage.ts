@@ -8,14 +8,14 @@ import { useToastController } from '@tamagui/toast'
 
 const AUTO_SAVE_INTERVAL = 5000
 
-export const useDraftManage = (moodName: string, moodLevel: string) => {
+export const useDraftManage = (moodId: string, moodLevel: MoodLevel) => {
   const toast = useToastController()
   const storedDraft = useDraft(state => state.draft)
   const setStoredDraft = useDraft(state => state.setDraft)
   const [draft, setDraft] = useState<Draft>({
     content: '',
     mood: {
-      id: moodName,
+      id: moodId,
       level: moodLevel as MoodLevel,
     },
     imageUri: [],

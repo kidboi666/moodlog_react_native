@@ -17,6 +17,7 @@ interface Props {
   selectedMoodId: string
   onLeftPress: () => void
   onRightPress: () => void
+  onSubmit: () => void
 }
 
 export const MoodRecordFlow = ({
@@ -29,6 +30,7 @@ export const MoodRecordFlow = ({
   selectedMoodId,
   onLeftPress,
   onRightPress,
+  onSubmit,
 }: Props) => {
   const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
   useEffect(() => {
@@ -36,7 +38,7 @@ export const MoodRecordFlow = ({
       showBottomSheet(
         BottomSheetType.WRITE_JOURNAL,
         Layout.SNAP_POINTS.JOURNAL_WRITE,
-        {},
+        { onSubmit },
       )
     }
   })
