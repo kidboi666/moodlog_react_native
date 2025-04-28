@@ -27,5 +27,7 @@ export type BottomSheetProps = {
   }
   [BottomSheetType.WRITE_JOURNAL]: {
     onSubmit: () => void
+    selectedMoodId?: string
+    moodLevel?: string
   }
 }

@@ -5,16 +5,17 @@ import {
 } from '@/features/write/components/EnhancedTextInput'
 import { useAddJournal, useDraftManage } from '@/features/write/hooks'
 import { DelayMS } from '@/shared/constants'
-import { useLocalSearchParams } from 'expo-router'
+import { MoodLevel } from '@/shared/types'
 import { useCallback, useEffect, useRef } from 'react'
-import { Dimensions } from 'react-native'
 import { YStack } from 'tamagui'
 
-export const MoodJournal = () => {
-  const { moodName, moodLevel } = useLocalSearchParams<{
-    moodName: string
-    moodLevel: string
-  }>()
+interface Props {
+  moodName: string
+  moodLevel: MoodLevel
+  show: boolean
+}
+
+export const MoodJournal = ({ moodName, moodLevel, show }: Props) => {
   const { onContentChange, onImageUriChange, draft } = useDraftManage(
     moodName,
     moodLevel,
@@ -27,6 +28,10 @@ export const MoodJournal = () => {
   }, [])
 
   useEffect(() => {
+    if (!show) {
+      return
+    }
+
     const focusTimer = setTimeout(() => {
       requestAnimationFrame(() => {
         inputRef.current?.focus()
@@ -35,6 +40,11 @@ export const MoodJournal = () => {
 
     return () => clearTimeout(focusTimer)
   }, [])
+
+  if (!show) {
+    return null
+  }
+
   return (
     <YStack gap='$4' flex={1}>
       <EnhancedTextInput

@@ -200,6 +200,14 @@ export const en = {
         title: 'Select Mood Color',
         description: 'Choose a color that matches your mood',
       },
+      moodSelect: {
+        title: "Select Today's Mood",
+        description: 'Choose your current mood',
+      },
+      moodLevel: {
+        title: 'Select Mood Intensity',
+        description: 'Choose the intensity of your mood',
+      },
     },
   },
   calendar: {
@@ -378,6 +386,17 @@ export const en = {
       passwordRequired: 'Password is required',
       passwordMinLength: 'Password must be at least 8 characters',
       passwordMismatch: 'Passwords do not match',
+    },
+  },
+  warn: {
+    createMood: {
+      name: {
+        1: 'Emotions can only be created up to 4 at a time.',
+        2: 'Emotion names can only be up to 10 characters.',
+      },
+      color: {
+        1: 'Emotion colors can only be selected up to 3 at a time.',
+      },
     },
   },
 }

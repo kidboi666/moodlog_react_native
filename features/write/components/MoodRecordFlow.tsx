@@ -1,18 +1,16 @@
-import { MoodLevelForm, PaginationButton } from '@/features/mood/components'
-import { MoodJournal } from '@/features/write/components/MoodJournal'
-import { PaginationDot } from '@/shared/components'
-import { Layout } from '@/shared/constants'
-import { useBottomSheet } from '@/shared/store'
-import { BottomSheetType, MoodLevel, Moods } from '@/shared/types'
-import { useEffect } from 'react'
 import { View } from 'tamagui'
+
+import { MoodLevelForm, MoodPagination } from '@/features/mood/components'
+import { Layout } from '@/shared/constants'
+import { MoodLevel, Moods } from '@/shared/types'
+import { MoodJournal } from './MoodJournal'
 
 interface Props {
   page: number
   totalPage: number
   currentStep: number
   moods: Moods
-  moodLevel?: MoodLevel
+  moodLevel: MoodLevel
   setMoodLevel: (moodLevel: MoodLevel) => void
   selectedMoodId: string
   onLeftPress: () => void
@@ -32,36 +30,28 @@ export const MoodRecordFlow = ({
   onRightPress,
   onSubmit,
 }: Props) => {
-  const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
-  useEffect(() => {
-    if (currentStep === 2) {
-      showBottomSheet(
-        BottomSheetType.WRITE_JOURNAL,
-        Layout.SNAP_POINTS.JOURNAL_WRITE,
-        { onSubmit },
-      )
-    }
-  })
   return (
-    <View height={Layout.HEIGHT.WRITE_PROGRESS_BAR_HEIGHT}>
-      {currentStep === 0 && (
-        <>
-          <PaginationButton
-            page={page}
-            totalPage={totalPage}
-            onLeftPress={onLeftPress}
-            onRightPress={onRightPress}
-          />
-          <PaginationDot totalPage={totalPage} page={page} />
-        </>
-      )}
-      {currentStep === 1 && (
-        <MoodLevelForm
-          moodColor={moods[selectedMoodId].color}
-          moodLevel={moodLevel}
-          setMoodLevel={setMoodLevel}
-        />
-      )}
+    <View
+      height={currentStep === 2 ? 0 : Layout.HEIGHT.WRITE_PROGRESS_BAR_HEIGHT}
+    >
+      <MoodPagination
+        show={currentStep === 0}
+        page={page}
+        totalPage={totalPage}
+        onLeftPress={onLeftPress}
+        onRightPress={onRightPress}
+      />
+      <MoodLevelForm
+        show={!!(currentStep === 1 && selectedMoodId && moods[selectedMoodId])}
+        moodColor={moods[selectedMoodId]?.color}
+        moodLevel={moodLevel}
+        setMoodLevel={setMoodLevel}
+      />
+      <MoodJournal
+        show={currentStep === 2}
+        moodName={moods[selectedMoodId]?.name}
+        moodLevel={moodLevel}
+      />
     </View>
   )
 }

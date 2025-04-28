@@ -3,23 +3,29 @@ import {
   EnhancedTextInput,
   type EnhancedTextInputRef,
 } from '@/features/write/components/EnhancedTextInput'
-import { useAddJournal, useDraftManage } from '@/features/write/hooks'
+import { useDraftManage } from '@/features/write/hooks'
 import { DelayMS, Layout } from '@/shared/constants'
-import { useLocalSearchParams } from 'expo-router'
+import { MoodLevel } from '@/shared/types'
 import { useCallback, useEffect, useRef } from 'react'
 import { KeyboardAvoidingView, Platform } from 'react-native'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 
-export const WriteJournalModal = () => {
-  const { moodName, moodLevel } = useLocalSearchParams<{
-    moodName: string
-    moodLevel: string
-  }>()
+type Props = {
+  onSubmit: () => void
+  selectedMoodId?: string
+  moodLevel?: string
+}
+
+export const WriteJournalModal = ({
+  onSubmit,
+  selectedMoodId = '',
+  moodLevel = MoodLevel.HALF,
+}: Props) => {
+  // 선택된 감정 정보를 사용하여 초기화
   const { onContentChange, onImageUriChange, draft } = useDraftManage(
-    moodName,
-    moodLevel,
+    selectedMoodId, // props로 전달된 선택된 감정 ID 사용
+    (moodLevel as MoodLevel) || MoodLevel.HALF, // props로 전달된 감정 레벨 사용
   )
-  const { onSubmit, isSubmitted } = useAddJournal(draft)
   const inputRef = useRef<EnhancedTextInputRef>(null)
 
   const handleTimeStamp = useCallback(() => {
@@ -27,6 +33,7 @@ export const WriteJournalModal = () => {
   }, [])
 
   useEffect(() => {
+    // 모달이 열릴 때 입력창에 포커스
     const focusTimer = setTimeout(() => {
       requestAnimationFrame(() => {
         inputRef.current?.focus()
@@ -35,6 +42,7 @@ export const WriteJournalModal = () => {
 
     return () => clearTimeout(focusTimer)
   }, [])
+
   return (
     <BottomSheetContainer>
       <KeyboardAvoidingView
@@ -51,7 +59,7 @@ export const WriteJournalModal = () => {
         />
 
         <ActionButtons
-          isSubmitted={isSubmitted}
+          isSubmitted={false}
           onTimeStamp={handleTimeStamp}
           onImageUriChange={onImageUriChange}
           content={draft.content}

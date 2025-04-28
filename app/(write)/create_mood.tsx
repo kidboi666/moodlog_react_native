@@ -6,7 +6,7 @@ import { KeyboardAvoidingView, Platform } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import { YStack } from 'tamagui'
 
-import { FormSection, MoodPreview } from '@/features/mood/components'
+import { FormSection, MoodPreviewItem } from '@/features/mood/components'
 import { MoodService } from '@/features/mood/services'
 import { StepProgressProvider } from '@/providers'
 import {
@@ -77,7 +77,7 @@ export default function CreateMoodScreen() {
               behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             >
               <YStack flex={1} gap='$4'>
-                <MoodPreview name={moodName} color={sharedMoodColor} />
+                <MoodPreviewItem name={moodName} color={sharedMoodColor} />
                 <FormSection
                   name={moodName}
                   setName={setMoodName}

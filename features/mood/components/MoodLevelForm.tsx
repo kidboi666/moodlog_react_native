@@ -21,14 +21,20 @@ interface Props {
   moodColor: string
   moodLevel?: MoodLevel
   setMoodLevel: (moodLevel: MoodLevel) => void
+  show: boolean
 }
 
 export const MoodLevelForm = ({
   moodColor,
   moodLevel,
   setMoodLevel,
+  show,
 }: Props) => {
   const { t } = useTranslation()
+
+  if (!show) {
+    return null
+  }
 
   return (
     <AnimatePresence>
