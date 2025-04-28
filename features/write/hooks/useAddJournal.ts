@@ -8,9 +8,19 @@ import { JournalService } from '@/features/journal/services'
 import { JournalUtils } from '@/features/journal/utils'
 import { DelayMS } from '@/shared/constants'
 import { useJournal, useUI } from '@/shared/store'
-import { Draft } from '@/shared/types'
+import { Draft, JournalMood, MoodLevel } from '@/shared/types'
 
-export const useAddJournal = (draft: Draft) => {
+export const useAddJournal = ({
+  draftContent,
+  draftMoodId,
+  draftMoodLevel,
+  draftImageUri,
+}: {
+  draftContent: string
+  draftMoodId: string
+  draftMoodLevel: MoodLevel
+  draftImageUri: string[]
+}) => {
   const router = useRouter()
   const { t } = useTranslation()
   const toast = useToastController()
@@ -23,16 +33,25 @@ export const useAddJournal = (draft: Draft) => {
   const [isSubmitted, setIsSubmitted] = useState(false)
 
   const handleSubmit = useCallback(() => {
-    if (!draft.content.trim()) {
+    if (!draftContent.trim()) {
       toast.show('내용을 입력해주세요', { preset: 'notice' })
       return
     }
 
+    const newDraft = {
+      content: draftContent,
+      mood: {
+        id: draftMoodId,
+        level: draftMoodLevel,
+      } as JournalMood,
+      imageUri: draftImageUri,
+    } as Draft
+    console.log('newMood ????? ', draftMoodId)
     try {
       setLoading(true)
       const { newStore, newJournal } = JournalService.createJournal(
         store,
-        draft,
+        newDraft,
       )
       updateStore(newStore)
       const newSelectedJournals = JournalUtils.syncSelectedJournalsAfterCreate(
@@ -62,7 +81,17 @@ export const useAddJournal = (draft: Draft) => {
     } finally {
       setLoading(false)
     }
-  }, [draft, toast, updateStore, t, router, setNavigating, setLoading])
+  }, [
+    draftMoodId,
+    draftMoodLevel,
+    draftContent,
+    toast,
+    updateStore,
+    t,
+    router,
+    setNavigating,
+    setLoading,
+  ])
 
   return {
     onSubmit: handleSubmit,

@@ -1,19 +1,13 @@
-import { ReactNode, useEffect } from 'react'
+import { StepProgressProvider as ProgressProvider } from '@/shared/store/step-progress.store'
+import { PropsWithChildren } from 'react'
 
-import { useStepProgress } from 'shared/store'
+interface Props {
+  totalSteps: number
+}
 
 export const StepProgressProvider = ({
   children,
   totalSteps,
-}: {
-  children: ReactNode
-  totalSteps: number
-}) => {
-  const initialize = useStepProgress(state => state.initialize)
-
-  useEffect(() => {
-    initialize(totalSteps)
-  }, [initialize, totalSteps])
-
-  return <>{children}</>
+}: PropsWithChildren<Props>) => {
+  return <ProgressProvider totalSteps={totalSteps}>{children}</ProgressProvider>
 }

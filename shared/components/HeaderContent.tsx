@@ -15,7 +15,7 @@ interface Props extends XStackProps {
   rightActionDisabled?: boolean
 }
 
-const StyledHeaderContainer = XStack.styleable<Props>(
+export const HeaderContent = XStack.styleable<Props>(
   (
     {
       children,
@@ -78,7 +78,5 @@ const StyledHeaderContent = styled(XStack, {
     },
   } as const,
 })
-
-export const HeaderContent = memo(StyledHeaderContainer)
 
 HeaderContent.displayName = 'HeaderContent'

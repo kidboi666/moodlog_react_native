@@ -33,7 +33,6 @@ export const MoodNameForm = ({ width, name, setName }: Props) => {
       <FormInput
         placeholder={t('placeholders.moodName')}
         value={name}
-        maxLength={10}
         onChangeText={handleChangeText}
       />
     </YStack>

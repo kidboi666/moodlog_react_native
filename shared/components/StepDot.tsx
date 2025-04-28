@@ -3,8 +3,9 @@ import { View, XStack, styled } from 'tamagui'
 import { useStepProgress } from 'shared/store'
 
 export const StepDot = () => {
-  const currentStep = useStepProgress(state => state.currentStep)
-  const totalSteps = useStepProgress(state => state.totalSteps)
+  const {
+    state: { currentStep, totalSteps },
+  } = useStepProgress()
 
   return (
     <Container>

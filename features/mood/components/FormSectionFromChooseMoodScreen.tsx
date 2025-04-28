@@ -1,23 +1,22 @@
-import { BaseText, H3, PressableButton } from '@/shared/components'
-import { Layout, MOUNT_STYLE } from '@/shared/constants'
 import { ChevronLeft, ChevronRight } from '@tamagui/lucide-icons'
 import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import { XStack, YStack, styled } from 'tamagui'
 
+import { BaseText, H3, PressableButton } from '@/shared/components'
+import { Layout, MOUNT_STYLE } from '@/shared/constants'
+import { useStepProgress } from '@/shared/store'
+
 interface Props {
   selectedMoodId: string
-  onNext: () => void
-  onPrev: () => void
-  currentStep: number
 }
 
-export const FormSectionFromChooseMoodScreen = ({
-  selectedMoodId,
-  onNext,
-  onPrev,
-  currentStep,
-}: Props) => {
+export const FormSectionFromChooseMoodScreen = ({ selectedMoodId }: Props) => {
+  const {
+    goToNextStep,
+    goToPrevStep,
+    state: { currentStep },
+  } = useStepProgress()
   const { t } = useTranslation()
 
   const menuList = [
@@ -36,40 +35,33 @@ export const FormSectionFromChooseMoodScreen = ({
   ]
 
   return (
-    <Fragment>
-      <SpacingYStack spacing>
-        <BetweenXStack>
-          <PressableButton
-            bg='transparent'
-            icon={ChevronLeft}
-            onPress={onPrev}
-          />
-          <TitleYStack key={currentStep}>
-            <H3>{t(menuList[currentStep].title)}</H3>
-            <BaseText>{t(menuList[currentStep].description)}</BaseText>
-          </TitleYStack>
-          <PressableButton
-            bg='transparent'
-            icon={ChevronRight}
-            disabled={!selectedMoodId}
-            onPress={onNext}
-          />
-        </BetweenXStack>
-      </SpacingYStack>
-    </Fragment>
+    <Container>
+      <PressableButton
+        bg='transparent'
+        icon={ChevronLeft}
+        onPress={goToPrevStep}
+      />
+      <TitleYStack key={currentStep}>
+        <H3 text='center'>{t(menuList[currentStep].title)}</H3>
+        <BaseText text='center'>
+          {t(menuList[currentStep].description)}
+        </BaseText>
+      </TitleYStack>
+      <PressableButton
+        bg='transparent'
+        icon={ChevronRight}
+        disabled={!selectedMoodId}
+        onPress={goToNextStep}
+      />
+    </Container>
   )
 }
 
-const SpacingYStack = styled(YStack, {
+const Container = styled(XStack, {
   px: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
-
-  variants: {
-    spacing: {
-      true: {
-        gap: '$4',
-      },
-    },
-  } as const,
+  gap: '$4',
+  justify: 'space-between',
+  items: 'center',
 })
 
 const TitleYStack = styled(YStack, {
@@ -79,9 +71,4 @@ const TitleYStack = styled(YStack, {
   enterStyle: MOUNT_STYLE,
   exitStyle: MOUNT_STYLE,
   flex: 1,
-})
-
-const BetweenXStack = styled(XStack, {
-  justify: 'space-between',
-  items: 'center',
 })

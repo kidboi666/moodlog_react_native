@@ -1,12 +1,13 @@
 import { Delay } from '@/shared/components'
 import { DelayMS } from '@/shared/constants'
-import { useJournal } from '@/shared/store'
+import { useJournal, useMood } from '@/shared/store'
 
 import { EmptyJournal, JournalCard } from '@/features/journal/components'
 import { useDeleteJournal } from '@/features/journal/hooks'
 
-export const HomeJournalCardContainer = () => {
+export const HomeJournalDisplay = () => {
   const selectedJournals = useJournal(state => state.selectedJournals)
+  const moods = useMood(state => state.moods)
   const { openDeleteSheet } = useDeleteJournal()
 
   return Array.isArray(selectedJournals) ? (
@@ -26,6 +27,7 @@ export const HomeJournalCardContainer = () => {
             journalId={id}
             content={content}
             mood={mood}
+            moods={moods}
             imageUri={imageUri}
             createdAt={createdAt}
             openDeleteSheet={openDeleteSheet}

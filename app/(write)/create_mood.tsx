@@ -2,9 +2,9 @@ import { Check } from '@tamagui/lucide-icons'
 import * as Crypto from 'expo-crypto'
 import { useRouter } from 'expo-router'
 import { useCallback, useState } from 'react'
-import { KeyboardAvoidingView, Platform } from 'react-native'
+import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
-import { YStack } from 'tamagui'
+import { getToken } from 'tamagui'
 
 import { FormSection, MoodPreviewItem } from '@/features/mood/components'
 import { MoodService } from '@/features/mood/services'
@@ -16,6 +16,7 @@ import {
   ViewContainer,
 } from '@/shared/components'
 import { DelayMS } from '@/shared/constants'
+import { ImageService } from '@/shared/services'
 import { useMood, useUI } from '@/shared/store'
 import { MoodName } from '@/shared/types'
 
@@ -40,7 +41,7 @@ export default function CreateMoodScreen() {
 
     const timer = setTimeout(() => {
       router.push({
-        pathname: '/(write)',
+        pathname: '/(tabs)',
         params: {
           moodName,
           moodColor: sharedMoodColor.value,
@@ -57,37 +58,46 @@ export default function CreateMoodScreen() {
 
   return (
     <StepProgressProvider totalSteps={2}>
-      <Delay flex={1}>
-        <ViewContainer
-          edges={['bottom']}
-          Header={
-            <HeaderContent
-              leftAction={() => router.back()}
-              rightAction={handlePress}
-              rightActionIcon={Check}
-              rightActionDisabled={!moodName || !sharedMoodColor.value}
-            >
-              <StepDot />
-            </HeaderContent>
-          }
+      <ViewContainer
+        edges={['bottom']}
+        Header={
+          <HeaderContent
+            leftAction={() => router.back()}
+            rightAction={handlePress}
+            rightActionIcon={Check}
+            rightActionDisabled={!moodName || !sharedMoodColor.value}
+          >
+            <StepDot />
+          </HeaderContent>
+        }
+      >
+        <KeyboardAvoidingView
+          style={styles.keyboardAvoidingView}
+          contentContainerStyle={styles.keyboardAvoidingViewInner}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
-          <YStack flex={1} gap='$6'>
-            <KeyboardAvoidingView
-              style={{ flex: 1 }}
-              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            >
-              <YStack flex={1} gap='$4'>
-                <MoodPreviewItem name={moodName} color={sharedMoodColor} />
-                <FormSection
-                  name={moodName}
-                  setName={setMoodName}
-                  sharedColor={sharedMoodColor}
-                />
-              </YStack>
-            </KeyboardAvoidingView>
-          </YStack>
-        </ViewContainer>
-      </Delay>
+          <Delay flex={1}>
+            <MoodPreviewItem name={moodName} color={sharedMoodColor} />
+          </Delay>
+          <Delay>
+            <FormSection
+              name={moodName}
+              setName={setMoodName}
+              sharedColor={sharedMoodColor}
+            />
+          </Delay>
+        </KeyboardAvoidingView>
+      </ViewContainer>
     </StepProgressProvider>
   )
 }
+
+const styles = StyleSheet.create({
+  keyboardAvoidingView: {
+    flex: 1,
+    gap: getToken('$4'),
+  },
+  keyboardAvoidingViewInner: {
+    flex: 1,
+  },
+})

@@ -11,7 +11,7 @@ import {
   PRESS_STYLE_KEY,
 } from '@/shared/constants'
 import { useAxisAnimationWithState, useCardGesture } from '@/shared/hooks'
-import { JournalMood, Position } from '@/shared/types'
+import { JournalMood, Moods, Position } from '@/shared/types'
 
 import { ActionButton } from './ActionButton'
 import { CardContent } from './CardContent'
@@ -42,6 +42,7 @@ interface Props {
   createdAt: string
   imageUri: string[]
   mood: JournalMood
+  moods: Moods
   openDeleteSheet: (id: string) => void
 }
 
@@ -52,6 +53,7 @@ export const JournalCard = memo(
     createdAt,
     imageUri,
     mood,
+    moods,
     openDeleteSheet,
   }: Props) => {
     const router = useRouter()
@@ -134,6 +136,7 @@ export const JournalCard = memo(
                 content={content}
                 createdAt={createdAt}
                 mood={mood}
+                moods={moods}
                 cardPosition={cardPosition}
                 toggleState={toggleState}
               />

@@ -9,21 +9,29 @@ import React, {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, TouchableOpacity } from 'react-native'
-import { GetThemeValueForKey, type Input, ScrollView } from 'tamagui'
+import {
+  GetThemeValueForKey,
+  type Input,
+  ScrollView,
+  Image as TamaguiImage,
+  TextArea as TamaguiTextArea,
+  XStack,
+  YStack,
+  styled,
+} from 'tamagui'
 
 import { useCustomFont } from '@/shared/hooks'
+import { useApp } from '@/shared/store'
 import { TimeFormat } from '@/shared/types'
-import { useApp } from 'shared/store'
-
 import { ContentLength } from './ContentLength'
-import * as S from './EnhancedTextInput.styled'
 
 interface Props {
   imageUri: string[]
   contentValue: string
   onContentChange: (content: string) => void
   autoFocus?: boolean
-  onImageUriChange?: (imageUri: string[]) => void
+  onImageUriChange: () => void
+  onImageUriRemove: (imageUri: string[], index: number) => void
 }
 
 export interface EnhancedTextInputRef {
@@ -32,7 +40,16 @@ export interface EnhancedTextInputRef {
 }
 
 export const EnhancedTextInput = forwardRef<EnhancedTextInputRef, Props>(
-  ({ contentValue, onContentChange, imageUri, onImageUriChange }, ref) => {
+  (
+    {
+      contentValue,
+      onContentChange,
+      imageUri,
+      onImageUriChange,
+      onImageUriRemove,
+    },
+    ref,
+  ) => {
     const { t } = useTranslation()
     const toast = useToastController()
     const timeFormat = useApp(state => state.settings.timeFormat)
@@ -46,7 +63,6 @@ export const EnhancedTextInput = forwardRef<EnhancedTextInputRef, Props>(
       const now = new Date()
 
       if (timeFormat === TimeFormat.HOUR_12) {
-        // 12시간제 형식 (AM/PM)
         const hours = now.getHours()
         const ampm = hours >= 12 ? 'PM' : 'AM'
         const hour12 = hours % 12 || 12 // 0시는 12시로 표시
@@ -54,7 +70,6 @@ export const EnhancedTextInput = forwardRef<EnhancedTextInputRef, Props>(
         return `${hour12}:${minutes} ${ampm}`
       }
 
-      // 24시간제 형식 (기본값)
       const hours = String(now.getHours()).padStart(2, '0')
       const minutes = String(now.getMinutes()).padStart(2, '0')
       return `${hours}:${minutes}`
@@ -110,15 +125,11 @@ export const EnhancedTextInput = forwardRef<EnhancedTextInputRef, Props>(
               text: '삭제',
               style: 'destructive',
               onPress: () => {
-                if (onImageUriChange) {
-                  const newImageUri = [...imageUri]
-                  newImageUri.splice(index, 1)
-                  onImageUriChange(newImageUri)
-                  toast.show('이미지 삭제', {
-                    message: '이미지가 삭제되었습니다.',
-                    preset: 'success',
-                  })
-                }
+                onImageUriRemove(imageUri, index)
+                toast.show('이미지 삭제', {
+                  message: '이미지가 삭제되었습니다.',
+                  preset: 'success',
+                })
               },
             },
           ],
@@ -134,23 +145,23 @@ export const EnhancedTextInput = forwardRef<EnhancedTextInputRef, Props>(
     }))
 
     return (
-      <S.InputContainer>
+      <InputContainer>
         {imageUri.length !== 0 && (
-          <S.ImageContainer>
+          <ImageContainer>
             <ScrollView horizontal>
               {imageUri.map((uri, index) => (
                 <TouchableOpacity
                   key={uri}
                   onPress={() => handleImagePress(index)}
                 >
-                  <S.Image source={{ uri }} />
+                  <Image source={{ uri }} />
                 </TouchableOpacity>
               ))}
             </ScrollView>
-          </S.ImageContainer>
+          </ImageContainer>
         )}
 
-        <S.TextArea
+        <TextArea
           ref={inputRef}
           fontFamily={font as unknown as GetThemeValueForKey<'$fontFamily'>}
           value={contentValue}
@@ -159,7 +170,35 @@ export const EnhancedTextInput = forwardRef<EnhancedTextInputRef, Props>(
           placeholder={t('placeholders.journal.content')}
         />
         <ContentLength length={deferredLength} />
-      </S.InputContainer>
+      </InputContainer>
     )
   },
 )
+
+const InputContainer = styled(YStack, {
+  flex: 1,
+  gap: '$4',
+})
+
+const TextArea = styled(TamaguiTextArea, {
+  color: '$gray12',
+  fontSize: '$6',
+  flex: 1,
+  text: 'left',
+  verticalAlign: 'top',
+  placeholderTextColor: '$gray7',
+})
+
+const ImageContainer = styled(XStack, {
+  justify: 'flex-start',
+})
+
+const Image = styled(TamaguiImage, {
+  width: 80,
+  height: 80,
+  rounded: 12,
+  mr: '$4',
+  shadowColor: 'black',
+  shadowOpacity: 0.5,
+  shadowRadius: 10,
+})

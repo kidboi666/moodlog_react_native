@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import {
+  GetThemeValueForKey,
   ScrollView,
   Image as TamaguiImage,
   View,
@@ -14,7 +15,7 @@ import {
 import { useDeleteJournal } from '@/features/journal/hooks'
 import { FullScreenImageModal } from '@/features/modal'
 import { BaseText, H3, HeaderContent, ViewContainer } from '@/shared/components'
-import { useApp, useJournal } from '@/shared/store'
+import { useApp, useJournal, useMood } from '@/shared/store'
 import { toSingle } from '@/shared/utils'
 
 export default function JournalScreen() {
@@ -29,6 +30,7 @@ export default function JournalScreen() {
   const fontSize = useApp(state => state.settings.fontSize)
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedImage, setSelectedImage] = useState<string>('')
+  const moods = useMood(state => state.moods)
 
   const handleGoBack = () => {
     isNewJournal === 'true' ? router.dismiss(2) : router.back()
@@ -72,7 +74,10 @@ export default function JournalScreen() {
               enterStyle={{ x: -20 }}
               borderTopRightRadius='$4'
               borderBottomRightRadius='$4'
-              bg={selectedJournal.mood as any}
+              bg={
+                moods[selectedJournal.mood.id]
+                  .color as GetThemeValueForKey<'backgroundColor'>
+              }
             />
             <YStack flex={1} gap='$4'>
               <XStack
@@ -86,7 +91,14 @@ export default function JournalScreen() {
                 <H3 color='$gray11'>
                   {t(`moods.levels.${selectedJournal.mood.level}`)}
                 </H3>
-                <H3>{selectedJournal.mood.id}</H3>
+                <H3
+                  color={
+                    moods[selectedJournal.mood.id]
+                      .color as GetThemeValueForKey<'backgroundColor'>
+                  }
+                >
+                  {moods[selectedJournal.mood.id].name}
+                </H3>
               </XStack>
               {Array.isArray(selectedJournal.imageUri) && (
                 <ScrollView horizontal>

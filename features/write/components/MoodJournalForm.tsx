@@ -1,28 +1,75 @@
-import { KeyboardAvoidingView, Platform } from 'react-native'
-import { Layout } from 'react-native-reanimated'
-import { ActionButtons } from './ActionButtons'
-import { EnhancedTextInput } from './EnhancedTextInput'
+import { useCallback, useEffect, useRef } from 'react'
+import { YStack } from 'tamagui'
 
-export const MoodJournalForm = () => {
-  ;<KeyboardAvoidingView
-    style={{ flex: 1 }}
-    behavior={Platform.OS === 'ios' ? 'height' : 'padding'}
-    keyboardVerticalOffset={Layout.HEIGHT.KEYBOARD_VERTICAL_OFFSET}
-  >
-    <EnhancedTextInput
-      ref={journalInputRef}
-      imageUri={draft.imageUri}
-      contentValue={draft.content}
-      onContentChange={onContentChange}
-      onImageUriChange={onImageUriChange}
-    />
+import {
+  ActionButtons,
+  EnhancedTextInput,
+  type EnhancedTextInputRef,
+} from '@/features/write/components'
+import { DelayMS } from '@/shared/constants'
+import { useStepProgress } from '@/shared/store'
+import { Draft } from '@/shared/types'
 
-    <ActionButtons
-      isSubmitted={isSubmitted}
-      onTimeStamp={handleTimeStamp}
-      onImageUriChange={onImageUriChange}
-      content={draft.content}
-      onSubmit={onSubmit}
-    />
-  </KeyboardAvoidingView>
+interface Props {
+  onImageUriRemove: (imageUri: string[], index: number) => void
+  onContentChange: (content: string) => void
+  onImageUriChange: () => void
+  draft: Draft
+  show: boolean
+}
+
+export const MoodJournalForm = ({
+  onImageUriRemove,
+  onContentChange,
+  onImageUriChange,
+  draft,
+  show,
+}: Props) => {
+  const {
+    state: { currentStep },
+  } = useStepProgress()
+  const inputRef = useRef<EnhancedTextInputRef>(null)
+
+  const handleTimeStamp = useCallback(() => {
+    inputRef.current?.insertCurrentTime()
+  }, [])
+
+  useEffect(() => {
+    if (!show) {
+      return
+    }
+    let focusTimer: NodeJS.Timeout
+
+    if (currentStep === 2) {
+      focusTimer = setTimeout(() => {
+        requestAnimationFrame(() => {
+          inputRef.current?.focus()
+        })
+      }, DelayMS.ROUTE)
+    }
+
+    return () => clearTimeout(focusTimer)
+  }, [])
+
+  if (!show) {
+    return null
+  }
+
+  return (
+    <YStack gap='$4' flex={1}>
+      <EnhancedTextInput
+        ref={inputRef}
+        imageUri={draft.imageUri}
+        contentValue={draft.content}
+        onImageUriRemove={onImageUriRemove}
+        onContentChange={onContentChange}
+        onImageUriChange={onImageUriChange}
+      />
+
+      <ActionButtons
+        onTimeStamp={handleTimeStamp}
+        onImageUriChange={onImageUriChange}
+      />
+    </YStack>
+  )
 }

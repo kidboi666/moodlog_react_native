@@ -2,8 +2,40 @@ import { ChevronLeft, ChevronRight } from '@tamagui/lucide-icons'
 import { Card, View, YStack, styled } from 'tamagui'
 
 import { BaseText, PressableButton, RenderTime } from '@/shared/components'
-import { JournalMood, Position } from '@/shared/types'
-import { useMood } from 'shared/store'
+import { JournalMood, Moods, Position } from '@/shared/types'
+
+interface CardContentProps {
+  content: string
+  createdAt: string
+  mood: JournalMood
+  moods: Moods
+  cardPosition: Position
+  toggleState: () => void
+}
+
+export const CardContent = ({
+  content,
+  createdAt,
+  mood,
+  moods,
+  cardPosition,
+  toggleState,
+}: CardContentProps) => {
+  return (
+    <CardHeader>
+      <MoodBar moodColor={moods[mood.id].color} />
+      <JournalContentBox>
+        <TimeText createdAt={createdAt} />
+        <JournalContentText>{content}</JournalContentText>
+      </JournalContentBox>
+      <PressableButton
+        bg='$backgroundStrong'
+        icon={cardPosition === Position.CENTER ? ChevronRight : ChevronLeft}
+        onPress={() => toggleState()}
+      />
+    </CardHeader>
+  )
+}
 
 const CardHeader = styled(Card.Header, {
   padded: true,
@@ -45,36 +77,3 @@ const TimeText = styled(RenderTime, {
   color: '$gray9',
   fontWeight: '800',
 })
-
-interface CardContentProps {
-  content: string
-  createdAt: string
-  mood: JournalMood
-  cardPosition: Position
-  toggleState: () => void
-}
-
-export const CardContent = ({
-  content,
-  createdAt,
-  mood,
-  cardPosition,
-  toggleState,
-}: CardContentProps) => {
-  const moods = useMood(state => state.moods)
-
-  return (
-    <CardHeader>
-      <MoodBar moodColor={moods?.[mood.name]?.color} />
-      <JournalContentBox>
-        <TimeText createdAt={createdAt} />
-        <JournalContentText>{content}</JournalContentText>
-      </JournalContentBox>
-      <PressableButton
-        bg='$backgroundStrong'
-        icon={cardPosition === Position.CENTER ? ChevronRight : ChevronLeft}
-        onPress={() => toggleState()}
-      />
-    </CardHeader>
-  )
-}

@@ -1,7 +1,7 @@
 import { ScrollView, YStack } from 'tamagui'
 
 import {
-  HomeJournalCardContainer,
+  HomeJournalDisplay,
   WeekDay,
   WelcomeZone,
 } from '@/features/home/components'
@@ -14,7 +14,7 @@ export default function HomeScreen() {
         <YStack gap='$4'>
           <WelcomeZone />
           <WeekDay />
-          <HomeJournalCardContainer />
+          <HomeJournalDisplay />
         </YStack>
       </ViewContainer>
     </ScrollView>

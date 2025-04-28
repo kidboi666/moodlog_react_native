@@ -27,14 +27,15 @@ interface Props extends ViewProps {
 }
 
 export const MoodPreviewItem = ({ name, color, ...props }: Props) => {
-  const { currentStep } = useStepProgress()
+  const {
+    state: { currentStep },
+  } = useStepProgress()
   const paragraph = useMemo(() => {
     const paragraphStyle = {
       textAlign: TextAlign.Center,
     }
     const textStyle = {
       color: Skia.Color('white'),
-      fontFamily: 'LeeSeoyun',
       fontSize: 24,
       fontWeight: '600',
     }
