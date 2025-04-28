@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import { StatisticUtils } from '@/features/statistic/utils'
-import { useJournal, useUI } from '@/shared/store'
+import { useJournal, useMood, useUI } from '@/shared/store'
 import { type ISOMonthString, TimeRange } from '@/shared/types'
 
 export const useMoodStats = (
@@ -9,25 +9,30 @@ export const useMoodStats = (
   selectedYear: number,
   selectedMonth: ISOMonthString,
 ) => {
-  const journals = useJournal(state => state.store.journals)
-  const indexes = useJournal(state => state.store.indexes)
+  const journalStore = useJournal(state => state.store)
+  const moods = useMood(state => state.moods)
   const isLoading = useUI(state => state.isLoading)
 
   const yearlyStats = useMemo(
     () =>
-      StatisticUtils.getYearlyStats(journals, indexes, timeRange, selectedYear),
-    [journals, indexes, timeRange, selectedYear],
+      StatisticUtils.getYearlyStats(
+        journalStore,
+        moods,
+        timeRange,
+        selectedYear,
+      ),
+    [journalStore, moods, timeRange, selectedYear],
   )
 
   const monthlyStats = useMemo(
     () =>
       StatisticUtils.getMonthlyStats(
-        journals,
-        indexes,
+        journalStore,
+        moods,
         timeRange,
         selectedMonth,
       ),
-    [journals, indexes, timeRange, selectedMonth],
+    [journalStore, moods, timeRange, selectedMonth],
   )
 
   const initialStats = (timeRange: TimeRange) => {

@@ -53,7 +53,7 @@ export default function SelectMoodScreen() {
   }
 
   useEffect(() => {
-    if (flatListRef.current) {
+    if (flatListRef.current && Object.values(moods).length > 0) {
       flatListRef.current.scrollToIndex({
         index: page,
         animated: true,

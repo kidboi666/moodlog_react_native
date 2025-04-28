@@ -58,13 +58,17 @@ export class StatisticUtils {
     journals: Journal[],
     moods: Moods,
   ): ScoreBoard {
-    const journalMoods = journals.map(journal => journal.mood)
-    const myMoods = journalMoods.map(mood => ({
-      id: moods[mood.id].id,
-      name: mood.id,
-      color: moods[mood.id].color,
-      level: mood.level,
-    }))
+    const journalMoods = journals
+      .filter(journal => journal?.mood != null)
+      .map(journal => journal.mood)
+    const myMoods = journalMoods
+      .filter(mood => mood?.id && moods?.[mood.id])
+      .map(mood => ({
+        id: moods[mood.id]?.id || mood.id,
+        name: mood.id,
+        color: moods[mood.id]?.color || '#ccc',
+        level: mood.level,
+      }))
 
     // 나만의 감정별로 count와 score 집계
     const myScoreBoard: ScoreBoard = {}
@@ -303,10 +307,10 @@ export class StatisticUtils {
    * 주간 통계 계산
    */
   static getWeeklyStats(
-    journals: Journals,
-    indexes: JournalIndexes,
+    journalStore: JournalStore,
     selectedDate: ISODateString,
   ) {
+    const { journals, indexes } = journalStore
     const dates = DateUtils.getThisWeekArray(selectedDate)
 
     return Object.keys(WEEK_DAY).reduce(

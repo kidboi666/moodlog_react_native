@@ -7,7 +7,7 @@ import { Keyboard } from 'react-native'
 import { JournalService } from '@/features/journal/services'
 import { JournalUtils } from '@/features/journal/utils'
 import { DelayMS } from '@/shared/constants'
-import { useDraft, useJournal, useUI } from '@/shared/store'
+import { useJournal, useUI } from '@/shared/store'
 import { Draft } from '@/shared/types'
 
 export const useAddJournal = (draft: Draft) => {
@@ -41,7 +41,6 @@ export const useAddJournal = (draft: Draft) => {
       )
       selectJournals(newSelectedJournals)
 
-      useDraft.persist.clearStorage()
       toast.show(t('notifications.success.journal.title'), {
         message: t('notifications.success.journal.message'),
         preset: 'success',
