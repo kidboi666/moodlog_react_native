@@ -5,4 +5,7 @@ export const DelayMS = {
     LONG: [1000, 2000, 3000, 4000],
   },
   ROUTE: 300,
+  WAIT: {
+    WRITE_MOOD: 3500,
+  },
 }

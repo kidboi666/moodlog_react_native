@@ -6,8 +6,8 @@ import {
   Group,
   SRGBToLinearGamma,
 } from '@shopify/react-native-skia'
-import React, { useEffect } from 'react'
-import { useWindowDimensions } from 'react-native'
+import React, { PropsWithChildren, useEffect } from 'react'
+import { Modal, useWindowDimensions } from 'react-native'
 import {
   SharedValue,
   useDerivedValue,
@@ -19,16 +19,21 @@ import { Portal } from 'tamagui'
 interface Props {
   active: boolean
   color: SharedValue<string>
+  duration?: number
 }
 
-export const WaveEffect = ({ active, color }: Props) => {
+export const WaveEffect = ({
+  children,
+  active,
+  color,
+  duration = 800,
+}: PropsWithChildren<Props>) => {
   const { width, height } = useWindowDimensions()
-  const duration = 800
   const r = useSharedValue(0)
   const topY = useSharedValue(height)
   const leftY = useSharedValue(height)
   const rightY = useSharedValue(height)
-  const blur = useDerivedValue(() => r.value / 4 + 40)
+  const blur = useDerivedValue(() => r.value / 4 + 30)
 
   useEffect(() => {
     if (active) {
@@ -61,6 +66,7 @@ export const WaveEffect = ({ active, color }: Props) => {
             <Blur blur={blur} />
           </Circle>
         </Group>
+        {children}
       </Canvas>
     </Portal>
   )

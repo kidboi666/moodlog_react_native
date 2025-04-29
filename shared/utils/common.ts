@@ -60,6 +60,6 @@ export const isValidEmail = (email: string) => {
   return emailRegex.test(email)
 }
 
-export const delay = (fn: any, ms = 300) => {
+export const delay = async (ms: number, fn?: any) => {
   return Promise.resolve(setTimeout(fn, ms))
 }

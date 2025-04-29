@@ -7,6 +7,7 @@ import { useSharedValue } from 'react-native-reanimated'
 import { getToken } from 'tamagui'
 
 import { FormSection, MoodPreviewItem } from '@/features/mood/components'
+import { SuccessCreateMoodEffect } from '@/features/mood/components/SuccessCreateMoodEffect'
 import { MoodService } from '@/features/mood/services'
 import { StepProgressProvider } from '@/providers'
 import {
@@ -15,10 +16,10 @@ import {
   StepDot,
   ViewContainer,
 } from '@/shared/components'
-import { WaveEffect } from '@/shared/components/WaveEffect'
 import { DelayMS } from '@/shared/constants'
 import { useMood, useUI } from '@/shared/store'
 import { MoodName } from '@/shared/types'
+import { delay } from '@/shared/utils'
 
 export default function CreateMoodScreen() {
   const router = useRouter()
@@ -27,10 +28,28 @@ export default function CreateMoodScreen() {
   const moods = useMood(state => state.moods)
   const addMyMood = useMood(state => state.addMood)
   const setNavigating = useUI(state => state.setNavigating)
-  const [isActive, setIsActive] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
 
-  const handlePress = useCallback(() => {
-    setNavigating(true)
+  const handleSuccess = useCallback(async () => {
+    setIsSuccess(true)
+
+    const animationTimer = setTimeout(() => {
+      setIsSuccess(false)
+    }, DelayMS.ANIMATION.LONG[2])
+
+    await delay(DelayMS.WAIT.WRITE_MOOD, () => {
+      router.replace({
+        pathname: '/(tabs)',
+        params: {
+          moodName,
+          moodColor: sharedMoodColor.value,
+        },
+      })
+    })
+    return () => clearTimeout(animationTimer)
+  }, [])
+
+  const handleSubmit = useCallback(async () => {
     const newMood = {
       id: Crypto.randomUUID(),
       name: moodName,
@@ -40,21 +59,7 @@ export default function CreateMoodScreen() {
     const updatedMoods = MoodService.addMood(moods, newMood)
     addMyMood(updatedMoods)
 
-    const timer = setTimeout(() => {
-      router.replace({
-        pathname: '/(tabs)',
-        params: {
-          moodName,
-          moodColor: sharedMoodColor.value,
-        },
-      })
-
-      setTimeout(() => {
-        setNavigating(false)
-      }, 100)
-    }, DelayMS.ROUTE)
-
-    return () => clearTimeout(timer)
+    handleSuccess()
   }, [moodName, router, setNavigating])
 
   return (
@@ -64,8 +69,7 @@ export default function CreateMoodScreen() {
         Header={
           <HeaderContent
             leftAction={() => router.back()}
-            rightAction={() => setIsActive(prev => !prev)}
-            // rightAction={handlePress}
+            rightAction={handleSubmit}
             rightActionIcon={Check}
             rightActionDisabled={!moodName || !sharedMoodColor.value}
           >
@@ -78,7 +82,6 @@ export default function CreateMoodScreen() {
           contentContainerStyle={styles.keyboardAvoidingViewInner}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
-          <WaveEffect active={isActive} color={sharedMoodColor} />
           <Delay flex={1}>
             <MoodPreviewItem name={moodName} color={sharedMoodColor} />
           </Delay>
@@ -89,6 +92,7 @@ export default function CreateMoodScreen() {
               sharedColor={sharedMoodColor}
             />
           </Delay>
+          <SuccessCreateMoodEffect active={isSuccess} color={sharedMoodColor} />
         </KeyboardAvoidingView>
       </ViewContainer>
     </StepProgressProvider>
