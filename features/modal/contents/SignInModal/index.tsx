@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
 import { Separator, XStack, YStack } from 'tamagui'
 
-import { BottomSheetContainer } from '@/features/modal'
 import {
   BaseText,
   FormInput,
@@ -18,6 +17,7 @@ import { Layout } from '@/shared/constants'
 import { useAuth, useBottomSheet } from '@/shared/store'
 import { BottomSheetType } from '@/shared/types'
 import { isValidEmail } from '@/shared/utils'
+import { BottomSheetContainer } from '../../BottomSheetContainer'
 
 interface LoginFormState {
   email: string

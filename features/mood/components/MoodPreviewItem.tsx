@@ -101,7 +101,7 @@ export const MoodPreviewItem = ({ name, color, ...props }: Props) => {
         <Circle
           cx={zeroMoodPath}
           cy={zeroMoodPath}
-          r={100}
+          r={r}
           color={skiaColor}
           opacity={0.4}
         />
@@ -120,5 +120,4 @@ export const MoodPreviewItem = ({ name, color, ...props }: Props) => {
 const Container = styled(View, {
   items: 'center',
   justify: 'center',
-  flex: 1,
 })

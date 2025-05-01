@@ -22,21 +22,23 @@ export const PaginationButton = ({
     <>
       <Button
         bg='transparent'
-        icon={ChevronLeft}
+        color='$color11'
+        icon={<ChevronLeft size='$1' />}
         onPress={onLeftPress}
         position='absolute'
         l={Layout.SPACE.CONTAINER_HORIZONTAL_PADDING}
-        t={height / 2.2}
+        t={height / 4}
       />
 
       {page !== totalPage - 1 && (
         <Button
           bg='transparent'
-          icon={ChevronRight}
+          color='$color11'
+          icon={<ChevronRight size='$1' />}
           onPress={onRightPress}
           position='absolute'
           r={Layout.SPACE.CONTAINER_HORIZONTAL_PADDING}
-          t={height / 2.2}
+          t={height / 4}
         />
       )}
     </>

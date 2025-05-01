@@ -2,11 +2,10 @@ import { Redirect, Tabs, usePathname } from 'expo-router'
 import React, { Fragment } from 'react'
 import { AnimatePresence } from 'tamagui'
 
-import { HIDE_TAB_BAR_ROUTES } from 'shared/constants'
-import { useAuth } from 'shared/store'
-
 import { CustomTabBar } from '@/features/tab/components'
 import { ContainerFog } from '@/shared/components'
+import { HIDE_TAB_BAR_ROUTES } from '@/shared/constants'
+import { useAuth } from '@/shared/store'
 
 export default function TabsLayout() {
   const pathname = usePathname()

@@ -8,12 +8,13 @@ import { useDeleteJournal } from '@/features/journal/hooks'
 import { JournalUtils } from '@/features/journal/utils'
 import { Delay, H1, ViewContainer } from '@/shared/components'
 import { DelayMS } from '@/shared/constants'
-import { useJournal } from '@/shared/store'
+import { useJournal, useMood } from '@/shared/store'
 
 export default function EntriesScreen() {
   const { t } = useTranslation()
   const { openDeleteSheet } = useDeleteJournal()
   const selectedJournals = useJournal(state => state.selectedJournals)
+  const moods = useMood(state => state.moods)
 
   const groupedJournals = useMemo(() => {
     if (!Array.isArray(selectedJournals) || selectedJournals.length === 0) {
@@ -40,6 +41,7 @@ export default function EntriesScreen() {
                   return (
                     <JournalCard
                       key={id}
+                      moods={moods}
                       journalId={id}
                       content={content}
                       imageUri={imageUri}

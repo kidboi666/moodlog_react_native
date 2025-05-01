@@ -1,26 +1,5 @@
 import { View, XStack, styled } from 'tamagui'
 
-const DotContainer = styled(XStack, {
-  gap: 2,
-  position: 'absolute',
-  b: '$1',
-})
-
-const Dot = styled(View, {
-  width: '$0.5',
-  height: '$0.5',
-  b: -8,
-  rounded: '$1',
-
-  variants: {
-    backgroundStyle: {
-      ':string': bg => {
-        return { bg }
-      },
-    },
-  } as const,
-})
-
 interface Props {
   journalCount?: number
   isSelected?: boolean
@@ -55,3 +34,24 @@ export const DateCountDot = ({
     </DotContainer>
   )
 }
+
+const DotContainer = styled(XStack, {
+  gap: 2,
+  position: 'absolute',
+  b: '$1',
+})
+
+const Dot = styled(View, {
+  width: '$0.5',
+  height: '$0.5',
+  b: -8,
+  rounded: '$1',
+
+  variants: {
+    backgroundStyle: {
+      ':string': bg => {
+        return { bg }
+      },
+    },
+  } as const,
+})

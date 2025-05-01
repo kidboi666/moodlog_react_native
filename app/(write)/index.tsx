@@ -1,14 +1,13 @@
 import { Check } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
 import { useCallback, useEffect, useState } from 'react'
-import { KeyboardAvoidingView, Platform } from 'react-native'
+import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native'
 
-import { FormSectionFromChooseMoodScreen } from '@/features/mood/components'
 import {
-  BottomUiFlow,
-  EmptyMoodView,
-  MainRecordFlow,
-} from '@/features/write/components'
+  FormSectionFromChooseMoodScreen,
+  MoodLevelForm,
+} from '@/features/mood/components'
+import { EmptyMoodView, MainRecordFlow } from '@/features/write/components'
 import { useAddJournal } from '@/features/write/hooks'
 import { StepProgressProvider } from '@/providers'
 import {
@@ -42,10 +41,6 @@ export default function WriteScreen() {
     draftMoodLevel: draft.mood.level,
   })
 
-  const handleContentChange = useCallback((content: string) => {
-    setDraft(prev => ({ ...prev, content }))
-  }, [])
-
   const handleMoodChange = useCallback((moodId: string) => {
     setDraft(prev => ({
       ...prev,
@@ -55,18 +50,6 @@ export default function WriteScreen() {
       },
     }))
   }, [])
-
-  const handleImageUriRemove = useCallback(
-    (imageUri: string[], index: number) => {
-      const newImageUri = [...imageUri]
-      newImageUri.splice(index, 1)
-      setDraft(prev => ({
-        ...prev,
-        imageUri: newImageUri,
-      }))
-    },
-    [],
-  )
 
   const handleImageUriChange = useCallback(async () => {
     try {
@@ -81,6 +64,25 @@ export default function WriteScreen() {
       console.error('이미지 저장 오류:', err)
     }
   }, [])
+
+  const handleContentChange = useCallback((content: string) => {
+    setDraft(prev => ({
+      ...prev,
+      content,
+    }))
+  }, [])
+
+  const handleImageUriRemove = useCallback(
+    (imageUris: string[], index: number) => {
+      const newImageUris = [...imageUris]
+      newImageUris.splice(index, 1)
+      setDraft(prev => ({
+        ...prev,
+        imageUri: newImageUris,
+      }))
+    },
+    [],
+  )
 
   useEffect(() => {
     const newTotalPage = Object.keys(moods).length
@@ -123,28 +125,24 @@ export default function WriteScreen() {
         }
       >
         <KeyboardAvoidingView
-          style={{ flex: 1 }}
+          style={styles.keyboardAvoidingViewContainer}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
           <MainRecordFlow
-            moods={moods}
-            totalPage={totalPage}
-            page={page}
-            setPage={setPage}
-            setSelectedMoodId={handleMoodChange}
-          />
-          <BottomUiFlow
-            page={page}
-            setPage={setPage}
-            totalPage={totalPage}
             draft={draft}
             moods={moods}
-            moodLevel={moodLevel}
-            setMoodLevel={setMoodLevel}
-            selectedMoodId={draft.mood.id}
+            page={page}
+            totalPage={totalPage}
+            setPage={setPage}
+            setSelectedMoodId={handleMoodChange}
             onImageUriRemove={handleImageUriRemove}
             onContentChange={handleContentChange}
             onImageUriChange={handleImageUriChange}
+          />
+          <MoodLevelForm
+            moodColor={moods[draft.mood.id].color}
+            moodLevel={moodLevel}
+            setMoodLevel={setMoodLevel}
           />
         </KeyboardAvoidingView>
         <FormSectionFromChooseMoodScreen selectedMoodId={draft.mood.id} />
@@ -152,3 +150,10 @@ export default function WriteScreen() {
     </StepProgressProvider>
   )
 }
+
+const styles = StyleSheet.create({
+  keyboardAvoidingViewContainer: {
+    flex: 1,
+    gap: 20,
+  },
+})

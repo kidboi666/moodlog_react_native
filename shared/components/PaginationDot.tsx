@@ -7,24 +7,19 @@ interface Props {
 
 export const PaginationDot = ({ page, totalPage }: Props) => {
   return (
-    <Container>
-      <SpacingBox>
-        <AnimatePresence>
-          {Array.from({ length: totalPage }, (_, i) => (
-            <Dot key={i} isCurrentStep={i === page} />
-          ))}
-        </AnimatePresence>
-      </SpacingBox>
-    </Container>
+    <SpacingBox>
+      <AnimatePresence>
+        {Array.from({ length: totalPage }, (_, i) => (
+          <Dot key={i} isCurrentStep={i === page} />
+        ))}
+      </AnimatePresence>
+    </SpacingBox>
   )
 }
 
-const Container = styled(View, {
-  items: 'center',
-})
-
 const SpacingBox = styled(XStack, {
   gap: '$2',
+  items: 'center',
 })
 
 const Dot = styled(View, {

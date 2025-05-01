@@ -1,6 +1,6 @@
 import { Trash } from '@tamagui/lucide-icons'
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import {
@@ -14,7 +14,14 @@ import {
 
 import { useDeleteJournal } from '@/features/journal/hooks'
 import { FullScreenImageModal } from '@/features/modal'
-import { BaseText, H3, HeaderContent, ViewContainer } from '@/shared/components'
+import {
+  BaseText,
+  H3,
+  HeaderContent,
+  RenderDate,
+  RenderTime,
+  ViewContainer,
+} from '@/shared/components'
 import { useApp, useJournal, useMood } from '@/shared/store'
 import { toSingle } from '@/shared/utils'
 
@@ -24,13 +31,13 @@ export default function JournalScreen() {
   const isNewJournal = toSingle(params.isNewJournal)
   const router = useRouter()
   const { t } = useTranslation()
-  const { openDeleteSheet } = useDeleteJournal(() => router.replace('/'))
   const selectedJournal = useJournal(state => state.selectedJournal)
   const selectJournal = useJournal(state => state.selectJournal)
+  const moods = useMood(state => state.moods)
   const fontSize = useApp(state => state.settings.fontSize)
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedImage, setSelectedImage] = useState<string>('')
-  const moods = useMood(state => state.moods)
+  const { openDeleteSheet } = useDeleteJournal(() => router.replace('/'))
 
   const handleGoBack = () => {
     isNewJournal === 'true' ? router.dismiss(2) : router.back()
@@ -52,7 +59,7 @@ export default function JournalScreen() {
   if (!selectedJournal || selectedJournal?.id !== journalId) return null
 
   return (
-    <>
+    <Fragment>
       <ScrollView overScrollMode='always'>
         <ViewContainer
           edges={['bottom']}
@@ -63,7 +70,12 @@ export default function JournalScreen() {
               leftAction={handleGoBack}
               rightAction={() => openDeleteSheet(journalId)}
               rightActionIcon={Trash}
-            />
+            >
+              <YStack items='center'>
+                <RenderDate localDate={selectedJournal.localDate} />
+                <RenderTime createdAt={selectedJournal.createdAt} />
+              </YStack>
+            </HeaderContent>
           }
         >
           <XStack>
@@ -138,6 +150,6 @@ export default function JournalScreen() {
           onClose={handleCloseModal}
         />
       </ScrollView>
-    </>
+    </Fragment>
   )
 }

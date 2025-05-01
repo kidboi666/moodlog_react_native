@@ -1,7 +1,7 @@
 import { Skia, TextAlign, useFonts } from '@shopify/react-native-skia'
 import { useMemo } from 'react'
 
-import { useCustomFont } from '@/shared/hooks'
+import { useCustomFont } from './useCustomFont'
 
 export const useSkiaParagraph = (text: string) => {
   const { fontName } = useCustomFont()

@@ -38,5 +38,8 @@ const styles = StyleSheet.create({
     gap: 12,
     flexDirection: 'row',
   },
-  panel: { flex: 1 },
+  panel: {
+    flex: 1,
+    height: '100%',
+  },
 })

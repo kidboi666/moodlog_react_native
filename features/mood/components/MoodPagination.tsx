@@ -1,7 +1,7 @@
 import { Dispatch, Fragment, SetStateAction, useCallback } from 'react'
 
-import { PaginationButton } from '@/features/mood/components'
 import { PaginationDot } from '@/shared/components'
+import { PaginationButton } from './PaginationButton'
 
 interface Props {
   page: number

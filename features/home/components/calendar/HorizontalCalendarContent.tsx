@@ -4,31 +4,6 @@ import { Layout } from '@/shared/constants'
 import { DateCountDot } from './DateCountDot'
 import { DayAndDate } from './DayAndDate'
 
-const DateContainer = styled(View, {
-  py: '$3',
-  width: Layout.SPACE.CALENDAR_SCROLL_SIZE,
-  rounded: '$4',
-  borderColor: '$gray1',
-
-  variants: {
-    isSelected: {
-      true: {
-        bg: '$gray5',
-      },
-    },
-    isToday: {
-      true: {
-        borderWidth: 1,
-      },
-    },
-  } as const,
-})
-
-const DateWrapper = styled(Button, {
-  unstyled: true,
-  items: 'center',
-})
-
 interface Props {
   selected: boolean
   today: boolean
@@ -63,3 +38,28 @@ export const HorizontalCalendarContent = ({
     </DateContainer>
   )
 }
+
+const DateContainer = styled(View, {
+  py: '$3',
+  width: Layout.SPACE.CALENDAR_SCROLL_SIZE,
+  rounded: '$4',
+  borderColor: '$gray1',
+
+  variants: {
+    isSelected: {
+      true: {
+        bg: '$gray5',
+      },
+    },
+    isToday: {
+      true: {
+        borderWidth: 1,
+      },
+    },
+  } as const,
+})
+
+const DateWrapper = styled(Button, {
+  unstyled: true,
+  items: 'center',
+})

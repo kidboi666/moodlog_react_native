@@ -6,30 +6,6 @@ import Animated, {
 } from 'react-native-reanimated'
 import { Text, styled } from 'tamagui'
 
-const CharNum = styled(Text, {
-  color: '$color10',
-  fontWeight: '800',
-
-  variants: {
-    isGreen: {
-      true: {
-        color: '$green10',
-      },
-    },
-
-    isYellow: {
-      true: {
-        color: '$yellow10',
-      },
-    },
-    isRed: {
-      true: {
-        color: '$red10',
-      },
-    },
-  } as const,
-})
-
 interface Props {
   length: number
 }
@@ -63,4 +39,28 @@ export const ContentLength = memo(({ length }: Props) => {
       </CharNum>
     </Animated.View>
   )
+})
+
+const CharNum = styled(Text, {
+  color: '$color10',
+  fontWeight: '800',
+
+  variants: {
+    isGreen: {
+      true: {
+        color: '$green10',
+      },
+    },
+
+    isYellow: {
+      true: {
+        color: '$yellow10',
+      },
+    },
+    isRed: {
+      true: {
+        color: '$red10',
+      },
+    },
+  } as const,
 })

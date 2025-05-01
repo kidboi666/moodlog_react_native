@@ -1,9 +1,8 @@
 import { ChevronLeft, ChevronRight } from '@tamagui/lucide-icons'
-import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
-import { XStack, YStack, styled } from 'tamagui'
+import { Button, XStack, YStack, styled } from 'tamagui'
 
-import { BaseText, H3, PressableButton } from '@/shared/components'
+import { BaseText, H3 } from '@/shared/components'
 import { Layout, MOUNT_STYLE } from '@/shared/constants'
 import { useStepProgress } from '@/shared/store'
 
@@ -36,8 +35,9 @@ export const FormSectionFromChooseMoodScreen = ({ selectedMoodId }: Props) => {
 
   return (
     <Container>
-      <PressableButton
+      <Button
         bg='transparent'
+        scaleIcon={1.5}
         icon={ChevronLeft}
         onPress={goToPrevStep}
       />
@@ -47,8 +47,9 @@ export const FormSectionFromChooseMoodScreen = ({ selectedMoodId }: Props) => {
           {t(menuList[currentStep].description)}
         </BaseText>
       </TitleYStack>
-      <PressableButton
+      <Button
         bg='transparent'
+        scaleIcon={1.5}
         icon={ChevronRight}
         disabled={!selectedMoodId}
         onPress={goToNextStep}

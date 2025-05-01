@@ -10,7 +10,6 @@ import {
   LogoutModal,
   SignInModal,
   SignUpModal,
-  WriteJournalModal,
 } from './contents'
 
 const SheetContentComponents = {
@@ -29,9 +28,6 @@ const SheetContentComponents = {
   [BottomSheetType.DELETE_MOOD]: (
     props: BottomSheetProps[BottomSheetType.DELETE_MOOD],
   ) => <DeleteMoodModal {...props} />,
-  [BottomSheetType.WRITE_JOURNAL]: (
-    props: BottomSheetProps[BottomSheetType.WRITE_JOURNAL],
-  ) => <WriteJournalModal {...props} />,
 }
 
 export const BottomSheet = memo(() => {

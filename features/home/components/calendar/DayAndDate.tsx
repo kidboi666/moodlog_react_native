@@ -4,6 +4,30 @@ import { YStack, styled } from 'tamagui'
 import { BaseText } from '@/shared/components'
 import { DateUtils } from '@/shared/utils'
 
+interface DayAndDateProps {
+  selected: boolean
+  futureDateColor: '$color6' | '$color11' | '$color12'
+  date: `${number}-${number}-${number}`
+}
+
+export const DayAndDate = ({
+  selected,
+  futureDateColor,
+  date,
+}: DayAndDateProps) => {
+  const { t } = useTranslation()
+  return (
+    <DateTextWrapper>
+      <DayText isSelected={selected}>
+        {t(`calendar.days.${DateUtils.getDayFromISODate(date)}`)}
+      </DayText>
+      <DateText futureDateColor={futureDateColor}>
+        {DateUtils.getDateFromISODate(date)}
+      </DateText>
+    </DateTextWrapper>
+  )
+}
+
 const DateTextWrapper = styled(YStack, {
   gap: '$2',
   items: 'center',
@@ -33,27 +57,3 @@ const DateText = styled(BaseText, {
     },
   } as const,
 })
-
-interface DayAndDateProps {
-  selected: boolean
-  futureDateColor: '$color6' | '$color11' | '$color12'
-  date: `${number}-${number}-${number}`
-}
-
-export const DayAndDate = ({
-  selected,
-  futureDateColor,
-  date,
-}: DayAndDateProps) => {
-  const { t } = useTranslation()
-  return (
-    <DateTextWrapper>
-      <DayText isSelected={selected}>
-        {t(`calendar.days.${DateUtils.getDayFromISODate(date)}`)}
-      </DayText>
-      <DateText futureDateColor={futureDateColor}>
-        {DateUtils.getDateFromISODate(date)}
-      </DateText>
-    </DateTextWrapper>
-  )
-}

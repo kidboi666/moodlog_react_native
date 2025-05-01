@@ -4,18 +4,16 @@ import { useRouter } from 'expo-router'
 import { useCallback, useState } from 'react'
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
-import { getToken } from 'tamagui'
+import { getToken, useTheme } from 'tamagui'
 
-import { FormSection, MoodPreviewItem } from '@/features/mood/components'
-import { SuccessCreateMoodEffect } from '@/features/mood/components/SuccessCreateMoodEffect'
+import {
+  FormSection,
+  MoodPreviewItem,
+  SuccessCreateMoodEffect,
+} from '@/features/mood/components'
 import { MoodService } from '@/features/mood/services'
 import { StepProgressProvider } from '@/providers'
-import {
-  Delay,
-  HeaderContent,
-  StepDot,
-  ViewContainer,
-} from '@/shared/components'
+import { HeaderContent, StepDot, ViewContainer } from '@/shared/components'
 import { DelayMS } from '@/shared/constants'
 import { useMood, useUI } from '@/shared/store'
 import { MoodName } from '@/shared/types'
@@ -23,8 +21,9 @@ import { delay } from '@/shared/utils'
 
 export default function CreateMoodScreen() {
   const router = useRouter()
+  const theme = useTheme()
   const [moodName, setMoodName] = useState<MoodName>('')
-  const sharedMoodColor = useSharedValue('#73bd79')
+  const sharedMoodColor = useSharedValue(theme.green9.val)
   const moods = useMood(state => state.moods)
   const addMyMood = useMood(state => state.addMood)
   const setNavigating = useUI(state => state.setNavigating)
@@ -46,6 +45,7 @@ export default function CreateMoodScreen() {
         },
       })
     })
+
     return () => clearTimeout(animationTimer)
   }, [])
 
@@ -79,19 +79,14 @@ export default function CreateMoodScreen() {
       >
         <KeyboardAvoidingView
           style={styles.keyboardAvoidingView}
-          contentContainerStyle={styles.keyboardAvoidingViewInner}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
-          <Delay flex={1}>
-            <MoodPreviewItem name={moodName} color={sharedMoodColor} />
-          </Delay>
-          <Delay>
-            <FormSection
-              name={moodName}
-              setName={setMoodName}
-              sharedColor={sharedMoodColor}
-            />
-          </Delay>
+          <MoodPreviewItem name={moodName} color={sharedMoodColor} />
+          <FormSection
+            name={moodName}
+            setName={setMoodName}
+            sharedColor={sharedMoodColor}
+          />
           <SuccessCreateMoodEffect active={isSuccess} color={sharedMoodColor} />
         </KeyboardAvoidingView>
       </ViewContainer>
@@ -103,8 +98,5 @@ const styles = StyleSheet.create({
   keyboardAvoidingView: {
     flex: 1,
     gap: getToken('$4'),
-  },
-  keyboardAvoidingViewInner: {
-    flex: 1,
   },
 })

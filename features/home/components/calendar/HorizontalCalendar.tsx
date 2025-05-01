@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { ScrollView, XStack, styled } from 'tamagui'
 
-import { HorizontalCalendarContent } from '@/features/home/components'
 import { JournalUtils } from '@/features/journal/utils'
 import {
   DelayMS,
@@ -13,6 +12,7 @@ import { useCalendar } from '@/shared/hooks'
 import { useJournal } from '@/shared/store'
 import { ISODateString } from '@/shared/types'
 import { DateUtils } from '@/shared/utils'
+import { HorizontalCalendarContent } from './HorizontalCalendarContent'
 
 export const HorizontalCalendar = () => {
   const selectJournals = useJournal(state => state.selectJournals)

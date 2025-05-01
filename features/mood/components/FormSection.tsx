@@ -4,11 +4,19 @@ import { useTranslation } from 'react-i18next'
 import { Keyboard, useWindowDimensions } from 'react-native'
 import { Button, XStack, YStack, styled, useControllableState } from 'tamagui'
 
-import { ColorPicker } from '@/features/write/components'
 import { BaseText, H4 } from '@/shared/components'
 import { Layout, MOUNT_STYLE } from '@/shared/constants'
 import { useStepProgress } from '@/shared/store'
+import { ColorPicker } from '../../write/components/ColorPicker'
 import { MoodNameForm } from './MoodNameForm'
+
+const menuList = [
+  {
+    title: 'moods.my.moodColor.title',
+    description: 'moods.my.moodColor.description',
+  },
+  { title: 'placeholders.moodName', description: 'warn.createMood.name.1' },
+]
 
 interface Props {
   name: string
@@ -54,6 +62,18 @@ export const FormSection = ({ name, setName, sharedColor }: Props) => {
 
   return (
     <Container>
+      <FormContainer {...position}>
+        <ColorPicker
+          show={currentStep === 0}
+          sharedColor={sharedColor}
+          width={width - Layout.SPACE.CONTAINER_HORIZONTAL_PADDING * 2}
+        />
+        <MoodNameForm
+          name={name}
+          setName={setName}
+          width={width - Layout.SPACE.CONTAINER_HORIZONTAL_PADDING * 2}
+        />
+      </FormContainer>
       <TitleContainer>
         <LeftButton icon={ChevronLeft} onPress={handleLeftPress} />
         <TitleBox key={currentStep}>
@@ -71,24 +91,19 @@ export const FormSection = ({ name, setName, sharedColor }: Props) => {
         </TitleBox>
         <RightButton icon={ChevronRight} onPress={handleRightPress} />
       </TitleContainer>
-      <FormContainer {...position}>
-        <ColorPicker
-          show={currentStep === 0}
-          sharedColor={sharedColor}
-          width={width - Layout.SPACE.CONTAINER_HORIZONTAL_PADDING * 2}
-        />
-        <MoodNameForm
-          name={name}
-          setName={setName}
-          width={width - Layout.SPACE.CONTAINER_HORIZONTAL_PADDING * 2}
-        />
-      </FormContainer>
     </Container>
   )
 }
 
 const Container = styled(YStack, {
   gap: '$4',
+  flex: 1,
+})
+
+const FormContainer = styled(XStack, {
+  gap: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING * 2,
+  animation: 'quick',
+  flex: 1,
 })
 
 const TitleContainer = styled(XStack, {
@@ -118,16 +133,3 @@ const TitleBox = styled(YStack, {
   maxW: '70%',
   items: 'flex-start',
 })
-
-const FormContainer = styled(XStack, {
-  gap: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING * 2,
-  animation: 'quick',
-})
-
-const menuList = [
-  {
-    title: 'moods.my.moodColor.title',
-    description: 'moods.my.moodColor.description',
-  },
-  { title: 'placeholders.moodName', description: 'warn.createMood.name.1' },
-]

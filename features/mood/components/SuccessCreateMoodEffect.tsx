@@ -1,4 +1,5 @@
 import { Path, Skia } from '@shopify/react-native-skia'
+import { useEffect } from 'react'
 import { useWindowDimensions } from 'react-native'
 import {
   Easing,
@@ -8,9 +9,8 @@ import {
   withTiming,
 } from 'react-native-reanimated'
 
-import { WaveEffect } from '@/shared/components/WaveEffect'
+import { WaveEffect } from '@/shared/components'
 import { DelayMS } from '@/shared/constants'
-import { useEffect } from 'react'
 
 interface Props {
   active: boolean
