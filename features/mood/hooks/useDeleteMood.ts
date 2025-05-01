@@ -14,7 +14,6 @@ export const useDeleteMood = (onSuccess?: () => void) => {
   const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
   const moods = useMood(state => state.moods)
   const removeMood = useMood(state => state.removeMood)
-  const isLoading = useUI(state => state.isLoading)
 
   const handleDeleteMood = useCallback(
     (id: string) => {
@@ -32,7 +31,6 @@ export const useDeleteMood = (onSuccess?: () => void) => {
       showBottomSheet(BottomSheetType.DELETE_MOOD, Layout.SNAP_POINTS.DELETE, {
         moodId: id,
         onDelete: handleDeleteMood,
-        isLoading,
         hideBottomSheet,
       }),
     [showBottomSheet, handleDeleteMood, hideBottomSheet],

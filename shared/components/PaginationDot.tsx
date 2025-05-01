@@ -1,18 +1,21 @@
-import { AnimatePresence, View, XStack, styled } from 'tamagui'
+import { View, XStack, styled } from 'tamagui'
 
 interface Props {
   page: number
   totalPage: number
+  show: boolean
 }
 
-export const PaginationDot = ({ page, totalPage }: Props) => {
+export const PaginationDot = ({ show, page, totalPage }: Props) => {
+  if (!show) {
+    return null
+  }
+
   return (
     <SpacingBox>
-      <AnimatePresence>
-        {Array.from({ length: totalPage }, (_, i) => (
-          <Dot key={i} isCurrentStep={i === page} />
-        ))}
-      </AnimatePresence>
+      {Array.from({ length: totalPage }, (_, i) => (
+        <Dot key={i} isCurrentStep={i === page} />
+      ))}
     </SpacingBox>
   )
 }
@@ -20,6 +23,7 @@ export const PaginationDot = ({ page, totalPage }: Props) => {
 const SpacingBox = styled(XStack, {
   gap: '$2',
   items: 'center',
+  pb: '$4',
 })
 
 const Dot = styled(View, {

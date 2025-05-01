@@ -12,6 +12,7 @@ import { XStack, YStack } from 'tamagui'
 import { BaseText, H3 } from '@/shared/components'
 import { WEEK_DAY } from '@/shared/constants'
 import { useWeeklyMoodStats } from '@/shared/hooks'
+import { useMood } from '@/shared/store'
 import { type ISOMonthString, MoodLevel } from '@/shared/types'
 import { DateUtils } from '@/shared/utils'
 import { ChartItem } from './ChartItem'
@@ -29,6 +30,7 @@ export const WeeklyMoodChart = ({ selectedMonth }: Props) => {
   const dateString = DateUtils.getISODateFromMonthString(selectedMonth, date)
   const { t } = useTranslation()
   const { stats } = useWeeklyMoodStats(dateString)
+  const moods = useMood(state => state.moods)
 
   const days = Array(7)
     .fill(0)
@@ -67,7 +69,7 @@ export const WeeklyMoodChart = ({ selectedMonth }: Props) => {
             [MoodLevel.HALF]: 110,
             [MoodLevel.FULL]: 220,
           }
-
+          const id = stats[day]?.id ?? ''
           const percentages = stats[day]?.level
             ? MOOD_LEVEL_PERCENTAGES[stats[day].level]
             : 0
@@ -83,9 +85,9 @@ export const WeeklyMoodChart = ({ selectedMonth }: Props) => {
               </AnimatedText>
               <XStack flex={1}>
                 <ChartItem
-                  name={stats[day]?.name}
+                  name={moods[id]?.name}
                   level={stats[day]?.level}
-                  color={stats[day]?.color}
+                  color={moods[id]?.color}
                   percentage={percentages}
                 />
               </XStack>

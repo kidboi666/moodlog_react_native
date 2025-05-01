@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from 'react'
 import { AnimatePresence, View, styled } from 'tamagui'
 
 import { MoodPagination } from '@/features/mood/components'
+import { PaginationDot } from '@/shared/components'
 import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/shared/constants'
 import { useStepProgress } from '@/shared/store'
 import { Draft } from '@/shared/types'
@@ -15,6 +16,7 @@ interface Props {
   moods: Record<string, any>
   setSelectedMoodId: (moodId: string) => void
   draft: Draft
+  selectedMoodId: string
   onContentChange: (content: string) => void
   onImageUriChange: () => void
   onImageUriRemove: (imageUris: string[], index: number) => void
@@ -25,6 +27,7 @@ export const MainRecordFlow = ({
   totalPage,
   setPage,
   moods,
+  selectedMoodId,
   setSelectedMoodId,
   draft,
   onContentChange,
@@ -44,8 +47,14 @@ export const MainRecordFlow = ({
             scrollEnabled={currentStep === 0}
             setSelectedMoodId={setSelectedMoodId}
             page={page}
+            selectedModdId={selectedMoodId}
             totalPage={totalPage}
             setPage={setPage}
+          />
+          <PaginationDot
+            show={currentStep === 0}
+            totalPage={totalPage}
+            page={page}
           />
           <MoodPagination
             show={currentStep === 0}
@@ -70,8 +79,8 @@ export const MainRecordFlow = ({
 }
 
 const ZStackContainer = styled(View, {
-  items: 'center',
   flex: 1,
+  items: 'center',
   animation: 'lazy',
   enterStyle: MOUNT_STYLE,
   exitStyle: MOUNT_STYLE,

@@ -6,39 +6,37 @@ import { BaseText, H3 } from '@/shared/components'
 import { Layout, MOUNT_STYLE } from '@/shared/constants'
 import { useStepProgress } from '@/shared/store'
 
-interface Props {
-  selectedMoodId: string
-}
+const menuList = [
+  {
+    title: 'moods.my.moodSelect.title',
+    description: 'moods.my.moodSelect.description',
+  },
+  {
+    title: 'moods.my.moodLevel.title',
+    description: 'moods.my.moodLevel.description',
+  },
+  {
+    title: 'write.title',
+    description: 'write.description',
+  },
+]
 
-export const FormSectionFromChooseMoodScreen = ({ selectedMoodId }: Props) => {
+export const MenuSelector = () => {
   const {
     goToNextStep,
     goToPrevStep,
-    state: { currentStep },
+    state: { currentStep, totalSteps },
   } = useStepProgress()
   const { t } = useTranslation()
-
-  const menuList = [
-    {
-      title: 'moods.my.moodSelect.title',
-      description: 'moods.my.moodSelect.description',
-    },
-    {
-      title: 'moods.my.moodLevel.title',
-      description: 'moods.my.moodLevel.description',
-    },
-    {
-      title: 'write.title',
-      description: 'write.description',
-    },
-  ]
 
   return (
     <Container>
       <Button
-        bg='transparent'
         scaleIcon={1.5}
+        color='$color11'
         icon={ChevronLeft}
+        disabled={currentStep === 0}
+        opacity={currentStep === 0 ? 0.2 : 1}
         onPress={goToPrevStep}
       />
       <TitleYStack key={currentStep}>
@@ -48,10 +46,11 @@ export const FormSectionFromChooseMoodScreen = ({ selectedMoodId }: Props) => {
         </BaseText>
       </TitleYStack>
       <Button
-        bg='transparent'
         scaleIcon={1.5}
+        color='$color11'
         icon={ChevronRight}
-        disabled={!selectedMoodId}
+        disabled={currentStep === totalSteps - 1}
+        opacity={currentStep === totalSteps - 1 ? 0.2 : 1}
         onPress={goToNextStep}
       />
     </Container>

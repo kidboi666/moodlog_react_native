@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
 import { Input, Paragraph, Separator, Text, XStack, YStack } from 'tamagui'
@@ -20,10 +20,10 @@ export default function ProfileScreen() {
   const [isEditing, setIsEditing] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [form, setForm] = useState<NewUserInfo>({
-    userName: '',
-    email: '',
-    age: null,
-    avatarUrl: '',
+    userName: session?.user.user_metadata.user_name ?? '',
+    email: session?.user.email ?? '',
+    age: session?.user.user_metadata.age ?? null,
+    avatarUrl: session?.user.user_metadata.avatar_url ?? '',
   })
   const handleEdit = useCallback(() => {
     setIsEditing(true)
@@ -75,6 +75,17 @@ export default function ProfileScreen() {
     },
     [],
   )
+
+  useEffect(() => {
+    if (session) {
+      setForm({
+        userName: session.user.user_metadata.user_name,
+        email: session.user.email,
+        age: session.user.user_metadata.age,
+        avatarUrl: session.user.user_metadata.avatar_url,
+      })
+    }
+  }, [session])
 
   if (!session) {
     return (

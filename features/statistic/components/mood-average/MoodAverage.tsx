@@ -8,25 +8,6 @@ import { ExpansionState, ISOMonthString, TimeRange } from '@/shared/types'
 import { MoodAverageCollapsedContent } from './MoodAverageCollapsedContent'
 import { MoodAverageExpandedContent } from './MoodAverageExpandedContent'
 
-export const CardContainer = styled(YStack, {
-  flex: 1,
-  bg: '$gray4',
-  rounded: '$8',
-  p: '$4',
-  animation: 'medium',
-  pressStyle: PRESS_STYLE,
-
-  variants: {
-    moodColor: {
-      ':string': bg => {
-        return { bg }
-      },
-    },
-  } as const,
-})
-
-const AnimatedCardContainer = Animated.createAnimatedComponent(CardContainer)
-
 interface Props {
   selectedYear: number
   selectedMonth: ISOMonthString
@@ -56,3 +37,22 @@ export const MoodAverage = ({ selectedYear, selectedMonth }: Props) => {
     </AnimatedCardContainer>
   )
 }
+
+export const CardContainer = styled(YStack, {
+  flex: 1,
+  bg: '$gray4',
+  rounded: '$8',
+  p: '$4',
+  animation: 'medium',
+  pressStyle: PRESS_STYLE,
+
+  variants: {
+    moodColor: {
+      ':string': bg => {
+        return { bg }
+      },
+    },
+  } as const,
+})
+
+const AnimatedCardContainer = Animated.createAnimatedComponent(CardContainer)

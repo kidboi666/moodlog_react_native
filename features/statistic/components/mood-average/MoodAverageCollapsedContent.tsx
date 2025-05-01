@@ -18,7 +18,6 @@ export const MoodAverageCollapsedContent = ({
   const { t } = useTranslation()
   const moods = useMood(state => state.moods)
 
-  // 해당 감정 ID로 이름 찾기
   const moodName = signatureMood?.id
     ? moods[signatureMood.id]?.name || signatureMood.id
     : t('common.fallback.text')
@@ -26,20 +25,14 @@ export const MoodAverageCollapsedContent = ({
   return (
     <ViewContainer>
       <YStackContainer>
-        <CardTitle signatureMood={hasSignatureMood}>
-          {t('statistics.mood.title')}
-        </CardTitle>
-        <CardDescription signatureMood={hasSignatureMood}>
-          {t('statistics.mood.description')}
-        </CardDescription>
+        <H3>{t('statistics.mood.title')}</H3>
+        <BaseText>{t('statistics.mood.description')}</BaseText>
       </YStackContainer>
       <YStack>
-        <XStack>
-          <MoodText signatureMood={hasSignatureMood}>
-            {hasSignatureMood ? moodName : t('common.fallback.text')}
-          </MoodText>
+        <XStackContainer>
+          <H3>{hasSignatureMood ? moodName : t('common.fallback.text')}</H3>
           <Maximize2 self='flex-end' color='$color8' />
-        </XStack>
+        </XStackContainer>
       </YStack>
     </ViewContainer>
   )
@@ -58,39 +51,6 @@ const YStackContainer = styled(YStack, {
   gap: '$2',
 })
 
-const CardTitle = styled(H3, {
-  color: '$gray12',
-
-  variants: {
-    signatureMood: {
-      true: {
-        color: '$gray1',
-      },
-    },
-  } as const,
-})
-
-const CardDescription = styled(BaseText, {
-  color: '$gray12',
-
-  variants: {
-    signatureMood: {
-      true: {
-        color: '$gray1',
-      },
-    },
-  } as const,
-})
-
-const MoodText = styled(H3, {
-  color: '$gray12',
-  flex: 1,
-
-  variants: {
-    signatureMood: {
-      true: {
-        color: '$gray1',
-      },
-    },
-  } as const,
+const XStackContainer = styled(XStack, {
+  justify: 'space-between',
 })

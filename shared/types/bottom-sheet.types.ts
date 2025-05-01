@@ -20,7 +20,6 @@ export type BottomSheetProps = {
   }
   [BottomSheetType.DELETE_MOOD]: {
     moodId: string
-    isLoading: boolean
     onDelete: (moodId: string) => void
     hideBottomSheet: () => void
   }

@@ -3,10 +3,7 @@ import { useRouter } from 'expo-router'
 import { useCallback, useEffect, useState } from 'react'
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native'
 
-import {
-  FormSectionFromChooseMoodScreen,
-  MoodLevelForm,
-} from '@/features/mood/components'
+import { MenuSelector, MoodLevelForm } from '@/features/mood/components'
 import { EmptyMoodView, MainRecordFlow } from '@/features/write/components'
 import { useAddJournal } from '@/features/write/hooks'
 import { StepProgressProvider } from '@/providers'
@@ -133,6 +130,7 @@ export default function WriteScreen() {
             moods={moods}
             page={page}
             totalPage={totalPage}
+            selectedMoodId={draft.mood.id}
             setPage={setPage}
             setSelectedMoodId={handleMoodChange}
             onImageUriRemove={handleImageUriRemove}
@@ -145,7 +143,7 @@ export default function WriteScreen() {
             setMoodLevel={setMoodLevel}
           />
         </KeyboardAvoidingView>
-        <FormSectionFromChooseMoodScreen selectedMoodId={draft.mood.id} />
+        <MenuSelector />
       </ViewContainer>
     </StepProgressProvider>
   )

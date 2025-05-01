@@ -2,14 +2,18 @@ import { Dispatch, Fragment, SetStateAction, useEffect, useRef } from 'react'
 import { FlatList, useWindowDimensions } from 'react-native'
 
 import { MoodPreviewItem } from '@/features/mood/components'
-import { Layout } from '@/shared/constants'
-import { Moods } from '@/shared/types'
+import { useDeleteMood } from '@/features/mood/hooks'
+import { MoodUtils } from '@/features/mood/utils'
+import { Layout, PRESS_STYLE, PRESS_STYLE_KEY } from '@/shared/constants'
+import { useBottomSheet } from '@/shared/store'
+import { BottomSheetType, Moods } from '@/shared/types'
 import { Trash } from '@tamagui/lucide-icons'
-import { Button } from 'tamagui'
+import { Button, View, styled } from 'tamagui'
 
 interface Props {
   moods: Moods
   page: number
+  selectedMoodId: string
   setPage: Dispatch<SetStateAction<[number, number]>>
   totalPage: number
   scrollEnabled: boolean
@@ -19,12 +23,14 @@ interface Props {
 export const MoodListPreview = ({
   moods,
   page,
+  selectedMoodId,
   setPage,
   totalPage,
   scrollEnabled,
   setSelectedMoodId,
 }: Props) => {
   const { width } = useWindowDimensions()
+  const { openDeleteSheet } = useDeleteMood()
   const flatListRef = useRef<FlatList<any>>(null)
 
   useEffect(() => {
@@ -39,14 +45,21 @@ export const MoodListPreview = ({
   }, [page, moods])
 
   return (
-    <Fragment>
+    <Container>
       <Button
         self='flex-end'
-        mr={Layout.SPACE.CONTAINER_HORIZONTAL_PADDING}
+        position='absolute'
+        animation='quick'
+        pressStyle={PRESS_STYLE}
+        animateOnly={PRESS_STYLE_KEY}
+        r={Layout.SPACE.CONTAINER_HORIZONTAL_PADDING}
         color='$color11'
         scaleIcon={1.5}
         icon={Trash}
+        z={100_000}
+        onPress={() => openDeleteSheet(selectedMoodId)}
       />
+
       <FlatList
         ref={flatListRef}
         scrollEnabled={scrollEnabled}
@@ -77,6 +90,10 @@ export const MoodListPreview = ({
         decelerationRate='fast'
         horizontal
       />
-    </Fragment>
+    </Container>
   )
 }
+
+const Container = styled(View, {
+  flex: 1,
+})
