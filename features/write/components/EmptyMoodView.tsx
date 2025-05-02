@@ -10,7 +10,7 @@ export const EmptyMoodView = () => {
   const { t } = useTranslation()
 
   const handleCreateMood = () => {
-    router.push('/(write)/create_mood')
+    router.push('/(write)/mood')
   }
 
   return (

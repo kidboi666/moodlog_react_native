@@ -13,8 +13,8 @@ export default function WriteLayout() {
         },
       }}
     >
-      <Stack.Screen name='index' />
-      <Stack.Screen name='create_mood' />
+      <Stack.Screen name='journal' />
+      <Stack.Screen name='mood' />
     </Stack>
   )
 }

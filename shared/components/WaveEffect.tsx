@@ -7,7 +7,7 @@ import {
   SRGBToLinearGamma,
 } from '@shopify/react-native-skia'
 import React, { PropsWithChildren, useEffect } from 'react'
-import { Modal, useWindowDimensions } from 'react-native'
+import { useWindowDimensions } from 'react-native'
 import {
   SharedValue,
   useDerivedValue,
@@ -51,7 +51,7 @@ export const WaveEffect = ({
 
   return (
     <Portal>
-      <Canvas style={{ flex: 1, pointerEvents: 'none' }}>
+      <Canvas style={{ flex: 1 }}>
         <Circle cx={width / 4} cy={leftY} r={r} color={color} opacity={0.9}>
           <Blur blur={blur} />
         </Circle>

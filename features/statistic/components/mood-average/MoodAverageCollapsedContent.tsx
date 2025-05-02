@@ -23,7 +23,7 @@ export const MoodAverageCollapsedContent = ({
     : t('common.fallback.text')
 
   return (
-    <ViewContainer>
+    <Container>
       <YStackContainer>
         <H3>{t('statistics.mood.title')}</H3>
         <BaseText>{t('statistics.mood.description')}</BaseText>
@@ -34,11 +34,11 @@ export const MoodAverageCollapsedContent = ({
           <Maximize2 self='flex-end' color='$color8' />
         </XStackContainer>
       </YStack>
-    </ViewContainer>
+    </Container>
   )
 }
 
-const ViewContainer = styled(View, {
+const Container = styled(View, {
   animation: 'quick',
   animateOnly: ['opacity'],
   justify: 'space-between',

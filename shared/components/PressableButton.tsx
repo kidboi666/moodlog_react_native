@@ -27,6 +27,7 @@ export const PressableButton = ({
   fontFamily,
   disabled,
   themeInverse,
+  chromeless,
   ...props
 }: Props) => {
   const { fontNameWithTokenPrefix } = useCustomFont()
@@ -49,6 +50,7 @@ export const PressableButton = ({
       themeInverse={themeInverse}
       opacity={isDisabled ? 0.4 : 1}
       disabled={isDisabled}
+      chromeless={chromeless}
       {...props}
     >
       {loading && <Spinner />}

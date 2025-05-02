@@ -1,5 +1,4 @@
 import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons'
-import { memo } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { XStack, XStackProps, styled } from 'tamagui'
 
@@ -40,6 +39,7 @@ export const HeaderContent = XStack.styleable<Props>(
       >
         {leftAction && (
           <PressableButton
+            chromeless
             icon={leftActionIcon ?? ArrowLeft}
             onPress={leftAction}
           />
@@ -47,6 +47,7 @@ export const HeaderContent = XStack.styleable<Props>(
         {children}
         {rightAction && (
           <PressableButton
+            chromeless
             self='flex-end'
             icon={rightActionIcon ?? ArrowRight}
             onPress={rightAction}

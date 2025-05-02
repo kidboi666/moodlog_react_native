@@ -1,7 +1,7 @@
 import { Plus } from '@tamagui/lucide-icons'
 import { BlurView } from 'expo-blur'
 import { useRouter } from 'expo-router'
-import React, { memo, useState } from 'react'
+import React, { Fragment, memo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
@@ -21,7 +21,7 @@ export const WriteButton = memo(() => {
   }
 
   return (
-    <WriteTabContainer>
+    <Fragment>
       <PressableButton
         bg='$color12'
         color='$color1'
@@ -32,22 +32,22 @@ export const WriteButton = memo(() => {
         </IconBox>
       </PressableButton>
 
-      <Portal>
-        {isMenuVisible && (
+      {isMenuVisible && (
+        <Portal>
           <Animated.View
             entering={FadeIn.duration(300)}
             exiting={FadeOut.duration(300)}
             style={styles.flexible}
           >
             <TouchableWithoutFeedback
-              onPress={() => setIsMenuVisible(false)}
               style={styles.flexible}
+              onPress={() => setIsMenuVisible(false)}
             >
               <BlurView
-                style={[styles.flexible, styles.spacing]}
                 tint='dark'
-                intensity={80}
+                intensity={40}
                 experimentalBlurMethod='dimezisBlurView'
+                style={styles.blurView}
               >
                 {menuList.map((menu, i) => (
                   <Delay
@@ -56,14 +56,10 @@ export const WriteButton = memo(() => {
                     delay={DelayMS.ANIMATION.QUICK[i]}
                   >
                     <Button
-                      variant='outlined'
-                      borderWidth={0}
-                      hitSlop={20}
+                      chromeless
                       animation='quick'
                       animateOnly={['opacity']}
-                      pressStyle={{
-                        opacity: 0.5,
-                      }}
+                      pressStyle={{ opacity: 0.5 }}
                       onPress={() => handleNavigate(menu.route)}
                     >
                       <H3 color='white'>{t(menu.title)}</H3>
@@ -73,38 +69,30 @@ export const WriteButton = memo(() => {
               </BlurView>
             </TouchableWithoutFeedback>
           </Animated.View>
-        )}
-      </Portal>
-    </WriteTabContainer>
+        </Portal>
+      )}
+    </Fragment>
   )
 })
 
 const menuList = [
   {
     title: 'moods.my.createMoods',
-    route: '/(write)/create_mood',
+    route: '/(write)/mood',
   },
   {
     title: 'moods.my.writeNewDiary',
-    route: '/(write)',
+    route: '/(write)/journal',
   },
 ]
-
-const WriteTabContainer = styled(View, {
-  position: 'relative',
-})
 
 const IconBox = styled(View, {
   animation: 'quick',
 
   variants: {
     menuVisible: {
-      true: {
-        rotate: '45deg',
-      },
-      false: {
-        rotate: '0deg',
-      },
+      true: { rotate: '45deg' },
+      false: { rotate: '0deg' },
     },
   } as const,
 })
@@ -113,7 +101,8 @@ const styles = StyleSheet.create({
   flexible: {
     flex: 1,
   },
-  spacing: {
+  blurView: {
+    flex: 1,
     gap: 28,
     paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
     justifyContent: 'center',

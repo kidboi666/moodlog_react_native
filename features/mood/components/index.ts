@@ -1,5 +1,5 @@
 export * from './FormSection'
-export * from './MenuSelector'
+export * from './JournalMenuSelector'
 export * from './MoodLevelForm'
 export * from './MoodNameForm'
 export * from './MoodPagination'

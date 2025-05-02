@@ -27,16 +27,14 @@ export default function StatisticScreen() {
         </XStack>
         <Delay delay={DelayMS.ANIMATION.LONG[0]}>
           <YStack gap='$4'>
-            <XStack gap='$4'>
-              <TotalCount
-                selectedYear={selectedYear}
-                selectedMonth={selectedMonth || monthString}
-              />
-              <MoodAverage
-                selectedYear={selectedYear}
-                selectedMonth={selectedMonth || monthString}
-              />
-            </XStack>
+            <TotalCount
+              selectedYear={selectedYear}
+              selectedMonth={selectedMonth || monthString}
+            />
+            <MoodAverage
+              selectedYear={selectedYear}
+              selectedMonth={selectedMonth || monthString}
+            />
             <WeeklyMoodChart selectedMonth={selectedMonth || monthString} />
           </YStack>
         </Delay>

@@ -46,7 +46,7 @@ const TopFog = styled(LinearGradient, {
   t: 0,
   l: 0,
   r: 0,
-  height: 80,
+  height: 40,
   z: 100,
   start: [0, 0],
   end: [0, 1],

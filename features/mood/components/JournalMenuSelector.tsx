@@ -21,7 +21,7 @@ const menuList = [
   },
 ]
 
-export const MenuSelector = () => {
+export const JournalMenuSelector = () => {
   const {
     goToNextStep,
     goToPrevStep,

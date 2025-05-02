@@ -83,6 +83,8 @@ export const SuccessCreateMoodEffect = ({ active, color }: Props) => {
     return () => clearTimeout(timeout)
   }, [active])
 
+  if (!active) return null
+
   return (
     <WaveEffect active={active} color={color} duration={duration}>
       <Path

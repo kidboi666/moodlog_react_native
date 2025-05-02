@@ -4,7 +4,6 @@ import { YStack, styled } from 'tamagui'
 import { PRESS_STYLE } from '@/shared/constants'
 import { useExpandAnimation, useMoodStats } from '@/shared/hooks'
 import { ExpansionState, ISOMonthString, TimeRange } from '@/shared/types'
-
 import { MoodAverageCollapsedContent } from './MoodAverageCollapsedContent'
 import { MoodAverageExpandedContent } from './MoodAverageExpandedContent'
 

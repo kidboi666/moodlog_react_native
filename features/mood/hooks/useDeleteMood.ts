@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Layout } from '@/shared/constants'
-import { useBottomSheet, useMood, useUI } from '@/shared/store'
+import { useBottomSheet, useMood } from '@/shared/store'
 import { BottomSheetType } from '@/shared/types'
 import { MoodService } from '../services'
 

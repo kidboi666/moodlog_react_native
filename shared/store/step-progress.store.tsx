@@ -1,10 +1,9 @@
 import { Nullable } from '@/shared/types'
 import React, {
   createContext,
+  PropsWithChildren,
   useContext,
   useReducer,
-  ReactNode,
-  PropsWithChildren,
 } from 'react'
 
 interface StepProgressState {

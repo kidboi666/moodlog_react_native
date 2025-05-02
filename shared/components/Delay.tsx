@@ -23,13 +23,12 @@ export const Delay = View.styleable<Props>(
     const { isVisible, item } = useAnimatedEntry({ delay, item: children })
     return (
       <StyledAnimateMount
-        key={`${isVisible}-${delay}`}
         ref={ref}
         opacity={isVisible ? 1 : 0}
         variant={variant}
         {...props}
       >
-        {item}
+        {isVisible ? item : null}
       </StyledAnimateMount>
     )
   },
@@ -44,32 +43,16 @@ const StyledAnimateMount = styled(View, {
   variants: {
     variant: {
       fade: {
-        enterStyle: {
-          opacity: 0,
-        },
-        exitStyle: {
-          opacity: 0,
-        },
+        enterStyle: { opacity: 0 },
+        exitStyle: { opacity: 0 },
       },
       falldown: {
-        enterStyle: {
-          opacity: 0,
-          y: -80,
-        },
-        exitStyle: {
-          opacity: 0,
-          y: -80,
-        },
+        enterStyle: { opacity: 0, y: -80 },
+        exitStyle: { opacity: 0, y: -80 },
       },
       float: {
-        enterStyle: {
-          opacity: 0,
-          y: 80,
-        },
-        exitStyle: {
-          opacity: 0,
-          y: 80,
-        },
+        enterStyle: { opacity: 0, y: 80 },
+        exitStyle: { opacity: 0, y: 80 },
       },
     },
   } as const,

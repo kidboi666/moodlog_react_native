@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
 import {
-  Button,
   Image,
   Input,
   ScrollView,
@@ -14,7 +13,7 @@ import {
   YStack,
 } from 'tamagui'
 
-import { H3, ViewContainer } from '@/shared/components'
+import { H1, PressableButton, ViewContainer } from '@/shared/components'
 
 export default function BugReport() {
   const router = useRouter()
@@ -63,12 +62,12 @@ export default function BugReport() {
   return (
     <ScrollView>
       <ViewContainer edges={['bottom']} padded>
-        <YStack p={16} gap={16}>
-          <XStack items='center' gap={8}>
-            <H3>{t('settings.bugReport.title')}</H3>
+        <YStack gap='$4'>
+          <XStack items='center' gap='$2'>
+            <H1>{t('settings.bugReport.title')}</H1>
           </XStack>
 
-          <YStack gap={8}>
+          <YStack gap='$2'>
             <Text fontWeight='bold'>
               {t('settings.bugReport.descriptionLabel')}
             </Text>
@@ -81,7 +80,7 @@ export default function BugReport() {
             />
           </YStack>
 
-          <YStack gap={8}>
+          <YStack gap='$2'>
             <Text fontWeight='bold'>{t('settings.bugReport.emailLabel')}</Text>
             <Input
               placeholder={t('settings.bugReport.emailPlaceholder')}
@@ -92,32 +91,32 @@ export default function BugReport() {
             />
           </YStack>
 
-          <YStack gap={8}>
+          <YStack gap='$2'>
             <Text fontWeight='bold'>
               {t('settings.bugReport.screenshotLabel')}
             </Text>
-            <Button onPress={pickImage}>
+            <PressableButton onPress={pickImage}>
               {t('settings.bugReport.attachScreenshot')}
-            </Button>
+            </PressableButton>
             {image && (
-              <YStack mt={8} items='center'>
+              <YStack mt='$2' items='center'>
                 <Image
                   source={{ uri: image }}
                   style={{ width: 200, height: 200 }}
                 />
-                <Button
-                  mt={8}
+                <PressableButton
+                  mt='$2'
                   variant='outlined'
                   onPress={() => setImage(null)}
                 >
                   {t('settings.bugReport.deleteImage')}
-                </Button>
+                </PressableButton>
               </YStack>
             )}
           </YStack>
 
-          <Button
-            mt={16}
+          <PressableButton
+            mt='$4'
             bg='$blue10'
             color='white'
             onPress={handleSubmit}
@@ -126,7 +125,7 @@ export default function BugReport() {
             {isSubmitting
               ? t('settings.bugReport.submitting')
               : t('settings.bugReport.submitButton')}
-          </Button>
+          </PressableButton>
         </YStack>
       </ViewContainer>
     </ScrollView>

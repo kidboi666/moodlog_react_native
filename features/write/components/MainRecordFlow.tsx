@@ -47,7 +47,7 @@ export const MainRecordFlow = ({
             scrollEnabled={currentStep === 0}
             setSelectedMoodId={setSelectedMoodId}
             page={page}
-            selectedModdId={selectedMoodId}
+            selectedMoodId={selectedMoodId}
             totalPage={totalPage}
             setPage={setPage}
           />

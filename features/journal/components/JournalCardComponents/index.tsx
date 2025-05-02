@@ -12,29 +12,9 @@ import {
 } from '@/shared/constants'
 import { useAxisAnimationWithState, useCardGesture } from '@/shared/hooks'
 import { JournalMood, Moods, Position } from '@/shared/types'
-
 import { ActionButton } from './ActionButton'
 import { CardContent } from './CardContent'
 import { ImageSection } from './ImageSection'
-
-const CardContainer = styled(Card, {
-  group: true,
-  animation: 'medium',
-  pressStyle: PRESS_STYLE,
-  animateOnly: PRESS_STYLE_KEY,
-  flex: 1,
-  position: 'relative',
-  width: '100%',
-  bg: '$backgroundHover',
-  rounded: '$8',
-})
-
-const Container = styled(View, {
-  animation: 'quick',
-  enterStyle: MOUNT_STYLE,
-})
-
-const AnimatedCard = Animated.createAnimatedComponent(CardContainer)
 
 interface Props {
   content: string
@@ -160,3 +140,22 @@ export const JournalCard = memo(
     )
   },
 )
+
+const CardContainer = styled(Card, {
+  group: true,
+  animation: 'medium',
+  pressStyle: PRESS_STYLE,
+  animateOnly: PRESS_STYLE_KEY,
+  flex: 1,
+  position: 'relative',
+  width: '100%',
+  bg: '$backgroundHover',
+  rounded: '$8',
+})
+
+const Container = styled(View, {
+  animation: 'quick',
+  enterStyle: MOUNT_STYLE,
+})
+
+const AnimatedCard = Animated.createAnimatedComponent(CardContainer)

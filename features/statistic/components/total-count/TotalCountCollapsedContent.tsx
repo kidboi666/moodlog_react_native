@@ -6,6 +6,29 @@ import { View, XStack, YStack, styled } from 'tamagui'
 import { BaseText, H2, H3 } from '@/shared/components'
 import { Layout } from '@/shared/constants'
 
+interface Props {
+  totalCount: number
+}
+
+export const TotalCountCollapsedContent = memo(({ totalCount }: Props) => {
+  const { t } = useTranslation()
+  return (
+    <ViewContainer>
+      <YStackContainer>
+        <H3>{t('statistics.totalCount.title')}</H3>
+        <BaseText>{t('statistics.totalCount.description')}</BaseText>
+      </YStackContainer>
+      <XStack>
+        <StackContainer>
+          <H2>{totalCount}</H2>
+          <CountText>{t('common.units.count')}</CountText>
+        </StackContainer>
+        <Maximize2 self='flex-end' color='$color8' />
+      </XStack>
+    </ViewContainer>
+  )
+})
+
 const ViewContainer = styled(View, {
   flex: 1,
   animation: 'quick',
@@ -28,27 +51,4 @@ const StackContainer = styled(XStack, {
 const CountText = styled(BaseText, {
   lineHeight: Layout.HEIGHT.RECORD_UNIT_LINE_HEIGHT,
   color: '$gray11',
-})
-
-interface Props {
-  totalCount: number
-}
-
-export const TotalCountCollapsedContent = memo(({ totalCount }: Props) => {
-  const { t } = useTranslation()
-  return (
-    <ViewContainer>
-      <YStackContainer>
-        <H3>{t('statistics.totalCount.title')}</H3>
-        <BaseText>{t('statistics.totalCount.description')}</BaseText>
-      </YStackContainer>
-      <XStack>
-        <StackContainer>
-          <H2>{totalCount}</H2>
-          <CountText>{t('common.units.count')}</CountText>
-        </StackContainer>
-        <Maximize2 self='flex-end' color='$color8' />
-      </XStack>
-    </ViewContainer>
-  )
 })

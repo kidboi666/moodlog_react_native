@@ -9,23 +9,6 @@ import type { ExpressiveMonthStats } from '@/shared/types'
 import { DateUtils } from '@/shared/utils'
 import { EmptyContent } from '../EmptyContent'
 
-export const ViewContainer = styled(View, {
-  animation: 'quick',
-  animateOnly: ['opacity'],
-  flex: 1,
-  justify: 'space-between',
-  enterStyle: { opacity: 0 },
-  exitStyle: { opacity: 0 },
-})
-
-const GapBox = styled(YStack, {
-  gap: '$2',
-})
-
-const DescriptionText = styled(BaseText, {
-  color: '$color11',
-})
-
 interface Props {
   frequency: number
   activeDay: string
@@ -89,3 +72,20 @@ export const TotalCountExpandedContent = memo(
     )
   },
 )
+
+const ViewContainer = styled(View, {
+  animation: 'quick',
+  animateOnly: ['opacity'],
+  flex: 1,
+  justify: 'space-between',
+  enterStyle: { opacity: 0 },
+  exitStyle: { opacity: 0 },
+})
+
+const GapBox = styled(YStack, {
+  gap: '$2',
+})
+
+const DescriptionText = styled(BaseText, {
+  color: '$color11',
+})

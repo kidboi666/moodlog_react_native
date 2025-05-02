@@ -6,7 +6,7 @@ import { Input, Paragraph, Separator, Text, XStack, YStack } from 'tamagui'
 
 import {
   BaseText,
-  H3,
+  H1,
   PressableButton,
   ViewContainer,
 } from '@/shared/components'
@@ -98,7 +98,7 @@ export default function ProfileScreen() {
   return (
     <ViewContainer>
       <YStack gap='$4' mb='$4'>
-        <H3>{t('settings.profile.title') || 'Profile'}</H3>
+        <H1>{t('settings.profile.title') || 'Profile'}</H1>
         <Separator />
       </YStack>
 

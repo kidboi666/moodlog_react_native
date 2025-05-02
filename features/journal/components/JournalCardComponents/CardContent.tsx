@@ -23,7 +23,7 @@ export const CardContent = ({
 }: CardContentProps) => {
   return (
     <CardHeader>
-      <MoodBar moodColor={moods[mood.id].color} />
+      <MoodBar moodColor={moods[mood.id]?.color} />
       <JournalContentBox>
         <TimeText createdAt={createdAt} />
         <JournalContentText>{content}</JournalContentText>

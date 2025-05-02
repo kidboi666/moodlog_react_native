@@ -3,10 +3,9 @@ import { useRouter } from 'expo-router'
 import { useCallback, useEffect, useState } from 'react'
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native'
 
-import { MenuSelector, MoodLevelForm } from '@/features/mood/components'
+import { JournalMenuSelector, MoodLevelForm } from '@/features/mood/components'
 import { EmptyMoodView, MainRecordFlow } from '@/features/write/components'
 import { useAddJournal } from '@/features/write/hooks'
-import { StepProgressProvider } from '@/providers'
 import {
   Delay,
   HeaderContent,
@@ -105,53 +104,51 @@ export default function WriteScreen() {
   }
 
   return (
-    <StepProgressProvider totalSteps={3}>
-      <ViewContainer
-        edges={['bottom']}
-        gap='$4'
-        px={0}
-        Header={
-          <HeaderContent
-            leftAction={() => router.back()}
-            rightAction={onSubmit}
-            rightActionIcon={Check}
-            rightActionDisabled={!draft.content || !draft.mood.id}
-          >
-            <StepDot />
-          </HeaderContent>
-        }
-      >
-        <KeyboardAvoidingView
-          style={styles.keyboardAvoidingViewContainer}
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    <ViewContainer
+      edges={['bottom']}
+      gap='$4'
+      px={0}
+      Header={
+        <HeaderContent
+          leftAction={() => router.back()}
+          rightAction={onSubmit}
+          rightActionIcon={Check}
+          rightActionDisabled={!draft.content || !draft.mood.id}
         >
-          <MainRecordFlow
-            draft={draft}
-            moods={moods}
-            page={page}
-            totalPage={totalPage}
-            selectedMoodId={draft.mood.id}
-            setPage={setPage}
-            setSelectedMoodId={handleMoodChange}
-            onImageUriRemove={handleImageUriRemove}
-            onContentChange={handleContentChange}
-            onImageUriChange={handleImageUriChange}
-          />
-          <MoodLevelForm
-            moodColor={moods[draft.mood.id].color}
-            moodLevel={moodLevel}
-            setMoodLevel={setMoodLevel}
-          />
-        </KeyboardAvoidingView>
-        <MenuSelector />
-      </ViewContainer>
-    </StepProgressProvider>
+          <StepDot />
+        </HeaderContent>
+      }
+    >
+      <KeyboardAvoidingView
+        style={styles.keyboardAvoidingViewContainer}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
+      >
+        <MainRecordFlow
+          draft={draft}
+          moods={moods}
+          page={page}
+          totalPage={totalPage}
+          selectedMoodId={draft.mood.id}
+          setPage={setPage}
+          setSelectedMoodId={handleMoodChange}
+          onImageUriRemove={handleImageUriRemove}
+          onContentChange={handleContentChange}
+          onImageUriChange={handleImageUriChange}
+        />
+        <MoodLevelForm
+          moodColor={moods[draft.mood.id].color}
+          moodLevel={moodLevel}
+          setMoodLevel={setMoodLevel}
+        />
+      </KeyboardAvoidingView>
+      <JournalMenuSelector />
+    </ViewContainer>
   )
 }
 
 const styles = StyleSheet.create({
   keyboardAvoidingViewContainer: {
     flex: 1,
-    gap: 20,
   },
 })

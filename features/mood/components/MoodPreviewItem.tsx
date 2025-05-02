@@ -120,5 +120,4 @@ export const MoodPreviewItem = ({ name, color, ...props }: Props) => {
 const Container = styled(View, {
   items: 'center',
   justify: 'center',
-  pointerEvents: 'none',
 })
