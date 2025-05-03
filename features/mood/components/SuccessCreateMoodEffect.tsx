@@ -3,7 +3,6 @@ import { useEffect } from 'react'
 import { useWindowDimensions } from 'react-native'
 import {
   Easing,
-  SharedValue,
   useDerivedValue,
   useSharedValue,
   withTiming,
@@ -14,7 +13,7 @@ import { DelayMS } from '@/shared/constants'
 
 interface Props {
   active: boolean
-  color: SharedValue<string>
+  color: string
 }
 
 export const SuccessCreateMoodEffect = ({ active, color }: Props) => {

@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react'
 import { XStack, YStack, styled } from 'tamagui'
 
 import { ColorPicker } from '@/features/write/components'
@@ -7,7 +8,8 @@ import { MoodNameForm } from './MoodNameForm'
 interface Props {
   name: string
   setName: (name: string) => void
-  sharedColor: any
+  color: string
+  setColor: Dispatch<SetStateAction<string>>
   position: Record<string, number>
   width: number
   currentStep: number
@@ -16,7 +18,8 @@ interface Props {
 export const FormSection = ({
   name,
   setName,
-  sharedColor,
+  color,
+  setColor,
   position,
   width,
   currentStep,
@@ -26,7 +29,8 @@ export const FormSection = ({
       <FormContainer {...position}>
         <ColorPicker
           show={currentStep === 0}
-          sharedColor={sharedColor}
+          color={color}
+          setColor={setColor}
           width={width - Layout.SPACE.CONTAINER_HORIZONTAL_PADDING * 2}
         />
         <MoodNameForm

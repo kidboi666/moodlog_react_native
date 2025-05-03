@@ -9,15 +9,14 @@ import {
   StyleSheet,
   useWindowDimensions,
 } from 'react-native'
-import { useSharedValue } from 'react-native-reanimated'
 import { useControllableState, useTheme } from 'tamagui'
 
 import {
   FormSection,
+  MoodMenuSelector,
   MoodPreviewItem,
   SuccessCreateMoodEffect,
 } from '@/features/mood/components'
-import { MoodMenuSelector } from '@/features/mood/components/MoodMenuSelector'
 import { MoodService } from '@/features/mood/services'
 import { HeaderContent, StepDot, ViewContainer } from '@/shared/components'
 import { DelayMS } from '@/shared/constants'
@@ -29,7 +28,7 @@ export default function CreateMoodScreen() {
   const router = useRouter()
   const theme = useTheme()
   const [moodName, setMoodName] = useState<MoodName>('')
-  const sharedMoodColor = useSharedValue(theme.green9.val)
+  const [moodColor, setMoodColor] = useState(theme.green9.val)
   const moods = useMood(state => state.moods)
   const addMyMood = useMood(state => state.addMood)
   const setNavigating = useUI(state => state.setNavigating)
@@ -75,7 +74,7 @@ export default function CreateMoodScreen() {
         pathname: '/(tabs)',
         params: {
           moodName,
-          moodColor: sharedMoodColor.value,
+          moodColor,
         },
       })
     })
@@ -87,7 +86,7 @@ export default function CreateMoodScreen() {
     const newMood = {
       id: Crypto.randomUUID(),
       name: moodName,
-      color: sharedMoodColor.value,
+      color: moodColor,
       createdAt: new Date().toISOString(),
     }
     const updatedMoods = MoodService.addMood(moods, newMood)
@@ -110,7 +109,7 @@ export default function CreateMoodScreen() {
           leftAction={() => router.back()}
           rightAction={handleSubmit}
           rightActionIcon={Check}
-          rightActionDisabled={!moodName || !sharedMoodColor.value}
+          rightActionDisabled={!moodName || !moodColor}
         >
           <StepDot />
         </HeaderContent>
@@ -121,11 +120,12 @@ export default function CreateMoodScreen() {
         keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
         style={styles.keyboardAvoidingView}
       >
-        <MoodPreviewItem name={moodName} color={sharedMoodColor} />
+        <MoodPreviewItem name={moodName} color={moodColor} />
         <FormSection
           name={moodName}
           setName={setMoodName}
-          sharedColor={sharedMoodColor}
+          color={moodColor}
+          setColor={setMoodColor}
           position={position}
           width={width}
           currentStep={currentStep}
@@ -136,7 +136,7 @@ export default function CreateMoodScreen() {
         handleRightPress={handleRightPress}
         currentStep={currentStep}
       />
-      <SuccessCreateMoodEffect active={isSuccess} color={sharedMoodColor} />
+      <SuccessCreateMoodEffect active={isSuccess} color={moodColor} />
     </ViewContainer>
   )
 }

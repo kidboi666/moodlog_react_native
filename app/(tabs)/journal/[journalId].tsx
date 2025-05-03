@@ -88,7 +88,7 @@ export default function JournalScreen() {
               borderBottomRightRadius='$4'
               bg={
                 moods[selectedJournal.mood.id]
-                  .color as GetThemeValueForKey<'backgroundColor'>
+                  ?.color as GetThemeValueForKey<'backgroundColor'>
               }
             />
             <YStack flex={1} gap='$4'>
@@ -106,10 +106,10 @@ export default function JournalScreen() {
                 <H3
                   color={
                     moods[selectedJournal.mood.id]
-                      .color as GetThemeValueForKey<'backgroundColor'>
+                      ?.color as GetThemeValueForKey<'backgroundColor'>
                   }
                 >
-                  {moods[selectedJournal.mood.id].name}
+                  {moods[selectedJournal.mood.id]?.name}
                 </H3>
               </XStack>
               {Array.isArray(selectedJournal.imageUri) && (

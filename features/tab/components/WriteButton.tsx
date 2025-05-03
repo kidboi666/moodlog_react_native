@@ -25,6 +25,7 @@ export const WriteButton = memo(() => {
       <PressableButton
         bg='$color12'
         color='$color1'
+        elevate
         onPress={() => setIsMenuVisible(true)}
       >
         <IconBox menuVisible={isMenuVisible}>

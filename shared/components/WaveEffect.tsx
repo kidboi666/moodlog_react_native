@@ -9,7 +9,6 @@ import {
 import React, { PropsWithChildren, useEffect } from 'react'
 import { useWindowDimensions } from 'react-native'
 import {
-  SharedValue,
   useDerivedValue,
   useSharedValue,
   withTiming,
@@ -18,7 +17,7 @@ import { Portal } from 'tamagui'
 
 interface Props {
   active: boolean
-  color: SharedValue<string>
+  color: string
   duration?: number
 }
 

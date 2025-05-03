@@ -1,5 +1,5 @@
+import { Dispatch, SetStateAction } from 'react'
 import { StyleSheet } from 'react-native'
-import { SharedValue } from 'react-native-reanimated'
 import RnColorPicker, {
   ColorFormatsObject,
   HueSlider,
@@ -7,25 +7,24 @@ import RnColorPicker, {
 } from 'reanimated-color-picker'
 
 interface Props {
-  sharedColor: SharedValue<string>
+  color: string
+  setColor: Dispatch<SetStateAction<string>>
   width: number
   show: boolean
 }
 
-export const ColorPicker = ({ sharedColor, width, show }: Props) => {
+export const ColorPicker = ({ color, setColor, width, show }: Props) => {
   const height = show ? undefined : 0
 
   const onSelectColor = (color: ColorFormatsObject) => {
-    'worklet'
-
-    sharedColor.value = color.hex
+    setColor(color.hex)
   }
 
   return (
     <RnColorPicker
       style={[styles.container, { width, height }]}
-      value={sharedColor.value}
-      onComplete={onSelectColor}
+      value={color}
+      onChangeJS={onSelectColor}
     >
       <Panel1 style={styles.panel} />
       <HueSlider vertical />
