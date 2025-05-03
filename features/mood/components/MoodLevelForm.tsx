@@ -16,13 +16,13 @@ import { MoodLevel } from '@/shared/types'
 interface Props {
   moodColor: string
   moodLevel?: MoodLevel
-  setMoodLevel: (moodLevel: MoodLevel) => void
+  onMoodLevelChange: (moodLevel: MoodLevel) => void
 }
 
 export const MoodLevelForm = ({
   moodColor,
   moodLevel,
-  setMoodLevel,
+  onMoodLevelChange,
 }: Props) => {
   const { t } = useTranslation()
   const {
@@ -44,7 +44,7 @@ export const MoodLevelForm = ({
             animateOnly={PRESS_STYLE_KEY}
             bg={moodColor as GetThemeValueForKey<'backgroundColor'>}
             opacity={(i + 1) / Object.values(MoodLevel).length}
-            onPress={() => setMoodLevel(level)}
+            onPress={() => onMoodLevelChange(level)}
           >
             <Check opacity={moodLevel === level ? 1 : 0} color='$color1' />
           </Button>

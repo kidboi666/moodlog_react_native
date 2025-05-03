@@ -10,14 +10,32 @@ import { Button, Portal, View, styled } from 'tamagui'
 import { Delay, H3, PressableButton } from '@/shared/components'
 import { DelayMS, Layout } from '@/shared/constants'
 
+type RouteNames = '/(write)/mood' | '/(write)/journal'
+
+interface MenuItemProps {
+  title: string
+  route: RouteNames
+}
+
+const menuList: MenuItemProps[] = [
+  {
+    title: 'moods.my.createMoods',
+    route: '/(write)/mood',
+  },
+  {
+    title: 'moods.my.writeNewDiary',
+    route: '/(write)/journal',
+  },
+]
+
 export const WriteButton = memo(() => {
   const router = useRouter()
   const { t } = useTranslation()
   const [isMenuVisible, setIsMenuVisible] = useState(false)
 
-  const handleNavigate = (route: string) => {
+  const handleNavigate = (route: RouteNames) => {
     setIsMenuVisible(false)
-    router.push(route as any)
+    router.push(route)
   }
 
   return (
@@ -36,20 +54,15 @@ export const WriteButton = memo(() => {
       {isMenuVisible && (
         <Portal>
           <Animated.View
-            entering={FadeIn.duration(300)}
-            exiting={FadeOut.duration(300)}
+            entering={enteringFadeIn}
+            exiting={exitingFadeOut}
             style={styles.flexible}
           >
             <TouchableWithoutFeedback
               style={styles.flexible}
               onPress={() => setIsMenuVisible(false)}
             >
-              <BlurView
-                tint='dark'
-                intensity={40}
-                experimentalBlurMethod='dimezisBlurView'
-                style={styles.blurView}
-              >
+              <BlurView tint='dark' intensity={40} style={styles.blurView}>
                 {menuList.map((menu, i) => (
                   <Delay
                     key={menu.title}
@@ -76,16 +89,8 @@ export const WriteButton = memo(() => {
   )
 })
 
-const menuList = [
-  {
-    title: 'moods.my.createMoods',
-    route: '/(write)/mood',
-  },
-  {
-    title: 'moods.my.writeNewDiary',
-    route: '/(write)/journal',
-  },
-]
+const enteringFadeIn = FadeIn.duration(DelayMS.ANIMATION.MEDIUM[0])
+const exitingFadeOut = FadeOut.duration(DelayMS.ANIMATION.MEDIUM[0])
 
 const IconBox = styled(View, {
   animation: 'quick',

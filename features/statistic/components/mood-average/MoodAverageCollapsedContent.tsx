@@ -1,6 +1,6 @@
 import { Maximize2 } from '@tamagui/lucide-icons'
 import { useTranslation } from 'react-i18next'
-import { View, XStack, YStack, styled } from 'tamagui'
+import { GetThemeValueForKey, View, XStack, YStack, styled } from 'tamagui'
 
 import { BaseText, H3 } from '@/shared/components'
 import type { Nullable, SignatureMood } from '@/shared/types'
@@ -18,9 +18,7 @@ export const MoodAverageCollapsedContent = ({
   const { t } = useTranslation()
   const moods = useMood(state => state.moods)
 
-  const moodName = signatureMood?.id
-    ? moods[signatureMood.id]?.name || signatureMood.id
-    : t('common.fallback.text')
+  const signatureMoodId = signatureMood?.id ?? ''
 
   return (
     <Container>
@@ -28,12 +26,23 @@ export const MoodAverageCollapsedContent = ({
         <H3>{t('statistics.mood.title')}</H3>
         <BaseText>{t('statistics.mood.description')}</BaseText>
       </YStackContainer>
-      <YStack>
-        <XStackContainer>
-          <H3>{hasSignatureMood ? moodName : t('common.fallback.text')}</H3>
-          <Maximize2 self='flex-end' color='$color8' />
-        </XStackContainer>
-      </YStack>
+      <XStackContainer>
+        <View
+          bg={
+            moods[signatureMoodId]
+              ?.color as GetThemeValueForKey<'backgroundColor'>
+          }
+          p='$2'
+          rounded='$4'
+        >
+          <H3>
+            {hasSignatureMood
+              ? moods[signatureMoodId]?.name
+              : t('common.fallback.text')}
+          </H3>
+        </View>
+        <Maximize2 self='flex-end' color='$color8' />
+      </XStackContainer>
     </Container>
   )
 }

@@ -1,6 +1,6 @@
 import { Check } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native'
 
 import { JournalMenuSelector, MoodLevelForm } from '@/features/mood/components'
@@ -16,20 +16,22 @@ import { ImageService } from '@/shared/services'
 import { useMood } from '@/shared/store'
 import { Draft, MoodLevel } from '@/shared/types'
 
-export default function WriteScreen() {
+export default function WriteJournalScreen() {
   const router = useRouter()
   const moods = useMood(state => state.moods)
   const moodLength = Object.keys(moods).length
-  const [moodLevel, setMoodLevel] = useState<MoodLevel>(MoodLevel.HALF)
-  const [[page, totalPage], setPage] = useState([0, moodLength])
+
   const [draft, setDraft] = useState<Draft>({
     content: '',
     mood: {
       id: Object.keys(moods)[0] || '',
-      level: moodLevel as MoodLevel,
+      level: MoodLevel.HALF,
     },
     imageUri: [],
   })
+
+  const [[page, totalPage], setPage] = useState([0, moodLength])
+
   const { onSubmit } = useAddJournal({
     draftContent: draft.content,
     draftImageUri: draft.imageUri,
@@ -43,6 +45,16 @@ export default function WriteScreen() {
       mood: {
         ...prev.mood,
         id: moodId,
+      },
+    }))
+  }, [])
+
+  const handleMoodLevelChange = useCallback((level: MoodLevel) => {
+    setDraft(prev => ({
+      ...prev,
+      mood: {
+        ...prev.mood,
+        level,
       },
     }))
   }, [])
@@ -88,6 +100,11 @@ export default function WriteScreen() {
       handleMoodChange(Object.keys(moods)[0])
     }
   }, [moods, handleMoodChange])
+
+  const selectedMoodColor = useMemo(
+    () => draft.mood.id && moods[draft.mood.id]?.color,
+    [draft.mood.id, moods],
+  )
 
   if (moodLength === 0) {
     return (
@@ -137,9 +154,9 @@ export default function WriteScreen() {
           onImageUriChange={handleImageUriChange}
         />
         <MoodLevelForm
-          moodColor={moods[draft.mood.id].color}
-          moodLevel={moodLevel}
-          setMoodLevel={setMoodLevel}
+          moodColor={selectedMoodColor}
+          moodLevel={draft.mood.level}
+          onMoodLevelChange={handleMoodLevelChange}
         />
       </KeyboardAvoidingView>
       <JournalMenuSelector />

@@ -6,8 +6,7 @@ import { DateHeader, GardenSection } from '@/features/entries/components'
 import { EmptyJournal, JournalCard } from '@/features/journal/components'
 import { useDeleteJournal } from '@/features/journal/hooks'
 import { JournalUtils } from '@/features/journal/utils'
-import { Delay, H1, ViewContainer } from '@/shared/components'
-import { DelayMS } from '@/shared/constants'
+import { H1, ViewContainer } from '@/shared/components'
 import { useJournal, useMood } from '@/shared/store'
 
 export default function EntriesScreen() {
@@ -27,9 +26,7 @@ export default function EntriesScreen() {
     <ScrollView>
       <ViewContainer edges={['top']} padded gap='$4'>
         <H1>{t('entries.title')}</H1>
-        <Delay delay={DelayMS.ANIMATION.MEDIUM[0]}>
-          <GardenSection />
-        </Delay>
+        <GardenSection />
 
         <YStack gap='$6'>
           {Array.isArray(selectedJournals) && selectedJournals.length > 0 ? (

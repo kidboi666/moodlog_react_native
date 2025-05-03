@@ -19,7 +19,7 @@ export const HomeJournalDisplay = () => {
           delay={
             DelayMS.ANIMATION.MEDIUM[
               (index % DelayMS.ANIMATION.MEDIUM.length) +
-                DelayMS.ANIMATION.MEDIUM[3]
+                DelayMS.ANIMATION.MEDIUM[2]
             ]
           }
         >

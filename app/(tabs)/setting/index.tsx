@@ -5,7 +5,6 @@ import {
   Computer,
   Globe,
   HelpCircle,
-  LogOut,
   Moon,
   Type,
   User,
@@ -13,98 +12,13 @@ import {
 import { type Href, useRouter } from 'expo-router'
 import { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, ScrollView, YStack } from 'tamagui'
+import { ScrollView, YStack } from 'tamagui'
 
 import {
   NavigationSettingItem,
   SettingsContainer,
 } from '@/features/setting/components'
 import { BaseText, H1, ViewContainer } from '@/shared/components'
-import { Layout } from '@/shared/constants'
-import { useAuth, useBottomSheet } from '@/shared/store'
-import { BottomSheetType } from '@/shared/types'
-
-type SettingSection = {
-  title: string
-  items: {
-    label: string
-    icon: ReactElement
-    route?: any
-    action?: () => void
-  }[]
-}
-
-export default function SettingsScreen() {
-  const { t } = useTranslation()
-  const router = useRouter()
-  const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
-  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
-  const session = useAuth(state => state.session)
-
-  const handleRouteChange = useCallback(
-    (route: Href) => {
-      router.push(route)
-    },
-    [router],
-  )
-
-  const handleLogoutConfirm = useCallback(() => {
-    showBottomSheet(BottomSheetType.LOGOUT, Layout.SNAP_POINTS.LOGOUT, {
-      hideBottomSheet,
-    })
-  }, [showBottomSheet, hideBottomSheet])
-
-  const handleLogin = useCallback(() => {
-    showBottomSheet(BottomSheetType.SIGN_IN, Layout.SNAP_POINTS.AUTH)
-  }, [showBottomSheet])
-
-  const sections = [
-    devSection,
-    loginSection,
-    configSection,
-    supportSection,
-  ].filter(Boolean) as SettingSection[]
-
-  return (
-    <ScrollView>
-      <ViewContainer edges={['top']} padded gap='$4'>
-        <H1>{t('settings.title')}</H1>
-        <YStack gap='$6'>
-          {sections.map(({ title, items }) => (
-            <SettingsContainer key={title} title={t(title)}>
-              {items.map(menu => (
-                <NavigationSettingItem
-                  key={menu.label}
-                  label={t(menu.label)}
-                  icon={menu.icon}
-                  onRouteChange={() => handleRouteChange(menu.route)}
-                />
-              ))}
-            </SettingsContainer>
-          ))}
-
-          {session && (
-            <Button
-              animation='quick'
-              onPress={handleLogoutConfirm}
-              chromeless
-              color='$red10'
-            >
-              {t('auth.logout')}
-              <LogOut color='$red10' size='$1' />
-            </Button>
-          )}
-        </YStack>
-
-        <YStack items='center' mt='$4'>
-          <BaseText color='$color11'>
-            © 2025 Moodlog. All rights reserved.
-          </BaseText>
-        </YStack>
-      </ViewContainer>
-    </ScrollView>
-  )
-}
 
 const devSection = __DEV__
   ? {
@@ -175,4 +89,61 @@ const loginSection = {
       route: '/setting/profile',
     },
   ],
+}
+
+type SettingSection = {
+  title: string
+  items: {
+    label: string
+    icon: ReactElement
+    route?: any
+    action?: () => void
+  }[]
+}
+
+export default function SettingsScreen() {
+  const { t } = useTranslation()
+  const router = useRouter()
+
+  const handleRouteChange = useCallback(
+    (route: Href) => {
+      router.push(route)
+    },
+    [router],
+  )
+
+  const sections = [
+    devSection,
+    loginSection,
+    configSection,
+    supportSection,
+  ].filter(Boolean) as SettingSection[]
+
+  return (
+    <ScrollView>
+      <ViewContainer edges={['top']} padded gap='$4'>
+        <H1>{t('settings.title')}</H1>
+        <YStack gap='$6'>
+          {sections.map(({ title, items }) => (
+            <SettingsContainer key={title} title={t(title)}>
+              {items.map(menu => (
+                <NavigationSettingItem
+                  key={menu.label}
+                  label={t(menu.label)}
+                  icon={menu.icon}
+                  onRouteChange={() => handleRouteChange(menu.route)}
+                />
+              ))}
+            </SettingsContainer>
+          ))}
+        </YStack>
+
+        <YStack items='center' mt='$4'>
+          <BaseText color='$color11'>
+            © 2025 Moodlog. All rights reserved.
+          </BaseText>
+        </YStack>
+      </ViewContainer>
+    </ScrollView>
+  )
 }

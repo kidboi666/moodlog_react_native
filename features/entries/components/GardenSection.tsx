@@ -41,10 +41,7 @@ export const GardenSection = () => {
         monthDate,
       )
       onSelectedMonthChange(selectedMonth === monthDate ? null : monthDate)
-
-      setTimeout(() => {
-        selectJournals(selectedMonth === monthDate ? null : selectedJournals)
-      }, DelayMS.ANIMATION.LONG[0])
+      selectJournals(selectedMonth === monthDate ? null : selectedJournals)
     },
     [selectedMonth, onSelectedMonthChange, selectJournals],
   )

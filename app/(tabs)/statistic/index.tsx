@@ -6,8 +6,7 @@ import {
   TotalCount,
   WeeklyMoodChart,
 } from '@/features/statistic/components'
-import { Delay, H1, ViewContainer } from '@/shared/components'
-import { DelayMS } from '@/shared/constants'
+import { H1, ViewContainer } from '@/shared/components'
 import { useCalendar } from '@/shared/hooks'
 import type { ISOMonthString } from '@/shared/types'
 
@@ -25,19 +24,17 @@ export default function StatisticScreen() {
         <XStack justify='space-between' items='flex-end'>
           <H1>{t('statistics.title')}</H1>
         </XStack>
-        <Delay delay={DelayMS.ANIMATION.LONG[0]}>
-          <YStack gap='$4'>
-            <TotalCount
-              selectedYear={selectedYear}
-              selectedMonth={selectedMonth || monthString}
-            />
-            <MoodAverage
-              selectedYear={selectedYear}
-              selectedMonth={selectedMonth || monthString}
-            />
-            <WeeklyMoodChart selectedMonth={selectedMonth || monthString} />
-          </YStack>
-        </Delay>
+        <YStack gap='$4'>
+          <TotalCount
+            selectedYear={selectedYear}
+            selectedMonth={selectedMonth || monthString}
+          />
+          <MoodAverage
+            selectedYear={selectedYear}
+            selectedMonth={selectedMonth || monthString}
+          />
+          <WeeklyMoodChart selectedMonth={selectedMonth || monthString} />
+        </YStack>
       </ViewContainer>
     </ScrollView>
   )

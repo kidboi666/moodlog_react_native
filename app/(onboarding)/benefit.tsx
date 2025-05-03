@@ -23,28 +23,29 @@ export default function Screen() {
     goToPrevStep,
     goToNextStep,
   } = useStepProgress()
-  const isBenefitPage = currentStep === 2
+  const isIntroPage = currentStep === 2
 
   const handlePrevStep = () => {
-    if (isBenefitPage) {
+    if (isIntroPage) {
       goToPrevStep()
       router.back()
     }
   }
 
   const handleClickAgree = () => {
-    if (isBenefitPage) {
+    if (isIntroPage) {
       goToNextStep()
       router.replace('/(tabs)')
     }
   }
 
-  const TIP_COUNT = 5
+  const FEATURE_COUNT = 5
 
-  const makeTipKey = (index: number) => `onboarding.benefit.tip.${index + 1}`
+  const makeFeatureKey = (index: number) =>
+    `onboarding.intro.feature.${index + 1}`
 
-  const tips = new Array(TIP_COUNT).fill(0).map((_, index) => ({
-    key: makeTipKey(index),
+  const features = new Array(FEATURE_COUNT).fill(0).map((_, index) => ({
+    key: makeFeatureKey(index),
   }))
 
   return (
@@ -52,11 +53,11 @@ export default function Screen() {
       <YStack flex={1} gap='$4'>
         <ScrollView>
           <Delay delay={DelayMS.ANIMATION.LONG[0]}>
-            <H1>{t('onboarding.benefit.title')}</H1>
+            <H1>{t('onboarding.intro.title')}</H1>
             <YStack bg='$color12' mt='$4' p='$5' gap='$4' rounded='$8'>
-              <H3 themeInverse>{t('onboarding.benefit.ota')}</H3>
+              <H3 themeInverse>{t('onboarding.intro.subtitle')}</H3>
               <YStack gap='$2'>
-                {tips.map(({ key }, index) => (
+                {features.map(({ key }, index) => (
                   <BaseText key={key} themeInverse>
                     {index + 1}. {t(key)}
                   </BaseText>
@@ -67,10 +68,10 @@ export default function Screen() {
 
           <Delay mt='$4' delay={DelayMS.ANIMATION.LONG[1]}>
             <YStack gap='$2'>
-              <H4>⚠️ {t('onboarding.benefit.warn.1')}</H4>
-              <BaseText>{t('onboarding.benefit.warn.2')}</BaseText>
-              <BaseText>{t('onboarding.benefit.warn.3')}</BaseText>
-              <BaseText>{t('onboarding.benefit.warn.4')}</BaseText>
+              <H4>💡 {t('onboarding.intro.note.1')}</H4>
+              <BaseText>{t('onboarding.intro.note.2')}</BaseText>
+              <BaseText>{t('onboarding.intro.note.3')}</BaseText>
+              <BaseText>{t('onboarding.intro.note.4')}</BaseText>
             </YStack>
           </Delay>
         </ScrollView>

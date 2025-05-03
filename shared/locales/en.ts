@@ -344,30 +344,30 @@ export const en = {
   onboarding: {
     welcome: {
       title: 'Hello!',
-      description: 'Welcome to your journey',
-      description2: 'Each day is a new page',
-      go: 'Start writing together?',
+      description: 'Welcome to your daily journey',
+      description2: 'Every day is a new page in your story',
+      go: "Let's write it together?",
     },
     nickname: {
       title: 'Your story begins here',
-      description: 'What name will you use?',
-      placeholder: 'Enter nickname',
+      description: 'What name would you like to use for your story?',
+      placeholder: 'Enter your nickname',
     },
-    benefit: {
-      title: 'Record a more special daily life.',
-      ota: 'Special benefits for premium members',
-      tip: {
-        1: 'Unlimited diary writing',
-        2: 'Secure cloud backup',
-        3: 'Password lock feature',
-        4: 'Advanced statistics',
-        5: 'Premium theme & font',
+    intro: {
+      title: 'Emotion Recording with MoodLog',
+      subtitle: 'Key Features of MoodLog',
+      feature: {
+        1: 'Record your emotions daily',
+        2: 'Create and manage your own emotions',
+        3: 'View emotion changes at a glance with the calendar',
+        4: 'Analyze your emotion patterns with statistics',
+        5: 'Your valuable records are automatically backed up',
       },
-      warn: {
-        1: 'Premium payment is automatically renewed.',
-        2: 'You can cancel anytime after payment, and the premium benefits will remain for the remaining period.',
-        3: 'Please refer to [Terms of Service] and [Refund Policy] for more details.',
-        4: 'Some features may vary depending on the app version.',
+      note: {
+        1: 'Tips for using MoodLog',
+        2: 'Recording emotions at the same time every day helps track your emotional patterns more accurately.',
+        3: 'Create your own emotion names and colors for a more personalized emotion diary.',
+        4: 'Use the statistics feature to objectively examine changes in your emotions.',
       },
     },
   },

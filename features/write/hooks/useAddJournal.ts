@@ -27,8 +27,8 @@ export const useAddJournal = ({
   const setLoading = useUI(state => state.setLoading)
   const setNavigating = useUI(state => state.setNavigating)
   const store = useJournal(state => state.store)
-  const updateStore = useJournal(state => state.updateStore)
   const selectedJournals = useJournal(state => state.selectedJournals)
+  const updateStore = useJournal(state => state.updateStore)
   const selectJournals = useJournal(state => state.selectJournals)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
@@ -85,6 +85,7 @@ export const useAddJournal = ({
     draftMoodId,
     draftMoodLevel,
     draftContent,
+    draftImageUri,
     toast,
     updateStore,
     t,
