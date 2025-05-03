@@ -4,7 +4,6 @@ import { useRouter } from 'expo-router'
 import React, { Fragment, memo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
-import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 import { Button, Portal, View, styled } from 'tamagui'
 
 import { Delay, H3, PressableButton } from '@/shared/components'
@@ -53,11 +52,7 @@ export const WriteButton = memo(() => {
 
       {isMenuVisible && (
         <Portal>
-          <Animated.View
-            entering={enteringFadeIn}
-            exiting={exitingFadeOut}
-            style={styles.flexible}
-          >
+          <EnteringView>
             <TouchableWithoutFeedback
               style={styles.flexible}
               onPress={() => setIsMenuVisible(false)}
@@ -82,15 +77,19 @@ export const WriteButton = memo(() => {
                 ))}
               </BlurView>
             </TouchableWithoutFeedback>
-          </Animated.View>
+          </EnteringView>
         </Portal>
       )}
     </Fragment>
   )
 })
 
-const enteringFadeIn = FadeIn.duration(DelayMS.ANIMATION.MEDIUM[0])
-const exitingFadeOut = FadeOut.duration(DelayMS.ANIMATION.MEDIUM[0])
+const EnteringView = styled(View, {
+  flex: 1,
+  animation: 'lazy',
+  enterStyle: { opacity: 0 },
+  exitStyle: { opacity: 0 },
+})
 
 const IconBox = styled(View, {
   animation: 'quick',

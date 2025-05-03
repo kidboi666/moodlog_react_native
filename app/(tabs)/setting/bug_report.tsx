@@ -3,17 +3,16 @@ import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
-import {
-  Image,
-  Input,
-  ScrollView,
-  Text,
-  TextArea,
-  XStack,
-  YStack,
-} from 'tamagui'
+import { Image, ScrollView, XStack, YStack, styled } from 'tamagui'
 
-import { H1, PressableButton, ViewContainer } from '@/shared/components'
+import {
+  FormInput,
+  FormInputArea,
+  H1,
+  H4,
+  PressableButton,
+  ViewContainer,
+} from '@/shared/components'
 
 export default function BugReport() {
   const router = useRouter()
@@ -61,73 +60,86 @@ export default function BugReport() {
 
   return (
     <ScrollView>
-      <ViewContainer edges={['bottom']} padded>
-        <YStack gap='$4'>
-          <XStack items='center' gap='$2'>
-            <H1>{t('settings.bugReport.title')}</H1>
-          </XStack>
+      <Container>
+        <TitleXStack>
+          <H1>{t('settings.bugReport.title')}</H1>
+        </TitleXStack>
 
-          <YStack gap='$2'>
-            <Text fontWeight='bold'>
-              {t('settings.bugReport.descriptionLabel')}
-            </Text>
-            <TextArea
-              height={150}
-              placeholder={t('settings.bugReport.descriptionPlaceholder')}
-              value={bugDescription}
-              onChangeText={setBugDescription}
-              autoCapitalize='none'
-            />
-          </YStack>
+        <SpacingYStack>
+          <H4>{t('settings.bugReport.descriptionLabel')}</H4>
+          <FormInputArea
+            value={bugDescription}
+            onChangeText={setBugDescription}
+            placeholder={t('settings.bugReport.descriptionPlaceholder')}
+            height={150}
+            autoCapitalize='none'
+          />
+        </SpacingYStack>
 
-          <YStack gap='$2'>
-            <Text fontWeight='bold'>{t('settings.bugReport.emailLabel')}</Text>
-            <Input
-              placeholder={t('settings.bugReport.emailPlaceholder')}
-              value={email}
-              onChangeText={setEmail}
-              autoCapitalize='none'
-              keyboardType='email-address'
-            />
-          </YStack>
+        <SpacingYStack>
+          <H4>{t('settings.bugReport.emailLabel')}</H4>
+          <FormInput
+            value={email}
+            onChangeText={setEmail}
+            placeholder={t('settings.bugReport.emailPlaceholder')}
+            autoCapitalize='none'
+            keyboardType='email-address'
+          />
+        </SpacingYStack>
 
-          <YStack gap='$2'>
-            <Text fontWeight='bold'>
-              {t('settings.bugReport.screenshotLabel')}
-            </Text>
-            <PressableButton onPress={pickImage}>
-              {t('settings.bugReport.attachScreenshot')}
-            </PressableButton>
-            {image && (
-              <YStack mt='$2' items='center'>
-                <Image
-                  source={{ uri: image }}
-                  style={{ width: 200, height: 200 }}
-                />
-                <PressableButton
-                  mt='$2'
-                  variant='outlined'
-                  onPress={() => setImage(null)}
-                >
-                  {t('settings.bugReport.deleteImage')}
-                </PressableButton>
-              </YStack>
-            )}
-          </YStack>
-
-          <PressableButton
-            mt='$4'
-            bg='$blue10'
-            color='white'
-            onPress={handleSubmit}
-            disabled={isSubmitting}
-          >
-            {isSubmitting
-              ? t('settings.bugReport.submitting')
-              : t('settings.bugReport.submitButton')}
+        <SpacingYStack>
+          <H4>{t('settings.bugReport.screenshotLabel')}</H4>
+          <PressableButton onPress={pickImage}>
+            {t('settings.bugReport.attachScreenshot')}
           </PressableButton>
-        </YStack>
-      </ViewContainer>
+          {image && (
+            <ImageYStack>
+              <StyledImage source={{ uri: image }} />
+              <PressableButton onPress={() => setImage(null)}>
+                {t('settings.bugReport.deleteImage')}
+              </PressableButton>
+            </ImageYStack>
+          )}
+        </SpacingYStack>
+
+        <PressableButton
+          bg='$color12'
+          color='white'
+          onPress={handleSubmit}
+          disabled={isSubmitting}
+        >
+          {isSubmitting
+            ? t('settings.bugReport.submitting')
+            : t('settings.bugReport.submitButton')}
+        </PressableButton>
+      </Container>
     </ScrollView>
   )
 }
+
+const Container = styled(ViewContainer, {
+  edges: ['bottom'],
+  padded: true,
+  flexDirection: 'column',
+  gap: '$4',
+})
+
+const TitleXStack = styled(XStack, {
+  items: 'center',
+  gap: '$2',
+})
+
+const SpacingYStack = styled(YStack, {
+  gap: '$2',
+})
+
+const ImageYStack = styled(YStack, {
+  mt: '$2',
+  items: 'center',
+  gap: '$2',
+})
+
+const StyledImage = styled(Image, {
+  width: 200,
+  height: 200,
+})

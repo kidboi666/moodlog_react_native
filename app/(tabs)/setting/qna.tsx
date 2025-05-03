@@ -126,7 +126,7 @@ export default function QnA() {
 
           <PressableButton
             mt='$4'
-            bg='$blue10'
+            bg='$color12'
             color='white'
             onPress={handleSubmit}
             disabled={isSubmitting}

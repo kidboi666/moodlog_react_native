@@ -1,10 +1,15 @@
 import { useCallback } from 'react'
-import { RadioGroup } from 'tamagui'
+import { RadioGroup, styled } from 'tamagui'
 
 import { RadioGroupItem } from '@/features/setting/components'
 import { ViewContainer } from '@/shared/components'
 import { useApp } from '@/shared/store'
 import type { Languages } from '@/shared/types'
+
+const languages = [
+  { value: 'en', label: 'English' },
+  { value: 'ko', label: '한국어' },
+]
 
 export default function Screen() {
   const language = useApp(state => state.settings.language)
@@ -19,26 +24,21 @@ export default function Screen() {
 
   return (
     <ViewContainer>
-      <RadioGroup
-        value={language}
-        onValueChange={handleValueChange}
-        name='theme'
-        gap='$4'
-      >
-        {/* English */}
-        <RadioGroupItem
-          value='en'
-          label='English'
-          onValueChange={handleValueChange}
-        />
-
-        {/* 한국어 */}
-        <RadioGroupItem
-          value='ko'
-          label='한국어'
-          onValueChange={handleValueChange}
-        />
-      </RadioGroup>
+      <StyledRadioGroup value={language} onValueChange={handleValueChange}>
+        {languages.map(language => (
+          <RadioGroupItem
+            key={language.value}
+            value={language.value}
+            label={language.label}
+            onValueChange={handleValueChange}
+          />
+        ))}
+      </StyledRadioGroup>
     </ViewContainer>
   )
 }
+
+const StyledRadioGroup = styled(RadioGroup, {
+  name: 'theme',
+  gap: '$4',
+})

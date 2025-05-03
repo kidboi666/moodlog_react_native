@@ -2,15 +2,15 @@ import { useCustomFont } from '@/shared/hooks/useCustomFont'
 import { Input, InputProps, View, styled } from 'tamagui'
 
 interface Props extends InputProps {
-  placeholder: string
   value: string
   onChangeText: (text: string) => void
+  placeholder?: string
 }
 
 export const FormInput = ({
   value,
   onChangeText,
-  placeholder,
+  placeholder = '',
   ...props
 }: Props) => {
   const { fontNameWithTokenPrefix } = useCustomFont()

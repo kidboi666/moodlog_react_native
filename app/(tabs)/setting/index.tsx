@@ -12,7 +12,7 @@ import {
 import { type Href, useRouter } from 'expo-router'
 import { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, YStack } from 'tamagui'
+import { ScrollView, YStack, styled } from 'tamagui'
 
 import {
   NavigationSettingItem,
@@ -121,9 +121,9 @@ export default function SettingsScreen() {
 
   return (
     <ScrollView>
-      <ViewContainer edges={['top']} padded gap='$4'>
+      <Container>
         <H1>{t('settings.title')}</H1>
-        <YStack gap='$6'>
+        <ContentYStack>
           {sections.map(({ title, items }) => (
             <SettingsContainer key={title} title={t(title)}>
               {items.map(menu => (
@@ -136,14 +136,31 @@ export default function SettingsScreen() {
               ))}
             </SettingsContainer>
           ))}
-        </YStack>
+        </ContentYStack>
 
-        <YStack items='center' mt='$4'>
-          <BaseText color='$color11'>
-            © 2025 Moodlog. All rights reserved.
-          </BaseText>
-        </YStack>
-      </ViewContainer>
+        <CopyrightYStack>
+          <CopyrightText>© 2025 Moodlog. All rights reserved.</CopyrightText>
+        </CopyrightYStack>
+      </Container>
     </ScrollView>
   )
 }
+
+const Container = styled(ViewContainer, {
+  edges: ['top'],
+  padded: true,
+  gap: '$4',
+})
+
+const ContentYStack = styled(YStack, {
+  gap: '$6',
+})
+
+const CopyrightYStack = styled(YStack, {
+  items: 'center',
+  mt: '$4',
+})
+
+const CopyrightText = styled(BaseText, {
+  color: '$color11',
+})

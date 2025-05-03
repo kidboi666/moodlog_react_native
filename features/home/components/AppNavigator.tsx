@@ -25,7 +25,6 @@ export const AppNavigator = () => {
       NavigationBar.setButtonStyleAsync(
         resolvedTheme === 'dark' ? 'light' : 'dark',
       )
-      NavigationBar.setBackgroundColorAsync(theme.background.val)
     }
   }, [resolvedTheme])
 

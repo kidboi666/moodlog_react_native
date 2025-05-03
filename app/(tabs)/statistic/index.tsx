@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { ScrollView, XStack, YStack } from 'tamagui'
+import { ScrollView, XStack, YStack, styled } from 'tamagui'
 
 import {
   MoodAverage,
@@ -20,11 +20,11 @@ export default function StatisticScreen() {
 
   return (
     <ScrollView>
-      <ViewContainer edges={['top', 'bottom']} padded gap='$4'>
-        <XStack justify='space-between' items='flex-end'>
+      <Container>
+        <TitleXStack>
           <H1>{t('statistics.title')}</H1>
-        </XStack>
-        <YStack gap='$4'>
+        </TitleXStack>
+        <ContentYStack>
           <TotalCount
             selectedYear={selectedYear}
             selectedMonth={selectedMonth || monthString}
@@ -34,8 +34,23 @@ export default function StatisticScreen() {
             selectedMonth={selectedMonth || monthString}
           />
           <WeeklyMoodChart selectedMonth={selectedMonth || monthString} />
-        </YStack>
-      </ViewContainer>
+        </ContentYStack>
+      </Container>
     </ScrollView>
   )
 }
+
+const Container = styled(ViewContainer, {
+  edges: ['top', 'bottom'],
+  gap: '$4',
+  padded: true,
+})
+
+const TitleXStack = styled(XStack, {
+  justify: 'space-between',
+  items: 'flex-end',
+})
+
+const ContentYStack = styled(YStack, {
+  gap: '$4',
+})

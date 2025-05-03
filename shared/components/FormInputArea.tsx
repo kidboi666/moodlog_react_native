@@ -24,8 +24,8 @@ export const FormInputArea = ({
         onChangeText={onChangeText}
         fontFamily={fontNameWithTokenPrefix}
         placeholder={placeholder}
-        {...props}
         height={height}
+        {...props}
       />
     </StyledView>
   )

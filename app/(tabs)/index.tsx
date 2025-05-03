@@ -1,4 +1,4 @@
-import { ScrollView, YStack } from 'tamagui'
+import { ScrollView, YStack, styled } from 'tamagui'
 
 import {
   HomeJournalDisplay,
@@ -9,14 +9,28 @@ import { ViewContainer } from '@/shared/components'
 
 export default function HomeScreen() {
   return (
-    <ScrollView overScrollMode='always' keyboardShouldPersistTaps='handled'>
-      <ViewContainer edges={['top', 'bottom']} padded>
-        <YStack gap='$4'>
+    <ScrollContainer>
+      <Container>
+        <ContentYStack>
           <WelcomeZone />
           <WeekDay />
           <HomeJournalDisplay />
-        </YStack>
-      </ViewContainer>
-    </ScrollView>
+        </ContentYStack>
+      </Container>
+    </ScrollContainer>
   )
 }
+
+const ScrollContainer = styled(ScrollView, {
+  overScrollMode: 'always',
+  keyboardShouldPersistTaps: 'handled',
+})
+
+const Container = styled(ViewContainer, {
+  edges: ['top', 'bottom'],
+  padded: true,
+})
+
+const ContentYStack = styled(YStack, {
+  gap: '$4',
+})

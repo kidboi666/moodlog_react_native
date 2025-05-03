@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { RadioGroup, View } from 'tamagui'
+import { RadioGroup, View, styled } from 'tamagui'
 
 import { RadioGroupItem } from '@/features/setting/components'
 import { BaseText, ViewContainer } from '@/shared/components'
@@ -44,12 +44,7 @@ export default function Screen() {
 
   return (
     <ViewContainer>
-      <RadioGroup
-        value={fontSize}
-        onValueChange={handleValueChange}
-        name='fontSize'
-        gap='$4'
-      >
+      <StyledRadioGroup value={fontSize} onValueChange={handleValueChange}>
         {fontSizes.map(fontSize => (
           <RadioGroupItem
             key={fontSize.value}
@@ -61,7 +56,12 @@ export default function Screen() {
         <View>
           <BaseText fontSize={fontSize}>안녕하세요.</BaseText>
         </View>
-      </RadioGroup>
+      </StyledRadioGroup>
     </ViewContainer>
   )
 }
+
+const StyledRadioGroup = styled(RadioGroup, {
+  gap: '$4',
+  name: 'fontSize',
+})

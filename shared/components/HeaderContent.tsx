@@ -39,7 +39,6 @@ export const HeaderContent = XStack.styleable<Props>(
       >
         {leftAction && (
           <PressableButton
-            chromeless
             icon={leftActionIcon ?? ArrowLeft}
             onPress={leftAction}
           />
@@ -47,7 +46,6 @@ export const HeaderContent = XStack.styleable<Props>(
         {children}
         {rightAction && (
           <PressableButton
-            chromeless
             self='flex-end'
             icon={rightActionIcon ?? ArrowRight}
             onPress={rightAction}
