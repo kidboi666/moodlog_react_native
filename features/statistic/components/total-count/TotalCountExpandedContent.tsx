@@ -20,6 +20,7 @@ export const TotalCountExpandedContent = memo(
   ({ frequency, activeDay, totalCount, expressiveMonth }: Props) => {
     const session = useAuth(state => state.session)
     const { t } = useTranslation()
+
     if (!totalCount) {
       return <EmptyContent />
     }
@@ -89,3 +90,5 @@ const GapBox = styled(YStack, {
 const DescriptionText = styled(BaseText, {
   color: '$color11',
 })
+
+TotalCountExpandedContent.displayName = 'TotalCountExpandedContent'

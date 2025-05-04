@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import { View } from 'tamagui'
+import { View, styled } from 'tamagui'
 
 import { BaseText } from '@/shared/components'
 
@@ -12,11 +12,22 @@ export const SettingsContainer = ({
   title,
 }: PropsWithChildren<Props>) => {
   return (
-    <View gap='$3'>
-      {title && <BaseText ml='$5'>{title}</BaseText>}
-      <View rounded='$4' bg='$color4'>
-        {children}
-      </View>
-    </View>
+    <Container>
+      {title && <Title>{title}</Title>}
+      <SettingContent>{children}</SettingContent>
+    </Container>
   )
 }
+
+const Container = styled(View, {
+  gap: '$3',
+})
+
+const Title = styled(BaseText, {
+  ml: '$5',
+})
+
+const SettingContent = styled(View, {
+  rounded: '$4',
+  bg: '$color4',
+})

@@ -7,17 +7,6 @@ import { ExpansionState, type ISOMonthString, TimeRange } from '@/shared/types'
 import { TotalCountCollapsedContent } from './TotalCountCollapsedContent'
 import { TotalCountExpandedContent } from './TotalCountExpandedContent'
 
-const CardContainer = styled(YStack, {
-  flex: 1,
-  bg: '$gray4',
-  rounded: '$8',
-  p: '$4',
-  animation: 'medium',
-  pressStyle: PRESS_STYLE,
-})
-
-const AnimatedCardContainer = Animated.createAnimatedComponent(CardContainer)
-
 interface Props {
   selectedYear: number
   selectedMonth: ISOMonthString
@@ -48,3 +37,14 @@ export const TotalCount = ({ selectedYear, selectedMonth }: Props) => {
     </AnimatedCardContainer>
   )
 }
+
+const CardContainer = styled(YStack, {
+  flex: 1,
+  bg: '$gray4',
+  rounded: '$8',
+  p: '$4',
+  animation: 'medium',
+  pressStyle: PRESS_STYLE,
+})
+
+const AnimatedCardContainer = Animated.createAnimatedComponent(CardContainer)

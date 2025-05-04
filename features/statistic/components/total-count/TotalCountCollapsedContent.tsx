@@ -52,3 +52,5 @@ const CountText = styled(BaseText, {
   lineHeight: Layout.HEIGHT.RECORD_UNIT_LINE_HEIGHT,
   color: '$gray11',
 })
+
+TotalCountCollapsedContent.displayName = 'TotalCountCollapsedContent'

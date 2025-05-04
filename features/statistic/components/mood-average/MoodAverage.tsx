@@ -14,23 +14,22 @@ interface Props {
 
 export const MoodAverage = ({ selectedYear, selectedMonth }: Props) => {
   const { stats } = useMoodStats(TimeRange.YEARLY, selectedYear, selectedMonth)
-  const { moodStats } = stats || {}
-  const { signatureMood, scoreBoard } = moodStats || {}
-  const { animatedStyle, expansionState, onPress } = useExpandAnimation()
+  const moodStats = stats.moodStats || {}
+  const signatureMood = moodStats.signatureMood || {}
+  const scoreBoard = moodStats.scoreBoard || {}
+  const hasSignatureMood = !!signatureMood?.id
 
-  const shouldShowSignatureMood = !!signatureMood?.id
+  const { animatedStyle, expansionState, onPress } = useExpandAnimation()
+  const isCardExpanded = expansionState === ExpansionState.EXPANDED
 
   return (
     <AnimatedCardContainer onPress={onPress} style={animatedStyle}>
-      {expansionState === ExpansionState.EXPANDED ? (
-        <MoodAverageExpandedContent
-          scoreBoard={scoreBoard || {}}
-          hasSignatureMood={shouldShowSignatureMood}
-        />
+      {isCardExpanded ? (
+        <MoodAverageExpandedContent scoreBoard={scoreBoard || {}} />
       ) : (
         <MoodAverageCollapsedContent
           signatureMood={signatureMood}
-          hasSignatureMood={shouldShowSignatureMood}
+          hasSignatureMood={hasSignatureMood}
         />
       )}
     </AnimatedCardContainer>
@@ -38,7 +37,6 @@ export const MoodAverage = ({ selectedYear, selectedMonth }: Props) => {
 }
 
 export const CardContainer = styled(YStack, {
-  flex: 1,
   bg: '$gray4',
   rounded: '$8',
   p: '$4',

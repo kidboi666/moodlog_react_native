@@ -10,35 +10,6 @@ import { View, XStack, styled } from 'tamagui'
 import { BaseText } from '@/shared/components'
 import { MoodLevel } from '@/shared/types'
 
-const ChartItemContainer = styled(XStack, {
-  flex: 1,
-  gap: '$2',
-})
-
-const Item = styled(View, {
-  height: '$1',
-  rounded: '$4',
-  width: '100%',
-
-  variants: {
-    moodColor: {
-      ':string': bg => {
-        return {
-          bg,
-        }
-      },
-    },
-  } as const,
-})
-
-const PercentageText = styled(BaseText, {
-  fontSize: '$1',
-  color: '$color10',
-  mt: '$1',
-})
-
-const AnimatedChartItem = Animated.createAnimatedComponent(Item)
-
 interface Props {
   name?: string
   level?: MoodLevel
@@ -47,8 +18,8 @@ interface Props {
 }
 
 export const ChartItem = ({ name, level, color, percentage }: Props) => {
-  const widthValue = useSharedValue(0)
   const { t } = useTranslation()
+  const widthValue = useSharedValue(0)
   const animatedStyles = useAnimatedStyle(() => ({
     width: widthValue.value,
   }))
@@ -73,3 +44,28 @@ export const ChartItem = ({ name, level, color, percentage }: Props) => {
     </ChartItemContainer>
   )
 }
+
+const ChartItemContainer = styled(XStack, {
+  flex: 1,
+  gap: '$2',
+})
+
+const Item = styled(View, {
+  height: '$1',
+  rounded: '$4',
+  width: '100%',
+
+  variants: {
+    moodColor: {
+      ':string': bg => ({ bg }),
+    },
+  } as const,
+})
+
+const PercentageText = styled(BaseText, {
+  fontSize: '$1',
+  color: '$color10',
+  mt: '$1',
+})
+
+const AnimatedChartItem = Animated.createAnimatedComponent(Item)

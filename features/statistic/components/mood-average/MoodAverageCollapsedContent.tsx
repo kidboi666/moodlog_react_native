@@ -1,10 +1,10 @@
 import { Maximize2 } from '@tamagui/lucide-icons'
 import { useTranslation } from 'react-i18next'
-import { GetThemeValueForKey, View, XStack, YStack, styled } from 'tamagui'
+import { View, XStack, YStack, styled } from 'tamagui'
 
 import { BaseText, H3 } from '@/shared/components'
+import { useMood } from '@/shared/store'
 import type { Nullable, SignatureMood } from '@/shared/types'
-import { useMood } from 'shared/store'
 
 interface Props {
   hasSignatureMood: boolean
@@ -19,6 +19,8 @@ export const MoodAverageCollapsedContent = ({
   const moods = useMood(state => state.moods)
 
   const signatureMoodId = signatureMood?.id ?? ''
+  const signatureMoodColor = moods[signatureMoodId]?.color ?? '$gray10'
+  const signatureMoodName = moods[signatureMoodId]?.name ?? ''
 
   return (
     <Container>
@@ -27,20 +29,11 @@ export const MoodAverageCollapsedContent = ({
         <BaseText>{t('statistics.mood.description')}</BaseText>
       </YStackContainer>
       <XStackContainer>
-        <View
-          bg={
-            moods[signatureMoodId]
-              ?.color as GetThemeValueForKey<'backgroundColor'>
-          }
-          p='$2'
-          rounded='$4'
-        >
+        <SignatureMoodBox moodColor={signatureMoodColor}>
           <H3>
-            {hasSignatureMood
-              ? moods[signatureMoodId]?.name
-              : t('common.fallback.text')}
+            {hasSignatureMood ? signatureMoodName : t('common.fallback.text')}
           </H3>
-        </View>
+        </SignatureMoodBox>
         <Maximize2 self='flex-end' color='$color8' />
       </XStackContainer>
     </Container>
@@ -62,4 +55,14 @@ const YStackContainer = styled(YStack, {
 
 const XStackContainer = styled(XStack, {
   justify: 'space-between',
+})
+
+const SignatureMoodBox = styled(View, {
+  p: '$2',
+  rounded: '$4',
+  variants: {
+    moodColor: {
+      ':string': bg => ({ bg }),
+    },
+  },
 })

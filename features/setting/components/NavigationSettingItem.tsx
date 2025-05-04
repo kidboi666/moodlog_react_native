@@ -1,6 +1,6 @@
 import { ChevronRight } from '@tamagui/lucide-icons'
 import { memo } from 'react'
-import { Button } from 'tamagui'
+import { Button, styled } from 'tamagui'
 
 import { BaseText } from '@/shared/components'
 
@@ -19,11 +19,15 @@ export const NavigationSettingItem = memo(
         icon={icon}
         onPress={onRouteChange}
       >
-        <BaseText flex={1}>{label}</BaseText>
+        <Title>{label}</Title>
         <ChevronRight size='$1' />
       </Button>
     )
   },
 )
+
+const Title = styled(BaseText, {
+  flex: 1,
+})
 
 NavigationSettingItem.displayName = 'NavigationSettingItem'

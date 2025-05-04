@@ -7,7 +7,7 @@ import Animated, {
   withDelay,
   withTiming,
 } from 'react-native-reanimated'
-import { XStack, YStack } from 'tamagui'
+import { XStack, YStack, styled } from 'tamagui'
 
 import { BaseText, H3 } from '@/shared/components'
 import { WEEK_DAY } from '@/shared/constants'
@@ -16,9 +16,6 @@ import { useMood } from '@/shared/store'
 import { type ISOMonthString, MoodLevel } from '@/shared/types'
 import { DateUtils } from '@/shared/utils'
 import { ChartItem } from './ChartItem'
-
-const AnimatedBox = Animated.createAnimatedComponent(XStack)
-const AnimatedText = Animated.createAnimatedComponent(BaseText)
 
 interface Props {
   selectedMonth: ISOMonthString
@@ -58,7 +55,7 @@ export const WeeklyMoodChart = ({ selectedMonth }: Props) => {
   }, [])
 
   return (
-    <YStack flex={1} rounded='$8' bg='$color4' p='$4' gap='$3'>
+    <Container>
       <H3>{t('statistics.weeklyMood.title')}</H3>
       <BaseText>{t('statistics.weeklyMood.description')}</BaseText>
 
@@ -74,27 +71,45 @@ export const WeeklyMoodChart = ({ selectedMonth }: Props) => {
             ? MOOD_LEVEL_PERCENTAGES[stats[day].level]
             : 0
           return (
-            <AnimatedBox
-              gap='$4'
-              height='$2'
-              key={`${index}-${day}`}
-              style={animatedStyles[index]}
-            >
-              <AnimatedText fontWeight='700' color='$color10'>
-                {t(`calendar.daysShort.${day}`)}
-              </AnimatedText>
-              <XStack flex={1}>
+            <AnimatedBox key={`${index}-${day}`} style={animatedStyles[index]}>
+              <AnimatedText>{t(`calendar.daysShort.${day}`)}</AnimatedText>
+              <ChartItemXStack>
                 <ChartItem
                   name={moods[id]?.name}
                   level={stats[day]?.level}
                   color={moods[id]?.color}
                   percentage={percentages}
                 />
-              </XStack>
+              </ChartItemXStack>
             </AnimatedBox>
           )
         })}
       </YStack>
-    </YStack>
+    </Container>
   )
 }
+
+const Container = styled(YStack, {
+  flex: 1,
+  rounded: '$8',
+  bg: '$color4',
+  p: '$4',
+  gap: '$3',
+})
+
+const StyledAnimationBox = styled(XStack, {
+  gap: '$4',
+  height: '$2',
+})
+
+const StyledAnimationText = styled(BaseText, {
+  fontWeight: 700,
+  color: '$color10',
+})
+
+const ChartItemXStack = styled(XStack, {
+  flex: 1,
+})
+
+const AnimatedBox = Animated.createAnimatedComponent(StyledAnimationBox)
+const AnimatedText = Animated.createAnimatedComponent(StyledAnimationText)

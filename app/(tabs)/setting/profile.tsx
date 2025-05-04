@@ -2,17 +2,9 @@ import { supabase } from '@/lib/supabase'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator } from 'react-native'
-import {
-  Input,
-  Paragraph,
-  Separator,
-  Text,
-  XStack,
-  YStack,
-  styled,
-} from 'tamagui'
+import { Separator, XStack, YStack, styled } from 'tamagui'
 
-import { ProfileMenuItem } from '@/features/setting/components/ProfileMenuItem'
+import { ProfileMenuItem } from '@/features/setting/components'
 import {
   BaseText,
   H1,
