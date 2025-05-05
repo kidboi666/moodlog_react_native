@@ -1,3 +1,4 @@
+import { ImagePlus } from '@tamagui/lucide-icons'
 import { useToastController } from '@tamagui/toast'
 import React, {
   useCallback,
@@ -13,12 +14,12 @@ import {
   type Input,
   ScrollView,
   Image as TamaguiImage,
-  TextArea as TamaguiTextArea,
   XStack,
   YStack,
   styled,
 } from 'tamagui'
 
+import { FormInputArea } from '@/shared/components'
 import {
   DelayMS,
   Layout,
@@ -27,7 +28,6 @@ import {
 } from '@/shared/constants'
 import { useCustomFont } from '@/shared/hooks'
 import { useStepProgress } from '@/shared/store'
-import { ImagePlus } from '@tamagui/lucide-icons'
 import { ContentLength } from './ContentLength'
 
 interface Props {
@@ -171,11 +171,13 @@ const InputContainer = styled(YStack, {
   gap: '$4',
 })
 
-const TextArea = styled(TamaguiTextArea, {
+const TextArea = styled(FormInputArea, {
   color: '$gray12',
   fontSize: '$6',
   flex: 1,
+  // @ts-ignore
   text: 'left',
+  bg: '$color4',
   verticalAlign: 'top',
   placeholderTextColor: '$gray7',
 })

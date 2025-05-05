@@ -35,6 +35,7 @@ const StyledView = styled(View, {
   animation: 'quick',
   borderWidth: 1,
   verticalAlign: 'top',
+  flex: 1,
 
   focusStyle: {
     borderColor: '$blue8',

@@ -3,11 +3,15 @@ import { BlurView } from 'expo-blur'
 import { useRouter } from 'expo-router'
 import React, { Fragment, memo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
-import { Button, Portal, View, styled } from 'tamagui'
+import {
+  StyleSheet,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native'
+import { Portal, View, styled } from 'tamagui'
 
-import { Delay, H3, PressableButton } from '@/shared/components'
-import { DelayMS, Layout } from '@/shared/constants'
+import { H3, PressableButton } from '@/shared/components'
+import { Layout, MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/shared/constants'
 
 type RouteNames = '/(write)/mood' | '/(write)/journal'
 
@@ -59,21 +63,12 @@ export const WriteButton = memo(() => {
             >
               <BlurView tint='dark' intensity={40} style={styles.blurView}>
                 {menuList.map((menu, i) => (
-                  <Delay
-                    key={menu.title}
-                    variant='float'
-                    delay={DelayMS.ANIMATION.QUICK[i]}
+                  <TouchableOpacity
+                    key={i}
+                    onPress={() => handleNavigate(menu.route)}
                   >
-                    <Button
-                      chromeless
-                      animation='quick'
-                      animateOnly={['opacity']}
-                      pressStyle={{ opacity: 0.5 }}
-                      onPress={() => handleNavigate(menu.route)}
-                    >
-                      <H3 color='white'>{t(menu.title)}</H3>
-                    </Button>
-                  </Delay>
+                    <H3 color='white'>{t(menu.title)}</H3>
+                  </TouchableOpacity>
                 ))}
               </BlurView>
             </TouchableWithoutFeedback>
@@ -87,8 +82,9 @@ export const WriteButton = memo(() => {
 const EnteringView = styled(View, {
   flex: 1,
   animation: 'lazy',
-  enterStyle: { opacity: 0 },
-  exitStyle: { opacity: 0 },
+  enterStyle: MOUNT_STYLE,
+  exitStyle: MOUNT_STYLE,
+  animateOnly: MOUNT_STYLE_KEY,
 })
 
 const IconBox = styled(View, {
@@ -109,7 +105,7 @@ const styles = StyleSheet.create({
   blurView: {
     flex: 1,
     gap: 28,
-    paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
+    paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING * 2,
     justifyContent: 'center',
   },
 })

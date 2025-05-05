@@ -1,8 +1,8 @@
+import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View, YStack, styled } from 'tamagui'
+import { View, styled } from 'tamagui'
 
 import { BaseText, H5 } from '@/shared/components'
-import { memo } from 'react'
 
 export const EmptyContent = memo(() => {
   const { t } = useTranslation()
