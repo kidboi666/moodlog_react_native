@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router'
+import { useTheme } from 'tamagui'
 
 import { StepProgressProvider } from '@/providers'
-import { useTheme } from 'tamagui'
 
 export default function WriteMoodLayout() {
   const theme = useTheme()

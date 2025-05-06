@@ -29,10 +29,10 @@ export default function CreateMoodScreen() {
   const theme = useTheme()
   const [moodName, setMoodName] = useState<MoodName>('')
   const [moodColor, setMoodColor] = useState(theme.green9.val)
+  const [isSuccess, setIsSuccess] = useState(false)
   const moods = useMood(state => state.moods)
   const addMyMood = useMood(state => state.addMood)
   const setNavigating = useUI(state => state.setNavigating)
-  const [isSuccess, setIsSuccess] = useState(false)
   const { width } = useWindowDimensions()
   const {
     goToPrevStep,

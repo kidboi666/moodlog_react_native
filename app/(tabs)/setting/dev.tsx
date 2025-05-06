@@ -6,7 +6,7 @@ import {
   Users,
 } from '@tamagui/lucide-icons'
 import { useTranslation } from 'react-i18next'
-import { Button, ScrollView, YStack } from 'tamagui'
+import { Button, ScrollView, YStack, styled } from 'tamagui'
 
 import { SettingsContainer } from '@/features/setting/components'
 import { H1 } from '@/shared/components'
@@ -19,48 +19,61 @@ export default function DevScreen() {
 
   return (
     <ScrollView>
-      <ViewContainer padded gap='$4'>
+      <Container>
         <H1>{t('settings.dev.title')}</H1>
-        <YStack gap='$4'>
+        <ContentContainer>
           <SettingsContainer title={t('settings.dev.store')}>
-            <YStack gap='$2'>
+            <SpacingBox>
               <Button onPress={resetStores} icon={<RefreshCw size='$1' />}>
                 {t('settings.dev.resetStore')}
               </Button>
-            </YStack>
+            </SpacingBox>
           </SettingsContainer>
 
           <SettingsContainer title={t('settings.dev.network')}>
-            <YStack gap='$2'>
+            <SpacingBox>
               <Button icon={<Activity size='$1' />}>
                 {t('settings.dev.apiCalls')}
               </Button>
               <Button icon={<Server size='$1' />}>
                 {t('settings.dev.serverStatus')}
               </Button>
-            </YStack>
+            </SpacingBox>
           </SettingsContainer>
 
           <SettingsContainer title={t('settings.dev.appStatus')}>
-            <YStack gap='$2'>
+            <SpacingBox>
               <Button icon={<Database size='$1' />}>
                 {t('settings.dev.appVersion')}
               </Button>
               <Button icon={<Activity size='$1' />}>
                 {t('settings.dev.logs')}
               </Button>
-            </YStack>
+            </SpacingBox>
           </SettingsContainer>
 
           <SettingsContainer title={t('settings.dev.memberInfo')}>
-            <YStack gap='$2'>
+            <SpacingBox>
               <Button icon={<Users size='$1' />}>
                 {t('settings.dev.loadMemberInfo')}
               </Button>
-            </YStack>
+            </SpacingBox>
           </SettingsContainer>
-        </YStack>
-      </ViewContainer>
+        </ContentContainer>
+      </Container>
     </ScrollView>
   )
 }
+
+const Container = styled(ViewContainer, {
+  padded: true,
+  gap: '$4',
+})
+
+const ContentContainer = styled(YStack, {
+  gap: '$4',
+})
+
+const SpacingBox = styled(YStack, {
+  gap: '$2',
+})

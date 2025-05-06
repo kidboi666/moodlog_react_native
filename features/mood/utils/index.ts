@@ -1,5 +1,13 @@
-import { JournalMood, MoodLevel, Moods, type Nullable } from '@/shared/types'
-import { hexToRgba } from '@/shared/utils'
+import { JournalUtils } from '@/features/journal/utils'
+import {
+  type ISOMonthString,
+  JournalMood,
+  JournalStore,
+  MoodLevel,
+  Moods,
+  type Nullable,
+} from '@/shared/types'
+import { DateUtils, hexToRgba, isEmptyObj } from '@/shared/utils'
 
 export class MoodUtils {
   static calculateSignatureJournalMood(moods: Nullable<JournalMood[]>) {
@@ -42,6 +50,11 @@ export class MoodUtils {
     }
 
     const { id, level } = journalMood
+
+    if (!id) {
+      return null
+    }
+
     const moodColor = moods[id].color
 
     switch (level) {
@@ -54,5 +67,33 @@ export class MoodUtils {
       default:
         return hexToRgba(moodColor, 1)
     }
+  }
+
+  static getGardenMoodData(
+    store: JournalStore,
+    weekLength: number,
+    firstDateDay: number,
+    monthDate: ISOMonthString,
+    lastDate: number,
+  ) {
+    const data = []
+
+    for (let week = 0; week < weekLength; week++) {
+      const weekData = []
+      for (let day = 0; day < 7; day++) {
+        const dateNum = week * 7 + day - firstDateDay + 1
+        if (dateNum <= 0 || dateNum > lastDate) {
+          weekData.push(null)
+        } else {
+          const dateString = DateUtils.getISODateFromMonthString(
+            monthDate,
+            dateNum,
+          )
+          weekData.push(JournalUtils.getMoodForDate(store, dateString))
+        }
+      }
+      data.push(weekData)
+    }
+    return data
   }
 }

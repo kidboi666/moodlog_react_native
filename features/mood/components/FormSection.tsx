@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from 'react'
 import { XStack, YStack, styled } from 'tamagui'
 
-import { ColorPicker } from '@/features/write/components'
 import { Layout } from '@/shared/constants'
+import { ColorPicker } from '../../write/components/ColorPicker'
 import { MoodNameForm } from './MoodNameForm'
 
 interface Props {

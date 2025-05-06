@@ -1,16 +1,9 @@
-import { supabase } from '@/lib/supabase'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ActivityIndicator } from 'react-native'
-import { Separator, XStack, YStack, styled } from 'tamagui'
+import { Separator, YStack, styled } from 'tamagui'
 
 import { ProfileMenuItem } from '@/features/setting/components'
-import {
-  BaseText,
-  H1,
-  PressableButton,
-  ViewContainer,
-} from '@/shared/components'
+import { BaseText, H1, ViewContainer } from '@/shared/components'
 import { useAuth } from '@/shared/store'
 import type { NewUserInfo } from '@/shared/types'
 import { DateUtils } from '@/shared/utils'
@@ -18,8 +11,6 @@ import { DateUtils } from '@/shared/utils'
 export default function ProfileScreen() {
   const { t } = useTranslation()
   const session = useAuth(state => state.session)
-  const [isEditing, setIsEditing] = useState(false)
-  const [isLoading, setLoading] = useState(false)
 
   const [form, setForm] = useState<NewUserInfo>({
     userName: session?.user.user_metadata.user_name ?? '',
@@ -27,57 +18,6 @@ export default function ProfileScreen() {
     age: session?.user.user_metadata.age ?? null,
     avatarUrl: session?.user.user_metadata.avatar_url ?? '',
   })
-
-  const handleEdit = useCallback(() => {
-    setIsEditing(true)
-  }, [])
-
-  const handleUserInfoChange = useCallback(async () => {
-    try {
-      setLoading(true)
-      const { error } = await supabase
-        .from('profiles')
-        .update({
-          userName: form.userName,
-          email: form.email,
-          age: form.age,
-        })
-        .eq('id', session?.user.id)
-        .select()
-        .single()
-
-      if (error) {
-        throw error
-      }
-    } catch (error) {
-      console.error('Failed to update profile:', error)
-    } finally {
-      setLoading(false)
-    }
-  }, [form, session?.user.id, setLoading])
-
-  const handleCancel = useCallback(() => {
-    setIsEditing(false)
-  }, [])
-
-  const handleSave = useCallback(async () => {
-    try {
-      await handleUserInfoChange()
-      setIsEditing(false)
-    } catch (error) {
-      console.error('Failed to update profile:', error)
-    }
-  }, [form, handleUserInfoChange, setIsEditing])
-
-  const handleChange = useCallback(
-    (key: keyof NewUserInfo, value: string | number | null) => {
-      setForm(prev => ({
-        ...prev,
-        [key]: value,
-      }))
-    },
-    [],
-  )
 
   useEffect(() => {
     if (session) {
@@ -100,12 +40,12 @@ export default function ProfileScreen() {
 
   return (
     <ViewContainer>
-      <YStack gap='$4' mb='$4'>
+      <TitleBox>
         <H1>{t('settings.profile.title') || 'Profile'}</H1>
         <Separator />
-      </YStack>
+      </TitleBox>
 
-      <YStack gap='$6'>
+      <ContentContainer>
         {/* User ID */}
         <MenuSpacing>
           <MenuTitle>{t('settings.profile.id') || 'ID'}</MenuTitle>
@@ -114,35 +54,15 @@ export default function ProfileScreen() {
 
         {/* Username */}
         <ProfileMenuItem
-          isEditing={isEditing}
-          isLoading={isLoading}
           title='settings.profile.username'
-          label='userName'
-          onChangeText={text => handleChange('userName', text)}
           value={form.userName}
         />
 
         {/* Email */}
-        <ProfileMenuItem
-          isEditing={isEditing}
-          isLoading={isLoading}
-          title='settings.profile.email'
-          label='email'
-          onChangeText={text => handleChange('email', text)}
-          value={form.email}
-        />
+        <ProfileMenuItem title='settings.profile.email' value={form.email} />
 
         {/* Age */}
-        <ProfileMenuItem
-          isEditing={isEditing}
-          isLoading={isLoading}
-          label='age'
-          onChangeText={text =>
-            handleChange('age', text ? Number.parseInt(text) : null)
-          }
-          title='settings.profile.age'
-          value={form.age}
-        />
+        <ProfileMenuItem title='settings.profile.age' value={form.age} />
 
         {/* Days Since Signup */}
         <MenuSpacing>
@@ -151,39 +71,7 @@ export default function ProfileScreen() {
             {DateUtils.getDaysSinceSignup(session.user.created_at)}
           </BaseText>
         </MenuSpacing>
-
-        {/* Action Buttons */}
-        <YStack gap='$4' mt='$4'>
-          {isEditing ? (
-            <XStack gap='$4'>
-              <PressableButton
-                flex={1}
-                variant='outlined'
-                onPress={handleCancel}
-                disabled={isLoading}
-              >
-                {t('common.cancel') || 'Cancel'}
-              </PressableButton>
-              <PressableButton
-                flex={1}
-                themeInverse
-                onPress={handleSave}
-                disabled={isLoading}
-              >
-                {t('common.save') || 'Save'}
-              </PressableButton>
-            </XStack>
-          ) : (
-            <PressableButton onPress={handleEdit} disabled={isLoading}>
-              {isLoading ? (
-                <ActivityIndicator size='small' />
-              ) : (
-                <BaseText>{t('common.edit') || 'Edit'}</BaseText>
-              )}
-            </PressableButton>
-          )}
-        </YStack>
-      </YStack>
+      </ContentContainer>
     </ViewContainer>
   )
 }
@@ -194,4 +82,13 @@ const MenuTitle = styled(BaseText, {
 
 const MenuSpacing = styled(YStack, {
   gap: '$2',
+})
+
+const TitleBox = styled(YStack, {
+  gap: '$4',
+  mb: '$4',
+})
+
+const ContentContainer = styled(YStack, {
+  gap: '$6',
 })

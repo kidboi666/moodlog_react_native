@@ -63,3 +63,14 @@ export const isValidEmail = (email: string) => {
 export const delay = async (ms: number, fn?: any) => {
   return Promise.resolve(setTimeout(fn, ms))
 }
+
+export const isEmptyObj = (obj: Record<string, any>) => {
+  // biome-ignore lint/style/useConst: <explanation>
+  for (let key in obj) {
+    // biome-ignore lint/suspicious/noPrototypeBuiltins: <explanation>
+    if (obj.hasOwnProperty(key)) {
+      return false
+    }
+  }
+  return true
+}

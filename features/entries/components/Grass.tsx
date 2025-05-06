@@ -1,9 +1,10 @@
 import { memo, useMemo } from 'react'
-import { GetThemeValueForKey, View, styled } from 'tamagui'
+import { View, styled } from 'tamagui'
 
 import { MoodUtils } from '@/features/mood/utils'
 import { useMood } from '@/shared/store'
 import { JournalMood, Nullable } from '@/shared/types'
+import { isEmptyObj } from '@/shared/utils'
 
 interface Props {
   mood: Nullable<JournalMood[]>
@@ -22,17 +23,13 @@ export const Grass = memo(
       () => MoodUtils.calculateSignatureJournalMood(mood),
       [mood, isEmpty],
     )
-    let moodColor: string | undefined
+    let moodColor: Nullable<string>
 
-    if (signatureMood) {
+    if (signatureMood && !isEmptyObj(moods)) {
       moodColor = MoodUtils.paintMood(moods, signatureMood)
     }
 
-    return (
-      <StyledGrass
-        bg={(moodColor as GetThemeValueForKey<'backgroundColor'>) || '$gray10'}
-      />
-    )
+    return <StyledGrass moodColor={moodColor || '$color9'} />
   },
   (prevProps, nextProps) => {
     if (prevProps.isEmpty !== nextProps.isEmpty) return false
@@ -46,6 +43,11 @@ const StyledGrass = styled(View, {
   width: 16,
   height: 16,
   rounded: '$1',
+  variants: {
+    moodColor: {
+      ':string': bg => ({ bg }),
+    },
+  },
 })
 
 Grass.displayName = 'Grass'

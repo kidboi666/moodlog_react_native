@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Layout } from '@/shared/constants'
-import { useBottomSheet, useMood } from '@/shared/store'
+import { useBottomSheet, useMood, useUI } from '@/shared/store'
 import { BottomSheetType } from '@/shared/types'
 import { MoodService } from '../services'
 
@@ -14,16 +14,20 @@ export const useDeleteMood = (onSuccess?: () => void) => {
   const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
   const moods = useMood(state => state.moods)
   const removeMood = useMood(state => state.removeMood)
+  const isLoading = useUI(state => state.isLoading)
+  const setLoading = useUI(state => state.setLoading)
 
   const handleDeleteMood = useCallback(
     (id: string) => {
+      setLoading(true)
       const newStore = MoodService.removeMood(moods, id)
       removeMood(newStore)
 
       onSuccess?.()
       toast.show(t('notifications.success.delete'))
+      setLoading(false)
     },
-    [moods, onSuccess, toast],
+    [moods, onSuccess, toast, isLoading, setLoading],
   )
 
   const openDeleteSheet = useCallback(
@@ -31,6 +35,7 @@ export const useDeleteMood = (onSuccess?: () => void) => {
       showBottomSheet(BottomSheetType.DELETE_MOOD, Layout.SNAP_POINTS.DELETE, {
         moodId: id,
         onDelete: handleDeleteMood,
+        isLoading,
         hideBottomSheet,
       }),
     [showBottomSheet, handleDeleteMood, hideBottomSheet],

@@ -5,6 +5,20 @@ import { View, YStack, styled } from 'tamagui'
 import { H6 } from '@/shared/components'
 import { WEEK_DAY } from '@/shared/constants'
 
+export const GardenDayUnits = memo(() => {
+  const { t } = useTranslation()
+  return (
+    <DaysContainer>
+      <EmptyBox />
+      <DaysBox>
+        {Object.keys(WEEK_DAY).map(day => (
+          <DayText key={day}>{t(`calendar.daysShort.${day}`)}</DayText>
+        ))}
+      </DaysBox>
+    </DaysContainer>
+  )
+})
+
 const DaysContainer = styled(YStack, {
   py: '$4',
 })
@@ -23,18 +37,4 @@ const DaysBox = styled(YStack, {
 const DayText = styled(H6, {
   fontSize: '$3',
   color: '$color10',
-})
-
-export const GardenDayUnits = memo(() => {
-  const { t } = useTranslation()
-  return (
-    <DaysContainer>
-      <EmptyBox />
-      <DaysBox>
-        {Object.keys(WEEK_DAY).map(day => (
-          <DayText key={day}>{t(`calendar.daysShort.${day}`)}</DayText>
-        ))}
-      </DaysBox>
-    </DaysContainer>
-  )
 })

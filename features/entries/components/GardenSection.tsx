@@ -51,7 +51,7 @@ export const GardenSection = () => {
       <GardenTitleHeader />
       <ScrollView horizontal>
         <GardenDayUnits />
-        <StackBox>
+        <GrassContainer>
           {staticMonths.map(staticMonth => (
             <MonthItem
               key={staticMonth.monthKey}
@@ -64,7 +64,7 @@ export const GardenSection = () => {
               onMonthPress={handleMonthPress}
             />
           ))}
-        </StackBox>
+        </GrassContainer>
       </ScrollView>
     </Container>
   )
@@ -77,6 +77,6 @@ const Container = styled(YStack, {
   gap: '$4',
 })
 
-const StackBox = styled(XStack, {
+const GrassContainer = styled(XStack, {
   gap: '$2',
 })

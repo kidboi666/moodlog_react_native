@@ -8,28 +8,25 @@ interface Props extends InputProps {
   onChangeText: (text: string) => void
 }
 
-export const FormInputArea = ({
-  value,
-  onChangeText,
-  placeholder,
-  height = 200,
-  ...props
-}: Props) => {
-  const { fontNameWithTokenPrefix } = useCustomFont()
+export const FormInputArea = TextArea.styleable<Props>(
+  ({ value, onChangeText, placeholder, height = 200, ...props }, ref) => {
+    const { fontNameWithTokenPrefix } = useCustomFont()
 
-  return (
-    <StyledView>
-      <TextArea
-        value={value}
-        onChangeText={onChangeText}
-        fontFamily={fontNameWithTokenPrefix}
-        placeholder={placeholder}
-        height={height}
-        {...props}
-      />
-    </StyledView>
-  )
-}
+    return (
+      <StyledView>
+        <TextArea
+          ref={ref}
+          value={value}
+          onChangeText={onChangeText}
+          fontFamily={fontNameWithTokenPrefix}
+          placeholder={placeholder}
+          height={height}
+          {...props}
+        />
+      </StyledView>
+    )
+  },
+)
 
 const StyledView = styled(View, {
   animation: 'quick',

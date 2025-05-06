@@ -1,9 +1,8 @@
 import { View, type ViewProps, styled } from 'tamagui'
 
-import { useAnimatedEntry } from '@/shared/hooks/useAnimatedEntry'
-import { DelayMS } from 'shared/constants'
-
+import { DelayMS } from '@/shared/constants'
 import { MOUNT_STYLE } from '@/shared/constants/animations'
+import { useAnimatedEntry } from '@/shared/hooks'
 
 interface Props extends ViewProps {
   delay?: number

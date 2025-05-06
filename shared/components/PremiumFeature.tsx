@@ -3,8 +3,8 @@ import { ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'tamagui'
 
-import { useApp } from 'shared/store'
-import { SubscriptionTier } from 'shared/types'
+import { useApp } from '@/shared/store'
+import { SubscriptionTier } from '@/shared/types'
 
 interface Props {
   children: ReactNode
@@ -36,5 +36,5 @@ export const PremiumFeature = ({
     }
   }, [isPremium, showToast, toast, t])
 
-  return <>{isPremium ? children : fallback || <View />}</>
+  return isPremium ? children : fallback || <View />
 }
