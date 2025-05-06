@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { JournalUtils } from '@/features/journal/utils'
 import { Layout } from '@/shared/constants'
+import { useBottomSheet, useJournal, useUI } from '@/shared/store'
 import { BottomSheetType } from '@/shared/types'
-import { useBottomSheet, useJournal, useUI } from 'shared/store'
 import { JournalService } from '../services'
 
 export const useDeleteJournal = (onSuccess?: () => void) => {

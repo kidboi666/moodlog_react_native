@@ -2,14 +2,11 @@ import { supabase } from '@/lib/supabase'
 import { memo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
-import { YStack } from 'tamagui'
+import { YStack, styled } from 'tamagui'
 
+import { BaseText, H3, PressableButton } from '@/shared/components'
 import type { BottomSheetProps, BottomSheetType } from '@/shared/types'
-
-import { BottomSheetContainer } from '@/features/modal/BottomSheetContainer'
-import { BaseText } from '@/shared/components/BaseText'
-import { H3 } from '@/shared/components/Heading'
-import { PressableButton } from '@/shared/components/PressableButton'
+import { BottomSheetContainer } from '../../BottomSheetContainer'
 
 export const LogoutModal = memo(
   ({ hideBottomSheet }: BottomSheetProps[BottomSheetType.LOGOUT]) => {
@@ -26,19 +23,28 @@ export const LogoutModal = memo(
 
     return (
       <BottomSheetContainer>
-        <H3 text='center'>{t('settings.logout.confirmTitle')}</H3>
+        <Title>{t('settings.logout.confirmTitle')}</Title>
         <BaseText text='center' color='$gray11'>
           {t('settings.logout.confirmMessage')}
         </BaseText>
-        <YStack gap='$3' mt='$2'>
+        <ButtonContainer>
           <PressableButton bg='$red9' color='white' onPress={handleLogout}>
             {t('auth.logout')}
           </PressableButton>
           <PressableButton onPress={hideBottomSheet}>
             {t('common.cancel')}
           </PressableButton>
-        </YStack>
+        </ButtonContainer>
       </BottomSheetContainer>
     )
   },
 )
+
+const Title = styled(H3, {
+  text: 'center',
+})
+
+const ButtonContainer = styled(YStack, {
+  gap: '$3',
+  mt: '$2',
+})

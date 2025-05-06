@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react'
 import { ScrollView, XStack, YStack, styled } from 'tamagui'
 
 import { JournalUtils } from '@/features/journal/utils'
-import { DelayMS, MONTHS } from '@/shared/constants'
+import { MONTHS } from '@/shared/constants'
 import { useCalendar } from '@/shared/hooks'
 import { useJournal } from '@/shared/store'
 import type { ISOMonthString, MonthKey } from '@/shared/types'

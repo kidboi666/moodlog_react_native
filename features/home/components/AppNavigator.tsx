@@ -9,10 +9,9 @@ import { Platform } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { useTheme } from 'tamagui'
 
-import { useAppTheme } from 'shared/store'
-
 import { BottomSheet } from '@/features/modal'
 import { FullScreenSpinner, StatusBar } from '@/shared/components'
+import { useAppTheme } from '@/shared/store'
 import { MainStack } from './MainStack'
 
 export const AppNavigator = () => {

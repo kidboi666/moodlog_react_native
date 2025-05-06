@@ -1,7 +1,6 @@
 import { Fragment, memo } from 'react'
-import { styled, useTheme } from 'tamagui'
-
 import { Platform } from 'react-native'
+import { styled, useTheme } from 'tamagui'
 import { LinearGradient } from 'tamagui/linear-gradient'
 
 export const ContainerFog = memo(() => {

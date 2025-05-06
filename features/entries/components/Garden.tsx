@@ -1,11 +1,9 @@
 import { memo, useMemo } from 'react'
 import { XStack, YStack, styled } from 'tamagui'
 
-import { JournalUtils } from '@/features/journal/utils'
 import { MoodUtils } from '@/features/mood/utils'
 import { useJournal } from '@/shared/store'
 import type { ISOMonthString } from '@/shared/types'
-import { DateUtils } from '@/shared/utils'
 import { Grass } from './Grass'
 
 interface Props {

@@ -2,6 +2,7 @@ import * as SQLite from 'expo-sqlite'
 
 export const dbInit = async (db: SQLite.SQLiteDatabase) => {
   console.log('Creating database if needed')
+
   await db.execAsync(`
       PRAGMA journal_mode = 'wal';
       CREATE TABLE IF NOT EXISTS moods

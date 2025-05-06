@@ -1,7 +1,7 @@
-import { supabase } from '@/lib/supabase'
-import { AuthService } from '@/shared/services'
 import { useEffect } from 'react'
-import { useAuth } from 'shared/store'
+
+import { AuthService } from '@/shared/services'
+import { useAuth } from '@/shared/store'
 
 export const useAuthListener = () => {
   const setSession = useAuth(state => state.setSession)

@@ -1,8 +1,8 @@
 import { Sheet } from '@tamagui/sheet'
 import { memo } from 'react'
 
+import { useBottomSheet } from '@/shared/store'
 import { type BottomSheetProps, BottomSheetType } from '@/shared/types'
-import { useBottomSheet } from 'shared/store'
 
 import {
   DeleteJournalModal,

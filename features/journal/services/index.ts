@@ -1,7 +1,8 @@
-import { Draft, JournalStore } from '@/shared/types'
-import { DateUtils } from '@/shared/utils'
 import * as Crypto from 'expo-crypto'
 import { CalendarUtils } from 'react-native-calendars'
+
+import { Draft, JournalStore } from '@/shared/types'
+import { DateUtils } from '@/shared/utils'
 
 export class JournalService {
   static createJournal(store: JournalStore, draft: Draft) {

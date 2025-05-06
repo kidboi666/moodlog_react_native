@@ -7,9 +7,9 @@ import { Separator, XStack, YStack } from 'tamagui'
 
 import { BaseText, FormInput, H1, PressableButton } from '@/shared/components'
 import { HTTP_STATUS, Layout } from '@/shared/constants'
+import { useBottomSheet } from '@/shared/store'
 import { BottomSheetType } from '@/shared/types'
 import { isValidEmail } from '@/shared/utils'
-import { useBottomSheet } from 'shared/store'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 
 export const SignUpModal = () => {
