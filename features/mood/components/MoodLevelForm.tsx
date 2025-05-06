@@ -14,7 +14,7 @@ import { useStepProgress } from '@/shared/store'
 import { MoodLevel } from '@/shared/types'
 
 interface Props {
-  moodColor: string
+  moodColor?: string
   moodLevel?: MoodLevel
   onMoodLevelChange: (moodLevel: MoodLevel) => void
 }
@@ -39,7 +39,7 @@ export const MoodLevelForm = ({
         <FormItem key={level}>
           <Button
             size='$4'
-            animation='bouncy'
+            animation='quick'
             pressStyle={PRESS_STYLE}
             animateOnly={PRESS_STYLE_KEY}
             bg={moodColor as GetThemeValueForKey<'backgroundColor'>}

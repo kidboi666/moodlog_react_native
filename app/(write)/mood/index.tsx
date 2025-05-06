@@ -20,9 +20,10 @@ import {
 import { MoodService } from '@/features/mood/services'
 import { HeaderContent, StepDot, ViewContainer } from '@/shared/components'
 import { DelayMS } from '@/shared/constants'
-import { useMood, useStepProgress, useUI } from '@/shared/store'
+import { useStepProgress, useUI } from '@/shared/store'
 import { MoodName } from '@/shared/types'
 import { delay } from '@/shared/utils'
+import { useSQLiteContext } from 'expo-sqlite'
 
 export default function CreateMoodScreen() {
   const router = useRouter()
@@ -30,8 +31,8 @@ export default function CreateMoodScreen() {
   const [moodName, setMoodName] = useState<MoodName>('')
   const [moodColor, setMoodColor] = useState(theme.green9.val)
   const [isSuccess, setIsSuccess] = useState(false)
-  const moods = useMood(state => state.moods)
-  const addMyMood = useMood(state => state.addMood)
+  const db = useSQLiteContext()
+  const moodService = new MoodService(db)
   const setNavigating = useUI(state => state.setNavigating)
   const { width } = useWindowDimensions()
   const {
@@ -89,8 +90,7 @@ export default function CreateMoodScreen() {
       color: moodColor,
       createdAt: new Date().toISOString(),
     }
-    const updatedMoods = MoodService.addMood(moods, newMood)
-    addMyMood(updatedMoods)
+    await moodService.addMood(newMood)
 
     handleSuccess()
   }, [moodName, router, setNavigating])

@@ -4,7 +4,7 @@ export const MOUNT_STYLE = {
 } as const
 
 export const PRESS_STYLE = {
-  bg: '$backgroundFocus',
+  bg: '$backgroundPress',
   borderColor: '$borderColorPress',
   color: '$colorPress',
 } as const

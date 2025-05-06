@@ -4,22 +4,29 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native'
 
 import { JournalMenuSelector, MoodLevelForm } from '@/features/mood/components'
+import { MoodService } from '@/features/mood/services'
 import { EmptyMoodView, MainRecordFlow } from '@/features/write/components'
 import { useAddJournal } from '@/features/write/hooks'
 import {
   Delay,
+  FullScreenSpinner,
   HeaderContent,
   StepDot,
   ViewContainer,
 } from '@/shared/components'
 import { ImageService } from '@/shared/services'
-import { useMood } from '@/shared/store'
-import { Draft, MoodLevel } from '@/shared/types'
+import { Draft, Mood, MoodLevel } from '@/shared/types'
+import { delay } from '@/shared/utils'
+import { useSQLiteContext } from 'expo-sqlite'
+import { Spinner } from 'tamagui'
 
 export default function WriteJournalScreen() {
   const router = useRouter()
-  const moods = useMood(state => state.moods)
+  const [moods, setMoods] = useState<Mood[]>([])
   const moodLength = Object.keys(moods).length
+  const db = useSQLiteContext()
+  const moodService = new MoodService(db)
+  const [isLoading, setIsLoading] = useState(false)
 
   const [draft, setDraft] = useState<Draft>({
     content: '',
@@ -102,9 +109,42 @@ export default function WriteJournalScreen() {
   }, [moods, handleMoodChange])
 
   const selectedMoodColor = useMemo(
-    () => draft.mood.id && moods[draft.mood.id]?.color,
+    () => draft.mood.id && moods.find(mood => mood.id === draft.mood.id)?.color,
     [draft.mood.id, moods],
   )
+
+  useEffect(() => {
+    const getMoods = async () => {
+      try {
+        setIsLoading(true)
+        await delay(4000)
+        const moods = await moodService.getMoods()
+        if (moods) {
+          setMoods(moods)
+        }
+      } catch (err) {
+        if (err instanceof Error) {
+          throw new Error(err.message)
+        }
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    getMoods()
+  }, [])
+
+  if (isLoading) {
+    return (
+      <ViewContainer
+        edges={['bottom']}
+        gap='$4'
+        Header={<HeaderContent leftAction={() => router.back()} />}
+      >
+        <Spinner size='large' />
+      </ViewContainer>
+    )
+  }
 
   if (moodLength === 0) {
     return (
