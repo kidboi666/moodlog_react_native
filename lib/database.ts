@@ -20,6 +20,7 @@ export const dbInit = async (db: SQLite.SQLiteDatabase) => {
           mood_id    TEXT NOT NULL,
           mood_level TEXT NOT NULL,
           created_at TEXT NOT NULL,
+          image_uri  TEXT NOT NULL,
           local_date TEXT NOT NULL,
           FOREIGN KEY (mood_id) REFERENCES moods (id)
       );

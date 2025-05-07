@@ -7,11 +7,11 @@ import { FormInput } from '@/shared/components'
 
 interface Props {
   width: number
-  name: string
-  setName: (text: string) => void
+  moodName: string
+  onMoodNameChange: (text: string) => void
 }
 
-export const MoodNameForm = ({ width, name, setName }: Props) => {
+export const MoodNameForm = ({ width, moodName, onMoodNameChange }: Props) => {
   const { t } = useTranslation()
   const toast = useToastController()
 
@@ -23,16 +23,16 @@ export const MoodNameForm = ({ width, name, setName }: Props) => {
         })
         return
       }
-      setName(text)
+      onMoodNameChange(text)
     },
-    [name, setName, toast, t],
+    [moodName, onMoodNameChange, toast, t],
   )
 
   return (
     <YStack gap='$4' width={width}>
       <FormInput
         placeholder={t('placeholders.moodName')}
-        value={name}
+        value={moodName}
         onChangeText={handleChangeText}
       />
     </YStack>

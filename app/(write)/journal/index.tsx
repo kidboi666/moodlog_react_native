@@ -1,7 +1,9 @@
 import { Check } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
+import { useSQLiteContext } from 'expo-sqlite'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native'
+import { Spinner } from 'tamagui'
 
 import { JournalMenuSelector, MoodLevelForm } from '@/features/mood/components'
 import { MoodService } from '@/features/mood/services'
@@ -9,7 +11,6 @@ import { EmptyMoodView, MainRecordFlow } from '@/features/write/components'
 import { useAddJournal } from '@/features/write/hooks'
 import {
   Delay,
-  FullScreenSpinner,
   HeaderContent,
   StepDot,
   ViewContainer,
@@ -17,8 +18,6 @@ import {
 import { ImageService } from '@/shared/services'
 import { Draft, Mood, MoodLevel } from '@/shared/types'
 import { delay } from '@/shared/utils'
-import { useSQLiteContext } from 'expo-sqlite'
-import { Spinner } from 'tamagui'
 
 export default function WriteJournalScreen() {
   const router = useRouter()

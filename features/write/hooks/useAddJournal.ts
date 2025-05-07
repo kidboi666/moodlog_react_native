@@ -1,6 +1,6 @@
 import { useToastController } from '@tamagui/toast'
 import { useRouter } from 'expo-router'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Keyboard } from 'react-native'
 
@@ -9,6 +9,7 @@ import { JournalUtils } from '@/features/journal/utils'
 import { DelayMS } from '@/shared/constants'
 import { useJournal, useUI } from '@/shared/store'
 import { Draft, JournalMood, MoodLevel } from '@/shared/types'
+import { useSQLiteContext } from 'expo-sqlite'
 
 export const useAddJournal = ({
   draftContent,
@@ -25,14 +26,11 @@ export const useAddJournal = ({
   const { t } = useTranslation()
   const toast = useToastController()
   const setLoading = useUI(state => state.setLoading)
-  const setNavigating = useUI(state => state.setNavigating)
-  const store = useJournal(state => state.store)
-  const selectedJournals = useJournal(state => state.selectedJournals)
-  const updateStore = useJournal(state => state.updateStore)
-  const selectJournals = useJournal(state => state.selectJournals)
+  const db = useSQLiteContext()
+  const journalService = new JournalService(db)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
     if (!draftContent.trim()) {
       toast.show('내용을 입력해주세요', { preset: 'notice' })
       return
@@ -46,19 +44,9 @@ export const useAddJournal = ({
       } as JournalMood,
       imageUri: draftImageUri,
     } as Draft
-    console.log('newMood ????? ', draftMoodId)
     try {
       setLoading(true)
-      const { newStore, newJournal } = JournalService.createJournal(
-        store,
-        newDraft,
-      )
-      updateStore(newStore)
-      const newSelectedJournals = JournalUtils.syncSelectedJournalsAfterCreate(
-        selectedJournals,
-        newJournal,
-      )
-      selectJournals(newSelectedJournals)
+      await journalService.createJournal(newDraft)
 
       toast.show(t('notifications.success.journal.title'), {
         message: t('notifications.success.journal.message'),
@@ -66,7 +54,6 @@ export const useAddJournal = ({
       })
 
       setIsSubmitted(true)
-      setNavigating(true)
       Keyboard.dismiss()
 
       setTimeout(() => {
@@ -74,7 +61,7 @@ export const useAddJournal = ({
           pathname: '/(tabs)/journal/[journalId]',
           params: { journalId: newJournal.id, isNewJournal: 'true' },
         })
-        setTimeout(() => setNavigating(false), 0)
+        setTimeout(() => setLoading(false), 0)
       }, DelayMS.ROUTE)
     } catch (error) {
       console.error('일기 저장 실패:', error)
@@ -87,10 +74,8 @@ export const useAddJournal = ({
     draftContent,
     draftImageUri,
     toast,
-    updateStore,
     t,
     router,
-    setNavigating,
     setLoading,
   ])
 

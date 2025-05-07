@@ -1,7 +1,6 @@
 import { Check } from '@tamagui/lucide-icons'
-import * as Crypto from 'expo-crypto'
 import { useRouter } from 'expo-router'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -9,7 +8,6 @@ import {
   StyleSheet,
   useWindowDimensions,
 } from 'react-native'
-import { useControllableState, useTheme } from 'tamagui'
 
 import {
   FormSection,
@@ -17,83 +15,21 @@ import {
   MoodPreviewItem,
   SuccessCreateMoodEffect,
 } from '@/features/mood/components'
-import { MoodService } from '@/features/mood/services'
+import { useAddMood, useMoodForm, useScrollMood } from '@/features/write/hooks'
 import { HeaderContent, StepDot, ViewContainer } from '@/shared/components'
-import { DelayMS } from '@/shared/constants'
-import { useStepProgress, useUI } from '@/shared/store'
-import { MoodName } from '@/shared/types'
-import { delay } from '@/shared/utils'
-import { useSQLiteContext } from 'expo-sqlite'
 
 export default function CreateMoodScreen() {
   const router = useRouter()
-  const theme = useTheme()
-  const [moodName, setMoodName] = useState<MoodName>('')
-  const [moodColor, setMoodColor] = useState(theme.green9.val)
-  const [isSuccess, setIsSuccess] = useState(false)
-  const db = useSQLiteContext()
-  const moodService = new MoodService(db)
-  const setNavigating = useUI(state => state.setNavigating)
   const { width } = useWindowDimensions()
+  const { currentStep, onLeftPress, onRightPress, position } = useScrollMood()
   const {
-    goToPrevStep,
-    goToNextStep,
-    state: { currentStep },
-  } = useStepProgress()
-  const [positionI, setPositionI] = useControllableState({
-    strategy: 'most-recent-wins',
-    defaultProp: 0,
-  })
-  const positionList = [{ x: 0 }, { x: -width }]
-  const position = positionList[positionI]
-
-  const handleLeftPress = () => {
-    if (currentStep === 1) {
-      goToPrevStep()
-      setPositionI(
-        prev => (prev + positionList.length - 1) % positionList.length,
-      )
-    }
-  }
-  const handleRightPress = () => {
-    if (currentStep === 0) {
-      goToNextStep()
-      setPositionI(prev => (prev + 1) % positionList.length)
-    }
-  }
-
-  const handleSuccess = useCallback(async () => {
-    setIsSuccess(true)
-    Keyboard.dismiss()
-
-    const animationTimer = setTimeout(() => {
-      setIsSuccess(false)
-    }, DelayMS.ANIMATION.LONG[2])
-
-    await delay(DelayMS.WAIT.WRITE_MOOD, () => {
-      router.replace({
-        pathname: '/(tabs)',
-        params: {
-          moodName,
-          moodColor,
-        },
-      })
-    })
-
-    return () => clearTimeout(animationTimer)
-  }, [])
-
-  const handleSubmit = useCallback(async () => {
-    const newMood = {
-      id: Crypto.randomUUID(),
-      name: moodName,
-      color: moodColor,
-      createdAt: new Date().toISOString(),
-    }
-    await moodService.addMood(newMood)
-
-    handleSuccess()
-  }, [moodName, router, setNavigating])
+    mood,
+    isSuccess,
+    onMoodColorChange,
+    onMoodNameChange,
+    onIsSuccessChange,
+  } = useMoodForm()
+  const { onSubmit } = useAddMood(mood, onIsSuccessChange)
 
   useEffect(() => {
     if (currentStep === 0) {
@@ -107,9 +43,9 @@ export default function CreateMoodScreen() {
       Header={
         <HeaderContent
           leftAction={() => router.back()}
-          rightAction={handleSubmit}
+          rightAction={onSubmit}
           rightActionIcon={Check}
-          rightActionDisabled={!moodName || !moodColor}
+          rightActionDisabled={!mood.name || !mood.color}
         >
           <StepDot />
         </HeaderContent>
@@ -120,23 +56,23 @@ export default function CreateMoodScreen() {
         keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
         style={styles.keyboardAvoidingView}
       >
-        <MoodPreviewItem name={moodName} color={moodColor} />
+        <MoodPreviewItem name={mood.name} color={mood.color} />
         <FormSection
-          name={moodName}
-          setName={setMoodName}
-          color={moodColor}
-          setColor={setMoodColor}
+          moodName={mood.name}
+          onMoodNameChange={onMoodNameChange}
+          moodColor={mood.color}
+          onMoodColorChange={onMoodColorChange}
           position={position}
           width={width}
           currentStep={currentStep}
         />
       </KeyboardAvoidingView>
       <MoodMenuSelector
-        handleLeftPress={handleLeftPress}
-        handleRightPress={handleRightPress}
+        handleLeftPress={onLeftPress}
+        handleRightPress={onRightPress}
         currentStep={currentStep}
       />
-      <SuccessCreateMoodEffect active={isSuccess} color={moodColor} />
+      <SuccessCreateMoodEffect active={isSuccess} color={mood.color} />
     </ViewContainer>
   )
 }

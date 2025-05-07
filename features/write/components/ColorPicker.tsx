@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react'
 import { StyleSheet } from 'react-native'
 import RnColorPicker, {
   ColorFormatsObject,
@@ -7,23 +6,28 @@ import RnColorPicker, {
 } from 'reanimated-color-picker'
 
 interface Props {
-  color: string
-  setColor: Dispatch<SetStateAction<string>>
+  moodColor: string
+  onMoodColorChange: (color: string) => void
   width: number
   show: boolean
 }
 
-export const ColorPicker = ({ color, setColor, width, show }: Props) => {
+export const ColorPicker = ({
+  moodColor,
+  onMoodColorChange,
+  width,
+  show,
+}: Props) => {
   const height = show ? undefined : 0
 
   const onSelectColor = (color: ColorFormatsObject) => {
-    setColor(color.hex)
+    onMoodColorChange(color.hex)
   }
 
   return (
     <RnColorPicker
       style={[styles.container, { width, height }]}
-      value={color}
+      value={moodColor}
       onChangeJS={onSelectColor}
     >
       <Panel1 style={styles.panel} />

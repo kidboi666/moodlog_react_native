@@ -3,11 +3,11 @@ import {
   type ISOMonthString,
   JournalMood,
   JournalStore,
+  Mood,
   MoodLevel,
-  Moods,
   type Nullable,
 } from '@/shared/types'
-import { DateUtils, hexToRgba, isEmptyObj } from '@/shared/utils'
+import { DateUtils, hexToRgba } from '@/shared/utils'
 
 export class MoodUtils {
   static calculateSignatureJournalMood(moods: Nullable<JournalMood[]>) {
@@ -44,9 +44,9 @@ export class MoodUtils {
     return moods.find(mood => mood.id === maxId) || null
   }
 
-  static paintMood(moods: Moods, journalMood: JournalMood | string) {
+  static paintMood(moods: Mood[], journalMood: JournalMood | string) {
     if (typeof journalMood === 'string') {
-      return moods[journalMood].color
+      return moods.find(m => m.id === journalMood)?.color
     }
 
     const { id, level } = journalMood
@@ -55,7 +55,11 @@ export class MoodUtils {
       return null
     }
 
-    const moodColor = moods[id].color
+    const moodColor = moods.find(m => m.id === id)?.color
+
+    if (!moodColor) {
+      return null
+    }
 
     switch (level) {
       case MoodLevel.HALF: {

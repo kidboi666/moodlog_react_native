@@ -12,7 +12,6 @@ export class AuthService {
         data: { user_name: draftUserName },
       },
     })
-
     if (error) {
       console.error('Failed to sign in :', error)
       throw error

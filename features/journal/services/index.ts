@@ -3,57 +3,30 @@ import { CalendarUtils } from 'react-native-calendars'
 
 import { Draft, JournalStore } from '@/shared/types'
 import { DateUtils } from '@/shared/utils'
+import { SQLiteDatabase } from 'expo-sqlite'
 
 export class JournalService {
-  static createJournal(store: JournalStore, draft: Draft) {
+  private db: SQLiteDatabase
+
+  constructor(db: SQLiteDatabase) {
+    this.db = db
+  }
+
+  async createJournal(draft: Draft) {
     if (!draft.content || !draft.mood) {
       throw new Error('not_content_or_mood')
     }
 
-    const now = new Date()
-    const localDate = CalendarUtils.getCalendarDateString(now)
-    const monthString = DateUtils.getISOMonthString(localDate)
-    const year = now.getFullYear()
-
-    const newJournal = {
-      id: Crypto.randomUUID(),
-      content: draft.content,
-      mood: draft.mood,
-      createdAt: new Date().toISOString(),
-      localDate,
-      imageUri: draft.imageUri ? draft.imageUri : [],
-    }
-
-    return {
-      newJournal,
-      newStore: {
-        journals: {
-          ...store.journals,
-          [newJournal.id]: newJournal,
-        },
-        indexes: {
-          ...store.indexes,
-          byYear: {
-            ...store.indexes.byYear,
-            [year]: [...(store.indexes.byYear[year] || []), newJournal.id],
-          },
-          byMonth: {
-            ...store.indexes.byMonth,
-            [monthString]: [
-              ...(store.indexes.byMonth[monthString] || []),
-              newJournal.id,
-            ],
-          },
-          byDate: {
-            ...store.indexes.byDate,
-            [localDate]: [
-              ...(store.indexes.byDate[localDate] || []),
-              newJournal.id,
-            ],
-          },
-        },
-      },
-    }
+    await this.db.runAsync(
+      'INSERT INTO journals (content, mood_id, mood_level, image_uri, localDate) VALUES (?, ?, ?, ?, ?)',
+      [
+        draft.content,
+        draft.mood.id,
+        draft.mood.level,
+        draft.imageUri,
+        draft.localDate,
+      ],
+    )
   }
 
   static removeJournal(store: JournalStore, journalId: string): JournalStore {

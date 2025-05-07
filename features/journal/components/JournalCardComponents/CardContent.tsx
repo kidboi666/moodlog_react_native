@@ -2,13 +2,12 @@ import { ChevronLeft, ChevronRight } from '@tamagui/lucide-icons'
 import { Card, View, YStack, styled } from 'tamagui'
 
 import { BaseText, PressableButton, RenderTime } from '@/shared/components'
-import { JournalMood, Moods, Position } from '@/shared/types'
+import { Mood, Position } from '@/shared/types'
 
 interface CardContentProps {
   content: string
   createdAt: string
-  mood: JournalMood
-  moods: Moods
+  mood: Mood
   cardPosition: Position
   toggleState: () => void
 }
@@ -17,13 +16,12 @@ export const CardContent = ({
   content,
   createdAt,
   mood,
-  moods,
   cardPosition,
   toggleState,
 }: CardContentProps) => {
   return (
     <CardHeader>
-      <MoodBar moodColor={moods[mood.id]?.color} />
+      <MoodBar moodColor={mood?.color} />
       <JournalContentBox>
         <TimeText createdAt={createdAt} />
         <JournalContentText>{content}</JournalContentText>

@@ -9,10 +9,12 @@ export type MoodColor = string
 
 export type Mood = {
   id: string
-  name: MoodName
-  color: MoodColor
+  name: string
+  color: string
   createdAt: string
 }
+
+export type MoodDraft = Pick<Mood, 'name' | 'color'>
 
 export type JournalMood = Pick<Mood, 'id'> & {
   level: MoodLevel

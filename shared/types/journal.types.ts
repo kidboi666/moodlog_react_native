@@ -16,6 +16,7 @@ export type Draft = {
   content: string
   mood: JournalMood
   imageUri: string[]
+  localDate: ISODateString
 }
 
 export type YearIndexes = Record<number, string[]>
