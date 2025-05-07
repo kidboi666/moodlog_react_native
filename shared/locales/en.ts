@@ -280,6 +280,7 @@ export const en = {
       title: 'Developer Settings',
       store: 'Store Management',
       resetStore: 'Reset Stores',
+      resetDatabase: 'Reset Database',
       network: 'Network',
       apiCalls: 'API Call Logs',
       serverStatus: 'Server Status',

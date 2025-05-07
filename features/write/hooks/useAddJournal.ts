@@ -1,15 +1,14 @@
 import { useToastController } from '@tamagui/toast'
 import { useRouter } from 'expo-router'
-import { useCallback, useEffect, useState } from 'react'
+import { useSQLiteContext } from 'expo-sqlite'
+import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Keyboard } from 'react-native'
 
 import { JournalService } from '@/features/journal/services'
-import { JournalUtils } from '@/features/journal/utils'
 import { DelayMS } from '@/shared/constants'
-import { useJournal, useUI } from '@/shared/store'
-import { Draft, JournalMood, MoodLevel } from '@/shared/types'
-import { useSQLiteContext } from 'expo-sqlite'
+import { useUI } from '@/shared/store'
+import { Draft } from '@/shared/types'
 
 export const useAddJournal = (draft: Draft) => {
   const router = useRouter()

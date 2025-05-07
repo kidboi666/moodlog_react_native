@@ -290,6 +290,7 @@ export const ko = {
       title: '개발자 설정',
       store: '스토어 관리',
       resetStore: '스토어 초기화',
+      resetDatabase: '데이터 베이스 초기화',
       network: '네트워크',
       apiCalls: 'API 호출 기록',
       serverStatus: '서버 상태 확인',

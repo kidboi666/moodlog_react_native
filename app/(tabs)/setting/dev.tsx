@@ -15,7 +15,7 @@ import { useDev } from '@/shared/hooks/useDev'
 
 export default function DevScreen() {
   const { t } = useTranslation()
-  const { resetStores } = useDev()
+  const { resetStores, resetDatabase } = useDev()
 
   return (
     <ScrollView>
@@ -26,6 +26,11 @@ export default function DevScreen() {
             <SpacingBox>
               <Button onPress={resetStores} icon={<RefreshCw size='$1' />}>
                 {t('settings.dev.resetStore')}
+              </Button>
+            </SpacingBox>
+            <SpacingBox>
+              <Button onPress={resetDatabase} icon={<Database size='$1' />}>
+                {t('settings.dev.resetDatabase')}
               </Button>
             </SpacingBox>
           </SettingsContainer>

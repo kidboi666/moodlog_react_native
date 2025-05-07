@@ -1,5 +1,7 @@
 import { PortalProvider, type TamaguiProviderProps } from 'tamagui'
 
+import { queryClient } from '@/lib'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { DatabaseProvider } from './DatabaseProvider'
 import { TamaguiBaseProvider } from './TamaguiProvider'
 import { ThemeProvider } from './ThemeProvider'
@@ -11,13 +13,15 @@ export const RootProvider = ({
 }: Omit<TamaguiProviderProps, 'config'>) => {
   return (
     <DatabaseProvider>
-      <TamaguiBaseProvider {...rest}>
-        <ThemeProvider>
-          <TamaguiToastProvider>
-            <PortalProvider>{children}</PortalProvider>
-          </TamaguiToastProvider>
-        </ThemeProvider>
-      </TamaguiBaseProvider>
+      <QueryClientProvider client={queryClient}>
+        <TamaguiBaseProvider {...rest}>
+          <ThemeProvider>
+            <TamaguiToastProvider>
+              <PortalProvider>{children}</PortalProvider>
+            </TamaguiToastProvider>
+          </ThemeProvider>
+        </TamaguiBaseProvider>
+      </QueryClientProvider>
     </DatabaseProvider>
   )
 }

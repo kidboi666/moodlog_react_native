@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { AnimatePresence, View, styled } from 'tamagui'
 
 import { MoodPagination } from '@/features/mood/components'
@@ -10,11 +10,8 @@ import { EnhancedTextInput } from './EnhancedTextInput'
 import { MoodListPreview } from './MoodListPreview'
 
 interface Props {
-  page: number
-  totalPage: number
-  setPage: Dispatch<SetStateAction<[number, number]>>
   moods: Record<string, any>
-  onMoodChange: (moodId: string) => void
+  onMoodIdChange: (moodId: string) => void
   draft: Draft
   selectedMoodId: string
   onContentChange: (content: string) => void
@@ -23,12 +20,9 @@ interface Props {
 }
 
 export const MainRecordFlow = ({
-  page,
-  totalPage,
-  setPage,
   moods,
   selectedMoodId,
-  onMoodChange,
+  onMoodIdChange,
   draft,
   onContentChange,
   onImageUriChange,
@@ -37,6 +31,16 @@ export const MainRecordFlow = ({
   const {
     state: { currentStep },
   } = useStepProgress()
+  const [[page, totalPage], setPage] = useState([0, 0])
+
+  useEffect(() => {
+    const newTotalPage = moods?.length || 0
+    setPage(prev => [prev[0] < newTotalPage ? prev[0] : 0, newTotalPage])
+
+    if (newTotalPage > 0 && !draft.mood.id) {
+      onMoodIdChange(moods![0].id)
+    }
+  }, [moods, onMoodIdChange])
 
   return (
     <AnimatePresence>
@@ -45,7 +49,7 @@ export const MainRecordFlow = ({
           <MoodListPreview
             moods={moods}
             scrollEnabled={currentStep === 0}
-            onMoodChange={onMoodChange}
+            onMoodIdChange={onMoodIdChange}
             page={page}
             selectedMoodId={selectedMoodId}
             totalPage={totalPage}

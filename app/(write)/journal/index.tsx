@@ -1,4 +1,5 @@
 import { Check } from '@tamagui/lucide-icons'
+import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
 import { useSQLiteContext } from 'expo-sqlite'
 import { useEffect, useMemo, useState } from 'react'
@@ -10,7 +11,6 @@ import { MoodService } from '@/features/mood/services'
 import { EmptyMoodView, MainRecordFlow } from '@/features/write/components'
 import { useAddJournal, useJournalDraftForm } from '@/features/write/hooks'
 import { HeaderContent, StepDot, ViewContainer } from '@/shared/components'
-import { Mood } from '@/shared/types'
 
 export default function WriteJournalScreen() {
   const router = useRouter()
@@ -27,42 +27,22 @@ export default function WriteJournalScreen() {
     isLoading,
   } = useJournalDraftForm()
   const { onSubmit } = useAddJournal(draft)
-  const [moods, setMoods] = useState<Mood[]>([])
-  const [[page, totalPage], setPage] = useState([0, moods.length])
-
-  useEffect(() => {
-    const newTotalPage = moods.length
-    setPage(prev => [prev[0] < newTotalPage ? prev[0] : 0, newTotalPage])
-
-    if (newTotalPage > 0 && !draft.mood.id) {
-      onMoodIdChange(moods[0].id)
-    }
-  }, [moods, onMoodIdChange])
+  const {
+    data: moods,
+    error,
+    isPending,
+  } = useQuery({
+    queryKey: ['moods'],
+    queryFn: () => moodService.getMoods(),
+  })
 
   const selectedMoodColor = useMemo(
-    () => draft.mood.id && moods.find(mood => mood.id === draft.mood.id)?.color,
+    () =>
+      draft.mood.id && moods?.find(mood => mood.id === draft.mood.id)?.color,
     [draft.mood.id, moods],
   )
 
-  useEffect(() => {
-    const getMoods = async () => {
-      try {
-        onIsLoadingChange(true)
-        const moods = await moodService.getMoods()
-        if (moods) {
-          setMoods(moods)
-        }
-      } catch (err) {
-        if (err instanceof Error) {
-          throw new Error(err.message)
-        }
-      } finally {
-        onIsLoadingChange(false)
-      }
-    }
-
-    getMoods()
-  }, [])
+  if (!moods) return null
 
   if (isLoading) {
     return (
@@ -101,11 +81,8 @@ export default function WriteJournalScreen() {
         <MainRecordFlow
           draft={draft}
           moods={moods}
-          page={page}
-          totalPage={totalPage}
           selectedMoodId={draft.mood.id}
-          setPage={setPage}
-          onMoodChange={onMoodIdChange}
+          onMoodIdChange={onMoodIdChange}
           onImageUriRemove={onImageUriRemove}
           onContentChange={onContentChange}
           onImageUriChange={onImageUriChange}
