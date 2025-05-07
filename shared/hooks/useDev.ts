@@ -1,4 +1,5 @@
 import { useApp, useAuth, useJournal, useMood } from '@/shared/store'
+import { deleteDatabaseAsync } from 'expo-sqlite'
 
 export const useDev = () => {
   const handleClearUserStorage = async () => {
@@ -17,6 +18,10 @@ export const useDev = () => {
     useMood.persist.clearStorage()
   }
 
+  const resetDatabase = () => {
+    deleteDatabaseAsync('moodlog.db')
+  }
+
   const insertDummyData = async () => {
     console.log('Inserting dummy data...')
   }
@@ -25,6 +30,7 @@ export const useDev = () => {
     onClearUserStorage: handleClearUserStorage,
     onClearJournalStorage: handleClearJournalStorage,
     resetStores,
+    resetDatabase,
     insertDummyData,
   }
 }

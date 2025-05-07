@@ -6,8 +6,11 @@ import {
   WelcomeZone,
 } from '@/features/home/components'
 import { ViewContainer } from '@/shared/components'
+import { useSQLiteContext } from 'expo-sqlite'
 
 export default function HomeScreen() {
+  const db = useSQLiteContext()
+  console.log(db)
   return (
     <ScrollContainer>
       <Container>

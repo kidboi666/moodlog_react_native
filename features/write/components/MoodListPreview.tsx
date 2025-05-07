@@ -17,7 +17,7 @@ interface Props {
   setPage: Dispatch<SetStateAction<[number, number]>>
   totalPage: number
   scrollEnabled: boolean
-  setSelectedMoodId: (moodId: string) => void
+  onMoodChange: (moodId: string) => void
 }
 
 export const MoodListPreview = ({
@@ -27,7 +27,7 @@ export const MoodListPreview = ({
   setPage,
   totalPage,
   scrollEnabled,
-  setSelectedMoodId,
+  onMoodChange,
 }: Props) => {
   const { width } = useWindowDimensions()
   const { openDeleteSheet } = useDeleteMood()
@@ -80,7 +80,7 @@ export const MoodListPreview = ({
         snapToInterval={width}
         keyExtractor={item => item.id}
         onViewableItemsChanged={({ viewableItems }) => {
-          setSelectedMoodId(viewableItems[0]?.item?.id || '')
+          onMoodChange(viewableItems[0]?.item?.id || '')
         }}
         onMomentumScrollEnd={({ nativeEvent }) => {
           const page = Math.round(nativeEvent.contentOffset.x / width)

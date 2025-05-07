@@ -11,17 +11,7 @@ import { useJournal, useUI } from '@/shared/store'
 import { Draft, JournalMood, MoodLevel } from '@/shared/types'
 import { useSQLiteContext } from 'expo-sqlite'
 
-export const useAddJournal = ({
-  draftContent,
-  draftMoodId,
-  draftMoodLevel,
-  draftImageUri,
-}: {
-  draftContent: string
-  draftMoodId: string
-  draftMoodLevel: MoodLevel
-  draftImageUri: string[]
-}) => {
+export const useAddJournal = (draft: Draft) => {
   const router = useRouter()
   const { t } = useTranslation()
   const toast = useToastController()
@@ -31,22 +21,14 @@ export const useAddJournal = ({
   const [isSubmitted, setIsSubmitted] = useState(false)
 
   const handleSubmit = useCallback(async () => {
-    if (!draftContent.trim()) {
+    if (!draft.content.trim()) {
       toast.show('내용을 입력해주세요', { preset: 'notice' })
       return
     }
 
-    const newDraft = {
-      content: draftContent,
-      mood: {
-        id: draftMoodId,
-        level: draftMoodLevel,
-      } as JournalMood,
-      imageUri: draftImageUri,
-    } as Draft
     try {
       setLoading(true)
-      await journalService.createJournal(newDraft)
+      await journalService.createJournal(draft)
 
       toast.show(t('notifications.success.journal.title'), {
         message: t('notifications.success.journal.message'),
@@ -59,7 +41,7 @@ export const useAddJournal = ({
       setTimeout(() => {
         router.replace({
           pathname: '/(tabs)/journal/[journalId]',
-          params: { journalId: newJournal.id, isNewJournal: 'true' },
+          params: { journalId: draft.id, isNewJournal: 'true' },
         })
         setTimeout(() => setLoading(false), 0)
       }, DelayMS.ROUTE)
@@ -68,16 +50,7 @@ export const useAddJournal = ({
     } finally {
       setLoading(false)
     }
-  }, [
-    draftMoodId,
-    draftMoodLevel,
-    draftContent,
-    draftImageUri,
-    toast,
-    t,
-    router,
-    setLoading,
-  ])
+  }, [draft, toast, t, router, setLoading])
 
   return {
     onSubmit: handleSubmit,

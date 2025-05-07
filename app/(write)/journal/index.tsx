@@ -1,111 +1,43 @@
 import { Check } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
 import { useSQLiteContext } from 'expo-sqlite'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native'
-import { Spinner } from 'tamagui'
+import { Spinner, styled } from 'tamagui'
 
 import { JournalMenuSelector, MoodLevelForm } from '@/features/mood/components'
 import { MoodService } from '@/features/mood/services'
 import { EmptyMoodView, MainRecordFlow } from '@/features/write/components'
-import { useAddJournal } from '@/features/write/hooks'
-import {
-  Delay,
-  HeaderContent,
-  StepDot,
-  ViewContainer,
-} from '@/shared/components'
-import { ImageService } from '@/shared/services'
-import { Draft, Mood, MoodLevel } from '@/shared/types'
-import { delay } from '@/shared/utils'
+import { useAddJournal, useJournalDraftForm } from '@/features/write/hooks'
+import { HeaderContent, StepDot, ViewContainer } from '@/shared/components'
+import { Mood } from '@/shared/types'
 
 export default function WriteJournalScreen() {
   const router = useRouter()
-  const [moods, setMoods] = useState<Mood[]>([])
-  const moodLength = Object.keys(moods).length
   const db = useSQLiteContext()
   const moodService = new MoodService(db)
-  const [isLoading, setIsLoading] = useState(false)
-
-  const [draft, setDraft] = useState<Draft>({
-    content: '',
-    mood: {
-      id: Object.keys(moods)[0] || '',
-      level: MoodLevel.HALF,
-    },
-    imageUri: [],
-  })
-
-  const [[page, totalPage], setPage] = useState([0, moodLength])
-
-  const { onSubmit } = useAddJournal({
-    draftContent: draft.content,
-    draftImageUri: draft.imageUri,
-    draftMoodId: draft.mood.id,
-    draftMoodLevel: draft.mood.level,
-  })
-
-  const handleMoodChange = useCallback((moodId: string) => {
-    setDraft(prev => ({
-      ...prev,
-      mood: {
-        ...prev.mood,
-        id: moodId,
-      },
-    }))
-  }, [])
-
-  const handleMoodLevelChange = useCallback((level: MoodLevel) => {
-    setDraft(prev => ({
-      ...prev,
-      mood: {
-        ...prev.mood,
-        level,
-      },
-    }))
-  }, [])
-
-  const handleImageUriChange = useCallback(async () => {
-    try {
-      const newFilePath = await ImageService.createNewFileName()
-      if (newFilePath) {
-        setDraft(prev => ({
-          ...prev,
-          imageUri: [...prev.imageUri, newFilePath],
-        }))
-      }
-    } catch (err) {
-      console.error('이미지 저장 오류:', err)
-    }
-  }, [])
-
-  const handleContentChange = useCallback((content: string) => {
-    setDraft(prev => ({
-      ...prev,
-      content,
-    }))
-  }, [])
-
-  const handleImageUriRemove = useCallback(
-    (imageUris: string[], index: number) => {
-      const newImageUris = [...imageUris]
-      newImageUris.splice(index, 1)
-      setDraft(prev => ({
-        ...prev,
-        imageUri: newImageUris,
-      }))
-    },
-    [],
-  )
+  const {
+    draft,
+    onContentChange,
+    onMoodLevelChange,
+    onMoodIdChange,
+    onImageUriChange,
+    onImageUriRemove,
+    onIsLoadingChange,
+    isLoading,
+  } = useJournalDraftForm()
+  const { onSubmit } = useAddJournal(draft)
+  const [moods, setMoods] = useState<Mood[]>([])
+  const [[page, totalPage], setPage] = useState([0, moods.length])
 
   useEffect(() => {
-    const newTotalPage = Object.keys(moods).length
+    const newTotalPage = moods.length
     setPage(prev => [prev[0] < newTotalPage ? prev[0] : 0, newTotalPage])
 
     if (newTotalPage > 0 && !draft.mood.id) {
-      handleMoodChange(Object.keys(moods)[0])
+      onMoodIdChange(moods[0].id)
     }
-  }, [moods, handleMoodChange])
+  }, [moods, onMoodIdChange])
 
   const selectedMoodColor = useMemo(
     () => draft.mood.id && moods.find(mood => mood.id === draft.mood.id)?.color,
@@ -115,8 +47,7 @@ export default function WriteJournalScreen() {
   useEffect(() => {
     const getMoods = async () => {
       try {
-        setIsLoading(true)
-        await delay(4000)
+        onIsLoadingChange(true)
         const moods = await moodService.getMoods()
         if (moods) {
           setMoods(moods)
@@ -126,7 +57,7 @@ export default function WriteJournalScreen() {
           throw new Error(err.message)
         }
       } finally {
-        setIsLoading(false)
+        onIsLoadingChange(false)
       }
     }
 
@@ -135,35 +66,22 @@ export default function WriteJournalScreen() {
 
   if (isLoading) {
     return (
-      <ViewContainer
-        edges={['bottom']}
-        gap='$4'
-        Header={<HeaderContent leftAction={() => router.back()} />}
-      >
+      <Container Header={<HeaderContent leftAction={() => router.back()} />}>
         <Spinner size='large' />
-      </ViewContainer>
+      </Container>
     )
   }
 
-  if (moodLength === 0) {
+  if (Object.keys(moods).length === 0) {
     return (
-      <Delay flex={1}>
-        <ViewContainer
-          edges={['bottom']}
-          gap='$4'
-          Header={<HeaderContent leftAction={() => router.back()} />}
-        >
-          <EmptyMoodView />
-        </ViewContainer>
-      </Delay>
+      <Container Header={<HeaderContent leftAction={() => router.back()} />}>
+        <EmptyMoodView />
+      </Container>
     )
   }
 
   return (
-    <ViewContainer
-      edges={['bottom']}
-      gap='$4'
-      px={0}
+    <Container
       Header={
         <HeaderContent
           leftAction={() => router.back()}
@@ -187,19 +105,19 @@ export default function WriteJournalScreen() {
           totalPage={totalPage}
           selectedMoodId={draft.mood.id}
           setPage={setPage}
-          setSelectedMoodId={handleMoodChange}
-          onImageUriRemove={handleImageUriRemove}
-          onContentChange={handleContentChange}
-          onImageUriChange={handleImageUriChange}
+          onMoodChange={onMoodIdChange}
+          onImageUriRemove={onImageUriRemove}
+          onContentChange={onContentChange}
+          onImageUriChange={onImageUriChange}
         />
         <MoodLevelForm
           moodColor={selectedMoodColor}
           moodLevel={draft.mood.level}
-          onMoodLevelChange={handleMoodLevelChange}
+          onMoodLevelChange={onMoodLevelChange}
         />
       </KeyboardAvoidingView>
       <JournalMenuSelector />
-    </ViewContainer>
+    </Container>
   )
 }
 
@@ -207,4 +125,14 @@ const styles = StyleSheet.create({
   keyboardAvoidingViewContainer: {
     flex: 1,
   },
+})
+
+const Container = styled(ViewContainer, {
+  edges: ['bottom'],
+  gap: '$4',
+  variants: {
+    isLeftSpacing: {
+      true: { px: 0 },
+    },
+  } as const,
 })

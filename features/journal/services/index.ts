@@ -1,9 +1,7 @@
-import * as Crypto from 'expo-crypto'
-import { CalendarUtils } from 'react-native-calendars'
+import { SQLiteDatabase } from 'expo-sqlite'
 
 import { Draft, JournalStore } from '@/shared/types'
 import { DateUtils } from '@/shared/utils'
-import { SQLiteDatabase } from 'expo-sqlite'
 
 export class JournalService {
   private db: SQLiteDatabase
@@ -23,7 +21,7 @@ export class JournalService {
         draft.content,
         draft.mood.id,
         draft.mood.level,
-        draft.imageUri,
+        JSON.stringify(draft.imageUri),
         draft.localDate,
       ],
     )

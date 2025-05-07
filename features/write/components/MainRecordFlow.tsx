@@ -14,7 +14,7 @@ interface Props {
   totalPage: number
   setPage: Dispatch<SetStateAction<[number, number]>>
   moods: Record<string, any>
-  setSelectedMoodId: (moodId: string) => void
+  onMoodChange: (moodId: string) => void
   draft: Draft
   selectedMoodId: string
   onContentChange: (content: string) => void
@@ -28,7 +28,7 @@ export const MainRecordFlow = ({
   setPage,
   moods,
   selectedMoodId,
-  setSelectedMoodId,
+  onMoodChange,
   draft,
   onContentChange,
   onImageUriChange,
@@ -45,7 +45,7 @@ export const MainRecordFlow = ({
           <MoodListPreview
             moods={moods}
             scrollEnabled={currentStep === 0}
-            setSelectedMoodId={setSelectedMoodId}
+            onMoodChange={onMoodChange}
             page={page}
             selectedMoodId={selectedMoodId}
             totalPage={totalPage}
