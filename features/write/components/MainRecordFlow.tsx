@@ -1,18 +1,18 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, View, styled } from 'tamagui'
 
 import { MoodPagination } from '@/features/mood/components'
 import { PaginationDot } from '@/shared/components'
 import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/shared/constants'
 import { useStepProgress } from '@/shared/store'
-import { Draft } from '@/shared/types'
+import { JournalDraft } from '@/shared/types'
 import { EnhancedTextInput } from './EnhancedTextInput'
 import { MoodListPreview } from './MoodListPreview'
 
 interface Props {
   moods: Record<string, any>
   onMoodIdChange: (moodId: string) => void
-  draft: Draft
+  draft: JournalDraft
   selectedMoodId: string
   onContentChange: (content: string) => void
   onImageUriChange: () => void

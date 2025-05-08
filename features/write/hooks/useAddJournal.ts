@@ -1,23 +1,23 @@
 import { useToastController } from '@tamagui/toast'
 import { useRouter } from 'expo-router'
-import { useSQLiteContext } from 'expo-sqlite'
 import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Keyboard } from 'react-native'
 
 import { JournalService } from '@/features/journal/services'
 import { DelayMS } from '@/shared/constants'
-import { useUI } from '@/shared/store'
-import { Draft } from '@/shared/types'
+import { JournalDraft } from '@/shared/types'
+import { useQuery } from '@tanstack/react-query'
 
-export const useAddJournal = (draft: Draft) => {
+export const useAddJournal = (draft: JournalDraft) => {
   const router = useRouter()
   const { t } = useTranslation()
   const toast = useToastController()
-  const setLoading = useUI(state => state.setLoading)
-  const db = useSQLiteContext()
-  const journalService = new JournalService(db)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const { data } = useQuery({
+    queryKey: ['journal', draft.localDate],
+    queryFn: () => JournalService.createJournal(draft),
+  })
 
   const handleSubmit = useCallback(async () => {
     if (!draft.content.trim()) {
@@ -26,8 +26,8 @@ export const useAddJournal = (draft: Draft) => {
     }
 
     try {
-      setLoading(true)
-      await journalService.createJournal(draft)
+      setIsSubmitted(true)
+      const journalId = await JournalService.createJournal(draft)
 
       toast.show(t('notifications.success.journal.title'), {
         message: t('notifications.success.journal.message'),
@@ -40,16 +40,19 @@ export const useAddJournal = (draft: Draft) => {
       setTimeout(() => {
         router.replace({
           pathname: '/(tabs)/journal/[journalId]',
-          params: { journalId: draft.id, isNewJournal: 'true' },
+          params: {
+            journalId: String(journalId),
+            isNewJournal: 'true',
+          },
         })
-        setTimeout(() => setLoading(false), 0)
+        setTimeout(() => setIsSubmitted(false), 0)
       }, DelayMS.ROUTE)
     } catch (error) {
       console.error('일기 저장 실패:', error)
     } finally {
-      setLoading(false)
+      setIsSubmitted(false)
     }
-  }, [draft, toast, t, router, setLoading])
+  }, [draft, toast, t, router])
 
   return {
     onSubmit: handleSubmit,

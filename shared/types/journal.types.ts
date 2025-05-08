@@ -1,20 +1,15 @@
+import { journals } from '@/db/schema'
+import { InferSelectModel } from 'drizzle-orm'
 import type { ISODateString, ISOMonthString } from './date.types'
-import type { JournalMood } from './mood.types'
 
-export type Journal = {
-  id: string
-  content: string
-  mood: JournalMood
-  createdAt: string
-  localDate: ISODateString // YYYY-MM-DD
-  imageUri: string[]
-}
+export type Journal = InferSelectModel<typeof journals>
 
 export type Journals = Record<string, Journal>
 
-export type Draft = {
+export type JournalDraft = {
   content: string
-  mood: JournalMood
+  moodId: string
+  moodLevel: string
   imageUri: string[]
   localDate: ISODateString
 }

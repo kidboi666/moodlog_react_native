@@ -19,7 +19,6 @@ export class DateUtils {
       const monthNumber = Number(removeLeadingZero(month.split('-')[1])) - 1
       return Object.keys(MONTHS)[monthNumber] as MonthKey
     }
-
     return month as MonthKey
   }
 
@@ -90,9 +89,7 @@ export class DateUtils {
     if (typeof yearOrDate !== 'number') {
       return yearOrDate.substring(0, 7) as ISOMonthString
     }
-
     let monthIndex: number
-
     if (month && typeof month === 'number') {
       monthIndex = month
     } else if (month && typeof month === 'string') {
@@ -100,7 +97,6 @@ export class DateUtils {
     } else {
       throw new Error('Invalid date format for year or month')
     }
-
     return `${yearOrDate}-${monthIndex.toString().padStart(2, '0')}` as ISOMonthString
   }
 
@@ -145,11 +141,9 @@ export class DateUtils {
     const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1)
     const firstDayOfWeek = firstDayOfMonth.getDay()
     const daysInFirstWeek = 7 - firstDayOfWeek
-
     if (day <= daysInFirstWeek) {
       return 1
     }
-
     const remainingDays = day - daysInFirstWeek
     return Math.ceil(remainingDays / 7 + 1)
   }
@@ -160,26 +154,20 @@ export class DateUtils {
   static getThisWeekArray(dateString: ISODateString): ISODateString[] {
     const date = new Date(dateString)
     const dayOfWeek = date.getDay() // 0: 일요일, 1: 월요일, ..., 6: 토요일
-
     // 주의 시작일(월요일)을 계산
     const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek
     const monday = new Date(date)
     monday.setDate(date.getDate() + mondayOffset)
-
     const weekDate: ISODateString[] = []
-
     // 월요일부터 시작하여 7일 추가
     for (let i = 0; i < 7; i++) {
       const currentDate = new Date(monday)
       currentDate.setDate(monday.getDate() + i)
-
       const year = currentDate.getFullYear()
       const month = currentDate.getMonth() + 1
       const dayOfMonth = currentDate.getDate()
-
       weekDate.push(DateUtils.getISODateString(year, month, dayOfMonth))
     }
-
     return weekDate
   }
 
@@ -189,9 +177,7 @@ export class DateUtils {
   static getDaysBetweenDates(startDate: string, endDate: string): number {
     const start: Date = new Date(startDate)
     const end: Date = new Date(endDate)
-
     const diffTime: number = Math.abs(end.getTime() - start.getTime())
-
     return Math.floor(diffTime / (1000 * 60 * 60 * 24))
   }
 
@@ -203,5 +189,26 @@ export class DateUtils {
     const signupDate = new Date(createdAt)
     const diffTime = today.getTime() - signupDate.getTime()
     return Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1
+  }
+
+  /**
+   * 인수로 받은 YYYY-MM-DD 의 첫째날 YYYY-MM-DD 반환
+   */
+  static getFirstDateString(date: ISODateString): string {
+    const dateObj = new Date(date)
+    const year = dateObj.getFullYear()
+    const month = dateObj.getMonth() + 1
+    return `${year}-${month.toString().padStart(2, '0')}-01`
+  }
+
+  /**
+   * 인수로 받은 YYYY-MM-DD 의 마지막날 YYYY-MM-DD 반환
+   * @param date
+   */
+  static getLastDateString(date: ISOMonthString): string {
+    const year = Number(date.substring(0, 4))
+    const month = Number(date.substring(5, 7))
+    const lastDate = new Date(year, month, 0).getDate()
+    return `${date}-${lastDate}`
   }
 }

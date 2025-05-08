@@ -3,11 +3,11 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
 import { STORAGE_KEY } from '@/shared/constants'
-import type { Draft } from '@/shared/types'
+import type { JournalDraft } from '@/shared/types'
 
 interface StoreState {
-  draft: Draft | null
-  setDraft: (draft: Draft) => void
+  draft: JournalDraft | null
+  setDraft: (draft: JournalDraft) => void
 }
 
 export const useDraft = create<StoreState>()(

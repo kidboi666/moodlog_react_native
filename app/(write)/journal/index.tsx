@@ -2,7 +2,7 @@ import { Check } from '@tamagui/lucide-icons'
 import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
 import { useSQLiteContext } from 'expo-sqlite'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native'
 import { Spinner, styled } from 'tamagui'
 

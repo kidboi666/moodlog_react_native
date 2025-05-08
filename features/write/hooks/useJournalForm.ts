@@ -1,9 +1,9 @@
 import { ImageService } from '@/shared/services'
-import { Draft, JournalMood, MoodLevel } from '@/shared/types'
+import { JournalDraft, JournalMood, MoodLevel } from '@/shared/types'
 import { useCallback, useState } from 'react'
 
 export const useJournalDraftForm = () => {
-  const [draft, setDraft] = useState<Draft>({
+  const [draft, setDraft] = useState<JournalDraft>({
     content: '',
     mood: {
       id: '',

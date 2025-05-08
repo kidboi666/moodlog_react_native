@@ -4,9 +4,13 @@ export type DateCounts = {
   [date: ISODateString]: number
 }
 
+export type TimeRange = 'daily' | 'monthly'
+
 export type ISODateString = `${number}-${number}-${number}`
 
 export type ISOMonthString = `${number}-${number}`
+
+export type LocalDate = ISODateString | ISOMonthString
 
 export type WeekDayKey = keyof typeof WEEK_DAY
 

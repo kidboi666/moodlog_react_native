@@ -1,4 +1,4 @@
-import { dbInit } from '@/lib/database'
+import { dbInit } from '@/db'
 import { SQLiteProvider } from 'expo-sqlite'
 import { PropsWithChildren } from 'react'
 
