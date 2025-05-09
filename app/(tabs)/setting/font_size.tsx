@@ -2,10 +2,10 @@ import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RadioGroup, View, styled } from 'tamagui'
 
-import { RadioGroupItem } from '@/features/setting/components'
-import { BaseText, ViewContainer } from '@/shared/components'
-import { useApp } from '@/shared/store'
-import { ViewFontSize } from '@/shared/types'
+import { RadioGroupItem } from '@/components/features/setting/components'
+import { BaseText, ViewContainer } from '@/components/shared'
+import { useApp } from '@/store'
+import { ViewFontSize } from '@/types'
 
 const fontSizes = [
   {

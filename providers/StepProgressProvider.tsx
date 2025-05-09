@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react'
 
-import { StepProgressProvider as ProgressProvider } from '@/shared/store'
+import { StepProgressProvider as ProgressProvider } from 'store'
 
 interface Props {
   totalSteps: number

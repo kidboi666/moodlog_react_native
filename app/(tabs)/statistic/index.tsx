@@ -5,10 +5,10 @@ import {
   MoodAverage,
   TotalCount,
   WeeklyMoodChart,
-} from '@/features/statistic/components'
-import { H1, ViewContainer } from '@/shared/components'
-import { useCalendar } from '@/shared/hooks'
-import type { ISOMonthString } from '@/shared/types'
+} from '@/components/features/statistic/components'
+import { H1, ViewContainer } from '@/components/shared'
+import { useCalendar } from '@/hooks'
+import type { ISOMonthString } from '@/types'
 
 export default function StatisticScreen() {
   const { selectedYear, selectedMonth, todayString } = useCalendar()

@@ -1,5 +1,5 @@
-import { en } from '@/shared/locales/en'
-import { ko } from '@/shared/locales/ko'
+import { en } from '@/locales/en'
+import { ko } from '@/locales/ko'
 import * as Localization from 'expo-localization'
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'

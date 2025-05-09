@@ -1,8 +1,8 @@
 import * as SplashScreen from 'expo-splash-screen'
 
-import { AppNavigator } from '@/features/home/components'
-import { useAuthListener, useFontLoader } from '@/features/home/hooks'
+import { AppNavigator } from '@/components/features/home'
 import '@/lib/i18n'
+import { useAuthListener, useFontLoader } from '@/hooks'
 import { RootProvider } from '@/providers'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.

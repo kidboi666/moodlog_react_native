@@ -11,9 +11,9 @@ import {
   H4,
   PressableButton,
   ViewContainer,
-} from '@/shared/components'
-import { DelayMS } from '@/shared/constants'
-import { useStepProgress } from '@/shared/store'
+} from '@/components/shared'
+import { DelayMS } from '@/constants'
+import { useStepProgress } from '@/store'
 
 export default function Screen() {
   const router = useRouter()

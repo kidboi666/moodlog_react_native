@@ -1,10 +1,10 @@
 import { useCallback } from 'react'
 import { RadioGroup, styled } from 'tamagui'
 
-import { RadioGroupItem } from '@/features/setting/components'
-import { ViewContainer } from '@/shared/components'
-import { useApp } from '@/shared/store'
-import type { Languages } from '@/shared/types'
+import { RadioGroupItem } from '@/components/features/setting/components'
+import { ViewContainer } from '@/components/shared'
+import { useApp } from '@/store'
+import type { Languages } from '@/types'
 
 const languages = [
   { value: 'en', label: 'English' },

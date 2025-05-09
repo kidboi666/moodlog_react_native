@@ -1,7 +1,7 @@
 import { ToastProvider, ToastViewport } from '@tamagui/toast'
 import type { PropsWithChildren } from 'react'
 
-import { CurrentToast } from '@/shared/components/CurrentToast'
+import { CurrentToast } from '@/components/shared/CurrentToast'
 
 export const TamaguiToastProvider = ({ children }: PropsWithChildren) => {
   return (

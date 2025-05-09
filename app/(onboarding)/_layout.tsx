@@ -2,7 +2,7 @@ import { Stack } from 'expo-router'
 import { useTheme } from 'tamagui'
 
 import { StepProgressProvider } from '@/providers'
-import { HeaderContent, StepDot } from '@/shared/components'
+import { HeaderContent, StepDot } from '@/components/shared'
 
 export default function Layout() {
   const theme = useTheme()

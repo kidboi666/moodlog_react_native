@@ -13,10 +13,10 @@ import {
   H3,
   PressableButton,
   ViewContainer,
-} from '@/shared/components'
-import { DelayMS } from '@/shared/constants'
-import { AuthService } from '@/shared/services'
-import { useStepProgress } from '@/shared/store'
+} from '@/components/shared'
+import { DelayMS } from '@/constants'
+import { AuthService } from '@/services'
+import { useStepProgress } from '@/store'
 
 export default function Screen() {
   const router = useRouter()

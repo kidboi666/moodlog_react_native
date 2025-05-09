@@ -14,9 +14,13 @@ import {
   MoodMenuSelector,
   MoodPreviewItem,
   SuccessCreateMoodEffect,
-} from '@/features/mood/components'
-import { useAddMood, useMoodForm, useScrollMood } from '@/features/write/hooks'
-import { HeaderContent, StepDot, ViewContainer } from '@/shared/components'
+} from '@/components/features/mood/components'
+import {
+  useAddMood,
+  useMoodForm,
+  useScrollMood,
+} from '@/components/features/write/hooks'
+import { HeaderContent, StepDot, ViewContainer } from '@/components/shared'
 
 export default function CreateMoodScreen() {
   const router = useRouter()

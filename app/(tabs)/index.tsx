@@ -1,21 +1,24 @@
-import { ScrollView, YStack, styled } from 'tamagui'
+import { ScrollView, styled } from 'tamagui'
 
 import {
   HomeJournalDisplay,
   WeekDay,
   WelcomeZone,
-} from '@/features/home/components'
-import { ViewContainer } from '@/shared/components'
+} from '@/components/features/home'
+import { ViewContainer } from '@/components/shared'
+import { useCalendar } from '@/hooks'
 
 export default function HomeScreen() {
+  const { selectedDate, onSelectedDateChange } = useCalendar()
   return (
     <ScrollContainer>
       <Container>
-        <ContentYStack>
-          <WelcomeZone />
-          <WeekDay />
-          <HomeJournalDisplay />
-        </ContentYStack>
+        <WelcomeZone />
+        <WeekDay
+          selectedDate={selectedDate}
+          onSelectedDateChange={onSelectedDateChange}
+        />
+        <HomeJournalDisplay selectedDate={selectedDate} />
       </Container>
     </ScrollContainer>
   )
@@ -29,8 +32,6 @@ const ScrollContainer = styled(ScrollView, {
 const Container = styled(ViewContainer, {
   edges: ['top', 'bottom'],
   padded: true,
-})
-
-const ContentYStack = styled(YStack, {
+  flexDirection: 'column',
   gap: '$4',
 })

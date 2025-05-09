@@ -12,7 +12,7 @@ import {
   H6,
   PressableButton,
   ViewContainer,
-} from '@/shared/components'
+} from '@/components/shared'
 
 export default function QnA() {
   const router = useRouter()

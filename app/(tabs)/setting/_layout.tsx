@@ -1,7 +1,7 @@
 import { Stack, useRouter } from 'expo-router'
 import { useTheme } from 'tamagui'
 
-import { HeaderContent } from '@/shared/components'
+import { HeaderContent } from '@/components/shared'
 
 export default function SettingsLayout() {
   const theme = useTheme()

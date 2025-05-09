@@ -12,8 +12,8 @@ import {
   YStack,
 } from 'tamagui'
 
-import { useDeleteJournal } from '@/features/journal/hooks'
-import { FullScreenImageModal } from '@/features/modal'
+import { useDeleteJournal } from '@/components/features/journal/hooks'
+import { FullScreenImageModal } from '@/components/features/modal'
 import {
   BaseText,
   H3,
@@ -21,9 +21,9 @@ import {
   RenderDate,
   RenderTime,
   ViewContainer,
-} from '@/shared/components'
-import { useApp, useJournal, useMood } from '@/shared/store'
-import { toSingle } from '@/shared/utils'
+} from '@/components/shared'
+import { useApp, useJournal, useMood } from '@/store'
+import { toSingle } from '@/utils'
 
 export default function JournalScreen() {
   const params = useLocalSearchParams()

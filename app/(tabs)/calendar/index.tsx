@@ -1,16 +1,19 @@
+import { useSQLiteContext } from 'expo-sqlite'
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, YStack } from 'tamagui'
 
-import { DateHeader, GardenSection } from '@/features/entries/components'
-import { EmptyJournal, JournalCard } from '@/features/journal/components'
-import { useDeleteJournal } from '@/features/journal/hooks'
-import { JournalUtils } from '@/features/journal/utils'
-import { MoodService } from '@/features/mood/services'
-import { H1, ViewContainer } from '@/shared/components'
-import { useJournal } from '@/shared/store'
-import { Mood } from '@/shared/types'
-import { useSQLiteContext } from 'expo-sqlite'
+import { DateHeader, GardenSection } from '@/components/features/entries'
+import {
+  EmptyJournal,
+  JournalCard,
+} from '@/components/features/journal/components'
+import { useDeleteJournal } from '@/components/features/journal/hooks'
+import { H1, ViewContainer } from '@/components/shared'
+import { MoodService } from '@/services'
+import { useJournal } from '@/store'
+import { Mood } from '@/types'
+import { JournalUtils } from '@/utils'
 
 export default function EntriesScreen() {
   const { t } = useTranslation()

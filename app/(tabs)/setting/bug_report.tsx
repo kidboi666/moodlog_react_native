@@ -12,7 +12,7 @@ import {
   H4,
   PressableButton,
   ViewContainer,
-} from '@/shared/components'
+} from '@/components/shared'
 
 export default function BugReport() {
   const router = useRouter()

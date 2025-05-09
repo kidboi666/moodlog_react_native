@@ -1,7 +1,7 @@
 import { relations } from 'drizzle-orm'
 import * as t from 'drizzle-orm/sqlite-core'
 import { sqliteTable as table } from 'drizzle-orm/sqlite-core'
-import * as Crypto from 'expo-crypto'
+import { v4 as uuidv4 } from 'uuid'
 
 const createdAt = t
   .integer('created_at', { mode: 'timestamp_ms' })
@@ -12,7 +12,7 @@ export const journals = table('journals', {
   id: t
     .text('id')
     .primaryKey()
-    .$defaultFn(() => Crypto.randomUUID()),
+    .$defaultFn(() => uuidv4()),
   content: t.text('content'),
   moodId: t
     .text('mood_id')
@@ -28,14 +28,14 @@ export const moods = table('moods', {
   id: t
     .text('id')
     .primaryKey()
-    .$defaultFn(() => Crypto.randomUUID()),
+    .$defaultFn(() => uuidv4()),
   name: t.text('name').notNull(),
   color: t.text('color').notNull(),
   createdAt,
 })
 
 export const journalsRelations = relations(journals, ({ one }) => ({
-  moods: one(moods, {
+  mood: one(moods, {
     fields: [journals.moodId],
     references: [moods.id],
   }),

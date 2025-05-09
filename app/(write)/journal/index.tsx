@@ -6,11 +6,20 @@ import { useMemo } from 'react'
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native'
 import { Spinner, styled } from 'tamagui'
 
-import { JournalMenuSelector, MoodLevelForm } from '@/features/mood/components'
-import { MoodService } from '@/features/mood/services'
-import { EmptyMoodView, MainRecordFlow } from '@/features/write/components'
-import { useAddJournal, useJournalDraftForm } from '@/features/write/hooks'
-import { HeaderContent, StepDot, ViewContainer } from '@/shared/components'
+import {
+  JournalMenuSelector,
+  MoodLevelForm,
+} from '@/components/features/mood/components'
+import {
+  EmptyMoodView,
+  MainRecordFlow,
+} from '@/components/features/write/components'
+import {
+  useAddJournal,
+  useJournalDraftForm,
+} from '@/components/features/write/hooks'
+import { HeaderContent, StepDot, ViewContainer } from '@/components/shared'
+import { MoodService } from '@/services'
 
 export default function WriteJournalScreen() {
   const router = useRouter()
