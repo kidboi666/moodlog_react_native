@@ -1,0 +1,6 @@
+import { drizzle } from 'drizzle-orm/expo-sqlite'
+import * as SQLite from 'expo-sqlite'
+import * as schema from '../db/schema'
+
+export const expoSQLite = SQLite.openDatabaseSync('moodlog.db')
+export const db = drizzle(expoSQLite, { schema, casing: 'snake_case' })
