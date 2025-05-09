@@ -17,7 +17,7 @@ import { ScrollView, YStack, styled } from 'tamagui'
 import {
   NavigationSettingItem,
   SettingsContainer,
-} from '@/components/features/setting/components'
+} from '@/components/features/setting'
 import { BaseText, H1, ViewContainer } from '@/components/shared'
 
 const devSection = __DEV__

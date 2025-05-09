@@ -3,8 +3,8 @@ import { ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'tamagui'
 
-import { useApp } from 'store'
-import { SubscriptionTier } from 'types'
+import { useApp } from '@/store'
+import { SubscriptionTier } from '@/types'
 
 interface Props {
   children: ReactNode

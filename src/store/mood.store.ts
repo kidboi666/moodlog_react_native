@@ -3,7 +3,7 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
 import { STORAGE_KEY } from '@/constants'
-import { MoodLimits, Moods } from 'types'
+import { MoodLimits, Moods } from '@/types'
 
 interface StoreState {
   moods: Moods

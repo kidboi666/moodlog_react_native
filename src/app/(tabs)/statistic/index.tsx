@@ -5,7 +5,7 @@ import {
   MoodAverage,
   TotalCount,
   WeeklyMoodChart,
-} from '@/components/features/statistic/components'
+} from '@/components/features/statistic'
 import { H1, ViewContainer } from '@/components/shared'
 import { useCalendar } from '@/hooks'
 import type { ISOMonthString } from '@/types'

@@ -3,9 +3,9 @@ import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { FlatList, useWindowDimensions } from 'react-native'
 import { Button, View, styled } from 'tamagui'
 
-import { MoodPreviewItem } from '@/components/features/mood/components'
-import { useDeleteMood } from '@/components/features/mood/hooks'
+import { MoodPreviewItem } from '@/components/features/mood'
 import { Layout, PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants'
+import { useDeleteMood } from '@/hooks'
 import { Moods } from '@/types'
 
 interface Props {

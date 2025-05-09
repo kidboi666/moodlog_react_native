@@ -32,9 +32,9 @@ export const useSkiaParagraph = (text: string) => {
 }
 
 const fontList = {
-  pretendard: [require('../assets/fonts/Pretendard-Bold.ttf')],
-  esamanru: [require('../assets/fonts/Esamanru-Bold.otf')],
-  leeSeoyun: [require('../assets/fonts/LeeSeoyun-Regular.ttf')],
-  nanumPenScript: [require('../assets/fonts/NanumPenScript-Regular.ttf')],
-  robotoMono: [require('../assets/fonts/RobotoMono-Bold.ttf')],
+  pretendard: [require('../../assets/fonts/Pretendard-Bold.ttf')],
+  esamanru: [require('../../assets/fonts/Esamanru-Bold.otf')],
+  leeSeoyun: [require('../../assets/fonts/LeeSeoyun-Regular.ttf')],
+  nanumPenScript: [require('../../assets/fonts/NanumPenScript-Regular.ttf')],
+  robotoMono: [require('../../assets/fonts/RobotoMono-Bold.ttf')],
 }

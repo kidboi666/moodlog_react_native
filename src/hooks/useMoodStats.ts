@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 
-import { StatisticUtils } from '@/utils/statistic.utils'
-import { useJournal, useMood, useUI } from 'store'
-import { type ISOMonthString, TimeRange } from 'types'
+import { useJournal, useMood, useUI } from '@/store'
+import { type ISOMonthString, TimeRange } from '@/types'
+import { StatisticUtils } from '@/utils'
 
 export const useMoodStats = (
   timeRange: TimeRange,

@@ -8,4 +8,4 @@ export const DelayMS = {
   WAIT: {
     WRITE_MOOD: 3500,
   },
-}
+} as const

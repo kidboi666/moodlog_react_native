@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RadioGroup, View, styled } from 'tamagui'
 
-import { RadioGroupItem } from '@/components/features/setting/components'
+import { RadioGroupItem } from '@/components/features/setting'
 import { BaseText, ViewContainer } from '@/components/shared'
 import { useApp } from '@/store'
 import { ViewFontSize } from '@/types'

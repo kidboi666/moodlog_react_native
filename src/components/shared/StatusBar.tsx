@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { StatusBar as RNStatusBar } from 'react-native'
 
-import { Theme } from 'types'
+import { Theme } from '@/types'
 
 interface Props {
   resolvedTheme?: Omit<Theme, Theme.SYSTEM>
@@ -16,3 +16,5 @@ export const StatusBar = memo(({ resolvedTheme }: Props) => {
     />
   )
 })
+
+StatusBar.displayName = 'StatusBar'

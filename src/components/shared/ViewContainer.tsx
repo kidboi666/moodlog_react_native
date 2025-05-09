@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { View, ViewProps, styled } from 'tamagui'
 
-import { Layout } from 'constants'
+import { Layout } from '@/constants'
 
 interface ViewContainerProps extends ViewProps {
   edges?: Array<'top' | 'bottom'>

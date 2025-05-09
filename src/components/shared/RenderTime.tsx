@@ -1,7 +1,7 @@
 import { Text, type TextProps } from 'tamagui'
 
-import { useApp } from 'store'
-import { TimeFormat } from 'types'
+import { useApp } from '@/store'
+import { TimeFormat } from '@/types'
 import { BaseText } from './BaseText'
 
 interface Props extends TextProps {

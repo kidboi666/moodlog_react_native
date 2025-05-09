@@ -1,5 +1,5 @@
+import { db } from '@/db'
 import { journals } from '@/db/schema'
-import { db } from '@/lib/drizzle'
 import { eq } from 'drizzle-orm'
 
 import {

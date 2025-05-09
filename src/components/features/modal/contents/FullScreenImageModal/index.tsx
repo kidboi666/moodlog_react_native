@@ -11,7 +11,8 @@ import {
 } from 'react-native'
 import { PinchGestureHandler, State } from 'react-native-gesture-handler'
 import { Button, View } from 'tamagui'
-import { Maybe } from 'types'
+
+import { Maybe } from '@/types'
 
 const { width, height } = Dimensions.get('window')
 

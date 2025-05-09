@@ -4,12 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { ScrollView, YStack } from 'tamagui'
 
 import { DateHeader, GardenSection } from '@/components/features/entries'
-import {
-  EmptyJournal,
-  JournalCard,
-} from '@/components/features/journal/components'
-import { useDeleteJournal } from '@/components/features/journal/hooks'
+import { EmptyJournal, JournalCard } from '@/components/features/journal'
 import { H1, ViewContainer } from '@/components/shared'
+import { useDeleteJournal } from '@/hooks'
 import { MoodService } from '@/services'
 import { useJournal } from '@/store'
 import { Mood } from '@/types'

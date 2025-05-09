@@ -1,6 +1,6 @@
 import { View, XStack, styled } from 'tamagui'
 
-import { useStepProgress } from 'store'
+import { useStepProgress } from '@/store'
 
 export const StepDot = () => {
   const {

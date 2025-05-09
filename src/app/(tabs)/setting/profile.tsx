@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Separator, YStack, styled } from 'tamagui'
 
-import { ProfileMenuItem } from '@/components/features/setting/components'
+import { ProfileMenuItem } from '@/components/features/setting'
 import { BaseText, H1, ViewContainer } from '@/components/shared'
 import { useAuth } from '@/store'
 import type { NewUserInfo } from '@/types'

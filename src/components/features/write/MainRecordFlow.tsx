@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, View, styled } from 'tamagui'
 
-import { MoodPagination } from '@/components/features/mood/components'
+import { MoodPagination } from '@/components/features/mood'
 import { PaginationDot } from '@/components/shared'
 import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants'
 import { useStepProgress } from '@/store'

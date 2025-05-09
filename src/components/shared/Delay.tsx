@@ -1,8 +1,7 @@
 import { View, type ViewProps, styled } from 'tamagui'
 
-import { DelayMS } from 'constants'
-import { MOUNT_STYLE } from '@/constants/animations'
-import { useAnimatedEntry } from 'hooks'
+import { DelayMS, MOUNT_STYLE } from '@/constants'
+import { useAnimatedEntry } from '@/hooks'
 
 interface Props extends ViewProps {
   delay?: number
@@ -19,7 +18,7 @@ export const Delay = View.styleable<Props>(
     },
     ref,
   ) => {
-    const { isVisible, item } = useAnimatedEntry({ delay, item: children })
+    const { isVisible, item } = useAnimatedEntry(delay, children)
     return (
       <StyledAnimateMount
         ref={ref}

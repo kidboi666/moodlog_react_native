@@ -1,10 +1,10 @@
+import { Maybe } from '@/types'
 import React, {
   createContext,
   PropsWithChildren,
   useContext,
   useReducer,
 } from 'react'
-import { Maybe } from 'types'
 
 interface StepProgressState {
   currentStep: number

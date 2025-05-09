@@ -2,7 +2,7 @@ import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { XStack, XStackProps, styled } from 'tamagui'
 
-import { Layout } from 'constants'
+import { Layout } from '@/constants'
 import { PressableButton } from './PressableButton'
 
 interface Props extends XStackProps {

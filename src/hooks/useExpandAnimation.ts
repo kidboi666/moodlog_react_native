@@ -6,8 +6,8 @@ import {
   withSpring,
 } from 'react-native-reanimated'
 
-import { Layout } from 'constants'
-import { ExpansionState } from 'types'
+import { Layout } from '@/constants'
+import { ExpansionState } from '@/types'
 
 export const useExpandAnimation = () => {
   const [expansionState, setExpansionState] = useState<ExpansionState>(

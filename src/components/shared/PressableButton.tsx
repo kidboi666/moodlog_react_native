@@ -5,7 +5,7 @@ import {
   PRESS_STYLE,
   PRESS_STYLE_KEY,
 } from '@/constants/animations'
-import { useCustomFont } from 'hooks'
+import { useCustomFont } from '@/hooks'
 
 interface Props extends ButtonProps {
   loading?: boolean

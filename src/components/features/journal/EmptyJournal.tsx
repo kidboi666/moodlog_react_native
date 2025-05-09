@@ -2,7 +2,7 @@ import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { YStack, styled } from 'tamagui'
 
-import { WriteButton } from '@/components/features/tab/components'
+import { WriteButton } from '@/components/features/tab'
 import { H3 } from '@/components/shared'
 
 export const EmptyJournal = memo(() => {

@@ -1,12 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 
-import {
-  EmptyJournal,
-  JournalCard,
-} from '@/components/features/journal/components'
-import { useDeleteJournal } from '@/components/features/journal/hooks'
+import { EmptyJournal, JournalCard } from '@/components/features/journal'
 import { Delay } from '@/components/shared'
 import { DelayMS } from '@/constants'
+import { useDeleteJournal } from '@/hooks'
 import { JournalQueries } from '@/queries'
 import { ISODateString, Maybe } from '@/types'
 

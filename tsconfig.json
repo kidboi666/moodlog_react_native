@@ -6,7 +6,6 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "noUncheckedIndexedAccess": true
   },
   "include": [
     "**/*.ts",

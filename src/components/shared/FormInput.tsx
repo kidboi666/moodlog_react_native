@@ -1,6 +1,6 @@
 import { Input, InputProps, View, styled } from 'tamagui'
 
-import { useCustomFont } from 'hooks'
+import { useCustomFont } from '@/hooks'
 
 interface Props extends InputProps {
   value: string

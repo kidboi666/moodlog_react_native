@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { SizableText, SizableTextProps } from 'tamagui'
 
-import { useCustomFont, useFontSizeAdjustment } from 'hooks'
+import { useCustomFont, useFontSizeAdjustment } from '@/hooks'
 
 type HeadingFontSize = '$10' | '$9' | '$8' | '$7' | '$6' | '$5'
 type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6

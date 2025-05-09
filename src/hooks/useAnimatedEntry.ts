@@ -1,16 +1,9 @@
 import { type ReactNode, useEffect, useState } from 'react'
 
-interface Props {
-  item: ReactNode
-  delay: number
-}
-
-interface FadeInResult {
-  isVisible: boolean
-  item: ReactNode
-}
-
-export const useAnimatedEntry = ({ delay, item }: Props): FadeInResult => {
+export const useAnimatedEntry = (
+  delay: number,
+  item: ReactNode,
+): { isVisible: boolean; item: ReactNode } => {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import { XStack, YStack, styled } from 'tamagui'
 
 import { Layout } from '@/constants'
-import { ColorPicker } from '../../write/components/ColorPicker'
+import { ColorPicker } from '../write/ColorPicker'
 import { MoodNameForm } from './MoodNameForm'
 
 interface Props {

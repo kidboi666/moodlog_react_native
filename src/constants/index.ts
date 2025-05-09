@@ -1,6 +1,5 @@
 export * from './animations'
-export * from './api'
-export * from './common'
+export * from './config'
 export * from './date'
 export * from './error-keys'
 export * from './prompt'

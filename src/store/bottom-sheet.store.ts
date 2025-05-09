@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-import type { BottomSheetProps, BottomSheetType, Maybe } from 'types'
+import type { BottomSheetProps, BottomSheetType, Maybe } from '@/types'
 
 interface StoreState {
   isOpen: boolean

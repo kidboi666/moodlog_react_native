@@ -1,7 +1,7 @@
 import { Toast, useToastState } from '@tamagui/toast'
 import { YStack, styled } from 'tamagui'
 
-import { useAppTheme } from 'store'
+import { useAppTheme } from '@/store'
 
 export const CurrentToast = () => {
   const currentToast = useToastState()

@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react'
 import { CalendarUtils } from 'react-native-calendars'
 
-import { type ISODateString, type ISOMonthString, Maybe } from 'types'
-import { DateUtils } from 'utils'
+import { type ISODateString, type ISOMonthString, Maybe } from '@/types'
+import { DateUtils } from '@/utils'
 
 export const useCalendar = () => {
   const now = new Date()

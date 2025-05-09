@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RadioGroup, styled } from 'tamagui'
 
-import { FontRadioGroupItem } from '@/components/features/setting/components'
+import { FontRadioGroupItem } from '@/components/features/setting'
 import { ViewContainer } from '@/components/shared'
 import { useApp } from '@/store'
 import { FontTheme } from '@/types'

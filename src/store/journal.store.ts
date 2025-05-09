@@ -8,7 +8,7 @@ import {
   JournalStore,
   SelectedJournal,
   SelectedJournals,
-} from 'types'
+} from '@/types'
 
 interface StoreState {
   store: JournalStore

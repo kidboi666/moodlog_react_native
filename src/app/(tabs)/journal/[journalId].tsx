@@ -12,7 +12,6 @@ import {
   YStack,
 } from 'tamagui'
 
-import { useDeleteJournal } from '@/components/features/journal/hooks'
 import { FullScreenImageModal } from '@/components/features/modal'
 import {
   BaseText,
@@ -22,6 +21,7 @@ import {
   RenderTime,
   ViewContainer,
 } from '@/components/shared'
+import { useDeleteJournal } from '@/hooks'
 import { useApp, useJournal, useMood } from '@/store'
 import { CommonUtils } from '@/utils'
 

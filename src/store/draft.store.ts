@@ -3,7 +3,7 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
 import { STORAGE_KEY } from '@/constants'
-import type { JournalDraft } from 'types'
+import type { JournalDraft } from '@/types'
 
 interface StoreState {
   draft: JournalDraft | null

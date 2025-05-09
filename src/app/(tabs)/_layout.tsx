@@ -2,7 +2,7 @@ import { Redirect, Tabs, usePathname } from 'expo-router'
 import React, { Fragment } from 'react'
 import { AnimatePresence } from 'tamagui'
 
-import { CustomTabBar } from '@/components/features/tab/components'
+import { CustomTabBar } from '@/components/features/tab'
 import { ContainerFog } from '@/components/shared'
 import { HIDE_TAB_BAR_ROUTES } from '@/constants'
 import { useAuth } from '@/store'
