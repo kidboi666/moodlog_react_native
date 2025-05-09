@@ -5,12 +5,12 @@ import { MoodPagination } from '@/components/features/mood'
 import { PaginationDot } from '@/components/shared'
 import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants'
 import { useStepProgress } from '@/store'
-import { JournalDraft } from '@/types'
+import { JournalDraft, Mood, Moods } from '@/types'
 import { EnhancedTextInput } from './EnhancedTextInput'
 import { MoodListPreview } from './MoodListPreview'
 
 interface Props {
-  moods: Record<string, any>
+  moods: Moods
   onMoodIdChange: (moodId: string) => void
   draft: JournalDraft
   selectedMoodId: string
@@ -34,10 +34,10 @@ export const MainRecordFlow = ({
   const [[page, totalPage], setPage] = useState([0, 0])
 
   useEffect(() => {
-    const newTotalPage = moods?.length || 0
+    const newTotalPage = Object.entries(moods).length || 0
     setPage(prev => [prev[0] < newTotalPage ? prev[0] : 0, newTotalPage])
 
-    if (newTotalPage > 0 && !draft.mood.id) {
+    if (newTotalPage > 0 && !draft.moodId) {
       onMoodIdChange(moods![0].id)
     }
   }, [moods, onMoodIdChange])

@@ -8,3 +8,7 @@ export type ValueOf<T> = T[keyof T]
 export type MutuallyRequired<T, K extends keyof T> =
   | { [P in K]?: never }
   | { [P in K]-?: T[P] }
+
+export type Prettify<T> = {
+  [K in keyof T]: T[K]
+} & unknown

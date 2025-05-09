@@ -11,7 +11,7 @@ import { Moods } from '@/types'
 interface Props {
   moods: Moods
   page: number
-  selectedMoodId: string
+  selectedMoodId?: string
   setPage: Dispatch<SetStateAction<[number, number]>>
   totalPage: number
   scrollEnabled: boolean
@@ -55,7 +55,7 @@ export const MoodListPreview = ({
         scaleIcon={1.5}
         icon={Trash}
         z={100_000}
-        onPress={() => openDeleteSheet(selectedMoodId)}
+        onPress={() => openDeleteSheet(selectedMoodId ?? '')}
       />
 
       <FlatList

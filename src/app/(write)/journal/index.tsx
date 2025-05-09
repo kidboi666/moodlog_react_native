@@ -1,8 +1,6 @@
 import { Check } from '@tamagui/lucide-icons'
 import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
-import { useSQLiteContext } from 'expo-sqlite'
-import { useMemo } from 'react'
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native'
 import { Spinner, styled } from 'tamagui'
 
@@ -10,12 +8,11 @@ import { JournalMenuSelector, MoodLevelForm } from '@/components/features/mood'
 import { EmptyMoodView, MainRecordFlow } from '@/components/features/write'
 import { HeaderContent, StepDot, ViewContainer } from '@/components/shared'
 import { useAddJournal, useJournalDraftForm } from '@/hooks'
-import { MoodService } from '@/services'
+import { MoodQueries } from '@/queries'
 
 export default function WriteJournalScreen() {
   const router = useRouter()
-  const db = useSQLiteContext()
-  const moodService = new MoodService(db)
+  const { data: moods, isLoading } = useQuery(MoodQueries.getMoods())
   const {
     draft,
     onContentChange,
@@ -23,25 +20,9 @@ export default function WriteJournalScreen() {
     onMoodIdChange,
     onImageUriChange,
     onImageUriRemove,
-    onIsLoadingChange,
-    isLoading,
-  } = useJournalDraftForm()
+  } = useJournalDraftForm(moods?.[0]?.id)
   const { onSubmit } = useAddJournal(draft)
-  const {
-    data: moods,
-    error,
-    isPending,
-  } = useQuery({
-    queryKey: ['moods'],
-    queryFn: () => moodService.getMoods(),
-  })
-
-  const selectedMoodColor = useMemo(
-    () =>
-      draft.mood.id && moods?.find(mood => mood.id === draft.mood.id)?.color,
-    [draft.mood.id, moods],
-  )
-
+  console.log(moods)
   if (!moods) return null
 
   if (isLoading) {
@@ -67,7 +48,7 @@ export default function WriteJournalScreen() {
           leftAction={() => router.back()}
           rightAction={onSubmit}
           rightActionIcon={Check}
-          rightActionDisabled={!draft.content || !draft.mood.id}
+          rightActionDisabled={!draft.moodId}
         >
           <StepDot />
         </HeaderContent>
@@ -81,15 +62,15 @@ export default function WriteJournalScreen() {
         <MainRecordFlow
           draft={draft}
           moods={moods}
-          selectedMoodId={draft.mood.id}
+          selectedMoodId={draft.moodId}
           onMoodIdChange={onMoodIdChange}
           onImageUriRemove={onImageUriRemove}
           onContentChange={onContentChange}
           onImageUriChange={onImageUriChange}
         />
         <MoodLevelForm
-          moodColor={selectedMoodColor}
-          moodLevel={draft.mood.level}
+          moodColor={moods[draft?.moodId]?.color}
+          moodLevel={draft.moodLevel}
           onMoodLevelChange={onMoodLevelChange}
         />
       </KeyboardAvoidingView>

@@ -1,6 +1,7 @@
 import { Trash } from '@tamagui/lucide-icons'
+import { useQuery } from '@tanstack/react-query'
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import {
@@ -22,7 +23,8 @@ import {
   ViewContainer,
 } from '@/components/shared'
 import { useDeleteJournal } from '@/hooks'
-import { useApp, useJournal, useMood } from '@/store'
+import { JournalQueries } from '@/queries'
+import { useApp } from '@/store'
 import { CommonUtils } from '@/utils'
 
 export default function JournalScreen() {
@@ -31,9 +33,7 @@ export default function JournalScreen() {
   const { t } = useTranslation()
   const journalId = CommonUtils.toSingle(params.journalId)
   const isNewJournal = CommonUtils.toSingle(params.isNewJournal)
-  const selectedJournal = useJournal(state => state.selectedJournal)
-  const selectJournal = useJournal(state => state.selectJournal)
-  const moods = useMood(state => state.moods)
+  const { data: journal } = useQuery(JournalQueries.getJournalById(journalId))
   const fontSize = useApp(state => state.settings.fontSize)
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedImage, setSelectedImage] = useState<string>('')
@@ -52,11 +52,7 @@ export default function JournalScreen() {
     setModalVisible(false)
   }
 
-  useEffect(() => {
-    selectJournal(journalId)
-  }, [journalId])
-
-  if (!selectedJournal || selectedJournal?.id !== journalId) return null
+  if (!journal) return null
 
   return (
     <Fragment>
@@ -72,8 +68,8 @@ export default function JournalScreen() {
               rightActionIcon={Trash}
             >
               <YStack items='center'>
-                <RenderDate localDate={selectedJournal.localDate} />
-                <RenderTime createdAt={selectedJournal.createdAt} />
+                <RenderDate localDate={journal.localDate} />
+                <RenderTime createdAt={journal.createdAt} />
               </YStack>
             </HeaderContent>
           }
@@ -86,10 +82,7 @@ export default function JournalScreen() {
               enterStyle={{ x: -20 }}
               borderTopRightRadius='$4'
               borderBottomRightRadius='$4'
-              bg={
-                moods[selectedJournal.mood.id]
-                  ?.color as GetThemeValueForKey<'backgroundColor'>
-              }
+              bg={journal.mood.color as GetThemeValueForKey<'backgroundColor'>}
             />
             <YStack flex={1} gap='$4'>
               <XStack
@@ -101,25 +94,24 @@ export default function JournalScreen() {
                 enterStyle={{ opacity: 0, scale: 0.9, y: 10 }}
               >
                 <H3 color='$gray11'>
-                  {t(`moods.levels.${selectedJournal.mood.level}`)}
+                  {t(`moods.levels.${journal.mood.level}`)}
                 </H3>
                 <H3
                   color={
-                    moods[selectedJournal.mood.id]
-                      ?.color as GetThemeValueForKey<'backgroundColor'>
+                    journal.mood.color as GetThemeValueForKey<'backgroundColor'>
                   }
                 >
-                  {moods[selectedJournal.mood.id]?.name}
+                  {journal.mood.name}
                 </H3>
               </XStack>
-              {Array.isArray(selectedJournal.imageUri) && (
+              {Array.isArray(journal.imageUri) && (
                 <ScrollView horizontal>
                   <XStack
                     animation='bouncy'
                     enterStyle={{ opacity: 0, scale: 0.9, y: 10 }}
                     elevation='$2'
                   >
-                    {selectedJournal.imageUri.map(uri => (
+                    {journal.imageUri.map(uri => (
                       <TouchableOpacity
                         key={uri}
                         onPress={() => handleImagePress(uri)}
@@ -138,7 +130,7 @@ export default function JournalScreen() {
               )}
 
               <BaseText ml='$3' pr='$4' fontSize={fontSize}>
-                {selectedJournal.content}
+                {journal.content}
               </BaseText>
             </YStack>
           </XStack>

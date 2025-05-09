@@ -6,7 +6,6 @@ import type {
   JournalIndexes,
   JournalMood,
   JournalStore,
-  Journals,
   MonthIndexes,
   Moods,
   ScoreBoard,
@@ -182,7 +181,7 @@ export class StatisticUtils {
   /**
    * 가장 자주 일기를 작성한 요일 가져오기
    */
-  static getMostActiveDay(journals: Journals) {
+  static getMostActiveDay(journals: Record<string, Journal>) {
     const isArray = Array.isArray(journals)
     if (
       (isArray && journals.length === 0) ||

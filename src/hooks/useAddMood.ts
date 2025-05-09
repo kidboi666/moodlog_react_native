@@ -1,13 +1,11 @@
 import * as Crypto from 'expo-crypto'
 import { useRouter } from 'expo-router'
-import { useSQLiteContext } from 'expo-sqlite'
 import { useCallback } from 'react'
 import { Keyboard } from 'react-native'
 
 import { DelayMS } from '@/constants'
-import { MoodService } from '@/services'
 import { useUI } from '@/store'
-import { delay } from '@/utils'
+import { CommonUtils } from '@/utils'
 
 type MoodState = {
   name: string
@@ -19,8 +17,6 @@ export const useAddMood = (
   onIsSuccessChange: (bool: boolean) => void,
 ) => {
   const router = useRouter()
-  const db = useSQLiteContext()
-  const moodService = new MoodService(db)
   const setNavigating = useUI(state => state.setNavigating)
 
   const handleSuccess = useCallback(async () => {
@@ -31,7 +27,7 @@ export const useAddMood = (
       onIsSuccessChange(false)
     }, DelayMS.ANIMATION.LONG[2])
 
-    await delay(DelayMS.WAIT.WRITE_MOOD, () => {
+    await CommonUtils.delay(DelayMS.WAIT.WRITE_MOOD, () => {
       router.replace({
         pathname: '/(tabs)',
         params: {

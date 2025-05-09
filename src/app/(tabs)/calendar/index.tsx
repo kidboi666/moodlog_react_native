@@ -1,54 +1,44 @@
-import { useSQLiteContext } from 'expo-sqlite'
-import { useEffect, useMemo, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, YStack } from 'tamagui'
 
 import { DateHeader, GardenSection } from '@/components/features/entries'
 import { EmptyJournal, JournalCard } from '@/components/features/journal'
 import { H1, ViewContainer } from '@/components/shared'
-import { useDeleteJournal } from '@/hooks'
-import { MoodService } from '@/services'
-import { useJournal } from '@/store'
-import { Mood } from '@/types'
+import { useCalendar, useDeleteJournal } from '@/hooks'
+import { JournalQueries } from '@/queries'
+import { TimeRange } from '@/types'
 import { JournalUtils } from '@/utils'
 
 export default function EntriesScreen() {
   const { t } = useTranslation()
-  const db = useSQLiteContext()
   const { openDeleteSheet } = useDeleteJournal()
-  const selectedJournals = useJournal(state => state.selectedJournals)
-  const moodService = new MoodService(db)
-  const [moods, setMoods] = useState<Mood[]>([])
+  const { selectedMonth, onSelectedMonthChange, isSelectedMonth } =
+    useCalendar()
+  const { data: journals } = useQuery(
+    JournalQueries.getJournals(TimeRange.MONTHLY, selectedMonth),
+  )
 
   const groupedJournals = useMemo(() => {
-    if (!Array.isArray(selectedJournals) || selectedJournals.length === 0) {
+    if (!Array.isArray(journals) || journals.length === 0) {
       return []
     }
-    return JournalUtils.groupJournalsByDate(selectedJournals)
-  }, [selectedJournals])
-
-  useEffect(() => {
-    const getMoods = async () => {
-      try {
-        const moods = await moodService.getMoods()
-        if (moods) {
-          setMoods(moods)
-        }
-      } catch (error) {
-        console.error(error)
-      }
-    }
-    getMoods()
-  }, [])
+    return JournalUtils.groupJournalsByDate(journals)
+  }, [journals])
 
   return (
     <ScrollView>
       <ViewContainer edges={['top']} padded gap='$4'>
         <H1>{t('entries.title')}</H1>
-        <GardenSection />
+        <GardenSection
+          selectedMonth={selectedMonth}
+          onSelectedMonthChange={onSelectedMonthChange}
+          isSelectedMonth={isSelectedMonth}
+        />
 
         <YStack gap='$6'>
-          {Array.isArray(selectedJournals) && selectedJournals.length > 0 ? (
+          {Array.isArray(journals) && journals.length > 0 ? (
             groupedJournals.map(([date, journals]) => (
               <YStack key={date} gap='$2'>
                 <DateHeader date={date} />

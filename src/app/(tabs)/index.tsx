@@ -1,3 +1,5 @@
+import { useQuery } from '@tanstack/react-query'
+import { useEffect, useMemo, useState } from 'react'
 import { ScrollView, styled } from 'tamagui'
 
 import {
@@ -6,10 +8,32 @@ import {
   WelcomeZone,
 } from '@/components/features/home'
 import { ViewContainer } from '@/components/shared'
+import { DelayMS } from '@/constants'
 import { useCalendar } from '@/hooks'
+import { JournalQueries } from '@/queries'
+import { TimeRange } from '@/types'
+import { JournalUtils } from '@/utils'
 
 export default function HomeScreen() {
-  const { selectedDate, onSelectedDateChange } = useCalendar()
+  const { selectedDate, selectedMonth, onSelectedDateChange } = useCalendar()
+  const [firstRender, setFirstRender] = useState(true)
+  const { data: monthlyJournals, isLoading } = useQuery(
+    JournalQueries.getJournals(TimeRange.MONTHLY, selectedMonth),
+  )
+  const dateCount = useMemo(
+    () => JournalUtils.getCountForDate(monthlyJournals),
+    [monthlyJournals],
+  )
+  const selectedDateJournals = monthlyJournals?.filter(
+    journal => journal.localDate === selectedDate,
+  )
+
+  useEffect(() => {
+    setTimeout(() => {
+      setFirstRender(false)
+    }, DelayMS.ANIMATION.MEDIUM[3])
+  }, [])
+
   return (
     <ScrollContainer>
       <Container>
@@ -17,8 +41,13 @@ export default function HomeScreen() {
         <WeekDay
           selectedDate={selectedDate}
           onSelectedDateChange={onSelectedDateChange}
+          dateCount={dateCount}
         />
-        <HomeJournalDisplay selectedDate={selectedDate} />
+        <HomeJournalDisplay
+          firstRender={firstRender}
+          journals={selectedDateJournals}
+          isLoading={isLoading}
+        />
       </Container>
     </ScrollContainer>
   )

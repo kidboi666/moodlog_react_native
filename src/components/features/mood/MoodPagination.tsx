@@ -26,21 +26,21 @@ export const MoodPagination = ({ page, setPage, totalPage, show }: Props) => {
     setPage(([page, totalPage]) => [(page + 1) % totalPage, totalPage])
   }, [])
 
-  if (!show) {
-    return null
-  }
+  if (!show) return null
 
   return (
     <Container>
-      <Button
-        chromeless
-        color='$color11'
-        icon={ChevronLeft}
-        scaleIcon={1.5}
-        onPress={handleLeftPress}
-      />
+      {page !== 0 && (
+        <Button
+          chromeless
+          color='$color11'
+          icon={ChevronLeft}
+          scaleIcon={1.5}
+          onPress={handleLeftPress}
+        />
+      )}
 
-      {page !== totalPage - 1 && (
+      {page !== totalPage && (
         <Button
           chromeless
           color='$color11'

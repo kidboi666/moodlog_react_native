@@ -7,7 +7,7 @@ const JOURNAL_IMAGES_DIR = FileSystem.documentDirectory
   ? `${FileSystem.documentDirectory}journal_images/`
   : ''
 
-export class ImageService {
+export class ImageUtils {
   static createFilePath(result: ImagePickerAsset) {
     const dateString = new Date().toISOString().split('T')[0]
     const timestamp = Date.now()
@@ -38,7 +38,7 @@ export class ImageService {
         intermediates: true,
       })
     }
-    const newFilePath = ImageService.createFilePath(result.assets[0])
+    const newFilePath = ImageUtils.createFilePath(result.assets[0])
     await FileSystem.copyAsync({
       from: result.assets[0].uri,
       to: newFilePath,

@@ -16,7 +16,7 @@ export const useAddJournal = (draft: JournalDraft) => {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const { data } = useQuery({
     queryKey: ['journal', draft.localDate],
-    queryFn: () => JournalService.createJournal(draft),
+    queryFn: () => JournalService.addJournal(draft),
   })
 
   const handleSubmit = useCallback(async () => {
@@ -27,7 +27,7 @@ export const useAddJournal = (draft: JournalDraft) => {
 
     try {
       setIsSubmitted(true)
-      const journalId = await JournalService.createJournal(draft)
+      const journalId = await JournalService.addJournal(draft)
 
       toast.show(t('notifications.success.journal.title'), {
         message: t('notifications.success.journal.message'),

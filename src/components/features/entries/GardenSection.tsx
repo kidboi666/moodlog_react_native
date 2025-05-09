@@ -2,24 +2,23 @@ import { useCallback, useMemo } from 'react'
 import { ScrollView, XStack, YStack, styled } from 'tamagui'
 
 import { MONTHS } from '@/constants'
-import { useCalendar } from '@/hooks'
-import { useJournal } from '@/store'
-import type { ISOMonthString, MonthKey } from '@/types'
+import type { ISOMonthString, Maybe, MonthKey } from '@/types'
 import { DateUtils, JournalUtils } from '@/utils'
 import { GardenDayUnits } from './GardenDayUnits'
 import { GardenTitleHeader } from './GardenTitleHeader'
 import { MonthItem } from './MonthItem'
 
-export const GardenSection = () => {
-  const selectJournals = useJournal(state => state.selectJournals)
-  const store = useJournal(state => state.store)
-  const {
-    selectedYear,
-    selectedMonth,
-    onSelectedMonthChange,
-    isSelectedMonth,
-  } = useCalendar()
+interface Props {
+  onSelectedMonthChange: (month: Maybe<ISOMonthString>) => void
+  selectedMonth: Maybe<ISOMonthString>
+  isSelectedMonth: (month: ISOMonthString) => boolean
+}
 
+export const GardenSection = ({
+  onSelectedMonthChange,
+  selectedMonth,
+  isSelectedMonth,
+}: Props) => {
   const staticMonths = useMemo(
     () =>
       Object.keys(MONTHS).map((month, i) => ({
@@ -29,7 +28,7 @@ export const GardenSection = () => {
         firstDateDay: DateUtils.getFirstDateDay(selectedYear, month),
         weekLength: DateUtils.getWeekLength(selectedYear, month),
       })),
-    [selectedYear],
+    [],
   )
 
   const handleMonthPress = useCallback(

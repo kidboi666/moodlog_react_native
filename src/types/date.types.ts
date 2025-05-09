@@ -1,6 +1,6 @@
 import { MONTHS, WEEK_DAY } from '@/constants'
 
-export type DateCounts = {
+export type DateCount = {
   [date: ISODateString]: number
 }
 
@@ -14,7 +14,7 @@ export type ISODateString = `${number}-${number}-${number}`
 
 export type ISOMonthString = `${number}-${number}`
 
-export type LocalDate = ISODateString | ISOMonthString
+export type ISOString = ISODateString | ISOMonthString
 
 export type WeekDayKey = keyof typeof WEEK_DAY
 

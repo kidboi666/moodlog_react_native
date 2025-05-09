@@ -18,9 +18,8 @@ export class CommonUtils {
   /**
    * 배열 또는 단일 값을 받아 항상 단일 값으로 반환
    */
-  static toSingle = <T>(value: T | T[]): Maybe<T> => {
+  static toSingle = <T>(value: T | T[]): T => {
     const isArray = Array.isArray(value)
-    if (isArray && value.length === 0) return
     return isArray ? value[0] : value
   }
 

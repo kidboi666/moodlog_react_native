@@ -1,5 +1,6 @@
-import { moods } from '@/db/schema'
 import { InferSelectModel } from 'drizzle-orm'
+import { moods } from '../../db/schema'
+import { Prettify } from './util.types'
 
 export enum MoodLevel {
   ZERO = 'zero',
@@ -8,12 +9,13 @@ export enum MoodLevel {
 }
 
 export type Mood = InferSelectModel<typeof moods>
+export type JournalMood = Prettify<
+  Mood & {
+    level: MoodLevel
+  }
+>
 
 export type MoodDraft = Pick<Mood, 'name' | 'color'>
-
-export type JournalMood = Pick<Mood, 'id'> & {
-  level: MoodLevel
-}
 
 export type Moods = {
   [id: string]: Mood

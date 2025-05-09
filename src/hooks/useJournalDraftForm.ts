@@ -1,17 +1,14 @@
 import { useCallback, useState } from 'react'
 
-import { ImageService } from '@/services'
 import { JournalDraft, MoodLevel } from '@/types'
+import { ImageUtils } from '@/utils'
 
-export const useJournalDraftForm = () => {
+export const useJournalDraftForm = (initialMoodId?: string) => {
   const [draft, setDraft] = useState<JournalDraft>({
     content: '',
-    mood: {
-      id: '',
-      level: MoodLevel.HALF,
-    },
+    moodId: initialMoodId ?? '',
+    moodLevel: MoodLevel.HALF,
     imageUri: [],
-    localDate: '0000-00-00',
   })
   const [isLoading, setIsLoading] = useState(false)
 
@@ -19,29 +16,23 @@ export const useJournalDraftForm = () => {
     setIsLoading(bool)
   }
 
-  const handleMoodIdChange = useCallback((id: string) => {
+  const handleMoodIdChange = useCallback((moodId: string) => {
     setDraft(prev => ({
       ...prev,
-      mood: {
-        ...prev.mood,
-        id,
-      },
+      moodId,
     }))
   }, [])
 
-  const handleMoodLevelChange = useCallback((level: MoodLevel) => {
+  const handleMoodLevelChange = useCallback((moodLevel: MoodLevel) => {
     setDraft(prev => ({
       ...prev,
-      mood: {
-        ...prev.mood,
-        level,
-      },
+      moodLevel,
     }))
   }, [])
 
   const handleImageUriChange = useCallback(async () => {
     try {
-      const newFilePath = await ImageService.createNewFileName()
+      const newFilePath = await ImageUtils.createNewFileName()
       if (newFilePath) {
         setDraft(prev => ({
           ...prev,

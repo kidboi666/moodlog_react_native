@@ -1,42 +1,32 @@
-import { SQLiteDatabase } from 'expo-sqlite'
-import { Maybe, Mood, Moods } from 'types'
+import { eq } from 'drizzle-orm'
+import { db } from '../../db'
+import { moods } from '../../db/schema'
+
+import { Mood, MoodDraft, Moods } from '@/types'
 
 export class MoodService {
-  private db: SQLiteDatabase
-
-  constructor(db: SQLiteDatabase) {
-    this.db = db
+  static async addMood(moodDraft: MoodDraft) {
+    await db.insert(moods).values({
+      name: moodDraft.name,
+      color: moodDraft.color,
+    })
   }
 
-  async addMood(newMood: Mood) {
-    const mood = await this.getMoodById(newMood.id)
-
-    if (mood) {
-      throw new Error('Mood already exists')
-    }
-
-    await this.db.runAsync(
-      'INSERT INTO moods (id, name, color, created_at) VALUES (?, ?, ?, ?)',
-      [newMood.id, newMood.name, newMood.color, newMood.createdAt],
-    )
+  static async getMoodById(id: string) {
+    const mood = await db.query.moods.findFirst({
+      where: eq(moods.id, id),
+    })
+    if (!mood) throw new Error('Failed to get mood')
+    return mood
   }
 
-  async getMoodById(id: string): Promise<Maybe<Mood>> {
-    return await this.db.getFirstAsync('SELECT * FROM moods WHERE id = ?', [id])
-  }
-
-  async getMoods(): Promise<Maybe<Mood[]>> {
-    return await this.db.getAllAsync('SELECT * FROM moods')
-  }
-
-  static updateMood(moods: Moods, newMood: Mood): Moods {
-    moods[newMood.id] = newMood
+  static async getMoods() {
+    const moods = await db.query.moods.findMany()
+    if (!moods) throw new Error('Failed to get moods')
     return moods
   }
 
-  static removeMood(moods: Moods, moodId: string): Moods {
-    const newMoods = { ...moods }
-    delete newMoods[moodId]
-    return newMoods
-  }
+  static updateMood(moods: Moods, newMood: Mood) {}
+
+  static removeMood(moods: Moods, moodId: string) {}
 }

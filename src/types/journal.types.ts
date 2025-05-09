@@ -1,24 +1,35 @@
 import { InferSelectModel } from 'drizzle-orm'
 
-import { journals } from '@/db/schema'
-import { Mood } from '@/types/index'
+import { journals } from '../../db/schema'
 import type { ISODateString, ISOMonthString } from './date.types'
+import { Mood, MoodLevel } from './mood.types'
+import { Prettify } from './util.types'
 
-export type Journal = InferSelectModel<typeof journals> & { mood: Mood }
-
-export type Journals = Record<string, Journal>
-
+export type JournalModel = InferSelectModel<typeof journals>
+export type SelectJournal = Prettify<
+  Omit<JournalModel, 'moodId' | 'moodLevel'> & {
+    mood: Mood
+  }
+>
+export type Journal = Prettify<
+  Omit<SelectJournal, 'localDate' | 'imageUri'> & {
+    mood: Mood
+    localDate: ISODateString
+    imageUri: string[]
+  }
+>
+export type DateJournals = {
+  [date: ISODateString]: Journal[]
+}
+export type MonthJournals = {
+  [month: ISOMonthString]: Journal[]
+}
 export type JournalDraft = {
   content: string
   moodId: string
-  moodLevel: string
+  moodLevel: MoodLevel
   imageUri: string[]
-  localDate: ISODateString
 }
-
-export type YearIndexes = Record<number, string[]>
-export type MonthIndexes = Record<ISOMonthString, string[]>
-export type DateIndexes = Record<ISODateString, string[]>
 export type SelectedJournalsByDate = Journal[] | ISODateString | null
 export type SelectedJournalsByMonth = Omit<
   SelectedJournalsByDate,
@@ -27,13 +38,3 @@ export type SelectedJournalsByMonth = Omit<
   ISOMonthString
 export type SelectedJournal = Journal | null
 export type SelectedJournals = SelectedJournalsByDate | SelectedJournalsByMonth
-export type JournalIndexes = {
-  byYear: YearIndexes
-  byMonth: MonthIndexes
-  byDate: DateIndexes
-}
-
-export type JournalStore = {
-  journals: Journals
-  indexes: JournalIndexes
-}

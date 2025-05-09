@@ -16,7 +16,8 @@ import {
   SuccessCreateMoodEffect,
 } from '@/components/features/mood'
 import { HeaderContent, StepDot, ViewContainer } from '@/components/shared'
-import { useAddMood, useMoodForm, useScrollMood } from '@/hooks'
+import { useMoodForm, useScrollMood } from '@/hooks'
+import { useAddMood } from '@/queries'
 
 export default function CreateMoodScreen() {
   const router = useRouter()
@@ -29,7 +30,7 @@ export default function CreateMoodScreen() {
     onMoodNameChange,
     onIsSuccessChange,
   } = useMoodForm()
-  const { onSubmit } = useAddMood(mood, onIsSuccessChange)
+  const { mutate: onSubmit } = useAddMood(onIsSuccessChange)
 
   useEffect(() => {
     if (currentStep === 0) {
@@ -43,7 +44,7 @@ export default function CreateMoodScreen() {
       Header={
         <HeaderContent
           leftAction={() => router.back()}
-          rightAction={onSubmit}
+          rightAction={() => onSubmit(mood)}
           rightActionIcon={Check}
           rightActionDisabled={!mood.name || !mood.color}
         >

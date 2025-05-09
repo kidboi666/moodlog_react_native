@@ -15,7 +15,7 @@ import { MoodLevel } from '@/types'
 
 interface Props {
   moodColor?: string
-  moodLevel?: MoodLevel
+  moodLevel: MoodLevel
   onMoodLevelChange: (moodLevel: MoodLevel) => void
 }
 

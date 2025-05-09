@@ -2,19 +2,20 @@ import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { ScrollView, XStack, styled } from 'tamagui'
 
 import { DelayMS, Layout, MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants'
-import { ISODateString, Maybe } from '@/types'
+import { DateCount, ISODateString, Maybe } from '@/types'
 import { DateUtils } from '@/utils'
-import { JournalUtils } from '@/utils/journal.utils'
 import { HorizontalCalendarContent } from './HorizontalCalendarContent'
 
 interface Props {
   selectedDate: Maybe<ISODateString>
   onSelectedDateChange: (date: ISODateString) => void
+  dateCount: DateCount
 }
 
 export const HorizontalCalendar = ({
   selectedDate,
   onSelectedDateChange,
+  dateCount,
 }: Props) => {
   const now = new Date()
   const currentYear = now.getFullYear()
@@ -40,11 +41,7 @@ export const HorizontalCalendar = ({
 
     for (let i = 1; i <= lastDate; i++) {
       const dateKey = DateUtils.getISODateString(currentYear, currentMonth, i)
-      datesWithJournalCount[dateKey] = JournalUtils.getCountForDate(
-        currentYear,
-        currentMonth,
-        i,
-      )
+      datesWithJournalCount[dateKey] = dateCount[dateKey] || 0
     }
     return datesWithJournalCount
   }, [currentYear, currentMonth])
