@@ -14,33 +14,31 @@ interface Props {
   onMonthPress: (monthDate: ISOMonthString) => void
 }
 
-export const MonthItem = memo(
-  ({
-    monthKey,
-    monthDate,
-    lastDate,
-    firstDateDay,
-    weekLength,
-    isSelected,
-    onMonthPress,
-  }: Props) => {
-    return (
-      <MonthItemButton
-        key={monthKey}
-        isSelected={isSelected}
-        onPress={() => onMonthPress(monthDate)}
-      >
-        <MonthItemContent
-          monthKey={monthKey}
-          weekLength={weekLength}
-          firstDateDay={firstDateDay}
-          monthDate={monthDate}
-          lastDate={lastDate}
-        />
-      </MonthItemButton>
-    )
-  },
-)
+function _MonthItem({
+  monthKey,
+  monthDate,
+  lastDate,
+  firstDateDay,
+  weekLength,
+  isSelected,
+  onMonthPress,
+}: Props) {
+  return (
+    <MonthItemButton
+      key={monthKey}
+      isSelected={isSelected}
+      onPress={() => onMonthPress(monthDate)}
+    >
+      <MonthItemContent
+        monthKey={monthKey}
+        weekLength={weekLength}
+        firstDateDay={firstDateDay}
+        monthDate={monthDate}
+        lastDate={lastDate}
+      />
+    </MonthItemButton>
+  )
+}
 
 const MonthItemButton = styled(Button, {
   unstyled: true,
@@ -60,3 +58,7 @@ const MonthItemButton = styled(Button, {
     },
   } as const,
 })
+
+export const MonthItem = memo(_MonthItem)
+
+MonthItem.displayName = 'MonthItem'

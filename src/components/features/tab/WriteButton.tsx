@@ -31,7 +31,7 @@ const menuList: MenuItemProps[] = [
   },
 ]
 
-export const WriteButton = memo(() => {
+function _WriteButton() {
   const router = useRouter()
   const { t } = useTranslation()
   const [isMenuVisible, setIsMenuVisible] = useState(false)
@@ -77,7 +77,7 @@ export const WriteButton = memo(() => {
       )}
     </Fragment>
   )
-})
+}
 
 const EnteringView = styled(View, {
   flex: 1,
@@ -109,3 +109,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 })
+
+export const WriteButton = memo(_WriteButton)
+
+WriteButton.displayName = 'WriteButton'

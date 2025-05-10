@@ -10,7 +10,7 @@ interface Props {
   onValueChange: (value: string) => void
 }
 
-export const RadioGroupItem = memo(({ value, label, onValueChange }: Props) => {
+function _RadioGroupItem({ value, label, onValueChange }: Props) {
   return (
     <Button animation='quick' chromeless onPress={() => onValueChange(value)}>
       <BaseText flex={1}>{label}</BaseText>
@@ -23,6 +23,8 @@ export const RadioGroupItem = memo(({ value, label, onValueChange }: Props) => {
       </RadioGroup.Item>
     </Button>
   )
-})
+}
+
+export const RadioGroupItem = memo(_RadioGroupItem)
 
 RadioGroupItem.displayName = 'RadioGroupItem'

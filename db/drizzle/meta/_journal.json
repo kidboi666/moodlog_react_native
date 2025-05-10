@@ -8,6 +8,20 @@
       "when": 1746781692729,
       "tag": "0000_brief_scorpion",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1746854098497,
+      "tag": "0001_jittery_microchip",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1746857342629,
+      "tag": "0002_square_lightspeed",
+      "breakpoints": true
     }
   ]
 }

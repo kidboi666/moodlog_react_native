@@ -7,10 +7,10 @@ interface Props {
   title?: string
 }
 
-export const SettingsContainer = ({
+export function SettingsContainer({
   children,
   title,
-}: PropsWithChildren<Props>) => {
+}: PropsWithChildren<Props>) {
   return (
     <Container>
       {title && <Title>{title}</Title>}

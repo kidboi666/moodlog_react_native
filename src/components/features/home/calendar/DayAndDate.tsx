@@ -10,11 +10,11 @@ interface DayAndDateProps {
   date: `${number}-${number}-${number}`
 }
 
-export const DayAndDate = ({
+export function DayAndDate({
   selected,
   futureDateColor,
   date,
-}: DayAndDateProps) => {
+}: DayAndDateProps) {
   const { t } = useTranslation()
   return (
     <DateTextWrapper>

@@ -3,7 +3,7 @@ import { ScrollView, XStack, YStack, styled } from 'tamagui'
 
 import { MONTHS } from '@/constants'
 import type { ISOMonthString, Maybe, MonthKey } from '@/types'
-import { DateUtils, JournalUtils } from '@/utils'
+import { DateUtils } from '@/utils'
 import { GardenDayUnits } from './GardenDayUnits'
 import { GardenTitleHeader } from './GardenTitleHeader'
 import { MonthItem } from './MonthItem'
@@ -14,34 +14,31 @@ interface Props {
   isSelectedMonth: (month: ISOMonthString) => boolean
 }
 
-export const GardenSection = ({
+export function GardenSection({
   onSelectedMonthChange,
   selectedMonth,
   isSelectedMonth,
-}: Props) => {
+}: Props) {
+  const now = new Date()
+  const currentYear = now.getFullYear()
+
   const staticMonths = useMemo(
     () =>
       Object.keys(MONTHS).map((month, i) => ({
         monthKey: month as MonthKey,
-        monthDate: DateUtils.getISOMonthString(selectedYear, i + 1),
-        lastDate: DateUtils.getLastDate(selectedYear, month as MonthKey),
-        firstDateDay: DateUtils.getFirstDateDay(selectedYear, month),
-        weekLength: DateUtils.getWeekLength(selectedYear, month),
+        monthDate: DateUtils.getISOMonthString(currentYear, i + 1),
+        lastDate: DateUtils.getLastDate(currentYear, month as MonthKey),
+        firstDateDay: DateUtils.getFirstDateDay(currentYear, month),
+        weekLength: DateUtils.getWeekLength(currentYear, month),
       })),
     [],
   )
 
   const handleMonthPress = useCallback(
     (monthDate: ISOMonthString) => {
-      const { journals, indexes } = store
-      const selectedJournals = JournalUtils.getJournals(
-        { journals, indexes },
-        monthDate,
-      )
       onSelectedMonthChange(selectedMonth === monthDate ? null : monthDate)
-      selectJournals(selectedMonth === monthDate ? null : selectedJournals)
     },
-    [selectedMonth, onSelectedMonthChange, selectJournals],
+    [selectedMonth, onSelectedMonthChange],
   )
 
   return (

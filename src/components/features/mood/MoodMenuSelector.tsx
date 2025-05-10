@@ -19,11 +19,11 @@ interface Props {
   currentStep: number
 }
 
-export const MoodMenuSelector = ({
+export function MoodMenuSelector({
   handleLeftPress,
   handleRightPress,
   currentStep,
-}: Props) => {
+}: Props) {
   const { t } = useTranslation()
 
   return (

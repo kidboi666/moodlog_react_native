@@ -10,7 +10,7 @@ interface Props {
   totalCount: number
 }
 
-export const TotalCountCollapsedContent = memo(({ totalCount }: Props) => {
+function _TotalCountCollapsedContent({ totalCount }: Props) {
   const { t } = useTranslation()
   return (
     <ViewContainer>
@@ -27,7 +27,7 @@ export const TotalCountCollapsedContent = memo(({ totalCount }: Props) => {
       </XStack>
     </ViewContainer>
   )
-})
+}
 
 const ViewContainer = styled(View, {
   flex: 1,
@@ -52,5 +52,7 @@ const CountText = styled(BaseText, {
   lineHeight: Layout.HEIGHT.RECORD_UNIT_LINE_HEIGHT,
   color: '$gray11',
 })
+
+export const TotalCountCollapsedContent = memo(_TotalCountCollapsedContent)
 
 TotalCountCollapsedContent.displayName = 'TotalCountCollapsedContent'

@@ -16,7 +16,7 @@ interface Props {
   color: string
 }
 
-export const SuccessCreateMoodEffect = ({ active, color }: Props) => {
+export function SuccessCreateMoodEffect({ active, color }: Props) {
   const { width, height } = useWindowDimensions()
   const center = { x: width / 2, y: height / 2 }
   const startPoints = { x: center.x - 100, y: center.y - 100 }

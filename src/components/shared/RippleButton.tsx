@@ -27,14 +27,14 @@ interface Props {
   buttonColor: string
 }
 
-export const RippleButton = ({
+export function RippleButton({
   onPress,
   title,
   style,
   textStyle,
   rippleColor = 'rgba(0, 0, 0, 0.1)',
   buttonColor = '#3498db',
-}: Props) => {
+}: Props) {
   const [ripplePosition, setRipplePosition] = useState({ x: 0, y: 0 })
   const scale = useSharedValue(0)
   const opacity = useSharedValue(0.5)

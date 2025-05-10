@@ -14,7 +14,7 @@ interface Props {
   show: boolean
 }
 
-export const MoodPagination = ({ page, setPage, totalPage, show }: Props) => {
+export function MoodPagination({ page, setPage, totalPage, show }: Props) {
   const handleLeftPress = useCallback(() => {
     setPage(([page, totalPage]) => [
       (page + totalPage - 1) % totalPage,
@@ -30,25 +30,25 @@ export const MoodPagination = ({ page, setPage, totalPage, show }: Props) => {
 
   return (
     <Container>
-      {page !== 0 && (
-        <Button
-          chromeless
-          color='$color11'
-          icon={ChevronLeft}
-          scaleIcon={1.5}
-          onPress={handleLeftPress}
-        />
-      )}
+      <Button
+        chromeless
+        color='$color11'
+        icon={ChevronLeft}
+        scaleIcon={1.5}
+        onPress={handleLeftPress}
+        disabled={page === 0}
+        opacity={page !== 0 ? 1 : 0}
+      />
 
-      {page !== totalPage && (
-        <Button
-          chromeless
-          color='$color11'
-          icon={ChevronRight}
-          scaleIcon={1.5}
-          onPress={handleRightPress}
-        />
-      )}
+      <Button
+        chromeless
+        color='$color11'
+        icon={ChevronRight}
+        scaleIcon={1.5}
+        onPress={handleRightPress}
+        disabled={page === totalPage - 1}
+        opacity={page !== totalPage - 1 ? 1 : 0}
+      />
     </Container>
   )
 }

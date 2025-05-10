@@ -4,7 +4,7 @@ import { YStack, styled } from 'tamagui'
 
 import { BaseText, H3 } from '@/components/shared'
 
-export const GardenTitleHeader = memo(() => {
+function _GardenTitleHeader() {
   const { t } = useTranslation()
   return (
     <GardenTitleHeaderContainer>
@@ -12,7 +12,7 @@ export const GardenTitleHeader = memo(() => {
       <GardenDescription>{t('entries.garden.description')}</GardenDescription>
     </GardenTitleHeaderContainer>
   )
-})
+}
 
 const GardenTitleHeaderContainer = styled(YStack, {
   gap: '$2',
@@ -25,3 +25,7 @@ const GardenTitle = styled(H3, {
 const GardenDescription = styled(BaseText, {
   color: '$color12',
 })
+
+export const GardenTitleHeader = memo(_GardenTitleHeader)
+
+GardenTitleHeader.displayName = 'GardenTitleHeader'

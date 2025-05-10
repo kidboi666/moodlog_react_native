@@ -20,7 +20,7 @@ export const useDeleteMood = (onSuccess?: () => void) => {
   const handleDeleteMood = useCallback(
     (id: string) => {
       setLoading(true)
-      const newStore = MoodService.removeMood(moods, id)
+      const newStore = MoodService.deleteMood(id)
       removeMood(newStore)
 
       onSuccess?.()

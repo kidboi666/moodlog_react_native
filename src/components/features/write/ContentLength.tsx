@@ -10,7 +10,7 @@ interface Props {
   length: number
 }
 
-export const ContentLength = memo(({ length }: Props) => {
+function _ContentLength({ length }: Props) {
   const isGreen = length > 0
   const isYellow = length >= 250
   const isRed = length >= 300
@@ -39,7 +39,7 @@ export const ContentLength = memo(({ length }: Props) => {
       </CharNum>
     </Animated.View>
   )
-})
+}
 
 const CharNum = styled(Text, {
   color: '$color10',
@@ -64,3 +64,7 @@ const CharNum = styled(Text, {
     },
   } as const,
 })
+
+export const ContentLength = memo(_ContentLength)
+
+ContentLength.displayName = 'ContentLength'

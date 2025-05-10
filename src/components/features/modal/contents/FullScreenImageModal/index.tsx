@@ -1,5 +1,5 @@
 import { X } from '@tamagui/lucide-icons'
-import { useRef, useState } from 'react'
+import { memo, useRef, useState } from 'react'
 import {
   Animated,
   Dimensions,
@@ -22,7 +22,7 @@ interface Props {
   onClose: () => void
 }
 
-export const FullScreenImageModal = ({ visible, imageUri, onClose }: Props) => {
+function _FullScreenImageModal({ visible, imageUri, onClose }: Props) {
   const [currentScale, setCurrentScale] = useState(1)
   const scale = useRef(new Animated.Value(1)).current
   const pinchRef = useRef(null)
@@ -130,3 +130,7 @@ const styles = StyleSheet.create({
     maxHeight: '100%',
   },
 })
+
+export const FullScreenImageModal = memo(_FullScreenImageModal)
+
+FullScreenImageModal.displayName = 'FullScreenImageModal'

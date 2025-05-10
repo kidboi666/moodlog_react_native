@@ -26,7 +26,7 @@ interface Props extends ViewProps {
   color: SharedValue<string> | string
 }
 
-export const MoodPreviewItem = ({ name, color, ...props }: Props) => {
+export function MoodPreviewItem({ name, color, ...props }: Props) {
   const {
     state: { currentStep },
   } = useStepProgress()

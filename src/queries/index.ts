@@ -1,2 +1,2 @@
-export * from './journal'
-export * from './mood'
+export * from './journal.queries'
+export * from './mood.queries'

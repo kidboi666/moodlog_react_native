@@ -9,7 +9,7 @@ interface Props {
   moodColor: string
 }
 
-export const ProgressGraph = ({ moodScore, moodId, moodColor }: Props) => {
+export function ProgressGraph({ moodScore, moodId, moodColor }: Props) {
   const moods = useMood(state => state.moods)
   const mood = moods[moodId]
 

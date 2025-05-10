@@ -17,7 +17,7 @@ interface Props {
   percentage: number
 }
 
-export const ChartItem = ({ name, level, color, percentage }: Props) => {
+export function ChartItem({ name, level, color, percentage }: Props) {
   const { t } = useTranslation()
   const widthValue = useSharedValue(0)
   const animatedStyles = useAnimatedStyle(() => ({

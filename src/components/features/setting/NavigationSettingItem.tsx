@@ -10,24 +10,27 @@ interface NavigationSettingItemProps {
   onRouteChange: () => void
 }
 
-export const NavigationSettingItem = memo(
-  ({ icon, label, onRouteChange }: NavigationSettingItemProps) => {
-    return (
-      <Button
-        animation='quick'
-        justify='space-between'
-        icon={icon}
-        onPress={onRouteChange}
-      >
-        <Title>{label}</Title>
-        <ChevronRight size='$1' />
-      </Button>
-    )
-  },
-)
+function _NavigationSettingItem({
+  icon,
+  label,
+  onRouteChange,
+}: NavigationSettingItemProps) {
+  return (
+    <Button
+      animation='quick'
+      justify='space-between'
+      icon={icon}
+      onPress={onRouteChange}
+    >
+      <Title>{label}</Title>
+      <ChevronRight size='$1' />
+    </Button>
+  )
+}
 
 const Title = styled(BaseText, {
   flex: 1,
 })
 
+export const NavigationSettingItem = memo(_NavigationSettingItem)
 NavigationSettingItem.displayName = 'NavigationSettingItem'

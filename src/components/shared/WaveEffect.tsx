@@ -21,12 +21,12 @@ interface Props {
   duration?: number
 }
 
-export const WaveEffect = ({
+export function WaveEffect({
   children,
   active,
   color,
   duration = 800,
-}: PropsWithChildren<Props>) => {
+}: PropsWithChildren<Props>) {
   const { width, height } = useWindowDimensions()
   const r = useSharedValue(0)
   const topY = useSharedValue(height)

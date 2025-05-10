@@ -14,7 +14,7 @@ interface DateHeaderProps {
   date: string
 }
 
-export const DateHeader = ({ date }: DateHeaderProps) => {
+export function DateHeader({ date }: DateHeaderProps) {
   const { i18n } = useTranslation()
   const fontSize = useFontSizeAdjustment('$6')
   const smallFontSize = useFontSizeAdjustment('$4')

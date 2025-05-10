@@ -8,12 +8,12 @@ interface Props extends InputProps {
   placeholder?: string
 }
 
-export const FormInput = ({
+export function FormInput({
   value,
   onChangeText,
   placeholder = '',
   ...props
-}: Props) => {
+}: Props) {
   const { fontNameWithTokenPrefix } = useCustomFont()
 
   return (

@@ -21,7 +21,7 @@ export const useDeleteJournal = (onSuccess?: () => void) => {
 
   const handleDeleteJournal = useCallback(
     (id: string) => {
-      const newStore = JournalService.removeJournal(store, id)
+      const newStore = JournalService.deleteJournal(id)
       updateStore(newStore)
       const newSelectedJournals = JournalUtils.syncSelectedJournalsAfterDelete(
         selectedJournals,

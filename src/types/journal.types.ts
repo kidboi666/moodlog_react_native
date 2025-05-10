@@ -18,23 +18,15 @@ export type Journal = Prettify<
     imageUri: string[]
   }
 >
-export type DateJournals = {
-  [date: ISODateString]: Journal[]
-}
-export type MonthJournals = {
-  [month: ISOMonthString]: Journal[]
-}
 export type JournalDraft = {
   content: string
+  imageUri: string[]
   moodId: string
   moodLevel: MoodLevel
-  imageUri: string[]
 }
-export type SelectedJournalsByDate = Journal[] | ISODateString | null
-export type SelectedJournalsByMonth = Omit<
-  SelectedJournalsByDate,
-  'ISODateString'
-> &
-  ISOMonthString
+export type DateJournals = Record<ISODateString, Journal[]>
+export type MonthJournals = Record<ISOMonthString, Journal[]>
+export type DateJournalSelection = Journal[] | ISODateString | null
+export type MonthJournalSelection = Journal[] | ISOMonthString | null
 export type SelectedJournal = Journal | null
-export type SelectedJournals = SelectedJournalsByDate | SelectedJournalsByMonth
+export type SelectedJournals = DateJournalSelection | MonthJournalSelection

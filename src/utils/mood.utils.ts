@@ -1,7 +1,6 @@
 import {
   type ISOMonthString,
   JournalMood,
-  JournalStore,
   type Maybe,
   Mood,
   MoodLevel,
@@ -43,27 +42,20 @@ export class MoodUtils {
       return moods.find(m => m.id === journalMood)?.color
     }
     const { id, level } = journalMood
-    if (!id) {
-      return null
-    }
+    if (!id) return null
     const moodColor = moods.find(m => m.id === id)?.color
-    if (!moodColor) {
-      return null
-    }
+    if (!moodColor) return null
     switch (level) {
-      case MoodLevel.HALF: {
+      case MoodLevel.HALF:
         return CommonUtils.hexToRgba(moodColor, 0.7)
-      }
-      case MoodLevel.ZERO: {
+      case MoodLevel.ZERO:
         return CommonUtils.hexToRgba(moodColor, 0.4)
-      }
       default:
         return CommonUtils.hexToRgba(moodColor, 1)
     }
   }
 
   static getGardenMoodData(
-    store: JournalStore,
     weekLength: number,
     firstDateDay: number,
     monthDate: ISOMonthString,
@@ -81,7 +73,7 @@ export class MoodUtils {
             monthDate,
             dateNum,
           )
-          weekData.push(JournalUtils.getMoodForDate(store, dateString))
+          weekData.push(JournalUtils.getMoodForDate(dateString))
         }
       }
       data.push(weekData)

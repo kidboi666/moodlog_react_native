@@ -13,18 +13,26 @@ interface Props {
   lastDate: number
 }
 
-export const MonthItemContent = memo(
-  ({ monthKey, weekLength, firstDateDay, monthDate, lastDate }: Props) => {
-    return (
-      <YStack>
-        <GardenMonthUnits month={monthKey} />
-        <Garden
-          weekLength={weekLength}
-          firstDateDay={firstDateDay}
-          monthDate={monthDate}
-          lastDate={lastDate}
-        />
-      </YStack>
-    )
-  },
-)
+function _MonthItemContent({
+  monthKey,
+  weekLength,
+  firstDateDay,
+  monthDate,
+  lastDate,
+}: Props) {
+  return (
+    <YStack>
+      <GardenMonthUnits month={monthKey} />
+      <Garden
+        weekLength={weekLength}
+        firstDateDay={firstDateDay}
+        monthDate={monthDate}
+        lastDate={lastDate}
+      />
+    </YStack>
+  )
+}
+
+export const MonthItemContent = memo(_MonthItemContent)
+
+MonthItemContent.displayName = 'MonthItemContent'

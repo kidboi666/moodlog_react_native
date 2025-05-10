@@ -13,7 +13,7 @@ interface TabButtonProps {
   onPress: (route: string) => void
 }
 
-export const HomeTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
+function _HomeTab({ isTabActive, onPress }: TabButtonProps) {
   return (
     <PressableButton
       color={isTabActive ? '$color11' : '$color9'}
@@ -22,9 +22,13 @@ export const HomeTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
       onPress={() => onPress('/')}
     />
   )
-})
+}
 
-export const CalendarTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
+export const HomeTab = memo(_HomeTab)
+
+HomeTab.displayName = 'HomeTab'
+
+function _CalendarTab({ isTabActive, onPress }: TabButtonProps) {
   return (
     <PressableButton
       color={isTabActive ? '$color11' : '$color9'}
@@ -33,9 +37,13 @@ export const CalendarTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
       onPress={() => onPress('/calendar')}
     />
   )
-})
+}
 
-export const StatisticTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
+export const CalendarTab = memo(_CalendarTab)
+
+CalendarTab.displayName = 'CalendarTab'
+
+function _StatisticTab({ isTabActive, onPress }: TabButtonProps) {
   return (
     <PressableButton
       color={isTabActive ? '$color11' : '$color9'}
@@ -44,9 +52,13 @@ export const StatisticTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
       onPress={() => onPress('/statistic')}
     />
   )
-})
+}
 
-export const SettingTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
+export const StatisticTab = memo(_StatisticTab)
+
+StatisticTab.displayName = 'StatisticTab'
+
+function _SettingTab({ isTabActive, onPress }: TabButtonProps) {
   return (
     <PressableButton
       color={isTabActive ? '$color11' : '$color9'}
@@ -55,4 +67,8 @@ export const SettingTab = memo(({ isTabActive, onPress }: TabButtonProps) => {
       onPress={() => onPress('/setting')}
     />
   )
-})
+}
+
+export const SettingTab = memo(_SettingTab)
+
+SettingTab.displayName = 'SettingTab'

@@ -5,7 +5,7 @@ import { View, YStack, styled } from 'tamagui'
 import { H6 } from '@/components/shared'
 import { WEEK_DAY } from '@/constants'
 
-export const GardenDayUnits = memo(() => {
+function _GardenDayUnits() {
   const { t } = useTranslation()
   return (
     <DaysContainer>
@@ -17,7 +17,7 @@ export const GardenDayUnits = memo(() => {
       </DaysBox>
     </DaysContainer>
   )
-})
+}
 
 const DaysContainer = styled(YStack, {
   py: '$4',
@@ -38,3 +38,7 @@ const DayText = styled(H6, {
   fontSize: '$3',
   color: '$color10',
 })
+
+export const GardenDayUnits = memo(_GardenDayUnits)
+
+GardenDayUnits.displayName = 'GardenDayUnits'

@@ -9,22 +9,20 @@ interface FullScreenSpinnerProps {
   size?: SpinnerSize
 }
 
-export const FullScreenSpinner = memo(
-  ({ size = 'small' }: FullScreenSpinnerProps) => {
-    const isNavigating = useUI(state => state.isNavigating)
-    const isLoading = useUI(state => state.isLoading)
+function _FullScreenSpinner({ size = 'small' }: FullScreenSpinnerProps) {
+  const isNavigating = useUI(state => state.isNavigating)
+  const isLoading = useUI(state => state.isLoading)
 
-    const shouldShow = isNavigating || isLoading
+  const shouldShow = isNavigating || isLoading
 
-    if (!shouldShow) return null
+  if (!shouldShow) return null
 
-    return (
-      <StyledOverlay>
-        <Spinner size={size} />
-      </StyledOverlay>
-    )
-  },
-)
+  return (
+    <StyledOverlay>
+      <Spinner size={size} />
+    </StyledOverlay>
+  )
+}
 
 const StyledOverlay = styled(Stack, {
   flex: 1,
@@ -39,3 +37,7 @@ const StyledOverlay = styled(Stack, {
   bg: '$color4',
   opacity: 0.5,
 })
+
+export const FullScreenSpinner = memo(_FullScreenSpinner)
+
+FullScreenSpinner.displayName = 'FullScreenSpinner'

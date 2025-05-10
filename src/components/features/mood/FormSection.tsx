@@ -14,7 +14,7 @@ interface Props {
   currentStep: number
 }
 
-export const FormSection = ({
+export function FormSection({
   moodName,
   onMoodNameChange,
   moodColor,
@@ -22,7 +22,7 @@ export const FormSection = ({
   position,
   width,
   currentStep,
-}: Props) => {
+}: Props) {
   return (
     <Container>
       <FormContainer {...position}>

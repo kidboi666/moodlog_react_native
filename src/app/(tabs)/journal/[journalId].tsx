@@ -1,16 +1,16 @@
 import { Trash } from '@tamagui/lucide-icons'
 import { useQuery } from '@tanstack/react-query'
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import {
-  GetThemeValueForKey,
   ScrollView,
   Image as TamaguiImage,
   View,
   XStack,
   YStack,
+  styled,
 } from 'tamagui'
 
 import { FullScreenImageModal } from '@/components/features/modal'
@@ -22,27 +22,35 @@ import {
   RenderTime,
   ViewContainer,
 } from '@/components/shared'
-import { useDeleteJournal } from '@/hooks'
+import { Layout } from '@/constants'
 import { JournalQueries } from '@/queries'
-import { useApp } from '@/store'
+import { useApp, useBottomSheet } from '@/store'
+import { BottomSheetType } from '@/types'
 import { CommonUtils } from '@/utils'
 
 export default function JournalScreen() {
-  const params = useLocalSearchParams()
+  const { journalId, isNewJournal } = useLocalSearchParams()
   const router = useRouter()
   const { t } = useTranslation()
-  const journalId = CommonUtils.toSingle(params.journalId)
-  const isNewJournal = CommonUtils.toSingle(params.isNewJournal)
-  const { data: journal } = useQuery(JournalQueries.getJournalById(journalId))
+  const { data: journal } = useQuery(
+    JournalQueries.getJournalById(CommonUtils.toSingle(journalId)),
+  )
   const fontSize = useApp(state => state.settings.fontSize)
+  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
+  const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedImage, setSelectedImage] = useState<string>('')
-  const { openDeleteSheet } = useDeleteJournal(() => router.replace('/'))
 
   const handleGoBack = () => {
     isNewJournal === 'true' ? router.dismiss(2) : router.back()
   }
 
+  const handleDeleteSheetOpen = () => {
+    showBottomSheet(BottomSheetType.DELETE_JOURNAL, Layout.SNAP_POINTS.DELETE, {
+      journalId: CommonUtils.toSingle(journalId),
+      hideBottomSheet,
+    })
+  }
   const handleImagePress = (uri: string) => {
     setSelectedImage(uri)
     setModalVisible(true)
@@ -55,93 +63,123 @@ export default function JournalScreen() {
   if (!journal) return null
 
   return (
-    <Fragment>
-      <ScrollView overScrollMode='always'>
-        <ViewContainer
-          edges={['bottom']}
-          px={0}
-          gap='$6'
-          Header={
-            <HeaderContent
-              leftAction={handleGoBack}
-              rightAction={() => openDeleteSheet(journalId)}
-              rightActionIcon={Trash}
-            >
-              <YStack items='center'>
-                <RenderDate localDate={journal.localDate} />
-                <RenderTime createdAt={journal.createdAt} />
-              </YStack>
-            </HeaderContent>
-          }
-        >
-          <XStack>
-            <View
-              width='3%'
-              animation='medium'
-              animateOnly={['transform']}
-              enterStyle={{ x: -20 }}
-              borderTopRightRadius='$4'
-              borderBottomRightRadius='$4'
-              bg={journal.mood.color as GetThemeValueForKey<'backgroundColor'>}
-            />
-            <YStack flex={1} gap='$4'>
-              <XStack
-                gap='$2'
-                self='flex-start'
-                ml='$3'
-                justify='center'
-                animation='bouncy'
-                enterStyle={{ opacity: 0, scale: 0.9, y: 10 }}
-              >
-                <H3 color='$gray11'>
-                  {t(`moods.levels.${journal.mood.level}`)}
-                </H3>
-                <H3
-                  color={
-                    journal.mood.color as GetThemeValueForKey<'backgroundColor'>
-                  }
-                >
-                  {journal.mood.name}
-                </H3>
-              </XStack>
-              {Array.isArray(journal.imageUri) && (
-                <ScrollView horizontal>
-                  <XStack
-                    animation='bouncy'
-                    enterStyle={{ opacity: 0, scale: 0.9, y: 10 }}
-                    elevation='$2'
-                  >
-                    {journal.imageUri.map(uri => (
-                      <TouchableOpacity
-                        key={uri}
-                        onPress={() => handleImagePress(uri)}
-                      >
-                        <TamaguiImage
-                          source={{ uri }}
-                          width={300}
-                          height={300}
-                          rounded='$8'
-                          ml='$4'
-                        />
-                      </TouchableOpacity>
-                    ))}
-                  </XStack>
-                </ScrollView>
-              )}
+    <ScrollView overScrollMode='always'>
+      <Container
+        Header={
+          <HeaderContent
+            leftAction={handleGoBack}
+            rightAction={handleDeleteSheetOpen}
+            rightActionIcon={Trash}
+          >
+            <TimeZone>
+              <RenderDate localDate={journal.localDate} />
+              <RenderTime createdAt={journal.createdAt} />
+            </TimeZone>
+          </HeaderContent>
+        }
+      >
+        <XStack>
+          <MoodBar moodColor={journal.mood?.color} />
+          <ContentContainer>
+            <MoodContainer>
+              <MoodLevel>{t(`moods.levels.${journal.moodLevel}`)}</MoodLevel>
+              <MoodName moodColor={journal.mood?.color}>
+                {journal.mood?.name}
+              </MoodName>
+            </MoodContainer>
+            {Array.isArray(journal.imageUri) && (
+              <ScrollView horizontal>
+                <ImageContainer>
+                  {journal.imageUri.map(uri => (
+                    <TouchableOpacity
+                      key={uri}
+                      onPress={() => handleImagePress(uri)}
+                    >
+                      <Image source={{ uri }} />
+                    </TouchableOpacity>
+                  ))}
+                </ImageContainer>
+              </ScrollView>
+            )}
 
-              <BaseText ml='$3' pr='$4' fontSize={fontSize}>
-                {journal.content}
-              </BaseText>
-            </YStack>
-          </XStack>
-        </ViewContainer>
+            <ContentText fontSize={fontSize}>{journal.content}</ContentText>
+          </ContentContainer>
+        </XStack>
+      </Container>
 
-        <FullScreenImageModal
-          visible={modalVisible}
-          imageUri={selectedImage}
-          onClose={handleCloseModal}
-        />
-      </ScrollView>
-    </Fragment>
+      <FullScreenImageModal
+        visible={modalVisible}
+        imageUri={selectedImage}
+        onClose={handleCloseModal}
+      />
+    </ScrollView>
   )
 }
+
+const Container = styled(ViewContainer, {
+  edges: ['bottom'],
+  px: 0,
+  gap: '$6',
+})
+
+const TimeZone = styled(YStack, {
+  items: 'center',
+})
+
+const MoodBar = styled(View, {
+  width: '3%',
+  animation: 'medium',
+  animateOnly: ['transform'],
+  enterStyle: { x: -20 },
+  borderTopRightRadius: '$4',
+  borderBottomRightRadius: '$4',
+  variants: {
+    moodColor: {
+      ':string': bg => ({ bg }),
+    },
+  },
+})
+
+const ContentContainer = styled(YStack, {
+  flex: 1,
+  gap: '$4',
+})
+
+const MoodContainer = styled(XStack, {
+  gap: '$2',
+  self: 'flex-start',
+  ml: '$3',
+  justify: 'center',
+  animation: 'bouncy',
+  enterStyle: { opacity: 0, scale: 0.9, y: 10 },
+})
+
+const MoodLevel = styled(H3, {
+  color: '$color11',
+})
+
+const MoodName = styled(H3, {
+  variants: {
+    moodColor: {
+      ':string': color => ({ color }),
+    },
+  },
+})
+
+const ImageContainer = styled(XStack, {
+  animation: 'bouncy',
+  enterStyle: { opacity: 0, scale: 0.9, y: 10 },
+  elevation: '$2',
+})
+
+const ContentText = styled(BaseText, {
+  ml: '$3',
+  pr: '$4',
+})
+
+const Image = styled(TamaguiImage, {
+  width: 300,
+  height: 300,
+  rounded: '$8',
+  ml: '$4',
+})

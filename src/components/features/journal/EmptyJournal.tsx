@@ -5,7 +5,7 @@ import { YStack, styled } from 'tamagui'
 import { WriteButton } from '@/components/features/tab'
 import { H3 } from '@/components/shared'
 
-export const EmptyJournal = memo(() => {
+function _EmptyJournal() {
   const { t } = useTranslation()
 
   return (
@@ -14,7 +14,7 @@ export const EmptyJournal = memo(() => {
       <WriteButton />
     </EmptyJournalContainer>
   )
-})
+}
 
 const EmptyJournalContainer = styled(YStack, {
   justify: 'center',
@@ -25,3 +25,7 @@ const EmptyJournalContainer = styled(YStack, {
   rounded: '$8',
   bg: '$color4',
 })
+
+export const EmptyJournal = memo(_EmptyJournal)
+
+EmptyJournal.displayName = 'EmptyJournal'

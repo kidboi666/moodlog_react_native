@@ -12,13 +12,13 @@ interface CardContentProps {
   toggleState: () => void
 }
 
-export const CardContent = ({
+export function CardContent({
   content,
   createdAt,
   mood,
   cardPosition,
   toggleState,
-}: CardContentProps) => {
+}: CardContentProps) {
   return (
     <CardHeader>
       <MoodBar moodColor={mood?.color} />

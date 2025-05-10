@@ -7,8 +7,8 @@ import { Spinner, styled } from 'tamagui'
 import { JournalMenuSelector, MoodLevelForm } from '@/components/features/mood'
 import { EmptyMoodView, MainRecordFlow } from '@/components/features/write'
 import { HeaderContent, StepDot, ViewContainer } from '@/components/shared'
-import { useAddJournal, useJournalDraftForm } from '@/hooks'
-import { MoodQueries } from '@/queries'
+import { useJournalDraftForm } from '@/hooks'
+import { MoodQueries, useAddJournal } from '@/queries'
 
 export default function WriteJournalScreen() {
   const router = useRouter()
@@ -21,8 +21,8 @@ export default function WriteJournalScreen() {
     onImageUriChange,
     onImageUriRemove,
   } = useJournalDraftForm(moods?.[0]?.id)
-  const { onSubmit } = useAddJournal(draft)
-  console.log(moods)
+  const { mutate: onSubmit } = useAddJournal()
+
   if (!moods) return null
 
   if (isLoading) {
@@ -46,7 +46,7 @@ export default function WriteJournalScreen() {
       Header={
         <HeaderContent
           leftAction={() => router.back()}
-          rightAction={onSubmit}
+          rightAction={() => onSubmit(draft)}
           rightActionIcon={Check}
           rightActionDisabled={!draft.moodId}
         >

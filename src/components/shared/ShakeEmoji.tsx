@@ -6,7 +6,7 @@ interface Props {
   emoji: string
 }
 
-export const ShakeEmoji = ({ duration, emoji }: Props) => {
+export function ShakeEmoji({ duration, emoji }: Props) {
   const [isRotate, setIsRotate] = useState(false)
   const [isShaking, setIsShaking] = useState(true)
 

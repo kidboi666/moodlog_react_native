@@ -11,10 +11,10 @@ interface Props {
   signatureMood: Maybe<SignatureMood>
 }
 
-export const MoodAverageCollapsedContent = ({
+export function MoodAverageCollapsedContent({
   hasSignatureMood,
   signatureMood,
-}: Props) => {
+}: Props) {
   const { t } = useTranslation()
   const moods = useMood(state => state.moods)
 

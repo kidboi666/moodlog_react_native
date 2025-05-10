@@ -16,11 +16,11 @@ interface Props {
  * 프리미엄 기능을 위한 고차 컴포넌트
  * 사용자가 프리미엄 구독자인 경우에만 기능을 보여주고, 아닌 경우 fallback을 렌더링합니다.
  */
-export const PremiumFeature = ({
+export function PremiumFeature({
   children,
   fallback,
   showToast = true,
-}: Props) => {
+}: Props) {
   const subscriptionTier = useApp(state => state.subscriptionTier)
   const toast = useToastController()
   const { t } = useTranslation()

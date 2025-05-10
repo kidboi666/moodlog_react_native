@@ -12,7 +12,7 @@ interface Props {
   selectedMonth: ISOMonthString
 }
 
-export const MoodAverage = ({ selectedYear, selectedMonth }: Props) => {
+export function MoodAverage({ selectedYear, selectedMonth }: Props) {
   const { stats } = useMoodStats(TimeRange.YEARLY, selectedYear, selectedMonth)
   const moodStats = stats.moodStats || {}
   const signatureMood = moodStats.signatureMood || {}

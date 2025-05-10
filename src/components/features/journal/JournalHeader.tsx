@@ -18,37 +18,39 @@ interface Props {
   onBackPress: () => void
 }
 
-export const JournalHeader = memo(
-  ({ journal, onDeletePress, onBackPress }: Props) => {
-    return (
-      <HeaderContent
-        items='center'
-        px={Layout.SPACE.CONTAINER_HORIZONTAL_PADDING}
-        gap='$4'
-      >
-        <PressableButton icon={ArrowLeft} onPress={onBackPress} />
-        <YStack items='center'>
-          <RenderDate color='$gray8' fontSize='$5' fontWeight='800'>
-            {journal.localDate}
-          </RenderDate>
-          <XStack gap='$2'>
-            <RenderDay
-              color='$gray8'
-              fontSize='$5'
-              fontWeight='800'
-              createdAt={journal.createdAt}
-            />
-            <RenderTime
-              color='$gray8'
-              fontSize='$5'
-              fontWeight='800'
-              createdAt={journal.createdAt}
-            />
-          </XStack>
-        </YStack>
+function _JournalHeader({ journal, onDeletePress, onBackPress }: Props) {
+  return (
+    <HeaderContent
+      items='center'
+      px={Layout.SPACE.CONTAINER_HORIZONTAL_PADDING}
+      gap='$4'
+    >
+      <PressableButton icon={ArrowLeft} onPress={onBackPress} />
+      <YStack items='center'>
+        <RenderDate color='$gray8' fontSize='$5' fontWeight='800'>
+          {journal.localDate}
+        </RenderDate>
+        <XStack gap='$2'>
+          <RenderDay
+            color='$gray8'
+            fontSize='$5'
+            fontWeight='800'
+            createdAt={journal.createdAt}
+          />
+          <RenderTime
+            color='$gray8'
+            fontSize='$5'
+            fontWeight='800'
+            createdAt={journal.createdAt}
+          />
+        </XStack>
+      </YStack>
 
-        <PressableButton icon={Trash2} onPress={onDeletePress} />
-      </HeaderContent>
-    )
-  },
-)
+      <PressableButton icon={Trash2} onPress={onDeletePress} />
+    </HeaderContent>
+  )
+}
+
+export const JournalHeader = memo(_JournalHeader)
+
+JournalHeader.displayName = 'JournalHeader'

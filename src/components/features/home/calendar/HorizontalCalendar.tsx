@@ -12,11 +12,11 @@ interface Props {
   dateCount: DateCount
 }
 
-export const HorizontalCalendar = ({
+export function HorizontalCalendar({
   selectedDate,
   onSelectedDateChange,
   dateCount,
-}: Props) => {
+}: Props) {
   const now = new Date()
   const currentYear = now.getFullYear()
   const currentMonth = now.getMonth() + 1

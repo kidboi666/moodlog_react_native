@@ -2,31 +2,49 @@ import { eq } from 'drizzle-orm'
 import { db } from '../../db'
 import { moods } from '../../db/schema'
 
-import { Mood, MoodDraft, Moods } from '@/types'
+import { MoodDraft } from '@/types'
 
 export class MoodService {
   static async addMood(moodDraft: MoodDraft) {
-    await db.insert(moods).values({
-      name: moodDraft.name,
-      color: moodDraft.color,
-    })
+    return db
+      .insert(moods)
+      .values({
+        name: moodDraft.name,
+        color: moodDraft.color,
+      })
+      .onConflictDoNothing()
   }
 
-  static async getMoodById(id: string) {
-    const mood = await db.query.moods.findFirst({
-      where: eq(moods.id, id),
-    })
-    if (!mood) throw new Error('Failed to get mood')
-    return mood
+  static async updateMood(
+    id: string,
+    newMood: Partial<Omit<typeof moods.$inferInsert, 'id' | 'createdAt'>>,
+  ) {
+    return db
+      .update(moods)
+      .set({
+        name: newMood.name,
+        color: newMood.color,
+      })
+      .where(eq(moods.id, id))
+  }
+
+  static async deleteMood(id: string) {
+    return db.delete(moods).where(eq(moods.id, id))
   }
 
   static async getMoods() {
-    const moods = await db.query.moods.findMany()
-    if (!moods) throw new Error('Failed to get moods')
-    return moods
+    return db.query.moods.findMany()
   }
 
-  static updateMood(moods: Moods, newMood: Mood) {}
+  static async getMoodById(id: string) {
+    return db.query.moods.findFirst({
+      where: eq(moods.id, id),
+    })
+  }
 
-  static removeMood(moods: Moods, moodId: string) {}
+  static async getMoodByName(name: string) {
+    return db.query.moods.findFirst({
+      where: eq(moods.name, name),
+    })
+  }
 }

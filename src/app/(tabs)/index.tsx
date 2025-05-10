@@ -15,23 +15,24 @@ import { TimeRange } from '@/types'
 import { JournalUtils } from '@/utils'
 
 export default function HomeScreen() {
-  const { selectedDate, selectedMonth, onSelectedDateChange } = useCalendar()
+  const { selectedDate, onSelectedDateChange } = useCalendar()
   const [firstRender, setFirstRender] = useState(true)
-  const { data: monthlyJournals, isLoading } = useQuery(
-    JournalQueries.getJournals(TimeRange.MONTHLY, selectedMonth),
+  const { data: dailyJournals, isLoading } = useQuery(
+    JournalQueries.getJournals(TimeRange.DAILY, selectedDate),
   )
   const dateCount = useMemo(
-    () => JournalUtils.getCountForDate(monthlyJournals),
-    [monthlyJournals],
+    () => JournalUtils.getCountForDate(dailyJournals),
+    [dailyJournals],
   )
-  const selectedDateJournals = monthlyJournals?.filter(
+  const selectedDateJournals = dailyJournals?.filter(
     journal => journal.localDate === selectedDate,
   )
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setFirstRender(false)
     }, DelayMS.ANIMATION.MEDIUM[3])
+    return () => clearTimeout(timeout)
   }, [])
 
   return (

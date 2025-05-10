@@ -2,7 +2,7 @@ import { getGemini } from '@/lib/gemini'
 import { useEffect, useState } from 'react'
 import { Button, Form, Input, Paragraph, Spinner, View } from 'tamagui'
 
-export const AiPromptZone = () => {
+export function AiPromptZone() {
   const [text, setText] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [aiResponse, setAiResponse] = useState('')

@@ -14,7 +14,7 @@ interface Props extends ButtonProps {
 /**
  * !important - 스타일링을 styled로 적용할 경우 안드로이드에서 터치 피드백 사운드가 부담스러워짐.
  */
-export const PressableButton = ({
+export function PressableButton({
   children,
   loading,
   bg,
@@ -29,7 +29,7 @@ export const PressableButton = ({
   themeInverse,
   chromeless,
   ...props
-}: Props) => {
+}: Props) {
   const { fontNameWithTokenPrefix } = useCustomFont()
   const animateOnly =
     enterStyle || exitStyle

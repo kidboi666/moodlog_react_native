@@ -7,7 +7,7 @@ interface Props {
   resolvedTheme?: Omit<Theme, Theme.SYSTEM>
 }
 
-export const StatusBar = memo(({ resolvedTheme }: Props) => {
+function _StatusBar({ resolvedTheme }: Props) {
   return (
     <RNStatusBar
       backgroundColor='transparent'
@@ -15,6 +15,8 @@ export const StatusBar = memo(({ resolvedTheme }: Props) => {
       barStyle={resolvedTheme === 'dark' ? 'light-content' : 'dark-content'}
     />
   )
-})
+}
+
+export const StatusBar = memo(_StatusBar)
 
 StatusBar.displayName = 'StatusBar'

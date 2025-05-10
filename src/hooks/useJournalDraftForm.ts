@@ -10,11 +10,6 @@ export const useJournalDraftForm = (initialMoodId?: string) => {
     moodLevel: MoodLevel.HALF,
     imageUri: [],
   })
-  const [isLoading, setIsLoading] = useState(false)
-
-  const handleIsLoadingChange = (bool: boolean) => {
-    setIsLoading(bool)
-  }
 
   const handleMoodIdChange = useCallback((moodId: string) => {
     setDraft(prev => ({
@@ -65,12 +60,10 @@ export const useJournalDraftForm = (initialMoodId?: string) => {
 
   return {
     draft,
-    isLoading,
     onContentChange: handleContentChange,
     onImageUriRemove: handleImageUriRemove,
     onMoodIdChange: handleMoodIdChange,
     onMoodLevelChange: handleMoodLevelChange,
     onImageUriChange: handleImageUriChange,
-    onIsLoadingChange: handleIsLoadingChange,
   }
 }

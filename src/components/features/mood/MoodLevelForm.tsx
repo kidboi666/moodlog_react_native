@@ -19,11 +19,11 @@ interface Props {
   onMoodLevelChange: (moodLevel: MoodLevel) => void
 }
 
-export const MoodLevelForm = ({
+export function MoodLevelForm({
   moodColor,
   moodLevel,
   onMoodLevelChange,
-}: Props) => {
+}: Props) {
   const { t } = useTranslation()
   const {
     state: { currentStep },

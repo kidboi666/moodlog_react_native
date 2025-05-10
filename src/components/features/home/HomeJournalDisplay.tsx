@@ -2,9 +2,9 @@ import { Spinner, View } from 'tamagui'
 
 import { EmptyJournal, JournalCard } from '@/components/features/journal'
 import { Delay } from '@/components/shared'
-import { DelayMS } from '@/constants'
-import { useDeleteJournal } from '@/hooks'
-import { Journal, Maybe } from '@/types'
+import { DelayMS, Layout } from '@/constants'
+import { useBottomSheet } from '@/store'
+import { BottomSheetType, Journal, Maybe } from '@/types'
 
 interface Props {
   firstRender: boolean
@@ -12,12 +12,20 @@ interface Props {
   isLoading: boolean
 }
 
-export const HomeJournalDisplay = ({
+export function HomeJournalDisplay({
   firstRender,
   journals,
   isLoading,
-}: Props) => {
-  const { openDeleteSheet } = useDeleteJournal()
+}: Props) {
+  const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
+  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
+
+  const handleDeleteSheetOpen = (journalId: string) => {
+    showBottomSheet(BottomSheetType.DELETE_JOURNAL, Layout.SNAP_POINTS.DELETE, {
+      journalId,
+      hideBottomSheet,
+    })
+  }
 
   if (isLoading) {
     return (
@@ -33,7 +41,6 @@ export const HomeJournalDisplay = ({
       const delay = firstRender
         ? DelayMS.ANIMATION.MEDIUM[
             (index % DelayMS.ANIMATION.MEDIUM.length) +
-              // @ts-ignore
               DelayMS.ANIMATION.MEDIUM[2]
           ]
         : DelayMS.ANIMATION.QUICK[0]
@@ -45,7 +52,7 @@ export const HomeJournalDisplay = ({
             mood={mood}
             imageUri={imageUri}
             createdAt={createdAt}
-            openDeleteSheet={openDeleteSheet}
+            openDeleteSheet={handleDeleteSheetOpen}
           />
         </Delay>
       )

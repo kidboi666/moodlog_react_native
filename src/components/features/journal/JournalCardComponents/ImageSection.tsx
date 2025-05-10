@@ -11,12 +11,12 @@ interface ImageSectionProps {
   onImageLongPress: () => void
 }
 
-export const ImageSection = ({
+export function ImageSection({
   imageUri,
   isOpenCard,
   isPressed,
   onImageLongPress,
-}: ImageSectionProps) => {
+}: ImageSectionProps) {
   if (!Array.isArray(imageUri) || imageUri.length === 0) {
     return null
   }

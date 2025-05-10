@@ -15,34 +15,32 @@ interface Props {
   dateCount: DateCount
 }
 
-export const WeekDay = memo(
-  ({ selectedDate, onSelectedDateChange, dateCount }: Props) => {
-    const { t } = useTranslation()
+function _WeekDay({ selectedDate, onSelectedDateChange, dateCount }: Props) {
+  const { t } = useTranslation()
 
-    return (
-      <Delay delay={DelayMS.ANIMATION.MEDIUM[2]}>
-        <OuterGradientBox>
-          <InnerGradientBox>
-            <CurrentMonthBox>
-              <CurrentMonthText>
-                {t(
-                  `calendar.months.${DateUtils.getMonthKey(new Date().getMonth())}`,
-                )}
-                .
-              </CurrentMonthText>
-            </CurrentMonthBox>
+  return (
+    <Delay delay={DelayMS.ANIMATION.MEDIUM[2]}>
+      <OuterGradientBox>
+        <InnerGradientBox>
+          <CurrentMonthBox>
+            <CurrentMonthText>
+              {t(
+                `calendar.months.${DateUtils.getMonthKey(new Date().getMonth())}`,
+              )}
+              .
+            </CurrentMonthText>
+          </CurrentMonthBox>
 
-            <HorizontalCalendar
-              selectedDate={selectedDate}
-              onSelectedDateChange={onSelectedDateChange}
-              dateCount={dateCount}
-            />
-          </InnerGradientBox>
-        </OuterGradientBox>
-      </Delay>
-    )
-  },
-)
+          <HorizontalCalendar
+            selectedDate={selectedDate}
+            onSelectedDateChange={onSelectedDateChange}
+            dateCount={dateCount}
+          />
+        </InnerGradientBox>
+      </OuterGradientBox>
+    </Delay>
+  )
+}
 
 const OuterGradientBox = styled(LinearGradient, {
   p: '$1.5',
@@ -67,3 +65,7 @@ const CurrentMonthBox = styled(XStack, {
 const CurrentMonthText = styled(H1, {
   color: '$gray1',
 })
+
+export const WeekDay = memo(_WeekDay)
+
+WeekDay.displayName = 'WeekDay'

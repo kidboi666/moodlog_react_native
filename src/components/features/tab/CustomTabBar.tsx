@@ -13,7 +13,7 @@ import {
 } from './CustomTabBarItems'
 import { WriteButton } from './WriteButton'
 
-export const CustomTabBar = () => {
+export function CustomTabBar() {
   const pathname = usePathname()
   const insets = useSafeAreaInsets()
   const router = useRouter()

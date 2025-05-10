@@ -5,7 +5,7 @@ import { MoodPagination } from '@/components/features/mood'
 import { PaginationDot } from '@/components/shared'
 import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants'
 import { useStepProgress } from '@/store'
-import { JournalDraft, Mood, Moods } from '@/types'
+import { JournalDraft, Moods } from '@/types'
 import { EnhancedTextInput } from './EnhancedTextInput'
 import { MoodListPreview } from './MoodListPreview'
 
@@ -19,7 +19,7 @@ interface Props {
   onImageUriRemove: (imageUris: string[], index: number) => void
 }
 
-export const MainRecordFlow = ({
+export function MainRecordFlow({
   moods,
   selectedMoodId,
   onMoodIdChange,
@@ -27,18 +27,20 @@ export const MainRecordFlow = ({
   onContentChange,
   onImageUriChange,
   onImageUriRemove,
-}: Props) => {
+}: Props) {
   const {
     state: { currentStep },
   } = useStepProgress()
   const [[page, totalPage], setPage] = useState([0, 0])
 
   useEffect(() => {
+    if (!moods) return
+
     const newTotalPage = Object.entries(moods).length || 0
     setPage(prev => [prev[0] < newTotalPage ? prev[0] : 0, newTotalPage])
 
     if (newTotalPage > 0 && !draft.moodId) {
-      onMoodIdChange(moods![0].id)
+      onMoodIdChange(moods?.[0]?.id)
     }
   }, [moods, onMoodIdChange])
 

@@ -4,7 +4,7 @@ import { View, styled } from 'tamagui'
 
 import { BaseText, H5 } from '@/components/shared'
 
-export const EmptyContent = memo(() => {
+function _EmptyContent() {
   const { t } = useTranslation()
 
   return (
@@ -13,7 +13,7 @@ export const EmptyContent = memo(() => {
       <BaseText>{t('statistics.empty.description')}</BaseText>
     </Container>
   )
-})
+}
 
 const Container = styled(View, {
   flex: 1,
@@ -26,4 +26,5 @@ const Container = styled(View, {
   exitStyle: { opacity: 0 },
 })
 
+export const EmptyContent = memo(_EmptyContent)
 EmptyContent.displayName = 'EmptyContent'

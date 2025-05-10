@@ -6,7 +6,7 @@ import { Delay, H1, H3, H4, ShakeEmoji } from '@/components/shared'
 import { DelayMS } from '@/constants'
 import { useAuth } from '@/store'
 
-export const WelcomeZone = memo(() => {
+function _WelcomeZone() {
   const { t } = useTranslation()
   const userName = useAuth(state => state.session?.user.user_metadata.user_name)
 
@@ -24,4 +24,8 @@ export const WelcomeZone = memo(() => {
       </Delay>
     </Fragment>
   )
-})
+}
+
+export const WelcomeZone = memo(_WelcomeZone)
+
+WelcomeZone.displayName = 'WelcomeZone'

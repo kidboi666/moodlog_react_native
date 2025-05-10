@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase'
 import { AuthError } from '@supabase/supabase-js'
 import { useRouter } from 'expo-router'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
 import { Separator, XStack, YStack } from 'tamagui'
@@ -30,7 +30,7 @@ interface LoginStatus {
   isAuthenticated: boolean
 }
 
-export const SignInModal = () => {
+function _SignInModal() {
   const { t } = useTranslation()
   const router = useRouter()
   const { showBottomSheet, hideBottomSheet } = useBottomSheet()
@@ -160,3 +160,7 @@ export const SignInModal = () => {
     </BottomSheetContainer>
   )
 }
+
+export const SignInModal = memo(_SignInModal)
+
+SignInModal.displayName = 'SignInModal'

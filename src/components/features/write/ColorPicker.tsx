@@ -12,12 +12,12 @@ interface Props {
   show: boolean
 }
 
-export const ColorPicker = ({
+export function ColorPicker({
   moodColor,
   onMoodColorChange,
   width,
   show,
-}: Props) => {
+}: Props) {
   const height = show ? undefined : 0
 
   const onSelectColor = (color: ColorFormatsObject) => {

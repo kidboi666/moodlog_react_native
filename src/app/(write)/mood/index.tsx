@@ -1,8 +1,6 @@
 import { Check } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
-import { useEffect } from 'react'
 import {
-  Keyboard,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -23,20 +21,8 @@ export default function CreateMoodScreen() {
   const router = useRouter()
   const { width } = useWindowDimensions()
   const { currentStep, onLeftPress, onRightPress, position } = useScrollMood()
-  const {
-    mood,
-    isSuccess,
-    onMoodColorChange,
-    onMoodNameChange,
-    onIsSuccessChange,
-  } = useMoodForm()
-  const { mutate: onSubmit } = useAddMood(onIsSuccessChange)
-
-  useEffect(() => {
-    if (currentStep === 0) {
-      Keyboard.dismiss()
-    }
-  }, [currentStep])
+  const { mood, isSuccess, onMoodColorChange, onMoodNameChange } = useMoodForm()
+  const { mutate: onSubmit } = useAddMood()
 
   return (
     <ViewContainer

@@ -13,14 +13,14 @@ interface Props {
   journalCount: number
 }
 
-export const HorizontalCalendarContent = ({
+export function HorizontalCalendarContent({
   selected,
   today,
   onPress,
   futureDateColor,
   date,
   journalCount,
-}: Props) => {
+}: Props) {
   return (
     <DateContainer isSelected={selected} isToday={today} onPress={onPress}>
       <DateWrapper>

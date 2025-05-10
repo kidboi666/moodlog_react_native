@@ -14,7 +14,7 @@ import { FullScreenSpinner, StatusBar } from '@/components/shared'
 import { useAppTheme } from '@/store'
 import { MainStack } from './MainStack'
 
-export const AppNavigator = () => {
+export function AppNavigator() {
   const { resolvedTheme } = useAppTheme()
   const theme = useTheme()
 

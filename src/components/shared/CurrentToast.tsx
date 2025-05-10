@@ -3,7 +3,7 @@ import { YStack, styled } from 'tamagui'
 
 import { useAppTheme } from '@/store'
 
-export const CurrentToast = () => {
+export function CurrentToast() {
   const currentToast = useToastState()
   const { currentTheme } = useAppTheme()
 

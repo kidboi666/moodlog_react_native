@@ -10,7 +10,6 @@ import React, {
 import { useTranslation } from 'react-i18next'
 import { Alert, TouchableOpacity } from 'react-native'
 import {
-  Button,
   type Input,
   ScrollView,
   Image as TamaguiImage,
@@ -19,7 +18,7 @@ import {
   styled,
 } from 'tamagui'
 
-import { FormInputArea } from '@/components/shared'
+import { FormInputArea, PressableButton } from '@/components/shared'
 import { DelayMS, Layout, MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants'
 import { useCustomFont } from '@/hooks'
 import { useStepProgress } from '@/store'
@@ -35,14 +34,14 @@ interface Props {
   onImageUriRemove: (imageUri: string[], index: number) => void
 }
 
-export const EnhancedTextInput = ({
+export function EnhancedTextInput({
   show,
   contentValue,
   onContentChange,
   imageUri,
   onImageUriChange,
   onImageUriRemove,
-}: Props) => {
+}: Props) {
   const { t } = useTranslation()
   const toast = useToastController()
   const deferredLength = useDeferredValue(contentValue.length)
@@ -134,10 +133,8 @@ export const EnhancedTextInput = ({
           </ScrollView>
         </ImageContainer>
       )}
-      <Button
-        noTextWrap
+      <PressableButton
         self='flex-end'
-        color='$color11'
         scaleIcon={1.5}
         onPress={onImageUriChange}
         icon={ImagePlus}

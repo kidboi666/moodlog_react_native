@@ -8,7 +8,7 @@ interface Props {
   value: string | number | null | undefined
 }
 
-export const ProfileMenuItem = ({ title, value }: Props) => {
+export function ProfileMenuItem({ title, value }: Props) {
   const { t } = useTranslation()
 
   return (

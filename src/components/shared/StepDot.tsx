@@ -2,7 +2,7 @@ import { View, XStack, styled } from 'tamagui'
 
 import { useStepProgress } from '@/store'
 
-export const StepDot = () => {
+export function StepDot() {
   const {
     state: { currentStep, totalSteps },
   } = useStepProgress()

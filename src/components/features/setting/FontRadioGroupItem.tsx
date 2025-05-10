@@ -9,7 +9,7 @@ interface Props {
   onValueChange: (value: string) => void
 }
 
-export const FontRadioGroupItem = ({ value, label, onValueChange }: Props) => {
+export function FontRadioGroupItem({ value, label, onValueChange }: Props) {
   const computedFontFamily =
     `$${value}` as unknown as GetThemeValueForKey<'fontFamily'>
   return (

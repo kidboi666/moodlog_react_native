@@ -6,7 +6,7 @@ interface Props {
   show: boolean
 }
 
-export const PaginationDot = ({ show, page, totalPage }: Props) => {
+export function PaginationDot({ show, page, totalPage }: Props) {
   if (!show) {
     return null
   }

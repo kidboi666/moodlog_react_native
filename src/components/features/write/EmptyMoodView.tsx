@@ -5,7 +5,7 @@ import { YStack, styled } from 'tamagui'
 
 import { H3, PressableButton } from '@/components/shared'
 
-export const EmptyMoodView = () => {
+export function EmptyMoodView() {
   const router = useRouter()
   const { t } = useTranslation()
 

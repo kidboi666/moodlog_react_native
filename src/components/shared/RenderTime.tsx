@@ -5,7 +5,7 @@ import { TimeFormat } from '@/types'
 import { BaseText } from './BaseText'
 
 interface Props extends TextProps {
-  createdAt: string | number
+  createdAt?: string
 }
 
 export const RenderTime = Text.styleable<Props>(

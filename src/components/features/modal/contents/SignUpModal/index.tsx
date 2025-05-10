@@ -1,6 +1,6 @@
 import { supabase } from '@/lib/supabase'
 import { useRouter } from 'expo-router'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
 import { Separator, XStack, YStack } from 'tamagui'
@@ -12,7 +12,7 @@ import { BottomSheetType } from '@/types'
 import { CommonUtils } from '@/utils'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 
-export const SignUpModal = () => {
+function _SignUpModal() {
   const { t } = useTranslation()
   const router = useRouter()
   const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
@@ -164,3 +164,7 @@ export const SignUpModal = () => {
     </BottomSheetContainer>
   )
 }
+
+export const SignUpModal = memo(_SignUpModal)
+
+SignUpModal.displayName = 'SignUpModal'

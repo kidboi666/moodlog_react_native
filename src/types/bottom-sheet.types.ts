@@ -9,8 +9,6 @@ export enum BottomSheetType {
 export type BottomSheetProps = {
   [BottomSheetType.DELETE_JOURNAL]: {
     journalId: string
-    isLoading: boolean
-    onDelete: (journalId: string) => void
     hideBottomSheet: () => void
   }
   [BottomSheetType.SIGN_UP]: {}

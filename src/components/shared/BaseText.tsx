@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react'
-import { memo } from 'react'
 import { Text, type TextProps } from 'tamagui'
 
 import { useCustomFont, useFontSizeAdjustment } from '@/hooks'
@@ -8,7 +7,7 @@ interface Props extends TextProps {
   children: ReactNode
 }
 
-export const StyledBaseText = Text.styleable<Props>(
+export const BaseText = Text.styleable<Props>(
   ({ children, themeInverse, color, fontSize, ...props }, ref) => {
     const { fontNameWithTokenPrefix } = useCustomFont()
     const defaultFontSize = useFontSizeAdjustment('$5')
@@ -28,7 +27,5 @@ export const StyledBaseText = Text.styleable<Props>(
     )
   },
 )
-
-export const BaseText = memo(StyledBaseText)
 
 BaseText.displayName = 'BaseText'

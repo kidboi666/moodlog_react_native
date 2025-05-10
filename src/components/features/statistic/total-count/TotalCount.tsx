@@ -12,7 +12,7 @@ interface Props {
   selectedMonth: ISOMonthString
 }
 
-export const TotalCount = ({ selectedYear, selectedMonth }: Props) => {
+export function TotalCount({ selectedYear, selectedMonth }: Props) {
   const { stats } = useJournalStats(
     TimeRange.YEARLY,
     selectedYear,

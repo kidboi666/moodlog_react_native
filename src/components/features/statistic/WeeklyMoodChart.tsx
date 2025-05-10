@@ -21,7 +21,7 @@ interface Props {
   selectedMonth: ISOMonthString
 }
 
-export const WeeklyMoodChart = ({ selectedMonth }: Props) => {
+export function WeeklyMoodChart({ selectedMonth }: Props) {
   const now = new Date()
   const date = now.getDate()
   const dateString = DateUtils.getISODateFromMonthString(selectedMonth, date)

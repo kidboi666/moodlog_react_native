@@ -6,11 +6,11 @@ interface Props {
   variant?: 'default' | 'contained'
 }
 
-export const DateCountDot = ({
+export function DateCountDot({
   journalCount,
   isSelected,
   variant = 'default',
-}: Props) => {
+}: Props) {
   if (!journalCount) return null
   return (
     <DotContainer>

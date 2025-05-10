@@ -8,14 +8,14 @@ interface Props {
   month: string
 }
 
-export const GardenMonthUnits = memo(({ month }: Props) => {
+function _GardenMonthUnits({ month }: Props) {
   const { t } = useTranslation()
   return (
     <ViewContainer>
       <MonthText>{t(`calendar.months.${month}`)}</MonthText>
     </ViewContainer>
   )
-})
+}
 
 const ViewContainer = styled(View, {
   height: '$2',
@@ -26,3 +26,7 @@ const MonthText = styled(H6, {
   fontWeight: '500',
   color: '$color10',
 })
+
+export const GardenMonthUnits = memo(_GardenMonthUnits)
+
+GardenMonthUnits.displayName = 'GardenMonthUnits'

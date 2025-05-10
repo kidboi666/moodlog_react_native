@@ -4,6 +4,7 @@ import { FlatList, useWindowDimensions } from 'react-native'
 import { Button, View, styled } from 'tamagui'
 
 import { MoodPreviewItem } from '@/components/features/mood'
+import { PressableButton } from '@/components/shared'
 import { Layout, PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants'
 import { useDeleteMood } from '@/hooks'
 import { Moods } from '@/types'
@@ -18,7 +19,7 @@ interface Props {
   onMoodIdChange: (moodId: string) => void
 }
 
-export const MoodListPreview = ({
+export function MoodListPreview({
   moods,
   page,
   selectedMoodId,
@@ -26,7 +27,7 @@ export const MoodListPreview = ({
   totalPage,
   scrollEnabled,
   onMoodIdChange,
-}: Props) => {
+}: Props) {
   const { width } = useWindowDimensions()
   const { openDeleteSheet } = useDeleteMood()
   const flatListRef = useRef<FlatList<any>>(null)
@@ -44,14 +45,13 @@ export const MoodListPreview = ({
 
   return (
     <Container>
-      <Button
+      <PressableButton
         self='flex-end'
         position='absolute'
         animation='quick'
         pressStyle={PRESS_STYLE}
         animateOnly={PRESS_STYLE_KEY}
         r={Layout.SPACE.CONTAINER_HORIZONTAL_PADDING}
-        color='$color11'
         scaleIcon={1.5}
         icon={Trash}
         z={100_000}

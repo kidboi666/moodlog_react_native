@@ -11,7 +11,7 @@ interface Props {
   show: boolean
 }
 
-export const ActionButtons = memo(({ onImageUriChange, show }: Props) => {
+function _ActionButtons({ onImageUriChange, show }: Props) {
   const { t } = useTranslation()
 
   if (!show) {
@@ -29,7 +29,7 @@ export const ActionButtons = memo(({ onImageUriChange, show }: Props) => {
       </XGroup>
     </Container>
   )
-})
+}
 
 const Container = styled(View, {
   animation: 'lazy',
@@ -37,3 +37,7 @@ const Container = styled(View, {
   animateOnly: MOUNT_STYLE_KEY,
   items: 'flex-end',
 })
+
+export const ActionButtons = memo(_ActionButtons)
+
+ActionButtons.displayName = 'ActionButtons'

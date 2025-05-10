@@ -11,7 +11,7 @@ interface Props {
   onMoodNameChange: (text: string) => void
 }
 
-export const MoodNameForm = ({ width, moodName, onMoodNameChange }: Props) => {
+export function MoodNameForm({ width, moodName, onMoodNameChange }: Props) {
   const { t } = useTranslation()
   const toast = useToastController()
 

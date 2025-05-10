@@ -11,7 +11,7 @@ interface Props {
   scoreBoard: ScoreBoard
 }
 
-export const MoodAverageExpandedContent = ({ scoreBoard }: Props) => {
+export function MoodAverageExpandedContent({ scoreBoard }: Props) {
   const { t } = useTranslation()
   const moods = useMood(state => state.moods)
 

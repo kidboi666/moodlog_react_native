@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router'
 import { useTheme } from 'tamagui'
 
-export const MainStack = () => {
+export function MainStack() {
   const theme = useTheme()
 
   const screenOptions = {
