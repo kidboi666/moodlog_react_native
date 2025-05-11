@@ -1,12 +1,12 @@
 import { memo } from 'react'
 import { YStack } from 'tamagui'
 
-import type { ISOMonthString, MonthKey } from '@/types'
+import type { ISOMonthString, Journal, MonthKey } from '@/types'
 import { Garden } from './Garden'
 import { GardenMonthUnits } from './GardenMonthUnits'
 
 interface Props {
-  selectedMonth: ISOMonthString
+  journals: Journal[]
   monthKey: MonthKey
   weekLength: number
   firstDateDay: number
@@ -15,7 +15,7 @@ interface Props {
 }
 
 function _MonthItemContent({
-  selectedMonth,
+  journals,
   monthKey,
   weekLength,
   firstDateDay,
@@ -26,7 +26,7 @@ function _MonthItemContent({
     <YStack>
       <GardenMonthUnits month={monthKey} />
       <Garden
-        selectedMonth={selectedMonth}
+        journals={journals}
         weekLength={weekLength}
         firstDateDay={firstDateDay}
         monthDate={monthDate}

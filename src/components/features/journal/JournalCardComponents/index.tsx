@@ -82,31 +82,29 @@ export function JournalCard({
 
   return (
     <Fragment>
-      <CardContainer>
-        <ActionButton
-          showActionButton={showActionButton}
-          onPress={handleDeleteSheetOpen}
-        />
+      <ActionButton
+        showActionButton={showActionButton}
+        onPress={handleDeleteSheetOpen}
+      />
 
-        <GestureWrapper gesture={gesture}>
-          <AnimatedCard onPress={handlePress} style={animatedStyle}>
-            <CardContent
-              content={content}
-              createdAt={createdAt}
-              mood={mood}
-              showActionButton={showActionButton}
-              toggleState={toggleState}
-            />
+      <GestureWrapper gesture={gesture}>
+        <AnimatedCard onPress={handlePress} style={animatedStyle}>
+          <CardContent
+            content={content}
+            createdAt={createdAt}
+            mood={mood}
+            showActionButton={showActionButton}
+            toggleState={toggleState}
+          />
 
-            <ImageSection
-              imageUri={imageUri}
-              showActionButton={showActionButton}
-              isPressed={isPressed}
-              onImageLongPress={handleImageLongPress}
-            />
-          </AnimatedCard>
-        </GestureWrapper>
-      </CardContainer>
+          <ImageSection
+            imageUri={imageUri}
+            showActionButton={showActionButton}
+            isPressed={isPressed}
+            onImageLongPress={handleImageLongPress}
+          />
+        </AnimatedCard>
+      </GestureWrapper>
 
       <FullScreenImageModal
         visible={modalVisible}
@@ -116,12 +114,6 @@ export function JournalCard({
     </Fragment>
   )
 }
-
-const CardContainer = styled(View, {
-  animation: 'quick',
-  enterStyle: MOUNT_STYLE,
-})
-
 const Card = styled(TamaguiCard, {
   group: true,
   animation: 'medium',

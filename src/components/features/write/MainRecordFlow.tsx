@@ -50,6 +50,7 @@ export function MainRecordFlow({
         <ZStackContainer>
           <MoodListPreview
             moods={moods}
+            showDeleteButton={currentStep === 0}
             scrollEnabled={currentStep === 0}
             onMoodIdChange={onMoodIdChange}
             page={page}

@@ -10,11 +10,9 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { PinchGestureHandler, State } from 'react-native-gesture-handler'
-import { Button, View } from 'tamagui'
+import { Button, View, styled } from 'tamagui'
 
 import { Maybe } from '@/types'
-
-const { width, height } = Dimensions.get('window')
 
 interface Props {
   visible: boolean
@@ -26,7 +24,6 @@ function _FullScreenImageModal({ visible, imageUri, onClose }: Props) {
   const [currentScale, setCurrentScale] = useState(1)
   const scale = useRef(new Animated.Value(1)).current
   const pinchRef = useRef(null)
-
   const resetScale = () => {
     Animated.timing(scale, {
       toValue: 1,
@@ -34,7 +31,6 @@ function _FullScreenImageModal({ visible, imageUri, onClose }: Props) {
       useNativeDriver: true,
     }).start(() => setCurrentScale(1))
   }
-
   const zoomIn = () => {
     Animated.timing(scale, {
       toValue: 2,
@@ -42,7 +38,6 @@ function _FullScreenImageModal({ visible, imageUri, onClose }: Props) {
       useNativeDriver: true,
     }).start(() => setCurrentScale(2))
   }
-
   const onPinchGestureEvent = Animated.event(
     [{ nativeEvent: { scale: scale } }],
     { useNativeDriver: true },
@@ -53,13 +48,11 @@ function _FullScreenImageModal({ visible, imageUri, onClose }: Props) {
       const newScale = currentScale * (event.nativeEvent.scale || 1)
       setCurrentScale(newScale)
       scale.setValue(newScale)
-
       if (newScale < 0.9) {
         resetScale()
       }
     }
   }
-
   const handleLongPress = () => {
     if (currentScale !== 1) {
       resetScale()
@@ -67,7 +60,6 @@ function _FullScreenImageModal({ visible, imageUri, onClose }: Props) {
       zoomIn()
     }
   }
-
   return (
     <Modal
       visible={visible}
@@ -76,7 +68,7 @@ function _FullScreenImageModal({ visible, imageUri, onClose }: Props) {
       statusBarTranslucent={true}
       onRequestClose={onClose}
     >
-      <View flex={1} bg='rgba(0, 0, 0, 0.9)' justify='center' items='center'>
+      <ModalContainer>
         <StatusBar hidden={Platform.OS === 'ios'} />
 
         <Button
@@ -117,10 +109,12 @@ function _FullScreenImageModal({ visible, imageUri, onClose }: Props) {
             </TouchableOpacity>
           </Animated.View>
         </PinchGestureHandler>
-      </View>
+      </ModalContainer>
     </Modal>
   )
 }
+
+const { width, height } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   fullImage: {
@@ -129,6 +123,13 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
     maxHeight: '100%',
   },
+})
+
+const ModalContainer = styled(View, {
+  flex: 1,
+  bg: 'rgba(0, 0, 0, 0.9)',
+  justify: 'center',
+  items: 'center',
 })
 
 export const FullScreenImageModal = memo(_FullScreenImageModal)

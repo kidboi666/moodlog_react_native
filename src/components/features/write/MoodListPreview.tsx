@@ -1,11 +1,17 @@
 import { Trash } from '@tamagui/lucide-icons'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { FlatList, useWindowDimensions } from 'react-native'
-import { Button, View, styled } from 'tamagui'
+import { AnimatePresence, Button, View, styled } from 'tamagui'
 
 import { MoodPreviewItem } from '@/components/features/mood'
 import { PressableButton } from '@/components/shared'
-import { Layout, PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants'
+import {
+  Layout,
+  MOUNT_STYLE,
+  MOUNT_STYLE_KEY,
+  PRESS_STYLE,
+  PRESS_STYLE_KEY,
+} from '@/constants'
 import { useDeleteMood } from '@/hooks'
 import { Moods } from '@/types'
 
@@ -15,12 +21,14 @@ interface Props {
   selectedMoodId?: string
   setPage: Dispatch<SetStateAction<[number, number]>>
   totalPage: number
+  showDeleteButton: boolean
   scrollEnabled: boolean
   onMoodIdChange: (moodId: string) => void
 }
 
 export function MoodListPreview({
   moods,
+  showDeleteButton,
   page,
   selectedMoodId,
   setPage,
@@ -45,18 +53,24 @@ export function MoodListPreview({
 
   return (
     <Container>
-      <PressableButton
-        self='flex-end'
-        position='absolute'
-        animation='quick'
-        pressStyle={PRESS_STYLE}
-        animateOnly={PRESS_STYLE_KEY}
-        r={Layout.SPACE.CONTAINER_HORIZONTAL_PADDING}
-        scaleIcon={1.5}
-        icon={Trash}
-        z={100_000}
-        onPress={() => openDeleteSheet(selectedMoodId ?? '')}
-      />
+      <AnimatePresence>
+        {showDeleteButton && (
+          <PressableButton
+            self='flex-end'
+            position='absolute'
+            animation='quick'
+            pressStyle={PRESS_STYLE}
+            enterStyle={MOUNT_STYLE}
+            exitStyle={MOUNT_STYLE}
+            animateOnly={[...PRESS_STYLE_KEY, ...MOUNT_STYLE_KEY]}
+            r={Layout.SPACE.CONTAINER_HORIZONTAL_PADDING}
+            scaleIcon={1.5}
+            icon={Trash}
+            z={100_000}
+            onPress={() => openDeleteSheet(selectedMoodId ?? '')}
+          />
+        )}
+      </AnimatePresence>
 
       <FlatList
         ref={flatListRef}

@@ -1,10 +1,11 @@
 import { memo } from 'react'
 import { Button, styled } from 'tamagui'
 
-import type { ISOMonthString, MonthKey } from '@/types'
+import type { ISOMonthString, Journal, MonthKey } from '@/types'
 import { MonthItemContent } from './MonthItemContent'
 
 interface Props {
+  journals: Journal[]
   monthKey: MonthKey
   lastDate: number
   monthDate: ISOMonthString
@@ -12,16 +13,15 @@ interface Props {
   weekLength: number
   isSelected: boolean
   onMonthPress: (monthDate: ISOMonthString) => void
-  selectedMonth: ISOMonthString
 }
 
 function _MonthItem({
+  journals,
   monthKey,
   monthDate,
   lastDate,
   firstDateDay,
   weekLength,
-  selectedMonth,
   isSelected,
   onMonthPress,
 }: Props) {
@@ -32,7 +32,7 @@ function _MonthItem({
       onPress={() => onMonthPress(monthDate)}
     >
       <MonthItemContent
-        selectedMonth={selectedMonth}
+        journals={journals}
         monthKey={monthKey}
         weekLength={weekLength}
         firstDateDay={firstDateDay}
@@ -50,8 +50,6 @@ const MonthItemButton = styled(Button, {
   scale: 1,
   opacity: 0.4,
   position: 'relative',
-  animation: 'lazy',
-  animateOnly: ['opacity'],
 
   variants: {
     isSelected: {

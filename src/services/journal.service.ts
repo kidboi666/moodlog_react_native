@@ -49,10 +49,23 @@ export class JournalService {
 
   static async getJournals(
     timeRange: TimeRange,
-    date: ISOString,
+    date: ISOString | number,
   ): Promise<SelectJournal[]> {
     let result: SelectJournal[]
-    if (timeRange === TimeRange.MONTHLY) {
+    if (timeRange === TimeRange.YEARLY) {
+      const yearDate = date as number
+      const firstDate = DateUtils.getFirstISODateFromYear(yearDate)
+      const lastDate = DateUtils.getLastISODateFromYear(yearDate)
+      result = await db.query.journals.findMany({
+        where: and(
+          gte(journals.localDate, firstDate),
+          lte(journals.localDate, lastDate),
+        ),
+        with: {
+          mood: true,
+        },
+      })
+    } else if (timeRange === TimeRange.MONTHLY) {
       const monthDate = date as ISOMonthString
       const firstDate = DateUtils.getISODateFromMonthString(monthDate, 1)
       const lastDate = DateUtils.getLastDate(monthDate)

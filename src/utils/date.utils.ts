@@ -109,7 +109,7 @@ export class DateUtils {
   static getLastDate(date: ISOMonthString): ISODateString {
     const year = Number(date.split('-')[0])
     const month = Number(date.split('-')[1])
-    return `${year}-${month}-${new Date(year, month, 0)}` as ISODateString
+    return `${date}-${new Date(year, month, 0).getDate()}` as ISODateString
   }
 
   /**
@@ -210,5 +210,20 @@ export class DateUtils {
   static isISODateString(date: ISOString) {
     const parts = date.split('-')
     return parts.length === 3
+  }
+
+  /**
+   * 년도를 받아 1월 1일 의 YYYY-MM-DD 형식의 날짜 반환
+   */
+  static getFirstISODateFromYear(year: number) {
+    return `${year}-01-01` as ISODateString
+  }
+
+  /**
+   * 년도를 받아 12월 마지막 날 의 YYYY-MM-DD 형식의 날짜 반환
+   */
+  static getLastISODateFromYear(year: number) {
+    const date = new Date(year + 1, 0, 0)
+    return `${year}-${date.getMonth() + 1}-${date.getDate()}` as ISODateString
   }
 }

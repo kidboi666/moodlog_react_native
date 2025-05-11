@@ -9,7 +9,8 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
-    "gen": "drizzle-kit generate"
+    "gen": "drizzle-kit generate",
+    "seed": "npx tsx db/seed.ts"
   },
   "jest": {
     "preset": "jest-expo"

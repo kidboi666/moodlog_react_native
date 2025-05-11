@@ -32,10 +32,10 @@ export class JournalQueries {
     })
   }
 
-  static getJournals(timeRange: TimeRange, date: ISOString) {
+  static getJournals(timeRange: TimeRange, dateOrYear: ISOString | number) {
     return queryOptions({
-      queryKey: queryKeys.get.journals(timeRange, date),
-      queryFn: () => JournalService.getJournals(timeRange, date),
+      queryKey: queryKeys.get.journals(timeRange, dateOrYear),
+      queryFn: () => JournalService.getJournals(timeRange, dateOrYear),
       select: journals =>
         journals?.map(journal => ({
           ...journal,
@@ -44,7 +44,7 @@ export class JournalQueries {
             ? (JSON.parse(journal.imageUri) as Maybe<string[]>)
             : null,
         })),
-      enabled: !!date,
+      enabled: !!dateOrYear,
     })
   }
 }
