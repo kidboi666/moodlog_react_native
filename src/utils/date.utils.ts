@@ -2,6 +2,7 @@ import { MONTHS, WEEK_DAY } from '@/constants'
 import type {
   ISODateString,
   ISOMonthString,
+  ISOString,
   MonthKey,
   WeekDayValue,
 } from '@/types'
@@ -105,7 +106,16 @@ export class DateUtils {
   /**
    * 특정 월의 마지막 날짜(일) 반환
    */
-  static getLastDate(year: number, month: number | string): number {
+  static getLastDate(date: ISOMonthString): ISODateString {
+    const year = Number(date.split('-')[0])
+    const month = Number(date.split('-')[1])
+    return `${year}-${month}-${new Date(year, month, 0)}` as ISODateString
+  }
+
+  /**
+   * 특정 월의 마지막 날짜(일) 반환
+   */
+  static getLastDateOfMonth(year: number, month: number | string): number {
     if (typeof month === 'number') {
       return new Date(year, month, 0).getDate()
     }
@@ -115,7 +125,7 @@ export class DateUtils {
   /**
    * 특정 월의 1일의 요일의 인덱스 반환
    */
-  static getFirstDateDay(year: number, month: number | string): number {
+  static getFirstDay(year: number, month: number | string): number {
     let firstDay: number
     if (typeof month === 'number') {
       firstDay = new Date(year, month, 1).getDay()
@@ -129,8 +139,8 @@ export class DateUtils {
    * 특정 월의 주 수 반환
    */
   static getWeekLength(year: number, month: any): number {
-    const firstDateDay = DateUtils.getFirstDateDay(year, month)
-    const lastDate = DateUtils.getLastDate(year, month)
+    const firstDateDay = DateUtils.getFirstDay(year, month)
+    const lastDate = DateUtils.getLastDateOfMonth(year, month)
     return Math.ceil((lastDate + firstDateDay) / 7)
   }
 
@@ -194,23 +204,11 @@ export class DateUtils {
   }
 
   /**
-   * 인수로 받은 YYYY-MM-DD 의 첫째날 YYYY-MM-DD 반환
-   */
-  static getFirstDateString(date: ISODateString): string {
-    const dateObj = new Date(date)
-    const year = dateObj.getFullYear()
-    const month = dateObj.getMonth() + 1
-    return `${year}-${month.toString().padStart(2, '0')}-01`
-  }
-
-  /**
-   * 인수로 받은 YYYY-MM-DD 의 마지막날 YYYY-MM-DD 반환
+   * YYYY-MM-DD 형식인지 검증
    * @param date
    */
-  static getLastDateString(date: ISOMonthString): string {
-    const year = Number(date.substring(0, 4))
-    const month = Number(date.substring(5, 7))
-    const lastDate = new Date(year, month, 0).getDate()
-    return `${date}-${lastDate}`
+  static isISODateString(date: ISOString) {
+    const parts = date.split('-')
+    return parts.length === 3
   }
 }

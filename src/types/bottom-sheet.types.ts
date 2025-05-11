@@ -1,3 +1,5 @@
+import { ISOString } from './date.types'
+
 export enum BottomSheetType {
   DELETE_JOURNAL = 'DELETE_JOURNAL',
   SIGN_UP = 'SIGN_UP',
@@ -10,6 +12,7 @@ export type BottomSheetProps = {
   [BottomSheetType.DELETE_JOURNAL]: {
     journalId: string
     hideBottomSheet: () => void
+    localDate: ISOString
   }
   [BottomSheetType.SIGN_UP]: {}
   [BottomSheetType.SIGN_IN]: {}

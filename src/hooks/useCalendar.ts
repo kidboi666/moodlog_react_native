@@ -7,8 +7,7 @@ import { DateUtils } from '@/utils'
 export const useCalendar = () => {
   const now = new Date()
   const todayString: ISODateString = CalendarUtils.getCalendarDateString(now)
-  const [selectedDate, setSelectedDate] =
-    useState<Maybe<ISODateString>>(todayString)
+  const [selectedDate, setSelectedDate] = useState<ISODateString>(todayString)
   const [selectedMonth, setSelectedMonth] = useState<Maybe<ISOMonthString>>(
     todayString.substring(0, 7) as ISOMonthString,
   )
@@ -19,7 +18,7 @@ export const useCalendar = () => {
     DateUtils.getThisWeekIndex(todayString),
   )
 
-  const handleSelectedDateChange = useCallback((date: Maybe<ISODateString>) => {
+  const handleSelectedDateChange = useCallback((date: ISODateString) => {
     setSelectedDate(date)
   }, [])
 

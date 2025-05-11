@@ -1,12 +1,19 @@
 import { useRouter } from 'expo-router'
-import { Fragment, memo, useCallback, useState } from 'react'
+import { Fragment, useState } from 'react'
 import Animated from 'react-native-reanimated'
-import { Card, View, styled } from 'tamagui'
+import { Card as TamaguiCard, View, styled } from 'tamagui'
 
 import { FullScreenImageModal } from '@/components/features/modal/contents'
-import { DelayMS, MOUNT_STYLE, PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants'
-import { useAxisAnimationWithState, useCardGesture } from '@/hooks'
-import { Maybe, Mood, Position } from '@/types'
+import {
+  DelayMS,
+  Layout,
+  MOUNT_STYLE,
+  PRESS_STYLE,
+  PRESS_STYLE_KEY,
+} from '@/constants'
+import { useCardGesture } from '@/hooks'
+import { useBottomSheet } from '@/store'
+import { BottomSheetType, ISODateString, ISOString, Maybe, Mood } from '@/types'
 import { ActionButton } from './ActionButton'
 import { CardContent } from './CardContent'
 import { ImageSection } from './ImageSection'
@@ -14,126 +21,108 @@ import { ImageSection } from './ImageSection'
 interface Props {
   content: Maybe<string>
   journalId: string
+  localDate: ISOString
   createdAt: string
-  imageUri: string[]
+  imageUri: Maybe<string[]>
   mood: Mood
-  openDeleteSheet: (id: string) => void
 }
 
-export const JournalCard = memo(
-  ({
-    content,
-    journalId,
-    createdAt,
-    imageUri,
-    mood,
-    openDeleteSheet,
-  }: Props) => {
-    const router = useRouter()
-    const [modalVisible, setModalVisible] = useState(false)
-    const {
-      state: cardPosition,
-      animatedStyle,
-      toggleState,
-      changeStateByCondition,
-      updateTranslate,
-      handleGestureEnd,
-    } = useAxisAnimationWithState('x', {
-      defaultState: Position.CENTER,
-      nextState: Position.LEFT,
-      startValue: 0,
-      endValue: -80,
-      duration: 300,
+export function JournalCard({
+  content,
+  journalId,
+  localDate,
+  createdAt,
+  imageUri,
+  mood,
+}: Props) {
+  const router = useRouter()
+  const {
+    gesture,
+    GestureWrapper,
+    animatedStyle,
+    showActionButton,
+    toggleState,
+  } = useCardGesture()
+  const [modalVisible, setModalVisible] = useState(false)
+  const [isPressed, setIsPressed] = useState(false)
+  const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
+  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
+
+  const handleDeleteSheetOpen = () => {
+    showBottomSheet(BottomSheetType.DELETE_JOURNAL, Layout.SNAP_POINTS.DELETE, {
+      journalId,
+      localDate,
+      hideBottomSheet,
     })
-    const [isPressed, setIsPressed] = useState(false)
-
-    const isOpenCard = cardPosition === Position.LEFT
-
-    const handleSwipeLeft = useCallback(() => {
-      if (cardPosition === Position.CENTER) {
-        changeStateByCondition(true)
-      }
-    }, [cardPosition, toggleState])
-
-    const handleSwipeRight = useCallback(() => {
-      if (cardPosition === Position.LEFT) {
-        changeStateByCondition(false)
-      }
-    }, [cardPosition, toggleState])
-
-    const { gesture, GestureWrapper } = useCardGesture({
-      onSwipeLeft: handleSwipeLeft,
-      onSwipeRight: handleSwipeRight,
-      onLongPress: () =>
-        changeStateByCondition(cardPosition === Position.CENTER),
-      updateTranslate,
-      onGestureEnd: handleGestureEnd,
-    })
-
-    const handlePress = () => {
-      if (isOpenCard) {
-        toggleState()
-      } else {
-        setIsPressed(true)
-        setTimeout(() => {
-          setTimeout(() => setIsPressed(false), 0)
-          router.push({
-            pathname: '/journal/[journalId]',
-            params: { journalId: journalId, isNewJournal: 'false' },
-          })
-        }, DelayMS.ROUTE)
-      }
+  }
+  const handlePress = () => {
+    if (showActionButton) {
+      toggleState()
+    } else {
+      setIsPressed(true)
+      setTimeout(() => {
+        setTimeout(() => setIsPressed(false), 0)
+        router.push({
+          pathname: '/journal/[journalId]',
+          params: { journalId: journalId, isNewJournal: 'false' },
+        })
+      }, DelayMS.ROUTE)
     }
+  }
 
-    const handleImageLongPress = () => {
-      if (imageUri && imageUri.length > 0) {
-        setModalVisible(true)
-      }
+  const handleImageLongPress = () => {
+    if (imageUri && imageUri.length > 0) {
+      setModalVisible(true)
     }
+  }
 
-    const handleCloseModal = () => {
-      setModalVisible(false)
-    }
+  const handleCloseModal = () => {
+    setModalVisible(false)
+  }
 
-    return (
-      <Fragment>
-        <Container>
-          <ActionButton
-            cardPosition={cardPosition}
-            onPress={() => openDeleteSheet(journalId)}
-          />
-
-          <GestureWrapper gesture={gesture}>
-            <AnimatedCard onPress={handlePress} style={animatedStyle}>
-              <CardContent
-                content={content}
-                createdAt={createdAt}
-                mood={mood}
-                cardPosition={cardPosition}
-                toggleState={toggleState}
-              />
-
-              <ImageSection
-                imageUri={imageUri}
-                isOpenCard={isOpenCard}
-                isPressed={isPressed}
-                onImageLongPress={handleImageLongPress}
-              />
-            </AnimatedCard>
-          </GestureWrapper>
-        </Container>
-
-        <FullScreenImageModal
-          visible={modalVisible}
-          imageUri={imageUri?.[0]}
-          onClose={handleCloseModal}
+  return (
+    <Fragment>
+      <CardContainer>
+        <ActionButton
+          showActionButton={showActionButton}
+          onPress={handleDeleteSheetOpen}
         />
-      </Fragment>
-    )
-  },
-)
 
-const CardContainer = styled(Card, {
+        <GestureWrapper gesture={gesture}>
+          <AnimatedCard onPress={handlePress} style={animatedStyle}>
+            <CardContent
+              content={content}
+              createdAt={createdAt}
+              mood={mood}
+              showActionButton={showActionButton}
+              toggleState={toggleState}
+            />
+
+            <ImageSection
+              imageUri={imageUri}
+              showActionButton={showActionButton}
+              isPressed={isPressed}
+              onImageLongPress={handleImageLongPress}
+            />
+          </AnimatedCard>
+        </GestureWrapper>
+      </CardContainer>
+
+      <FullScreenImageModal
+        visible={modalVisible}
+        imageUri={imageUri?.[0]}
+        onClose={handleCloseModal}
+      />
+    </Fragment>
+  )
+}
+
+const CardContainer = styled(View, {
+  animation: 'quick',
+  enterStyle: MOUNT_STYLE,
+})
+
+const Card = styled(TamaguiCard, {
   group: true,
   animation: 'medium',
   pressStyle: PRESS_STYLE,
@@ -145,9 +134,4 @@ const CardContainer = styled(Card, {
   rounded: '$8',
 })
 
-const Container = styled(View, {
-  animation: 'quick',
-  enterStyle: MOUNT_STYLE,
-})
-
-const AnimatedCard = Animated.createAnimatedComponent(CardContainer)
+const AnimatedCard = Animated.createAnimatedComponent(Card)

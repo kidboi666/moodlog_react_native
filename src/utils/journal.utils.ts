@@ -7,7 +7,7 @@ import {
 } from '@/types'
 
 export class JournalUtils {
-  static getCountForDate(journals: Maybe<Journal[]>) {
+  static getCountForDate(journals: Journal[]) {
     if (!journals || journals.length === 0) return {}
     return journals.reduce((acc, journal) => {
       acc[journal.localDate] = (acc[journal.localDate] || 0) + 1

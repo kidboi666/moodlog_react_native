@@ -16,36 +16,32 @@ export class StatisticUtils {
   /**
    * 각 달마다 작성한 일기의 갯수 가져오기
    */
-  static getMonthlyCounts(
-    monthIndexes: MonthIndexes,
-    selectedYear: number,
-  ): Record<string, number> {
-    return Object.fromEntries(
-      Array.from({ length: 12 }, (_, i) => {
-        const monthString = DateUtils.getISOMonthString(selectedYear, i + 1)
-        const monthData = monthIndexes[monthString] || []
-        return [monthString, monthData.length]
-      }),
-    )
+  static getMonthlyCounts(selectedYear: number) {
+    // return Object.fromEntries(
+    //   Array.from({ length: 12 }, (_, i) => {
+    //     const monthString = DateUtils.getISOMonthString(selectedYear, i + 1)
+    //     const monthData = monthIndexes[monthString] || []
+    //     return [monthString, monthData.length]
+    //   }),
+    // )
   }
 
   /**
    * 가장 많은 일기를 작성한 달과 갯수 가져오기
    */
-  static getExpressiveMonth(monthIndexes: MonthIndexes, selectedYear: number) {
-    const monthlyCounts = StatisticUtils.getMonthlyCounts(
-      monthIndexes,
-      selectedYear,
-    )
-    return Object.entries(monthlyCounts).reduce(
-      (highest, [month, count]) => {
-        if (count > highest.count) {
-          return { month, count }
-        }
-        return highest
-      },
-      { month: '', count: 0 },
-    )
+  static getExpressiveMonth(selectedYear: number) {
+    // const monthlyCounts = StatisticUtils.getMonthlyCounts(
+    //   selectedYear,
+    // )
+    // return Object.entries(monthlyCounts).reduce(
+    //   (highest, [month, count]) => {
+    //     if (count > highest.count) {
+    //       return { month, count }
+    //     }
+    //     return highest
+    //   },
+    //   { month: '', count: 0 },
+    // )
   }
 
   /**
@@ -121,58 +117,56 @@ export class StatisticUtils {
    * 작성 빈도를 구하기 위해 필요한 date 가져오기
    */
   static getISODateStringForFrequency(
-    indexes: JournalIndexes,
     timeRange: TimeRange,
     selectedTimeUnit: number | ISOMonthString,
   ) {
-    let dates: string[]
-    if (timeRange === TimeRange.MONTHLY) {
-      const dateKeys = CommonUtils.extractKeys(indexes.byDate)
-      dates = dateKeys.flatMap(date =>
-        date.startsWith(selectedTimeUnit as ISOMonthString)
-          ? [date as ISODateString]
-          : [],
-      )
-    } else {
-      const dateKeys = CommonUtils.extractKeys(indexes.byDate)
-      dates = dateKeys.flatMap(date =>
-        date.startsWith(selectedTimeUnit.toString())
-          ? [date as ISODateString]
-          : [],
-      )
-    }
-    return dates.sort((a, b) => a.localeCompare(b))
+    // let dates: string[]
+    // if (timeRange === TimeRange.MONTHLY) {
+    //   const dateKeys = CommonUtils.extractKeys(indexes.byDate)
+    //   dates = dateKeys.flatMap(date =>
+    //     date.startsWith(selectedTimeUnit as ISOMonthString)
+    //       ? [date as ISODateString]
+    //       : [],
+    //   )
+    // } else {
+    //   const dateKeys = CommonUtils.extractKeys(indexes.byDate)
+    //   dates = dateKeys.flatMap(date =>
+    //     date.startsWith(selectedTimeUnit.toString())
+    //       ? [date as ISODateString]
+    //       : [],
+    //   )
+    // }
+    // return dates.sort((a, b) => a.localeCompare(b))
   }
 
   /**
    * 일기 작성 빈도 가져오기
    */
   static getJournalFrequency(
-    indexes: JournalIndexes,
     timeRange: TimeRange,
     selectedTimeUnit: number | ISOMonthString,
   ) {
-    const dates = StatisticUtils.getISODateStringForFrequency(
-      indexes,
-      timeRange,
-      selectedTimeUnit,
-    )
-    const frequency: Record<string, number> = {}
-    if (dates.length === 0) return 0
-    dates.reduce((acc, date) => {
-      const diffNum = DateUtils.getDaysBetweenDates(date, acc)
-      if (diffNum !== 0) {
-        frequency[diffNum] = (frequency[diffNum] || 0) + 1
-      }
-      return date
-    }, dates[0])
-    if (Object.keys(frequency).length === 0) return 0
-    return Number(
-      Object.entries(frequency).reduce(
-        (acc, [num, count]) => (count > frequency[acc] ? num : acc),
-        Object.keys(frequency)[0],
-      ),
-    )
+    // const dates = StatisticUtils.getISODateStringForFrequency(
+    //   indexes,
+    //   timeRange,
+    //   selectedTimeUnit,
+    // )
+    // const frequency: Record<string, number> = {}
+    // if (dates.length === 0) return 0
+    // dates.reduce((acc, date) => {
+    //   const diffNum = DateUtils.getDaysBetweenDates(date, acc)
+    //   if (diffNum !== 0) {
+    //     frequency[diffNum] = (frequency[diffNum] || 0) + 1
+    //   }
+    //   return date
+    // }, dates[0])
+    // if (Object.keys(frequency).length === 0) return 0
+    // return Number(
+    //   Object.entries(frequency).reduce(
+    //     (acc, [num, count]) => (count > frequency[acc] ? num : acc),
+    //     Object.keys(frequency)[0],
+    //   ),
+    // )
   }
 
   /**
@@ -204,99 +198,95 @@ export class StatisticUtils {
    * 연간 통계 계산
    */
   static getYearlyStats(
-    journalStore: JournalStore,
     moods: Moods,
     timeRange: TimeRange,
     selectedYear: number,
   ) {
-    const { journals, indexes } = journalStore
-    const yearIds = indexes.byYear[selectedYear] || []
-    const yearlyJournals = yearIds
-      .map(id => journals[id])
-      .filter(journal => journal !== undefined)
-    const expressiveMonth = StatisticUtils.getExpressiveMonth(
-      indexes.byMonth,
-      selectedYear,
-    )
-    const scoreBoard = StatisticUtils.calculateMoodScoreBoard(
-      yearlyJournals,
-      moods,
-    )
-    return {
-      totalCount: yearlyJournals.length,
-      frequency: StatisticUtils.getJournalFrequency(
-        indexes,
-        timeRange,
-        selectedYear,
-      ),
-      activeDay: StatisticUtils.getMostActiveDay(journals),
-      moodStats: {
-        scoreBoard,
-        signatureMood: StatisticUtils.getSignatureMood(scoreBoard),
-      },
-      expressiveMonth: {
-        month: expressiveMonth.month as ISOMonthString,
-        count: expressiveMonth.count,
-      },
-    }
+    // const { journals, indexes } = journalStore
+    // const yearIds = indexes.byYear[selectedYear] || []
+    // const yearlyJournals = yearIds
+    //   .map(id => journals[id])
+    //   .filter(journal => journal !== undefined)
+    // const expressiveMonth = StatisticUtils.getExpressiveMonth(
+    //   indexes.byMonth,
+    //   selectedYear,
+    // )
+    // const scoreBoard = StatisticUtils.calculateMoodScoreBoard(
+    //   yearlyJournals,
+    //   moods,
+    // )
+    // return {
+    //   totalCount: yearlyJournals.length,
+    //   frequency: StatisticUtils.getJournalFrequency(
+    //     indexes,
+    //     timeRange,
+    //     selectedYear,
+    //   ),
+    //   activeDay: StatisticUtils.getMostActiveDay(journals),
+    //   moodStats: {
+    //     scoreBoard,
+    //     signatureMood: StatisticUtils.getSignatureMood(scoreBoard),
+    //   },
+    //   expressiveMonth: {
+    //     month: expressiveMonth.month as ISOMonthString,
+    //     count: expressiveMonth.count,
+    //   },
+    // }
   }
 
   /**
    * 월간 통계 계산
    */
   static getMonthlyStats(
-    journalStore: JournalStore,
     moods: Moods,
     timeRange: TimeRange,
     selectedMonth: ISOMonthString,
   ) {
-    const { journals, indexes } = journalStore
-    const monthIds = indexes.byMonth[selectedMonth] || []
-    const monthlyJournals = monthIds
-      .map(id => journals[id])
-      .filter(journal => journal !== undefined)
-    const scoreBoard = StatisticUtils.calculateMoodScoreBoard(
-      monthlyJournals,
-      moods,
-    )
-    return {
-      totalCount: monthlyJournals.length,
-      frequency: StatisticUtils.getJournalFrequency(
-        indexes,
-        timeRange,
-        selectedMonth,
-      ),
-      activeDay: StatisticUtils.getMostActiveDay(journals),
-      moodStats: {
-        scoreBoard,
-        signatureMood: StatisticUtils.getSignatureMood(scoreBoard),
-      },
-      expressiveMonth: {
-        month: '0000-00' as ISOMonthString,
-        count: 0,
-      },
-    }
+    // const { journals, indexes } = journalStore
+    // const monthIds = indexes.byMonth[selectedMonth] || []
+    // const monthlyJournals = monthIds
+    //   .map(id => journals[id])
+    //   .filter(journal => journal !== undefined)
+    // const scoreBoard = StatisticUtils.calculateMoodScoreBoard(
+    //   monthlyJournals,
+    //   moods,
+    // )
+    // return {
+    //   totalCount: monthlyJournals.length,
+    //   frequency: StatisticUtils.getJournalFrequency(
+    //     indexes,
+    //     timeRange,
+    //     selectedMonth,
+    //   ),
+    //   activeDay: StatisticUtils.getMostActiveDay(journals),
+    //   moodStats: {
+    //     scoreBoard,
+    //     signatureMood: StatisticUtils.getSignatureMood(scoreBoard),
+    //   },
+    //   expressiveMonth: {
+    //     month: '0000-00' as ISOMonthString,
+    //     count: 0,
+    //   },
+    // }
   }
 
   /**
    * 주간 통계 계산
    */
-  static getWeeklyStats(
-    journalStore: JournalStore,
-    selectedDate: ISODateString,
-  ) {
-    const { journals, indexes } = journalStore
-    const dates = DateUtils.getThisWeekArray(selectedDate)
-    return Object.keys(WEEK_DAY).reduce(
-      (scoreBoard, day, index) => {
-        const date = dates[index]
-        const ids = indexes.byDate[date] || []
-        const dayJournal = ids.map(id => journals[id]).filter(Boolean)
-
-        scoreBoard[day] = dayJournal.length > 0 ? dayJournal[0].mood : null
-        return scoreBoard
-      },
-      {} as Record<string, JournalMood | null>,
-    )
+  static getWeeklyStats(selectedDate: ISODateString) {
+    //   const { journals, indexes } = journalStore
+    //   const dates = DateUtils.getThisWeekArray(selectedDate)
+    //   return Object.keys(WEEK_DAY).reduce(
+    //     (scoreBoard, day, index) => {
+    //       const date = dates[index]
+    //       const ids = indexes.byDate[date] || []
+    //       const dayJournal = ids.map(id => journals[id]).filter(Boolean)
+    //
+    //       scoreBoard[day] = dayJournal.length > 0 ? dayJournal[0].mood : null
+    //       return scoreBoard
+    //     },
+    //     {} as Record<string, JournalMood | null>,
+    //   )
+    // }
   }
 }

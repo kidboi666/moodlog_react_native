@@ -1,32 +1,45 @@
+import { useSuspenseQuery } from '@tanstack/react-query'
 import { memo, useMemo } from 'react'
 import { XStack, YStack, styled } from 'tamagui'
 
-import type { ISOMonthString } from '@/types'
+import { JournalQueries } from '@/queries'
+import { ISOMonthString, Maybe, TimeRange } from '@/types'
 import { MoodUtils } from '@/utils'
 import { Grass } from './Grass'
 
 interface Props {
+  selectedMonth: Maybe<ISOMonthString>
   weekLength: number
   firstDateDay: number
   monthDate: ISOMonthString
   lastDate: number
 }
 
-function _Garden({ weekLength, monthDate, firstDateDay, lastDate }: Props) {
-  const moodData = useMemo(
+function _Garden({
+  selectedMonth,
+  weekLength,
+  monthDate,
+  firstDateDay,
+  lastDate,
+}: Props) {
+  const { data: journals } = useSuspenseQuery(
+    JournalQueries.getJournals(TimeRange.MONTHLY, selectedMonth),
+  )
+  const garden = useMemo(
     () =>
       MoodUtils.getGardenMoodData(
+        journals,
         weekLength,
         firstDateDay,
         monthDate,
         lastDate,
       ),
-    [weekLength, firstDateDay, lastDate, monthDate],
+    [journals, weekLength, firstDateDay, lastDate, monthDate],
   )
 
   return (
     <GardenContainer>
-      {moodData.map((week, weekIndex) => (
+      {garden.map((week, weekIndex) => (
         <YStackContainer key={`${weekIndex}-${week}`}>
           {week.map((moods, dayIndex) => (
             <Grass

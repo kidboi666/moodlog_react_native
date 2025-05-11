@@ -8,7 +8,15 @@ import { Keyboard } from 'react-native'
 
 import { queryKeys } from '@/constants'
 import { JournalService } from '@/services'
-import { ISOString, Journal, JournalDraft, Maybe, TimeRange } from '@/types'
+import {
+  ISODateString,
+  ISOMonthString,
+  ISOString,
+  JournalDraft,
+  Maybe,
+  TimeRange,
+} from '@/types'
+import { DateUtils } from '@/utils'
 
 export class JournalQueries {
   static getJournalById(journalId: string) {
@@ -17,25 +25,32 @@ export class JournalQueries {
       queryFn: () => JournalService.getJournalById(journalId),
       select: journal => ({
         ...journal,
-        imageUri: journal?.imageUri ? JSON.parse(journal.imageUri) : null,
+        localDate: journal?.localDate as ISODateString,
+        imageUri: journal?.imageUri
+          ? (JSON.parse(journal.imageUri) as Maybe<string[]>)
+          : null,
       }),
     })
   }
 
-  static getJournals(timeRange: TimeRange, localDate: Maybe<ISOString>) {
+  static getJournals(timeRange: TimeRange, date: ISOString) {
     return queryOptions({
-      queryKey: queryKeys.get.journals(timeRange),
-      queryFn: () => JournalService.getJournals(timeRange, localDate),
+      queryKey: queryKeys.get.journals(timeRange, date),
+      queryFn: () => JournalService.getJournals(timeRange, date),
       select: journals =>
         journals?.map(journal => ({
           ...journal,
-          imageUri: journal.imageUri ? JSON.parse(journal.imageUri) : null,
-        })) as Journal[],
+          localDate: journal.localDate as ISODateString,
+          imageUri: journal.imageUri
+            ? (JSON.parse(journal.imageUri) as Maybe<string[]>)
+            : null,
+        })),
     })
   }
 }
 
 export function useAddJournal() {
+  const queryClient = useQueryClient()
   const router = useRouter()
   return useMutation({
     mutationFn: (draft: JournalDraft) => JournalService.addJournal(draft),
@@ -48,10 +63,24 @@ export function useAddJournal() {
         params: { journalId: data[0].id, isNewJournal: 'true' },
       })
     },
+    onSettled: data => {
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.get.journals(
+          TimeRange.DAILY,
+          data?.[0].localDate as ISODateString,
+        ),
+      })
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.get.journals(
+          TimeRange.MONTHLY,
+          data?.[0].localDate.slice(0, 7) as ISOMonthString,
+        ),
+      })
+    },
   })
 }
 
-export function useDeleteJournal(hideBottomSheet: () => void) {
+export function useDeleteJournal(hideBottomSheet: () => void, date: ISOString) {
   const queryClient = useQueryClient()
   const router = useRouter()
   return useMutation({
@@ -66,10 +95,10 @@ export function useDeleteJournal(hideBottomSheet: () => void) {
     },
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.get.journals(TimeRange.DAILY),
+        queryKey: queryKeys.get.journals(TimeRange.DAILY, date),
       })
       queryClient.invalidateQueries({
-        queryKey: queryKeys.get.journals(TimeRange.MONTHLY),
+        queryKey: queryKeys.get.journals(TimeRange.MONTHLY, date),
       })
     },
   })

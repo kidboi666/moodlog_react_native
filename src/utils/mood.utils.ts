@@ -1,16 +1,18 @@
 import {
+  ISODateString,
   type ISOMonthString,
+  Journal,
   JournalMood,
   type Maybe,
-  Mood,
   MoodLevel,
 } from '@/types'
-
 import { CommonUtils } from './common.utils'
 import { DateUtils } from './date.utils'
-import { JournalUtils } from './journal.utils'
 
 export class MoodUtils {
+  /**
+   * 가장 점수가 높은 mood 반환
+   */
   static calculateSignatureJournalMood(moods: Maybe<JournalMood[]>) {
     if (!moods || moods.length === 0) return null
     const scoreBoard: Record<string, number> = {}
@@ -37,25 +39,33 @@ export class MoodUtils {
     return moods.find(mood => mood.id === maxId) || null
   }
 
-  static paintMood(moods: Mood[], journalMood: JournalMood | string) {
-    if (typeof journalMood === 'string') {
-      return moods.find(m => m.id === journalMood)?.color
-    }
-    const { id, level } = journalMood
-    if (!id) return null
-    const moodColor = moods.find(m => m.id === id)?.color
-    if (!moodColor) return null
-    switch (level) {
+  static paintMood(journals: Journal[], date: ISODateString) {
+    const dateJournals = journals.filter(journal => journal.localDate === date)
+    const journalMoods = dateJournals.map(
+      journal =>
+        ({
+          ...journal.mood,
+          level: journal.moodLevel,
+        }) as JournalMood,
+    )
+    const signatureMood = MoodUtils.calculateSignatureJournalMood(journalMoods)
+    if (!signatureMood) return null
+
+    switch (signatureMood?.level) {
       case MoodLevel.HALF:
-        return CommonUtils.hexToRgba(moodColor, 0.7)
+        return CommonUtils.hexToRgba(signatureMood.color, 0.7)
       case MoodLevel.ZERO:
-        return CommonUtils.hexToRgba(moodColor, 0.4)
+        return CommonUtils.hexToRgba(signatureMood.color, 0.4)
       default:
-        return CommonUtils.hexToRgba(moodColor, 1)
+        return CommonUtils.hexToRgba(signatureMood.color, 1)
     }
   }
 
+  /**
+   * 잔디밭 그리기
+   */
   static getGardenMoodData(
+    journals: Journal[],
     weekLength: number,
     firstDateDay: number,
     monthDate: ISOMonthString,
@@ -73,7 +83,7 @@ export class MoodUtils {
             monthDate,
             dateNum,
           )
-          weekData.push(JournalUtils.getMoodForDate(dateString))
+          weekData.push(MoodUtils.paintMood(journals, dateString))
         }
       }
       data.push(weekData)

@@ -27,8 +27,8 @@ export function GardenSection({
       Object.keys(MONTHS).map((month, i) => ({
         monthKey: month as MonthKey,
         monthDate: DateUtils.getISOMonthString(currentYear, i + 1),
-        lastDate: DateUtils.getLastDate(currentYear, month as MonthKey),
-        firstDateDay: DateUtils.getFirstDateDay(currentYear, month),
+        lastDate: DateUtils.getLastDateOfMonth(currentYear, month as MonthKey),
+        firstDateDay: DateUtils.getFirstDay(currentYear, month),
         weekLength: DateUtils.getWeekLength(currentYear, month),
       })),
     [],
@@ -49,6 +49,7 @@ export function GardenSection({
         <GrassContainer>
           {staticMonths.map(staticMonth => (
             <MonthItem
+              selectedMonth={selectedMonth}
               key={staticMonth.monthKey}
               monthKey={staticMonth.monthKey}
               monthDate={staticMonth.monthDate}

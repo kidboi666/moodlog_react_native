@@ -9,10 +9,14 @@ import { BottomSheetContainer } from '../../BottomSheetContainer'
 
 function _DeleteJournalModal({
   journalId,
+  localDate,
   hideBottomSheet,
 }: BottomSheetProps[BottomSheetType.DELETE_JOURNAL]) {
   const { t } = useTranslation()
-  const { mutate: onDelete, isPending } = useDeleteJournal(hideBottomSheet)
+  const { mutate: onDelete, isPending } = useDeleteJournal(
+    hideBottomSheet,
+    localDate,
+  )
 
   return (
     <BottomSheetContainer>

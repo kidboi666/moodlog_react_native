@@ -3,19 +3,17 @@ import { InferSelectModel } from 'drizzle-orm'
 import { journals } from '../../db/schema'
 import type { ISODateString, ISOMonthString } from './date.types'
 import { Mood, MoodLevel } from './mood.types'
-import { Prettify } from './util.types'
+import { Maybe, Prettify } from './util.types'
 
+// db schema
 export type JournalModel = InferSelectModel<typeof journals>
-export type SelectJournal = Prettify<
-  Omit<JournalModel, 'moodId' | 'moodLevel'> & {
-    mood: Mood
-  }
->
+// joined schema
+export type SelectJournal = Prettify<JournalModel & { mood: Mood }>
+// prettified schema
 export type Journal = Prettify<
-  Omit<SelectJournal, 'localDate' | 'imageUri'> & {
-    mood: Mood
+  Omit<SelectJournal, 'imageUri'> & {
     localDate: ISODateString
-    imageUri: string[]
+    imageUri: Maybe<string[]>
   }
 >
 export type JournalDraft = {

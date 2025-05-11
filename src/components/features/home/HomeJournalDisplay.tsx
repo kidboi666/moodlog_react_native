@@ -2,9 +2,8 @@ import { Spinner, View } from 'tamagui'
 
 import { EmptyJournal, JournalCard } from '@/components/features/journal'
 import { Delay } from '@/components/shared'
-import { DelayMS, Layout } from '@/constants'
-import { useBottomSheet } from '@/store'
-import { BottomSheetType, Journal, Maybe } from '@/types'
+import { DelayMS } from '@/constants'
+import { Journal, Maybe } from '@/types'
 
 interface Props {
   firstRender: boolean
@@ -17,16 +16,6 @@ export function HomeJournalDisplay({
   journals,
   isLoading,
 }: Props) {
-  const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
-  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
-
-  const handleDeleteSheetOpen = (journalId: string) => {
-    showBottomSheet(BottomSheetType.DELETE_JOURNAL, Layout.SNAP_POINTS.DELETE, {
-      journalId,
-      hideBottomSheet,
-    })
-  }
-
   if (isLoading) {
     return (
       <View height='$12' items='center' justify='center'>
@@ -37,7 +26,14 @@ export function HomeJournalDisplay({
 
   return Array.isArray(journals) && journals.length > 0 ? (
     journals?.map((journal, index) => {
-      const { id, content = '', createdAt, mood, imageUri = [] } = journal
+      const {
+        id,
+        content = '',
+        createdAt,
+        mood,
+        imageUri = [],
+        localDate,
+      } = journal
       const delay = firstRender
         ? DelayMS.ANIMATION.MEDIUM[
             (index % DelayMS.ANIMATION.MEDIUM.length) +
@@ -52,7 +48,7 @@ export function HomeJournalDisplay({
             mood={mood}
             imageUri={imageUri}
             createdAt={createdAt}
-            openDeleteSheet={handleDeleteSheetOpen}
+            localDate={localDate}
           />
         </Delay>
       )

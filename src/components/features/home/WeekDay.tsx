@@ -12,7 +12,7 @@ import { HorizontalCalendar } from './calendar/HorizontalCalendar'
 interface Props {
   selectedDate: Maybe<ISODateString>
   onSelectedDateChange: (date: ISODateString) => void
-  dateCount: DateCount
+  dateCount?: DateCount
 }
 
 function _WeekDay({ selectedDate, onSelectedDateChange, dateCount }: Props) {

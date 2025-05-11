@@ -23,25 +23,21 @@ function _HomeTab({ isTabActive, onPress }: TabButtonProps) {
     />
   )
 }
-
 export const HomeTab = memo(_HomeTab)
-
 HomeTab.displayName = 'HomeTab'
 
-function _CalendarTab({ isTabActive, onPress }: TabButtonProps) {
+function _EntriesTab({ isTabActive, onPress }: TabButtonProps) {
   return (
     <PressableButton
       color={isTabActive ? '$color11' : '$color9'}
       bg={isTabActive ? '$backgroundStrong' : '$color5'}
       icon={CalendarDays}
-      onPress={() => onPress('/calendar')}
+      onPress={() => onPress('/entries')}
     />
   )
 }
-
-export const CalendarTab = memo(_CalendarTab)
-
-CalendarTab.displayName = 'CalendarTab'
+export const EntriesTab = memo(_EntriesTab)
+EntriesTab.displayName = 'EntriesTab'
 
 function _StatisticTab({ isTabActive, onPress }: TabButtonProps) {
   return (
@@ -53,9 +49,7 @@ function _StatisticTab({ isTabActive, onPress }: TabButtonProps) {
     />
   )
 }
-
 export const StatisticTab = memo(_StatisticTab)
-
 StatisticTab.displayName = 'StatisticTab'
 
 function _SettingTab({ isTabActive, onPress }: TabButtonProps) {
@@ -68,7 +62,5 @@ function _SettingTab({ isTabActive, onPress }: TabButtonProps) {
     />
   )
 }
-
 export const SettingTab = memo(_SettingTab)
-
 SettingTab.displayName = 'SettingTab'

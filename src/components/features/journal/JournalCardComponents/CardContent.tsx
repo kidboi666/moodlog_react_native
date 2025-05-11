@@ -2,13 +2,13 @@ import { ChevronLeft, ChevronRight } from '@tamagui/lucide-icons'
 import { Card, View, YStack, styled } from 'tamagui'
 
 import { BaseText, PressableButton, RenderTime } from '@/components/shared'
-import { Maybe, Mood, Position } from '@/types'
+import { Maybe, Mood } from '@/types'
 
 interface CardContentProps {
   content: Maybe<string>
   createdAt: string
   mood: Mood
-  cardPosition: Position
+  showActionButton: boolean
   toggleState: () => void
 }
 
@@ -16,7 +16,7 @@ export function CardContent({
   content,
   createdAt,
   mood,
-  cardPosition,
+  showActionButton,
   toggleState,
 }: CardContentProps) {
   return (
@@ -28,7 +28,7 @@ export function CardContent({
       </JournalContentBox>
       <PressableButton
         bg='$backgroundStrong'
-        icon={cardPosition === Position.CENTER ? ChevronRight : ChevronLeft}
+        icon={showActionButton ? ChevronRight : ChevronLeft}
         onPress={() => toggleState()}
       />
     </CardHeader>

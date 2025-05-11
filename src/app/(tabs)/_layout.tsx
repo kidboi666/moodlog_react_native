@@ -30,7 +30,7 @@ export default function TabsLayout() {
         }}
       >
         <Tabs.Screen name='index' />
-        <Tabs.Screen name='calendar' />
+        <Tabs.Screen name='entries' />
         <Tabs.Screen name='journal' />
         <Tabs.Screen name='setting' />
         <Tabs.Screen name='statistic' />

@@ -6,14 +6,14 @@ import { Maybe } from '@/types'
 
 interface ImageSectionProps {
   imageUri: Maybe<string[]>
-  isOpenCard: boolean
+  showActionButton: boolean
   isPressed: boolean
   onImageLongPress: () => void
 }
 
 export function ImageSection({
   imageUri,
-  isOpenCard,
+  showActionButton,
   isPressed,
   onImageLongPress,
 }: ImageSectionProps) {
@@ -28,7 +28,7 @@ export function ImageSection({
       </TouchableOpacity>
 
       <AnimatePresence>
-        {isOpenCard || isPressed ? null : <ImageCoverGradient />}
+        {showActionButton || isPressed ? null : <ImageCoverGradient />}
       </AnimatePresence>
     </CardBackground>
   )

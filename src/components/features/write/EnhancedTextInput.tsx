@@ -1,12 +1,6 @@
 import { ImagePlus } from '@tamagui/lucide-icons'
 import { useToastController } from '@tamagui/toast'
-import React, {
-  useCallback,
-  useDeferredValue,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, TouchableOpacity } from 'react-native'
 import {
@@ -22,7 +16,6 @@ import { FormInputArea, PressableButton } from '@/components/shared'
 import { DelayMS, Layout, MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants'
 import { useCustomFont } from '@/hooks'
 import { useStepProgress } from '@/store'
-import { ContentLength } from './ContentLength'
 
 interface Props {
   show: boolean
@@ -44,29 +37,15 @@ export function EnhancedTextInput({
 }: Props) {
   const { t } = useTranslation()
   const toast = useToastController()
-  const deferredLength = useDeferredValue(contentValue.length)
   const { fontNameWithTokenPrefix } = useCustomFont()
   const {
     state: { currentStep },
   } = useStepProgress()
-  const [prevLength, setPrevLength] = useState(0)
   const inputRef = useRef<Input>(null)
 
-  const handleContentChange = useCallback(
-    (text: string) => {
-      if (text.length <= 300) {
-        onContentChange(text)
-        if (text.length === 300 && prevLength < 300) {
-          toast.show('글자 수 제한', {
-            message: '최대 300자까지 작성할 수 있습니다.',
-            preset: 'error',
-          })
-        }
-        setPrevLength(text.length)
-      }
-    },
-    [onContentChange, prevLength, toast],
-  )
+  const handleContentChange = useCallback((text: string) => {
+    onContentChange(text)
+  }, [])
 
   const handleImagePress = useCallback(
     (index: number) => {
@@ -147,7 +126,6 @@ export function EnhancedTextInput({
         onChangeText={handleContentChange}
         placeholder={t('placeholders.journal.content')}
       />
-      <ContentLength length={deferredLength} />
     </InputContainer>
   )
 }

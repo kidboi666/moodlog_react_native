@@ -6,7 +6,7 @@ import { XStack, styled } from 'tamagui'
 
 import { Layout, MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants'
 import {
-  CalendarTab,
+  EntriesTab,
   HomeTab,
   SettingTab,
   StatisticTab,
@@ -45,7 +45,7 @@ export function CustomTabBar() {
         pt={Platform.OS === 'ios' ? '$4' : undefined}
       >
         <HomeTab isTabActive={isHomeActive} onPress={handleNavigate} />
-        <CalendarTab isTabActive={isCalendarActive} onPress={handleNavigate} />
+        <EntriesTab isTabActive={isCalendarActive} onPress={handleNavigate} />
         <WriteButton />
         <StatisticTab
           isTabActive={isStatisticActive}

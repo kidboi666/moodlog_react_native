@@ -1,4 +1,4 @@
-import { eq, sql } from 'drizzle-orm'
+import { and, eq, gte, lte } from 'drizzle-orm'
 import { db } from '../../db'
 import { journals } from '../../db/schema'
 
@@ -23,7 +23,7 @@ export class JournalService {
         moodLevel: draft.moodLevel,
         imageUri: JSON.stringify(draft.imageUri),
       })
-      .returning({ id: journals.id })
+      .returning({ id: journals.id, localDate: journals.localDate })
   }
 
   static async updateJournal(id: string, draft: JournalDraft) {
@@ -47,28 +47,34 @@ export class JournalService {
     })
   }
 
-  static async getJournals(timeRange: TimeRange, date: Maybe<ISOString>) {
-    if (!date) return null
+  static async getJournals(
+    timeRange: TimeRange,
+    date: ISOString,
+  ): Promise<SelectJournal[]> {
     let result: SelectJournal[]
     if (timeRange === TimeRange.MONTHLY) {
-      const firstDate = DateUtils.getFirstDateString(date as ISODateString)
-      const lastDate = DateUtils.getLastDateString(date as ISOMonthString)
+      const monthDate = date as ISOMonthString
+      const firstDate = DateUtils.getISODateFromMonthString(monthDate, 1)
+      const lastDate = DateUtils.getLastDate(monthDate)
       result = await db.query.journals.findMany({
-        where: (journals, { lte, gte, and }) =>
-          and(
-            gte(journals.localDate, firstDate),
-            lte(journals.localDate, lastDate),
-          ),
+        where: and(
+          gte(journals.localDate, firstDate),
+          lte(journals.localDate, lastDate),
+        ),
+        with: {
+          mood: true,
+        },
+      })
+    } else if (timeRange === TimeRange.DAILY) {
+      result = await db.query.journals.findMany({
+        where: eq(journals.localDate, date),
         with: {
           mood: true,
         },
       })
     } else {
       result = await db.query.journals.findMany({
-        where: (journals, { eq }) => eq(journals.localDate, date),
-        with: {
-          mood: true,
-        },
+        with: { mood: true },
       })
     }
     return result

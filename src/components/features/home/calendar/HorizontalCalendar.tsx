@@ -9,7 +9,7 @@ import { HorizontalCalendarContent } from './HorizontalCalendarContent'
 interface Props {
   selectedDate: Maybe<ISODateString>
   onSelectedDateChange: (date: ISODateString) => void
-  dateCount: DateCount
+  dateCount?: DateCount
 }
 
 export function HorizontalCalendar({
@@ -36,12 +36,12 @@ export function HorizontalCalendar({
   )
 
   const dates: Record<ISODateString, number> = useMemo(() => {
-    const lastDate = DateUtils.getLastDate(currentYear, currentMonth)
+    const lastDate = DateUtils.getLastDateOfMonth(currentYear, currentMonth)
     const datesWithJournalCount: Record<ISODateString, number> = {}
 
     for (let i = 1; i <= lastDate; i++) {
       const dateKey = DateUtils.getISODateString(currentYear, currentMonth, i)
-      datesWithJournalCount[dateKey] = dateCount[dateKey] || 0
+      datesWithJournalCount[dateKey] = dateCount?.[dateKey] || 0
     }
     return datesWithJournalCount
   }, [currentYear, currentMonth])

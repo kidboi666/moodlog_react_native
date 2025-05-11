@@ -21,7 +21,7 @@ export default function HomeScreen() {
     JournalQueries.getJournals(TimeRange.DAILY, selectedDate),
   )
   const dateCount = useMemo(
-    () => JournalUtils.getCountForDate(dailyJournals),
+    () => dailyJournals && JournalUtils.getCountForDate(dailyJournals),
     [dailyJournals],
   )
   const selectedDateJournals = dailyJournals?.filter(

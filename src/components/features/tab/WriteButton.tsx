@@ -106,7 +106,9 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 28,
     paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING * 2,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    paddingBottom: Layout.SPACE.CONTAINER_PADDING_BOTTOM / 1.5,
   },
 })
 

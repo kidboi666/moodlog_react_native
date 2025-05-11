@@ -3,17 +3,16 @@ import { AnimatePresence, XStack, styled } from 'tamagui'
 
 import { PressableButton } from '@/components/shared'
 import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants'
-import { Position } from '@/types'
 
 interface ActionButtonProps {
-  cardPosition: Position
+  showActionButton: boolean
   onPress: () => void
 }
 
-export function ActionButton({ cardPosition, onPress }: ActionButtonProps) {
+export function ActionButton({ showActionButton, onPress }: ActionButtonProps) {
   return (
     <AnimatePresence>
-      {cardPosition === Position.LEFT && (
+      {showActionButton && (
         <ActionBox>
           <PressableButton
             circular={true}
