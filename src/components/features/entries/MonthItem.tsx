@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { Button, styled } from 'tamagui'
 
-import type { ISOMonthString, Maybe, MonthKey } from '@/types'
+import type { ISOMonthString, MonthKey } from '@/types'
 import { MonthItemContent } from './MonthItemContent'
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
   weekLength: number
   isSelected: boolean
   onMonthPress: (monthDate: ISOMonthString) => void
-  selectedMonth: Maybe<ISOMonthString>
+  selectedMonth: ISOMonthString
 }
 
 function _MonthItem({

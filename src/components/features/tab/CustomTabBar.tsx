@@ -26,7 +26,7 @@ export function CustomTabBar() {
   )
 
   const isHomeActive = useMemo(() => isActive('/'), [isActive])
-  const isCalendarActive = useMemo(() => isActive('/calendar'), [isActive])
+  const isCalendarActive = useMemo(() => isActive('/entries'), [isActive])
   const isStatisticActive = useMemo(() => isActive('/statistic'), [isActive])
   const isSettingActive = useMemo(() => isActive('/setting'), [isActive])
 

@@ -1,10 +1,4 @@
-import {
-  DateCount,
-  DateJournals,
-  Journal,
-  Maybe,
-  SelectedJournals,
-} from '@/types'
+import { DateCount, DateJournals, Journal, SelectedJournals } from '@/types'
 
 export class JournalUtils {
   static getCountForDate(journals: Journal[]) {

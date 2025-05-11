@@ -1,21 +1,16 @@
-import { memo, useMemo } from 'react'
+import { Maybe } from '@/types'
+import { memo } from 'react'
 import { View, styled } from 'tamagui'
 
-import { JournalMood, Maybe } from '@/types'
-import { MoodUtils } from '@/utils'
-
 interface Props {
-  mood: Maybe<JournalMood[]>
-  isEmpty?: boolean
+  moodColor: Maybe<string>
 }
 
-function _Grass({ mood, isEmpty = false }: Props) {
-  if (isEmpty && !mood) return <StyledGrass />
-  const signatureMood = useMemo(
-    () => MoodUtils.calculateSignatureJournalMood(mood),
-    [mood, isEmpty],
+function _Grass({ moodColor }: Props) {
+  if (!moodColor) return <StyledGrass />
+  return (
+    <StyledGrass moodColor={moodColor === 'isEmpty' ? '$color9' : moodColor} />
   )
-  return <StyledGrass moodColor={signatureMood?.color ?? '$color9'} />
 }
 
 const StyledGrass = styled(View, {
@@ -29,11 +24,5 @@ const StyledGrass = styled(View, {
   },
 })
 
-export const Grass = memo(_Grass, (prevProps, nextProps) => {
-  if (prevProps.isEmpty !== nextProps.isEmpty) return false
-  if (!prevProps.mood && !nextProps.mood) return true
-  if (!prevProps.mood || !nextProps.mood) return false
-  return prevProps.mood.length === nextProps.mood.length
-})
-
+export const Grass = memo(_Grass)
 Grass.displayName = 'Grass'

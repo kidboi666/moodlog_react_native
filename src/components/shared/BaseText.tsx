@@ -3,22 +3,36 @@ import { Text, type TextProps } from 'tamagui'
 
 import { useCustomFont, useFontSizeAdjustment } from '@/hooks'
 
+type DefaultFonSize = '$4' | '$5' | '$6' | '$7' | '$8' | '$9' | '$10'
+
 interface Props extends TextProps {
   children: ReactNode
+  defaultFontSize?: DefaultFonSize
 }
 
 export const BaseText = Text.styleable<Props>(
-  ({ children, themeInverse, color, fontSize, ...props }, ref) => {
+  (
+    {
+      children,
+      themeInverse,
+      color,
+      fontSize,
+      fontWeight,
+      defaultFontSize = '$5',
+      ...props
+    },
+    ref,
+  ) => {
     const { fontNameWithTokenPrefix } = useCustomFont()
-    const defaultFontSize = useFontSizeAdjustment('$5')
+    const adjustedFontSize = useFontSizeAdjustment(defaultFontSize)
 
     return (
       <Text
         themeInverse={themeInverse}
         color={color}
-        fontSize={fontSize || defaultFontSize}
+        fontSize={fontSize || adjustedFontSize}
         fontFamily={fontNameWithTokenPrefix}
-        fontWeight={props.fontWeight ? props.fontWeight : '400'}
+        fontWeight={fontWeight ? fontWeight : '400'}
         ref={ref}
         {...props}
       >

@@ -29,6 +29,7 @@ function _NavigationSettingItem({
 }
 
 const Title = styled(BaseText, {
+  defaultFontSize: '$4',
   flex: 1,
 })
 

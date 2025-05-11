@@ -39,18 +39,19 @@ export class MoodUtils {
     return moods.find(mood => mood.id === maxId) || null
   }
 
-  static paintMood(journals: Journal[], date: ISODateString) {
-    const dateJournals = journals.filter(journal => journal.localDate === date)
-    const journalMoods = dateJournals.map(
+  static paintMood(date: ISODateString, journals?: Journal[]) {
+    const dateJournals =
+      journals?.filter(journal => journal.localDate === date) ?? []
+    const journalMoods = dateJournals?.map(
       journal =>
         ({
           ...journal.mood,
           level: journal.moodLevel,
         }) as JournalMood,
     )
+    if (journalMoods.length === 0) return 'isEmpty'
     const signatureMood = MoodUtils.calculateSignatureJournalMood(journalMoods)
     if (!signatureMood) return null
-
     switch (signatureMood?.level) {
       case MoodLevel.HALF:
         return CommonUtils.hexToRgba(signatureMood.color, 0.7)
@@ -65,11 +66,11 @@ export class MoodUtils {
    * 잔디밭 그리기
    */
   static getGardenMoodData(
-    journals: Journal[],
     weekLength: number,
     firstDateDay: number,
     monthDate: ISOMonthString,
     lastDate: number,
+    journals?: Journal[],
   ) {
     const data = []
     for (let week = 0; week < weekLength; week++) {
@@ -83,7 +84,7 @@ export class MoodUtils {
             monthDate,
             dateNum,
           )
-          weekData.push(MoodUtils.paintMood(journals, dateString))
+          weekData.push(MoodUtils.paintMood(dateString, journals))
         }
       }
       data.push(weekData)

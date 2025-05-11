@@ -1,19 +1,17 @@
 import { useCallback, useState } from 'react'
 import { CalendarUtils } from 'react-native-calendars'
 
-import { type ISODateString, type ISOMonthString, Maybe } from '@/types'
+import { type ISODateString, type ISOMonthString, ISOString } from '@/types'
 import { DateUtils } from '@/utils'
 
 export const useCalendar = () => {
   const now = new Date()
-  const todayString: ISODateString = CalendarUtils.getCalendarDateString(now)
+  const todayString = CalendarUtils.getCalendarDateString(now)
+  const initMonth = todayString.substring(0, 7) as ISOMonthString
+  const initYear = Number(todayString.split('-')[0])
   const [selectedDate, setSelectedDate] = useState<ISODateString>(todayString)
-  const [selectedMonth, setSelectedMonth] = useState<Maybe<ISOMonthString>>(
-    todayString.substring(0, 7) as ISOMonthString,
-  )
-  const [selectedYear, setSelectedYear] = useState<number>(
-    Number(todayString.split('-')[0]),
-  )
+  const [selectedMonth, setSelectedMonth] = useState<ISOMonthString>(initMonth)
+  const [selectedYear, setSelectedYear] = useState<number>(initYear)
   const [selectedWeek, setSelectedWeek] = useState(
     DateUtils.getThisWeekIndex(todayString),
   )
@@ -22,12 +20,9 @@ export const useCalendar = () => {
     setSelectedDate(date)
   }, [])
 
-  const handleSelectedMonthChange = useCallback(
-    (month: Maybe<ISOMonthString>) => {
-      setSelectedMonth(month)
-    },
-    [],
-  )
+  const handleSelectedMonthChange = useCallback((month: ISOMonthString) => {
+    setSelectedMonth(month)
+  }, [])
 
   const handleSelectedYearChange = useCallback((year: number) => {
     setSelectedYear(year)
@@ -56,8 +51,7 @@ export const useCalendar = () => {
     onSelectedYearChange: handleSelectedYearChange,
     onSelectedWeekChange: handleSelectedWeekChange,
 
-    isToday: (date: Maybe<ISODateString | ISOMonthString>) =>
-      date === todayString,
+    isToday: (date: ISOString) => date === todayString,
     isSelected: (date: ISODateString) => date === selectedDate,
     isSelectedMonth: (month: ISOMonthString) => month === selectedMonth,
     isFuture: (date: ISODateString) => date > todayString,

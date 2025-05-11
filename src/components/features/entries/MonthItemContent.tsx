@@ -1,12 +1,12 @@
 import { memo } from 'react'
 import { YStack } from 'tamagui'
 
-import type { ISOMonthString, Maybe, MonthKey } from '@/types'
+import type { ISOMonthString, MonthKey } from '@/types'
 import { Garden } from './Garden'
 import { GardenMonthUnits } from './GardenMonthUnits'
 
 interface Props {
-  selectedMonth: Maybe<ISOMonthString>
+  selectedMonth: ISOMonthString
   monthKey: MonthKey
   weekLength: number
   firstDateDay: number

@@ -16,7 +16,6 @@ import {
   Maybe,
   TimeRange,
 } from '@/types'
-import { DateUtils } from '@/utils'
 
 export class JournalQueries {
   static getJournalById(journalId: string) {
@@ -45,6 +44,7 @@ export class JournalQueries {
             ? (JSON.parse(journal.imageUri) as Maybe<string[]>)
             : null,
         })),
+      enabled: !!date,
     })
   }
 }

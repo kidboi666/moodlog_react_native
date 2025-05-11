@@ -22,7 +22,6 @@ export default function WriteJournalScreen() {
     onImageUriRemove,
   } = useJournalDraftForm(moods?.[0]?.id)
   const { mutate: onSubmit } = useAddJournal()
-  console.log(draft)
   if (!moods) return null
 
   if (isLoading) {

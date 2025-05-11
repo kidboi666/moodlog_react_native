@@ -6,20 +6,22 @@ import { ScrollView, YStack } from 'tamagui'
 import { DateHeader, GardenSection } from '@/components/features/entries'
 import { EmptyJournal, JournalCard } from '@/components/features/journal'
 import { H1, ViewContainer } from '@/components/shared'
-import { useCalendar, useDeleteJournal } from '@/hooks'
+import { useCalendar } from '@/hooks'
 import { JournalQueries } from '@/queries'
 import { TimeRange } from '@/types'
 import { JournalUtils } from '@/utils'
 
 export default function EntriesScreen() {
   const { t } = useTranslation()
-  const { openDeleteSheet } = useDeleteJournal()
-  const { selectedMonth, onSelectedMonthChange, isSelectedMonth } =
-    useCalendar()
+  const {
+    selectedMonth,
+    onSelectedMonthChange,
+    selectedYear,
+    isSelectedMonth,
+  } = useCalendar()
   const { data: journals } = useQuery(
     JournalQueries.getJournals(TimeRange.MONTHLY, selectedMonth),
   )
-
   const groupedJournals = useMemo(() => {
     if (!Array.isArray(journals) || journals.length === 0) {
       return []
@@ -32,6 +34,7 @@ export default function EntriesScreen() {
       <ViewContainer edges={['top']} padded gap='$4'>
         <H1>{t('entries.title')}</H1>
         <GardenSection
+          selectedYear={selectedYear}
           selectedMonth={selectedMonth}
           onSelectedMonthChange={onSelectedMonthChange}
           isSelectedMonth={isSelectedMonth}
@@ -52,7 +55,7 @@ export default function EntriesScreen() {
                       imageUri={imageUri}
                       createdAt={createdAt}
                       mood={mood}
-                      openDeleteSheet={openDeleteSheet}
+                      localDate={selectedMonth}
                     />
                   )
                 })}

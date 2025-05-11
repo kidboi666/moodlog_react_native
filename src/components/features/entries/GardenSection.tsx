@@ -2,41 +2,40 @@ import { useCallback, useMemo } from 'react'
 import { ScrollView, XStack, YStack, styled } from 'tamagui'
 
 import { MONTHS } from '@/constants'
-import type { ISOMonthString, Maybe, MonthKey } from '@/types'
+import type { ISOMonthString, MonthKey } from '@/types'
 import { DateUtils } from '@/utils'
 import { GardenDayUnits } from './GardenDayUnits'
 import { GardenTitleHeader } from './GardenTitleHeader'
 import { MonthItem } from './MonthItem'
 
 interface Props {
-  onSelectedMonthChange: (month: Maybe<ISOMonthString>) => void
-  selectedMonth: Maybe<ISOMonthString>
+  onSelectedMonthChange: (month: ISOMonthString) => void
+  selectedMonth: ISOMonthString
+  selectedYear: number
   isSelectedMonth: (month: ISOMonthString) => boolean
 }
 
 export function GardenSection({
   onSelectedMonthChange,
+  selectedYear,
   selectedMonth,
   isSelectedMonth,
 }: Props) {
-  const now = new Date()
-  const currentYear = now.getFullYear()
-
   const staticMonths = useMemo(
     () =>
       Object.keys(MONTHS).map((month, i) => ({
         monthKey: month as MonthKey,
-        monthDate: DateUtils.getISOMonthString(currentYear, i + 1),
-        lastDate: DateUtils.getLastDateOfMonth(currentYear, month as MonthKey),
-        firstDateDay: DateUtils.getFirstDay(currentYear, month),
-        weekLength: DateUtils.getWeekLength(currentYear, month),
+        monthDate: DateUtils.getISOMonthString(selectedYear, i + 1),
+        lastDate: DateUtils.getLastDateOfMonth(selectedYear, month as MonthKey),
+        firstDateDay: DateUtils.getFirstDay(selectedYear, month),
+        weekLength: DateUtils.getWeekLength(selectedYear, month),
       })),
     [],
   )
 
   const handleMonthPress = useCallback(
     (monthDate: ISOMonthString) => {
-      onSelectedMonthChange(selectedMonth === monthDate ? null : monthDate)
+      onSelectedMonthChange(monthDate)
     },
     [selectedMonth, onSelectedMonthChange],
   )
