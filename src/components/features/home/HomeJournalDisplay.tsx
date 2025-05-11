@@ -16,6 +16,7 @@ export function HomeJournalDisplay({
   journals,
   isLoading,
 }: Props) {
+  const delay = firstRender ? DelayMS.ANIMATION.MEDIUM[3] : undefined
   if (isLoading) {
     return (
       <View height='$12' items='center' justify='center'>
@@ -25,7 +26,7 @@ export function HomeJournalDisplay({
   }
 
   return Array.isArray(journals) && journals.length > 0 ? (
-    journals?.map((journal, index) => {
+    journals?.map(journal => {
       const {
         id,
         content = '',
@@ -34,12 +35,6 @@ export function HomeJournalDisplay({
         imageUri = [],
         localDate,
       } = journal
-      const delay = firstRender
-        ? DelayMS.ANIMATION.MEDIUM[
-            (index % DelayMS.ANIMATION.MEDIUM.length) +
-              DelayMS.ANIMATION.MEDIUM[2]
-          ]
-        : DelayMS.ANIMATION.QUICK[0]
       return (
         <Delay key={journal.id} delay={delay}>
           <JournalCard
@@ -54,7 +49,7 @@ export function HomeJournalDisplay({
       )
     })
   ) : (
-    <Delay delay={firstRender ? DelayMS.ANIMATION.MEDIUM[3] : undefined}>
+    <Delay delay={delay}>
       <EmptyJournal />
     </Delay>
   )
