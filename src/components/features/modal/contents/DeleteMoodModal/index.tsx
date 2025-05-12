@@ -24,7 +24,6 @@ function _DeleteMoodModal({
     if (isSuccess) {
       hideBottomSheet()
     }
-
     return () => {
       setIsSuccess(false)
     }

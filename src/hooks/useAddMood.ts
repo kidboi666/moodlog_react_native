@@ -5,7 +5,7 @@ import { Keyboard } from 'react-native'
 
 import { DelayMS } from '@/constants'
 import { useUI } from '@/store'
-import { CommonUtils } from '@/utils'
+import { delay } from '@/utils'
 
 type MoodState = {
   name: string
@@ -27,7 +27,7 @@ export const useAddMood = (
       onIsSuccessChange(false)
     }, DelayMS.ANIMATION.LONG[2])
 
-    await CommonUtils.delay(DelayMS.WAIT.WRITE_MOOD, () => {
+    await delay(DelayMS.WAIT.WRITE_MOOD, () => {
       router.replace({
         pathname: '/(tabs)',
         params: {

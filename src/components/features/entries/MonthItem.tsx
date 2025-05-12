@@ -50,6 +50,8 @@ const MonthItemButton = styled(Button, {
   scale: 1,
   opacity: 0.4,
   position: 'relative',
+  animation: 'quick',
+  animateOnly: ['opacity'],
 
   variants: {
     isSelected: {

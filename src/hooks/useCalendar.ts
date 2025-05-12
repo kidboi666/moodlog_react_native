@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { CalendarUtils } from 'react-native-calendars'
 
 import { type ISODateString, type ISOMonthString, ISOString } from '@/types'
-import { DateUtils } from '@/utils'
+import { getThisWeekIndex } from '@/utils'
 
 export const useCalendar = () => {
   const now = new Date()
@@ -13,7 +13,7 @@ export const useCalendar = () => {
   const [selectedMonth, setSelectedMonth] = useState<ISOMonthString>(initMonth)
   const [selectedYear, setSelectedYear] = useState<number>(initYear)
   const [selectedWeek, setSelectedWeek] = useState(
-    DateUtils.getThisWeekIndex(todayString),
+    getThisWeekIndex(todayString),
   )
 
   const handleSelectedDateChange = useCallback((date: ISODateString) => {
@@ -29,7 +29,7 @@ export const useCalendar = () => {
   }, [])
 
   const handleSelectedWeekChange = useCallback((date: ISODateString) => {
-    setSelectedWeek(DateUtils.getThisWeekIndex(date))
+    setSelectedWeek(getThisWeekIndex(date))
   }, [])
 
   return {

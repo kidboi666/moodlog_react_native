@@ -1,22 +1,26 @@
 import { queryOptions, useMutation } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
 import { Keyboard } from 'react-native'
-
-import { MoodService } from '@/services'
-import { MoodDraft, Moods } from '@/types'
 import { moods } from '../../db/schema'
 
-/**
- * Get
- */
-export class MoodQueries {
+import {
+  addMood,
+  deleteMood,
+  getMoodById,
+  getMoodByName,
+  getMoods,
+  updateMood,
+} from '@/services'
+import { MoodDraft, Moods } from '@/types'
+
+export const MoodQueries = {
   /**
    * 현재 감정 전부 가져오기
    */
-  static getMoods() {
+  getMoods: () => {
     return queryOptions({
       queryKey: ['moods'],
-      queryFn: () => MoodService.getMoods(),
+      queryFn: () => getMoods(),
       select: data => {
         return data.reduce((acc, mood) => {
           acc[mood.id] = mood
@@ -24,27 +28,27 @@ export class MoodQueries {
         }, {} as Moods)
       },
     })
-  }
+  },
 
   /**
    * id로 감정 가져오기
    */
-  static getMoodById(id: string) {
+  getMoodById: (id: string) => {
     return queryOptions({
       queryKey: ['moods', id],
-      queryFn: () => MoodService.getMoodById(id),
+      queryFn: () => getMoodById(id),
     })
-  }
+  },
 
   /**
    * name 으로 감정 가져오기
    */
-  static getMoodByName(name: string) {
+  getMoodByName: (name: string) => {
     return queryOptions({
       queryKey: ['moods', name],
-      queryFn: () => MoodService.getMoodByName(name),
+      queryFn: () => getMoodByName(name),
     })
-  }
+  },
 }
 
 /**
@@ -53,7 +57,7 @@ export class MoodQueries {
 export function useAddMood() {
   const router = useRouter()
   return useMutation({
-    mutationFn: (moodDraft: MoodDraft) => MoodService.addMood(moodDraft),
+    mutationFn: (moodDraft: MoodDraft) => addMood(moodDraft),
     onError: (error, variables) => {
       console.error('error', error)
     },
@@ -72,7 +76,7 @@ export function useUpdateMood() {
     mutationFn: (args: {
       id: string
       moodDraft: Partial<Omit<typeof moods.$inferInsert, 'id' | 'createdAt'>>
-    }) => MoodService.updateMood(args.id, args.moodDraft),
+    }) => updateMood(args.id, args.moodDraft),
     onError: (error, variables) => {
       console.error('error', error)
     },
@@ -84,6 +88,6 @@ export function useUpdateMood() {
 
 export function useDeleteMood() {
   return useMutation({
-    mutationFn: (id: string) => MoodService.deleteMood(id),
+    mutationFn: (id: string) => deleteMood(id),
   })
 }

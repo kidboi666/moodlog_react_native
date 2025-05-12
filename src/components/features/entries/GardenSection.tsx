@@ -3,7 +3,12 @@ import { ScrollView, XStack, YStack, styled } from 'tamagui'
 
 import { MONTHS } from '@/constants'
 import type { ISOMonthString, Journal, MonthKey } from '@/types'
-import { DateUtils } from '@/utils'
+import {
+  getFirstDay,
+  getISOMonthString,
+  getLastDateOfMonth,
+  getWeekLength,
+} from '@/utils'
 import { GardenDayUnits } from './GardenDayUnits'
 import { GardenTitleHeader } from './GardenTitleHeader'
 import { MonthItem } from './MonthItem'
@@ -25,10 +30,10 @@ export function GardenSection({
     () =>
       Object.keys(MONTHS).map((month, i) => ({
         monthKey: month as MonthKey,
-        monthDate: DateUtils.getISOMonthString(selectedYear, i + 1),
-        lastDate: DateUtils.getLastDateOfMonth(selectedYear, month as MonthKey),
-        firstDateDay: DateUtils.getFirstDay(selectedYear, month),
-        weekLength: DateUtils.getWeekLength(selectedYear, month),
+        monthDate: getISOMonthString(selectedYear, i + 1),
+        lastDate: getLastDateOfMonth(selectedYear, month as MonthKey),
+        firstDateDay: getFirstDay(selectedYear, month),
+        weekLength: getWeekLength(selectedYear, month),
       })),
     [selectedYear],
   )

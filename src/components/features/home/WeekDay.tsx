@@ -6,7 +6,7 @@ import { LinearGradient } from 'tamagui/linear-gradient'
 import { Delay, H1 } from '@/components/shared'
 import { DelayMS } from '@/constants'
 import { DateCount, ISODateString, Maybe } from '@/types'
-import { DateUtils } from '@/utils'
+import { getMonthKey } from '@/utils'
 import { HorizontalCalendar } from './calendar/HorizontalCalendar'
 
 interface Props {
@@ -24,10 +24,7 @@ function _WeekDay({ selectedDate, onSelectedDateChange, dateCount }: Props) {
         <InnerGradientBox>
           <CurrentMonthBox>
             <CurrentMonthText>
-              {t(
-                `calendar.months.${DateUtils.getMonthKey(new Date().getMonth())}`,
-              )}
-              .
+              {t(`calendar.months.${getMonthKey(new Date().getMonth())}`)}.
             </CurrentMonthText>
           </CurrentMonthBox>
 

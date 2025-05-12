@@ -16,7 +16,7 @@ import {
 import { Layout } from '@/constants'
 import { useAuth, useBottomSheet } from '@/store'
 import { BottomSheetType } from '@/types'
-import { CommonUtils } from '@/utils'
+import { isValidEmail } from '@/utils'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 
 interface LoginFormState {
@@ -64,7 +64,7 @@ function _SignInModal() {
       return false
     }
 
-    if (!CommonUtils.isValidEmail(email)) {
+    if (!isValidEmail(email)) {
       Alert.alert(t('validation.invalidEmailFormat'))
       return false
     }

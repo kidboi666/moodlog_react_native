@@ -14,7 +14,7 @@ import { WEEK_DAY } from '@/constants'
 import { useWeeklyMoodStats } from '@/hooks'
 import { useMood } from '@/store'
 import { type ISOMonthString, MoodLevel } from '@/types'
-import { DateUtils } from '@/utils'
+import { getISODateFromMonthString } from '@/utils'
 import { ChartItem } from './ChartItem'
 
 interface Props {
@@ -24,7 +24,7 @@ interface Props {
 export function WeeklyMoodChart({ selectedMonth }: Props) {
   const now = new Date()
   const date = now.getDate()
-  const dateString = DateUtils.getISODateFromMonthString(selectedMonth, date)
+  const dateString = getISODateFromMonthString(selectedMonth, date)
   const { t } = useTranslation()
   const { stats } = useWeeklyMoodStats(dateString)
   const moods = useMood(state => state.moods)

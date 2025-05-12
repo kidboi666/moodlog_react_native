@@ -5,7 +5,7 @@ import { XStack, YStack, styled } from 'tamagui'
 import { BaseText } from '@/components/shared'
 import { useFontSizeAdjustment } from '@/hooks'
 import type { ISODateString } from '@/types'
-import { DateUtils } from '@/utils'
+import { getDateFromISODate, getDayFromISODate, getMonthKey } from '@/utils'
 
 // 요일 문자열 배열 (일요일부터 토요일까지)
 const WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토']
@@ -15,27 +15,20 @@ interface DateHeaderProps {
 }
 
 export function DateHeader({ date }: DateHeaderProps) {
-  const { i18n } = useTranslation()
+  const { t, i18n } = useTranslation()
   const fontSize = useFontSizeAdjustment('$6')
   const smallFontSize = useFontSizeAdjustment('$4')
   const dateInfo = useMemo(() => {
     // date는 ISO 포맷(YYYY-MM-DD)의 문자열입니다.
     const dateObj = new Date(date)
-    const dayOfWeek = DateUtils.getDayIndexFromISODate(date as ISODateString)
-    const dayOfMonth = DateUtils.getDateFromISODate(date as ISODateString)
-    const dateArr = date.split('-')
-    const monthNum = Number(dateArr[1])
-
-    // 월 표시 (한국어는 '월'을 붙임)
-    const monthDisplay =
-      i18n.language === 'ko'
-        ? `${monthNum}월`
-        : dateObj.toLocaleString(i18n.language, { month: 'short' })
+    const dayOfMonth = getDateFromISODate(date as ISODateString)
+    const monthKey = getMonthKey(dateObj.getMonth())
+    const weekdayKey = getDayFromISODate(date as ISODateString)
 
     return {
       day: String(dayOfMonth),
-      month: monthDisplay,
-      weekday: WEEKDAYS[dayOfWeek],
+      month: t(`calendar.months.${monthKey}`),
+      weekday: t(`calendar.days.${weekdayKey}`),
       fullDate: dateObj.toLocaleDateString(i18n.language, {
         year: 'numeric',
         month: 'long',

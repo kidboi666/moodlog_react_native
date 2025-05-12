@@ -7,7 +7,12 @@ import { useRouter } from 'expo-router'
 import { Keyboard } from 'react-native'
 
 import { queryKeys } from '@/constants'
-import { JournalService } from '@/services'
+import {
+  addJournal,
+  deleteJournal,
+  getJournalById,
+  getJournals,
+} from '@/services'
 import {
   ISODateString,
   ISOMonthString,
@@ -17,11 +22,11 @@ import {
   TimeRange,
 } from '@/types'
 
-export class JournalQueries {
-  static getJournalById(journalId: string) {
+export const JournalQueries = {
+  getJournalById: (journalId: string) => {
     return queryOptions({
       queryKey: queryKeys.get.journal(journalId),
-      queryFn: () => JournalService.getJournalById(journalId),
+      queryFn: () => getJournalById(journalId),
       select: journal => ({
         ...journal,
         localDate: journal?.localDate as ISODateString,
@@ -29,13 +34,14 @@ export class JournalQueries {
           ? (JSON.parse(journal.imageUri) as Maybe<string[]>)
           : null,
       }),
+      enabled: !!journalId,
     })
-  }
+  },
 
-  static getJournals(timeRange: TimeRange, dateOrYear: ISOString | number) {
+  getJournals: (timeRange: TimeRange, dateOrYear: ISOString | number) => {
     return queryOptions({
       queryKey: queryKeys.get.journals(timeRange, dateOrYear),
-      queryFn: () => JournalService.getJournals(timeRange, dateOrYear),
+      queryFn: () => getJournals(timeRange, dateOrYear),
       select: journals =>
         journals?.map(journal => ({
           ...journal,
@@ -46,14 +52,14 @@ export class JournalQueries {
         })),
       enabled: !!dateOrYear,
     })
-  }
+  },
 }
 
 export function useAddJournal() {
   const queryClient = useQueryClient()
   const router = useRouter()
   return useMutation({
-    mutationFn: (draft: JournalDraft) => JournalService.addJournal(draft),
+    mutationFn: (draft: JournalDraft) => addJournal(draft),
     onError: error => {
       console.error('error', error)
     },
@@ -84,7 +90,7 @@ export function useDeleteJournal(hideBottomSheet: () => void, date: ISOString) {
   const queryClient = useQueryClient()
   const router = useRouter()
   return useMutation({
-    mutationFn: (journalId: string) => JournalService.deleteJournal(journalId),
+    mutationFn: (journalId: string) => deleteJournal(journalId),
     onError: error => {
       console.error('error', error)
     },

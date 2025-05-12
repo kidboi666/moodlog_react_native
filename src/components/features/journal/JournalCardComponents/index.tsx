@@ -1,16 +1,10 @@
 import { useRouter } from 'expo-router'
-import { Fragment, useState } from 'react'
+import { Fragment, useCallback, useState } from 'react'
 import Animated from 'react-native-reanimated'
-import { Card as TamaguiCard, View, styled } from 'tamagui'
+import { Card as TamaguiCard, styled } from 'tamagui'
 
 import { FullScreenImageModal } from '@/components/features/modal/contents'
-import {
-  DelayMS,
-  Layout,
-  MOUNT_STYLE,
-  PRESS_STYLE,
-  PRESS_STYLE_KEY,
-} from '@/constants'
+import { DelayMS, Layout, PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants'
 import { useCardGesture } from '@/hooks'
 import { useBottomSheet } from '@/store'
 import { BottomSheetType, ISOString, Maybe, Mood } from '@/types'
@@ -48,14 +42,15 @@ export function JournalCard({
   const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
   const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
 
-  const handleDeleteSheetOpen = () => {
+  const handleDeleteSheetOpen = useCallback(() => {
     showBottomSheet(BottomSheetType.DELETE_JOURNAL, Layout.SNAP_POINTS.DELETE, {
       journalId,
       localDate,
       hideBottomSheet,
     })
-  }
-  const handlePress = () => {
+  }, [showBottomSheet, hideBottomSheet, journalId, localDate])
+
+  const handlePress = useCallback(() => {
     if (showActionButton) {
       toggleState()
     } else {
@@ -68,17 +63,17 @@ export function JournalCard({
         })
       }, DelayMS.ROUTE)
     }
-  }
+  }, [showActionButton, toggleState, router, journalId, localDate])
 
-  const handleImageLongPress = () => {
+  const handleImageLongPress = useCallback(() => {
     if (imageUri && imageUri.length > 0) {
       setModalVisible(true)
     }
-  }
+  }, [imageUri])
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setModalVisible(false)
-  }
+  }, [])
 
   return (
     <Fragment>

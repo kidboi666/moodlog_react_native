@@ -2,7 +2,7 @@ import { memo, useMemo } from 'react'
 import { XStack, YStack, styled } from 'tamagui'
 
 import { ISOMonthString, Journal } from '@/types'
-import { MoodUtils } from '@/utils'
+import { getGardenMoodData } from '@/utils'
 import { Grass } from './Grass'
 
 interface Props {
@@ -22,7 +22,7 @@ function _Garden({
 }: Props) {
   const garden = useMemo(
     () =>
-      MoodUtils.getGardenMoodData(
+      getGardenMoodData(
         weekLength,
         firstDateDay,
         monthDate,

@@ -9,7 +9,7 @@ import { BaseText, FormInput, H1, PressableButton } from '@/components/shared'
 import { HTTP_STATUS, Layout } from '@/constants'
 import { useBottomSheet } from '@/store'
 import { BottomSheetType } from '@/types'
-import { CommonUtils } from '@/utils'
+import { isValidEmail } from '@/utils'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 
 function _SignUpModal() {
@@ -45,7 +45,7 @@ function _SignUpModal() {
       return
     }
 
-    if (!CommonUtils.isValidEmail(email)) {
+    if (!isValidEmail(email)) {
       Alert.alert(t('validation.invalidEmailFormat'))
       return
     }

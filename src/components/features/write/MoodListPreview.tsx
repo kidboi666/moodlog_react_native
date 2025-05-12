@@ -1,7 +1,7 @@
 import { Trash } from '@tamagui/lucide-icons'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { FlatList, useWindowDimensions } from 'react-native'
-import { AnimatePresence, Button, View, styled } from 'tamagui'
+import { AnimatePresence, View, styled } from 'tamagui'
 
 import { MoodPreviewItem } from '@/components/features/mood'
 import { PressableButton } from '@/components/shared'
@@ -12,7 +12,7 @@ import {
   PRESS_STYLE,
   PRESS_STYLE_KEY,
 } from '@/constants'
-import { useDeleteMood } from '@/hooks'
+import { useDeleteMood } from '@/queries'
 import { Moods } from '@/types'
 
 interface Props {
@@ -37,7 +37,7 @@ export function MoodListPreview({
   onMoodIdChange,
 }: Props) {
   const { width } = useWindowDimensions()
-  const { openDeleteSheet } = useDeleteMood()
+  const { mutate: deleteMood } = useDeleteMood()
   const flatListRef = useRef<FlatList<any>>(null)
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export function MoodListPreview({
             scaleIcon={1.5}
             icon={Trash}
             z={100_000}
-            onPress={() => openDeleteSheet(selectedMoodId ?? '')}
+            onPress={() => deleteMood(selectedMoodId ?? '')}
           />
         )}
       </AnimatePresence>

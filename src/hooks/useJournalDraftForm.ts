@@ -1,69 +1,72 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { JournalDraft, MoodLevel } from '@/types'
-import { ImageUtils } from '@/utils'
+import { createNewFileName } from '@/utils'
 
 export const useJournalDraftForm = (initialMoodId?: string) => {
+  const { t } = useTranslation()
   const [draft, setDraft] = useState<JournalDraft>({
     content: '',
     moodId: initialMoodId ?? '',
     moodLevel: MoodLevel.HALF,
     imageUri: [],
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleMoodIdChange = useCallback((moodId: string) => {
-    setDraft(prev => ({
-      ...prev,
-      moodId,
-    }))
-  }, [])
+  const handleContentChange = (text: string) => {
+    setDraft(prev => ({ ...prev, content: text }))
+  }
 
-  const handleMoodLevelChange = useCallback((moodLevel: MoodLevel) => {
-    setDraft(prev => ({
-      ...prev,
-      moodLevel,
-    }))
-  }, [])
+  const handleMoodIdChange = (id: string) => {
+    setDraft(prev => ({ ...prev, moodId: id }))
+  }
 
-  const handleImageUriChange = useCallback(async () => {
+  const handleMoodLevelChange = (moodLevel: MoodLevel) => {
+    setDraft(prev => ({ ...prev, moodLevel }))
+  }
+
+  const handleAddImage = async () => {
     try {
-      const newFilePath = await ImageUtils.createNewFileName()
+      const newFilePath = await createNewFileName()
       if (newFilePath) {
         setDraft(prev => ({
           ...prev,
           imageUri: [...prev.imageUri, newFilePath],
         }))
       }
-    } catch (err) {
-      console.error('이미지 저장 오류:', err)
+    } catch (e) {
+      console.error(e)
     }
-  }, [])
+  }
 
-  const handleContentChange = useCallback((content: string) => {
+  const handleRemoveImage = (imageUris: string[], index: number) => {
+    const newImageUris = [...imageUris]
+    newImageUris.splice(index, 1)
     setDraft(prev => ({
       ...prev,
-      content,
+      imageUri: newImageUris,
     }))
-  }, [])
+  }
 
-  const handleImageUriRemove = useCallback(
-    (imageUris: string[], index: number) => {
-      const newImageUris = [...imageUris]
-      newImageUris.splice(index, 1)
-      setDraft(prev => ({
-        ...prev,
-        imageUri: newImageUris,
-      }))
-    },
-    [],
-  )
+  const resetForm = () => {
+    setDraft({
+      content: '',
+      moodId: initialMoodId ?? '',
+      moodLevel: MoodLevel.HALF,
+      imageUri: [],
+    })
+  }
 
   return {
     draft,
+    isSubmitting,
+    setIsSubmitting,
     onContentChange: handleContentChange,
-    onImageUriRemove: handleImageUriRemove,
     onMoodIdChange: handleMoodIdChange,
     onMoodLevelChange: handleMoodLevelChange,
-    onImageUriChange: handleImageUriChange,
+    onImageUriChange: handleAddImage,
+    onImageUriRemove: handleRemoveImage,
+    resetForm,
   }
 }

@@ -7,51 +7,52 @@ import {
   SelectedJournals,
 } from '@/types'
 
-export class JournalUtils {
-  static getCountForDate(journals: Journal[]) {
-    if (!journals || journals.length === 0) return {}
-    return journals.reduce((acc, journal) => {
-      acc[journal.localDate] = (acc[journal.localDate] || 0) + 1
-      return acc
-    }, {} as DateCount)
-  }
+export function getCountForDate(journals: Journal[]) {
+  if (!journals || journals.length === 0) return {}
+  return journals.reduce((acc, journal) => {
+    acc[journal.localDate] = (acc[journal.localDate] || 0) + 1
+    return acc
+  }, {} as DateCount)
+}
 
-  static filterJournalsByMonth(journals: Journal[], month: ISOMonthString) {
-    return journals.filter(journal => journal.localDate.startsWith(month))
-  }
+export function filterJournalsByMonth(
+  journals: Journal[],
+  month: ISOMonthString,
+) {
+  return journals.filter(journal => journal.localDate.startsWith(month))
+}
 
-  static groupJournalsByDate(journals: Journal[]) {
-    const groupedJournals: DateJournals = {}
-    journals.forEach(journal => {
-      const dateKey = journal.localDate
-      if (!groupedJournals[dateKey]) {
-        groupedJournals[dateKey] = []
-      }
-      groupedJournals[dateKey].push(journal)
-    })
-    return Object.entries(groupedJournals).sort(([dateA], [dateB]) =>
-      dateB.localeCompare(dateA),
-    )
-  }
+export function groupJournalsByDate(journals: Journal[]) {
+  const groupedJournals: DateJournals = {}
+  journals.forEach(journal => {
+    const dateKey = journal.localDate
+    if (!groupedJournals[dateKey]) {
+      groupedJournals[dateKey] = []
+    }
+    groupedJournals[dateKey].push(journal)
+  })
+  return Object.entries(groupedJournals).sort(([dateA], [dateB]) =>
+    dateB.localeCompare(dateA),
+  )
+}
 
-  static groupJournalsByMonth(journals: Journal[]) {
-    const groupedJournals: MonthJournals = {}
-    journals.forEach(journal => {
-      const monthKey = journal.localDate.slice(0, 7) as ISOMonthString
-      if (!groupedJournals[monthKey]) {
-        groupedJournals[monthKey] = []
-      }
-      groupedJournals[monthKey].push(journal)
-    })
-    return groupedJournals
-  }
+export function groupJournalsByMonth(journals: Journal[]) {
+  const groupedJournals: MonthJournals = {}
+  journals.forEach(journal => {
+    const monthKey = journal.localDate.slice(0, 7) as ISOMonthString
+    if (!groupedJournals[monthKey]) {
+      groupedJournals[monthKey] = []
+    }
+    groupedJournals[monthKey].push(journal)
+  })
+  return groupedJournals
+}
 
-  static syncSelectedJournalsAfterDelete(
-    selectedJournals: SelectedJournals,
-    excludeId: string,
-  ) {
-    if (!Array.isArray(selectedJournals)) return selectedJournals
-    if (selectedJournals.length === 1) return []
-    return selectedJournals.filter(journal => journal.id !== excludeId)
-  }
+export function syncSelectedJournalsAfterDelete(
+  selectedJournals: SelectedJournals,
+  excludeId: string,
+) {
+  if (!Array.isArray(selectedJournals)) return selectedJournals
+  if (selectedJournals.length === 1) return []
+  return selectedJournals.filter(journal => journal.id !== excludeId)
 }

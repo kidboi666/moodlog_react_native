@@ -12,7 +12,7 @@ import { DelayMS } from '@/constants'
 import { useCalendar } from '@/hooks'
 import { JournalQueries } from '@/queries'
 import { TimeRange } from '@/types'
-import { JournalUtils } from '@/utils'
+import { getCountForDate } from '@/utils'
 
 export default function HomeScreen() {
   const { selectedDate, onSelectedDateChange } = useCalendar()
@@ -21,7 +21,7 @@ export default function HomeScreen() {
     JournalQueries.getJournals(TimeRange.DAILY, selectedDate),
   )
   const dateCount = useMemo(
-    () => dailyJournals && JournalUtils.getCountForDate(dailyJournals),
+    () => dailyJournals && getCountForDate(dailyJournals),
     [dailyJournals],
   )
   const selectedDateJournals = dailyJournals?.filter(

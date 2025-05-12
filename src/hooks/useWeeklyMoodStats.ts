@@ -2,13 +2,13 @@ import { useMemo } from 'react'
 
 import { useJournal } from '@/store'
 import { type ISODateString } from '@/types'
-import { StatisticUtils } from '@/utils'
+import { getWeeklyStats } from '@/utils'
 
 export const useWeeklyMoodStats = (selectedDate: ISODateString) => {
   const journalStore = useJournal(state => state.store)
 
   const weeklyMoodStats = useMemo(
-    () => StatisticUtils.getWeeklyStats(journalStore, selectedDate),
+    () => getWeeklyStats(journalStore, selectedDate),
     [journalStore, selectedDate],
   )
 

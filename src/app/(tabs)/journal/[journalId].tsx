@@ -26,14 +26,14 @@ import { Layout } from '@/constants'
 import { JournalQueries } from '@/queries'
 import { useApp, useBottomSheet } from '@/store'
 import { BottomSheetType } from '@/types'
-import { CommonUtils } from '@/utils'
+import { toSingle } from '@/utils'
 
 export default function JournalScreen() {
   const { journalId, isNewJournal } = useLocalSearchParams()
   const router = useRouter()
   const { t } = useTranslation()
   const { data: journal } = useQuery(
-    JournalQueries.getJournalById(CommonUtils.toSingle(journalId)),
+    JournalQueries.getJournalById(toSingle(journalId)),
   )
   const fontSize = useApp(state => state.settings.fontSize)
   const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
@@ -46,9 +46,12 @@ export default function JournalScreen() {
   }
 
   const handleDeleteSheetOpen = () => {
+    if (!journal) return
+
     showBottomSheet(BottomSheetType.DELETE_JOURNAL, Layout.SNAP_POINTS.DELETE, {
-      journalId: CommonUtils.toSingle(journalId),
+      journalId: toSingle(journalId),
       hideBottomSheet,
+      localDate: journal.localDate,
     })
   }
   const handleImagePress = (uri: string) => {

@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { useJournal, useMood } from '@/store'
 import { type ISOMonthString, TimeRange } from '@/types'
-import { StatisticUtils } from '@/utils'
+import { getMonthlyStats, getYearlyStats } from '@/utils'
 
 export function useJournalStats(
   timeRange: TimeRange,
@@ -13,16 +13,11 @@ export function useJournalStats(
   const moods = useMood(state => state.moods)
 
   const yearlyStats = useMemo(() => {
-    return StatisticUtils.getYearlyStats(store, moods, timeRange, selectedYear)
+    return getYearlyStats(store, moods, timeRange, selectedYear)
   }, [store.journals, store.indexes, moods, timeRange, selectedYear])
 
   const monthlyStats = useMemo(() => {
-    return StatisticUtils.getMonthlyStats(
-      store,
-      moods,
-      timeRange,
-      selectedMonth,
-    )
+    return getMonthlyStats(store, moods, timeRange, selectedMonth)
   }, [store.journals, store.indexes, moods, timeRange, selectedMonth])
 
   const stats = timeRange === TimeRange.YEARLY ? yearlyStats : monthlyStats

@@ -3,7 +3,12 @@ import { ScrollView, XStack, styled } from 'tamagui'
 
 import { DelayMS, Layout, MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants'
 import { DateCount, ISODateString, Maybe } from '@/types'
-import { DateUtils } from '@/utils'
+import {
+  getDateFromISODate,
+  getDayIndexFromISODate,
+  getISODateString,
+  getLastDateOfMonth,
+} from '@/utils'
 import { HorizontalCalendarContent } from './HorizontalCalendarContent'
 
 interface Props {
@@ -21,11 +26,7 @@ export function HorizontalCalendar({
   const currentYear = now.getFullYear()
   const currentMonth = now.getMonth() + 1
   const currentDay = now.getDate()
-  const currentISODate = DateUtils.getISODateString(
-    currentYear,
-    currentMonth,
-    currentDay,
-  )
+  const currentISODate = getISODateString(currentYear, currentMonth, currentDay)
   const scrollViewRef = useRef<ScrollView>(null)
 
   const handleSelectedJournalsChange = useCallback(
@@ -36,11 +37,11 @@ export function HorizontalCalendar({
   )
 
   const dates: Record<ISODateString, number> = useMemo(() => {
-    const lastDate = DateUtils.getLastDateOfMonth(currentYear, currentMonth)
+    const lastDate = getLastDateOfMonth(currentYear, currentMonth)
     const datesWithJournalCount: Record<ISODateString, number> = {}
 
     for (let i = 1; i <= lastDate; i++) {
-      const dateKey = DateUtils.getISODateString(currentYear, currentMonth, i)
+      const dateKey = getISODateString(currentYear, currentMonth, i)
       datesWithJournalCount[dateKey] = dateCount?.[dateKey] || 0
     }
     return datesWithJournalCount
@@ -50,8 +51,8 @@ export function HorizontalCalendar({
     let timeout: NodeJS.Timeout
 
     if (selectedDate) {
-      const selectedIndex = DateUtils.getDateFromISODate(selectedDate)
-      const day = DateUtils.getDayIndexFromISODate(selectedDate) || 7
+      const selectedIndex = getDateFromISODate(selectedDate)
+      const day = getDayIndexFromISODate(selectedDate) || 7
       timeout = setTimeout(() => {
         if (selectedIndex !== -1 && scrollViewRef.current) {
           scrollViewRef.current.scrollTo({

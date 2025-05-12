@@ -4,14 +4,17 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, StyleSheet } from 'react-native'
 import { YStack } from 'tamagui'
 
-import { DateHeader, GardenSection } from '@/components/features/entries'
-import { EmptyJournal, JournalCard } from '@/components/features/journal'
+import {
+  EntriesJournalDisplay,
+  GardenSection,
+} from '@/components/features/entries'
+import { EmptyJournal } from '@/components/features/journal'
 import { Delay, H1, ViewContainer } from '@/components/shared'
 import { DelayMS, Layout } from '@/constants'
 import { useCalendar } from '@/hooks'
 import { JournalQueries } from '@/queries'
 import { Journal, TimeRange } from '@/types'
-import { JournalUtils } from '@/utils'
+import { groupJournalsByDate, groupJournalsByMonth } from '@/utils'
 
 type GroupedJournalItem = [string, Journal[]]
 
@@ -28,13 +31,12 @@ export default function EntriesScreen() {
   )
   const groupedJournalsByMonth = useMemo(() => {
     if (!Array.isArray(journals) || journals.length === 0) return {}
-    return JournalUtils.groupJournalsByMonth(journals)
+    return groupJournalsByMonth(journals)
   }, [journals])
 
   if (!journals) return null
   const monthlyJournals = groupedJournalsByMonth[selectedMonth] || []
-  const groupedJournalsByDate =
-    JournalUtils.groupJournalsByDate(monthlyJournals)
+  const groupedJournalsByDate = groupJournalsByDate(monthlyJournals)
 
   return (
     <ViewContainer>
@@ -56,25 +58,12 @@ export default function EntriesScreen() {
               </YStack>
             }
             renderItem={({ item }: { item: GroupedJournalItem }) => {
-              const [date, journals] = item
               return (
-                <YStack key={date} gap='$2'>
-                  <DateHeader date={date} />
-                  {journals.map(journal => {
-                    const { content, imageUri, id, createdAt, mood } = journal
-                    return (
-                      <JournalCard
-                        key={id}
-                        journalId={id}
-                        content={content}
-                        imageUri={imageUri}
-                        createdAt={createdAt}
-                        mood={mood}
-                        localDate={selectedMonth}
-                      />
-                    )
-                  })}
-                </YStack>
+                <EntriesJournalDisplay
+                  date={item[0]}
+                  journals={item[1]}
+                  selectedMonth={selectedMonth}
+                />
               )
             }}
             contentContainerStyle={styles.container}

@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { useJournal, useMood, useUI } from '@/store'
 import { type ISOMonthString, TimeRange } from '@/types'
-import { StatisticUtils } from '@/utils'
+import { getMonthlyStats, getYearlyStats } from '@/utils'
 
 export const useMoodStats = (
   timeRange: TimeRange,
@@ -14,24 +14,12 @@ export const useMoodStats = (
   const isLoading = useUI(state => state.isLoading)
 
   const yearlyStats = useMemo(
-    () =>
-      StatisticUtils.getYearlyStats(
-        journalStore,
-        moods,
-        timeRange,
-        selectedYear,
-      ),
+    () => getYearlyStats(journalStore, moods, timeRange, selectedYear),
     [journalStore, moods, timeRange, selectedYear],
   )
 
   const monthlyStats = useMemo(
-    () =>
-      StatisticUtils.getMonthlyStats(
-        journalStore,
-        moods,
-        timeRange,
-        selectedMonth,
-      ),
+    () => getMonthlyStats(journalStore, moods, timeRange, selectedMonth),
     [journalStore, moods, timeRange, selectedMonth],
   )
 

@@ -6,7 +6,7 @@ import { ProfileMenuItem } from '@/components/features/setting'
 import { BaseText, H1, ViewContainer } from '@/components/shared'
 import { useAuth } from '@/store'
 import type { NewUserInfo } from '@/types'
-import { DateUtils } from '@/utils'
+import { getDaysSinceSignup } from '@/utils'
 
 export default function ProfileScreen() {
   const { t } = useTranslation()
@@ -67,9 +67,7 @@ export default function ProfileScreen() {
         {/* Days Since Signup */}
         <MenuSpacing>
           <MenuTitle>{t('settings.profile.daysSinceSignup')}</MenuTitle>
-          <BaseText>
-            {DateUtils.getDaysSinceSignup(session.user.created_at)}
-          </BaseText>
+          <BaseText>{getDaysSinceSignup(session.user.created_at)}</BaseText>
         </MenuSpacing>
       </ContentContainer>
     </ViewContainer>
