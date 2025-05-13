@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { ScrollView, XStack, YStack, styled } from 'tamagui'
 
 import {
-  MoodAverage,
+  LogStreak,
   TotalCount,
   WeeklyMoodChart,
 } from '@/components/features/statistic'
@@ -29,11 +29,12 @@ export default function StatisticScreen() {
             selectedYear={selectedYear}
             selectedMonth={selectedMonth || monthString}
           />
-          <MoodAverage
-            selectedYear={selectedYear}
-            selectedMonth={selectedMonth || monthString}
-          />
-          <WeeklyMoodChart selectedMonth={selectedMonth || monthString} />
+          {/*<MoodAverage*/}
+          {/*  selectedYear={selectedYear}*/}
+          {/*  selectedMonth={selectedMonth || monthString}*/}
+          {/*/> */}
+          {/*<WeeklyMoodChart selectedMonth={selectedMonth || monthString} />*/}
+          <LogStreak />
         </ContentYStack>
       </Container>
     </ScrollView>

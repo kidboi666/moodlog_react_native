@@ -3,7 +3,16 @@ import { Text, type TextProps } from 'tamagui'
 
 import { useCustomFont, useFontSizeAdjustment } from '@/hooks'
 
-type DefaultFonSize = '$4' | '$5' | '$6' | '$7' | '$8' | '$9' | '$10'
+type DefaultFonSize =
+  | '$2'
+  | '$3'
+  | '$4'
+  | '$5'
+  | '$6'
+  | '$7'
+  | '$8'
+  | '$9'
+  | '$10'
 
 interface Props extends TextProps {
   children: ReactNode

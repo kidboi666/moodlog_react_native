@@ -1,3 +1,4 @@
+import { useToastController } from '@tamagui/toast'
 import { queryOptions, useMutation } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
 import { Keyboard } from 'react-native'
@@ -56,10 +57,12 @@ export const MoodQueries = {
  */
 export function useAddMood() {
   const router = useRouter()
+  const toast = useToastController()
   return useMutation({
     mutationFn: (moodDraft: MoodDraft) => addMood(moodDraft),
-    onError: (error, variables) => {
+    onError: error => {
       console.error('error', error)
+      toast.show('', {})
     },
     onSuccess: () => {
       Keyboard.dismiss()

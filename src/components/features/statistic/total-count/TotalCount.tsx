@@ -1,9 +1,11 @@
+import { useQuery } from '@tanstack/react-query'
 import Animated from 'react-native-reanimated'
 import { YStack, styled } from 'tamagui'
 
 import { PRESS_STYLE } from '@/constants'
-import { useExpandAnimation, useJournalStats } from '@/hooks'
-import { ExpansionState, type ISOMonthString, TimeRange } from '@/types'
+import { useExpandAnimation } from '@/hooks'
+import { StatisticQueries } from '@/queries'
+import { ExpansionState, type ISOMonthString } from '@/types'
 import { TotalCountCollapsedContent } from './TotalCountCollapsedContent'
 import { TotalCountExpandedContent } from './TotalCountExpandedContent'
 
@@ -13,26 +15,24 @@ interface Props {
 }
 
 export function TotalCount({ selectedYear, selectedMonth }: Props) {
-  const { stats } = useJournalStats(
-    TimeRange.YEARLY,
-    selectedYear,
-    selectedMonth,
-  )
   const { animatedStyle, expansionState, onPress } = useExpandAnimation()
-
-  const { expressiveMonth, totalCount, frequency, activeDay } = stats || {}
+  const { data: totalCount } = useQuery(StatisticQueries.getTotalCount())
+  const expressiveMonth = '2021-01'
+  const frequency = 10
+  console.log('asdf', totalCount)
+  const activeDay = 10
 
   return (
     <AnimatedCardContainer onPress={onPress} style={animatedStyle}>
       {expansionState === ExpansionState.EXPANDED ? (
         <TotalCountExpandedContent
           expressiveMonth={expressiveMonth}
-          totalCount={totalCount}
+          totalCount={totalCount ?? 3}
           frequency={frequency}
           activeDay={activeDay}
         />
       ) : (
-        <TotalCountCollapsedContent totalCount={totalCount} />
+        <TotalCountCollapsedContent totalCount={totalCount ?? 3} />
       )}
     </AnimatedCardContainer>
   )

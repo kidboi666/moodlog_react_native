@@ -7,7 +7,7 @@ import type {
   SignatureMood,
 } from '@/types'
 import { MoodLevel, TimeRange } from '@/types'
-import { getDayFromISODate } from './date.utils'
+import { getDayFromISODate, getISOMonthString } from './date.utils'
 
 /**
  * 각 달마다 작성한 일기의 갯수 가져오기
@@ -26,9 +26,7 @@ export function getMonthlyCounts(selectedYear: number) {
  * 가장 많은 일기를 작성한 달과 갯수 가져오기
  */
 export function getExpressiveMonth(selectedYear: number) {
-  // const monthlyCounts = getMonthlyCounts(
-  //   selectedYear,
-  // )
+  // const monthlyCounts = getMonthlyCounts(selectedYear)
   // return Object.entries(monthlyCounts).reduce(
   //   (highest, [month, count]) => {
   //     if (count > highest.count) {

@@ -12,9 +12,11 @@ import { XStack, YStack, styled } from 'tamagui'
 import { BaseText, H3 } from '@/components/shared'
 import { WEEK_DAY } from '@/constants'
 import { useWeeklyMoodStats } from '@/hooks'
+import { MoodQueries } from '@/queries'
 import { useMood } from '@/store'
 import { type ISOMonthString, MoodLevel } from '@/types'
 import { getISODateFromMonthString } from '@/utils'
+import { useQuery } from '@tanstack/react-query'
 import { ChartItem } from './ChartItem'
 
 interface Props {
@@ -27,7 +29,7 @@ export function WeeklyMoodChart({ selectedMonth }: Props) {
   const dateString = getISODateFromMonthString(selectedMonth, date)
   const { t } = useTranslation()
   const { stats } = useWeeklyMoodStats(dateString)
-  const moods = useMood(state => state.moods)
+  const { data: moods } = useQuery(MoodQueries.getMoods())
 
   const days = Array(7)
     .fill(0)

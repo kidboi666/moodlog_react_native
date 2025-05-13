@@ -21,7 +21,7 @@ function _TotalCountCollapsedContent({ totalCount }: Props) {
       <XStack>
         <StackContainer>
           <H2>{totalCount}</H2>
-          <CountText>{t('common.units.count')}</CountText>
+          <Unit>{t('common.units.count')}</Unit>
         </StackContainer>
         <Maximize2 self='flex-end' color='$color8' />
       </XStack>
@@ -48,7 +48,7 @@ const StackContainer = styled(XStack, {
   flex: 1,
 })
 
-const CountText = styled(BaseText, {
+const Unit = styled(BaseText, {
   lineHeight: Layout.HEIGHT.RECORD_UNIT_LINE_HEIGHT,
   color: '$gray11',
 })

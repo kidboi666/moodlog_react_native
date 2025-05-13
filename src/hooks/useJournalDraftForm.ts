@@ -1,11 +1,9 @@
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { JournalDraft, MoodLevel } from '@/types'
 import { createNewFileName } from '@/utils'
 
 export const useJournalDraftForm = (initialMoodId?: string) => {
-  const { t } = useTranslation()
   const [draft, setDraft] = useState<JournalDraft>({
     content: '',
     moodId: initialMoodId ?? '',

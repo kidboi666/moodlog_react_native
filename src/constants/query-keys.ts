@@ -8,5 +8,6 @@ export const queryKeys = {
       timeRange,
       date ?? null,
     ],
+    totalCount: ['journal', 'totalCount'],
   },
 }

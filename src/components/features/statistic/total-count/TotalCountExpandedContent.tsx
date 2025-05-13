@@ -25,10 +25,6 @@ function _TotalCountExpandedContent({
   const session = useAuth(state => state.session)
   const { t } = useTranslation()
 
-  if (!totalCount) {
-    return <EmptyContent />
-  }
-
   if (!session) {
     return null
   }
