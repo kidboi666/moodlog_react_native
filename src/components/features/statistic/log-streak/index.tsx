@@ -27,6 +27,8 @@ const Container = styled(View, {
   p: '$4',
   rounded: '$7',
   gap: '$4',
+  animation: 'bouncy',
+  pressStyle: { scale: 0.92 },
 })
 const Header = styled(YStack, {
   gap: '$2',
