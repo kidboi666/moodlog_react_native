@@ -2,7 +2,7 @@ import Animated from 'react-native-reanimated'
 import { YStack, styled } from 'tamagui'
 
 import { PRESS_STYLE } from '@/constants'
-import { useExpandAnimation, useMoodStats } from '@/hooks'
+import { useExpandAnimation } from '@/hooks'
 import { ExpansionState, ISOMonthString, TimeRange } from '@/types'
 import { MoodAverageCollapsedContent } from './MoodAverageCollapsedContent'
 import { MoodAverageExpandedContent } from './MoodAverageExpandedContent'
@@ -13,11 +13,11 @@ interface Props {
 }
 
 export function MoodAverage({ selectedYear, selectedMonth }: Props) {
-  const { stats } = useMoodStats(TimeRange.YEARLY, selectedYear, selectedMonth)
-  const moodStats = stats.moodStats || {}
-  const signatureMood = moodStats.signatureMood || {}
-  const scoreBoard = moodStats.scoreBoard || {}
-  const hasSignatureMood = !!signatureMood?.id
+  // const { stats } = useMoodStats(TimeRange.YEARLY, selectedYear, selectedMonth)
+  // const moodStats = stats.moodStats || {}
+  // const signatureMood = moodStats.signatureMood || {}
+  // const scoreBoard = moodStats.scoreBoard || {}
+  // const hasSignatureMood = !!signatureMood?.id
 
   const { animatedStyle, expansionState, onPress } = useExpandAnimation()
   const isCardExpanded = expansionState === ExpansionState.EXPANDED

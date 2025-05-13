@@ -3,8 +3,8 @@ import { ScrollView, XStack, YStack, styled } from 'tamagui'
 
 import {
   LogStreak,
+  StartDay,
   TotalCount,
-  WeeklyMoodChart,
 } from '@/components/features/statistic'
 import { H1, ViewContainer } from '@/components/shared'
 import { useCalendar } from '@/hooks'
@@ -25,10 +25,13 @@ export default function StatisticScreen() {
           <H1>{t('statistics.title')}</H1>
         </TitleXStack>
         <ContentYStack>
-          <TotalCount
-            selectedYear={selectedYear}
-            selectedMonth={selectedMonth || monthString}
-          />
+          <XStack gap='$4'>
+            <TotalCount
+              selectedYear={selectedYear}
+              selectedMonth={selectedMonth || monthString}
+            />
+            <StartDay />
+          </XStack>
           {/*<MoodAverage*/}
           {/*  selectedYear={selectedYear}*/}
           {/*  selectedMonth={selectedMonth || monthString}*/}
