@@ -2,21 +2,35 @@ import { useTranslation } from 'react-i18next'
 import { ScrollView, XStack, YStack, styled } from 'tamagui'
 
 import {
+  Garden,
   LogStreak,
   StartDay,
   TotalCount,
 } from '@/components/features/statistic'
 import { H1, ViewContainer } from '@/components/shared'
 import { useCalendar } from '@/hooks'
-import type { ISOMonthString } from '@/types'
+import { JournalQueries } from '@/queries'
+import { ISOMonthString, TimeRange } from '@/types'
+import { useQuery } from '@tanstack/react-query'
 
 export default function StatisticScreen() {
-  const { selectedYear, selectedMonth, todayString } = useCalendar()
+  const {
+    selectedYear,
+    selectedMonth,
+    todayString,
+    isSelectedMonth,
+    onSelectedMonthChange,
+  } = useCalendar()
   const { t } = useTranslation()
+  const { data: journals } = useQuery(
+    JournalQueries.getJournals(TimeRange.YEARLY, selectedYear),
+  )
 
   const monthString = selectedMonth
     ? selectedMonth
     : (todayString.substring(0, 7) as ISOMonthString)
+
+  if (!journals) return null
 
   return (
     <ScrollView>
@@ -25,19 +39,22 @@ export default function StatisticScreen() {
           <H1>{t('statistics.title')}</H1>
         </TitleXStack>
         <ContentYStack>
-          <XStack gap='$4'>
-            <TotalCount
-              selectedYear={selectedYear}
-              selectedMonth={selectedMonth || monthString}
-            />
+          <StatisticsRow>
+            <TotalCount />
             <StartDay />
-          </XStack>
+          </StatisticsRow>
+          <LogStreak />
+          <Garden
+            journals={journals}
+            selectedYear={selectedYear}
+            isSelectedMonth={isSelectedMonth}
+            onSelectedMonthChange={onSelectedMonthChange}
+          />
           {/*<MoodAverage*/}
           {/*  selectedYear={selectedYear}*/}
           {/*  selectedMonth={selectedMonth || monthString}*/}
           {/*/> */}
           {/*<WeeklyMoodChart selectedMonth={selectedMonth || monthString} />*/}
-          <LogStreak />
         </ContentYStack>
       </Container>
     </ScrollView>
@@ -56,5 +73,9 @@ const TitleXStack = styled(XStack, {
 })
 
 const ContentYStack = styled(YStack, {
+  gap: '$4',
+})
+
+const StatisticsRow = styled(XStack, {
   gap: '$4',
 })

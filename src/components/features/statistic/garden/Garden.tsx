@@ -20,7 +20,7 @@ interface Props {
   isSelectedMonth: (month: ISOMonthString) => boolean
 }
 
-export function GardenSection({
+export function Garden({
   journals,
   onSelectedMonthChange,
   selectedYear,

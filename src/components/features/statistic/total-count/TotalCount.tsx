@@ -4,15 +4,9 @@ import { View, XStack, YStack, styled } from 'tamagui'
 import { BaseText, H2, H3 } from '@/components/shared'
 import { Layout } from '@/constants'
 import { StatisticQueries } from '@/queries'
-import { type ISOMonthString } from '@/types'
 import { useTranslation } from 'react-i18next'
 
-interface Props {
-  selectedYear: number
-  selectedMonth: ISOMonthString
-}
-
-export function TotalCount({ selectedYear, selectedMonth }: Props) {
+export function TotalCount() {
   const { t } = useTranslation()
   const { data: totalCount } = useQuery(StatisticQueries.getTotalCount())
 

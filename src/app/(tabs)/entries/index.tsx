@@ -4,10 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, StyleSheet } from 'react-native'
 import { YStack } from 'tamagui'
 
-import {
-  EntriesJournalDisplay,
-  GardenSection,
-} from '@/components/features/entries'
+import { EntriesJournalDisplay } from '@/components/features/entries'
 import { EmptyJournal } from '@/components/features/journal'
 import { Delay, H1, ViewContainer } from '@/components/shared'
 import { DelayMS, Layout } from '@/constants'
@@ -49,12 +46,6 @@ export default function EntriesScreen() {
             ListHeaderComponent={
               <YStack gap='$4'>
                 <H1>{t('entries.title')}</H1>
-                <GardenSection
-                  journals={journals}
-                  selectedYear={selectedYear}
-                  onSelectedMonthChange={onSelectedMonthChange}
-                  isSelectedMonth={isSelectedMonth}
-                />
               </YStack>
             }
             renderItem={({ item }: { item: GroupedJournalItem }) => {

@@ -13,7 +13,7 @@ interface Props {
   journals: Journal[]
 }
 
-function _Garden({
+function _GardenContent({
   weekLength,
   monthDate,
   firstDateDay,
@@ -53,6 +53,5 @@ const YStackContainer = styled(YStack, {
   gap: '$2',
 })
 
-export const Garden = memo(_Garden)
-
-Garden.displayName = 'Garden'
+export const GardenContent = memo(_GardenContent)
+GardenContent.displayName = 'Garden'
