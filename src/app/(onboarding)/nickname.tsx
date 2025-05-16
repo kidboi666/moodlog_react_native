@@ -1,5 +1,8 @@
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+} from '@react-native-google-signin/google-signin'
 import { AuthError } from '@supabase/supabase-js'
-import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -11,11 +14,11 @@ import {
   FormInput,
   H2,
   H3,
-  PressableButton,
   ViewContainer,
 } from '@/components/shared'
 import { DelayMS } from '@/constants'
-import { AuthService } from '@/services'
+import { supabase } from '@/lib'
+import { signInAnonymously } from '@/services'
 import { useStepProgress } from '@/store'
 
 export default function Screen() {
@@ -30,6 +33,11 @@ export default function Screen() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<AuthError | Error | null>(null)
   const isNicknamePage = currentStep === 1
+  GoogleSignin.configure({
+    scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+    webClientId: process.env.EXPO_PUBLIC_WEB_CLIENT_ID,
+    iosClientId: process.env.EXPO_PUBLIC_IOS_CLIENT_ID,
+  })
 
   const handleDraftUserNameChange = (text: string) => {
     setDraftUserName(text)
@@ -48,7 +56,7 @@ export default function Screen() {
       setError(null)
 
       try {
-        const session = await AuthService.signInAnonymously(draftUserName)
+        const session = await signInAnonymously(draftUserName)
         goToNextStep()
         router.push('/benefit')
       } catch (err) {
@@ -85,21 +93,33 @@ export default function Screen() {
       </YStack>
       <Delay delay={DelayMS.ANIMATION.LONG[3]}>
         <XStack justify='space-between'>
-          <PressableButton
-            icon={ArrowLeft}
-            onPress={handlePrevStep}
-            disabled={isLoading}
-          >
-            {t('common.prev')}
-          </PressableButton>
-          <PressableButton
-            disabled={!draftUserName || isLoading}
-            onPress={handleNextStep}
-            iconAfter={ArrowRight}
-            loading={isLoading}
-          >
-            {t('common.next')}
-          </PressableButton>
+          <GoogleSigninButton
+            size={GoogleSigninButton.Size.Wide}
+            color={GoogleSigninButton.Color.Light}
+            onPress={async () => {
+              try {
+                await GoogleSignin.hasPlayServices()
+                const userInfo = await GoogleSignin.signIn()
+                console.log(userInfo)
+                if (userInfo.data?.idToken) {
+                  const { data, error } = await supabase.auth.signInWithIdToken(
+                    {
+                      provider: 'google',
+                      token: userInfo.data.idToken,
+                    },
+                  )
+                  console.log(data)
+                  console.log(error)
+                } else {
+                  throw new Error('No idToken')
+                }
+                goToNextStep()
+                router.push('/benefit')
+              } catch (err) {
+                console.error('Failed to sign in :', err)
+              }
+            }}
+          />
         </XStack>
       </Delay>
     </ViewContainer>

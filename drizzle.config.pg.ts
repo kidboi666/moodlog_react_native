@@ -7,9 +7,4 @@ export default defineConfig({
   dbCredentials: {
     url: process.env.DIRECT_URL!,
   },
-  schemaFilter: ['public'],
-  casing: 'snake_case',
-  introspect: {
-    casing: 'preserve',
-  },
 })

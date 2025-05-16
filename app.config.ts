@@ -38,6 +38,13 @@ export default (): ExpoConfig => ({
     ],
     'expo-localization',
     'expo-sqlite',
+    [
+      '@react-native-google-signin/google-signin',
+      {
+        iosUrlScheme:
+          'com.googleusercontent.apps.275212970386-2ib0j1tkgjb1jmugnp7cefh3qhntp8q9',
+      },
+    ],
   ],
   experiments: {
     typedRoutes: true,

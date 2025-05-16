@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { AuthService } from '@/services'
+import { onAuthStateChange } from '@/services'
 import { useAuth } from '@/store'
 
 export const useAuthListener = () => {
@@ -8,7 +8,7 @@ export const useAuthListener = () => {
   const clearSession = useAuth(state => state.clearSession)
 
   useEffect(() => {
-    const subscription = AuthService.onAuthStateChange(setSession, clearSession)
+    const subscription = onAuthStateChange(setSession, clearSession)
     return () => subscription.unsubscribe()
   }, [setSession, clearSession])
 }
