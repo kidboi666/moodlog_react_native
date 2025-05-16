@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import { MoodLevel } from '../src/types/mood.types'
-import { db } from './index'
-import { journals, moods } from './schema'
+import { sqliteDb } from './sqlite'
+import { journals, moods } from './sqlite/schema'
 
 // Define some sample moods
 const sampleMoods = [
@@ -84,20 +84,17 @@ function getDatesInRange(startDate: Date, endDate: Date): string[] {
 
 // Main seeding function
 export async function seedDatabase() {
-  await db.delete(journals)
-  await db.delete(moods)
+  await sqliteDb.delete(journals)
+  await sqliteDb.delete(moods)
   console.log('Starting database seeding...')
 
   // Insert moods
-  console.log('Inserting moods...')
-  await db.insert(moods).values(sampleMoods).onConflictDoNothing()
+  await sqliteDb.insert(moods).values(sampleMoods).onConflictDoNothing()
 
   // Get date range
   const startDate = new Date('2025-01-01')
   const endDate = new Date('2025-12-30')
   const dates = getDatesInRange(startDate, endDate)
-
-  console.log(`Generating journal entries for ${dates.length} days...`)
 
   // For each date, create 0-3 journal entries
   const journalEntries = []
@@ -115,12 +112,9 @@ export async function seedDatabase() {
   }
 
   // Insert journal entries
-  console.log(`Inserting ${journalEntries.length} journal entries...`)
   if (journalEntries.length > 0) {
-    await db.insert(journals).values(journalEntries)
+    await sqliteDb.insert(journals).values(journalEntries)
   }
-
-  console.log('Database seeding completed successfully!')
 }
 
 // Execute the seeding function

@@ -14,7 +14,6 @@ export const useDev = () => {
     console.log('Clearing storage...')
     useAuth.persist.clearStorage()
     useApp.persist.clearStorage()
-    useJournal.persist.clearStorage()
     useMood.persist.clearStorage()
   }
 

@@ -1,5 +1,6 @@
 import { memo } from 'react'
 import { Text, type TextProps } from 'tamagui'
+
 import { BaseText } from './BaseText'
 
 interface Props extends TextProps {

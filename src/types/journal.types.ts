@@ -1,6 +1,6 @@
 import { InferSelectModel } from 'drizzle-orm'
 
-import { journals } from '../../db/schema'
+import { journals } from '../../db/sqlite/schema'
 import type { ISODateString, ISOMonthString } from './date.types'
 import { Mood, MoodLevel } from './mood.types'
 import { Maybe, Prettify } from './util.types'

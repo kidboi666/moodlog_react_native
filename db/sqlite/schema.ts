@@ -1,12 +1,12 @@
 import { relations, sql } from 'drizzle-orm'
-import { sqliteTable as table, text } from 'drizzle-orm/sqlite-core'
+import { sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import { v4 as uuidv4 } from 'uuid'
 
-const timestamp = {
+export const timestamp = {
   createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`).notNull(),
 }
 
-export const journals = table('journals', {
+export const journals = sqliteTable('journals', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => uuidv4()),
@@ -20,7 +20,7 @@ export const journals = table('journals', {
   ...timestamp,
 })
 
-export const moods = table('moods', {
+export const moods = sqliteTable('moods', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => uuidv4()),

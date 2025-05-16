@@ -127,26 +127,32 @@ export const ko = {
       monthly: '월간',
       weekly: '주간',
     },
+    daysSinceSignup: {
+      title: '시작한 날',
+      description: '일기를 작성하기 시작한지',
+      unit: '일 째',
+    },
     totalCount: {
       title: '전체 기록',
       description: '지금까지 작성한 일기 갯수',
-      daysSinceSignup: {
-        title: '일기를 작성하기 시작한지',
-        description: '{{date}}일 째',
-      },
-      frequency: {
-        title: '평균 작성 빈도',
-        description: '보통 {{date}}일 간격으로 일기를 작성헀어요.',
-        everyDay: '보통 매일 일기를 작성했어요.',
-      },
-      mostDay: {
-        title: '가장 많이 작성한 요일',
-        description: '주로 {{day}}요일에 일기를 작성했어요.',
-      },
-      expressiveMonth: {
-        title: '가장 많이 작성한 달',
-        description: '{{month}}엔 총 {{count}}개의 일기를 작성했어요.',
-      },
+    },
+    frequency: {
+      title: '평균 작성 빈도',
+      description: '보통 {{date}}일 간격으로 일기를 작성헀어요.',
+      everyDay: '보통 매일 일기를 작성했어요.',
+    },
+    mostDay: {
+      title: '가장 많이 작성한 요일',
+      description: '주로 {{day}}요일에 일기를 작성했어요.',
+    },
+    logStreakDay: {
+      title: '기록 연속 일수',
+      description: '끊임없이 매일 연속으로 기록한 일수',
+      unit: '일 째',
+    },
+    expressiveMonth: {
+      title: '가장 많이 작성한 달',
+      description: '{{month}}엔 총 {{count}}개의 일기를 작성했어요.',
     },
     mood: {
       title: '대표 감정',

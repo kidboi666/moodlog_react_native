@@ -4,7 +4,7 @@ This directory contains the database schema and seeding scripts for the Moodlog 
 
 ## Schema
 
-The database schema is defined in `schema.ts`. It includes the following tables:
+The database schema is defined in `index.ts`. It includes the following tables:
 
 - `journals`: Stores journal entries with mood information
 - `moods`: Stores mood definitions

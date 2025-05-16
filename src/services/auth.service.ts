@@ -27,6 +27,7 @@ export class AuthService {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log('session', session)
       if (event === 'SIGNED_OUT') {
         clearSession()
       } else if (session) {

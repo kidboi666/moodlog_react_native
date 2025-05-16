@@ -1,9 +1,9 @@
 import { count, sql } from 'drizzle-orm'
-import { db } from '../../db'
-import { journals } from '../../db/schema'
+import { sqliteDb } from '../../db/sqlite'
+import { journals } from '../../db/sqlite/schema'
 
 export async function getTotalCount() {
-  const [{ count: journalCount }] = await db
+  const [{ count: journalCount }] = await sqliteDb
     .select({ count: count() })
     .from(journals)
   return journalCount

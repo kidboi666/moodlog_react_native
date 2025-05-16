@@ -1,16 +1,24 @@
+import { useTranslation } from 'react-i18next'
 import { XStack, YStack, styled } from 'tamagui'
 
 import { BaseText, H2, H3 } from '@/components/shared'
 import { Layout } from '@/constants'
+import { useAuth } from '@/store'
+import { getDaysSinceSignup } from '@/utils'
 
 export function StartDay() {
+  const { t } = useTranslation()
+  const session = useAuth(state => state.session)
+  const createdAt = session?.user?.created_at || ''
+  const daysSinceSignup = getDaysSinceSignup(createdAt)
+
   return (
     <Container>
-      <H3>기록 시작일</H3>
-      <BaseText>시작한 날로부터 일수</BaseText>
+      <H3>{t('statistics.daysSinceSignup.title')}</H3>
+      <BaseText>{t('statistics.daysSinceSignup.description')}</BaseText>
       <StyledXStack>
-        <H2>3</H2>
-        <Unit>일 째</Unit>
+        <H2>{daysSinceSignup}</H2>
+        <Unit>{t('statistics.daysSinceSignup.unit')}</Unit>
       </StyledXStack>
     </Container>
   )

@@ -1,5 +1,5 @@
 import { InferSelectModel } from 'drizzle-orm'
-import { moods } from '../../db/schema'
+import { moods } from '../../db/sqlite/schema'
 import { Prettify } from './util.types'
 
 export enum MoodLevel {

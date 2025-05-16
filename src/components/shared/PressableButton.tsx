@@ -34,7 +34,7 @@ export function PressableButton({
   const animateOnly =
     enterStyle || exitStyle
       ? [...PRESS_STYLE_KEY, ...MOUNT_STYLE_KEY]
-      : undefined
+      : PRESS_STYLE_KEY
   const isDisabled = disabled || loading
   return (
     <Button
@@ -44,7 +44,7 @@ export function PressableButton({
       pressStyle={pressStyle || PRESS_STYLE}
       enterStyle={enterStyle}
       exitStyle={exitStyle}
-      animateOnly={animateOnly || PRESS_STYLE_KEY}
+      animateOnly={animateOnly}
       scaleIcon={scaleIcon || 1.5}
       fontFamily={fontFamily || fontNameWithTokenPrefix}
       themeInverse={themeInverse}

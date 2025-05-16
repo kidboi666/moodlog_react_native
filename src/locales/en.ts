@@ -126,23 +126,24 @@ export const en = {
     totalCount: {
       title: 'Total Record',
       description: 'Journals written so far',
-      daysSinceSignup: {
-        title: 'Days journaling',
-        description: 'Day {{date}}',
-      },
-      frequency: {
-        title: 'Writing Frequency',
-        description: 'You write every {{date}} days.',
-        everyDay: 'You write daily.',
-      },
-      mostDay: {
-        title: 'Top Writing Day',
-        description: 'You mostly write on {{day}}.',
-      },
-      expressiveMonth: {
-        title: 'Most Active Month',
-        description: 'In {{month}}, you wrote {{count}} entries.',
-      },
+    },
+    daysSinceSignup: {
+      title: 'Days journaling',
+      description: 'Since you started writing',
+      unit: 'days',
+    },
+    frequency: {
+      title: 'Writing Frequency',
+      description: 'You write every {{date}} days.',
+      everyDay: 'You write daily.',
+    },
+    mostDay: {
+      title: 'Top Writing Day',
+      description: 'You mostly write on {{day}}.',
+    },
+    expressiveMonth: {
+      title: 'Most Active Month',
+      description: 'In {{month}}, you wrote {{count}} entries.',
     },
     mood: {
       title: 'Signature Emotion',

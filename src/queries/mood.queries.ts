@@ -2,7 +2,7 @@ import { useToastController } from '@tamagui/toast'
 import { queryOptions, useMutation } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
 import { Keyboard } from 'react-native'
-import { moods } from '../../db/schema'
+import { moods } from '../../db/sqlite/schema'
 
 import {
   addMood,

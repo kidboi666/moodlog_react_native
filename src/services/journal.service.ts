@@ -1,6 +1,6 @@
 import { and, eq, gte, lte } from 'drizzle-orm'
-import { db } from '../../db'
-import { journals } from '../../db/schema'
+import { sqliteDb } from '../../db/sqlite'
+import { journals } from '../../db/sqlite/schema'
 
 import {
   ISODateString,
@@ -18,7 +18,7 @@ import {
 } from '@/utils'
 
 export async function addJournal(draft: JournalDraft) {
-  return db
+  return sqliteDb
     .insert(journals)
     .values({
       content: draft.content,
@@ -30,7 +30,7 @@ export async function addJournal(draft: JournalDraft) {
 }
 
 export async function updateJournal(id: string, draft: JournalDraft) {
-  return db
+  return sqliteDb
     .update(journals)
     .set({
       content: draft.content,
@@ -42,7 +42,7 @@ export async function updateJournal(id: string, draft: JournalDraft) {
 }
 
 export async function getJournalById(journalId: string) {
-  return db.query.journals.findFirst({
+  return sqliteDb.query.journals.findFirst({
     where: eq(journals.id, journalId),
     with: {
       mood: true,
@@ -59,7 +59,7 @@ export async function getJournals(
     const yearDate = date as number
     const firstDate = getFirstISODateFromYear(yearDate)
     const lastDate = getLastISODateFromYear(yearDate)
-    result = await db.query.journals.findMany({
+    result = await sqliteDb.query.journals.findMany({
       where: and(
         gte(journals.localDate, firstDate),
         lte(journals.localDate, lastDate),
@@ -72,7 +72,7 @@ export async function getJournals(
     const monthDate = date as ISOMonthString
     const firstDate = getISODateFromMonthString(monthDate, 1)
     const lastDate = getLastDate(monthDate)
-    result = await db.query.journals.findMany({
+    result = await sqliteDb.query.journals.findMany({
       where: and(
         gte(journals.localDate, firstDate),
         lte(journals.localDate, lastDate),
@@ -82,14 +82,14 @@ export async function getJournals(
       },
     })
   } else if (timeRange === TimeRange.DAILY) {
-    result = await db.query.journals.findMany({
+    result = await sqliteDb.query.journals.findMany({
       where: eq(journals.localDate, date as ISODateString),
       with: {
         mood: true,
       },
     })
   } else {
-    result = await db.query.journals.findMany({
+    result = await sqliteDb.query.journals.findMany({
       with: { mood: true },
     })
   }
@@ -97,5 +97,5 @@ export async function getJournals(
 }
 
 export async function deleteJournal(journalId: string) {
-  await db.delete(journals).where(eq(journals.id, journalId))
+  await sqliteDb.delete(journals).where(eq(journals.id, journalId))
 }
