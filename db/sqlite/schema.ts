@@ -1,17 +1,14 @@
 import { relations, sql } from 'drizzle-orm'
-import { sqliteTable, text } from 'drizzle-orm/sqlite-core'
-import { v4 as uuidv4 } from 'uuid'
+import { int, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
 export const timestamp = {
   createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`).notNull(),
 }
 
 export const journals = sqliteTable('journals', {
-  id: text('id')
-    .primaryKey()
-    .$defaultFn(() => uuidv4()),
+  id: int('id').primaryKey({ autoIncrement: true }),
   content: text('content'),
-  moodId: text('mood_id')
+  moodId: int('mood_id')
     .references(() => moods.id)
     .notNull(),
   moodLevel: text('mood_level').notNull(),
@@ -21,9 +18,7 @@ export const journals = sqliteTable('journals', {
 })
 
 export const moods = sqliteTable('moods', {
-  id: text('id')
-    .primaryKey()
-    .$defaultFn(() => uuidv4()),
+  id: int('id').primaryKey({ autoIncrement: true }),
   name: text('name').notNull(),
   color: text('color').notNull(),
   ...timestamp,

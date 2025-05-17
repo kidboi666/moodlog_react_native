@@ -1,3 +1,4 @@
+import { supabase } from '@/lib'
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -17,7 +18,6 @@ import {
   ViewContainer,
 } from '@/components/shared'
 import { DelayMS } from '@/constants'
-import { supabase } from '@/lib'
 import { signInAnonymously } from '@/services'
 import { useStepProgress } from '@/store'
 
@@ -73,6 +73,29 @@ export default function Screen() {
     }
   }
 
+  const handleSubmit = async () => {
+    try {
+      await GoogleSignin.hasPlayServices()
+      const userInfo = await GoogleSignin.signIn()
+      if (userInfo.data?.idToken) {
+        const { data, error } = await supabase.auth.signInWithIdToken({
+          provider: 'google',
+          token: userInfo.data.idToken,
+        })
+
+        if (error) {
+          throw new Error('Failed to signin', error)
+        }
+      } else {
+        throw new Error('No idToken')
+      }
+      goToNextStep()
+      router.push('/benefit')
+    } catch (err) {
+      console.error('Failed to sign in :', err)
+    }
+  }
+
   return (
     <ViewContainer edges={['bottom']}>
       <YStack flex={1} gap='$6'>
@@ -96,29 +119,7 @@ export default function Screen() {
           <GoogleSigninButton
             size={GoogleSigninButton.Size.Wide}
             color={GoogleSigninButton.Color.Light}
-            onPress={async () => {
-              try {
-                await GoogleSignin.hasPlayServices()
-                const userInfo = await GoogleSignin.signIn()
-                console.log(userInfo)
-                if (userInfo.data?.idToken) {
-                  const { data, error } = await supabase.auth.signInWithIdToken(
-                    {
-                      provider: 'google',
-                      token: userInfo.data.idToken,
-                    },
-                  )
-                  console.log(data)
-                  console.log(error)
-                } else {
-                  throw new Error('No idToken')
-                }
-                goToNextStep()
-                router.push('/benefit')
-              } catch (err) {
-                console.error('Failed to sign in :', err)
-              }
-            }}
+            onPress={handleSubmit}
           />
         </XStack>
       </Delay>

@@ -75,7 +75,8 @@
     "reanimated-color-picker": "^4.0.1",
     "tamagui": "^1.126.1",
     "uuid": "^11.1.0",
-    "zustand": "^5.0.3"
+    "zustand": "^5.0.3",
+    "react-native-svg": "15.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

@@ -5,14 +5,14 @@ import { journals, moods } from './sqlite/schema'
 
 // Define some sample moods
 const sampleMoods = [
-  { id: uuidv4(), name: 'Happy', color: '#FFD700' },
-  { id: uuidv4(), name: 'Sad', color: '#4682B4' },
-  { id: uuidv4(), name: 'Angry', color: '#FF4500' },
-  { id: uuidv4(), name: 'Excited', color: '#FF69B4' },
-  { id: uuidv4(), name: 'Calm', color: '#20B2AA' },
-  { id: uuidv4(), name: 'Tired', color: '#708090' },
-  { id: uuidv4(), name: 'Anxious', color: '#9932CC' },
-  { id: uuidv4(), name: 'Grateful', color: '#32CD32' },
+  { name: 'Happy', color: '#FFD700' },
+  { name: 'Sad', color: '#4682B4' },
+  { name: 'Angry', color: '#FF4500' },
+  { name: 'Excited', color: '#FF69B4' },
+  { name: 'Calm', color: '#20B2AA' },
+  { name: 'Tired', color: '#708090' },
+  { name: 'Anxious', color: '#9932CC' },
+  { name: 'Grateful', color: '#32CD32' },
 ]
 
 // Sample content templates for journal entries
@@ -29,8 +29,15 @@ const contentTemplates = [
   'Had a good conversation with a friend. Feeling {mood} after.',
 ]
 
-// Function to generate a random journal entry
-function generateJournalEntry(date: string, moodId: string, moodName: string) {
+async function createSampleMoods() {
+  await sqliteDb.delete(moods)
+
+  await sqliteDb.insert(moods).values(sampleMoods)
+}
+
+createSampleMoods()
+
+function generateJournalEntry(date: string, moodId: number, moodName: string) {
   const moodLevels = [MoodLevel.ZERO, MoodLevel.HALF, MoodLevel.FULL]
   const randomMoodLevel =
     moodLevels[Math.floor(Math.random() * moodLevels.length)]
@@ -42,14 +49,12 @@ function generateJournalEntry(date: string, moodId: string, moodName: string) {
     moodName.toLowerCase(),
   )
 
-  // Random chance to have an image
   const hasImage = Math.random() > 0.7
   const imageUri = hasImage
     ? JSON.stringify(['https://picsum.photos/200/300'])
     : null
 
   return {
-    id: uuidv4(),
     content,
     moodId,
     moodLevel: randomMoodLevel,
@@ -58,12 +63,10 @@ function generateJournalEntry(date: string, moodId: string, moodName: string) {
   }
 }
 
-// Function to generate a date string in ISO format (YYYY-MM-DD)
 function generateDateString(year: number, month: number, day: number): string {
   return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
 }
 
-// Function to get all dates between start and end dates
 function getDatesInRange(startDate: Date, endDate: Date): string[] {
   const dates: string[] = []
   const currentDate = new Date(startDate)
@@ -82,42 +85,32 @@ function getDatesInRange(startDate: Date, endDate: Date): string[] {
   return dates
 }
 
-// Main seeding function
 export async function seedDatabase() {
   await sqliteDb.delete(journals)
-  await sqliteDb.delete(moods)
   console.log('Starting database seeding...')
-
-  // Insert moods
-  await sqliteDb.insert(moods).values(sampleMoods).onConflictDoNothing()
-
-  // Get date range
+  const moodList = await sqliteDb.select().from(moods)
   const startDate = new Date('2025-01-01')
   const endDate = new Date('2025-12-30')
   const dates = getDatesInRange(startDate, endDate)
 
-  // For each date, create 0-3 journal entries
   const journalEntries = []
 
   for (const date of dates) {
-    const entriesCount = Math.floor(Math.random() * 4) // 0-3 entries per day
+    const entriesCount = Math.floor(Math.random() * 4)
 
     for (let i = 0; i < entriesCount; i++) {
-      const randomMood =
-        sampleMoods[Math.floor(Math.random() * sampleMoods.length)]
+      const randomMood = moodList[Math.floor(Math.random() * moodList.length)]
       journalEntries.push(
         generateJournalEntry(date, randomMood.id, randomMood.name),
       )
     }
   }
 
-  // Insert journal entries
   if (journalEntries.length > 0) {
     await sqliteDb.insert(journals).values(journalEntries)
   }
 }
 
-// Execute the seeding function
 seedDatabase().catch(error => {
   console.error('Error seeding database:', error)
 })

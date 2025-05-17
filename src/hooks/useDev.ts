@@ -1,4 +1,4 @@
-import { useApp, useAuth, useJournal, useMood } from '@/store'
+import { useApp, useAuth, useMood } from '@/store'
 import { deleteDatabaseAsync } from 'expo-sqlite'
 
 export const useDev = () => {
