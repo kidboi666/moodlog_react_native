@@ -1,17 +1,18 @@
-import { Stack } from 'expo-router'
+import { useAuth } from '@/store'
+import { Redirect, Stack } from 'expo-router'
 import { useTheme } from 'tamagui'
 
 export function MainStack() {
   const theme = useTheme()
 
-  const screenOptions = {
-    headerShown: false,
-    contentStyle: { flex: 1, backgroundColor: theme.background.val },
-    headerStyle: { backgroundColor: theme.background.val },
-  }
-
   return (
-    <Stack screenOptions={screenOptions}>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        contentStyle: { flex: 1, backgroundColor: theme.background.val },
+        headerStyle: { backgroundColor: theme.background.val },
+      }}
+    >
       <Stack.Screen name='(tabs)' />
       <Stack.Screen name='(write)' />
       <Stack.Screen name='(onboarding)' />

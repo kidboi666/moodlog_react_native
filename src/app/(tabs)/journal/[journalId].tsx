@@ -33,7 +33,7 @@ export default function JournalScreen() {
   const router = useRouter()
   const { t } = useTranslation()
   const { data: journal } = useQuery(
-    JournalQueries.getJournalById(toSingle(journalId)),
+    JournalQueries.getJournalById(Number(toSingle(journalId))),
   )
   const fontSize = useApp(state => state.settings.fontSize)
   const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
@@ -49,7 +49,7 @@ export default function JournalScreen() {
     if (!journal) return
 
     showBottomSheet(BottomSheetType.DELETE_JOURNAL, Layout.SNAP_POINTS.DELETE, {
-      journalId: toSingle(journalId),
+      journalId: Number(toSingle(journalId)),
       hideBottomSheet,
       localDate: journal.localDate,
     })

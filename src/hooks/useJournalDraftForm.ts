@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { JournalDraft, MoodLevel } from '@/types'
 import { createNewFileName } from '@/utils'
 
-export const useJournalDraftForm = (initialMoodId?: string) => {
+export const useJournalDraftForm = (initialMoodId?: number) => {
   const [draft, setDraft] = useState<JournalDraft>({
     content: '',
     moodId: initialMoodId ?? '',

@@ -1,6 +1,7 @@
 import {
   Activity,
   Database,
+  LogOut,
   RefreshCw,
   Server,
   Users,
@@ -15,7 +16,7 @@ import { useDev } from '@/hooks/useDev'
 
 export default function DevScreen() {
   const { t } = useTranslation()
-  const { resetStores, resetDatabase } = useDev()
+  const { resetStores, resetDatabase, signOut } = useDev()
 
   return (
     <ScrollView>
@@ -31,6 +32,11 @@ export default function DevScreen() {
             <SpacingBox>
               <Button onPress={resetDatabase} icon={<Database size='$1' />}>
                 {t('settings.dev.resetDatabase')}
+              </Button>
+            </SpacingBox>
+            <SpacingBox>
+              <Button onPress={signOut} icon={<LogOut size='$1' />}>
+                로그아웃
               </Button>
             </SpacingBox>
           </SettingsContainer>

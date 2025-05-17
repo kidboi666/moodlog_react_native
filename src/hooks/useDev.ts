@@ -1,3 +1,4 @@
+import { supabase } from '@/lib'
 import { useApp, useAuth, useMood } from '@/store'
 import { deleteDatabaseAsync } from 'expo-sqlite'
 
@@ -21,8 +22,8 @@ export const useDev = () => {
     deleteDatabaseAsync('moodlog.db')
   }
 
-  const insertDummyData = async () => {
-    console.log('Inserting dummy data...')
+  const signOut = async () => {
+    await supabase.auth.signOut()
   }
 
   return {
@@ -30,6 +31,6 @@ export const useDev = () => {
     onClearJournalStorage: handleClearJournalStorage,
     resetStores,
     resetDatabase,
-    insertDummyData,
+    signOut,
   }
 }

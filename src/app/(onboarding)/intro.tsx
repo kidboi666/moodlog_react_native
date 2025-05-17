@@ -14,19 +14,19 @@ import {
 import { DelayMS } from '@/constants'
 import { useStepProgress } from '@/store'
 
-export default function Screen() {
+export default function IntroScreen() {
   const router = useRouter()
   const { t } = useTranslation()
   const {
     state: { currentStep },
     goToNextStep,
   } = useStepProgress()
-  const isWelcomePage = currentStep === 0
+  const isCurrentPage = currentStep === 0
 
-  const handleClickNextButton = () => {
-    if (isWelcomePage) {
+  const handleNextButton = () => {
+    if (isCurrentPage) {
       goToNextStep()
-      router.push('/nickname')
+      router.push('/features')
     }
   }
 
@@ -36,21 +36,25 @@ export default function Screen() {
         <YStack flex={1} gap='$6'>
           <Delay delay={DelayMS.ANIMATION.LONG[0]}>
             <XStack gap='$2'>
-              <H1>{t('onboarding.welcome.title')}</H1>
               <ShakeEmoji emoji='👋' />
             </XStack>
+            <H1>무드로그에 오신 것을 환영합니다!</H1>
           </Delay>
           <Delay delay={DelayMS.ANIMATION.LONG[1]}>
             <YStack gap='$6'>
               <H3 color='$gray11' mb='$4'>
-                {t('onboarding.welcome.description')}
+                무드로그는 당신의 일상 감정을 기록하고 분석하는 감정 일기장
+                앱입니다.
               </H3>
-              <H3 color='$gray11'>{t('onboarding.welcome.description2')}</H3>
+              <H3 color='$gray11'>
+                매일 감정을 기록하고 시간이 지남에 따라 감정 패턴을
+                발견해보세요.
+              </H3>
             </YStack>
           </Delay>
         </YStack>
         <Delay delay={DelayMS.ANIMATION.LONG[2]}>
-          <H2>{t('onboarding.welcome.go')}</H2>
+          <H2>함께 무드로그를 시작해볼까요?</H2>
         </Delay>
       </YStack>
       <Delay delay={DelayMS.ANIMATION.LONG[3]}>
@@ -58,9 +62,9 @@ export default function Screen() {
           mt='$8'
           self='flex-end'
           iconAfter={ArrowRight}
-          onPress={handleClickNextButton}
+          onPress={handleNextButton}
         >
-          {t('common.next')}
+          다음
         </PressableButton>
       </Delay>
     </ViewContainer>

@@ -12,7 +12,7 @@ export default function TabsLayout() {
   const session = useAuth(state => state.session)
 
   if (!session) {
-    return <Redirect href='/(onboarding)/welcome' />
+    return <Redirect href='/(onboarding)/intro' />
   }
 
   const shouldHideTabBar = HIDE_TAB_BAR_ROUTES.some(route =>

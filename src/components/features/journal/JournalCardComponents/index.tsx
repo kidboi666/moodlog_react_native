@@ -14,7 +14,7 @@ import { ImageSection } from './ImageSection'
 
 interface Props {
   content: Maybe<string>
-  journalId: string
+  journalId: number
   localDate: ISOString
   createdAt: string
   imageUri: Maybe<string[]>
