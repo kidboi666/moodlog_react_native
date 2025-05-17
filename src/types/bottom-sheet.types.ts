@@ -10,7 +10,7 @@ export enum BottomSheetType {
 
 export type BottomSheetProps = {
   [BottomSheetType.DELETE_JOURNAL]: {
-    journalId: string
+    journalId: number
     hideBottomSheet: () => void
     localDate: ISOString
   }
@@ -20,7 +20,7 @@ export type BottomSheetProps = {
     hideBottomSheet: () => void
   }
   [BottomSheetType.DELETE_MOOD]: {
-    moodId: string
+    moodId: number
     onDelete: (moodId: string) => void
     isLoading: boolean
     hideBottomSheet: () => void

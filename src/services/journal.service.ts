@@ -29,7 +29,7 @@ export async function addJournal(draft: JournalDraft) {
     .returning({ id: journals.id, localDate: journals.localDate })
 }
 
-export async function updateJournal(id: string, draft: JournalDraft) {
+export async function updateJournal(id: number, draft: JournalDraft) {
   return sqliteDb
     .update(journals)
     .set({
@@ -41,7 +41,7 @@ export async function updateJournal(id: string, draft: JournalDraft) {
     .where(eq(journals.id, id))
 }
 
-export async function getJournalById(journalId: string) {
+export async function getJournalById(journalId: number) {
   return sqliteDb.query.journals.findFirst({
     where: eq(journals.id, journalId),
     with: {
@@ -96,6 +96,6 @@ export async function getJournals(
   return result
 }
 
-export async function deleteJournal(journalId: string) {
+export async function deleteJournal(journalId: number) {
   await sqliteDb.delete(journals).where(eq(journals.id, journalId))
 }

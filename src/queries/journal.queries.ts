@@ -23,7 +23,7 @@ import {
 } from '@/types'
 
 export const JournalQueries = {
-  getJournalById: (journalId: string) => {
+  getJournalById: (journalId: number) => {
     return queryOptions({
       queryKey: queryKeys.get.journal(journalId),
       queryFn: () => getJournalById(journalId),
@@ -90,7 +90,7 @@ export function useDeleteJournal(hideBottomSheet: () => void, date: ISOString) {
   const queryClient = useQueryClient()
   const router = useRouter()
   return useMutation({
-    mutationFn: (journalId: string) => deleteJournal(journalId),
+    mutationFn: (journalId: number) => deleteJournal(journalId),
     onError: error => {
       console.error('error', error)
     },
