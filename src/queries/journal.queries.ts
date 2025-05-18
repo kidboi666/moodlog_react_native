@@ -11,46 +11,71 @@ import {
   addJournal,
   deleteJournal,
   getJournalById,
-  getJournals,
+  getJournalsByDate,
+  getJournalsByMonth,
+  getJournalsByYear,
 } from '@/services'
 import {
   ISODateString,
   ISOMonthString,
   ISOString,
   JournalDraft,
+  JournalModel,
   Maybe,
   TimeRange,
 } from '@/types'
 
+const mappingType = (journal: JournalModel) => {
+  return {
+    ...journal,
+    localDate: journal?.localDate as ISODateString,
+    imageUri: journal?.imageUri
+      ? (JSON.parse(journal.imageUri) as Maybe<string[]>)
+      : null,
+  }
+}
 export const JournalQueries = {
   getJournalById: (journalId: number) => {
     return queryOptions({
       queryKey: queryKeys.get.journal(journalId),
       queryFn: () => getJournalById(journalId),
       select: journal => ({
-        ...journal,
-        localDate: journal?.localDate as ISODateString,
-        imageUri: journal?.imageUri
-          ? (JSON.parse(journal.imageUri) as Maybe<string[]>)
-          : null,
+        ...mappingType(journal),
       }),
       enabled: !!journalId,
     })
   },
 
-  getJournals: (timeRange: TimeRange, dateOrYear: ISOString | number) => {
+  getJournalsByDate: (date: ISODateString) => {
     return queryOptions({
-      queryKey: queryKeys.get.journals(timeRange, dateOrYear),
-      queryFn: () => getJournals(timeRange, dateOrYear),
+      queryKey: queryKeys.get.journals(date),
+      queryFn: () => getJournalsByDate(date),
       select: journals =>
         journals?.map(journal => ({
-          ...journal,
-          localDate: journal.localDate as ISODateString,
-          imageUri: journal.imageUri
-            ? (JSON.parse(journal.imageUri) as Maybe<string[]>)
-            : null,
+          ...mappingType(journal),
         })),
-      enabled: !!dateOrYear,
+    })
+  },
+
+  getJournalsByMonth: (month: ISOMonthString) => {
+    return queryOptions({
+      queryKey: queryKeys.get.journals(month),
+      queryFn: () => getJournalsByMonth(month),
+      select: journals =>
+        journals?.map(journal => ({
+          ...mappingType(journal),
+        })),
+    })
+  },
+
+  getJournalsByYear: (year: number) => {
+    return queryOptions({
+      queryKey: queryKeys.get.journals(year),
+      queryFn: () => getJournalsByYear(year),
+      select: journals =>
+        journals?.map(journal => ({
+          ...mappingType(journal),
+        })),
     })
   },
 }

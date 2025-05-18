@@ -14,7 +14,7 @@ import { GardenTitleHeader } from './GardenTitleHeader'
 import { MonthItem } from './MonthItem'
 
 interface Props {
-  journals: Journal[]
+  journals?: Journal[]
   onSelectedMonthChange: (month: ISOMonthString) => void
   selectedYear: number
   isSelectedMonth: (month: ISOMonthString) => boolean

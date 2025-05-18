@@ -3,7 +3,7 @@ import { queryOptions, useMutation } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
 
 import { queryKeys } from '@/constants'
-import { useExceptionHandle } from '@/hooks/useExceptionHandle'
+import { useExceptionHandle } from '@/hooks'
 import { getProfile, signInGoogle, updateUserInfo } from '@/services'
 import { useAuth } from '@/store'
 import { UpdateUserInfoParams, UserInfo } from '@/types'

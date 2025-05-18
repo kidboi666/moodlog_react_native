@@ -10,12 +10,12 @@ interface FullScreenSpinnerProps {
 }
 
 function _FullScreenSpinner({ size = 'small' }: FullScreenSpinnerProps) {
-  const isNavigating = useUI(state => state.isNavigating)
-  const isLoading = useUI(state => state.isLoading)
-
-  const shouldShow = isNavigating || isLoading
-
-  if (!shouldShow) return null
+  // const isNavigating = useUI(state => state.isNavigating)
+  // const isLoading = useUI(state => state.isLoading)
+  //
+  // const shouldShow = isNavigating || isLoading
+  //
+  // if (!shouldShow) return null
 
   return (
     <StyledOverlay>

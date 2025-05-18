@@ -1,5 +1,4 @@
-import { useAuth } from '@/store'
-import { Redirect, Stack } from 'expo-router'
+import { Stack } from 'expo-router'
 import { useTheme } from 'tamagui'
 
 export function MainStack() {

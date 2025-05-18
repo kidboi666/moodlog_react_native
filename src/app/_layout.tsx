@@ -15,6 +15,7 @@ export default function RootLayout() {
   if (!fontLoaded && !fontError) {
     return null
   }
+
   return (
     <RootProvider>
       <AppNavigator />

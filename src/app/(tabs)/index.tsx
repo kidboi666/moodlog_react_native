@@ -11,20 +11,16 @@ import { ViewContainer } from '@/components/shared'
 import { DelayMS } from '@/constants'
 import { useCalendar } from '@/hooks'
 import { JournalQueries } from '@/queries'
-import { TimeRange } from '@/types'
 import { getCountForDate } from '@/utils'
 
 export default function HomeScreen() {
   const { selectedDate, onSelectedDateChange } = useCalendar()
   const [firstRender, setFirstRender] = useState(true)
-  const { data: dailyJournals, isLoading } = useQuery(
-    JournalQueries.getJournals(TimeRange.DAILY, selectedDate),
+  const { data, isLoading } = useQuery(
+    JournalQueries.getJournalsByDate(selectedDate),
   )
-  const dateCount = useMemo(
-    () => dailyJournals && getCountForDate(dailyJournals),
-    [dailyJournals],
-  )
-  const selectedDateJournals = dailyJournals?.filter(
+  const dateCount = useMemo(() => data && getCountForDate(data), [data])
+  const selectedDateJournals = data?.filter(
     journal => journal.localDate === selectedDate,
   )
 

@@ -1,4 +1,4 @@
-import { MoodLevel } from '../src/types/mood.types'
+import { MoodLevel } from '@/types'
 import { sqliteDb } from './sqlite'
 import { journals, moods } from './sqlite/schema'
 
@@ -30,29 +30,23 @@ const contentTemplates = [
 
 async function createSampleMoods() {
   await sqliteDb.delete(moods)
-
   await sqliteDb.insert(moods).values(sampleMoods)
 }
-
-createSampleMoods()
 
 function generateJournalEntry(date: string, moodId: number, moodName: string) {
   const moodLevels = [MoodLevel.ZERO, MoodLevel.HALF, MoodLevel.FULL]
   const randomMoodLevel =
     moodLevels[Math.floor(Math.random() * moodLevels.length)]
-
   const randomContentTemplate =
     contentTemplates[Math.floor(Math.random() * contentTemplates.length)]
   const content = randomContentTemplate.replace(
     '{mood}',
     moodName.toLowerCase(),
   )
-
   const hasImage = Math.random() > 0.7
   const imageUri = hasImage
     ? JSON.stringify(['https://picsum.photos/200/300'])
     : null
-
   return {
     content,
     moodId,
@@ -69,7 +63,6 @@ function generateDateString(year: number, month: number, day: number): string {
 function getDatesInRange(startDate: Date, endDate: Date): string[] {
   const dates: string[] = []
   const currentDate = new Date(startDate)
-
   while (currentDate <= endDate) {
     dates.push(
       generateDateString(
@@ -80,23 +73,18 @@ function getDatesInRange(startDate: Date, endDate: Date): string[] {
     )
     currentDate.setDate(currentDate.getDate() + 1)
   }
-
   return dates
 }
 
-export async function seedDatabase() {
+async function createSampleJournals() {
   await sqliteDb.delete(journals)
-  console.log('Starting database seeding...')
   const moodList = await sqliteDb.select().from(moods)
   const startDate = new Date('2025-01-01')
   const endDate = new Date('2025-12-30')
   const dates = getDatesInRange(startDate, endDate)
-
   const journalEntries = []
-
   for (const date of dates) {
-    const entriesCount = Math.floor(Math.random() * 4)
-
+    const entriesCount = Math.floor(Math.random() * 2)
     for (let i = 0; i < entriesCount; i++) {
       const randomMood = moodList[Math.floor(Math.random() * moodList.length)]
       journalEntries.push(
@@ -104,12 +92,12 @@ export async function seedDatabase() {
       )
     }
   }
-
   if (journalEntries.length > 0) {
     await sqliteDb.insert(journals).values(journalEntries)
   }
 }
 
-seedDatabase().catch(error => {
-  console.error('Error seeding database:', error)
-})
+export async function seedDatabase() {
+  await createSampleMoods()
+  await createSampleJournals()
+}

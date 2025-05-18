@@ -1,3 +1,4 @@
+import { useRenderCounter } from '@/hooks'
 import { useEffect, useState } from 'react'
 import { Button, H1, styled } from 'tamagui'
 
@@ -6,10 +7,11 @@ interface Props {
   emoji: string
 }
 
-export function ShakeEmoji({ duration, emoji }: Props) {
+export function ShakeEmoji({ duration = 6000, emoji }: Props) {
   const [isRotate, setIsRotate] = useState(false)
   const [isShaking, setIsShaking] = useState(true)
 
+  useRenderCounter()
   useEffect(() => {
     let shakeInterval: NodeJS.Timeout
     let stopTimer: NodeJS.Timeout

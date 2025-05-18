@@ -10,7 +10,7 @@ import { Delay, H1, ViewContainer } from '@/components/shared'
 import { DelayMS, Layout } from '@/constants'
 import { useCalendar } from '@/hooks'
 import { JournalQueries } from '@/queries'
-import { Journal, TimeRange } from '@/types'
+import { Journal } from '@/types'
 import { groupJournalsByDate, groupJournalsByMonth } from '@/utils'
 
 type GroupedJournalItem = [string, Journal[]]
@@ -24,14 +24,13 @@ export default function EntriesScreen() {
     isSelectedMonth,
   } = useCalendar()
   const { data: journals } = useQuery(
-    JournalQueries.getJournals(TimeRange.YEARLY, selectedYear),
+    JournalQueries.getJournalsByYear(selectedYear),
   )
   const groupedJournalsByMonth = useMemo(() => {
     if (!Array.isArray(journals) || journals.length === 0) return {}
     return groupJournalsByMonth(journals)
   }, [journals])
 
-  if (!journals) return null
   const monthlyJournals = groupedJournalsByMonth[selectedMonth] || []
   const groupedJournalsByDate = groupJournalsByDate(monthlyJournals)
 

@@ -1,4 +1,4 @@
-import { count, sql } from 'drizzle-orm'
+import { count } from 'drizzle-orm'
 import { sqliteDb } from '../../db/sqlite'
 import { journals } from '../../db/sqlite/schema'
 

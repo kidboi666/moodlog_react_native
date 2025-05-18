@@ -5,7 +5,7 @@ import type { ISOMonthString, Journal, MonthKey } from '@/types'
 import { MonthItemContent } from './MonthItemContent'
 
 interface Props {
-  journals: Journal[]
+  journals?: Journal[]
   monthKey: MonthKey
   lastDate: number
   monthDate: ISOMonthString

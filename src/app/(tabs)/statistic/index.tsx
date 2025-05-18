@@ -10,7 +10,7 @@ import {
 import { H1, ViewContainer } from '@/components/shared'
 import { useCalendar } from '@/hooks'
 import { JournalQueries } from '@/queries'
-import { ISOMonthString, TimeRange } from '@/types'
+import { ISOMonthString } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 
 export default function StatisticScreen() {
@@ -23,14 +23,11 @@ export default function StatisticScreen() {
   } = useCalendar()
   const { t } = useTranslation()
   const { data: journals } = useQuery(
-    JournalQueries.getJournals(TimeRange.YEARLY, selectedYear),
+    JournalQueries.getJournalsByYear(selectedYear),
   )
-
   const monthString = selectedMonth
     ? selectedMonth
     : (todayString.substring(0, 7) as ISOMonthString)
-
-  if (!journals) return null
 
   return (
     <ScrollView>

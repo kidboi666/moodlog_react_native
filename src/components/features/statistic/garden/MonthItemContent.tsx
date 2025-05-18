@@ -6,7 +6,7 @@ import { GardenContent } from './GardenContent'
 import { GardenMonthUnits } from './GardenMonthUnits'
 
 interface Props {
-  journals: Journal[]
+  journals?: Journal[]
   monthKey: MonthKey
   weekLength: number
   firstDateDay: number

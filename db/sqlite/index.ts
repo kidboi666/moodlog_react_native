@@ -4,3 +4,4 @@ import * as schema from './schema'
 
 export const expoSQLite = SQLite.openDatabaseSync('moodlog.db')
 export const sqliteDb = drizzle(expoSQLite, { schema })
+console.log(SQLite.defaultDatabaseDirectory)

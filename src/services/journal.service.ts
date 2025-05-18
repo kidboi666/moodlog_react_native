@@ -50,6 +50,43 @@ export async function getJournalById(journalId: number) {
   })
 }
 
+export async function getJournalsByDate(date: ISODateString) {
+  return sqliteDb.query.journals.findMany({
+    where: eq(journals.localDate, date as ISODateString),
+    with: {
+      mood: true,
+    },
+  })
+}
+
+export async function getJournalsByMonth(month: ISOMonthString) {
+  const firstDate = getISODateFromMonthString(month, 1)
+  const lastDate = getLastDate(month)
+  return sqliteDb.query.journals.findMany({
+    where: and(
+      gte(journals.localDate, firstDate),
+      lte(journals.localDate, lastDate),
+    ),
+    with: {
+      mood: true,
+    },
+  })
+}
+
+export async function getJournalsByYear(year: number) {
+  const firstDate = getFirstISODateFromYear(year)
+  const lastDate = getLastISODateFromYear(year)
+  return sqliteDb.query.journals.findMany({
+    where: and(
+      gte(journals.localDate, firstDate),
+      lte(journals.localDate, lastDate),
+    ),
+    with: {
+      mood: true,
+    },
+  })
+}
+
 export async function getJournals(
   timeRange: TimeRange,
   date: ISOString | number,
@@ -88,11 +125,13 @@ export async function getJournals(
         mood: true,
       },
     })
+    console.log('데일리', result)
   } else {
     result = await sqliteDb.query.journals.findMany({
       with: { mood: true },
     })
   }
+  console.log(result)
   return result
 }
 

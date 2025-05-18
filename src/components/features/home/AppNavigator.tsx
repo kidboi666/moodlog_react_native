@@ -10,7 +10,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { useTheme } from 'tamagui'
 
 import { BottomSheet } from '@/components/features/modal'
-import { FullScreenSpinner, StatusBar } from '@/components/shared'
+import { StatusBar } from '@/components/shared'
 import { useAppTheme } from '@/store'
 import { MainStack } from './MainStack'
 
@@ -39,7 +39,6 @@ export function AppNavigator() {
       >
         <StatusBar resolvedTheme={resolvedTheme} />
         <MainStack />
-        <FullScreenSpinner size='large' />
         <BottomSheet />
       </ThemeProvider>
     </GestureHandlerRootView>

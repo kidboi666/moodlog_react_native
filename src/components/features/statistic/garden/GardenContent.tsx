@@ -10,7 +10,7 @@ interface Props {
   firstDateDay: number
   monthDate: ISOMonthString
   lastDate: number
-  journals: Journal[]
+  journals?: Journal[]
 }
 
 function _GardenContent({
