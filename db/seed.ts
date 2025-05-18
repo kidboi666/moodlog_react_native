@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid'
 import { MoodLevel } from '../src/types/mood.types'
 import { sqliteDb } from './sqlite'
 import { journals, moods } from './sqlite/schema'

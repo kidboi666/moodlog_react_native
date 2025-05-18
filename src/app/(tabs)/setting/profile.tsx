@@ -1,9 +1,11 @@
+import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Separator, YStack, styled } from 'tamagui'
 
 import { ProfileMenuItem } from '@/components/features/setting'
 import { BaseText, H1, ViewContainer } from '@/components/shared'
+import { UserQueries } from '@/queries'
 import { useAuth } from '@/store'
 import type { NewUserInfo } from '@/types'
 import { getDaysSinceSignup } from '@/utils'
@@ -11,21 +13,24 @@ import { getDaysSinceSignup } from '@/utils'
 export default function ProfileScreen() {
   const { t } = useTranslation()
   const session = useAuth(state => state.session)
+  const { data: userInfo } = useQuery(
+    UserQueries.getUserInfo(session?.user.id ?? ''),
+  )
 
   const [form, setForm] = useState<NewUserInfo>({
-    userName: session?.user.user_metadata.user_name ?? '',
-    email: session?.user.email ?? '',
-    age: session?.user.user_metadata.age ?? null,
-    avatarUrl: session?.user.user_metadata.avatar_url ?? '',
+    userName: null,
+    email: '',
+    age: null,
+    avatarUrl: null,
   })
 
   useEffect(() => {
-    if (session) {
+    if (userInfo) {
       setForm({
-        userName: session.user.user_metadata.user_name,
-        email: session.user.email,
-        age: session.user.user_metadata.age,
-        avatarUrl: session.user.user_metadata.avatar_url,
+        userName: userInfo.userName,
+        email: userInfo.email,
+        age: userInfo.age,
+        avatarUrl: userInfo.avatarUrl,
       })
     }
   }, [session])

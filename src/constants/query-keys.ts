@@ -9,5 +9,6 @@ export const queryKeys = {
       date ?? null,
     ],
     totalCount: ['journal', 'totalCount'],
+    userInfo: ['userInfo'],
   },
 }

@@ -34,7 +34,7 @@ export const MoodQueries = {
   /**
    * id로 감정 가져오기
    */
-  getMoodById: (id: string) => {
+  getMoodById: (id: number) => {
     return queryOptions({
       queryKey: ['moods', id],
       queryFn: () => getMoodById(id),
@@ -77,7 +77,7 @@ export function useAddMood() {
 export function useUpdateMood() {
   return useMutation({
     mutationFn: (args: {
-      id: string
+      id: number
       moodDraft: Partial<Omit<typeof moods.$inferInsert, 'id' | 'createdAt'>>
     }) => updateMood(args.id, args.moodDraft),
     onError: (error, variables) => {
@@ -91,6 +91,6 @@ export function useUpdateMood() {
 
 export function useDeleteMood() {
   return useMutation({
-    mutationFn: (id: string) => deleteMood(id),
+    mutationFn: (id: number) => deleteMood(id),
   })
 }

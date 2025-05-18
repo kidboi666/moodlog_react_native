@@ -1,4 +1,5 @@
 import { supabaseConfig } from '@/configs'
+import { Database } from '@/types'
 import { createClient } from '@supabase/supabase-js'
 import { AppState } from 'react-native'
 import 'react-native-url-polyfill/auto'
@@ -6,7 +7,7 @@ import 'react-native-url-polyfill/auto'
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL || ''
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || ''
 
-export const supabase = createClient(
+export const supabase = createClient<Database>(
   supabaseUrl,
   supabaseAnonKey,
   supabaseConfig,

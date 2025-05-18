@@ -1,16 +1,9 @@
-import { Maybe } from './util.types'
+import { Tables } from './supabase.types'
 
-export type UserInfo = {
-  id: string
-  userName: string
-  email: string
-  provider: Maybe<string>
-  age: Maybe<number>
-  avatarUrl: Maybe<string>
-}
+export type UserInfo = Tables<'profiles'>
 
 export type NewUserInfo = Partial<
-  Pick<UserInfo, 'email' | 'age' | 'avatarUrl' | 'userName'>
+  Pick<UserInfo, 'user_name' | 'age' | 'avatar_url' | 'email'>
 >
 
 export interface UserStore {
@@ -22,4 +15,11 @@ export interface UserStore {
   registerUser: (userName: string) => Promise<void>
   onUserInfoChange: (updatedUserInfo: NewUserInfo) => Promise<void>
   onDraftUserNameChange: (userName: string) => void
+}
+
+export interface UpdateUserInfoParams {
+  userId: string
+  userName?: string
+  age?: number
+  avatarUrl?: string
 }

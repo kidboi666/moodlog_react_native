@@ -1,9 +1,5 @@
-import { relations, sql } from 'drizzle-orm'
+import { sql } from 'drizzle-orm'
 import { int, sqliteTable, text } from 'drizzle-orm/sqlite-core'
-
-export const timestamp = {
-  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-}
 
 export const journals = sqliteTable('journals', {
   id: int('id').primaryKey({ autoIncrement: true }),
@@ -14,23 +10,19 @@ export const journals = sqliteTable('journals', {
   moodLevel: text('mood_level').notNull(),
   imageUri: text('image_uri'),
   localDate: text('local_date').default(sql`(CURRENT_DATE)`).notNull(),
-  ...timestamp,
+  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`).notNull(),
 })
 
 export const moods = sqliteTable('moods', {
   id: int('id').primaryKey({ autoIncrement: true }),
   name: text('name').notNull(),
   color: text('color').notNull(),
-  ...timestamp,
+  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`).notNull(),
 })
 
-export const journalsRelations = relations(journals, ({ one }) => ({
-  mood: one(moods, {
-    fields: [journals.moodId],
-    references: [moods.id],
-  }),
-}))
-
-export const moodsRelations = relations(moods, ({ many }) => ({
-  journals: many(journals),
-}))
+export const stats = sqliteTable('stats', {
+  id: int('id').primaryKey({ autoIncrement: true }),
+  currentStreak: int('current_streak').default(0),
+  maxStreak: int('max_streak').default(0),
+  lastActiveDate: text('last_active_date'),
+})

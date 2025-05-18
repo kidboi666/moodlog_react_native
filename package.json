@@ -11,6 +11,7 @@
     "lint": "expo lint",
     "gen:sqlite": "drizzle-kit generate --config=drizzle.config.sqlite.ts",
     "gen:pg": "drizzle-kit generate --config=drizzle.config.pg.ts",
+    "gen:type": "npx supabase gen types typescript --project-id ztnebubandwuuevdiqfx --schema public > src/types/supabase.types.ts",
     "migrate:pg": "drizzle-kit migrate --config=drizzle.config.pg.ts",
     "push:pg": "drizzle-kit push --config=drizzle.config.pg.ts",
     "pull:pg": "drizzle-kit pull --config=drizzle.config.pg.ts",

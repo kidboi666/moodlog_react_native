@@ -15,7 +15,7 @@ export async function addMood(moodDraft: MoodDraft) {
 }
 
 export async function updateMood(
-  id: string,
+  id: number,
   newMood: Partial<Omit<typeof moods.$inferInsert, 'id' | 'createdAt'>>,
 ) {
   return sqliteDb
@@ -27,7 +27,7 @@ export async function updateMood(
     .where(eq(moods.id, id))
 }
 
-export async function deleteMood(id: string) {
+export async function deleteMood(id: number) {
   return sqliteDb.delete(moods).where(eq(moods.id, id))
 }
 
@@ -35,7 +35,7 @@ export async function getMoods() {
   return sqliteDb.query.moods.findMany()
 }
 
-export async function getMoodById(id: string) {
+export async function getMoodById(id: number) {
   return sqliteDb.query.moods.findFirst({
     where: eq(moods.id, id),
   })

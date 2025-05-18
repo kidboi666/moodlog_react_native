@@ -1,6 +1,5 @@
 import * as SplashScreen from 'expo-splash-screen'
 import '@/lib/i18n'
-import 'react-native-get-random-values'
 
 import { AppNavigator } from '@/components/features/home'
 import { useAuthListener, useFontLoader } from '@/hooks'
