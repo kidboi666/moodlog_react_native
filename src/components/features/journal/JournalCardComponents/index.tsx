@@ -1,7 +1,8 @@
 import { useRouter } from 'expo-router'
 import { Fragment, useCallback, useState } from 'react'
+import { StyleSheet } from 'react-native'
 import Animated from 'react-native-reanimated'
-import { Card as TamaguiCard, styled } from 'tamagui'
+import { Card as TamaguiCard, View, styled } from 'tamagui'
 
 import { FullScreenImageModal } from '@/components/features/modal/contents'
 import { DelayMS, Layout, PRESS_STYLE, PRESS_STYLE_KEY } from '@/constants'
@@ -76,7 +77,7 @@ export function JournalCard({
   }, [])
 
   return (
-    <Fragment>
+    <View style={styles.container}>
       <ActionButton
         showActionButton={showActionButton}
         onPress={handleDeleteSheetOpen}
@@ -106,20 +107,23 @@ export function JournalCard({
         imageUri={imageUri?.[0]}
         onClose={handleCloseModal}
       />
-    </Fragment>
+    </View>
   )
 }
 
 const Card = styled(TamaguiCard, {
   group: true,
-  animation: 'lazy',
-  pressStyle: PRESS_STYLE,
-  animateOnly: PRESS_STYLE_KEY,
   flex: 1,
   position: 'relative',
   width: '100%',
   bg: '$backgroundHover',
   rounded: '$8',
+})
+
+const styles = StyleSheet.create({
+  container: {
+    position: 'relative',
+  },
 })
 
 const AnimatedCard = Animated.createAnimatedComponent(Card)

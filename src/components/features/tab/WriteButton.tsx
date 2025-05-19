@@ -8,10 +8,11 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native'
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 import { Portal, View, styled } from 'tamagui'
 
 import { H3, PressableButton } from '@/components/shared'
-import { Layout, MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants'
+import { Layout } from '@/constants'
 
 type RouteNames = '/(write)/mood' | '/(write)/journal'
 
@@ -56,7 +57,11 @@ function _WriteButton() {
 
       {isMenuVisible && (
         <Portal>
-          <EnteringView>
+          <Animated.View
+            entering={FadeIn.duration(400)}
+            exiting={FadeOut.duration(400)}
+            style={styles.flexible}
+          >
             <TouchableWithoutFeedback
               style={styles.flexible}
               onPress={() => setIsMenuVisible(false)}
@@ -72,20 +77,12 @@ function _WriteButton() {
                 ))}
               </BlurView>
             </TouchableWithoutFeedback>
-          </EnteringView>
+          </Animated.View>
         </Portal>
       )}
     </Fragment>
   )
 }
-
-const EnteringView = styled(View, {
-  flex: 1,
-  animation: 'lazy',
-  enterStyle: MOUNT_STYLE,
-  exitStyle: MOUNT_STYLE,
-  animateOnly: MOUNT_STYLE_KEY,
-})
 
 const IconBox = styled(View, {
   animation: 'quick',

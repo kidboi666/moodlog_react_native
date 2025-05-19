@@ -1,8 +1,8 @@
 import { Trash } from '@tamagui/lucide-icons'
-import { AnimatePresence, XStack, styled } from 'tamagui'
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
+import { XStack, styled } from 'tamagui'
 
 import { PressableButton } from '@/components/shared'
-import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants'
 
 interface ActionButtonProps {
   showActionButton: boolean
@@ -11,39 +11,38 @@ interface ActionButtonProps {
 
 export function ActionButton({ showActionButton, onPress }: ActionButtonProps) {
   return (
-    <AnimatePresence>
-      {showActionButton && (
-        <ActionBox>
-          <PressableButton
-            circular={true}
-            chromeless={true}
-            scaleIcon={1.5}
-            bg='$red10'
-            color='white'
-            shadowColor='#000'
-            shadowOffset={{ width: 0, height: 1 }}
-            shadowOpacity={0.2}
-            shadowRadius={1.5}
-            elevation={2}
-            icon={Trash}
-            onPress={onPress}
-          />
-        </ActionBox>
-      )}
-    </AnimatePresence>
+    showActionButton && (
+      <AnimatedBox
+        entering={FadeIn.duration(800)}
+        exiting={FadeOut.duration(300)}
+      >
+        <PressableButton
+          circular={true}
+          chromeless={true}
+          scaleIcon={1.5}
+          bg='$red10'
+          color='white'
+          shadowColor='#000'
+          shadowOffset={{ width: 0, height: 1 }}
+          shadowOpacity={0.2}
+          shadowRadius={1.5}
+          elevation={2}
+          icon={Trash}
+          onPress={onPress}
+        />
+      </AnimatedBox>
+    )
   )
 }
 
 const ActionBox = styled(XStack, {
   r: 0,
   position: 'absolute',
-  animation: 'medium',
-  enterStyle: MOUNT_STYLE,
-  exitStyle: MOUNT_STYLE,
-  animateOnly: MOUNT_STYLE_KEY,
   height: '100%',
   items: 'center',
   justify: 'center',
   px: 16,
   z: -1,
 })
+
+const AnimatedBox = Animated.createAnimatedComponent(ActionBox)
