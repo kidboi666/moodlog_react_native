@@ -19,6 +19,7 @@ import {
   SettingsContainer,
 } from '@/components/features/setting'
 import { BaseText, H1, ViewContainer } from '@/components/shared'
+import Animated, { FadeIn } from 'react-native-reanimated'
 
 const devSection = __DEV__
   ? {
@@ -120,7 +121,7 @@ export default function SettingsScreen() {
   ].filter(Boolean) as SettingSection[]
 
   return (
-    <ScrollView>
+    <Animated.ScrollView entering={FadeIn.duration(800)}>
       <Container>
         <H1>{t('settings.title')}</H1>
         <ContentYStack>
@@ -142,7 +143,7 @@ export default function SettingsScreen() {
           <CopyrightText>© 2025 Moodlog. All rights reserved.</CopyrightText>
         </CopyrightYStack>
       </Container>
-    </ScrollView>
+    </Animated.ScrollView>
   )
 }
 

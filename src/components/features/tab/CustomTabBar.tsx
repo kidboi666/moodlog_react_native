@@ -1,10 +1,13 @@
 import { type Href, usePathname, useRouter } from 'expo-router'
-import React, { useCallback, useMemo } from 'react'
-import { Platform } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import React, { useCallback, useEffect, useMemo } from 'react'
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated'
 import { XStack, styled } from 'tamagui'
 
-import { Layout, MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants'
 import {
   EntriesTab,
   HomeTab,
@@ -13,10 +16,18 @@ import {
 } from './CustomTabBarItems'
 import { WriteButton } from './WriteButton'
 
-export function CustomTabBar() {
+interface Props {
+  shouldHideTabBar: boolean
+}
+
+export function CustomTabBar({ shouldHideTabBar }: Props) {
   const pathname = usePathname()
-  const insets = useSafeAreaInsets()
   const router = useRouter()
+  const tabBarHeight = useSharedValue(0)
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: tabBarHeight.value }],
+  }))
 
   const isActive = useCallback(
     (path: string) => {
@@ -37,13 +48,16 @@ export function CustomTabBar() {
     [router],
   )
 
+  useEffect(() => {
+    tabBarHeight.value = withTiming(shouldHideTabBar ? 100 : 0, {
+      duration: 600,
+      easing: Easing.inOut(Easing.quad),
+    })
+  }, [shouldHideTabBar])
+
   return (
-    <>
-      <StyledContainer
-        height={Layout.HEIGHT.TAB_BAR_HEIGHT + insets.bottom}
-        pb={insets.bottom}
-        pt={Platform.OS === 'ios' ? '$4' : undefined}
-      >
+    <Animated.View style={animatedStyle}>
+      <StyledContainer>
         <HomeTab isTabActive={isHomeActive} onPress={handleNavigate} />
         <EntriesTab isTabActive={isCalendarActive} onPress={handleNavigate} />
         <WriteButton />
@@ -53,27 +67,16 @@ export function CustomTabBar() {
         />
         <SettingTab isTabActive={isSettingActive} onPress={handleNavigate} />
       </StyledContainer>
-    </>
+    </Animated.View>
   )
 }
 
 const StyledContainer = styled(XStack, {
-  position: 'absolute',
-  b: 0,
-  l: 0,
-  r: 0,
-  z: 100,
   bg: '$color5',
-  borderTopRightRadius: '$10',
-  borderTopLeftRadius: '$10',
-  width: '100%',
-  flex: 1,
+  rounded: '$10',
   justify: 'space-evenly',
   items: 'center',
-  elevation: '$8',
-
-  animation: 'lazy',
-  enterStyle: MOUNT_STYLE,
-  exitStyle: MOUNT_STYLE,
-  animateOnly: MOUNT_STYLE_KEY,
+  py: '$3',
+  mb: '$2',
+  elevation: '$4',
 })

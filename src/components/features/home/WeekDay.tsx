@@ -1,9 +1,10 @@
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
+import Animated, { FadeIn } from 'react-native-reanimated'
 import { XStack, styled } from 'tamagui'
 import { LinearGradient } from 'tamagui/linear-gradient'
 
-import { Delay, H1 } from '@/components/shared'
+import { H1 } from '@/components/shared'
 import { DelayMS } from '@/constants'
 import { DateCount, ISODateString, Maybe } from '@/types'
 import { getMonthKey } from '@/utils'
@@ -19,7 +20,7 @@ function _WeekDay({ selectedDate, onSelectedDateChange, dateCount }: Props) {
   const { t } = useTranslation()
 
   return (
-    <Delay delay={DelayMS.ANIMATION.MEDIUM[2]}>
+    <Animated.View entering={FadeIn.delay(DelayMS.ANIMATION.MEDIUM[1])}>
       <OuterGradientBox>
         <InnerGradientBox>
           <CurrentMonthBox>
@@ -35,7 +36,7 @@ function _WeekDay({ selectedDate, onSelectedDateChange, dateCount }: Props) {
           />
         </InnerGradientBox>
       </OuterGradientBox>
-    </Delay>
+    </Animated.View>
   )
 }
 

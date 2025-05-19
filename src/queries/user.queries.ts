@@ -11,7 +11,7 @@ import { UpdateUserInfoParams, UserInfo } from '@/types'
 export const UserQueries = {
   getUserInfo: (userId: string) => {
     return queryOptions<UserInfo>({
-      queryKey: queryKeys.get.userInfo,
+      queryKey: queryKeys.get.userInfo(userId),
       queryFn: () => getProfile(userId),
       enabled: !!userId,
     })

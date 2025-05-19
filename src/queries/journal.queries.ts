@@ -20,12 +20,12 @@ import {
   ISOMonthString,
   ISOString,
   JournalDraft,
-  JournalModel,
   Maybe,
+  SelectJournal,
   TimeRange,
 } from '@/types'
 
-const mappingType = (journal: JournalModel) => {
+const mappingType = (journal: SelectJournal) => {
   return {
     ...journal,
     localDate: journal?.localDate as ISODateString,
@@ -39,9 +39,12 @@ export const JournalQueries = {
     return queryOptions({
       queryKey: queryKeys.get.journal(journalId),
       queryFn: () => getJournalById(journalId),
-      select: journal => ({
-        ...mappingType(journal),
-      }),
+      select: journal => {
+        if (!journal) return null
+        return {
+          ...mappingType(journal),
+        }
+      },
       enabled: !!journalId,
     })
   },
@@ -95,18 +98,13 @@ export function useAddJournal() {
       })
     },
     onSettled: data => {
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.get.journals(
-          TimeRange.DAILY,
-          data?.[0].localDate as ISODateString,
+      const keys = [
+        queryKeys.get.journals(data?.[0].localDate as ISODateString),
+        queryKeys.get.journals(
+          data?.[0].localDate?.slice(0, 7) as ISOMonthString,
         ),
-      })
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.get.journals(
-          TimeRange.MONTHLY,
-          data?.[0].localDate.slice(0, 7) as ISOMonthString,
-        ),
-      })
+      ]
+      keys.forEach(queryKey => queryClient.invalidateQueries({ queryKey }))
     },
   })
 }
@@ -124,13 +122,12 @@ export function useDeleteJournal(hideBottomSheet: () => void, date: ISOString) {
       hideBottomSheet()
       router.replace('/(tabs)')
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.get.journals(TimeRange.DAILY, date),
-      })
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.get.journals(TimeRange.MONTHLY, date),
-      })
+    onSettled: (_, __, journalId) => {
+      const keys = [
+        queryKeys.get.journals(date),
+        queryKeys.get.journal(journalId),
+      ]
+      keys.forEach(queryKey => queryClient.invalidateQueries({ queryKey }))
     },
   })
 }

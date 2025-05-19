@@ -18,12 +18,12 @@ import { Moods } from '@/types'
 interface Props {
   moods: Moods
   page: number
-  selectedMoodId?: string
+  selectedMoodId?: number
   setPage: Dispatch<SetStateAction<[number, number]>>
   totalPage: number
   showDeleteButton: boolean
   scrollEnabled: boolean
-  onMoodIdChange: (moodId: string) => void
+  onMoodIdChange: (moodId: number) => void
 }
 
 export function MoodListPreview({
@@ -67,7 +67,7 @@ export function MoodListPreview({
             scaleIcon={1.5}
             icon={Trash}
             z={100_000}
-            onPress={() => deleteMood(selectedMoodId ?? '')}
+            onPress={() => deleteMood(selectedMoodId ?? 0)}
           />
         )}
       </AnimatePresence>

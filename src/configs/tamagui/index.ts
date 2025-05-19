@@ -3,7 +3,6 @@ import {
   themes as tamaguiThemes,
   tokens as tamaguiTokens,
 } from '@tamagui/themes'
-import { animations } from './animations'
 import {
   esamanruFont,
   interFont,
@@ -15,7 +14,6 @@ import {
 
 export const tamaguiConfig = {
   ...defaultConfig,
-  animations,
   tokens: tamaguiTokens,
   fonts: {
     body: leeSeoyunFont,

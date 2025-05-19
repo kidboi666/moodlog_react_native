@@ -1,3 +1,4 @@
+import { queryClient } from '@/lib'
 import { MoodLevel } from '@/types'
 import { sqliteDb } from './sqlite'
 import { journals, moods } from './sqlite/schema'
@@ -98,6 +99,7 @@ async function createSampleJournals() {
 }
 
 export async function seedDatabase() {
+  queryClient.clear()
   await createSampleMoods()
   await createSampleJournals()
 }

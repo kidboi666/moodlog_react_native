@@ -1,6 +1,5 @@
 import { Redirect, Tabs, usePathname } from 'expo-router'
-import React, { Fragment } from 'react'
-import { AnimatePresence } from 'tamagui'
+import React, { Fragment, useEffect, useState } from 'react'
 
 import { CustomTabBar } from '@/components/features/tab'
 import { ContainerFog } from '@/components/shared'
@@ -10,14 +9,17 @@ import { useAuth } from '@/store'
 export default function TabsLayout() {
   const pathname = usePathname()
   const session = useAuth(state => state.session)
+  const [shouldHideTabBar, setShouldHideTabBar] = useState(false)
 
   if (!session) {
     return <Redirect href='/(onboarding)/intro' />
   }
 
-  const shouldHideTabBar = HIDE_TAB_BAR_ROUTES.some(route =>
-    pathname.startsWith(route),
-  )
+  useEffect(() => {
+    setShouldHideTabBar(
+      HIDE_TAB_BAR_ROUTES.some(route => pathname.startsWith(route)),
+    )
+  }, [pathname])
 
   return (
     <Fragment>
@@ -36,9 +38,7 @@ export default function TabsLayout() {
         <Tabs.Screen name='statistic' />
       </Tabs>
       <ContainerFog />
-      <AnimatePresence exitBeforeEnter>
-        {!shouldHideTabBar && <CustomTabBar />}
-      </AnimatePresence>
+      <CustomTabBar shouldHideTabBar={shouldHideTabBar} />
     </Fragment>
   )
 }

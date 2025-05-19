@@ -6,7 +6,7 @@ import { createNewFileName } from '@/utils'
 export const useJournalDraftForm = (initialMoodId?: number) => {
   const [draft, setDraft] = useState<JournalDraft>({
     content: '',
-    moodId: initialMoodId ?? '',
+    moodId: initialMoodId ?? 0,
     moodLevel: MoodLevel.HALF,
     imageUri: [],
   })
@@ -16,7 +16,7 @@ export const useJournalDraftForm = (initialMoodId?: number) => {
     setDraft(prev => ({ ...prev, content: text }))
   }
 
-  const handleMoodIdChange = (id: string) => {
+  const handleMoodIdChange = (id: number) => {
     setDraft(prev => ({ ...prev, moodId: id }))
   }
 
@@ -50,7 +50,7 @@ export const useJournalDraftForm = (initialMoodId?: number) => {
   const resetForm = () => {
     setDraft({
       content: '',
-      moodId: initialMoodId ?? '',
+      moodId: initialMoodId ?? 0,
       moodLevel: MoodLevel.HALF,
       imageUri: [],
     })

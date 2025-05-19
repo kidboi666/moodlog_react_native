@@ -1,5 +1,7 @@
+import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, XStack, YStack, styled } from 'tamagui'
+import Animated, { FadeIn } from 'react-native-reanimated'
+import { XStack, YStack, styled } from 'tamagui'
 
 import {
   Garden,
@@ -11,7 +13,6 @@ import { H1, ViewContainer } from '@/components/shared'
 import { useCalendar } from '@/hooks'
 import { JournalQueries } from '@/queries'
 import { ISOMonthString } from '@/types'
-import { useQuery } from '@tanstack/react-query'
 
 export default function StatisticScreen() {
   const {
@@ -30,7 +31,7 @@ export default function StatisticScreen() {
     : (todayString.substring(0, 7) as ISOMonthString)
 
   return (
-    <ScrollView>
+    <Animated.ScrollView entering={FadeIn.duration(800)}>
       <Container>
         <TitleXStack>
           <H1>{t('statistics.title')}</H1>
@@ -54,7 +55,7 @@ export default function StatisticScreen() {
           {/*<WeeklyMoodChart selectedMonth={selectedMonth || monthString} />*/}
         </ContentYStack>
       </Container>
-    </ScrollView>
+    </Animated.ScrollView>
   )
 }
 

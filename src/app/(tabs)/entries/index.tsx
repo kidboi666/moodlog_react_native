@@ -23,6 +23,7 @@ import {
   groupJournalsByMonth,
 } from '@/utils'
 import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons'
+import Animated, { FadeIn } from 'react-native-reanimated'
 
 type GroupedJournalItem = [string, Journal[]]
 
@@ -52,17 +53,17 @@ export default function EntriesScreen() {
   const selectedMonthToRender = selectedMonth.replace('-', '.')
 
   return (
-    <ViewContainer
-      edges={['top']}
-      Header={
-        <XStack justify='space-between' items='center' width='100%' py='$2'>
-          <PressableButton icon={ArrowLeft} onPress={handleLeftPress} />
-          <H3>{selectedMonthToRender}</H3>
-          <PressableButton icon={ArrowRight} onPress={handleRightPress} />
-        </XStack>
-      }
-    >
-      <Delay delay={DelayMS.ANIMATION.MEDIUM[0]}>
+    <Animated.View entering={FadeIn.duration(800)} style={{ flex: 1 }}>
+      <ViewContainer
+        edges={['top']}
+        Header={
+          <XStack justify='space-between' items='center' width='100%' py='$2'>
+            <PressableButton icon={ArrowLeft} onPress={handleLeftPress} />
+            <H3>{selectedMonthToRender}</H3>
+            <PressableButton icon={ArrowRight} onPress={handleRightPress} />
+          </XStack>
+        }
+      >
         {Array.isArray(journals) && journals.length > 0 ? (
           <FlatList
             data={groupedJournalsByDate}
@@ -87,8 +88,8 @@ export default function EntriesScreen() {
         ) : (
           <EmptyJournal />
         )}
-      </Delay>
-    </ViewContainer>
+      </ViewContainer>
+    </Animated.View>
   )
 }
 

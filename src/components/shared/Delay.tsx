@@ -1,59 +1,35 @@
-import { View, type ViewProps, styled } from 'tamagui'
+import { PropsWithChildren, useMemo } from 'react'
+import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated'
 
-import { DelayMS, MOUNT_STYLE } from '@/constants'
+import { DelayMS } from '@/constants'
 import { useAnimatedEntry } from '@/hooks'
 
-interface Props extends ViewProps {
+interface Props {
   delay?: number
+  duration?: number
   variant?: 'falldown' | 'float' | 'fade'
 }
 
-export const Delay = View.styleable<Props>(
-  (
-    {
-      delay = DelayMS.ANIMATION.MEDIUM[0],
-      variant = 'fade',
-      children,
-      ...props
-    },
-    ref,
-  ) => {
-    const { isVisible, item } = useAnimatedEntry(delay, children)
-    return (
-      <StyledAnimateMount
-        ref={ref}
-        opacity={isVisible ? 1 : 0}
-        variant={variant}
-        {...props}
-      >
-        {isVisible ? item : null}
-      </StyledAnimateMount>
-    )
-  },
-)
+export const Delay = ({
+  delay = DelayMS.ANIMATION.MEDIUM[0],
+  variant = 'fade',
+  duration = 800,
+  children,
+}: PropsWithChildren<Props>) => {
+  const { isVisible, item } = useAnimatedEntry(delay, children)
 
-const StyledAnimateMount = styled(View, {
-  animation: 'lazy',
-  enterStyle: MOUNT_STYLE,
-  opacity: 1,
-  y: 0,
+  const variantStyle = useMemo(
+    () => ({
+      fade: FadeIn.duration(duration).delay(delay),
+      float: FadeInDown.duration(duration).delay(delay),
+      falldown: FadeInUp.duration(duration).delay(delay),
+    }),
+    [duration, delay],
+  )
 
-  variants: {
-    variant: {
-      fade: {
-        enterStyle: { opacity: 0 },
-        exitStyle: { opacity: 0 },
-      },
-      falldown: {
-        enterStyle: { opacity: 0, y: -80 },
-        exitStyle: { opacity: 0, y: -80 },
-      },
-      float: {
-        enterStyle: { opacity: 0, y: 80 },
-        exitStyle: { opacity: 0, y: 80 },
-      },
-    },
-  } as const,
-})
-
-Delay.displayName = 'DelayComponent'
+  return (
+    <Animated.View entering={variantStyle[variant]}>
+      {isVisible ? item : null}
+    </Animated.View>
+  )
+}

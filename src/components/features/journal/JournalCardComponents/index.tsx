@@ -109,9 +109,10 @@ export function JournalCard({
     </Fragment>
   )
 }
+
 const Card = styled(TamaguiCard, {
   group: true,
-  animation: 'medium',
+  animation: 'lazy',
   pressStyle: PRESS_STYLE,
   animateOnly: PRESS_STYLE_KEY,
   flex: 1,

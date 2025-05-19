@@ -11,9 +11,9 @@ import { MoodListPreview } from './MoodListPreview'
 
 interface Props {
   moods: Moods
-  onMoodIdChange: (moodId: string) => void
+  onMoodIdChange: (moodId: number) => void
   draft: JournalDraft
-  selectedMoodId: string
+  selectedMoodId: number
   onContentChange: (content: string) => void
   onImageUriChange: () => void
   onImageUriRemove: (imageUris: string[], index: number) => void

@@ -27,6 +27,7 @@ import { JournalQueries } from '@/queries'
 import { useApp, useBottomSheet } from '@/store'
 import { BottomSheetType } from '@/types'
 import { toSingle } from '@/utils'
+import Animated, { FadeIn } from 'react-native-reanimated'
 
 export default function JournalScreen() {
   const { journalId, isNewJournal } = useLocalSearchParams()
@@ -66,7 +67,10 @@ export default function JournalScreen() {
   if (!journal) return null
 
   return (
-    <ScrollView overScrollMode='always'>
+    <Animated.ScrollView
+      entering={FadeIn.duration(800)}
+      overScrollMode='always'
+    >
       <Container
         Header={
           <HeaderContent
@@ -115,7 +119,7 @@ export default function JournalScreen() {
         imageUri={selectedImage}
         onClose={handleCloseModal}
       />
-    </ScrollView>
+    </Animated.ScrollView>
   )
 }
 
@@ -131,9 +135,6 @@ const TimeZone = styled(YStack, {
 
 const MoodBar = styled(View, {
   width: '3%',
-  animation: 'medium',
-  animateOnly: ['transform'],
-  enterStyle: { x: -20 },
   borderTopRightRadius: '$4',
   borderBottomRightRadius: '$4',
   variants: {
@@ -153,8 +154,6 @@ const MoodContainer = styled(XStack, {
   self: 'flex-start',
   ml: '$3',
   justify: 'center',
-  animation: 'bouncy',
-  enterStyle: { opacity: 0, scale: 0.9, y: 10 },
 })
 
 const MoodLevel = styled(H3, {
@@ -170,8 +169,6 @@ const MoodName = styled(H3, {
 })
 
 const ImageContainer = styled(XStack, {
-  animation: 'bouncy',
-  enterStyle: { opacity: 0, scale: 0.9, y: 10 },
   elevation: '$2',
 })
 

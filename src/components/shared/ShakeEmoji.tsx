@@ -1,6 +1,10 @@
-import { useRenderCounter } from '@/hooks'
 import { useEffect, useState } from 'react'
-import { Button, H1, styled } from 'tamagui'
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated'
+import { Button, H1 } from 'tamagui'
 
 interface Props {
   duration?: number
@@ -8,24 +12,26 @@ interface Props {
 }
 
 export function ShakeEmoji({ duration = 6000, emoji }: Props) {
-  const [isRotate, setIsRotate] = useState(false)
   const [isShaking, setIsShaking] = useState(true)
+  const rotate = useSharedValue('0deg')
 
-  useRenderCounter()
+  const styles = useAnimatedStyle(() => ({
+    transform: [{ rotate: rotate.value }],
+  }))
+
   useEffect(() => {
     let shakeInterval: NodeJS.Timeout
     let stopTimer: NodeJS.Timeout
 
     if (isShaking) {
       shakeInterval = setInterval(() => {
-        setIsRotate(prev => !prev)
+        rotate.value = withTiming(rotate.value === '0deg' ? '60deg' : '0deg')
       }, 300)
     }
 
     if (duration) {
       stopTimer = setTimeout(() => {
         setIsShaking(false)
-        setIsRotate(false)
       }, duration)
     }
 
@@ -36,28 +42,14 @@ export function ShakeEmoji({ duration = 6000, emoji }: Props) {
   }, [duration, isShaking])
 
   return (
-    <EmojiButton
-      isRotate={isRotate}
+    <AnimatedEmoji
+      unstyled
+      style={styles}
       onPress={() => setIsShaking(prev => !prev)}
     >
       <H1>{emoji}</H1>
-    </EmojiButton>
+    </AnimatedEmoji>
   )
 }
 
-const EmojiButton = styled(Button, {
-  unstyled: true,
-  animation: 'medium',
-  rotate: '0deg',
-  pressStyle: {
-    scale: 0.85,
-  },
-
-  variants: {
-    isRotate: {
-      true: {
-        rotate: '40deg',
-      },
-    },
-  } as const,
-})
+const AnimatedEmoji = Animated.createAnimatedComponent(Button)

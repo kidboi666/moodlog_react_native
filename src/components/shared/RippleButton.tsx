@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import React, { PropsWithChildren, ReactNode, useState } from 'react'
 import {
   NativeSyntheticEvent,
   NativeTouchEvent,
   Pressable,
   StyleProp,
   StyleSheet,
-  Text,
   TextStyle,
   View,
   ViewStyle,
@@ -21,6 +20,7 @@ import Animated, {
 interface Props {
   onPress: () => void
   title: string
+  icon?: ReactNode
   style: StyleProp<ViewStyle>
   textStyle: StyleProp<TextStyle>
   rippleColor: string
@@ -31,10 +31,12 @@ export function RippleButton({
   onPress,
   title,
   style,
+  icon,
   textStyle,
-  rippleColor = 'rgba(0, 0, 0, 0.1)',
-  buttonColor = '#3498db',
-}: Props) {
+  children,
+  rippleColor = 'rgba(0, 0, 0, 0.15)',
+  buttonColor = 'gray',
+}: PropsWithChildren<Props>) {
   const [ripplePosition, setRipplePosition] = useState({ x: 0, y: 0 })
   const scale = useSharedValue(0)
   const opacity = useSharedValue(0.5)
@@ -55,7 +57,7 @@ export function RippleButton({
 
     scale.value = withSequence(
       withTiming(1, { duration: 400 }),
-      withTiming(1.8, { duration: 400 }),
+      withTiming(2, { duration: 400 }),
     )
 
     opacity.value = withTiming(0, { duration: 800 }, () => {
@@ -70,7 +72,8 @@ export function RippleButton({
       style={[styles.button, { backgroundColor: buttonColor }, style]}
       onPress={handlePress}
     >
-      <Text style={[styles.text, textStyle]}>{title}</Text>
+      {icon && icon}
+      {children}
       <View style={styles.rippleContainer} pointerEvents='none'>
         <Animated.View
           style={[
@@ -97,6 +100,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     overflow: 'hidden',
     position: 'relative',
+    flexDirection: 'row',
+    gap: 8,
   },
   text: {
     color: 'white',

@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Avatar, Separator, YStack, styled } from 'tamagui'
+import { YStack, styled } from 'tamagui'
 
-import { ProfileMenuItem } from '@/components/features/setting'
+import { ProfileAvatar, ProfileMenuItem } from '@/components/features/setting'
 import { BaseText, H1, ViewContainer } from '@/components/shared'
 import { UserQueries } from '@/queries'
 import { useAuth } from '@/store'
@@ -16,7 +16,6 @@ export default function ProfileScreen() {
   const { data: userInfo } = useQuery(
     UserQueries.getUserInfo(session?.user.id ?? ''),
   )
-
   const [form, setForm] = useState<NewUserInfo>({
     user_name: null,
     email: null,
@@ -47,16 +46,10 @@ export default function ProfileScreen() {
     <ViewContainer>
       <TitleBox>
         <H1>{t('settings.profile.title') || 'Profile'}</H1>
-        <Separator />
       </TitleBox>
 
       <ContentContainer>
-        <Avatar circular size='$10'>
-          <Avatar.Image
-            source={{ uri: form.avatar_url || '', width: 300, height: 300 }}
-          />
-          <Avatar.Fallback />
-        </Avatar>
+        <ProfileAvatar avatarUrl={form.avatar_url || ''} />
         {/* User ID */}
         <MenuSpacing>
           <MenuTitle>{t('settings.profile.id') || 'ID'}</MenuTitle>

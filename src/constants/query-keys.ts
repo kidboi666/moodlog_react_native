@@ -5,6 +5,6 @@ export const queryKeys = {
     journal: (id: number) => ['journal', id],
     journals: (date?: ISOString | number) => ['journals', date ?? null],
     totalCount: ['journal', 'totalCount'],
-    userInfo: ['userInfo'],
+    userInfo: (userId: string) => ['userInfo', userId],
   },
 }
