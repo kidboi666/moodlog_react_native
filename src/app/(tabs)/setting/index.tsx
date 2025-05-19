@@ -12,7 +12,7 @@ import {
 import { type Href, useRouter } from 'expo-router'
 import { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, YStack, styled } from 'tamagui'
+import { ScrollView, Separator, YStack, styled } from 'tamagui'
 
 import {
   NavigationSettingItem,

@@ -231,3 +231,20 @@ export function getLastISODateFromYear(year: number) {
   const date = new Date(year + 1, 0, 0)
   return `${year}-${date.getMonth() + 1}-${date.getDate()}` as ISODateString
 }
+
+/**
+ * YYYY-MM 를 받아 한달 전과 후를 반환
+ */
+export function convertMonthString(
+  monthString: ISOMonthString,
+  prevOrNext: 'prev' | 'next',
+) {
+  const year = monthString.split('-')[0]
+  const month = monthString.split('-')[1]
+  if (prevOrNext === 'prev') {
+    const date = new Date(Number(year), Number(month) - 1, 0)
+    return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}` as ISOMonthString
+  }
+  const date = new Date(Number(year), Number(month), 1)
+  return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}` as ISOMonthString
+}

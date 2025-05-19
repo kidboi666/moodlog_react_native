@@ -1,8 +1,9 @@
+import { Prettify } from '@/types/util.types'
 import { Tables } from './supabase.types'
 
 export type UserInfo = Tables<'profiles'>
 
-export type NewUserInfo = Partial<
+export type NewUserInfo = Prettify<
   Pick<UserInfo, 'user_name' | 'age' | 'avatar_url' | 'email'>
 >
 

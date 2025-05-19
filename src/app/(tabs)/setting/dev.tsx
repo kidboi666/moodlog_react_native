@@ -7,12 +7,12 @@ import {
   Users,
 } from '@tamagui/lucide-icons'
 import { useTranslation } from 'react-i18next'
-import { Button, ScrollView, YStack, styled } from 'tamagui'
+import { Button, ScrollView, Separator, YStack, styled } from 'tamagui'
 
 import { SettingsContainer } from '@/components/features/setting'
 import { H1 } from '@/components/shared'
 import { ViewContainer } from '@/components/shared'
-import { useDev } from '@/hooks/useDev'
+import { useDev } from '@/hooks'
 
 export default function DevScreen() {
   const { t } = useTranslation()
@@ -22,6 +22,7 @@ export default function DevScreen() {
     <ScrollView>
       <Container>
         <H1>{t('settings.dev.title')}</H1>
+        <Separator />
         <ContentContainer>
           <SettingsContainer title={t('settings.dev.store')}>
             <SpacingBox>
