@@ -1,5 +1,3 @@
-import { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated'
-
 export const MOUNT_STYLE = {
   opacity: 0,
   scale: 0.92,

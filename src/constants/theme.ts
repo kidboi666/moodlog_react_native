@@ -1,0 +1,15 @@
+export const Colors = {
+  primary: '#1b1b1b',
+  gray1: '#161616',
+  gray2: '#1C1C1C',
+  gray3: '#232323',
+  gray4: '#282828',
+  gray5: '#2E2E2E',
+  gray6: '#343434',
+  gray7: '#3E3E3E',
+  gray8: '#505050',
+  gray9: '#707070',
+  gray10: '#7E7E7E',
+  gray11: '#A0A0A0',
+  gray12: '#EDEDED',
+}

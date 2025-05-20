@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
+import { StyleSheet, Text } from 'react-native'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
-import { Button, H1 } from 'tamagui'
 
 interface Props {
   duration?: number
@@ -15,7 +15,7 @@ export function ShakeEmoji({ duration = 6000, emoji }: Props) {
   const [isShaking, setIsShaking] = useState(true)
   const rotate = useSharedValue('0deg')
 
-  const styles = useAnimatedStyle(() => ({
+  const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ rotate: rotate.value }],
   }))
 
@@ -42,14 +42,14 @@ export function ShakeEmoji({ duration = 6000, emoji }: Props) {
   }, [duration, isShaking])
 
   return (
-    <AnimatedEmoji
-      unstyled
-      style={styles}
-      onPress={() => setIsShaking(prev => !prev)}
-    >
-      <H1>{emoji}</H1>
-    </AnimatedEmoji>
+    <Animated.View style={animatedStyle}>
+      <Text style={styles.font}>{emoji}</Text>
+    </Animated.View>
   )
 }
 
-const AnimatedEmoji = Animated.createAnimatedComponent(Button)
+const styles = StyleSheet.create({
+  font: {
+    fontSize: 32,
+  },
+})

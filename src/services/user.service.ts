@@ -33,9 +33,12 @@ export async function updateUserInfo({
 
 export async function signInGoogle() {
   GoogleSignin.configure({
-    scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+    scopes: ['https://www.googleapis.com/auth/drive'],
     webClientId: process.env.EXPO_PUBLIC_WEB_CLIENT_ID,
     iosClientId: process.env.EXPO_PUBLIC_IOS_CLIENT_ID,
+    offlineAccess: true,
+    forceCodeForRefreshToken: true,
+    profileImageSize: 120,
   })
   await GoogleSignin.hasPlayServices()
   const userInfo = await GoogleSignin.signIn()

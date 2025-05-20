@@ -2,17 +2,11 @@ import { useQuery } from '@tanstack/react-query'
 import { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, StyleSheet } from 'react-native'
-import { View, XStack, YStack } from 'tamagui'
+import { XStack, YStack } from 'tamagui'
 
 import { EntriesJournalDisplay } from '@/components/features/entries'
 import { EmptyJournal } from '@/components/features/journal'
-import {
-  Delay,
-  H1,
-  H3,
-  PressableButton,
-  ViewContainer,
-} from '@/components/shared'
+import { H1, H3, PressableButton, ViewContainer } from '@/components/shared'
 import { DelayMS, Layout } from '@/constants'
 import { useCalendar } from '@/hooks'
 import { JournalQueries } from '@/queries'
@@ -53,7 +47,7 @@ export default function EntriesScreen() {
   const selectedMonthToRender = selectedMonth.replace('-', '.')
 
   return (
-    <Animated.View entering={FadeIn.duration(800)} style={{ flex: 1 }}>
+    <Animated.View entering={FadeIn.duration(800)} style={styles.animatedView}>
       <ViewContainer
         edges={['top']}
         Header={
@@ -94,6 +88,9 @@ export default function EntriesScreen() {
 }
 
 const styles = StyleSheet.create({
+  animatedView: {
+    flex: 1,
+  },
   container: {
     paddingTop: Layout.SPACE.CONTAINER_PADDING_TOP / 4,
     paddingBottom: Layout.SPACE.CONTAINER_PADDING_BOTTOM,
