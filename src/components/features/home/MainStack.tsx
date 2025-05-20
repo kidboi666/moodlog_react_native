@@ -15,6 +15,7 @@ export function MainStack() {
       <Stack.Screen name='(tabs)' />
       <Stack.Screen name='(write)' />
       <Stack.Screen name='(onboarding)' />
+      <Stack.Screen name='journal' />
       <Stack.Screen name='+not-found' />
     </Stack>
   )

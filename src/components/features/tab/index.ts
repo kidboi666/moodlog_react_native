@@ -1,2 +1,2 @@
-export * from './CustomTabBar'
+export * from './TabButton'
 export * from './WriteButton'

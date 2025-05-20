@@ -13,6 +13,7 @@ import { Portal, View, styled } from 'tamagui'
 
 import { H3, PressableButton } from '@/components/shared'
 import { Layout } from '@/constants'
+import { TabTrigger } from 'expo-router/ui'
 
 type RouteNames = '/(write)/mood' | '/(write)/journal'
 
@@ -50,9 +51,7 @@ function _WriteButton() {
         elevate
         onPress={() => setIsMenuVisible(true)}
       >
-        <IconBox menuVisible={isMenuVisible}>
-          <Plus size='$1' color='$color1' />
-        </IconBox>
+        <Plus size='$1' color='$color1' />
       </PressableButton>
 
       {isMenuVisible && (
@@ -68,12 +67,14 @@ function _WriteButton() {
             >
               <BlurView tint='dark' intensity={40} style={styles.blurView}>
                 {menuList.map((menu, i) => (
-                  <TouchableOpacity
-                    key={i}
-                    onPress={() => handleNavigate(menu.route)}
-                  >
-                    <H3 color='white'>{t(menu.title)}</H3>
-                  </TouchableOpacity>
+                  <TabTrigger key={i} name={menu.route}>
+                    <TouchableOpacity
+                      key={i}
+                      onPress={() => handleNavigate(menu.route)}
+                    >
+                      <H3 color='white'>{t(menu.title)}</H3>
+                    </TouchableOpacity>
+                  </TabTrigger>
                 ))}
               </BlurView>
             </TouchableWithoutFeedback>
@@ -83,17 +84,6 @@ function _WriteButton() {
     </Fragment>
   )
 }
-
-const IconBox = styled(View, {
-  animation: 'quick',
-
-  variants: {
-    menuVisible: {
-      true: { rotate: '45deg' },
-      false: { rotate: '0deg' },
-    },
-  } as const,
-})
 
 const styles = StyleSheet.create({
   flexible: {
