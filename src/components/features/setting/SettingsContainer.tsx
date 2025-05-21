@@ -1,7 +1,8 @@
-import { PropsWithChildren } from 'react'
-import { View, styled } from 'tamagui'
+import { PropsWithChildren, useMemo } from 'react'
+import { StyleSheet, View } from 'react-native'
 
-import { BaseText } from '@/components/shared'
+import { H4 } from '@/components/shared'
+import { MD3Colors, useTheme } from 'react-native-paper'
 
 interface Props {
   title?: string
@@ -11,23 +12,29 @@ export function SettingsContainer({
   children,
   title,
 }: PropsWithChildren<Props>) {
+  const theme = useTheme()
+  const memoizedStyle = useMemo(
+    () => ({
+      backgroundColor: MD3Colors.neutral40,
+    }),
+    [],
+  )
   return (
-    <Container>
-      {title && <Title>{title}</Title>}
-      <SettingContent>{children}</SettingContent>
-    </Container>
+    <View style={styles.container}>
+      {title && <H4 style={styles.title}>{title}</H4>}
+      <View style={[styles.content, memoizedStyle]}>{children}</View>
+    </View>
   )
 }
 
-const Container = styled(View, {
-  gap: '$3',
-})
-
-const Title = styled(BaseText, {
-  ml: '$5',
-})
-
-const SettingContent = styled(View, {
-  rounded: '$4',
-  bg: '$color4',
+const styles = StyleSheet.create({
+  container: {
+    gap: 12,
+  },
+  title: {
+    marginLeft: 28,
+  },
+  content: {
+    borderRadius: 16,
+  },
 })

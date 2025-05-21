@@ -1,9 +1,9 @@
+import { Image } from 'expo-image'
 import * as ImagePicker from 'expo-image-picker'
 import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert } from 'react-native'
-import { Image, ScrollView, XStack, YStack, styled } from 'tamagui'
+import { Alert, ScrollView, StyleSheet, View } from 'react-native'
 
 import {
   FormInput,
@@ -11,10 +11,10 @@ import {
   H1,
   H4,
   PressableButton,
-  ViewContainer,
+  ScreenView,
 } from '@/components/shared'
 
-export default function BugReport() {
+export default function BugReportScreen() {
   const router = useRouter()
   const { t } = useTranslation()
   const [bugDescription, setBugDescription] = useState('')
@@ -60,12 +60,12 @@ export default function BugReport() {
 
   return (
     <ScrollView>
-      <Container>
-        <TitleXStack>
+      <ScreenView edges={['bottom']} padded style={styles.container}>
+        <View style={styles.titleBox}>
           <H1>{t('settings.bugReport.title')}</H1>
-        </TitleXStack>
+        </View>
 
-        <SpacingYStack>
+        <View style={styles.column}>
           <H4>{t('settings.bugReport.descriptionLabel')}</H4>
           <FormInputArea
             value={bugDescription}
@@ -74,9 +74,9 @@ export default function BugReport() {
             height={150}
             autoCapitalize='none'
           />
-        </SpacingYStack>
+        </View>
 
-        <SpacingYStack>
+        <View style={styles.column}>
           <H4>{t('settings.bugReport.emailLabel')}</H4>
           <FormInput
             value={email}
@@ -85,22 +85,22 @@ export default function BugReport() {
             autoCapitalize='none'
             keyboardType='email-address'
           />
-        </SpacingYStack>
+        </View>
 
-        <SpacingYStack>
+        <View style={styles.column}>
           <H4>{t('settings.bugReport.screenshotLabel')}</H4>
           <PressableButton onPress={pickImage}>
             {t('settings.bugReport.attachScreenshot')}
           </PressableButton>
           {image && (
-            <ImageYStack>
-              <StyledImage source={{ uri: image }} />
+            <View style={styles.imageBox}>
+              <Image source={image} />
               <PressableButton onPress={() => setImage(null)}>
                 {t('settings.bugReport.deleteImage')}
               </PressableButton>
-            </ImageYStack>
+            </View>
           )}
-        </SpacingYStack>
+        </View>
 
         <PressableButton
           bg='$color12'
@@ -112,34 +112,31 @@ export default function BugReport() {
             ? t('settings.bugReport.submitting')
             : t('settings.bugReport.submitButton')}
         </PressableButton>
-      </Container>
+      </ScreenView>
     </ScrollView>
   )
 }
-
-const Container = styled(ViewContainer, {
-  edges: ['bottom'],
-  padded: true,
-  flexDirection: 'column',
-  gap: '$4',
-})
-
-const TitleXStack = styled(XStack, {
-  items: 'center',
-  gap: '$2',
-})
-
-const SpacingYStack = styled(YStack, {
-  gap: '$2',
-})
-
-const ImageYStack = styled(YStack, {
-  mt: '$2',
-  items: 'center',
-  gap: '$2',
-})
-
-const StyledImage = styled(Image, {
-  width: 200,
-  height: 200,
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+    gap: 16,
+  },
+  titleBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16,
+  },
+  column: {
+    flexDirection: 'column',
+    gap: 8,
+  },
+  imageBox: {
+    marginTop: 8,
+    alignItems: 'center',
+    gap: 8,
+  },
+  image: {
+    width: 200,
+    height: 200,
+  },
 })

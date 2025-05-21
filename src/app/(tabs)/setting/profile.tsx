@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { YStack, styled } from 'tamagui'
 
 import { ProfileAvatar, ProfileMenuItem } from '@/components/features/setting'
-import { BaseText, H1, ViewContainer } from '@/components/shared'
+import { BaseText, H1, ScreenView } from '@/components/shared'
 import { UserQueries } from '@/queries'
 import { useAuth } from '@/store'
 import type { NewUserInfo } from '@/types'
@@ -36,14 +36,14 @@ export default function ProfileScreen() {
 
   if (!session) {
     return (
-      <ViewContainer>
+      <ScreenView>
         <BaseText>사용자 정보를 불러오지 못했습니다.</BaseText>
-      </ViewContainer>
+      </ScreenView>
     )
   }
 
   return (
-    <ViewContainer>
+    <ScreenView>
       <TitleBox>
         <H1>{t('settings.profile.title') || 'Profile'}</H1>
       </TitleBox>
@@ -74,7 +74,7 @@ export default function ProfileScreen() {
           <BaseText>{getDaysSinceSignup(session.user.created_at)}</BaseText>
         </MenuSpacing>
       </ContentContainer>
-    </ViewContainer>
+    </ScreenView>
   )
 }
 

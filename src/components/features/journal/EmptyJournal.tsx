@@ -1,6 +1,7 @@
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { YStack, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
+import { Card } from 'react-native-paper'
 
 import { WriteButton } from '@/components/features/tab'
 import { H3 } from '@/components/shared'
@@ -9,23 +10,24 @@ function _EmptyJournal() {
   const { t } = useTranslation()
 
   return (
-    <EmptyJournalContainer>
-      <H3 text='center'>{t('common.fallback.today')}</H3>
+    <Card style={styles.container}>
+      <H3>{t('common.fallback.today')}</H3>
       <WriteButton />
-    </EmptyJournalContainer>
+    </Card>
   )
 }
 
-const EmptyJournalContainer = styled(YStack, {
-  justify: 'center',
-  items: 'center',
-  gap: '$3',
-  py: '$6',
-  px: '$9',
-  rounded: '$8',
-  bg: '$color4',
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 12,
+    paddingVertical: 20,
+    paddingHorizontal: 28,
+    borderRadius: 20,
+  },
 })
 
 export const EmptyJournal = memo(_EmptyJournal)
-
 EmptyJournal.displayName = 'EmptyJournal'

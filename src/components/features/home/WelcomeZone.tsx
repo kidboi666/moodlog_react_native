@@ -27,7 +27,7 @@ function _WelcomeZone() {
       ) : (
         <H3>{t('common.greeting.welcome', { name: userInfo?.user_name })}</H3>
       )}
-      <H4 color='$gray11'>{t('common.greeting.howAreYou')}</H4>
+      <H4>{t('common.greeting.howAreYou')}</H4>
     </Animated.View>
   )
 }

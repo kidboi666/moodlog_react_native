@@ -4,7 +4,7 @@ import Svg, { Path } from 'react-native-svg'
 
 export function GoogleIcon() {
   return (
-    <View style={{ width: 28, height: 28 }}>
+    <View style={{ width: 20, height: 20 }}>
       <Svg viewBox='0 0 48 48'>
         <Path
           fill='#EA4335'

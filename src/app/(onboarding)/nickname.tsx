@@ -1,9 +1,9 @@
 import { AuthError } from '@supabase/supabase-js'
-import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { XStack, YStack } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
+import { Button, MD3Colors, TextInput } from 'react-native-paper'
 
 import {
   BaseText,
@@ -11,11 +11,12 @@ import {
   FormInput,
   H1,
   H3,
-  PressableButton,
+  H5,
+  ScreenView,
   ShakeEmoji,
-  ViewContainer,
 } from '@/components/shared'
 import { DelayMS } from '@/constants'
+import { Colors } from '@/constants/theme'
 import { useStepProgress } from '@/store'
 
 export default function NickNameScreen() {
@@ -43,7 +44,9 @@ export default function NickNameScreen() {
   }
 
   const handleNextStep = () => {
-    if (isCurrentPage && draftUserName) {
+    if (draftUserName.length < 2 || draftUserName.length > 10) {
+      setError(new Error('닉네임 글자수는 2~10자 입니다.'))
+    } else if (isCurrentPage && draftUserName) {
       goToNextStep()
       router.push({
         pathname: '/login',
@@ -51,54 +54,90 @@ export default function NickNameScreen() {
           draftUserName,
         },
       })
-    } else if (!draftUserName) {
-      setError(new Error('닉네임을 입력해주세요.'))
     }
   }
 
   return (
-    <ViewContainer edges={['bottom']}>
-      <YStack flex={1} gap='$6'>
+    <ScreenView edges={['bottom']}>
+      <View style={styles.container}>
         <Delay delay={DelayMS.ANIMATION.MEDIUM[0]}>
-          <YStack gap='$2'>
-            <XStack gap='$2'>
+          <View style={styles.column}>
+            <View style={styles.row}>
               <H1>닉네임 설정</H1>
               <ShakeEmoji emoji='✏️' />
-            </XStack>
-            <H3 color='$gray11'>무드로그에서 사용할 닉네임을 입력해주세요.</H3>
-          </YStack>
+            </View>
+            <H3 style={styles.description}>
+              무드로그에서 사용할 닉네임을 입력해주세요.
+            </H3>
+          </View>
         </Delay>
 
         <Delay delay={DelayMS.ANIMATION.MEDIUM[1]}>
-          <YStack gap='$4'>
+          <View style={styles.column}>
             <FormInput
+              label={t('onboarding.nickname.label')}
               value={draftUserName}
               onChangeText={handleDraftUserNameChange}
+              error={!!error}
               placeholder='닉네임을 입력하세요 (2-10자)'
             />
-            {error && <BaseText color='$red9'>{error.message}</BaseText>}
-            <H3 color='$gray11'>
+            {error && <BaseText style={styles.error}>{error.message}</BaseText>}
+            <H5 style={styles.description}>
               닉네임은 언제든지 설정 메뉴에서 변경할 수 있어요.
-            </H3>
-          </YStack>
+            </H5>
+          </View>
         </Delay>
-      </YStack>
+      </View>
 
       <Delay delay={DelayMS.ANIMATION.MEDIUM[2]}>
-        <XStack justify='space-between'>
-          <PressableButton icon={ArrowLeft} onPress={handlePrevStep}>
+        <View style={styles.buttonBox}>
+          <Button
+            icon='arrow-left'
+            mode='contained'
+            buttonColor={Colors.button}
+            textColor={Colors.buttonText}
+            onPress={handlePrevStep}
+          >
             이전
-          </PressableButton>
+          </Button>
 
-          <PressableButton
-            iconAfter={ArrowRight}
+          <Button
+            icon='arrow-right'
+            mode='contained'
+            buttonColor={Colors.button}
+            textColor={Colors.buttonText}
             onPress={handleNextStep}
             disabled={!draftUserName}
           >
             다음
-          </PressableButton>
-        </XStack>
+          </Button>
+        </View>
       </Delay>
-    </ViewContainer>
+    </ScreenView>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    gap: 24,
+  },
+  row: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  column: {
+    flexDirection: 'column',
+    gap: 8,
+  },
+  description: {
+    color: Colors.gray10,
+  },
+  buttonBox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  error: {
+    color: MD3Colors.error40,
+  },
+})

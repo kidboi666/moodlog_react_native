@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { RadioGroup } from 'tamagui'
 
 import { RadioGroupItem } from '@/components/features/setting'
-import { ViewContainer } from '@/components/shared'
+import { ScreenView } from '@/components/shared'
 import { useApp } from '@/store'
 import { TimeFormat } from '@/types'
 
@@ -20,7 +20,7 @@ export default function Screen() {
   )
 
   return (
-    <ViewContainer>
+    <Screen>
       <RadioGroup
         value={timeFormat}
         onValueChange={handleValueChange}
@@ -43,6 +43,6 @@ export default function Screen() {
           onValueChange={handleValueChange}
         />
       </RadioGroup>
-    </ViewContainer>
+    </Screen>
   )
 }

@@ -1,5 +1,5 @@
 import { Stack } from 'expo-router'
-import { useTheme } from 'tamagui'
+import { useTheme } from 'react-native-paper'
 
 export function MainStack() {
   const theme = useTheme()
@@ -8,8 +8,8 @@ export function MainStack() {
     <Stack
       screenOptions={{
         headerShown: false,
-        contentStyle: { flex: 1, backgroundColor: theme.background.val },
-        headerStyle: { backgroundColor: theme.background.val },
+        contentStyle: { flex: 1, backgroundColor: theme.colors.background },
+        headerStyle: { backgroundColor: theme.colors.background },
       }}
     >
       <Stack.Screen name='(tabs)' />

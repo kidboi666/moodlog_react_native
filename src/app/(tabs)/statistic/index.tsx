@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
+import { StyleSheet, View } from 'react-native'
 import Animated, { FadeIn } from 'react-native-reanimated'
-import { XStack, YStack, styled } from 'tamagui'
 
 import {
   Garden,
@@ -9,7 +9,7 @@ import {
   StartDay,
   TotalCount,
 } from '@/components/features/statistic'
-import { H1, ViewContainer } from '@/components/shared'
+import { H1, ScreenView } from '@/components/shared'
 import { useCalendar } from '@/hooks'
 import { JournalQueries } from '@/queries'
 import { ISOMonthString } from '@/types'
@@ -32,15 +32,15 @@ export default function StatisticScreen() {
 
   return (
     <Animated.ScrollView entering={FadeIn.duration(800)}>
-      <Container>
-        <TitleXStack>
+      <ScreenView edges={['top', 'bottom']} padded style={styles.container}>
+        <View style={styles.titleBox}>
           <H1>{t('statistics.title')}</H1>
-        </TitleXStack>
-        <ContentYStack>
-          <StatisticsRow>
+        </View>
+        <View style={styles.contentBox}>
+          <View style={styles.chartBox}>
             <TotalCount />
             <StartDay />
-          </StatisticsRow>
+          </View>
           <LogStreak />
           <Garden
             journals={journals}
@@ -53,27 +53,24 @@ export default function StatisticScreen() {
           {/*  selectedMonth={selectedMonth || monthString}*/}
           {/*/> */}
           {/*<WeeklyMoodChart selectedMonth={selectedMonth || monthString} />*/}
-        </ContentYStack>
-      </Container>
+        </View>
+      </ScreenView>
     </Animated.ScrollView>
   )
 }
 
-const Container = styled(ViewContainer, {
-  edges: ['top', 'bottom'],
-  gap: '$4',
-  padded: true,
-})
-
-const TitleXStack = styled(XStack, {
-  justify: 'space-between',
-  items: 'flex-end',
-})
-
-const ContentYStack = styled(YStack, {
-  gap: '$4',
-})
-
-const StatisticsRow = styled(XStack, {
-  gap: '$4',
+const styles = StyleSheet.create({
+  container: {
+    gap: 12,
+  },
+  titleBox: {
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+  },
+  contentBox: {
+    gap: 12,
+  },
+  chartBox: {
+    gap: 12,
+  },
 })

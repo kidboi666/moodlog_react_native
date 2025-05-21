@@ -1,10 +1,11 @@
 import { PropsWithChildren, useMemo } from 'react'
+import { ViewProps } from 'react-native'
 import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated'
 
 import { DelayMS } from '@/constants'
 import { useAnimatedEntry } from '@/hooks'
 
-interface Props {
+interface Props extends ViewProps {
   delay?: number
   duration?: number
   variant?: 'falldown' | 'float' | 'fade'
@@ -14,7 +15,9 @@ export const Delay = ({
   delay = DelayMS.ANIMATION.MEDIUM[0],
   variant = 'fade',
   duration = 800,
+  style,
   children,
+  ...props
 }: PropsWithChildren<Props>) => {
   const { isVisible, item } = useAnimatedEntry(delay, children)
 
@@ -28,7 +31,7 @@ export const Delay = ({
   )
 
   return (
-    <Animated.View entering={variantStyle[variant]}>
+    <Animated.View style={style} entering={variantStyle[variant]} {...props}>
       {isVisible ? item : null}
     </Animated.View>
   )

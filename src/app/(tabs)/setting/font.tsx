@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { RadioGroup, styled } from 'tamagui'
 
 import { FontRadioGroupItem } from '@/components/features/setting'
-import { ViewContainer } from '@/components/shared'
+import { ScreenView } from '@/components/shared'
 import { useApp } from '@/store'
 import { FontTheme } from '@/types'
 
@@ -34,7 +34,7 @@ const fontList = [
   },
 ]
 
-export default function Screen() {
+export default function FontScreen() {
   const { t } = useTranslation()
   const fontTheme = useApp(state => state.settings.fontTheme)
   const onSettingChange = useApp(state => state.onSettingChange)
@@ -47,7 +47,7 @@ export default function Screen() {
   )
 
   return (
-    <ViewContainer>
+    <ScreenView edges={['top']}>
       <StyledRadioGroup value={fontTheme} onValueChange={handleValueChange}>
         {fontList.map(font => (
           <FontRadioGroupItem
@@ -58,7 +58,7 @@ export default function Screen() {
           />
         ))}
       </StyledRadioGroup>
-    </ViewContainer>
+    </ScreenView>
   )
 }
 

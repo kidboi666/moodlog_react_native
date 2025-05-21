@@ -11,7 +11,7 @@ import {
   H1,
   H6,
   PressableButton,
-  ViewContainer,
+  ScreenView,
 } from '@/components/shared'
 
 export default function QnA() {
@@ -62,7 +62,7 @@ export default function QnA() {
 
   return (
     <ScrollView>
-      <ViewContainer edges={['bottom']} padded>
+      <ScreenView edges={['bottom']} padded>
         <YStack gap='$4'>
           <XStack items='center' gap='$2'>
             <H1>{t('settings.qna.title')}</H1>
@@ -136,7 +136,7 @@ export default function QnA() {
               : t('settings.qna.submitButton')}
           </PressableButton>
         </YStack>
-      </ViewContainer>
+      </ScreenView>
     </ScrollView>
   )
 }

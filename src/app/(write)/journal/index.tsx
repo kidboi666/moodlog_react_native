@@ -1,12 +1,16 @@
 import { Check } from '@tamagui/lucide-icons'
 import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
-import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native'
-import { Spinner, styled } from 'tamagui'
+import {
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+} from 'react-native'
 
 import { JournalMenuSelector, MoodLevelForm } from '@/components/features/mood'
 import { EmptyMoodView, MainRecordFlow } from '@/components/features/write'
-import { HeaderContent, StepDot, ViewContainer } from '@/components/shared'
+import { HeaderContent, ScreenView, StepDot } from '@/components/shared'
 import { useJournalDraftForm } from '@/hooks'
 import { MoodQueries, useAddJournal } from '@/queries'
 
@@ -26,22 +30,24 @@ export default function WriteJournalScreen() {
 
   if (isLoading) {
     return (
-      <Container Header={<HeaderContent leftAction={() => router.back()} />}>
-        <Spinner size='large' />
-      </Container>
+      <ScreenView Header={<HeaderContent leftAction={() => router.back()} />}>
+        <ActivityIndicator size='large' />
+      </ScreenView>
     )
   }
 
   if (Object.keys(moods).length === 0) {
     return (
-      <Container Header={<HeaderContent leftAction={() => router.back()} />}>
+      <ScreenView Header={<HeaderContent leftAction={() => router.back()} />}>
         <EmptyMoodView />
-      </Container>
+      </ScreenView>
     )
   }
 
   return (
-    <Container
+    <ScreenView
+      edges={['bottom']}
+      style={styles.container}
       Header={
         <HeaderContent
           leftAction={() => router.back()}
@@ -74,22 +80,15 @@ export default function WriteJournalScreen() {
         />
       </KeyboardAvoidingView>
       <JournalMenuSelector />
-    </Container>
+    </ScreenView>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    gap: 16,
+  },
   keyboardAvoidingViewContainer: {
     flex: 1,
   },
-})
-
-const Container = styled(ViewContainer, {
-  edges: ['bottom'],
-  gap: '$4',
-  variants: {
-    isLeftSpacing: {
-      true: { px: 0 },
-    },
-  } as const,
 })

@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
-import { ScrollView, styled } from 'tamagui'
+import { ScrollView, StyleSheet } from 'react-native'
 
 import {
   HomeJournalDisplay,
   WeekDay,
   WelcomeZone,
 } from '@/components/features/home'
-import { ViewContainer } from '@/components/shared'
+import { ScreenView } from '@/components/shared'
 import { DelayMS } from '@/constants'
 import { useCalendar } from '@/hooks'
 import { JournalQueries } from '@/queries'
@@ -32,8 +32,8 @@ export default function HomeScreen() {
   }, [])
 
   return (
-    <ScrollContainer>
-      <Container>
+    <ScrollView overScrollMode='always' keyboardShouldPersistTaps='handled'>
+      <ScreenView edges={['top', 'bottom']} padded style={styles.container}>
         <WelcomeZone />
         <WeekDay
           selectedDate={selectedDate}
@@ -45,19 +45,13 @@ export default function HomeScreen() {
           journals={selectedDateJournals}
           isLoading={isLoading}
         />
-      </Container>
-    </ScrollContainer>
+      </ScreenView>
+    </ScrollView>
   )
 }
 
-const ScrollContainer = styled(ScrollView, {
-  overScrollMode: 'always',
-  keyboardShouldPersistTaps: 'handled',
-})
-
-const Container = styled(ViewContainer, {
-  edges: ['top', 'bottom'],
-  padded: true,
-  flexDirection: 'column',
-  gap: '$4',
+const styles = StyleSheet.create({
+  container: {
+    gap: 12,
+  },
 })

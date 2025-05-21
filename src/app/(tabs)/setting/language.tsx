@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { RadioGroup, styled } from 'tamagui'
 
 import { RadioGroupItem } from '@/components/features/setting'
-import { ViewContainer } from '@/components/shared'
+import { ScreenView } from '@/components/shared'
 import { useApp } from '@/store'
 import type { Languages } from '@/types'
 
@@ -23,7 +23,7 @@ export default function Screen() {
   )
 
   return (
-    <ViewContainer>
+    <Screen>
       <StyledRadioGroup value={language} onValueChange={handleValueChange}>
         {languages.map(language => (
           <RadioGroupItem
@@ -34,7 +34,7 @@ export default function Screen() {
           />
         ))}
       </StyledRadioGroup>
-    </ViewContainer>
+    </Screen>
   )
 }
 

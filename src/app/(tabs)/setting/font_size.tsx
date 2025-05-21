@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { RadioGroup, View, styled } from 'tamagui'
 
 import { RadioGroupItem } from '@/components/features/setting'
-import { BaseText, ViewContainer } from '@/components/shared'
+import { BaseText, ScreenView } from '@/components/shared'
 import { useApp } from '@/store'
 import { ViewFontSize } from '@/types'
 
@@ -43,7 +43,7 @@ export default function Screen() {
   )
 
   return (
-    <ViewContainer>
+    <ScreenView>
       <StyledRadioGroup value={fontSize} onValueChange={handleValueChange}>
         {fontSizes.map(fontSize => (
           <RadioGroupItem
@@ -57,7 +57,7 @@ export default function Screen() {
           <BaseText fontSize={fontSize}>안녕하세요.</BaseText>
         </View>
       </StyledRadioGroup>
-    </ViewContainer>
+    </ScreenView>
   )
 }
 

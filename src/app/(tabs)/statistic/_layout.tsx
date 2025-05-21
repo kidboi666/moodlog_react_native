@@ -1,5 +1,5 @@
 import { Stack } from 'expo-router'
-import { useTheme } from 'tamagui'
+import { useTheme } from 'react-native-paper'
 
 export default function StatisticsLayout() {
   const theme = useTheme()
@@ -8,7 +8,7 @@ export default function StatisticsLayout() {
       screenOptions={{
         headerShown: false,
         contentStyle: {
-          backgroundColor: theme.background.val,
+          backgroundColor: theme.colors.background,
         },
       }}
     >

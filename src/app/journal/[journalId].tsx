@@ -1,17 +1,10 @@
 import { Trash } from '@tamagui/lucide-icons'
 import { useQuery } from '@tanstack/react-query'
+import { Image } from 'expo-image'
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TouchableOpacity } from 'react-native'
-import {
-  ScrollView,
-  Image as TamaguiImage,
-  View,
-  XStack,
-  YStack,
-  styled,
-} from 'tamagui'
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
 
 import { FullScreenImageModal } from '@/components/features/modal'
 import {
@@ -20,11 +13,12 @@ import {
   HeaderContent,
   RenderDate,
   RenderTime,
-  ViewContainer,
+  ScreenView,
 } from '@/components/shared'
 import { Layout } from '@/constants'
+import { Colors } from '@/constants/theme'
 import { JournalQueries } from '@/queries'
-import { useApp, useBottomSheet } from '@/store'
+import { useBottomSheet } from '@/store'
 import { BottomSheetType } from '@/types'
 import { toSingle } from '@/utils'
 import Animated, { FadeIn } from 'react-native-reanimated'
@@ -36,7 +30,6 @@ export default function JournalScreen() {
   const { data: journal } = useQuery(
     JournalQueries.getJournalById(Number(toSingle(journalId))),
   )
-  const fontSize = useApp(state => state.settings.fontSize)
   const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
   const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
   const [modalVisible, setModalVisible] = useState(false)
@@ -64,6 +57,18 @@ export default function JournalScreen() {
     setModalVisible(false)
   }
 
+  const memoizedStyles = useMemo(
+    () => ({
+      moodBar: {
+        backgroundColor: journal?.mood?.color,
+      },
+      moodName: {
+        color: journal?.mood?.color,
+      },
+    }),
+    [journal?.mood?.color],
+  )
+
   if (!journal) return null
 
   return (
@@ -71,48 +76,50 @@ export default function JournalScreen() {
       entering={FadeIn.duration(800)}
       overScrollMode='always'
     >
-      <Container
+      <ScreenView
+        edges={['bottom']}
+        style={styles.container}
         Header={
           <HeaderContent
             leftAction={handleGoBack}
             rightAction={handleDeleteSheetOpen}
             rightActionIcon={Trash}
           >
-            <TimeZone>
+            <View style={styles.timezoneBox}>
               <RenderDate localDate={journal.localDate} />
               <RenderTime createdAt={journal.createdAt} />
-            </TimeZone>
+            </View>
           </HeaderContent>
         }
       >
-        <XStack>
-          <MoodBar moodColor={journal.mood?.color} />
-          <ContentContainer>
-            <MoodContainer>
-              <MoodLevel>{t(`moods.levels.${journal.moodLevel}`)}</MoodLevel>
-              <MoodName moodColor={journal.mood?.color}>
-                {journal.mood?.name}
-              </MoodName>
-            </MoodContainer>
+        <View style={styles.rowBox}>
+          <View style={[styles.moodBar, memoizedStyles.moodBar]} />
+          <View style={styles.contentBox}>
+            <View style={styles.moodBox}>
+              <H3 style={styles.moodLevel}>
+                {t(`moods.levels.${journal.moodLevel}`)}
+              </H3>
+              <H3 style={memoizedStyles.moodName}>{journal.mood?.name}</H3>
+            </View>
             {Array.isArray(journal.imageUri) && (
               <ScrollView horizontal>
-                <ImageContainer>
+                <View style={styles.imageBox}>
                   {journal.imageUri.map(uri => (
                     <TouchableOpacity
                       key={uri}
                       onPress={() => handleImagePress(uri)}
                     >
-                      <Image source={{ uri }} />
+                      <Image style={styles.image} source={uri} />
                     </TouchableOpacity>
                   ))}
-                </ImageContainer>
+                </View>
               </ScrollView>
             )}
 
-            <ContentText fontSize={fontSize}>{journal.content}</ContentText>
-          </ContentContainer>
-        </XStack>
-      </Container>
+            <BaseText style={styles.content}>{journal.content}</BaseText>
+          </View>
+        </View>
+      </ScreenView>
 
       <FullScreenImageModal
         visible={modalVisible}
@@ -123,63 +130,47 @@ export default function JournalScreen() {
   )
 }
 
-const Container = styled(ViewContainer, {
-  edges: ['bottom'],
-  px: 0,
-  gap: '$6',
-})
-
-const TimeZone = styled(YStack, {
-  items: 'center',
-})
-
-const MoodBar = styled(View, {
-  width: '3%',
-  borderTopRightRadius: '$4',
-  borderBottomRightRadius: '$4',
-  variants: {
-    moodColor: {
-      ':string': bg => ({ bg }),
-    },
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 0,
+    gap: 12,
   },
-})
-
-const ContentContainer = styled(YStack, {
-  flex: 1,
-  gap: '$4',
-})
-
-const MoodContainer = styled(XStack, {
-  gap: '$2',
-  self: 'flex-start',
-  ml: '$3',
-  justify: 'center',
-})
-
-const MoodLevel = styled(H3, {
-  color: '$color11',
-})
-
-const MoodName = styled(H3, {
-  variants: {
-    moodColor: {
-      ':string': color => ({ color }),
-    },
+  rowBox: {
+    flexDirection: 'row',
   },
-})
-
-const ImageContainer = styled(XStack, {
-  elevation: '$2',
-})
-
-const ContentText = styled(BaseText, {
-  ml: '$3',
-  pr: '$4',
-})
-
-const Image = styled(TamaguiImage, {
-  width: 300,
-  height: 300,
-  rounded: '$8',
-  ml: '$4',
+  timezoneBox: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  moodBar: {
+    width: '3%',
+    borderTopRightRadius: 12,
+    borderBottomRightRadius: 12,
+  },
+  contentBox: {
+    flex: 1,
+    gap: 12,
+  },
+  moodBox: {
+    gap: 8,
+    flexDirection: 'row',
+    alignSelf: 'flex-start',
+    marginLeft: 16,
+    justifyContent: 'center',
+  },
+  moodLevel: { color: Colors.gray11 },
+  imageBox: {
+    flexDirection: 'row',
+    elevation: 8,
+  },
+  content: {
+    marginLeft: 16,
+    paddingRight: 18,
+  },
+  image: {
+    width: 300,
+    height: 300,
+    borderRadius: 12,
+    marginLeft: 16,
+  },
 })

@@ -12,13 +12,14 @@ import {
 import { type Href, useRouter } from 'expo-router'
 import { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, Separator, YStack, styled } from 'tamagui'
+import { StyleSheet, Text, View } from 'react-native'
 
 import {
   NavigationSettingItem,
   SettingsContainer,
 } from '@/components/features/setting'
-import { BaseText, H1, ViewContainer } from '@/components/shared'
+import { H1, ScreenView } from '@/components/shared'
+import { Colors } from '@/constants/theme'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
 const devSection = __DEV__
@@ -122,9 +123,9 @@ export default function SettingsScreen() {
 
   return (
     <Animated.ScrollView entering={FadeIn.duration(800)}>
-      <Container>
+      <ScreenView edges={['top']} style={styles.container}>
         <H1>{t('settings.title')}</H1>
-        <ContentYStack>
+        <View style={styles.contentBox}>
           {sections.map(({ title, items }) => (
             <SettingsContainer key={title} title={t(title)}>
               {items.map(menu => (
@@ -137,31 +138,28 @@ export default function SettingsScreen() {
               ))}
             </SettingsContainer>
           ))}
-        </ContentYStack>
+        </View>
 
-        <CopyrightYStack>
-          <CopyrightText>© 2025 Moodlog. All rights reserved.</CopyrightText>
-        </CopyrightYStack>
-      </Container>
+        <View style={styles.copyrightBox}>
+          <Text>© 2025 Moodlog. All rights reserved.</Text>
+        </View>
+      </ScreenView>
     </Animated.ScrollView>
   )
 }
 
-const Container = styled(ViewContainer, {
-  edges: ['top'],
-  padded: true,
-  gap: '$4',
-})
-
-const ContentYStack = styled(YStack, {
-  gap: '$6',
-})
-
-const CopyrightYStack = styled(YStack, {
-  items: 'center',
-  mt: '$4',
-})
-
-const CopyrightText = styled(BaseText, {
-  color: '$color11',
+const styles = StyleSheet.create({
+  container: {
+    gap: 12,
+  },
+  contentBox: {
+    gap: 20,
+  },
+  copyrightBox: {
+    alignItems: 'center',
+    marginTop: 12,
+  },
+  copyright: {
+    color: Colors.gray11,
+  },
 })

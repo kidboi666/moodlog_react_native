@@ -6,24 +6,26 @@ import { XStack, YStack } from 'tamagui'
 
 import { EntriesJournalDisplay } from '@/components/features/entries'
 import { EmptyJournal } from '@/components/features/journal'
-import { H1, H3, PressableButton, ViewContainer } from '@/components/shared'
+import { H1, H3, PressableButton, ScreenView } from '@/components/shared'
 import { DelayMS, Layout } from '@/constants'
 import { useCalendar } from '@/hooks'
 import { JournalQueries } from '@/queries'
-import { Journal } from '@/types'
+import { ISOMonthString, Journal } from '@/types'
 import {
   convertMonthString,
   groupJournalsByDate,
   groupJournalsByMonth,
 } from '@/utils'
 import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons'
+import { useLocalSearchParams } from 'expo-router'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
 type GroupedJournalItem = [string, Journal[]]
 
 export default function EntriesScreen() {
   const { t } = useTranslation()
-  const { selectedMonth, onSelectedMonthChange, selectedYear } = useCalendar()
+  const params = useLocalSearchParams()
+  const { selectedYear, selectedMonth } = params
   const { data: journals } = useQuery(
     JournalQueries.getJournalsByYear(selectedYear),
   )
@@ -34,55 +36,33 @@ export default function EntriesScreen() {
   const monthlyJournals = groupedJournalsByMonth[selectedMonth] || []
   const groupedJournalsByDate = groupJournalsByDate(monthlyJournals)
 
-  const handleLeftPress = useCallback(() => {
-    const monthString = convertMonthString(selectedMonth, 'prev')
-    onSelectedMonthChange(monthString)
-  }, [onSelectedMonthChange, selectedMonth])
-
-  const handleRightPress = useCallback(() => {
-    const monthString = convertMonthString(selectedMonth, 'next')
-    onSelectedMonthChange(monthString)
-  }, [onSelectedMonthChange, selectedMonth])
-
-  const selectedMonthToRender = selectedMonth.replace('-', '.')
-
   return (
     <Animated.View entering={FadeIn.duration(800)} style={styles.animatedView}>
-      <ViewContainer
-        edges={['top']}
-        Header={
-          <XStack justify='space-between' items='center' width='100%' py='$2'>
-            <PressableButton icon={ArrowLeft} onPress={handleLeftPress} />
-            <H3>{selectedMonthToRender}</H3>
-            <PressableButton icon={ArrowRight} onPress={handleRightPress} />
-          </XStack>
-        }
-      >
-        {Array.isArray(journals) && journals.length > 0 ? (
-          <FlatList
-            data={groupedJournalsByDate}
-            keyExtractor={(item: GroupedJournalItem) => item[0]}
-            ListEmptyComponent={<EmptyJournal />}
-            ListHeaderComponent={
-              <YStack gap='$4'>
-                <H1>{t('entries.title')}</H1>
-              </YStack>
-            }
-            renderItem={({ item }: { item: GroupedJournalItem }) => {
-              return (
-                <EntriesJournalDisplay
-                  date={item[0]}
-                  journals={item[1]}
-                  selectedMonth={selectedMonth}
-                />
-              )
-            }}
-            contentContainerStyle={styles.container}
-          />
-        ) : (
-          <EmptyJournal />
-        )}
-      </ViewContainer>
+      {Array.isArray(journals) && journals.length > 0 ? (
+        <FlatList
+          data={groupedJournalsByDate}
+          keyExtractor={(item: GroupedJournalItem) => item[0]}
+          ListEmptyComponent={<EmptyJournal />}
+          ListHeaderComponent={
+            <YStack gap='$4'>
+              <H1>{t('entries.title')}</H1>
+            </YStack>
+          }
+          renderItem={({ item }: { item: GroupedJournalItem }) => {
+            return (
+              <EntriesJournalDisplay
+                date={item[0]}
+                journals={item[1]}
+                selectedMonth={selectedMonth}
+              />
+            )
+          }}
+          contentContainerStyle={styles.container}
+        />
+      ) : (
+        <EmptyJournal />
+      )}
+      {/*</ScreenView>*/}
     </Animated.View>
   )
 }
@@ -92,6 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
+    paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
     paddingTop: Layout.SPACE.CONTAINER_PADDING_TOP / 4,
     paddingBottom: Layout.SPACE.CONTAINER_PADDING_BOTTOM,
   },

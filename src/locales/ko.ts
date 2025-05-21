@@ -413,6 +413,7 @@ export const ko = {
       title: '당신의 이야기가 여기서 시작됩니다',
       description: '어떤 이름으로 이야기를 쓰시겠어요?',
       placeholder: '닉네임을 입력해주세요',
+      label: '별명',
     },
     intro: {
       title: '무드로그와 함께하는 감정 기록',

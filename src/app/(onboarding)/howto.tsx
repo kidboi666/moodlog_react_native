@@ -1,37 +1,25 @@
-import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
-import { XStack, YStack, styled } from 'tamagui'
+import { StyleSheet, Text, View } from 'react-native'
+import { Button } from 'react-native-paper'
 
 import {
+  BaseText,
   Delay,
   H1,
   H2,
   H3,
-  PressableButton,
-  ViewContainer,
+  H5,
+  ScreenView,
 } from '@/components/shared'
 import { DelayMS } from '@/constants'
+import { Colors } from '@/constants/theme'
 import { useStepProgress } from '@/store'
 
 interface Props {
   number: string
   title: string
   description: string
-}
-
-const Step = ({ number, title, description }: Props) => {
-  return (
-    <StepContainer>
-      <StepNumberContainer>
-        <StepNumber>{number}</StepNumber>
-      </StepNumberContainer>
-      <StepContent>
-        <StepTitle>{title}</StepTitle>
-        <StepDescription>{description}</StepDescription>
-      </StepContent>
-    </StepContainer>
-  )
 }
 
 export default function HowToScreen() {
@@ -59,105 +47,124 @@ export default function HowToScreen() {
   }
 
   return (
-    <ViewContainer edges={['bottom']}>
-      <YStack flex={1} gap='$6'>
+    <ScreenView edges={['bottom']}>
+      <View style={styles.container}>
         <Delay delay={DelayMS.ANIMATION.MEDIUM[0]}>
           <H1>무드로그 사용 방법</H1>
         </Delay>
-
         <Delay delay={DelayMS.ANIMATION.MEDIUM[1]}>
-          <StepsContainer>
+          <View style={styles.stepBox}>
             <Step
               number='1'
               title='감정 만들기'
               description='먼저 자신만의 감정을 만들고 색상을 지정하세요.'
             />
-
             <Step
               number='2'
               title='일일 감정 기록'
               description='하루 중 느낀 감정을 선택하고 간단한 메모를 남기세요.'
             />
-
             <Step
               number='3'
               title='일기 작성'
               description='원하는 경우 더 자세한 일기를 작성할 수 있어요.'
             />
-
             <Step
               number='4'
               title='통계 확인'
               description='시간이 지나면 감정 패턴을 분석해보세요.'
             />
-          </StepsContainer>
+          </View>
         </Delay>
-
         <Delay delay={DelayMS.ANIMATION.MEDIUM[2]}>
-          <TipContainer>
+          <View style={styles.tipBox}>
             <H2>꿀팁!</H2>
-            <H3 color='$gray11'>
+            <H5 style={styles.title}>
               매일 같은 시간에 기록하면 더 정확한 감정 패턴을 파악할 수 있어요.
-            </H3>
-          </TipContainer>
+            </H5>
+          </View>
         </Delay>
-      </YStack>
-
+      </View>
       <Delay delay={DelayMS.ANIMATION.MEDIUM[3]}>
-        <XStack justify='space-between'>
-          <PressableButton icon={ArrowLeft} onPress={handlePrevButton}>
+        <View style={styles.buttonBox}>
+          <Button
+            icon='arrow-left'
+            mode='contained'
+            buttonColor={Colors.button}
+            textColor={Colors.buttonText}
+            onPress={handlePrevButton}
+          >
             이전
-          </PressableButton>
-
-          <PressableButton iconAfter={ArrowRight} onPress={handleNextButton}>
+          </Button>
+          <Button
+            icon='arrow-right'
+            mode='contained'
+            buttonColor={Colors.button}
+            textColor={Colors.buttonText}
+            onPress={handleNextButton}
+          >
             다음
-          </PressableButton>
-        </XStack>
+          </Button>
+        </View>
       </Delay>
-    </ViewContainer>
+    </ScreenView>
   )
 }
 
-// 스타일 컴포넌트
-const StepsContainer = styled(YStack, {
-  gap: '$4',
-})
+function Step({ number, title, description }: Props) {
+  return (
+    <View style={styles.stepContainer}>
+      <View style={styles.stepNumberBox}>
+        <H3 style={styles.stepNumber}>{number}</H3>
+      </View>
+      <View style={styles.stepContentBox}>
+        <H3>{title}</H3>
+        <BaseText>{description}</BaseText>
+      </View>
+    </View>
+  )
+}
 
-const StepContainer = styled(XStack, {
-  gap: '$4',
-  items: 'flex-start',
-})
-
-const StepNumberContainer = styled(YStack, {
-  width: 40,
-  height: 40,
-  rounded: 20,
-  bg: '$color12',
-  justify: 'center',
-  items: 'center',
-})
-
-const StepNumber = styled(H2, {
-  color: 'white',
-})
-
-const StepContent = styled(YStack, {
-  flex: 1,
-  gap: '$2',
-})
-
-const StepTitle = styled(H3, {
-  fontWeight: 'bold',
-})
-
-const StepDescription = styled(H3, {
-  color: '$gray11',
-  fontSize: '$5',
-})
-
-const TipContainer = styled(YStack, {
-  bg: '$color5',
-  p: '$4',
-  rounded: '$4',
-  gap: '$2',
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    gap: 24,
+    flexDirection: 'column',
+  },
+  stepBox: {
+    gap: 16,
+  },
+  tipBox: {
+    backgroundColor: Colors.gray4,
+    padding: 16,
+    borderRadius: 16,
+    gap: 8,
+  },
+  buttonBox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  stepContainer: {
+    gap: 16,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  stepNumberBox: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: Colors.gray12,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  stepNumber: {
+    color: 'white',
+  },
+  stepContentBox: {
+    flex: 1,
+    gap: 8,
+  },
+  title: {
+    color: Colors.gray11,
+  },
 })

@@ -13,12 +13,7 @@ import {
   MoodPreviewItem,
   SuccessCreateMoodEffect,
 } from '@/components/features/mood'
-import {
-  Delay,
-  HeaderContent,
-  StepDot,
-  ViewContainer,
-} from '@/components/shared'
+import { Delay, HeaderContent, ScreenView, StepDot } from '@/components/shared'
 import { DelayMS } from '@/constants'
 import { useMoodForm, useScrollMood } from '@/hooks'
 import { useAddMood } from '@/queries'
@@ -31,7 +26,7 @@ export default function CreateMoodScreen() {
   const { mutate: onSubmit } = useAddMood()
 
   return (
-    <ViewContainer
+    <ScreenView
       edges={['bottom']}
       Header={
         <HeaderContent
@@ -72,7 +67,7 @@ export default function CreateMoodScreen() {
         />
       </Delay>
       <SuccessCreateMoodEffect active={isSuccess} color={mood.color} />
-    </ViewContainer>
+    </ScreenView>
   )
 }
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -42,13 +42,18 @@ export function ShakeEmoji({ duration = 6000, emoji }: Props) {
   }, [duration, isShaking])
 
   return (
-    <Animated.View style={animatedStyle}>
-      <Text style={styles.font}>{emoji}</Text>
-    </Animated.View>
+    <View style={styles.container}>
+      <Animated.Text style={[animatedStyle, styles.font]}>
+        {emoji}
+      </Animated.Text>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+  },
   font: {
     fontSize: 32,
   },

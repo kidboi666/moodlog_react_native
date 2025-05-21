@@ -1,18 +1,12 @@
-import { ArrowRight } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
-import { H3, XStack, YStack } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
 
-import {
-  Delay,
-  H1,
-  H2,
-  PressableButton,
-  ShakeEmoji,
-  ViewContainer,
-} from '@/components/shared'
+import { Delay, H1, H3, H5, ScreenView, ShakeEmoji } from '@/components/shared'
 import { DelayMS } from '@/constants'
+import { Colors } from '@/constants/theme'
 import { useStepProgress } from '@/store'
+import { Button } from 'react-native-paper'
 
 export default function IntroScreen() {
   const router = useRouter()
@@ -31,42 +25,63 @@ export default function IntroScreen() {
   }
 
   return (
-    <ViewContainer edges={['bottom']}>
-      <YStack flex={1}>
-        <YStack flex={1} gap='$6'>
-          <Delay delay={DelayMS.ANIMATION.LONG[0]}>
-            <XStack gap='$2'>
-              <ShakeEmoji emoji='👋' />
-            </XStack>
-            <H1>무드로그에 오신 것을 환영합니다!</H1>
-          </Delay>
-          <Delay delay={DelayMS.ANIMATION.LONG[1]}>
-            <YStack gap='$6'>
-              <H3 color='$gray11' mb='$4'>
-                무드로그는 당신의 일상 감정을 기록하고 분석하는 감정 일기장
-                앱입니다.
-              </H3>
-              <H3 color='$gray11'>
-                매일 감정을 기록하고 시간이 지남에 따라 감정 패턴을
-                발견해보세요.
-              </H3>
-            </YStack>
-          </Delay>
-        </YStack>
-        <Delay delay={DelayMS.ANIMATION.LONG[2]}>
-          <H2>함께 무드로그를 시작해볼까요?</H2>
+    <ScreenView edges={['bottom']}>
+      <View style={styles.content}>
+        <Delay delay={DelayMS.ANIMATION.LONG[0]}>
+          <ShakeEmoji emoji='👋' />
+          <H1>무드로그에 오신 것을 환영합니다!</H1>
         </Delay>
-      </YStack>
+        <Delay delay={DelayMS.ANIMATION.LONG[1]} style={styles.descriptionBox}>
+          <H5 style={styles.description}>
+            무드로그는 당신의 일상 감정을 기록하고 분석하는 감정 일기장
+            앱입니다.
+          </H5>
+          <H5 style={styles.description}>
+            매일 감정을 기록하고 시간이 지남에 따라 감정 패턴을 발견해보세요.
+          </H5>
+        </Delay>
+        <Delay delay={DelayMS.ANIMATION.LONG[2]} style={styles.letsGo}>
+          <H3>함께 무드로그를 시작해볼까요?</H3>
+        </Delay>
+      </View>
       <Delay delay={DelayMS.ANIMATION.LONG[3]}>
-        <PressableButton
-          mt='$8'
-          self='flex-end'
-          iconAfter={ArrowRight}
+        <Button
+          icon='arrow-right'
+          mode='contained'
+          buttonColor={Colors.button}
+          textColor={Colors.buttonText}
           onPress={handleNextButton}
+          style={styles.button}
+          contentStyle={styles.flexReverse}
         >
           다음
-        </PressableButton>
+        </Button>
       </Delay>
-    </ViewContainer>
+    </ScreenView>
   )
 }
+
+const styles = StyleSheet.create({
+  content: {
+    flex: 1,
+    gap: 24,
+    marginBottom: 12,
+  },
+  descriptionBox: {
+    gap: 24,
+  },
+  letsGo: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  button: {
+    alignSelf: 'flex-end',
+    justifyContent: 'flex-end',
+  },
+  flexReverse: {
+    flexDirection: 'row-reverse',
+  },
+  description: {
+    color: Colors.gray10,
+  },
+})

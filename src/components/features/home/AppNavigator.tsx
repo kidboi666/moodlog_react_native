@@ -7,7 +7,7 @@ import * as NavigationBar from 'expo-navigation-bar'
 import { useEffect } from 'react'
 import { Platform } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { useTheme } from 'tamagui'
+import { useTheme } from 'react-native-paper'
 
 import { BottomSheet } from '@/components/features/modal'
 import { StatusBar } from '@/components/shared'
@@ -31,7 +31,7 @@ export function AppNavigator() {
     <GestureHandlerRootView
       style={{
         flex: 1,
-        backgroundColor: theme.background.val,
+        backgroundColor: theme.colors.background,
       }}
     >
       <ThemeProvider

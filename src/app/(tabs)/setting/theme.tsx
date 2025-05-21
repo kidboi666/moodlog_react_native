@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { RadioGroup } from 'tamagui'
 
 import { RadioGroupItem } from '@/components/features/setting'
-import { ViewContainer } from '@/components/shared'
+import { ScreenView } from '@/components/shared'
 import { useAppTheme } from '@/store'
 import type { Theme } from '@/types'
 
@@ -20,7 +20,7 @@ export default function Screen() {
   )
 
   return (
-    <ViewContainer>
+    <Screen>
       <RadioGroup value={currentTheme} name='theme' gap='$4'>
         {/* system */}
         <RadioGroupItem
@@ -46,6 +46,6 @@ export default function Screen() {
           onValueChange={handleValueChange}
         />
       </RadioGroup>
-    </ViewContainer>
+    </Screen>
   )
 }

@@ -1,5 +1,5 @@
 import { Stack } from 'expo-router'
-import { useTheme } from 'tamagui'
+import { useTheme } from 'react-native-paper'
 
 import { HeaderContent, StepDot } from '@/components/shared'
 import { StepProgressProvider } from '@/providers'
@@ -18,7 +18,7 @@ export default function Layout() {
             </HeaderContent>
           ),
           contentStyle: {
-            backgroundColor: theme.background.val,
+            backgroundColor: theme.colors.background,
           },
           animation: 'fade',
           gestureEnabled: false,

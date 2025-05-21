@@ -1,18 +1,17 @@
-import { ArrowLeft } from '@tamagui/lucide-icons'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
-import { Button, XStack, YStack, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
+import { Button } from 'react-native-paper'
 
 import {
   BaseText,
   Delay,
+  GoogleIcon,
   H1,
   H3,
-  PressableButton,
-  ViewContainer,
+  ScreenView,
 } from '@/components/shared'
-import { GoogleIcon } from '@/components/shared/GoogleIcon'
-import { DelayMS } from '@/constants'
+import { Colors, DelayMS } from '@/constants'
 import { useSignInGoogle, useUpdateUserInfo } from '@/queries'
 import { useStepProgress } from '@/store'
 import { toSingle } from '@/utils'
@@ -42,57 +41,75 @@ export default function LoginScreen() {
   }
 
   return (
-    <ViewContainer edges={['bottom']}>
-      <YStack flex={1} gap='$6'>
-        <Delay delay={DelayMS.ANIMATION.MEDIUM[0]}>
+    <ScreenView edges={['bottom']}>
+      <View style={styles.container}>
+        <Delay delay={DelayMS.ANIMATION.MEDIUM[0]} style={styles.header}>
           <H1>시작할 준비가 되었어요!</H1>
-          <H3 color='$gray11' mt='$4'>
+          <H3 style={styles.description}>
             무드로그를 사용하기 위한 계정을 선택해주세요.
           </H3>
         </Delay>
 
         <Delay delay={DelayMS.ANIMATION.MEDIUM[1]}>
-          <YStack gap='$6' mt='$4'>
-            <GoogleButton
+          <View style={styles.submitBox}>
+            <Button
+              mode='contained'
               onPress={handleGoogleLogin}
               disabled={isPending}
-              icon={<GoogleIcon />}
+              loading={isPending}
+              icon={GoogleIcon}
+              buttonColor={Colors.button}
+              textColor={Colors.buttonText}
             >
-              <ButtonText>{t('auth.signInWithGoogle')}</ButtonText>
-            </GoogleButton>
+              {t('auth.signInWithGoogle')}
+            </Button>
 
-            {error && (
-              <BaseText color='$red9' text='center'>
-                {error.message}
-              </BaseText>
-            )}
-          </YStack>
+            {error && <BaseText style={styles.error}>{error.message}</BaseText>}
+          </View>
         </Delay>
-      </YStack>
+      </View>
 
       <Delay delay={DelayMS.ANIMATION.MEDIUM[2]}>
-        <XStack>
-          <PressableButton icon={ArrowLeft} onPress={handlePrevStep}>
-            <BaseText>이전</BaseText>
-          </PressableButton>
-        </XStack>
+        <Button
+          icon='arrow-left'
+          mode='contained'
+          buttonColor={Colors.button}
+          textColor={Colors.buttonText}
+          style={styles.button}
+          onPress={handlePrevStep}
+          disabled={isPending}
+        >
+          {t('common.prev')}
+        </Button>
       </Delay>
-    </ViewContainer>
+    </ScreenView>
   )
 }
 
-const GoogleButton = styled(Button, {
-  height: 48,
-  bg: 'white',
-  borderWidth: 1,
-  borderColor: '$gray6',
-  flexDirection: 'row',
-  items: 'center',
-  justify: 'center',
-  gap: '$2',
-})
-
-const ButtonText = styled(BaseText, {
-  color: '$gray12',
-  fontWeight: 'bold',
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    gap: 20,
+  },
+  header: {
+    gap: 24,
+  },
+  description: {
+    color: Colors.gray10,
+  },
+  googleButtonInner: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 12,
+  },
+  error: {
+    color: Colors.error2,
+    textAlign: 'center',
+  },
+  submitBox: {
+    gap: 12,
+  },
+  button: {
+    alignSelf: 'flex-start',
+  },
 })

@@ -1,51 +1,44 @@
-import { memo } from 'react'
-import { SizableText, SizableTextProps } from 'tamagui'
+import React from 'react'
+import { StyleSheet, Text, TextProps } from 'react-native'
 
-import { useCustomFont, useFontSizeAdjustment } from '@/hooks'
-
-type HeadingFontSize = '$10' | '$9' | '$8' | '$7' | '$6' | '$5'
-type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6
-
-interface HeadingProps extends SizableTextProps {
-  level?: HeadingLevel
+const HEADING_SIZES = {
+  1: 36,
+  2: 30,
+  3: 24,
+  4: 20,
+  5: 16,
+  6: 14,
 }
 
-const createHeading = (initSize: HeadingFontSize) =>
-  SizableText.styleable<HeadingProps>(
-    ({ children, fontSize, fontWeight, text, ...props }, ref) => {
-      const { fontNameWithTokenPrefix } = useCustomFont()
-      const size = useFontSizeAdjustment(initSize)
-
-      return (
-        <SizableText
-          fontFamily={fontNameWithTokenPrefix}
-          fontSize={fontSize ?? size}
-          fontWeight={fontWeight ?? '800'}
-          text={text}
-          {...props}
-          ref={ref}
-        >
-          {children}
-        </SizableText>
-      )
-    },
-  )
-
-const HEADING_SIZES: Record<HeadingLevel, HeadingFontSize> = {
-  1: '$10',
-  2: '$9',
-  3: '$8',
-  4: '$7',
-  5: '$6',
-  6: '$5',
+interface HeadingProps extends TextProps {
+  children: React.ReactNode
 }
 
-export const H1 = memo(createHeading(HEADING_SIZES[1]))
-export const H2 = memo(createHeading(HEADING_SIZES[2]))
-export const H3 = memo(createHeading(HEADING_SIZES[3]))
-export const H4 = memo(createHeading(HEADING_SIZES[4]))
-export const H5 = memo(createHeading(HEADING_SIZES[5]))
-export const H6 = memo(createHeading(HEADING_SIZES[6]))
-;[H1, H2, H3, H4, H5, H6].forEach((Component, index) => {
-  Component.displayName = `Heading${index + 1}`
+const createHeading = (level: 1 | 2 | 3 | 4 | 5 | 6) => {
+  const HeadingComponent = ({ children, style, ...props }: HeadingProps) => {
+    return (
+      <Text
+        style={[styles.baseHeading, { fontSize: HEADING_SIZES[level] }, style]}
+        {...props}
+      >
+        {children}
+      </Text>
+    )
+  }
+
+  HeadingComponent.displayName = `Heading${level}`
+  return HeadingComponent
+}
+
+const styles = StyleSheet.create({
+  baseHeading: {
+    fontWeight: 'bold',
+  },
 })
+
+export const H1 = createHeading(1)
+export const H2 = createHeading(2)
+export const H3 = createHeading(3)
+export const H4 = createHeading(4)
+export const H5 = createHeading(5)
+export const H6 = createHeading(6)
