@@ -1,31 +1,51 @@
-import { memo } from 'react'
+import { useRouter } from 'expo-router'
+import React, { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, View } from 'react-native'
-import { Card } from 'react-native-paper'
+import { StyleSheet } from 'react-native'
+import { Card, IconButton } from 'react-native-paper'
 
-import { WriteButton } from '@/components/features/tab'
-import { H3 } from '@/components/shared'
+import { H4 } from '@/components/shared'
+import { useThemedStyles } from '@/hooks'
 
 function _EmptyJournal() {
   const { t } = useTranslation()
+  const router = useRouter()
+
+  const handleRoute = () => {
+    router.push('/(write)/journal')
+  }
+
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    container: {
+      backgroundColor: colors.background.primary,
+    },
+  }))
 
   return (
-    <Card style={styles.container}>
-      <H3>{t('common.fallback.today')}</H3>
-      <WriteButton />
+    <Card mode='elevated' style={[styles.container, themedStyles.container]}>
+      <H4 style={styles.title}>{t('common.fallback.today')}</H4>
+      <IconButton
+        icon='plus'
+        style={styles.plusButton}
+        mode='contained'
+        onPress={handleRoute}
+      />
     </Card>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    gap: 12,
     paddingVertical: 20,
     paddingHorizontal: 28,
     borderRadius: 20,
+  },
+  plusButton: {
+    alignSelf: 'center',
+  },
+  title: {
+    marginBottom: 20,
   },
 })
 

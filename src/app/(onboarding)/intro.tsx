@@ -1,16 +1,15 @@
 import { useRouter } from 'expo-router'
-import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 
 import { Delay, H1, H3, H5, ScreenView, ShakeEmoji } from '@/components/shared'
 import { DelayMS } from '@/constants'
-import { Colors } from '@/constants/theme'
+import { useColors, useThemedStyles } from '@/hooks'
 import { useStepProgress } from '@/store'
 import { Button } from 'react-native-paper'
 
 export default function IntroScreen() {
   const router = useRouter()
-  const { t } = useTranslation()
+  const { colors } = useColors()
   const {
     state: { currentStep },
     goToNextStep,
@@ -24,6 +23,12 @@ export default function IntroScreen() {
     }
   }
 
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    description: {
+      color: colors.text.secondary,
+    },
+  }))
+
   return (
     <ScreenView edges={['bottom']}>
       <View style={styles.content}>
@@ -32,11 +37,11 @@ export default function IntroScreen() {
           <H1>무드로그에 오신 것을 환영합니다!</H1>
         </Delay>
         <Delay delay={DelayMS.ANIMATION.LONG[1]} style={styles.descriptionBox}>
-          <H5 style={styles.description}>
+          <H5 style={themedStyles.description}>
             무드로그는 당신의 일상 감정을 기록하고 분석하는 감정 일기장
             앱입니다.
           </H5>
-          <H5 style={styles.description}>
+          <H5 style={themedStyles.description}>
             매일 감정을 기록하고 시간이 지남에 따라 감정 패턴을 발견해보세요.
           </H5>
         </Delay>
@@ -48,8 +53,8 @@ export default function IntroScreen() {
         <Button
           icon='arrow-right'
           mode='contained'
-          buttonColor={Colors.button}
-          textColor={Colors.buttonText}
+          buttonColor={colors.action.primary}
+          textColor={colors.text.inverse}
           onPress={handleNextButton}
           style={styles.button}
           contentStyle={styles.flexReverse}
@@ -80,8 +85,5 @@ const styles = StyleSheet.create({
   },
   flexReverse: {
     flexDirection: 'row-reverse',
-  },
-  description: {
-    color: Colors.gray10,
   },
 })

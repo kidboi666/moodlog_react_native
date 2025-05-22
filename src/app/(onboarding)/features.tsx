@@ -5,7 +5,7 @@ import { Button } from 'react-native-paper'
 
 import { Delay, H1, H3, ScreenView } from '@/components/shared'
 import { DelayMS } from '@/constants'
-import { Colors } from '@/constants/theme'
+import { useColors, useThemedStyles } from '@/hooks'
 import { useStepProgress } from '@/store'
 
 interface Props {
@@ -23,6 +23,7 @@ export default function FeaturesScreen() {
     goToPrevStep,
   } = useStepProgress()
   const isCurrentPage = currentStep === 1
+  const { colors } = useColors()
 
   const handleNextButton = () => {
     if (isCurrentPage) {
@@ -74,8 +75,8 @@ export default function FeaturesScreen() {
         <View style={styles.buttonBox}>
           <Button
             mode='contained'
-            buttonColor={Colors.button}
-            textColor={Colors.buttonText}
+            buttonColor={colors.background.primary}
+            textColor={colors.text.primary}
             icon='arrow-left'
             onPress={handlePrevButton}
           >
@@ -83,8 +84,8 @@ export default function FeaturesScreen() {
           </Button>
           <Button
             mode='contained'
-            buttonColor={Colors.button}
-            textColor={Colors.buttonText}
+            buttonColor={colors.background.primary}
+            textColor={colors.text.primary}
             icon='arrow-right'
             contentStyle={styles.buttonInner}
             onPress={handleNextButton}
@@ -98,8 +99,13 @@ export default function FeaturesScreen() {
 }
 
 function Feature({ emoji, title, description }: Props) {
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    featureContainer: {
+      backgroundColor: colors.background.secondary,
+    },
+  }))
   return (
-    <View style={styles.featureContainer}>
+    <View style={[styles.featureContainer, themedStyles.featureContainer]}>
       <H1>{emoji}</H1>
       <View style={styles.featureBox}>
         <H3>{title}</H3>
@@ -121,7 +127,6 @@ const styles = StyleSheet.create({
   featureContainer: {
     gap: 16,
     padding: 12,
-    backgroundColor: Colors.gray4,
     borderRadius: 12,
     flexDirection: 'row',
     alignItems: 'center',

@@ -3,7 +3,7 @@ import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
-import { Button, MD3Colors, TextInput } from 'react-native-paper'
+import { Button, MD3Colors } from 'react-native-paper'
 
 import {
   BaseText,
@@ -16,12 +16,13 @@ import {
   ShakeEmoji,
 } from '@/components/shared'
 import { DelayMS } from '@/constants'
-import { Colors } from '@/constants/theme'
+import { useColors, useThemedStyles } from '@/hooks'
 import { useStepProgress } from '@/store'
 
 export default function NickNameScreen() {
   const router = useRouter()
   const { t } = useTranslation()
+  const { colors } = useColors()
   const {
     state: { currentStep },
     goToNextStep,
@@ -57,6 +58,12 @@ export default function NickNameScreen() {
     }
   }
 
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    description: {
+      color: colors.text.secondary,
+    },
+  }))
+
   return (
     <ScreenView edges={['bottom']}>
       <View style={styles.container}>
@@ -66,7 +73,7 @@ export default function NickNameScreen() {
               <H1>닉네임 설정</H1>
               <ShakeEmoji emoji='✏️' />
             </View>
-            <H3 style={styles.description}>
+            <H3 style={themedStyles.description}>
               무드로그에서 사용할 닉네임을 입력해주세요.
             </H3>
           </View>
@@ -82,7 +89,7 @@ export default function NickNameScreen() {
               placeholder='닉네임을 입력하세요 (2-10자)'
             />
             {error && <BaseText style={styles.error}>{error.message}</BaseText>}
-            <H5 style={styles.description}>
+            <H5 style={themedStyles.description}>
               닉네임은 언제든지 설정 메뉴에서 변경할 수 있어요.
             </H5>
           </View>
@@ -94,8 +101,8 @@ export default function NickNameScreen() {
           <Button
             icon='arrow-left'
             mode='contained'
-            buttonColor={Colors.button}
-            textColor={Colors.buttonText}
+            buttonColor={colors.action.primary}
+            textColor={colors.text.inverse}
             onPress={handlePrevStep}
           >
             이전
@@ -104,8 +111,8 @@ export default function NickNameScreen() {
           <Button
             icon='arrow-right'
             mode='contained'
-            buttonColor={Colors.button}
-            textColor={Colors.buttonText}
+            buttonColor={colors.action.primary}
+            textColor={colors.text.inverse}
             onPress={handleNextStep}
             disabled={!draftUserName}
           >
@@ -129,9 +136,6 @@ const styles = StyleSheet.create({
   column: {
     flexDirection: 'column',
     gap: 8,
-  },
-  description: {
-    color: Colors.gray10,
   },
   buttonBox: {
     flexDirection: 'row',

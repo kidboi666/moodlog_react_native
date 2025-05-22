@@ -1,7 +1,6 @@
+import { useThemedStyles } from '@/hooks'
 import { StyleSheet } from 'react-native'
 import { TextInput, TextInputProps } from 'react-native-paper'
-
-import { Colors } from '@/constants'
 
 interface Props extends TextInputProps {
   value: string
@@ -16,11 +15,16 @@ export function FormInput({
   placeholder = '',
   label,
   error,
-  outlineColor = Colors.gray8,
-  activeOutlineColor = Colors.gray11,
+  outlineColor,
+  activeOutlineColor,
   style,
   ...props
 }: Props) {
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    input: {
+      backgroundColor: colors.background.primary,
+    },
+  }))
   return (
     <TextInput
       mode={mode}
@@ -31,14 +35,8 @@ export function FormInput({
       placeholder={placeholder}
       outlineColor={outlineColor}
       activeOutlineColor={activeOutlineColor}
-      style={[styles.input, style]}
+      style={[themedStyles.input, style]}
       {...props}
     />
   )
 }
-
-const styles = StyleSheet.create({
-  input: {
-    backgroundColor: Colors.gray4,
-  },
-})

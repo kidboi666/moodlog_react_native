@@ -11,7 +11,8 @@ import {
   H3,
   ScreenView,
 } from '@/components/shared'
-import { Colors, DelayMS } from '@/constants'
+import { DelayMS } from '@/constants'
+import { useColors, useThemedStyles } from '@/hooks'
 import { useSignInGoogle, useUpdateUserInfo } from '@/queries'
 import { useStepProgress } from '@/store'
 import { toSingle } from '@/utils'
@@ -19,6 +20,7 @@ import { toSingle } from '@/utils'
 export default function LoginScreen() {
   const { draftUserName } = useLocalSearchParams()
   const router = useRouter()
+  const { colors, tokens } = useColors()
   const { t } = useTranslation()
   const {
     state: { currentStep },
@@ -40,12 +42,21 @@ export default function LoginScreen() {
     updateUserInfo({ userId: data.user.id, userName: toSingle(draftUserName) })
   }
 
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    description: {
+      color: colors.text.secondary,
+    },
+    error: {
+      color: tokens.semantic.error.main,
+    },
+  }))
+
   return (
     <ScreenView edges={['bottom']}>
       <View style={styles.container}>
         <Delay delay={DelayMS.ANIMATION.MEDIUM[0]} style={styles.header}>
           <H1>시작할 준비가 되었어요!</H1>
-          <H3 style={styles.description}>
+          <H3 style={themedStyles.description}>
             무드로그를 사용하기 위한 계정을 선택해주세요.
           </H3>
         </Delay>
@@ -58,13 +69,15 @@ export default function LoginScreen() {
               disabled={isPending}
               loading={isPending}
               icon={GoogleIcon}
-              buttonColor={Colors.button}
-              textColor={Colors.buttonText}
+              buttonColor={colors.action.primary}
+              textColor={colors.text.inverse}
             >
               {t('auth.signInWithGoogle')}
             </Button>
 
-            {error && <BaseText style={styles.error}>{error.message}</BaseText>}
+            {error && (
+              <BaseText style={[styles.error]}>{error.message}</BaseText>
+            )}
           </View>
         </Delay>
       </View>
@@ -73,8 +86,8 @@ export default function LoginScreen() {
         <Button
           icon='arrow-left'
           mode='contained'
-          buttonColor={Colors.button}
-          textColor={Colors.buttonText}
+          buttonColor={colors.action.primary}
+          textColor={colors.text.inverse}
           style={styles.button}
           onPress={handlePrevStep}
           disabled={isPending}
@@ -94,16 +107,13 @@ const styles = StyleSheet.create({
   header: {
     gap: 24,
   },
-  description: {
-    color: Colors.gray10,
-  },
+
   googleButtonInner: {
     flexDirection: 'row',
     justifyContent: 'center',
     gap: 12,
   },
   error: {
-    color: Colors.error2,
     textAlign: 'center',
   },
   submitBox: {

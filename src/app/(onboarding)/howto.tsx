@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Button } from 'react-native-paper'
 
 import {
@@ -13,7 +13,7 @@ import {
   ScreenView,
 } from '@/components/shared'
 import { DelayMS } from '@/constants'
-import { Colors } from '@/constants/theme'
+import { useColors, useThemedStyles } from '@/hooks'
 import { useStepProgress } from '@/store'
 
 interface Props {
@@ -24,7 +24,7 @@ interface Props {
 
 export default function HowToScreen() {
   const router = useRouter()
-  const { t } = useTranslation()
+  const { colors } = useColors()
   const {
     state: { currentStep },
     goToNextStep,
@@ -45,6 +45,15 @@ export default function HowToScreen() {
       router.push('/features')
     }
   }
+
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    tipBox: {
+      backgroundColor: colors.background.secondary,
+    },
+    title: {
+      color: colors.text.primary,
+    },
+  }))
 
   return (
     <ScreenView edges={['bottom']}>
@@ -77,9 +86,9 @@ export default function HowToScreen() {
           </View>
         </Delay>
         <Delay delay={DelayMS.ANIMATION.MEDIUM[2]}>
-          <View style={styles.tipBox}>
+          <View style={[styles.tipBox, themedStyles.tipBox]}>
             <H2>꿀팁!</H2>
-            <H5 style={styles.title}>
+            <H5 style={themedStyles.title}>
               매일 같은 시간에 기록하면 더 정확한 감정 패턴을 파악할 수 있어요.
             </H5>
           </View>
@@ -90,8 +99,8 @@ export default function HowToScreen() {
           <Button
             icon='arrow-left'
             mode='contained'
-            buttonColor={Colors.button}
-            textColor={Colors.buttonText}
+            buttonColor={colors.action.primary}
+            textColor={colors.text.inverse}
             onPress={handlePrevButton}
           >
             이전
@@ -99,8 +108,8 @@ export default function HowToScreen() {
           <Button
             icon='arrow-right'
             mode='contained'
-            buttonColor={Colors.button}
-            textColor={Colors.buttonText}
+            buttonColor={colors.action.primary}
+            textColor={colors.text.inverse}
             onPress={handleNextButton}
           >
             다음
@@ -112,9 +121,14 @@ export default function HowToScreen() {
 }
 
 function Step({ number, title, description }: Props) {
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    stepNumberBox: {
+      backgroundColor: colors.background.secondary,
+    },
+  }))
   return (
     <View style={styles.stepContainer}>
-      <View style={styles.stepNumberBox}>
+      <View style={[styles.stepNumberBox, themedStyles.stepNumberBox]}>
         <H3 style={styles.stepNumber}>{number}</H3>
       </View>
       <View style={styles.stepContentBox}>
@@ -135,7 +149,6 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   tipBox: {
-    backgroundColor: Colors.gray4,
     padding: 16,
     borderRadius: 16,
     gap: 8,
@@ -153,7 +166,6 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: Colors.gray12,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -163,8 +175,5 @@ const styles = StyleSheet.create({
   stepContentBox: {
     flex: 1,
     gap: 8,
-  },
-  title: {
-    color: Colors.gray11,
   },
 })

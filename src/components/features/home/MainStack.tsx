@@ -1,15 +1,15 @@
+import { useColors } from '@/hooks'
 import { Stack } from 'expo-router'
 import { useTheme } from 'react-native-paper'
 
 export function MainStack() {
-  const theme = useTheme()
-
+  const { colors } = useColors()
   return (
     <Stack
       screenOptions={{
         headerShown: false,
-        contentStyle: { flex: 1, backgroundColor: theme.colors.background },
-        headerStyle: { backgroundColor: theme.colors.background },
+        contentStyle: { flex: 1, backgroundColor: colors.background.pure },
+        headerStyle: { backgroundColor: colors.background.pure },
       }}
     >
       <Stack.Screen name='(tabs)' />

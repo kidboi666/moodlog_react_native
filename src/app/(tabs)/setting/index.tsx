@@ -12,14 +12,13 @@ import {
 import { type Href, useRouter } from 'expo-router'
 import { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import {
   NavigationSettingItem,
   SettingsContainer,
 } from '@/components/features/setting'
-import { H1, ScreenView } from '@/components/shared'
-import { Colors } from '@/constants/theme'
+import { BaseText, H1, ScreenView } from '@/components/shared'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
 const devSection = __DEV__
@@ -141,7 +140,7 @@ export default function SettingsScreen() {
         </View>
 
         <View style={styles.copyrightBox}>
-          <Text>© 2025 Moodlog. All rights reserved.</Text>
+          <BaseText>© 2025 Moodlog. All rights reserved.</BaseText>
         </View>
       </ScreenView>
     </Animated.ScrollView>
@@ -158,8 +157,5 @@ const styles = StyleSheet.create({
   copyrightBox: {
     alignItems: 'center',
     marginTop: 12,
-  },
-  copyright: {
-    color: Colors.gray11,
   },
 })

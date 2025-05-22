@@ -1,33 +1,26 @@
 import { useQuery } from '@tanstack/react-query'
-import { useCallback, useMemo } from 'react'
+import { useLocalSearchParams } from 'expo-router'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, StyleSheet } from 'react-native'
-import { XStack, YStack } from 'tamagui'
+import Animated, { FadeIn } from 'react-native-reanimated'
 
 import { EntriesJournalDisplay } from '@/components/features/entries'
 import { EmptyJournal } from '@/components/features/journal'
-import { H1, H3, PressableButton, ScreenView } from '@/components/shared'
-import { DelayMS, Layout } from '@/constants'
-import { useCalendar } from '@/hooks'
+import { H1 } from '@/components/shared'
+import { Layout } from '@/constants'
 import { JournalQueries } from '@/queries'
 import { ISOMonthString, Journal } from '@/types'
-import {
-  convertMonthString,
-  groupJournalsByDate,
-  groupJournalsByMonth,
-} from '@/utils'
-import { ArrowLeft, ArrowRight } from '@tamagui/lucide-icons'
-import { useLocalSearchParams } from 'expo-router'
-import Animated, { FadeIn } from 'react-native-reanimated'
+import { groupJournalsByDate, groupJournalsByMonth } from '@/utils'
 
 type GroupedJournalItem = [string, Journal[]]
 
 export default function EntriesScreen() {
   const { t } = useTranslation()
-  const params = useLocalSearchParams()
-  const { selectedYear, selectedMonth } = params
+  const { selectedMonth: monthString } = useLocalSearchParams()
+  const selectedMonth = monthString as ISOMonthString
   const { data: journals } = useQuery(
-    JournalQueries.getJournalsByYear(selectedYear),
+    JournalQueries.getJournalsByMonth(selectedMonth),
   )
   const groupedJournalsByMonth = useMemo(() => {
     if (!Array.isArray(journals) || journals.length === 0) return {}
@@ -43,11 +36,7 @@ export default function EntriesScreen() {
           data={groupedJournalsByDate}
           keyExtractor={(item: GroupedJournalItem) => item[0]}
           ListEmptyComponent={<EmptyJournal />}
-          ListHeaderComponent={
-            <YStack gap='$4'>
-              <H1>{t('entries.title')}</H1>
-            </YStack>
-          }
+          ListHeaderComponent={<H1>{t('entries.title')}</H1>}
           renderItem={({ item }: { item: GroupedJournalItem }) => {
             return (
               <EntriesJournalDisplay

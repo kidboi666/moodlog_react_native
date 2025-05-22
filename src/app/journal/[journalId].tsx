@@ -2,9 +2,10 @@ import { Trash } from '@tamagui/lucide-icons'
 import { useQuery } from '@tanstack/react-query'
 import { Image } from 'expo-image'
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
+import Animated, { FadeIn } from 'react-native-reanimated'
 
 import { FullScreenImageModal } from '@/components/features/modal'
 import {
@@ -16,12 +17,11 @@ import {
   ScreenView,
 } from '@/components/shared'
 import { Layout } from '@/constants'
-import { Colors } from '@/constants/theme'
+import { useThemedStyles } from '@/hooks'
 import { JournalQueries } from '@/queries'
 import { useBottomSheet } from '@/store'
 import { BottomSheetType } from '@/types'
 import { toSingle } from '@/utils'
-import Animated, { FadeIn } from 'react-native-reanimated'
 
 export default function JournalScreen() {
   const { journalId, isNewJournal } = useLocalSearchParams()
@@ -57,17 +57,17 @@ export default function JournalScreen() {
     setModalVisible(false)
   }
 
-  const memoizedStyles = useMemo(
-    () => ({
-      moodBar: {
-        backgroundColor: journal?.mood?.color,
-      },
-      moodName: {
-        color: journal?.mood?.color,
-      },
-    }),
-    [journal?.mood?.color],
-  )
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    moodBar: {
+      backgroundColor: journal?.mood?.color,
+    },
+    moodName: {
+      color: journal?.mood?.color,
+    },
+    moodLevel: {
+      color: colors.text.secondary,
+    },
+  }))
 
   if (!journal) return null
 
@@ -93,13 +93,13 @@ export default function JournalScreen() {
         }
       >
         <View style={styles.rowBox}>
-          <View style={[styles.moodBar, memoizedStyles.moodBar]} />
+          <View style={[styles.moodBar, themedStyles.moodBar]} />
           <View style={styles.contentBox}>
             <View style={styles.moodBox}>
-              <H3 style={styles.moodLevel}>
+              <H3 style={themedStyles.moodLevel}>
                 {t(`moods.levels.${journal.moodLevel}`)}
               </H3>
-              <H3 style={memoizedStyles.moodName}>{journal.mood?.name}</H3>
+              <H3 style={themedStyles.moodName}>{journal.mood?.name}</H3>
             </View>
             {Array.isArray(journal.imageUri) && (
               <ScrollView horizontal>
@@ -158,7 +158,6 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     justifyContent: 'center',
   },
-  moodLevel: { color: Colors.gray11 },
   imageBox: {
     flexDirection: 'row',
     elevation: 8,

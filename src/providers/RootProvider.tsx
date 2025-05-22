@@ -1,16 +1,16 @@
 import { QueryClientProvider } from '@tanstack/react-query'
+import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator'
 import { useEffect } from 'react'
 import { PortalProvider, type TamaguiProviderProps } from 'tamagui'
 
 import { queryClient } from '@/lib'
-import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator'
 import { seedDatabase } from '../../db/seed'
 import { sqliteDb } from '../../db/sqlite'
 import migrations from '../../db/sqlite/drizzle/migrations'
-import { PaperProvider } from './PaperProvider'
 import { TamaguiBaseProvider } from './TamaguiProvider'
 import { ThemeProvider } from './ThemeProvider'
 import { TamaguiToastProvider } from './ToastProvider'
+import { UnifiedThemeProvider } from './UnifiedThemeProvider'
 
 export const RootProvider = ({
   children,
@@ -23,7 +23,7 @@ export const RootProvider = ({
   }, [])
   return (
     <QueryClientProvider client={queryClient}>
-      <PaperProvider>
+      <UnifiedThemeProvider>
         <TamaguiBaseProvider {...rest}>
           <ThemeProvider>
             <TamaguiToastProvider>
@@ -31,7 +31,7 @@ export const RootProvider = ({
             </TamaguiToastProvider>
           </ThemeProvider>
         </TamaguiBaseProvider>
-      </PaperProvider>
+      </UnifiedThemeProvider>
     </QueryClientProvider>
   )
 }

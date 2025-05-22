@@ -6,7 +6,7 @@ import Animated from 'react-native-reanimated'
 
 import { FullScreenImageModal } from '@/components/features/modal/contents'
 import { DelayMS, Layout } from '@/constants'
-import { useCardGesture } from '@/hooks'
+import { useCardGesture, useThemedStyles } from '@/hooks'
 import { useBottomSheet } from '@/store'
 import { BottomSheetType, ISOString, Maybe, Mood } from '@/types'
 import { ActionButton } from './ActionButton'
@@ -85,6 +85,12 @@ export function JournalCard({
     [mood?.color],
   )
 
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    container: {
+      backgroundColor: colors.background.primary,
+    },
+  }))
+
   return (
     <View style={styles.container}>
       <ActionButton
@@ -95,7 +101,7 @@ export function JournalCard({
       <GestureWrapper gesture={gesture}>
         <AnimatedCard
           onPress={handlePress}
-          style={[styles.card, animatedStyle]}
+          style={[styles.card, animatedStyle, themedStyles.container]}
         >
           <Card.Title
             title={createdAt}

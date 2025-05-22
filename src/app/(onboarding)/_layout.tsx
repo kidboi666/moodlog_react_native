@@ -1,12 +1,11 @@
 import { Stack } from 'expo-router'
-import { useTheme } from 'react-native-paper'
 
 import { HeaderContent, StepDot } from '@/components/shared'
+import { useColors } from '@/hooks'
 import { StepProgressProvider } from '@/providers'
 
 export default function Layout() {
-  const theme = useTheme()
-
+  const { colors } = useColors()
   return (
     <StepProgressProvider totalSteps={5}>
       <Stack
@@ -18,7 +17,7 @@ export default function Layout() {
             </HeaderContent>
           ),
           contentStyle: {
-            backgroundColor: theme.colors.background,
+            backgroundColor: colors.background.primary,
           },
           animation: 'fade',
           gestureEnabled: false,

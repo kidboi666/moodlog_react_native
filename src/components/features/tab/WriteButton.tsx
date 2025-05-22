@@ -1,15 +1,13 @@
-import { Plus } from '@tamagui/lucide-icons'
 import { BlurView } from 'expo-blur'
 import { useRouter } from 'expo-router'
 import { TabTrigger } from 'expo-router/ui'
-import React, { Fragment, memo, useState } from 'react'
+import React, { memo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native'
-import { Button, Portal } from 'react-native-paper'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 
 import { H3 } from '@/components/shared'
@@ -44,11 +42,7 @@ function _WriteButton() {
   }
 
   return (
-    <Fragment>
-      <Button mode='contained' onPress={() => setIsMenuVisible(true)}>
-        <Plus size='$1' color='$color1' />
-      </Button>
-
+    <>
       {isMenuVisible && (
         <Animated.View
           entering={FadeIn.duration(400)}
@@ -74,13 +68,16 @@ function _WriteButton() {
           </TouchableWithoutFeedback>
         </Animated.View>
       )}
-    </Fragment>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
   flexible: {
     flex: 1,
+  },
+  plusButton: {
+    alignSelf: 'center',
   },
   blurView: {
     flex: 1,

@@ -1,30 +1,34 @@
-import { Colors } from '@/constants/theme'
 import { Ionicons } from '@expo/vector-icons'
 import { TabTriggerSlotProps } from 'expo-router/ui'
 import React, { ComponentProps, forwardRef, Ref } from 'react'
-import { Pressable, StyleSheet, View } from 'react-native'
+import { Pressable, PressableProps, StyleSheet, View } from 'react-native'
 import { useAnimatedStyle, withTiming } from 'react-native-reanimated'
 
-type Icon = ComponentProps<typeof Ionicons>['name']
+import { useColors } from '@/hooks/useColors'
 
+type Icon = ComponentProps<typeof Ionicons>['name']
 export type TabButtonProps = TabTriggerSlotProps & {
   icon?: Icon
-  ref: Ref<View>
 }
 
-export const TabButton = forwardRef<Ref<View>, TabButtonProps>(
+export const TabButton = forwardRef<Ref<PressableProps>, TabButtonProps>(
   ({ icon, isFocused, ...props }, ref) => {
+    const { colors } = useColors()
     const animatedButtonStyle = useAnimatedStyle(
       () => ({
-        backgroundColor: withTiming(isFocused ? Colors.gray6 : Colors.gray9, {
-          duration: 300,
-        }),
+        backgroundColor: withTiming(
+          isFocused ? colors.background.pure : colors.background.primary,
+          {
+            duration: 300,
+          },
+        ),
       }),
       [isFocused],
     )
-    console.log(isFocused)
+
     return (
       <Pressable
+        ref={ref}
         {...props}
         style={[styles.button, animatedButtonStyle]}
         android_ripple={{
@@ -34,7 +38,7 @@ export const TabButton = forwardRef<Ref<View>, TabButtonProps>(
         }}
         hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
       >
-        <Ionicons name={icon} size={20} color={Colors.gray10} />
+        <Ionicons name={icon} size={20} color={colors.border.focus} />
       </Pressable>
     )
   },

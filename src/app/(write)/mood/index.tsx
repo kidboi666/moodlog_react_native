@@ -44,10 +44,10 @@ export default function CreateMoodScreen() {
         keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
         style={styles.keyboardAvoidingView}
       >
-        <Delay flex={1} delay={DelayMS.ANIMATION.MEDIUM[0]}>
+        <Delay delay={DelayMS.ANIMATION.MEDIUM[0]}>
           <MoodPreviewItem name={mood.name} color={mood.color} />
         </Delay>
-        <Delay flex={1} delay={DelayMS.ANIMATION.MEDIUM[2]}>
+        <Delay delay={DelayMS.ANIMATION.MEDIUM[2]}>
           <FormSection
             moodName={mood.name}
             onMoodNameChange={onMoodNameChange}

@@ -6,7 +6,7 @@ import { useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
 
 import { TabButton, WriteButton } from '@/components/features/tab'
 import { ContainerFog } from '@/components/shared'
-import { Colors } from '@/constants/theme'
+import { useThemedStyles } from '@/hooks'
 import { useAuth } from '@/store'
 
 export default function TabsLayout() {
@@ -21,11 +21,17 @@ export default function TabsLayout() {
     transform: [{ translateY: tabBarHeight.value }],
   }))
 
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    list: {
+      backgroundColor: colors.background.primary,
+    },
+  }))
+
   return (
     <>
       <Tabs>
         <TabSlot />
-        <TabList style={[animatedStyle, styles.list]}>
+        <TabList style={[animatedStyle, styles.list, themedStyles.list]}>
           <TabTrigger name='home' href='/' asChild>
             <TabButton icon='home' />
           </TabTrigger>
@@ -51,7 +57,6 @@ const styles = StyleSheet.create({
   list: {
     position: 'absolute',
     bottom: 14,
-    backgroundColor: Colors.gray4,
     borderRadius: 40,
     width: '100%',
     justifyContent: 'space-around',
