@@ -2,8 +2,7 @@ import { ChevronDown } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert } from 'react-native'
-import { ScrollView, Select, XStack, YStack } from 'tamagui'
+import { Alert, StyleSheet, View } from 'react-native'
 
 import {
   FormInput,
@@ -13,6 +12,7 @@ import {
   PressableButton,
   ScreenView,
 } from '@/components/shared'
+import { List } from 'react-native-paper'
 
 export default function QnA() {
   const router = useRouter()
@@ -61,82 +61,80 @@ export default function QnA() {
   }
 
   return (
-    <ScrollView>
-      <ScreenView edges={['bottom']} padded>
-        <YStack gap='$4'>
-          <XStack items='center' gap='$2'>
-            <H1>{t('settings.qna.title')}</H1>
-          </XStack>
+    <ScreenView withScroll edges={['bottom']} padded style={styles.container}>
+      <H1>{t('settings.qna.title')}</H1>
+      <View style={styles.contentBox}>
+        <H6>{t('settings.qna.categoryLabel')}</H6>
+        <List.Section value={category} onValueChange={setCategory}>
+          <List.Trigger iconAfter={ChevronDown}>
+            <Select.Value placeholder={t('settings.qna.categoryPlaceholder')} />
+          </List.Trigger>
 
-          <YStack gap='$2'>
-            <H6>{t('settings.qna.categoryLabel')}</H6>
-            <Select value={category} onValueChange={setCategory}>
-              <Select.Trigger iconAfter={ChevronDown}>
-                <Select.Value
-                  placeholder={t('settings.qna.categoryPlaceholder')}
-                />
-              </Select.Trigger>
+          <Select.Content zIndex={200_000}>
+            <Select.ScrollUpButton />
+            <Select.Viewport minW={200}>
+              <Select.Group>
+                <Select.Label>Menu</Select.Label>
+                {useMemo(
+                  () =>
+                    categories.map((item, i) => (
+                      <Select.Item
+                        key={item.value}
+                        index={i}
+                        value={item.value}
+                      >
+                        <Select.ItemText>{item.name}</Select.ItemText>
+                      </Select.Item>
+                    )),
+                  [],
+                )}
+              </Select.Group>
+            </Select.Viewport>
+            <Select.ScrollDownButton />
+          </Select.Content>
+        </List.Section>
+      </View>
 
-              <Select.Content zIndex={200_000}>
-                <Select.ScrollUpButton />
-                <Select.Viewport minW={200}>
-                  <Select.Group>
-                    <Select.Label>Menu</Select.Label>
-                    {useMemo(
-                      () =>
-                        categories.map((item, i) => (
-                          <Select.Item
-                            key={item.value}
-                            index={i}
-                            value={item.value}
-                          >
-                            <Select.ItemText>{item.name}</Select.ItemText>
-                          </Select.Item>
-                        )),
-                      [],
-                    )}
-                  </Select.Group>
-                </Select.Viewport>
-                <Select.ScrollDownButton />
-              </Select.Content>
-            </Select>
-          </YStack>
-
-          <YStack gap='$2'>
-            <H6>{t('settings.qna.questionLabel')}</H6>
-            <FormInputArea
-              height={200}
-              placeholder={t('settings.qna.questionPlaceholder')}
-              value={question}
-              onChangeText={setQuestion}
-              autoCapitalize='none'
-            />
-          </YStack>
-
-          <YStack gap='$2'>
-            <H6>{t('settings.qna.emailLabel')}</H6>
-            <FormInput
-              placeholder={t('settings.qna.emailPlaceholder')}
-              value={email}
-              onChangeText={setEmail}
-              autoCapitalize='none'
-              keyboardType='email-address'
-            />
-          </YStack>
-
-          <PressableButton
-            mt='$4'
-            bg='$color12'
-            color='white'
-            onPress={handleSubmit}
-            disabled={isSubmitting}
-          >
-            {isSubmitting
-              ? t('settings.qna.submitting')
-              : t('settings.qna.submitButton')}
-          </PressableButton>
-        </YStack>
-      </ScreenView>
-    </ScrollView>
+      <YStack gap='$2'>
+        <H6>{t('settings.qna.questionLabel')}</H6>
+        <FormInputArea
+          height={200}
+          placeholder={t('settings.qna.questionPlaceholder')}
+          value={question}
+          onChangeText={setQuestion}
+          autoCapitalize='none'
+        />
+      </YStack>
+      <YStack gap='$2'>
+        <H6>{t('settings.qna.emailLabel')}</H6>
+        <FormInput
+          placeholder={t('settings.qna.emailPlaceholder')}
+          value={email}
+          onChangeText={setEmail}
+          autoCapitalize='none'
+          keyboardType='email-address'
+        />
+      </YStack>
+      <PressableButton
+        mt='$4'
+        bg='$color12'
+        color='white'
+        onPress={handleSubmit}
+        disabled={isSubmitting}
+      >
+        {isSubmitting
+          ? t('settings.qna.submitting')
+          : t('settings.qna.submitButton')}
+      </PressableButton>
+    </ScreenView>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    gap: 8,
+  },
+  contentBox: {
+    gap: 4,
+  },
+})

@@ -1,8 +1,7 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { RadioGroup } from 'tamagui'
+import { RadioButton } from 'react-native-paper'
 
-import { RadioGroupItem } from '@/components/features/setting'
 import { ScreenView } from '@/components/shared'
 import { useAppTheme } from '@/store'
 import type { Theme } from '@/types'
@@ -20,32 +19,15 @@ export default function Screen() {
   )
 
   return (
-    <Screen>
-      <RadioGroup value={currentTheme} name='theme' gap='$4'>
+    <ScreenView>
+      <RadioButton.Group onValueChange={handleValueChange} value={currentTheme}>
         {/* system */}
-        <RadioGroupItem
-          key='system'
-          value='system'
-          label={t('settings.theme.system')}
-          onValueChange={handleValueChange}
-        />
-
+        <RadioButton.Item value='system' label={t('settings.theme.system')} />
         {/* dark */}
-        <RadioGroupItem
-          key='dark'
-          value='dark'
-          label={t('settings.theme.dark')}
-          onValueChange={handleValueChange}
-        />
-
+        <RadioButton.Item value='dark' label={t('settings.theme.dark')} />
         {/* light */}
-        <RadioGroupItem
-          key='light'
-          value='light'
-          label={t('settings.theme.light')}
-          onValueChange={handleValueChange}
-        />
-      </RadioGroup>
-    </Screen>
+        <RadioButton.Item value='light' label={t('settings.theme.light')} />
+      </RadioButton.Group>
+    </ScreenView>
   )
 }

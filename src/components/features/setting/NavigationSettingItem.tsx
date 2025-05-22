@@ -1,11 +1,8 @@
-import { ChevronRight } from '@tamagui/lucide-icons'
 import { memo } from 'react'
-import { Button, styled } from 'tamagui'
-
-import { BaseText } from '@/components/shared'
+import { Button } from 'react-native-paper'
 
 interface NavigationSettingItemProps {
-  icon?: any
+  icon?: string
   label: string
   onRouteChange: () => void
 }
@@ -16,22 +13,11 @@ function _NavigationSettingItem({
   onRouteChange,
 }: NavigationSettingItemProps) {
   return (
-    <Button
-      animation='quick'
-      justify='space-between'
-      icon={icon}
-      onPress={onRouteChange}
-    >
-      <Title>{label}</Title>
-      <ChevronRight size='$1' />
+    <Button mode='text' icon={icon} onPress={onRouteChange}>
+      {label}
     </Button>
   )
 }
-
-const Title = styled(BaseText, {
-  defaultFontSize: '$4',
-  flex: 1,
-})
 
 export const NavigationSettingItem = memo(_NavigationSettingItem)
 NavigationSettingItem.displayName = 'NavigationSettingItem'

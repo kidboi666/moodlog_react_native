@@ -1,31 +1,32 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { RadioGroup, View, styled } from 'tamagui'
+import { View } from 'react-native'
+import { RadioButton } from 'react-native-paper'
 
-import { RadioGroupItem } from '@/components/features/setting'
 import { BaseText, ScreenView } from '@/components/shared'
+import { FONT_SIZE } from '@/constants'
 import { useApp } from '@/store'
-import { ViewFontSize } from '@/types'
+import { FontSize } from '@/types'
 
 const fontSizes = [
   {
-    value: ViewFontSize.XS,
+    value: FONT_SIZE.$3,
     label: 'settings.fontSize.smaller',
   },
   {
-    value: ViewFontSize.SM,
+    value: FONT_SIZE.$4,
     label: 'settings.fontSize.small',
   },
   {
-    value: ViewFontSize.MD,
+    value: FONT_SIZE.$5,
     label: 'settings.fontSize.medium',
   },
   {
-    value: ViewFontSize.LG,
+    value: FONT_SIZE.$7,
     label: 'settings.fontSize.large',
   },
   {
-    value: ViewFontSize.XL,
+    value: FONT_SIZE.$9,
     label: 'settings.fontSize.larger',
   },
 ]
@@ -37,31 +38,28 @@ export default function Screen() {
 
   const handleValueChange = useCallback(
     (value: string) => {
-      onSettingChange('fontSize', value as ViewFontSize)
+      onSettingChange('fontSize', value as unknown as FontSize)
     },
     [onSettingChange],
   )
 
   return (
     <ScreenView>
-      <StyledRadioGroup value={fontSize} onValueChange={handleValueChange}>
+      <RadioButton.Group
+        value={String(fontSize)}
+        onValueChange={handleValueChange}
+      >
         {fontSizes.map(fontSize => (
-          <RadioGroupItem
+          <RadioButton.Item
             key={fontSize.value}
-            value={fontSize.value}
+            value={String(fontSize.value)}
             label={t(fontSize.label)}
-            onValueChange={handleValueChange}
           />
         ))}
         <View>
-          <BaseText fontSize={fontSize}>안녕하세요.</BaseText>
+          <BaseText defaultFontSize={fontSize}>안녕하세요.</BaseText>
         </View>
-      </StyledRadioGroup>
+      </RadioButton.Group>
     </ScreenView>
   )
 }
-
-const StyledRadioGroup = styled(RadioGroup, {
-  gap: '$4',
-  name: 'fontSize',
-})

@@ -1,8 +1,7 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { RadioGroup } from 'tamagui'
+import { RadioButton } from 'react-native-paper'
 
-import { RadioGroupItem } from '@/components/features/setting'
 import { ScreenView } from '@/components/shared'
 import { useApp } from '@/store'
 import { TimeFormat } from '@/types'
@@ -20,29 +19,21 @@ export default function Screen() {
   )
 
   return (
-    <Screen>
-      <RadioGroup
-        value={timeFormat}
-        onValueChange={handleValueChange}
-        name='theme'
-        gap='$4'
-      >
+    <ScreenView>
+      <RadioButton.Group value={timeFormat} onValueChange={handleValueChange}>
         {/* 12hour */}
-        <RadioGroupItem
+        <RadioButton.Item
           key={TimeFormat.HOUR_12}
           value={TimeFormat.HOUR_12}
           label={t('settings.timeFormat.12')}
-          onValueChange={handleValueChange}
         />
-
         {/* 24hor */}
-        <RadioGroupItem
+        <RadioButton.Item
           key={TimeFormat.HOUR_24}
           value={TimeFormat.HOUR_24}
           label={t('settings.timeFormat.24')}
-          onValueChange={handleValueChange}
         />
-      </RadioGroup>
-    </Screen>
+      </RadioButton.Group>
+    </ScreenView>
   )
 }

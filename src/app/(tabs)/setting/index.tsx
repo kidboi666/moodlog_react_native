@@ -1,25 +1,11 @@
-import {
-  AlignLeft,
-  BugPlay,
-  Clock,
-  Computer,
-  Globe,
-  HelpCircle,
-  Moon,
-  Type,
-  User,
-} from '@tamagui/lucide-icons'
 import { type Href, useRouter } from 'expo-router'
-import { ReactElement, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
-
-import {
-  NavigationSettingItem,
-  SettingsContainer,
-} from '@/components/features/setting'
-import { BaseText, H1, ScreenView } from '@/components/shared'
+import { List } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
+
+import { BaseText, H1, ScreenView } from '@/components/shared'
 
 const devSection = __DEV__
   ? {
@@ -27,7 +13,7 @@ const devSection = __DEV__
       items: [
         {
           label: 'settings.dev.title',
-          icon: <Computer size='$1' />,
+          icon: 'laptop',
           route: '/setting/dev',
         },
       ],
@@ -39,27 +25,27 @@ const configSection = {
   items: [
     {
       label: 'settings.theme.title',
-      icon: <Moon size='$1' />,
+      icon: 'theme-light-dark',
       route: '/setting/theme',
     },
     {
       label: 'settings.language.title',
-      icon: <Globe size='$1' />,
+      icon: 'earth',
       route: '/setting/language',
     },
     {
       label: 'settings.font.title',
-      icon: <Type size='$1' />,
+      icon: 'format-font',
       route: '/setting/font',
     },
     {
       label: 'settings.fontSize.title',
-      icon: <AlignLeft size='$1' />,
+      icon: 'format-size',
       route: '/setting/font_size',
     },
     {
       label: 'settings.timeFormat.title',
-      icon: <Clock size='$1' />,
+      icon: 'clock-outline',
       route: '/setting/time_format',
     },
   ],
@@ -70,12 +56,12 @@ const supportSection = {
   items: [
     {
       label: 'settings.bugReport.title',
-      icon: <BugPlay size='$1' />,
+      icon: 'bug',
       route: '/setting/bug_report',
     },
     {
       label: 'settings.qna.title',
-      icon: <HelpCircle size='$1' />,
+      icon: 'help-circle',
       route: '/setting/qna',
     },
   ],
@@ -86,7 +72,7 @@ const loginSection = {
   items: [
     {
       label: 'settings.profile.title',
-      icon: <User size='$1' />,
+      icon: 'account',
       route: '/setting/profile',
     },
   ],
@@ -96,11 +82,13 @@ type SettingSection = {
   title: string
   items: {
     label: string
-    icon: ReactElement
+    icon: string
     route?: any
     action?: () => void
   }[]
 }
+
+const AnimatedScreenView = Animated.createAnimatedComponent(ScreenView)
 
 export default function SettingsScreen() {
   const { t } = useTranslation()
@@ -121,29 +109,33 @@ export default function SettingsScreen() {
   ].filter(Boolean) as SettingSection[]
 
   return (
-    <Animated.ScrollView entering={FadeIn.duration(800)}>
-      <ScreenView edges={['top']} style={styles.container}>
-        <H1>{t('settings.title')}</H1>
-        <View style={styles.contentBox}>
-          {sections.map(({ title, items }) => (
-            <SettingsContainer key={title} title={t(title)}>
-              {items.map(menu => (
-                <NavigationSettingItem
-                  key={menu.label}
-                  label={t(menu.label)}
-                  icon={menu.icon}
-                  onRouteChange={() => handleRouteChange(menu.route)}
-                />
-              ))}
-            </SettingsContainer>
-          ))}
-        </View>
-
-        <View style={styles.copyrightBox}>
-          <BaseText>© 2025 Moodlog. All rights reserved.</BaseText>
-        </View>
-      </ScreenView>
-    </Animated.ScrollView>
+    <AnimatedScreenView
+      withScroll
+      edges={['top']}
+      padded
+      style={styles.container}
+      entering={FadeIn.duration(800)}
+    >
+      <H1>{t('settings.title')}</H1>
+      <View style={styles.contentBox}>
+        {sections.map(({ title, items }) => (
+          <List.Section key={title}>
+            <List.Subheader>{t(title)}</List.Subheader>
+            {items.map(menu => (
+              <List.Item
+                key={menu.label}
+                title={t(menu.label)}
+                left={() => <List.Icon icon={menu.icon} color='black' />}
+                onPress={() => handleRouteChange(menu.route)}
+              />
+            ))}
+          </List.Section>
+        ))}
+      </View>
+      <View style={styles.copyrightBox}>
+        <BaseText>© 2025 Moodlog. All rights reserved.</BaseText>
+      </View>
+    </AnimatedScreenView>
   )
 }
 

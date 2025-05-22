@@ -2,7 +2,7 @@ import { PropsWithChildren, useMemo } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import { H4 } from '@/components/shared'
-import { MD3Colors, useTheme } from 'react-native-paper'
+import { MD3Colors } from 'react-native-paper'
 
 interface Props {
   title?: string
@@ -12,7 +12,6 @@ export function SettingsContainer({
   children,
   title,
 }: PropsWithChildren<Props>) {
-  const theme = useTheme()
   const memoizedStyle = useMemo(
     () => ({
       backgroundColor: MD3Colors.neutral40,

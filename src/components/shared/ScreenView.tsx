@@ -1,5 +1,5 @@
 import { ReactNode, useMemo } from 'react'
-import { StyleSheet, View, ViewProps } from 'react-native'
+import { ScrollView, StyleSheet, View, ViewProps } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Layout } from '@/constants'
@@ -8,6 +8,7 @@ interface ViewContainerProps extends ViewProps {
   edges?: Array<'top' | 'bottom'>
   Header?: ReactNode
   padded?: boolean
+  withScroll?: boolean
 }
 
 export function ScreenView({
@@ -15,6 +16,7 @@ export function ScreenView({
   padded,
   Header,
   style,
+  withScroll,
   ...props
 }: ViewContainerProps) {
   const insets = useSafeAreaInsets()
@@ -31,8 +33,13 @@ export function ScreenView({
     [padded, edges],
   )
 
-  return (
-    <View style={[styles.container, memoizedStyle, style]} {...props}>
+  return withScroll ? (
+    <ScrollView style={[styles.scrollView, memoizedStyle, style]} {...props}>
+      {Header && Header}
+      {props.children}
+    </ScrollView>
+  ) : (
+    <View style={[styles.view, memoizedStyle, style]} {...props}>
       {Header && Header}
       {props.children}
     </View>
@@ -40,7 +47,10 @@ export function ScreenView({
 }
 
 const styles = StyleSheet.create({
-  container: {
+  scrollView: {
+    paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
+  },
+  view: {
     flex: 1,
     paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
   },

@@ -1,10 +1,6 @@
-export enum ViewFontSize {
-  XS = '$4',
-  SM = '$6',
-  MD = '$8',
-  LG = '$10',
-  XL = '$12',
-}
+import { FONT_SIZE } from '@/constants'
+
+export type FontSize = (typeof FONT_SIZE)[keyof typeof FONT_SIZE]
 
 export enum Languages {
   EN = 'en',
@@ -50,7 +46,7 @@ export enum MoodLimits {
 }
 
 export type Settings = {
-  fontSize: ViewFontSize
+  fontSize: FontSize
   fontTheme: FontTheme
   language: Languages
   timeFormat: TimeFormat

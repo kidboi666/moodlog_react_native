@@ -107,7 +107,6 @@ const styles = StyleSheet.create({
   header: {
     gap: 24,
   },
-
   googleButtonInner: {
     flexDirection: 'row',
     justifyContent: 'center',

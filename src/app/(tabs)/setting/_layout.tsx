@@ -1,18 +1,24 @@
 import { Stack, useRouter } from 'expo-router'
-import { useTheme } from 'tamagui'
+import { IconButton } from 'react-native-paper'
 
-import { HeaderContent } from '@/components/shared'
+import { useColors } from '@/hooks'
 
 export default function SettingsLayout() {
-  const theme = useTheme()
+  const { colors } = useColors()
   const router = useRouter()
 
   return (
     <Stack
       screenOptions={{
         headerShown: true,
-        header: () => <HeaderContent leftAction={() => router.back()} />,
-        contentStyle: { backgroundColor: theme.background.val },
+        headerLeft: () => (
+          <IconButton
+            mode='contained'
+            icon='arrow-left'
+            onPress={() => router.back()}
+          />
+        ),
+        contentStyle: { backgroundColor: colors.background.pure },
       }}
     >
       <Stack.Screen name='index' options={{ headerShown: false }} />

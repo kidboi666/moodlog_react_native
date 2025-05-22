@@ -1,7 +1,6 @@
 import { useCallback } from 'react'
-import { RadioGroup, styled } from 'tamagui'
+import { RadioButton } from 'react-native-paper'
 
-import { RadioGroupItem } from '@/components/features/setting'
 import { ScreenView } from '@/components/shared'
 import { useApp } from '@/store'
 import type { Languages } from '@/types'
@@ -23,22 +22,16 @@ export default function Screen() {
   )
 
   return (
-    <Screen>
-      <StyledRadioGroup value={language} onValueChange={handleValueChange}>
+    <ScreenView>
+      <RadioButton.Group value={language} onValueChange={handleValueChange}>
         {languages.map(language => (
-          <RadioGroupItem
+          <RadioButton.Item
             key={language.value}
             value={language.value}
             label={language.label}
-            onValueChange={handleValueChange}
           />
         ))}
-      </StyledRadioGroup>
-    </Screen>
+      </RadioButton.Group>
+    </ScreenView>
   )
 }
-
-const StyledRadioGroup = styled(RadioGroup, {
-  name: 'theme',
-  gap: '$4',
-})

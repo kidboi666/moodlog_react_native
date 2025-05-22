@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { YStack, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
 
 import { ProfileAvatar, ProfileMenuItem } from '@/components/features/setting'
 import { BaseText, H1, ScreenView } from '@/components/shared'
+import { useThemedStyles } from '@/hooks'
 import { UserQueries } from '@/queries'
 import { useAuth } from '@/store'
 import type { NewUserInfo } from '@/types'
@@ -42,55 +43,58 @@ export default function ProfileScreen() {
     )
   }
 
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    title: {
+      color: colors.text.primary,
+    },
+  }))
   return (
     <ScreenView>
-      <TitleBox>
+      <View style={styles.titleBox}>
         <H1>{t('settings.profile.title') || 'Profile'}</H1>
-      </TitleBox>
-
-      <ContentContainer>
+      </View>
+      <View style={styles.container}>
         <ProfileAvatar avatarUrl={form.avatar_url || ''} />
         {/* User ID */}
-        <MenuSpacing>
-          <MenuTitle>{t('settings.profile.id') || 'ID'}</MenuTitle>
+        <View style={styles.menuSpacing}>
+          <BaseText style={themedStyles.title}>
+            {t('settings.profile.id') || 'ID'}
+          </BaseText>
           <BaseText>{session?.user.id}</BaseText>
-        </MenuSpacing>
-
+        </View>
         {/* Username */}
         <ProfileMenuItem
           title='settings.profile.username'
           value={form.user_name}
         />
-
         {/* Email */}
         <ProfileMenuItem title='settings.profile.email' value={form.email} />
-
         {/* Age */}
         <ProfileMenuItem title='settings.profile.age' value={form.age} />
-
         {/* Days Since Signup */}
-        <MenuSpacing>
-          <MenuTitle>{t('settings.profile.daysSinceSignup')}</MenuTitle>
+        <View style={styles.menuSpacing}>
+          <BaseText style={themedStyles.title}>
+            {t('settings.profile.daysSinceSignup')}
+          </BaseText>
           <BaseText>{getDaysSinceSignup(session.user.created_at)}</BaseText>
-        </MenuSpacing>
-      </ContentContainer>
+        </View>
+      </View>
     </ScreenView>
   )
 }
 
-const MenuTitle = styled(BaseText, {
-  color: '$color11',
-})
-
-const MenuSpacing = styled(YStack, {
-  gap: '$2',
-})
-
-const TitleBox = styled(YStack, {
-  gap: '$4',
-  mb: '$4',
-})
-
-const ContentContainer = styled(YStack, {
-  gap: '$6',
+const styles = StyleSheet.create({
+  container: {
+    gap: 24,
+  },
+  menuSpacing: {
+    gap: 4,
+  },
+  contentBox: {
+    marginBottom: 20,
+  },
+  titleBox: {
+    gap: 8,
+    marginBottom: 8,
+  },
 })

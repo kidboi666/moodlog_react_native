@@ -25,3 +25,15 @@ export const Layout = {
     AUTH: [70],
   },
 }
+
+export const FONT_SIZE = {
+  $2: 11,
+  $3: 13,
+  $4: 14,
+  $5: 16, // 기본값
+  $6: 18,
+  $7: 20,
+  $8: 24,
+  $9: 30,
+  $10: 36,
+} as const

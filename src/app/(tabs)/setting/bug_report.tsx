@@ -3,7 +3,8 @@ import * as ImagePicker from 'expo-image-picker'
 import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, ScrollView, StyleSheet, View } from 'react-native'
+import { Alert, StyleSheet, View } from 'react-native'
+import { Button } from 'react-native-paper'
 
 import {
   FormInput,
@@ -59,61 +60,59 @@ export default function BugReportScreen() {
   }
 
   return (
-    <ScrollView>
-      <ScreenView edges={['bottom']} padded style={styles.container}>
-        <View style={styles.titleBox}>
-          <H1>{t('settings.bugReport.title')}</H1>
-        </View>
+    <ScreenView withScroll edges={['bottom']} padded style={styles.container}>
+      <View style={styles.titleBox}>
+        <H1>{t('settings.bugReport.title')}</H1>
+      </View>
 
-        <View style={styles.column}>
-          <H4>{t('settings.bugReport.descriptionLabel')}</H4>
-          <FormInputArea
-            value={bugDescription}
-            onChangeText={setBugDescription}
-            placeholder={t('settings.bugReport.descriptionPlaceholder')}
-            height={150}
-            autoCapitalize='none'
-          />
-        </View>
+      <View style={styles.column}>
+        <H4>{t('settings.bugReport.descriptionLabel')}</H4>
+        <FormInputArea
+          value={bugDescription}
+          onChangeText={setBugDescription}
+          placeholder={t('settings.bugReport.descriptionPlaceholder')}
+          height={150}
+          autoCapitalize='none'
+        />
+      </View>
 
-        <View style={styles.column}>
-          <H4>{t('settings.bugReport.emailLabel')}</H4>
-          <FormInput
-            value={email}
-            onChangeText={setEmail}
-            placeholder={t('settings.bugReport.emailPlaceholder')}
-            autoCapitalize='none'
-            keyboardType='email-address'
-          />
-        </View>
+      <View style={styles.column}>
+        <H4>{t('settings.bugReport.emailLabel')}</H4>
+        <FormInput
+          value={email}
+          onChangeText={setEmail}
+          placeholder={t('settings.bugReport.emailPlaceholder')}
+          autoCapitalize='none'
+          keyboardType='email-address'
+        />
+      </View>
 
-        <View style={styles.column}>
-          <H4>{t('settings.bugReport.screenshotLabel')}</H4>
-          <PressableButton onPress={pickImage}>
-            {t('settings.bugReport.attachScreenshot')}
-          </PressableButton>
-          {image && (
-            <View style={styles.imageBox}>
-              <Image source={image} />
-              <PressableButton onPress={() => setImage(null)}>
-                {t('settings.bugReport.deleteImage')}
-              </PressableButton>
-            </View>
-          )}
-        </View>
+      <View style={styles.column}>
+        <H4>{t('settings.bugReport.screenshotLabel')}</H4>
+        <Button onPress={pickImage}>
+          {t('settings.bugReport.attachScreenshot')}
+        </Button>
+        {image && (
+          <View style={styles.imageBox}>
+            <Image source={image} />
+            <Button onPress={() => setImage(null)}>
+              {t('settings.bugReport.deleteImage')}
+            </Button>
+          </View>
+        )}
+      </View>
 
-        <PressableButton
-          bg='$color12'
-          color='white'
-          onPress={handleSubmit}
-          disabled={isSubmitting}
-        >
-          {isSubmitting
-            ? t('settings.bugReport.submitting')
-            : t('settings.bugReport.submitButton')}
-        </PressableButton>
-      </ScreenView>
-    </ScrollView>
+      <PressableButton
+        bg='$color12'
+        color='white'
+        onPress={handleSubmit}
+        disabled={isSubmitting}
+      >
+        {isSubmitting
+          ? t('settings.bugReport.submitting')
+          : t('settings.bugReport.submitButton')}
+      </PressableButton>
+    </ScreenView>
   )
 }
 const styles = StyleSheet.create({

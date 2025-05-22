@@ -1,8 +1,7 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { RadioGroup, styled } from 'tamagui'
+import { RadioButton } from 'react-native-paper'
 
-import { FontRadioGroupItem } from '@/components/features/setting'
 import { ScreenView } from '@/components/shared'
 import { useApp } from '@/store'
 import { FontTheme } from '@/types'
@@ -48,21 +47,15 @@ export default function FontScreen() {
 
   return (
     <ScreenView edges={['top']}>
-      <StyledRadioGroup value={fontTheme} onValueChange={handleValueChange}>
+      <RadioButton.Group value={fontTheme} onValueChange={handleValueChange}>
         {fontList.map(font => (
-          <FontRadioGroupItem
+          <RadioButton.Item
             key={font.value}
             value={font.value}
             label={t(font.label)}
-            onValueChange={handleValueChange}
           />
         ))}
-      </StyledRadioGroup>
+      </RadioButton.Group>
     </ScreenView>
   )
 }
-
-const StyledRadioGroup = styled(RadioGroup, {
-  gap: '$4',
-  name: 'font',
-})

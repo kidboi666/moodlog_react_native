@@ -1,21 +1,10 @@
+import { FontSize } from '@/types'
 import React from 'react'
 import { StyleSheet, Text, TextProps } from 'react-native'
 
-const FONT_SIZES = {
-  $2: 11,
-  $3: 13,
-  $4: 14,
-  $5: 16, // 기본값
-  $6: 18,
-  $7: 20,
-  $8: 24,
-  $9: 30,
-  $10: 36,
-}
-
 interface BaseTextProps extends TextProps {
   children: React.ReactNode
-  defaultFontSize?: keyof typeof FONT_SIZES
+  defaultFontSize?: keyof typeof FontSize
   color?: string
 }
 
@@ -25,7 +14,7 @@ export const BaseText = ({
   defaultFontSize = '$5',
   ...props
 }: BaseTextProps) => {
-  const fontSize = FONT_SIZES[defaultFontSize]
+  const fontSize = FontSize[defaultFontSize]
 
   return (
     <Text style={[styles.text, { fontSize }, style]} {...props}>

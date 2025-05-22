@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { YStack } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
 
 import { DateHeader } from '@/components/features/entries/DateHeader'
 import { JournalCard } from '@/components/features/journal'
@@ -13,7 +13,7 @@ interface Props {
 
 function _EntriesJournalDisplay({ journals, date, selectedMonth }: Props) {
   return (
-    <YStack key={date} gap='$4'>
+    <View key={date} style={styles.container}>
       <DateHeader date={date} />
       {journals.map(journal => {
         const { content, imageUri, id, createdAt, mood } = journal
@@ -29,9 +29,15 @@ function _EntriesJournalDisplay({ journals, date, selectedMonth }: Props) {
           />
         )
       })}
-    </YStack>
+    </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    gap: 24,
+  },
+})
 
 export const EntriesJournalDisplay = memo(_EntriesJournalDisplay)
 EntriesJournalDisplay.displayName = 'EntriesJournalDisplay'

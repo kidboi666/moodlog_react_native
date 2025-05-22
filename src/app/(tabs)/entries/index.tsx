@@ -51,7 +51,6 @@ export default function EntriesScreen() {
       ) : (
         <EmptyJournal />
       )}
-      {/*</ScreenView>*/}
     </Animated.View>
   )
 }

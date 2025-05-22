@@ -1,12 +1,13 @@
 import { GetThemeValueForKey } from 'tamagui'
 
+import { FONT_SIZE } from '@/constants'
 import { useApp } from '@/store'
-import { ViewFontSize } from '@/types'
+import { FontSize } from '@/types'
 
-type FontSizeMapping = Record<ViewFontSize, Record<string, string>>
+type FontSizeMapping = Record<FontSize, Record<string, string>>
 
 const fontSizeMapping: FontSizeMapping = {
-  [ViewFontSize.XS]: {
+  [FONT_SIZE.$4]: {
     $5: '$3',
     $6: '$4',
     $7: '$5',
@@ -14,7 +15,7 @@ const fontSizeMapping: FontSizeMapping = {
     $9: '$7',
     $10: '$8',
   },
-  [ViewFontSize.SM]: {
+  [FONT_SIZE.$5]: {
     $5: '$4',
     $6: '$5',
     $7: '$6',
@@ -22,7 +23,7 @@ const fontSizeMapping: FontSizeMapping = {
     $9: '$8',
     $10: '$9',
   },
-  [ViewFontSize.MD]: {
+  [FONT_SIZE.$6]: {
     $5: '$5',
     $6: '$6',
     $7: '$7',
@@ -30,7 +31,7 @@ const fontSizeMapping: FontSizeMapping = {
     $9: '$9',
     $10: '$10',
   },
-  [ViewFontSize.LG]: {
+  [FONT_SIZE.$7]: {
     $5: '$6',
     $6: '$7',
     $7: '$8',
@@ -38,7 +39,7 @@ const fontSizeMapping: FontSizeMapping = {
     $9: '$10',
     $10: '$11',
   },
-  [ViewFontSize.XL]: {
+  [FONT_SIZE.$8]: {
     $5: '$7',
     $6: '$8',
     $7: '$9',

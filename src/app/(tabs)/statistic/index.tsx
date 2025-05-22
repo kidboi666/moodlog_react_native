@@ -48,11 +48,6 @@ export default function StatisticScreen() {
             isSelectedMonth={isSelectedMonth}
             onSelectedMonthChange={onSelectedMonthChange}
           />
-          {/*<MoodAverage*/}
-          {/*  selectedYear={selectedYear}*/}
-          {/*  selectedMonth={selectedMonth || monthString}*/}
-          {/*/> */}
-          {/*<WeeklyMoodChart selectedMonth={selectedMonth || monthString} />*/}
         </View>
       </ScreenView>
     </Animated.ScrollView>
