@@ -1,6 +1,6 @@
 import { getGemini } from '@/lib/gemini'
 import { useEffect, useState } from 'react'
-import { Button, Form, Input, Paragraph, Spinner, View } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
 
 export function AiPromptZone() {
   const [text, setText] = useState('')
@@ -25,7 +25,7 @@ export function AiPromptZone() {
   }, [])
 
   return (
-    <View flex={1} p='$4' bg='$color5' rounded='$8'>
+    <View style={styles.container}>
       <Form onSubmit={handleSubmit} gap='$4'>
         <Input value={text} onChangeText={setText} />
         {isLoading && <Spinner />}
@@ -41,3 +41,11 @@ export function AiPromptZone() {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    borderRadius: 28,
+  },
+})

@@ -1,19 +1,21 @@
 import { Stack } from 'expo-router'
-import { useTheme } from 'tamagui'
 
+import { BackButton } from '@/components/shared'
+import { useThemedStyles } from '@/hooks'
 import { StepProgressProvider } from '@/providers'
 
 export default function WriteJournalLayout() {
-  const theme = useTheme()
-
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    content: {
+      backgroundColor: colors.background.pure,
+    },
+  }))
   return (
     <StepProgressProvider totalSteps={3}>
       <Stack
         screenOptions={{
-          headerShown: false,
-          contentStyle: {
-            backgroundColor: theme.background.val,
-          },
+          headerLeft: () => <BackButton />,
+          contentStyle: themedStyles.content,
         }}
       >
         <Stack.Screen name='index' />

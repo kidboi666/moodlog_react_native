@@ -1,10 +1,11 @@
+import { FONT_SIZE } from '@/constants'
 import { FontSize } from '@/types'
 import React from 'react'
 import { StyleSheet, Text, TextProps } from 'react-native'
 
 interface BaseTextProps extends TextProps {
   children: React.ReactNode
-  defaultFontSize?: keyof typeof FontSize
+  defaultFontSize?: FontSize
   color?: string
 }
 
@@ -14,7 +15,7 @@ export const BaseText = ({
   defaultFontSize = '$5',
   ...props
 }: BaseTextProps) => {
-  const fontSize = FontSize[defaultFontSize]
+  const fontSize = FONT_SIZE[defaultFontSize]
 
   return (
     <Text style={[styles.text, { fontSize }, style]} {...props}>

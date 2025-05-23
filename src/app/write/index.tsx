@@ -1,4 +1,3 @@
-import { Check } from '@tamagui/lucide-icons'
 import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
 import {
@@ -9,8 +8,8 @@ import {
 } from 'react-native'
 
 import { JournalMenuSelector, MoodLevelForm } from '@/components/features/mood'
-import { EmptyMoodView, MainRecordFlow } from '@/components/features/write'
-import { HeaderContent, ScreenView, StepDot } from '@/components/shared'
+import { MainRecordFlow } from '@/components/features/write'
+import { ScreenView } from '@/components/shared'
 import { useJournalDraftForm } from '@/hooks'
 import { MoodQueries, useAddJournal } from '@/queries'
 
@@ -29,36 +28,11 @@ export default function WriteJournalScreen() {
   if (!moods) return null
 
   if (isLoading) {
-    return (
-      <ScreenView Header={<HeaderContent leftAction={() => router.back()} />}>
-        <ActivityIndicator size='large' />
-      </ScreenView>
-    )
-  }
-
-  if (Object.keys(moods).length === 0) {
-    return (
-      <ScreenView Header={<HeaderContent leftAction={() => router.back()} />}>
-        <EmptyMoodView />
-      </ScreenView>
-    )
+    return <ActivityIndicator size='large' />
   }
 
   return (
-    <ScreenView
-      edges={['bottom']}
-      style={styles.container}
-      Header={
-        <HeaderContent
-          leftAction={() => router.back()}
-          rightAction={() => onSubmit(draft)}
-          rightActionIcon={Check}
-          rightActionDisabled={!draft.moodId}
-        >
-          <StepDot />
-        </HeaderContent>
-      }
-    >
+    <ScreenView edges={['bottom']} style={styles.container}>
       <KeyboardAvoidingView
         style={styles.keyboardAvoidingViewContainer}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

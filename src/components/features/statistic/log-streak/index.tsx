@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
-import { View, XStack, YStack, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
+import { Text } from 'react-native-paper'
 
 import { BaseText, H2, H3 } from '@/components/shared'
 import { Layout } from '@/constants'
@@ -8,36 +9,34 @@ import { DayBox } from './DayBox'
 export function LogStreak() {
   const { t } = useTranslation()
   return (
-    <Container>
-      <Header>
+    <View style={styles.container}>
+      <View style={styles.header}>
         <H3>{t('statistics.logStreakDay.title')}</H3>
-        <BaseText>{t('statistics.logStreakDay.description')}</BaseText>
-      </Header>
-      <Description>
-        <CountBox>
-          <H2>32</H2>
-          <Unit>{t('statistics.logStreakDay.unit')}</Unit>
-        </CountBox>
-      </Description>
+        <Text>{t('statistics.logStreakDay.description')}</Text>
+      </View>
+      <View style={styles.descriptionBox}>
+        <H2>32</H2>
+        <Unit>{t('statistics.logStreakDay.unit')}</Unit>
+      </View>
       <DayBox />
-    </Container>
+    </View>
   )
 }
 
-const Container = styled(View, {
-  bg: '$color4',
-  p: '$4',
-  rounded: '$7',
-  gap: '$4',
-  animation: 'bouncy',
-  pressStyle: { scale: 0.92 },
-})
-const Header = styled(YStack, {
-  gap: '$2',
-})
-const Description = styled(XStack, {
-  items: 'center',
-  gap: '$2',
+const styles = StyleSheet.create({
+  container: {
+    padding: 16,
+    borderRadius: 24,
+    gap: 16,
+  },
+  header: {
+    gap: 8,
+  },
+  descriptionBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
 })
 
 const CountBox = styled(XStack, {

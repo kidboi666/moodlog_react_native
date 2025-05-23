@@ -1,4 +1,3 @@
-import { Trash } from '@tamagui/lucide-icons'
 import { useQuery } from '@tanstack/react-query'
 import { Image } from 'expo-image'
 import { useLocalSearchParams, useRouter } from 'expo-router'
@@ -8,46 +7,20 @@ import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
 import { FullScreenImageModal } from '@/components/features/modal'
-import {
-  BaseText,
-  H3,
-  HeaderContent,
-  RenderDate,
-  RenderTime,
-  ScreenView,
-} from '@/components/shared'
-import { Layout } from '@/constants'
+import { BaseText, H3, ScreenView } from '@/components/shared'
 import { useThemedStyles } from '@/hooks'
 import { JournalQueries } from '@/queries'
-import { useBottomSheet } from '@/store'
-import { BottomSheetType } from '@/types'
 import { toSingle } from '@/utils'
 
 export default function JournalScreen() {
-  const { journalId, isNewJournal } = useLocalSearchParams()
-  const router = useRouter()
+  const { journalId } = useLocalSearchParams()
   const { t } = useTranslation()
   const { data: journal } = useQuery(
     JournalQueries.getJournalById(Number(toSingle(journalId))),
   )
-  const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
-  const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedImage, setSelectedImage] = useState<string>('')
 
-  const handleGoBack = () => {
-    isNewJournal === 'true' ? router.dismiss(2) : router.back()
-  }
-
-  const handleDeleteSheetOpen = () => {
-    if (!journal) return
-
-    showBottomSheet(BottomSheetType.DELETE_JOURNAL, Layout.SNAP_POINTS.DELETE, {
-      journalId: Number(toSingle(journalId)),
-      hideBottomSheet,
-      localDate: journal.localDate,
-    })
-  }
   const handleImagePress = (uri: string) => {
     setSelectedImage(uri)
     setModalVisible(true)
@@ -76,22 +49,7 @@ export default function JournalScreen() {
       entering={FadeIn.duration(800)}
       overScrollMode='always'
     >
-      <ScreenView
-        edges={['bottom']}
-        style={styles.container}
-        Header={
-          <HeaderContent
-            leftAction={handleGoBack}
-            rightAction={handleDeleteSheetOpen}
-            rightActionIcon={Trash}
-          >
-            <View style={styles.timezoneBox}>
-              <RenderDate localDate={journal.localDate} />
-              <RenderTime createdAt={journal.createdAt} />
-            </View>
-          </HeaderContent>
-        }
-      >
+      <ScreenView edges={['bottom']} style={styles.container}>
         <View style={styles.rowBox}>
           <View style={[styles.moodBar, themedStyles.moodBar]} />
           <View style={styles.contentBox}>
@@ -138,10 +96,7 @@ const styles = StyleSheet.create({
   rowBox: {
     flexDirection: 'row',
   },
-  timezoneBox: {
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
+
   moodBar: {
     width: '3%',
     borderTopRightRadius: 12,

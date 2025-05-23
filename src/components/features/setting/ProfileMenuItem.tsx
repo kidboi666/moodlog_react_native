@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next'
-import { YStack, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
+import { Text } from 'react-native-paper'
 
-import { BaseText } from '@/components/shared'
+import { H3 } from '@/components/shared'
 
 interface Props {
   title: string
@@ -12,17 +13,14 @@ export function ProfileMenuItem({ title, value }: Props) {
   const { t } = useTranslation()
 
   return (
-    <Container>
-      <Title>{t(title)}</Title>
-      <BaseText>{value ?? '-'}</BaseText>
-    </Container>
+    <View style={styles.container}>
+      <H3>{t(title)}</H3>
+      <Text>{value ?? '-'}</Text>
+    </View>
   )
 }
-
-const Container = styled(YStack, {
-  gap: '$2',
-})
-
-const Title = styled(BaseText, {
-  color: '$color11',
+const styles = StyleSheet.create({
+  container: {
+    gap: 4,
+  },
 })

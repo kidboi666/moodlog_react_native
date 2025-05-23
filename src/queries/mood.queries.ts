@@ -1,9 +1,9 @@
-import { useToastController } from '@tamagui/toast'
 import { queryOptions, useMutation } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
 import { Keyboard } from 'react-native'
 import { moods } from '../../db/sqlite/schema'
 
+import { useExceptionHandle } from '@/hooks'
 import {
   addMood,
   deleteMood,
@@ -57,13 +57,10 @@ export const MoodQueries = {
  */
 export function useAddMood() {
   const router = useRouter()
-  const toast = useToastController()
+  const { onError } = useExceptionHandle()
   return useMutation({
     mutationFn: (moodDraft: MoodDraft) => addMood(moodDraft),
-    onError: error => {
-      console.error('error', error)
-      toast.show('', {})
-    },
+    onError: error => onError(error.message, error),
     onSuccess: () => {
       Keyboard.dismiss()
       router.replace('/(tabs)')

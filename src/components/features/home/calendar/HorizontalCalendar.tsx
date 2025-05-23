@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
-import { ScrollView, XStack, styled } from 'tamagui'
+import { ScrollView, StyleSheet, View } from 'react-native'
 
-import { DelayMS, Layout, MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants'
+import { DelayMS, Layout } from '@/constants'
+import { useColors } from '@/hooks'
 import { DateCount, ISODateString, Maybe } from '@/types'
 import {
   getDateFromISODate,
@@ -23,6 +24,7 @@ export function HorizontalCalendar({
   dateCount,
 }: Props) {
   const now = new Date()
+  const { colors } = useColors()
   const currentYear = now.getFullYear()
   const currentMonth = now.getMonth() + 1
   const currentDay = now.getDate()
@@ -45,7 +47,7 @@ export function HorizontalCalendar({
       datesWithJournalCount[dateKey] = dateCount?.[dateKey] || 0
     }
     return datesWithJournalCount
-  }, [currentYear, currentMonth])
+  }, [currentYear, currentMonth, dateCount])
 
   useEffect(() => {
     let timeout: NodeJS.Timeout
@@ -70,21 +72,29 @@ export function HorizontalCalendar({
     if (selectedDate) {
       handleSelectedJournalsChange(selectedDate)
     }
-  }, [])
+  }, [handleSelectedJournalsChange, selectedDate])
 
   return (
-    <CalendarContainer>
-      <StyledScrollView ref={scrollViewRef}>
+    <View style={styles.calendarContainer}>
+      <ScrollView
+        ref={scrollViewRef}
+        style={styles.scrollView}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        decelerationRate='normal'
+        snapToAlignment='start'
+        snapToInterval={Layout.SPACE.CALENDAR_SCROLL_SIZE}
+      >
         {Object.entries(dates).map(([date, journalCount]) => {
           const renderDate = date as ISODateString
           const isToday = currentISODate === renderDate
           const isFuture = currentISODate < renderDate
           const isSelected = selectedDate === renderDate
           const dateColor = isFuture
-            ? '$color11'
+            ? colors.text.secondary
             : isSelected
-              ? '$color12'
-              : '$color6'
+              ? colors.text.primary
+              : colors.text.tertiary
           return (
             <HorizontalCalendarContent
               key={renderDate}
@@ -97,25 +107,19 @@ export function HorizontalCalendar({
             />
           )
         })}
-      </StyledScrollView>
-    </CalendarContainer>
+      </ScrollView>
+    </View>
   )
 }
 
-const CalendarContainer = styled(XStack, {
-  animation: 'quick',
-  animateOnly: MOUNT_STYLE_KEY,
-  enterStyle: MOUNT_STYLE,
-  flex: 1,
-  justify: 'center',
-  rounded: '$4',
-  items: 'center',
-})
-
-const StyledScrollView = styled(ScrollView, {
-  horizontal: true,
-  showsHorizontalScrollIndicator: false,
-  decelerationRate: 'normal',
-  snapToAlignment: 'start',
-  snapToInterval: Layout.SPACE.CALENDAR_SCROLL_SIZE,
+const styles = StyleSheet.create({
+  calendarContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+  },
+  scrollView: {
+    flex: 1,
+  },
 })

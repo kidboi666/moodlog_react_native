@@ -1,20 +1,22 @@
 import type { PropsWithChildren } from 'react'
-import { View, ViewProps, styled } from 'tamagui'
+import { StyleSheet, View, ViewProps } from 'react-native'
 
-const StyledBottomSheetContainer = styled(View, {
-  flex: 1,
-  gap: '$4',
-  p: '$5',
-})
-
-export const BottomSheetContainer = StyledBottomSheetContainer.styleable<
-  PropsWithChildren<ViewProps>
->(({ children, ...props }, ref) => {
+export const BottomSheetContainer = ({
+  children,
+  style,
+  ...props
+}: PropsWithChildren<ViewProps>) => {
   return (
-    <StyledBottomSheetContainer ref={ref} {...props}>
+    <View {...props} style={[styles.container, style]}>
       {children}
-    </StyledBottomSheetContainer>
+    </View>
   )
-})
+}
 
-BottomSheetContainer.displayName = 'BottomSheetContainer'
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    gap: 16,
+    padding: 20,
+  },
+})

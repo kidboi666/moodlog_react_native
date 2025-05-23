@@ -1,6 +1,7 @@
-import { Progress as TamaguiProgress, XStack, YStack, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
+import { ProgressBar, Text } from 'react-native-paper'
 
-import { BaseText, H3 } from '@/components/shared'
+import { H3 } from '@/components/shared'
 import { useMood } from '@/store'
 
 interface Props {
@@ -14,36 +15,22 @@ export function ProgressGraph({ moodScore, moodId, moodColor }: Props) {
   const mood = moods[moodId]
 
   return (
-    <GraphContainer>
-      <GraphNameBox>
+    <View style={styles.container}>
+      <View style={styles.graphNameBox}>
         <H3>{mood?.name || moodId}</H3>
-        <GraphName>{`${Math.floor(moodScore)}%`}</GraphName>
-      </GraphNameBox>
-      <Progress value={moodScore}>
-        <ProgressIndicator bg={moodColor as any} />
-      </Progress>
-    </GraphContainer>
+        <Text>{`${Math.floor(moodScore)}%`}</Text>
+      </View>
+      <ProgressBar progress={moodScore} color={moodColor} />
+    </View>
   )
 }
 
-const GraphContainer = styled(YStack, {
-  gap: '$2',
-})
-
-const GraphNameBox = styled(XStack, {
-  justify: 'space-between',
-  items: 'flex-end',
-})
-
-const GraphName = styled(BaseText, {
-  color: '$gray9',
-})
-
-const Progress = styled(TamaguiProgress, {
-  size: '$1',
-  height: 20,
-})
-
-const ProgressIndicator = styled(TamaguiProgress.Indicator, {
-  animation: 'bouncy',
+const styles = StyleSheet.create({
+  container: {
+    gap: 8,
+  },
+  graphNameBox: {
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+  },
 })

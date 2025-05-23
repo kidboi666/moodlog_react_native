@@ -1,10 +1,7 @@
 import { Skia, TextAlign, useFonts } from '@shopify/react-native-skia'
 import { useMemo } from 'react'
 
-import { useCustomFont } from './useCustomFont'
-
 export const useSkiaParagraph = (text: string) => {
-  const { fontName } = useCustomFont()
   const customFontMgr = useFonts(fontList)
   const paragraph = useMemo(() => {
     if (!customFontMgr) {
@@ -16,7 +13,7 @@ export const useSkiaParagraph = (text: string) => {
     const textStyle = {
       color: Skia.Color('white'),
       fontSize: 24,
-      fontFamilies: [fontName],
+      fontFamilies: ['pretendard'],
       fontWeight: '600',
     }
     return Skia.ParagraphBuilder.Make(paragraphStyle, customFontMgr)

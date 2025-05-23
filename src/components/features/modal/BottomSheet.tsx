@@ -3,30 +3,18 @@ import { memo } from 'react'
 
 import { useBottomSheet } from '@/store'
 import { type BottomSheetProps, BottomSheetType } from '@/types'
-import {
-  DeleteJournalModal,
-  DeleteMoodModal,
-  LogoutModal,
-  SignInModal,
-  SignUpModal,
-} from './contents'
+import { DeleteJournalModal, LogoutModal, SignInModal } from './contents'
 
 const SheetContentComponents = {
   [BottomSheetType.DELETE_JOURNAL]: (
     props: BottomSheetProps[BottomSheetType.DELETE_JOURNAL],
   ) => <DeleteJournalModal {...props} />,
-  [BottomSheetType.SIGN_UP]: (
-    props: BottomSheetProps[BottomSheetType.SIGN_UP],
-  ) => <SignUpModal {...props} />,
   [BottomSheetType.SIGN_IN]: (
     props: BottomSheetProps[BottomSheetType.SIGN_IN],
   ) => <SignInModal {...props} />,
   [BottomSheetType.LOGOUT]: (
     props: BottomSheetProps[BottomSheetType.LOGOUT],
   ) => <LogoutModal {...props} />,
-  [BottomSheetType.DELETE_MOOD]: (
-    props: BottomSheetProps[BottomSheetType.DELETE_MOOD],
-  ) => <DeleteMoodModal {...props} />,
 }
 
 export const BottomSheet = memo(() => {

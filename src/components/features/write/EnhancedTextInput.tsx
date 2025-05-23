@@ -1,19 +1,18 @@
-import { ImagePlus } from '@tamagui/lucide-icons'
 import { useToastController } from '@tamagui/toast'
+import { Image } from 'expo-image'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, TouchableOpacity } from 'react-native'
 import {
-  type Input,
+  Alert,
   ScrollView,
-  Image as TamaguiImage,
-  XStack,
-  YStack,
-  styled,
-} from 'tamagui'
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 
-import { FormInputArea, PressableButton } from '@/components/shared'
-import { DelayMS, Layout, MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants'
+import { FormInputArea } from '@/components/shared'
+import { IconButton } from '@/components/shared/Button'
+import { DelayMS, Layout } from '@/constants'
 import { useCustomFont } from '@/hooks'
 import { useStepProgress } from '@/store'
 
@@ -41,7 +40,7 @@ export function EnhancedTextInput({
   const {
     state: { currentStep },
   } = useStepProgress()
-  const inputRef = useRef<Input>(null)
+  const inputRef = useRef<any>(null)
 
   const handleContentChange = useCallback((text: string) => {
     onContentChange(text)
@@ -97,71 +96,54 @@ export function EnhancedTextInput({
   }
 
   return (
-    <InputContainer>
+    <View style={styles.container}>
       {imageUri.length !== 0 && (
-        <ImageContainer>
+        <View style={styles.imageBox}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {imageUri.map((uri, index) => (
               <TouchableOpacity
                 key={uri}
                 onPress={() => handleImagePress(index)}
               >
-                <Image source={{ uri }} />
+                <Image style={styles.image} source={{ uri }} />
               </TouchableOpacity>
             ))}
           </ScrollView>
-        </ImageContainer>
+        </View>
       )}
-      <PressableButton
-        self='flex-end'
-        scaleIcon={1.5}
-        onPress={onImageUriChange}
-        icon={ImagePlus}
-      />
+      <IconButton onPress={onImageUriChange} icon='image-plus' />
 
-      <TextArea
+      <FormInputArea
         ref={inputRef}
-        fontFamily={fontNameWithTokenPrefix}
         value={contentValue}
         onChangeText={handleContentChange}
         placeholder={t('placeholders.journal.content')}
       />
-    </InputContainer>
+    </View>
   )
 }
 
-const InputContainer = styled(YStack, {
-  animation: 'lazy',
-  enterStyle: MOUNT_STYLE,
-  animateOnly: MOUNT_STYLE_KEY,
-
-  flex: 1,
-  px: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
-  width: '100%',
-  gap: '$4',
-})
-
-const TextArea = styled(FormInputArea, {
-  color: '$gray12',
-  fontSize: '$6',
-  flex: 1,
-  // @ts-ignore
-  text: 'left',
-  bg: '$color4',
-  verticalAlign: 'top',
-  placeholderTextColor: '$gray7',
-})
-
-const ImageContainer = styled(XStack, {
-  justify: 'flex-start',
-})
-
-const Image = styled(TamaguiImage, {
-  width: 80,
-  height: 80,
-  rounded: 12,
-  mr: '$4',
-  shadowColor: 'black',
-  shadowOpacity: 0.5,
-  shadowRadius: 10,
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
+    width: '100%',
+    gap: 8,
+  },
+  button: {
+    alignSelf: 'flex-end',
+  },
+  imageBox: {
+    justifyContent: 'flex-start',
+  },
+  image: {
+    width: 80,
+    height: 80,
+    borderRadius: 12,
+    marginRight: 16,
+    elevation: 2,
+    shadowColor: 'black',
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+  },
 })

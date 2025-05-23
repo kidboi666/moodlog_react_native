@@ -3,20 +3,15 @@ import { AuthError } from '@supabase/supabase-js'
 import { useRouter } from 'expo-router'
 import { memo, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert } from 'react-native'
-import { Separator, XStack, YStack } from 'tamagui'
+import { Alert, StyleSheet, View } from 'react-native'
+import { Text } from 'react-native-paper'
 
-import {
-  BaseText,
-  FormInput,
-  H1,
-  H3,
-  PressableButton,
-} from '@/components/shared'
+import { Button, FormInput, GoogleIcon, H1, H3 } from '@/components/shared'
 import { Layout } from '@/constants'
 import { useAuth, useBottomSheet } from '@/store'
 import { BottomSheetType } from '@/types'
 import { isValidEmail } from '@/utils'
+import { GoogleSigninButton } from '@react-native-google-signin/google-signin'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 
 interface LoginFormState {
@@ -121,45 +116,36 @@ function _SignInModal() {
     <BottomSheetContainer>
       <H1>{t('auth.login')}</H1>
       <H3>{t('auth.loginDescription')}</H3>
-      <YStack gap='$4'>
-        <FormInput
-          placeholder={t('auth.email')}
-          value={email}
-          onChangeText={value => updateFormField('email', value)}
-          autoCapitalize='none'
-          keyboardType='email-address'
-          autoComplete='email'
-        />
-        <FormInput
-          placeholder={t('auth.password')}
-          value={password}
-          onChangeText={value => updateFormField('password', value)}
-          secureTextEntry
-          autoComplete='password'
-        />
-        <PressableButton
-          themeInverse
+      <View style={styles.contentBox}>
+        <Button
+          icon={GoogleIcon}
           onPress={handleSignIn}
           disabled={isDisabled}
           loading={isLoading}
         >
           {t('auth.login')}
-        </PressableButton>
-      </YStack>
-      <Separator />
-      <XStack items='center' justify='center' gap='$2'>
-        <BaseText>{t('auth.noAccount')}</BaseText>
-        <PressableButton
-          bg='transparent'
-          color='$blue10'
-          onPress={navigateToRegister}
-        >
+        </Button>
+      </View>
+      <View style={styles.buttonBox}>
+        <Text>{t('auth.noAccount')}</Text>
+        <Button mode='text' onPress={navigateToRegister}>
           {t('auth.signup')}
-        </PressableButton>
-      </XStack>
+        </Button>
+      </View>
     </BottomSheetContainer>
   )
 }
+
+const styles = StyleSheet.create({
+  contentBox: {
+    gap: 16,
+  },
+  buttonBox: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+})
 
 export const SignInModal = memo(_SignInModal)
 

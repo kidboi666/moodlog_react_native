@@ -32,21 +32,24 @@ export default function HomeScreen() {
   }, [])
 
   return (
-    <ScrollView overScrollMode='always' keyboardShouldPersistTaps='handled'>
-      <ScreenView edges={['top', 'bottom']} padded style={styles.container}>
-        <WelcomeZone />
-        <WeekDay
-          selectedDate={selectedDate}
-          onSelectedDateChange={onSelectedDateChange}
-          dateCount={dateCount}
-        />
-        <HomeJournalDisplay
-          firstRender={firstRender}
-          journals={selectedDateJournals}
-          isLoading={isLoading}
-        />
-      </ScreenView>
-    </ScrollView>
+    <ScreenView
+      withScroll
+      edges={['top', 'bottom']}
+      padded
+      style={styles.container}
+    >
+      <WelcomeZone />
+      <WeekDay
+        selectedDate={selectedDate}
+        onSelectedDateChange={onSelectedDateChange}
+        dateCount={dateCount}
+      />
+      <HomeJournalDisplay
+        firstRender={firstRender}
+        journals={selectedDateJournals}
+        isLoading={isLoading}
+      />
+    </ScreenView>
   )
 }
 

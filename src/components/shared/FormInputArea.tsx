@@ -1,45 +1,46 @@
-import { InputProps, TextArea, View, styled } from 'tamagui'
+import { useThemedStyles } from '@/hooks'
+import { View } from 'react-native'
+import { TextInput, TextInputProps } from 'react-native-paper'
 
-import { useCustomFont } from '@/hooks'
-
-interface Props extends InputProps {
-  placeholder: string
+interface Props extends TextInputProps {
   value: string
   onChangeText: (text: string) => void
+  placeholder?: string
 }
 
-export const FormInputArea = TextArea.styleable<Props>(
-  ({ value, onChangeText, placeholder, height = 200, ...props }, ref) => {
-    const { fontNameWithTokenPrefix } = useCustomFont()
-
-    return (
-      <StyledView>
-        <TextArea
-          ref={ref}
-          value={value}
-          onChangeText={onChangeText}
-          fontFamily={fontNameWithTokenPrefix}
-          placeholder={placeholder}
-          height={height}
-          {...props}
-        />
-      </StyledView>
-    )
-  },
-)
-
-const StyledView = styled(View, {
-  animation: 'quick',
-  borderWidth: 1,
-  verticalAlign: 'top',
-  flex: 1,
-
-  focusStyle: {
-    borderColor: '$blue8',
-    rounded: 8,
-    shadowColor: '$blue8',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 1,
-    shadowRadius: 2,
-  },
-})
+export function FormInputArea({
+  mode = 'outlined',
+  value,
+  onChangeText,
+  placeholder = '',
+  label,
+  error,
+  outlineColor,
+  activeOutlineColor,
+  style,
+  ...props
+}: Props) {
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    input: {
+      backgroundColor: colors.background.primary,
+      height: 300,
+    },
+  }))
+  return (
+    <View>
+      <TextInput
+        mode={mode}
+        label={label}
+        value={value}
+        onChangeText={onChangeText}
+        error={!!error}
+        placeholder={placeholder}
+        outlineColor={outlineColor}
+        activeOutlineColor={activeOutlineColor}
+        multiline
+        style={[themedStyles.input, style]}
+        {...props}
+      />
+    </View>
+  )
+}

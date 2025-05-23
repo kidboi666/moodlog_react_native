@@ -1,6 +1,8 @@
-import { Button, View, styled } from 'tamagui'
+import { StyleSheet } from 'react-native'
+import { Button } from 'react-native-paper'
 
 import { Layout } from '@/constants'
+import { useThemedStyles } from '@/hooks'
 import { DateCountDot } from './DateCountDot'
 import { DayAndDate } from './DayAndDate'
 
@@ -8,7 +10,7 @@ interface Props {
   selected: boolean
   today: boolean
   onPress: () => void
-  futureDateColor: '$color6' | '$color11' | '$color12'
+  futureDateColor: string
   date: `${number}-${number}-${number}`
   journalCount: number
 }
@@ -21,45 +23,37 @@ export function HorizontalCalendarContent({
   date,
   journalCount,
 }: Props) {
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    selected: {
+      backgroundColor: colors.background.inverse,
+    },
+  }))
   return (
-    <DateContainer isSelected={selected} isToday={today} onPress={onPress}>
-      <DateWrapper>
-        <DayAndDate
-          selected={selected}
-          futureDateColor={futureDateColor}
-          date={date}
-        />
-        <DateCountDot
-          variant='contained'
-          journalCount={journalCount}
-          isSelected={selected}
-        />
-      </DateWrapper>
-    </DateContainer>
+    <Button
+      style={[
+        styles.container,
+        selected ? themedStyles.selected : undefined,
+        today ? styles.today : undefined,
+      ]}
+      onPress={onPress}
+    >
+      <DayAndDate futureDateColor={futureDateColor} date={date} />
+      <DateCountDot
+        variant='contained'
+        journalCount={journalCount}
+        isSelected={selected}
+      />
+    </Button>
   )
 }
 
-const DateContainer = styled(View, {
-  py: '$3',
-  width: Layout.SPACE.CALENDAR_SCROLL_SIZE,
-  rounded: '$4',
-  borderColor: '$gray1',
-
-  variants: {
-    isSelected: {
-      true: {
-        bg: '$gray5',
-      },
-    },
-    isToday: {
-      true: {
-        borderWidth: 1,
-      },
-    },
-  } as const,
-})
-
-const DateWrapper = styled(Button, {
-  unstyled: true,
-  items: 'center',
+const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 12,
+    width: Layout.SPACE.CALENDAR_SCROLL_SIZE,
+    borderRadius: 16,
+  },
+  today: {
+    borderWidth: 1,
+  },
 })

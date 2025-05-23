@@ -1,7 +1,6 @@
 import { XStack, YStack, styled } from 'tamagui'
 
 import { Layout } from '@/constants'
-import { ColorPicker } from '../write/ColorPicker'
 import { MoodNameForm } from './MoodNameForm'
 
 interface Props {
@@ -26,12 +25,6 @@ export function FormSection({
   return (
     <Container>
       <FormContainer {...position}>
-        <ColorPicker
-          show={currentStep === 0}
-          moodColor={moodColor}
-          onMoodColorChange={onMoodColorChange}
-          width={width - Layout.SPACE.CONTAINER_HORIZONTAL_PADDING * 2}
-        />
         <MoodNameForm
           moodName={moodName}
           onMoodNameChange={onMoodNameChange}

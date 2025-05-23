@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next'
-import { XStack, YStack, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
+import { Text } from 'react-native-paper'
 
-import { BaseText, H2, H3 } from '@/components/shared'
+import { H2, H3 } from '@/components/shared'
 import { Layout } from '@/constants'
 import { useAuth } from '@/store'
 import { getDaysSinceSignup } from '@/utils'
@@ -13,35 +14,31 @@ export function StartDay() {
   const daysSinceSignup = getDaysSinceSignup(createdAt)
 
   return (
-    <Container>
+    <View style={styles.container}>
       <H3>{t('statistics.daysSinceSignup.title')}</H3>
-      <BaseText>{t('statistics.daysSinceSignup.description')}</BaseText>
-      <StyledXStack>
+      <Text>{t('statistics.daysSinceSignup.description')}</Text>
+      <View style={styles.content}>
         <H2>{daysSinceSignup}</H2>
-        <Unit>{t('statistics.daysSinceSignup.unit')}</Unit>
-      </StyledXStack>
-    </Container>
+        <Text style={styles.unit}>{t('statistics.daysSinceSignup.unit')}</Text>
+      </View>
+    </View>
   )
 }
 
-const Container = styled(YStack, {
-  flex: 1,
-  bg: '$gray4',
-  rounded: '$8',
-  gap: '$2',
-  p: '$4',
-  height: Layout.HEIGHT.RECORD_CARD_HEIGHT,
-  animation: 'bouncy',
-  pressStyle: { scale: 0.92 },
-})
-
-const StyledXStack = styled(XStack, {
-  flex: 1,
-  gap: '$2',
-  items: 'flex-end',
-})
-
-const Unit = styled(BaseText, {
-  lineHeight: Layout.HEIGHT.RECORD_UNIT_LINE_HEIGHT,
-  color: '$color11',
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    borderRadius: 24,
+    gap: 4,
+    padding: 12,
+    height: Layout.HEIGHT.RECORD_CARD_HEIGHT,
+  },
+  content: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  unit: {
+    lineHeight: Layout.HEIGHT.RECORD_UNIT_LINE_HEIGHT,
+  },
 })

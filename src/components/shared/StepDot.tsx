@@ -1,5 +1,6 @@
-import { View, XStack, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
 
+import { useThemedStyles } from '@/hooks'
 import { useStepProgress } from '@/store'
 
 export function StepDot() {
@@ -7,38 +8,39 @@ export function StepDot() {
     state: { currentStep, totalSteps },
   } = useStepProgress()
 
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    isCurrentStep: {
+      backgroundColor: colors.surface.primary,
+    },
+    dot: {
+      backgroundColor: colors.surface.inverse,
+    },
+  }))
   return (
-    <Container>
-      <SpacingBox>
-        {Array.from({ length: totalSteps }, (_, i) => (
-          <Dot key={i} isCurrentStep={i === currentStep} />
-        ))}
-      </SpacingBox>
-    </Container>
+    <View style={styles.container}>
+      {Array.from({ length: totalSteps }, (_, i) => (
+        <View
+          style={[
+            styles.dot,
+            i === currentStep ? themedStyles.isCurrentStep : themedStyles.dot,
+          ]}
+          key={i}
+        />
+      ))}
+    </View>
   )
 }
 
-const Container = styled(View, {
-  items: 'center',
-  flex: 1,
-  my: '$2',
-})
-
-const SpacingBox = styled(XStack, {
-  gap: '$2',
-})
-
-const Dot = styled(View, {
-  width: '$1',
-  height: '$0.75',
-  rounded: '$4',
-  bg: '$gray7',
-
-  variants: {
-    isCurrentStep: {
-      true: {
-        bg: '$gray12',
-      },
-    },
-  } as const,
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    flex: 1,
+    marginVertical: 4,
+    gap: 4,
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 8,
+  },
 })

@@ -1,29 +1,29 @@
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View, styled } from 'tamagui'
+import { StyleSheet } from 'react-native'
+import { Text } from 'react-native-paper'
+import Animated, { FadeIn } from 'react-native-reanimated'
 
-import { BaseText, H5 } from '@/components/shared'
+import { H5 } from '@/components/shared'
 
 function _EmptyContent() {
   const { t } = useTranslation()
 
   return (
-    <Container>
+    <Animated.View style={styles.container} entering={FadeIn}>
       <H5>{t('statistics.empty.title')}</H5>
-      <BaseText>{t('statistics.empty.description')}</BaseText>
-    </Container>
+      <Text>{t('statistics.empty.description')}</Text>
+    </Animated.View>
   )
 }
 
-const Container = styled(View, {
-  flex: 1,
-  justify: 'space-between',
-  flexDirection: 'column',
-  gap: '$2',
-  animation: 'quick',
-  animateOnly: ['opacity'],
-  enterStyle: { opacity: 0 },
-  exitStyle: { opacity: 0 },
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    gap: 4,
+  },
 })
 
 export const EmptyContent = memo(_EmptyContent)

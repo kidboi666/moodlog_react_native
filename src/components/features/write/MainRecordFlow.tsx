@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import { AnimatePresence, View, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
 
 import { MoodPagination } from '@/components/features/mood'
 import { PaginationDot } from '@/components/shared'
-import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants'
 import { useStepProgress } from '@/store'
 import { JournalDraft, Moods } from '@/types'
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 import { EnhancedTextInput } from './EnhancedTextInput'
 import { MoodListPreview } from './MoodListPreview'
 
@@ -45,9 +45,9 @@ export function MainRecordFlow({
   }, [moods, onMoodIdChange])
 
   return (
-    <AnimatePresence>
+    <Animated.View entering={FadeIn} exiting={FadeOut} style={styles.container}>
       {currentStep !== 2 && (
-        <ZStackContainer>
+        <View style={styles.contentBox}>
           <MoodListPreview
             moods={moods}
             showDeleteButton={currentStep === 0}
@@ -69,7 +69,7 @@ export function MainRecordFlow({
             setPage={setPage}
             totalPage={totalPage}
           />
-        </ZStackContainer>
+        </View>
       )}
       {currentStep === 2 && (
         <EnhancedTextInput
@@ -81,15 +81,16 @@ export function MainRecordFlow({
           onImageUriChange={onImageUriChange}
         />
       )}
-    </AnimatePresence>
+    </Animated.View>
   )
 }
 
-const ZStackContainer = styled(View, {
-  flex: 1,
-  items: 'center',
-  animation: 'lazy',
-  enterStyle: MOUNT_STYLE,
-  exitStyle: MOUNT_STYLE,
-  animateOnly: MOUNT_STYLE_KEY,
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  contentBox: {
+    flex: 1,
+    alignItems: 'center',
+  },
 })

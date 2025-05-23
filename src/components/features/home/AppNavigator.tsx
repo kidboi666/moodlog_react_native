@@ -8,7 +8,7 @@ export function AppNavigator() {
   const themedStyles = useThemedStyles(({ colors }) => ({
     rootView: {
       flex: 1,
-      backgroundColor: colors.background.pure,
+      backgroundColor: colors.action.primary,
     },
   }))
 

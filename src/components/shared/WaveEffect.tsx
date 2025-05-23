@@ -13,7 +13,6 @@ import {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
-import { Portal } from 'tamagui'
 
 interface Props {
   active: boolean
@@ -49,24 +48,22 @@ export function WaveEffect({
   }, [active])
 
   return (
-    <Portal>
-      <Canvas style={{ flex: 1 }}>
-        <Circle cx={width / 4} cy={leftY} r={r} color={color} opacity={0.9}>
+    <Canvas style={{ flex: 1 }}>
+      <Circle cx={width / 4} cy={leftY} r={r} color={color} opacity={0.9}>
+        <Blur blur={blur} />
+      </Circle>
+      <Circle cx={width / 1.2} cy={rightY} r={r} color={color}>
+        <Blur blur={blur} />
+      </Circle>
+      <Group>
+        <SRGBToLinearGamma>
+          <BlendColor color={color} mode='srcIn' />
+        </SRGBToLinearGamma>
+        <Circle cx={width / 3.2} cy={topY} r={r} color={color} opacity={0.6}>
           <Blur blur={blur} />
         </Circle>
-        <Circle cx={width / 1.2} cy={rightY} r={r} color={color}>
-          <Blur blur={blur} />
-        </Circle>
-        <Group>
-          <SRGBToLinearGamma>
-            <BlendColor color={color} mode='srcIn' />
-          </SRGBToLinearGamma>
-          <Circle cx={width / 3.2} cy={topY} r={r} color={color} opacity={0.6}>
-            <Blur blur={blur} />
-          </Circle>
-        </Group>
-        {children}
-      </Canvas>
-    </Portal>
+      </Group>
+      {children}
+    </Canvas>
   )
 }

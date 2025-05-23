@@ -3,13 +3,14 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 
-import { ProfileAvatar, ProfileMenuItem } from '@/components/features/setting'
+import { ProfileMenuItem } from '@/components/features/setting'
 import { BaseText, H1, ScreenView } from '@/components/shared'
 import { useThemedStyles } from '@/hooks'
 import { UserQueries } from '@/queries'
 import { useAuth } from '@/store'
 import type { NewUserInfo } from '@/types'
 import { getDaysSinceSignup } from '@/utils'
+import { Avatar } from 'react-native-paper'
 
 export default function ProfileScreen() {
   const { t } = useTranslation()
@@ -54,7 +55,7 @@ export default function ProfileScreen() {
         <H1>{t('settings.profile.title') || 'Profile'}</H1>
       </View>
       <View style={styles.container}>
-        <ProfileAvatar avatarUrl={form.avatar_url || ''} />
+        <Avatar.Image size={24} source={{ uri: form.avatar_url || '' }} />
         {/* User ID */}
         <View style={styles.menuSpacing}>
           <BaseText style={themedStyles.title}>

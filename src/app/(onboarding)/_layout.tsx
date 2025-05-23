@@ -1,24 +1,28 @@
 import { Stack } from 'expo-router'
 
-import { HeaderContent, StepDot } from '@/components/shared'
-import { useColors } from '@/hooks'
+import { StepDot } from '@/components/shared'
+import { useThemedStyles } from '@/hooks'
 import { StepProgressProvider } from '@/providers'
 
 export default function Layout() {
-  const { colors } = useColors()
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    content: {
+      backgroundColor: colors.background.primary,
+    },
+    header: {
+      backgroundColor: colors.background.primary,
+    },
+  }))
   return (
     <StepProgressProvider totalSteps={5}>
       <Stack
         screenOptions={{
           headerShown: true,
-          header: () => (
-            <HeaderContent>
-              <StepDot />
-            </HeaderContent>
-          ),
-          contentStyle: {
-            backgroundColor: colors.background.primary,
-          },
+          headerShadowVisible: false,
+          headerStyle: themedStyles.header,
+          headerTitle: () => <StepDot />,
+          headerTitleAlign: 'center',
+          contentStyle: themedStyles.content,
           animation: 'fade',
           gestureEnabled: false,
         }}

@@ -1,6 +1,6 @@
-import { useToastController } from '@tamagui/toast'
 import { queryOptions, useMutation } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
+import Toast from 'react-native-toast-message'
 
 import { queryKeys } from '@/constants'
 import { useExceptionHandle } from '@/hooks'
@@ -33,12 +33,11 @@ export function useSignInGoogle() {
 }
 
 export function useUpdateUserInfo() {
-  const toast = useToastController()
   const { onError } = useExceptionHandle()
   return useMutation({
     mutationFn: (args: UpdateUserInfoParams) => updateUserInfo(args),
     onSuccess: () => {
-      toast.show('유저 정보가 수정되었습니다.')
+      Toast.show({ type: 'success', text1: '유저 정보가 수정되었습니다.' })
     },
     onError: error => onError('유저 정보 수정에 실패했습니다', error),
   })

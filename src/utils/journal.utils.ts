@@ -47,12 +47,3 @@ export function groupJournalsByMonth(journals: Journal[]) {
   })
   return groupedJournals
 }
-
-export function syncSelectedJournalsAfterDelete(
-  selectedJournals: SelectedJournals,
-  excludeId: string,
-) {
-  if (!Array.isArray(selectedJournals)) return selectedJournals
-  if (selectedJournals.length === 1) return []
-  return selectedJournals.filter(journal => journal.id !== excludeId)
-}

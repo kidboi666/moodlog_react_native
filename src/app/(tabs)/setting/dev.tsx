@@ -1,10 +1,3 @@
-import {
-  Activity,
-  Database,
-  LogOut,
-  Server,
-  Users,
-} from '@tamagui/lucide-icons'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { Button } from 'react-native-paper'
@@ -33,7 +26,7 @@ export default function DevScreen() {
             </Button>
           </View>
           <View style={styles.column}>
-            <Button onPress={signOut} icon={<LogOut size='$1' />}>
+            <Button onPress={signOut} icon='logout'>
               로그아웃
             </Button>
           </View>
@@ -41,10 +34,8 @@ export default function DevScreen() {
 
         <SettingsContainer title={t('settings.dev.network')}>
           <View style={styles.column}>
-            <Button icon={<Activity size='$1' />}>
-              {t('settings.dev.apiCalls')}
-            </Button>
-            <Button icon={<Server size='$1' />}>
+            <Button icon='api'>{t('settings.dev.apiCalls')}</Button>
+            <Button icon='server-network'>
               {t('settings.dev.serverStatus')}
             </Button>
           </View>
@@ -52,20 +43,14 @@ export default function DevScreen() {
 
         <SettingsContainer title={t('settings.dev.appStatus')}>
           <View style={styles.column}>
-            <Button icon={<Database size='$1' />}>
-              {t('settings.dev.appVersion')}
-            </Button>
-            <Button icon={<Activity size='$1' />}>
-              {t('settings.dev.logs')}
-            </Button>
+            <Button icon='database'>{t('settings.dev.appVersion')}</Button>
+            <Button icon='log'>{t('settings.dev.logs')}</Button>
           </View>
         </SettingsContainer>
 
         <SettingsContainer title={t('settings.dev.memberInfo')}>
           <View style={styles.column}>
-            <Button icon={<Users size='$1' />}>
-              {t('settings.dev.loadMemberInfo')}
-            </Button>
+            <Button icon='account'>{t('settings.dev.loadMemberInfo')}</Button>
           </View>
         </SettingsContainer>
       </View>

@@ -1,48 +1,49 @@
-import { BaseText } from '@/components/shared'
+import { StyleSheet, View } from 'react-native'
+import { Text } from 'react-native-paper'
+
+import { H3 } from '@/components/shared'
 import { WEEK_DAY } from '@/constants'
-import { XStack, YStack, styled } from 'tamagui'
-import { LinearGradient } from 'tamagui/linear-gradient'
+import { useColors } from '@/hooks'
+import { LinearGradient } from 'expo-linear-gradient'
 
 const mockData = [true, true, false, false, false, false, false]
 
 export function DayBox() {
+  const { tokens } = useColors()
+  const fillDay = [tokens.primary['900'], tokens.primary['400']]
+  const emptyDay = [tokens.neutral['900'], tokens.neutral['400']]
   return (
-    <XStack>
+    <View style={styles.container}>
       {Object.values(WEEK_DAY).map((day, i) => (
-        <DayContainer key={day}>
-          <CircleGradient isCompleted={mockData[i]} />
-          <DayText>{day}</DayText>
-        </DayContainer>
+        <View key={day} style={styles.dayBox}>
+          <LinearGradient
+            style={styles.gradient}
+            colors={mockData[i] ? (fillDay as any) : (emptyDay as any)}
+            start={{ x: 0, y: 0.2 }}
+            end={{ x: 2, y: 3 }}
+          />
+          <H3>{day}</H3>
+        </View>
       ))}
-    </XStack>
+    </View>
   )
 }
 
-const DayContainer = styled(YStack, {
-  flex: 1,
-  gap: '$2',
-  items: 'center',
-})
-
-const CircleGradient = styled(LinearGradient, {
-  width: '$3',
-  height: '$3',
-  rounded: '$8',
-  start: [0, 0.2],
-  end: [2, 3],
-
-  variants: {
-    isCompleted: {
-      true: {
-        colors: ['$green10', '$green5'],
-      },
-      false: {
-        colors: ['$gray7', '$gray4'],
-      },
-    },
-  } as const,
-})
-
-const DayText = styled(BaseText, {
-  defaultFontSize: '$3',
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  dayBox: {
+    flex: 1,
+    gap: 4,
+    alignItems: 'center',
+  },
+  gradient: {
+    width: 8,
+    height: 8,
+    borderRadius: 8,
+  },
 })

@@ -1,59 +1,35 @@
 import { useTranslation } from 'react-i18next'
-import { YStack, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
+import { Text } from 'react-native-paper'
 
-import { BaseText } from '@/components/shared'
+import { useThemedStyles } from '@/hooks'
 import { getDateFromISODate, getDayFromISODate } from '@/utils'
 
 interface DayAndDateProps {
-  selected: boolean
-  futureDateColor: '$color6' | '$color11' | '$color12'
+  futureDateColor: string
   date: `${number}-${number}-${number}`
 }
 
-export function DayAndDate({
-  selected,
-  futureDateColor,
-  date,
-}: DayAndDateProps) {
+export function DayAndDate({ futureDateColor, date }: DayAndDateProps) {
   const { t } = useTranslation()
+  const themedStyles = useThemedStyles(() => ({
+    text: {
+      color: futureDateColor,
+    },
+  }))
   return (
-    <DateTextWrapper>
-      <DayText isSelected={selected}>
+    <View style={styles.container}>
+      <Text style={themedStyles.text}>
         {t(`calendar.days.${getDayFromISODate(date)}`)}
-      </DayText>
-      <DateText futureDateColor={futureDateColor}>
-        {getDateFromISODate(date)}
-      </DateText>
-    </DateTextWrapper>
+      </Text>
+      <Text style={themedStyles.text}>{getDateFromISODate(date)}</Text>
+    </View>
   )
 }
 
-const DateTextWrapper = styled(YStack, {
-  gap: '$2',
-  items: 'center',
-})
-
-const DayText = styled(BaseText, {
-  color: '$gray9',
-
-  variants: {
-    isSelected: {
-      true: {
-        color: '$gray12',
-      },
-    },
-  } as const,
-})
-
-const DateText = styled(BaseText, {
-  fontWeight: '800',
-  fontSize: '$6',
-
-  variants: {
-    futureDateColor: {
-      ':string': color => {
-        return { color }
-      },
-    },
-  } as const,
+const styles = StyleSheet.create({
+  container: {
+    gap: 4,
+    alignItems: 'center',
+  },
 })

@@ -1,5 +1,4 @@
 import { useThemedStyles } from '@/hooks'
-import { StyleSheet } from 'react-native'
 import { TextInput, TextInputProps } from 'react-native-paper'
 
 interface Props extends TextInputProps {

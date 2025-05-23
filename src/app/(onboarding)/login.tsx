@@ -1,16 +1,9 @@
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
-import { Button } from 'react-native-paper'
+import { Button, Text } from 'react-native-paper'
 
-import {
-  BaseText,
-  Delay,
-  GoogleIcon,
-  H1,
-  H3,
-  ScreenView,
-} from '@/components/shared'
+import { Delay, GoogleIcon, H1, H3, ScreenView } from '@/components/shared'
 import { DelayMS } from '@/constants'
 import { useColors, useThemedStyles } from '@/hooks'
 import { useSignInGoogle, useUpdateUserInfo } from '@/queries'
@@ -75,9 +68,7 @@ export default function LoginScreen() {
               {t('auth.signInWithGoogle')}
             </Button>
 
-            {error && (
-              <BaseText style={[styles.error]}>{error.message}</BaseText>
-            )}
+            {error && <Text style={[styles.error]}>{error.message}</Text>}
           </View>
         </Delay>
       </View>

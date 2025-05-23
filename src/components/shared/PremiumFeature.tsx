@@ -1,10 +1,10 @@
-import { useToastController } from '@tamagui/toast'
 import { ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'tamagui'
+import { View } from 'react-native'
 
 import { useApp } from '@/store'
 import { SubscriptionTier } from '@/types'
+import Toast from 'react-native-toast-message'
 
 interface Props {
   children: ReactNode
@@ -22,19 +22,19 @@ export function PremiumFeature({
   showToast = true,
 }: Props) {
   const subscriptionTier = useApp(state => state.subscriptionTier)
-  const toast = useToastController()
   const { t } = useTranslation()
 
   const isPremium = subscriptionTier === SubscriptionTier.PREMIUM
 
   useEffect(() => {
     if (!isPremium && showToast) {
-      toast.show(t('notifications.premium.title'), {
-        message: t('notifications.premium.message'),
-        preset: 'notice',
+      Toast.show({
+        text1: t('notifications.premium.title'),
+        text2: t('notifications.premium.message'),
+        type: 'notice',
       })
     }
-  }, [isPremium, showToast, toast, t])
+  }, [isPremium, showToast, t])
 
   return isPremium ? children : fallback || <View />
 }

@@ -93,7 +93,7 @@ export function useAddJournal() {
     },
     onSuccess: data => {
       router.replace({
-        pathname: '/(tabs)/journal/[journalId]',
+        pathname: '/journal/[journalId]',
         params: { journalId: data[0].id, isNewJournal: 'true' },
       })
     },

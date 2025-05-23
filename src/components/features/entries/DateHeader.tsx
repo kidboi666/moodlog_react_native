@@ -1,14 +1,10 @@
-import { useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
-import { XStack, YStack, styled } from 'tamagui'
-
-import { BaseText } from '@/components/shared'
-import { useFontSizeAdjustment } from '@/hooks'
+import { useThemedStyles } from '@/hooks'
 import type { ISODateString } from '@/types'
 import { getDateFromISODate, getDayFromISODate, getMonthKey } from '@/utils'
-
-// 요일 문자열 배열 (일요일부터 토요일까지)
-const WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토']
+import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
+import { StyleSheet, View } from 'react-native'
+import { Divider, Text } from 'react-native-paper'
 
 interface DateHeaderProps {
   date: string
@@ -16,10 +12,7 @@ interface DateHeaderProps {
 
 export function DateHeader({ date }: DateHeaderProps) {
   const { t, i18n } = useTranslation()
-  const fontSize = useFontSizeAdjustment('$6')
-  const smallFontSize = useFontSizeAdjustment('$4')
   const dateInfo = useMemo(() => {
-    // date는 ISO 포맷(YYYY-MM-DD)의 문자열입니다.
     const dateObj = new Date(date)
     const dayOfMonth = getDateFromISODate(date as ISODateString)
     const monthKey = getMonthKey(dateObj.getMonth())
@@ -37,69 +30,48 @@ export function DateHeader({ date }: DateHeaderProps) {
     }
   }, [date, i18n.language])
 
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    dateCircle: {
+      backgroundColor: colors.background.primary,
+    },
+  }))
   return (
-    <DateHeaderContainer>
-      {/* 날짜 표시 원형 컨테이너 */}
-      <DateCircle>
-        <DateTextStack>
-          <DayText fontSize={fontSize}>{dateInfo.day}</DayText>
-          <WeekdayText fontSize={smallFontSize}>{dateInfo.weekday}</WeekdayText>
-        </DateTextStack>
-      </DateCircle>
-
-      {/* 월 표시 */}
-      <MonthText fontSize={fontSize}>{dateInfo.month}</MonthText>
-
-      {/* 구분선 */}
-      <Divider />
-    </DateHeaderContainer>
+    <View style={styles.container}>
+      <View style={[styles.dateCircle, themedStyles.dateCircle]}>
+        <View style={styles.circleInner}>
+          <Text variant='titleMedium'>{dateInfo.day}</Text>
+          <Text variant='titleSmall'>{dateInfo.weekday}</Text>
+        </View>
+      </View>
+      <Text variant='titleLarge'>{dateInfo.month}</Text>
+      <Divider bold style={styles.divider} />
+    </View>
   )
 }
 
-const DateHeaderContainer = styled(XStack, {
-  mt: '$6',
-  mb: '$3',
-  px: '$2',
-  items: 'center',
-  gap: '$3',
-})
-
-const DateCircle = styled(XStack, {
-  width: 52,
-  height: 52,
-  rounded: 26,
-  bg: '$gray2',
-  borderWidth: 1,
-  borderColor: '$gray4',
-  justify: 'center',
-  items: 'center',
-  shadowColor: '$gray8',
-  shadowOffset: { width: 0, height: 1 },
-  shadowOpacity: 0.1,
-  shadowRadius: 2,
-})
-
-const DateTextStack = styled(YStack, {
-  items: 'center',
-})
-
-const DayText = styled(BaseText, {
-  fontWeight: '800',
-  color: '$gray12',
-})
-
-const WeekdayText = styled(BaseText, {
-  fontWeight: '500',
-  color: '$gray10',
-})
-
-const MonthText = styled(BaseText, {
-  fontWeight: '600',
-  color: '$gray11',
-})
-
-const Divider = styled(XStack, {
-  flex: 1,
-  height: 1,
-  bg: '$gray4',
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 40,
+    marginBottom: 12,
+    paddingHorizontal: 4,
+    gap: 8,
+  },
+  divider: { flex: 1 },
+  dateCircle: {
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 4,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+  },
+  circleInner: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
 })

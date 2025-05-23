@@ -1,8 +1,8 @@
-import { ChevronLeft, ChevronRight } from '@tamagui/lucide-icons'
 import { useTranslation } from 'react-i18next'
-import { Button, XStack, YStack, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
+import { Text } from 'react-native-paper'
 
-import { BaseText, H3 } from '@/components/shared'
+import { H3, IconButton } from '@/components/shared'
 import { Layout, MOUNT_STYLE } from '@/constants'
 import { useStepProgress } from '@/store'
 
@@ -30,45 +30,41 @@ export function JournalMenuSelector() {
   const { t } = useTranslation()
 
   return (
-    <Container>
-      <Button
-        scaleIcon={1.5}
-        color='$color11'
-        icon={ChevronLeft}
+    <View style={styles.container}>
+      <IconButton
+        icon='chevron-left'
         disabled={currentStep === 0}
-        opacity={currentStep === 0 ? 0.2 : 1}
+        style={currentStep === 0 ? styles.canNotGo : undefined}
         onPress={goToPrevStep}
       />
-      <TitleYStack key={currentStep}>
-        <H3 text='center'>{t(menuList[currentStep].title)}</H3>
-        <BaseText text='center'>
+      <View key={currentStep}>
+        <H3 style={styles.textCenter}>{t(menuList[currentStep].title)}</H3>
+        <Text style={styles.textCenter}>
           {t(menuList[currentStep].description)}
-        </BaseText>
-      </TitleYStack>
-      <Button
-        scaleIcon={1.5}
-        color='$color11'
-        icon={ChevronRight}
+        </Text>
+      </View>
+      <IconButton
+        icon='chevron-right'
         disabled={currentStep === totalSteps - 1}
-        opacity={currentStep === totalSteps - 1 ? 0.2 : 1}
+        style={currentStep === totalSteps - 1 ? styles.canNotGo : undefined}
         onPress={goToNextStep}
       />
-    </Container>
+    </View>
   )
 }
 
-const Container = styled(XStack, {
-  px: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
-  gap: '$4',
-  justify: 'space-between',
-  items: 'center',
-})
-
-const TitleYStack = styled(YStack, {
-  gap: '$2',
-  overflow: 'hidden',
-  animation: 'lazy',
-  enterStyle: MOUNT_STYLE,
-  exitStyle: MOUNT_STYLE,
-  flex: 1,
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
+    gap: 16,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  canNotGo: {
+    opacity: 0.2,
+  },
+  textCenter: {
+    textAlign: 'center',
+  },
 })

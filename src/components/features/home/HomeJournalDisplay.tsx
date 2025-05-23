@@ -1,4 +1,4 @@
-import { Spinner, View } from 'tamagui'
+import { ActivityIndicator as Spinner } from 'react-native-paper'
 
 import { EmptyJournal, JournalCard } from '@/components/features/journal'
 import { Delay } from '@/components/shared'
@@ -18,11 +18,7 @@ export function HomeJournalDisplay({
 }: Props) {
   const delay = firstRender ? DelayMS.ANIMATION.MEDIUM[3] : undefined
   if (isLoading) {
-    return (
-      <View height='$12' items='center' justify='center'>
-        <Spinner size='large' />
-      </View>
-    )
+    return <Spinner size='large' />
   }
 
   return Array.isArray(journals) && journals.length > 0 ? (

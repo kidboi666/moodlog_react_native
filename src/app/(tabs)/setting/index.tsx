@@ -1,11 +1,11 @@
 import { type Href, useRouter } from 'expo-router'
-import { useCallback } from 'react'
+import { Fragment, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
-import { List } from 'react-native-paper'
+import { Divider, List, Text } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
-import { BaseText, H1, ScreenView } from '@/components/shared'
+import { ScreenView } from '@/components/shared'
 
 const devSection = __DEV__
   ? {
@@ -78,7 +78,9 @@ const loginSection = {
   ],
 }
 
-type SettingSection = {
+const AnimatedScreenView = Animated.createAnimatedComponent(ScreenView)
+
+interface SettingSection {
   title: string
   items: {
     label: string
@@ -87,8 +89,6 @@ type SettingSection = {
     action?: () => void
   }[]
 }
-
-const AnimatedScreenView = Animated.createAnimatedComponent(ScreenView)
 
 export default function SettingsScreen() {
   const { t } = useTranslation()
@@ -110,36 +110,43 @@ export default function SettingsScreen() {
 
   return (
     <AnimatedScreenView
+      entering={FadeIn.duration(800)}
       withScroll
       edges={['top']}
       padded
       style={styles.container}
-      entering={FadeIn.duration(800)}
     >
-      <H1>{t('settings.title')}</H1>
+      <Text variant='titleLarge'>{t('settings.title')}</Text>
       <View style={styles.contentBox}>
         {sections.map(({ title, items }) => (
           <List.Section key={title}>
             <List.Subheader>{t(title)}</List.Subheader>
-            {items.map(menu => (
-              <List.Item
-                key={menu.label}
-                title={t(menu.label)}
-                left={() => <List.Icon icon={menu.icon} color='black' />}
-                onPress={() => handleRouteChange(menu.route)}
-              />
+            {items.map((menu, i) => (
+              <Fragment key={menu.label}>
+                <List.Item
+                  key={menu.label}
+                  title={t(menu.label)}
+                  style={styles.item}
+                  left={() => <List.Icon icon={menu.icon} color='black' />}
+                  onPress={() => handleRouteChange(menu.route)}
+                />
+                {i + 1 < items.length && <Divider />}
+              </Fragment>
             ))}
           </List.Section>
         ))}
       </View>
       <View style={styles.copyrightBox}>
-        <BaseText>© 2025 Moodlog. All rights reserved.</BaseText>
+        <Text>© 2025 Moodlog. All rights reserved.</Text>
       </View>
     </AnimatedScreenView>
   )
 }
 
 const styles = StyleSheet.create({
+  animatedContainer: {
+    flex: 1,
+  },
   container: {
     gap: 12,
   },
@@ -149,5 +156,8 @@ const styles = StyleSheet.create({
   copyrightBox: {
     alignItems: 'center',
     marginTop: 12,
+  },
+  item: {
+    marginLeft: 8,
   },
 })

@@ -1,8 +1,6 @@
 import { Stack, useRouter } from 'expo-router'
-import { useCallback } from 'react'
-import { StyleSheet, View } from 'react-native'
-import { IconButton, useTheme } from 'react-native-paper'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { StyleSheet } from 'react-native'
+import { IconButton } from 'react-native-paper'
 
 import { H3 } from '@/components/shared'
 import { Layout } from '@/constants'
@@ -14,58 +12,40 @@ export default function EntriesLayout() {
   const { colors } = useColors()
   const { selectedMonth, onSelectedMonthChange, selectedYear } = useCalendar()
 
-  const handleLeftPress = useCallback(() => {
-    const monthString = convertMonthString(selectedMonth, 'prev')
+  const handlePress = (prevOrNext: 'prev' | 'next') => {
+    const monthString = convertMonthString(selectedMonth, prevOrNext)
     onSelectedMonthChange(monthString)
     router.setParams({ selectedYear, selectedMonth: monthString })
-  }, [onSelectedMonthChange, selectedMonth])
-
-  const handleRightPress = useCallback(() => {
-    const monthString = convertMonthString(selectedMonth, 'next')
-    onSelectedMonthChange(monthString)
-    router.setParams({ selectedYear, selectedMonth: monthString })
-  }, [onSelectedMonthChange, selectedMonth])
+  }
 
   const selectedMonthToRender = selectedMonth.replace('-', '.')
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Stack
-        screenOptions={{
-          header: () => (
-            <View style={styles.header}>
-              <IconButton
-                mode='contained'
-                icon='arrow-left'
-                onPress={handleLeftPress}
-              />
-              <H3>{selectedMonthToRender}</H3>
-              <IconButton
-                mode='contained'
-                icon='arrow-right'
-                onPress={handleRightPress}
-              />
-            </View>
-          ),
-          contentStyle: {
-            backgroundColor: colors.background.pure,
-          },
-          gestureEnabled: true,
-        }}
-      >
-        <Stack.Screen name='index' />
-      </Stack>
-    </SafeAreaView>
+    <Stack
+      screenOptions={{
+        headerTitle: () => <H3>{selectedMonthToRender}</H3>,
+        headerTitleAlign: 'center',
+        headerLeft: () => (
+          <IconButton
+            mode='contained'
+            icon='arrow-left'
+            onPress={() => handlePress('prev')}
+          />
+        ),
+        headerRight: () => (
+          <IconButton
+            mode='contained'
+            icon='arrow-right'
+            onPress={() => handlePress('next')}
+          />
+        ),
+        contentStyle: {
+          backgroundColor: colors.background.pure,
+        },
+        gestureEnabled: true,
+      }}
+    >
+      <Stack.Screen name='index' />
+    </Stack>
   )
 }
-
-const styles = StyleSheet.create({
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-    paddingVertical: Layout.SPACE.HEADER_VERTICAL_PADDING,
-    paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
-  },
-})

@@ -4,14 +4,13 @@ import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, StyleSheet, View } from 'react-native'
-import { Button } from 'react-native-paper'
 
 import {
+  Button,
   FormInput,
   FormInputArea,
   H1,
   H4,
-  PressableButton,
   ScreenView,
 } from '@/components/shared'
 
@@ -71,7 +70,6 @@ export default function BugReportScreen() {
           value={bugDescription}
           onChangeText={setBugDescription}
           placeholder={t('settings.bugReport.descriptionPlaceholder')}
-          height={150}
           autoCapitalize='none'
         />
       </View>
@@ -102,16 +100,11 @@ export default function BugReportScreen() {
         )}
       </View>
 
-      <PressableButton
-        bg='$color12'
-        color='white'
-        onPress={handleSubmit}
-        disabled={isSubmitting}
-      >
+      <Button onPress={handleSubmit} disabled={isSubmitting}>
         {isSubmitting
           ? t('settings.bugReport.submitting')
           : t('settings.bugReport.submitButton')}
-      </PressableButton>
+      </Button>
     </ScreenView>
   )
 }

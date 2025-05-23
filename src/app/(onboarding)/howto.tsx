@@ -1,17 +1,8 @@
 import { useRouter } from 'expo-router'
-import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
-import { Button } from 'react-native-paper'
+import { Button, Text } from 'react-native-paper'
 
-import {
-  BaseText,
-  Delay,
-  H1,
-  H2,
-  H3,
-  H5,
-  ScreenView,
-} from '@/components/shared'
+import { Delay, H1, H2, H3, H5, ScreenView } from '@/components/shared'
 import { DelayMS } from '@/constants'
 import { useColors, useThemedStyles } from '@/hooks'
 import { useStepProgress } from '@/store'
@@ -133,7 +124,7 @@ function Step({ number, title, description }: Props) {
       </View>
       <View style={styles.stepContentBox}>
         <H3>{title}</H3>
-        <BaseText>{description}</BaseText>
+        <Text>{description}</Text>
       </View>
     </View>
   )

@@ -1,3 +1,5 @@
+import configureFonts from 'react-native-paper/src/styles/fonts'
+
 export const fontsToLoad = {
   'Pretendard-Medium': require('../../../assets/fonts/Pretendard-Medium.ttf'),
   'Pretendard-Regular': require('../../../assets/fonts/Pretendard-Regular.ttf'),
@@ -12,8 +14,37 @@ export const fontsToLoad = {
   'Esamanru-Medium': require('../../../assets/fonts/Esamanru-Medium.otf'),
   'Esamanru-Bold': require('../../../assets/fonts/Esamanru-Bold.otf'),
   'LeeSeoyun-Regular': require('../../../assets/fonts/LeeSeoyun-Regular.ttf'),
-  'Inter-Regular': require('@tamagui/font-inter/otf/Inter-Regular.otf'),
-  'Inter-Medium': require('@tamagui/font-inter/otf/Inter-Medium.otf'),
-  'Inter-Bold': require('@tamagui/font-inter/otf/Inter-Bold.otf'),
-  'Inter-SemiBold': require('@tamagui/font-inter/otf/Inter-SemiBold.otf'),
 }
+
+const baseFont = {
+  fontFamily: 'Pretendard-Regular',
+} as const
+
+export const baseVariants = configureFonts({ config: baseFont })
+
+export const customVariants = {
+  h1: {
+    fontWeight: 'bold',
+    fontSize: 36,
+  },
+  h2: {
+    fontWeight: 'bold',
+    fontSize: 30,
+  },
+  h3: {
+    fontWeight: 'bold',
+    fontSize: 24,
+  },
+  h4: {
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  h5: {
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  h6: {
+    fontWeight: 'bold',
+    fontSize: 14,
+  },
+} as const

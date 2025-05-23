@@ -1,18 +1,24 @@
-import { ChevronDown } from '@tamagui/lucide-icons'
 import { useRouter } from 'expo-router'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, StyleSheet, View } from 'react-native'
+import { Button, RadioButton } from 'react-native-paper'
 
 import {
   FormInput,
   FormInputArea,
   H1,
   H6,
-  PressableButton,
   ScreenView,
 } from '@/components/shared'
-import { List } from 'react-native-paper'
+
+const categories = [
+  { name: 'settings.qna.categoryFeature', value: 'feature' },
+  { name: 'settings.qna.categoryUsage', value: 'usage' },
+  { name: 'settings.qna.categoryAccount', value: 'account' },
+  { name: 'settings.qna.categoryPayment', value: 'payment' },
+  { name: 'settings.qna.categoryEtc', value: 'etc' },
+]
 
 export default function QnA() {
   const router = useRouter()
@@ -21,14 +27,6 @@ export default function QnA() {
   const [email, setEmail] = useState('')
   const [category, setCategory] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const categories = [
-    { name: t('settings.qna.categoryFeature'), value: 'feature' },
-    { name: t('settings.qna.categoryUsage'), value: 'usage' },
-    { name: t('settings.qna.categoryAccount'), value: 'account' },
-    { name: t('settings.qna.categoryPayment'), value: 'payment' },
-    { name: t('settings.qna.categoryEtc'), value: 'etc' },
-  ]
 
   const handleSubmit = async () => {
     if (!question.trim()) {
@@ -65,37 +63,22 @@ export default function QnA() {
       <H1>{t('settings.qna.title')}</H1>
       <View style={styles.contentBox}>
         <H6>{t('settings.qna.categoryLabel')}</H6>
-        <List.Section value={category} onValueChange={setCategory}>
-          <List.Trigger iconAfter={ChevronDown}>
-            <Select.Value placeholder={t('settings.qna.categoryPlaceholder')} />
-          </List.Trigger>
-
-          <Select.Content zIndex={200_000}>
-            <Select.ScrollUpButton />
-            <Select.Viewport minW={200}>
-              <Select.Group>
-                <Select.Label>Menu</Select.Label>
-                {useMemo(
-                  () =>
-                    categories.map((item, i) => (
-                      <Select.Item
-                        key={item.value}
-                        index={i}
-                        value={item.value}
-                      >
-                        <Select.ItemText>{item.name}</Select.ItemText>
-                      </Select.Item>
-                    )),
-                  [],
-                )}
-              </Select.Group>
-            </Select.Viewport>
-            <Select.ScrollDownButton />
-          </Select.Content>
-        </List.Section>
+        <RadioButton.Group value={category} onValueChange={setCategory}>
+          {useMemo(
+            () =>
+              categories.map(item => (
+                <RadioButton.Item
+                  key={item.value}
+                  label={t(item.name)}
+                  value={item.value}
+                />
+              )),
+            [],
+          )}
+        </RadioButton.Group>
       </View>
 
-      <YStack gap='$2'>
+      <View style={styles.menu}>
         <H6>{t('settings.qna.questionLabel')}</H6>
         <FormInputArea
           height={200}
@@ -104,8 +87,8 @@ export default function QnA() {
           onChangeText={setQuestion}
           autoCapitalize='none'
         />
-      </YStack>
-      <YStack gap='$2'>
+      </View>
+      <View style={styles.menu}>
         <H6>{t('settings.qna.emailLabel')}</H6>
         <FormInput
           placeholder={t('settings.qna.emailPlaceholder')}
@@ -114,18 +97,12 @@ export default function QnA() {
           autoCapitalize='none'
           keyboardType='email-address'
         />
-      </YStack>
-      <PressableButton
-        mt='$4'
-        bg='$color12'
-        color='white'
-        onPress={handleSubmit}
-        disabled={isSubmitting}
-      >
+      </View>
+      <Button mode='elevated' onPress={handleSubmit} disabled={isSubmitting}>
         {isSubmitting
           ? t('settings.qna.submitting')
           : t('settings.qna.submitButton')}
-      </PressableButton>
+      </Button>
     </ScreenView>
   )
 }
@@ -135,6 +112,9 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   contentBox: {
+    gap: 4,
+  },
+  menu: {
     gap: 4,
   },
 })

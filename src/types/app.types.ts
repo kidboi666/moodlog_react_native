@@ -1,6 +1,6 @@
 import { FONT_SIZE } from '@/constants'
 
-export type FontSize = (typeof FONT_SIZE)[keyof typeof FONT_SIZE]
+export type FontSize = keyof typeof FONT_SIZE
 
 export enum Languages {
   EN = 'en',

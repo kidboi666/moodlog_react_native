@@ -1,10 +1,9 @@
-import { ImagePlus } from '@tamagui/lucide-icons'
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, View, XGroup, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
+import { Text } from 'react-native-paper'
 
-import { BaseText } from '@/components/shared'
-import { MOUNT_STYLE, MOUNT_STYLE_KEY } from '@/constants'
+import { Button } from '@/components/shared'
 
 interface Props {
   onImageUriChange: () => void
@@ -19,23 +18,18 @@ function _ActionButtons({ onImageUriChange, show }: Props) {
   }
 
   return (
-    <Container>
-      <XGroup>
-        <XGroup.Item>
-          <Button noTextWrap onPress={onImageUriChange} icon={ImagePlus}>
-            <BaseText>{t('common.addCover')}</BaseText>
-          </Button>
-        </XGroup.Item>
-      </XGroup>
-    </Container>
+    <View style={styles.container}>
+      <Button onPress={onImageUriChange} icon='image-plus'>
+        <Text>{t('common.addCover')}</Text>
+      </Button>
+    </View>
   )
 }
 
-const Container = styled(View, {
-  animation: 'lazy',
-  enterStyle: MOUNT_STYLE,
-  animateOnly: MOUNT_STYLE_KEY,
-  items: 'flex-end',
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'flex-end',
+  },
 })
 
 export const ActionButtons = memo(_ActionButtons)

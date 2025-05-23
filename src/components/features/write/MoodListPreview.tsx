@@ -1,10 +1,9 @@
 import { Trash } from '@tamagui/lucide-icons'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
-import { FlatList, useWindowDimensions } from 'react-native'
-import { AnimatePresence, View, styled } from 'tamagui'
+import { FlatList, StyleSheet, View, useWindowDimensions } from 'react-native'
 
 import { MoodPreviewItem } from '@/components/features/mood'
-import { PressableButton } from '@/components/shared'
+import { Button } from '@/components/shared'
 import {
   Layout,
   MOUNT_STYLE,
@@ -52,25 +51,23 @@ export function MoodListPreview({
   }, [page, moods])
 
   return (
-    <Container>
-      <AnimatePresence>
-        {showDeleteButton && (
-          <PressableButton
-            self='flex-end'
-            position='absolute'
-            animation='quick'
-            pressStyle={PRESS_STYLE}
-            enterStyle={MOUNT_STYLE}
-            exitStyle={MOUNT_STYLE}
-            animateOnly={[...PRESS_STYLE_KEY, ...MOUNT_STYLE_KEY]}
-            r={Layout.SPACE.CONTAINER_HORIZONTAL_PADDING}
-            scaleIcon={1.5}
-            icon={Trash}
-            z={100_000}
-            onPress={() => deleteMood(selectedMoodId ?? 0)}
-          />
-        )}
-      </AnimatePresence>
+    <View style={styles.container}>
+      {showDeleteButton && (
+        <Button
+          self='flex-end'
+          position='absolute'
+          animation='quick'
+          pressStyle={PRESS_STYLE}
+          enterStyle={MOUNT_STYLE}
+          exitStyle={MOUNT_STYLE}
+          animateOnly={[...PRESS_STYLE_KEY, ...MOUNT_STYLE_KEY]}
+          r={Layout.SPACE.CONTAINER_HORIZONTAL_PADDING}
+          scaleIcon={1.5}
+          icon={Trash}
+          z={100_000}
+          onPress={() => deleteMood(selectedMoodId ?? 0)}
+        />
+      )}
 
       <FlatList
         ref={flatListRef}
@@ -102,10 +99,11 @@ export function MoodListPreview({
         decelerationRate='fast'
         horizontal
       />
-    </Container>
+    </View>
   )
 }
-
-const Container = styled(View, {
-  flex: 1,
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
 })

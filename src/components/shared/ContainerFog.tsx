@@ -1,11 +1,10 @@
-import { Fragment, memo } from 'react'
-import { Platform } from 'react-native'
-import { styled, useTheme } from 'tamagui'
-import { LinearGradient } from 'tamagui/linear-gradient'
+import { useColors } from '@/hooks'
+import { LinearGradient } from 'expo-linear-gradient'
+import { memo } from 'react'
+import { StyleSheet } from 'react-native'
 
 export const ContainerFog = memo(() => {
-  const theme = useTheme()
-
+  const { colors } = useColors()
   const hexToRgb = (hex: string) => {
     const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i
     const formattedHex = hex.replace(
@@ -21,45 +20,35 @@ export const ContainerFog = memo(() => {
       : '255, 255, 255'
   }
 
-  const bgRgb = hexToRgb(theme.background.val)
+  const bgRgb = hexToRgb(colors.background.pure)
 
   const transparentBg = `rgba(${bgRgb}, 0)`
 
   return (
-    <Fragment>
-      <TopFog
-        colors={[
-          '$background',
-          `rgba(${bgRgb}, 0.9)`,
-          `rgba(${bgRgb}, 0.7)`,
-          `rgba(${bgRgb}, 0.3)`,
-          transparentBg,
-        ]}
-      />
-    </Fragment>
+    <LinearGradient
+      colors={[
+        colors.background.pure,
+        `rgba(${bgRgb}, 0.9)`,
+        `rgba(${bgRgb}, 0.7)`,
+        `rgba(${bgRgb}, 0.3)`,
+        transparentBg,
+      ]}
+      style={styles.background}
+    />
   )
 })
 
-const TopFog = styled(LinearGradient, {
-  position: 'absolute',
-  t: 0,
-  l: 0,
-  r: 0,
-  height: 40,
-  z: 100,
-  start: [0, 0],
-  end: [0, 1],
-  pointerEvents: 'none',
+const styles = StyleSheet.create({
+  background: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 100,
+    height: 40,
+    pointerEvents: 'none',
+  },
 })
 
-const BottomFog = styled(LinearGradient, {
-  position: 'absolute',
-  b: Platform.OS === 'ios' ? 94 : 80,
-  l: 0,
-  r: 0,
-  height: 30,
-  z: 1,
-  start: [0, 0],
-  end: [0, 1],
-  pointerEvents: 'none',
-})
+ContainerFog.displayName = 'ContainerFog'

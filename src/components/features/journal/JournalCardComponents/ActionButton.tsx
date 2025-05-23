@@ -1,8 +1,8 @@
-import { Trash } from '@tamagui/lucide-icons'
+import { StyleSheet } from 'react-native'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
-import { XStack, styled } from 'tamagui'
 
-import { PressableButton } from '@/components/shared'
+import { IconButton } from '@/components/shared'
+import { useThemedStyles } from '@/hooks'
 
 interface ActionButtonProps {
   showActionButton: boolean
@@ -10,39 +10,36 @@ interface ActionButtonProps {
 }
 
 export function ActionButton({ showActionButton, onPress }: ActionButtonProps) {
+  const themedStyles = useThemedStyles(({ tokens }) => ({
+    deleteButton: {
+      backgroundColor: tokens.semantic.error.main,
+    },
+  }))
   return (
     showActionButton && (
-      <AnimatedBox
+      <Animated.View
+        style={styles.container}
         entering={FadeIn.duration(800)}
         exiting={FadeOut.duration(300)}
       >
-        <PressableButton
-          circular={true}
-          chromeless={true}
-          scaleIcon={1.5}
-          bg='$red10'
-          color='white'
-          shadowColor='#000'
-          shadowOffset={{ width: 0, height: 1 }}
-          shadowOpacity={0.2}
-          shadowRadius={1.5}
-          elevation={2}
-          icon={Trash}
+        <IconButton
+          style={themedStyles.deleteButton}
+          icon='delete'
           onPress={onPress}
         />
-      </AnimatedBox>
+      </Animated.View>
     )
   )
 }
 
-const ActionBox = styled(XStack, {
-  r: 0,
-  position: 'absolute',
-  height: '100%',
-  items: 'center',
-  justify: 'center',
-  px: 16,
-  z: -1,
+const styles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 16,
+    zIndex: -1,
+    right: 0,
+  },
 })
-
-const AnimatedBox = Animated.createAnimatedComponent(ActionBox)

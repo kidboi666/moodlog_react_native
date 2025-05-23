@@ -4,7 +4,9 @@ import {
 } from '@react-navigation/native'
 import { MD3DarkTheme, MD3LightTheme } from 'react-native-paper'
 
+import { baseVariants, customVariants } from '@/configs'
 import { colorTokens, darkThemeColors, lightThemeColors } from '@/constants'
+import configureFonts from 'react-native-paper/src/styles/fonts'
 
 export class ThemeManager {
   private static instance: ThemeManager
@@ -61,9 +63,14 @@ export class ThemeManager {
     const tokens = this.getColorTokens()
     const baseTheme =
       this.currentTheme === 'light' ? MD3LightTheme : MD3DarkTheme
-
     return {
       ...baseTheme,
+      fonts: configureFonts({
+        config: {
+          ...baseVariants,
+          ...customVariants,
+        },
+      }),
       colors: {
         ...baseTheme.colors,
         primary: colors.action.primary,
@@ -184,6 +191,3 @@ export class ThemeManager {
 }
 
 export const themeManager = ThemeManager.getInstance()
-export const useThemeColors = () => themeManager.getColors()
-export const useColorTokens = () => themeManager.getColorTokens()
-export const useAppStyles = () => themeManager.getAppStyles()

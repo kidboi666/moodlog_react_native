@@ -1,13 +1,14 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { StyleSheet, View } from 'react-native'
+import { Text } from 'react-native-paper'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
-import { View, XStack, styled } from 'tamagui'
 
-import { BaseText } from '@/components/shared'
+import { useThemedStyles } from '@/hooks'
 import { MoodLevel } from '@/types'
 
 interface Props {
@@ -36,36 +37,36 @@ export function ChartItem({ name, level, color, percentage }: Props) {
 
   if (!name || !level || !color) return null
 
+  const themedStyles = useThemedStyles(({ tokens }) => ({
+    item: {
+      backgroundColor: color,
+    },
+    percentage: {
+      color: tokens.neutral['900'],
+    },
+  }))
+
   return (
-    <ChartItemContainer>
-      <AnimatedChartItem style={animatedStyles} moodColor={color} />
-      <PercentageText>{t(`moods.levels.${level}`)}</PercentageText>
-      <PercentageText>{name}</PercentageText>
-    </ChartItemContainer>
+    <View style={styles.container}>
+      <Animated.View style={[animatedStyles, themedStyles.item]} />
+      <Text>{t(`moods.levels.${level}`)}</Text>
+      <Text style={[styles.percentage, themedStyles.percentage]}>{name}</Text>
+    </View>
   )
 }
 
-const ChartItemContainer = styled(XStack, {
-  flex: 1,
-  gap: '$2',
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    gap: 4,
+  },
+  item: {
+    height: 4,
+    borderRadius: 16,
+    width: '100%',
+  },
+  percentage: {
+    marginTop: 2,
+  },
 })
-
-const Item = styled(View, {
-  height: '$1',
-  rounded: '$4',
-  width: '100%',
-
-  variants: {
-    moodColor: {
-      ':string': bg => ({ bg }),
-    },
-  } as const,
-})
-
-const PercentageText = styled(BaseText, {
-  fontSize: '$1',
-  color: '$color10',
-  mt: '$1',
-})
-
-const AnimatedChartItem = Animated.createAnimatedComponent(Item)

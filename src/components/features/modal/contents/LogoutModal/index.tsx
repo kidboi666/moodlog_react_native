@@ -1,10 +1,11 @@
 import { supabase } from '@/lib/supabase'
 import { memo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert } from 'react-native'
-import { YStack, styled } from 'tamagui'
+import { Alert, StyleSheet, View } from 'react-native'
+import { Text } from 'react-native-paper'
 
-import { BaseText, H3, PressableButton } from '@/components/shared'
+import { Button, H3 } from '@/components/shared'
+import { useThemedStyles } from '@/hooks'
 import type { BottomSheetProps, BottomSheetType } from '@/types'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 
@@ -22,32 +23,38 @@ function _LogoutModal({
     hideBottomSheet()
   }, [hideBottomSheet])
 
+  const themedStyles = useThemedStyles(({ colors }) => ({
+    description: {
+      color: colors.text.tertiary,
+    },
+  }))
+
   return (
     <BottomSheetContainer>
-      <Title>{t('settings.logout.confirmTitle')}</Title>
-      <BaseText text='center' color='$gray11'>
+      <H3 style={styles.title}>{t('settings.logout.confirmTitle')}</H3>
+      <Text style={themedStyles.description}>
         {t('settings.logout.confirmMessage')}
-      </BaseText>
-      <ButtonContainer>
-        <PressableButton bg='$red9' color='white' onPress={handleLogout}>
+      </Text>
+      <View style={styles.contentBox}>
+        <Button variant='warning' onPress={handleLogout}>
           {t('auth.logout')}
-        </PressableButton>
-        <PressableButton onPress={hideBottomSheet}>
-          {t('common.cancel')}
-        </PressableButton>
-      </ButtonContainer>
+        </Button>
+        <Button onPress={hideBottomSheet}>{t('common.cancel')}</Button>
+      </View>
     </BottomSheetContainer>
   )
 }
-
-const Title = styled(H3, {
-  // @ts-ignore
-  text: 'center',
-})
-
-const ButtonContainer = styled(YStack, {
-  gap: '$3',
-  mt: '$2',
+const styles = StyleSheet.create({
+  title: {
+    textAlign: 'center',
+  },
+  description: {
+    textAlign: 'center',
+  },
+  contentBox: {
+    gap: 12,
+    marginTop: 8,
+  },
 })
 
 export const LogoutModal = memo(_LogoutModal)

@@ -1,4 +1,5 @@
-import { View, XStack, styled } from 'tamagui'
+import { useThemedStyles } from '@/hooks'
+import { StyleSheet, View } from 'react-native'
 
 interface Props {
   journalCount?: number
@@ -12,46 +13,44 @@ export function DateCountDot({
   variant = 'default',
 }: Props) {
   if (!journalCount) return null
+  const themedStyles = useThemedStyles(({ tokens }) => ({
+    contained: {
+      backgroundColor:
+        variant === 'contained'
+          ? isSelected
+            ? tokens.neutral['950']
+            : tokens.neutral['100']
+          : isSelected
+            ? tokens.neutral['950']
+            : tokens.neutral['100'],
+    },
+  }))
   return (
-    <DotContainer>
+    <View style={styles.container}>
       {Array.from({ length: journalCount }, (_, i) => {
         if (i >= 3) return null
         return (
-          <Dot
+          <View
+            style={[styles.dot, themedStyles.contained]}
             key={`${i}-${journalCount}`}
-            backgroundStyle={
-              variant === 'contained'
-                ? isSelected
-                  ? '$gray12'
-                  : '$gray1'
-                : isSelected
-                  ? '$gray1'
-                  : '$gray12'
-            }
           />
         )
       })}
-    </DotContainer>
+    </View>
   )
 }
 
-const DotContainer = styled(XStack, {
-  gap: 2,
-  position: 'absolute',
-  b: '$1',
-})
-
-const Dot = styled(View, {
-  width: '$0.5',
-  height: '$0.5',
-  b: -8,
-  rounded: '$1',
-
-  variants: {
-    backgroundStyle: {
-      ':string': bg => {
-        return { bg }
-      },
-    },
-  } as const,
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    position: 'absolute',
+    gap: 2,
+    bottom: 4,
+  },
+  dot: {
+    width: 4,
+    height: 4,
+    borderRadius: 4,
+    bottom: -8,
+  },
 })

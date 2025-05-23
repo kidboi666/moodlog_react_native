@@ -1,4 +1,5 @@
-import { View, XStack, styled } from 'tamagui'
+import { useColors } from '@/hooks'
+import { StyleSheet, View } from 'react-native'
 
 interface Props {
   page: number
@@ -10,33 +11,36 @@ export function PaginationDot({ show, page, totalPage }: Props) {
   if (!show) {
     return null
   }
+  const { colors } = useColors()
 
   return (
-    <SpacingBox>
+    <View style={styles.box}>
       {Array.from({ length: totalPage }, (_, i) => (
-        <Dot key={i} isCurrentStep={i === page} />
+        <View
+          style={[
+            styles.dot,
+            {
+              backgroundColor:
+                i === page ? colors.surface.primary : colors.surface.inverse,
+            },
+          ]}
+          key={i}
+        />
       ))}
-    </SpacingBox>
+    </View>
   )
 }
 
-const SpacingBox = styled(XStack, {
-  gap: '$2',
-  items: 'center',
-  pb: '$4',
-})
-
-const Dot = styled(View, {
-  width: '$0.75',
-  height: '$0.75',
-  rounded: '$4',
-  bg: '$color7',
-
-  variants: {
-    isCurrentStep: {
-      true: {
-        bg: '$color12',
-      },
-    },
-  } as const,
+const styles = StyleSheet.create({
+  box: {
+    flexDirection: 'row',
+    gap: 4,
+    alignItems: 'center',
+    paddingBottom: 8,
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 8,
+  },
 })
