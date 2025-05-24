@@ -40,7 +40,7 @@ export const JournalQueries = {
       queryKey: queryKeys.get.journal(journalId),
       queryFn: () => getJournalById(journalId),
       select: journal => {
-        if (!journal) return null
+        if (!journal) return
         return {
           ...mappingType(journal),
         }

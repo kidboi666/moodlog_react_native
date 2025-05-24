@@ -14,9 +14,9 @@ export function LogStreak() {
         <H3>{t('statistics.logStreakDay.title')}</H3>
         <Text>{t('statistics.logStreakDay.description')}</Text>
       </View>
-      <View style={styles.descriptionBox}>
+      <View style={styles.countBox}>
         <H2>32</H2>
-        <Unit>{t('statistics.logStreakDay.unit')}</Unit>
+        <Text style={styles.unit}>{t('statistics.logStreakDay.unit')}</Text>
       </View>
       <DayBox />
     </View>
@@ -32,19 +32,12 @@ const styles = StyleSheet.create({
   header: {
     gap: 8,
   },
-  descriptionBox: {
+  countBox: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
   },
-})
-
-const CountBox = styled(XStack, {
-  gap: '$2',
-  items: 'flex-end',
-})
-
-const Unit = styled(BaseText, {
-  lineHeight: Layout.HEIGHT.RECORD_UNIT_LINE_HEIGHT,
-  color: '$color11',
+  unit: {
+    lineHeight: Layout.HEIGHT.RECORD_UNIT_LINE_HEIGHT,
+  },
 })

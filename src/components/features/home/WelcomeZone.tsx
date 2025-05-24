@@ -13,7 +13,7 @@ import { useAuth } from '@/store'
 function _WelcomeZone() {
   const { t } = useTranslation()
   const session = useAuth(state => state.session)
-  const { data: userInfo, isLoading } = useQuery(
+  const { data: userInfo, isPending } = useQuery(
     UserQueries.getUserInfo(session?.user?.id || ''),
   )
 
@@ -23,7 +23,7 @@ function _WelcomeZone() {
         <H1>{t('common.greeting.hello')}</H1>
         <ShakeEmoji emoji='👋' />
       </View>
-      {isLoading ? (
+      {isPending ? (
         <ActivityIndicator />
       ) : (
         <H3>{t('common.greeting.welcome', { name: userInfo?.user_name })}</H3>
@@ -36,7 +36,7 @@ function _WelcomeZone() {
 const styles = StyleSheet.create({
   container: {
     gap: 4,
-    alignItems: 'flex-end',
+    flexDirection: 'row',
   },
 })
 

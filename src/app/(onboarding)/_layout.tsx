@@ -1,35 +1,38 @@
+import * as NavigationBar from 'expo-navigation-bar'
 import { Stack } from 'expo-router'
+import { useEffect } from 'react'
+import { Platform } from 'react-native'
+import { useTheme } from 'react-native-paper'
 
 import { StepDot } from '@/components/shared'
-import { useThemedStyles } from '@/hooks'
 import { StepProgressProvider } from '@/providers'
+import { useAppTheme } from '@/store'
 
-export default function Layout() {
-  const themedStyles = useThemedStyles(({ colors }) => ({
-    content: {
-      backgroundColor: colors.background.primary,
-    },
-    header: {
-      backgroundColor: colors.background.primary,
-    },
-  }))
+export default function OnboardingLayout() {
+  const { resolvedTheme } = useAppTheme()
+  const theme = useTheme()
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      NavigationBar.setBackgroundColorAsync(theme.colors.background)
+    }
+  }, [resolvedTheme])
+
   return (
-    <StepProgressProvider totalSteps={5}>
+    <StepProgressProvider totalSteps={3}>
       <Stack
         screenOptions={{
-          headerShown: true,
-          headerShadowVisible: false,
-          headerStyle: themedStyles.header,
           headerTitle: () => <StepDot />,
+          headerShadowVisible: false,
+          headerBackVisible: false,
           headerTitleAlign: 'center',
-          contentStyle: themedStyles.content,
           animation: 'fade',
           gestureEnabled: false,
+          headerStyle: { backgroundColor: theme.colors.background },
+          contentStyle: { backgroundColor: theme.colors.background },
         }}
       >
         <Stack.Screen name='intro' />
-        <Stack.Screen name='features' />
-        <Stack.Screen name='howto' />
         <Stack.Screen name='nickname' />
         <Stack.Screen name='login' />
       </Stack>

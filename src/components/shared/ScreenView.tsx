@@ -41,20 +41,16 @@ export const ScreenView = forwardRef<ScrollView | View, ScreenViewProps>(
         marginBottom: edges?.includes('bottom')
           ? insets.bottom + Layout.SPACE.CONTAINER_VERTICAL_PADDING
           : 0,
-        paddingBottom: padded ? Layout.SPACE.CONTAINER_PADDING_BOTTOM * 2 : 0,
+        paddingBottom: padded ? Layout.SPACE.CONTAINER_PADDING_BOTTOM : 0,
       }),
       [padded, edges, insets.top, insets.bottom],
     )
 
-    const contentStyle = [styles.view, containerStyles, style]
-
     return withScroll ? (
       <ScrollView
         ref={ref as Ref<ScrollView>}
-        keyboardShouldPersistTaps='handled'
-        keyboardDismissMode='on-drag'
-        style={styles.scrollView}
-        contentContainerStyle={contentStyle}
+        style={[styles.container]}
+        contentContainerStyle={[containerStyles, style]}
         {...(props as ScrollViewProps)}
       >
         {Header}
@@ -63,7 +59,7 @@ export const ScreenView = forwardRef<ScrollView | View, ScreenViewProps>(
     ) : (
       <View
         ref={ref as Ref<View>}
-        style={contentStyle}
+        style={[styles.container, containerStyles, style]}
         {...(props as ViewProps)}
       >
         {Header}
@@ -74,10 +70,7 @@ export const ScreenView = forwardRef<ScrollView | View, ScreenViewProps>(
 )
 
 const styles = StyleSheet.create({
-  scrollView: {
-    flex: 1,
-  },
-  view: {
+  container: {
     flex: 1,
     paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
   },

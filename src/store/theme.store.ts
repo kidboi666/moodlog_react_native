@@ -11,9 +11,18 @@ interface StoreState {
   currentTheme: Theme
   resolvedTheme: ResolvedTheme
   systemTheme: ResolvedTheme
+  isInitialized: boolean
 
   changeTheme: (theme: Theme) => void
   updateSystemTheme: (newTheme: ResolvedTheme) => void
+  initialize: (systemTheme: ResolvedTheme) => void
+}
+
+const resolveTheme = (
+  currentTheme: Theme,
+  systemTheme: ResolvedTheme,
+): ResolvedTheme => {
+  return currentTheme === 'system' ? systemTheme : currentTheme
 }
 
 export const useAppTheme = create<StoreState>()(
@@ -22,17 +31,37 @@ export const useAppTheme = create<StoreState>()(
       currentTheme: 'system',
       resolvedTheme: 'light',
       systemTheme: 'light',
+      isInitialized: false,
 
-      changeTheme: theme => {
-        set({ currentTheme: theme })
-        const resolvedTheme = theme === 'system' ? get().systemTheme : theme
-        set({ resolvedTheme })
+      initialize: (systemTheme: ResolvedTheme) => {
+        const { currentTheme } = get()
+        const resolvedTheme = resolveTheme(currentTheme, systemTheme)
+
+        set({
+          systemTheme,
+          resolvedTheme,
+          isInitialized: true,
+        })
       },
-      updateSystemTheme: newSystemTheme => {
-        set({ systemTheme: newSystemTheme })
-        if (get().currentTheme === 'system') {
-          set({ resolvedTheme: newSystemTheme })
-        }
+
+      changeTheme: (theme: Theme) => {
+        const { systemTheme } = get()
+        const resolvedTheme = resolveTheme(theme, systemTheme)
+
+        set({
+          currentTheme: theme,
+          resolvedTheme,
+        })
+      },
+
+      updateSystemTheme: (newSystemTheme: ResolvedTheme) => {
+        const { currentTheme } = get()
+        const resolvedTheme = resolveTheme(currentTheme, newSystemTheme)
+
+        set({
+          systemTheme: newSystemTheme,
+          resolvedTheme,
+        })
       },
     }),
     {

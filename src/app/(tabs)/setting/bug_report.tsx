@@ -4,9 +4,9 @@ import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, StyleSheet, View } from 'react-native'
+import { Button } from 'react-native-paper'
 
 import {
-  Button,
   FormInput,
   FormInputArea,
   H1,
@@ -60,10 +60,6 @@ export default function BugReportScreen() {
 
   return (
     <ScreenView withScroll edges={['bottom']} padded style={styles.container}>
-      <View style={styles.titleBox}>
-        <H1>{t('settings.bugReport.title')}</H1>
-      </View>
-
       <View style={styles.column}>
         <H4>{t('settings.bugReport.descriptionLabel')}</H4>
         <FormInputArea
@@ -111,11 +107,6 @@ export default function BugReportScreen() {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    gap: 16,
-  },
-  titleBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
     gap: 16,
   },
   column: {

@@ -1,16 +1,9 @@
-import { Trash } from '@tamagui/lucide-icons'
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { FlatList, StyleSheet, View, useWindowDimensions } from 'react-native'
 
 import { MoodPreviewItem } from '@/components/features/mood'
-import { Button } from '@/components/shared'
-import {
-  Layout,
-  MOUNT_STYLE,
-  MOUNT_STYLE_KEY,
-  PRESS_STYLE,
-  PRESS_STYLE_KEY,
-} from '@/constants'
+import { IconButton } from '@/components/shared'
+import { Layout } from '@/constants'
 import { useDeleteMood } from '@/queries'
 import { Moods } from '@/types'
 
@@ -53,28 +46,17 @@ export function MoodListPreview({
   return (
     <View style={styles.container}>
       {showDeleteButton && (
-        <Button
-          self='flex-end'
-          position='absolute'
-          animation='quick'
-          pressStyle={PRESS_STYLE}
-          enterStyle={MOUNT_STYLE}
-          exitStyle={MOUNT_STYLE}
-          animateOnly={[...PRESS_STYLE_KEY, ...MOUNT_STYLE_KEY]}
-          r={Layout.SPACE.CONTAINER_HORIZONTAL_PADDING}
-          scaleIcon={1.5}
-          icon={Trash}
-          z={100_000}
+        <IconButton
+          icon='delete'
           onPress={() => deleteMood(selectedMoodId ?? 0)}
         />
       )}
-
       <FlatList
         ref={flatListRef}
         scrollEnabled={scrollEnabled}
         data={Object.values(moods)}
         renderItem={({ item }) => (
-          <MoodPreviewItem width={width} name={item.name} color={item.color} />
+          <MoodPreviewItem name={item.name} color={item.color} />
         )}
         onScrollToIndexFailed={info => {
           setTimeout(() => {
@@ -102,8 +84,15 @@ export function MoodListPreview({
     </View>
   )
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  button: {
+    alignSelf: 'flex-end',
+    position: 'absolute',
+    right: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
+    zIndex: 100,
   },
 })

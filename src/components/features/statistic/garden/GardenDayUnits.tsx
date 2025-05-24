@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View, YStack, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
 
 import { H6 } from '@/components/shared'
 import { WEEK_DAY } from '@/constants'
@@ -8,35 +8,30 @@ import { WEEK_DAY } from '@/constants'
 function _GardenDayUnits() {
   const { t } = useTranslation()
   return (
-    <DaysContainer>
-      <EmptyBox />
-      <DaysBox>
+    <View style={styles.container}>
+      <View style={styles.emptyBox} />
+      <View style={styles.daysBox}>
         {Object.keys(WEEK_DAY).map(day => (
-          <DayText key={day}>{t(`calendar.daysShort.${day}`)}</DayText>
+          <H6 key={day}>{t(`calendar.daysShort.${day}`)}</H6>
         ))}
-      </DaysBox>
-    </DaysContainer>
+      </View>
+    </View>
   )
 }
 
-const DaysContainer = styled(YStack, {
-  py: '$4',
-})
-
-const EmptyBox = styled(View, {
-  width: '$2',
-  height: '$2',
-})
-
-const DaysBox = styled(YStack, {
-  flex: 1,
-  height: '100%',
-  justify: 'space-between',
-})
-
-const DayText = styled(H6, {
-  fontSize: '$3',
-  color: '$color10',
+const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 16,
+  },
+  emptyBox: {
+    width: 4,
+    height: 4,
+  },
+  daysBox: {
+    flex: 1,
+    height: '100%',
+    justifyContent: 'space-between',
+  },
 })
 
 export const GardenDayUnits = memo(_GardenDayUnits)

@@ -1,4 +1,3 @@
-import { X } from '@tamagui/lucide-icons'
 import { memo, useRef, useState } from 'react'
 import {
   Animated,
@@ -8,10 +7,11 @@ import {
   StatusBar,
   StyleSheet,
   TouchableOpacity,
+  View,
 } from 'react-native'
 import { PinchGestureHandler, State } from 'react-native-gesture-handler'
-import { Button, View, styled } from 'tamagui'
 
+import { IconButton } from '@/components/shared'
 import { Maybe } from '@/types'
 
 interface Props {
@@ -68,22 +68,9 @@ function _FullScreenImageModal({ visible, imageUri, onClose }: Props) {
       statusBarTranslucent={true}
       onRequestClose={onClose}
     >
-      <ModalContainer>
+      <View style={styles.container}>
         <StatusBar hidden={Platform.OS === 'ios'} />
-
-        <Button
-          unstyled
-          size='$8'
-          icon={X}
-          position='absolute'
-          t={Platform.OS === 'ios' ? 50 : 20}
-          r={20}
-          z={10}
-          p={5}
-          onPress={onClose}
-          opacity={0.7}
-        />
-
+        <IconButton icon='x' style={styles.xButton} onPress={onClose} />
         <PinchGestureHandler
           ref={pinchRef}
           onGestureEvent={onPinchGestureEvent}
@@ -109,7 +96,7 @@ function _FullScreenImageModal({ visible, imageUri, onClose }: Props) {
             </TouchableOpacity>
           </Animated.View>
         </PinchGestureHandler>
-      </ModalContainer>
+      </View>
     </Modal>
   )
 }
@@ -117,19 +104,25 @@ function _FullScreenImageModal({ visible, imageUri, onClose }: Props) {
 const { width, height } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   fullImage: {
     width,
     height,
     maxWidth: '100%',
     maxHeight: '100%',
   },
-})
-
-const ModalContainer = styled(View, {
-  flex: 1,
-  bg: 'rgba(0, 0, 0, 0.9)',
-  justify: 'center',
-  items: 'center',
+  xButton: {
+    position: 'absolute',
+    top: Platform.OS === 'ios' ? 50 : 20,
+    right: 20,
+    zIndex: 10,
+    padding: 5,
+  },
 })
 
 export const FullScreenImageModal = memo(_FullScreenImageModal)

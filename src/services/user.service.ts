@@ -31,6 +31,18 @@ export async function updateUserInfo({
   if (error) throw error
 }
 
+export async function signInAnonymously(nickname: string) {
+  const { data, error } = await supabase.auth.signInAnonymously({
+    options: {
+      data: {
+        nickname,
+      },
+    },
+  })
+  if (error) throw error
+  return data
+}
+
 export async function signInGoogle() {
   GoogleSignin.configure({
     scopes: ['https://www.googleapis.com/auth/drive'],

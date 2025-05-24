@@ -1,27 +1,61 @@
-import { ThemeProvider } from '@react-navigation/native'
+import { baseVariants, customVariants } from '@/configs'
+import { useAppTheme } from '@/store'
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from '@react-navigation/native'
 import React, { PropsWithChildren, useEffect } from 'react'
 import { StatusBar, useColorScheme } from 'react-native'
-import { PaperProvider } from 'react-native-paper'
-
-import { themeManager } from '@/lib'
+import {
+  ActivityIndicator,
+  MD3DarkTheme,
+  MD3LightTheme,
+  PaperProvider,
+  configureFonts,
+} from 'react-native-paper'
 
 export function UnifiedThemeProvider({ children }: PropsWithChildren) {
   const colorScheme = useColorScheme()
+  const { initialize, updateSystemTheme, isInitialized, resolvedTheme } =
+    useAppTheme()
+  const fontConfig = configureFonts({
+    config: {
+      ...baseVariants,
+      ...customVariants,
+    },
+  })
+
+  const themeConfig = resolvedTheme === 'dark' ? MD3DarkTheme : MD3LightTheme
+  const paperTheme = {
+    ...themeConfig,
+    fonts: fontConfig,
+    roundness: 16,
+  }
 
   useEffect(() => {
-    themeManager.setTheme(colorScheme === 'dark' ? 'dark' : 'light')
-  }, [colorScheme])
+    const systemTheme = colorScheme === 'dark' ? 'dark' : 'light'
+    if (!isInitialized) {
+      initialize(systemTheme)
+    } else {
+      updateSystemTheme(systemTheme)
+    }
+  }, [colorScheme, isInitialized])
 
-  const navigationTheme = themeManager.getNavigationTheme()
-  const paperTheme = themeManager.getPaperTheme()
-  const isDark = themeManager.getCurrentTheme() === 'dark'
+  if (!isInitialized) {
+    return <ActivityIndicator />
+  }
 
   return (
     <PaperProvider theme={paperTheme}>
-      <ThemeProvider value={navigationTheme}>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <StatusBar
-          barStyle={isDark ? 'light-content' : 'dark-content'}
-          backgroundColor={navigationTheme.colors.background}
+          barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
+          backgroundColor={
+            colorScheme === 'dark'
+              ? MD3DarkTheme.colors.background
+              : MD3LightTheme.colors.background
+          }
         />
         {children}
       </ThemeProvider>

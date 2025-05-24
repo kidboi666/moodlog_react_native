@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react'
-import { ScrollView, XStack, YStack, styled } from 'tamagui'
+import { ScrollView, StyleSheet, View } from 'react-native'
 
 import { MONTHS } from '@/constants'
 import type { ISOMonthString, Journal, MonthKey } from '@/types'
@@ -46,11 +46,11 @@ export function Garden({
   )
 
   return (
-    <Container>
+    <View style={styles.container}>
       <GardenTitleHeader />
       <ScrollView horizontal>
         <GardenDayUnits />
-        <GrassContainer>
+        <View style={styles.grassBox}>
           {staticMonths.map(staticMonth => (
             <MonthItem
               journals={journals}
@@ -64,19 +64,20 @@ export function Garden({
               onMonthPress={handleMonthPress}
             />
           ))}
-        </GrassContainer>
+        </View>
       </ScrollView>
-    </Container>
+    </View>
   )
 }
 
-const Container = styled(YStack, {
-  bg: '$gray4',
-  p: '$4',
-  rounded: '$8',
-  gap: '$4',
-})
-
-const GrassContainer = styled(XStack, {
-  gap: '$2',
+const styles = StyleSheet.create({
+  container: {
+    borderRadius: 24,
+    gap: 4,
+    padding: 16,
+  },
+  grassBox: {
+    flexDirection: 'row',
+    gap: 4,
+  },
 })

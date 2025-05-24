@@ -1,6 +1,5 @@
-import { useThemedStyles } from '@/hooks'
 import { View } from 'react-native'
-import { TextInput, TextInputProps } from 'react-native-paper'
+import { TextInput, TextInputProps, useTheme } from 'react-native-paper'
 
 interface Props extends TextInputProps {
   value: string
@@ -20,12 +19,8 @@ export function FormInputArea({
   style,
   ...props
 }: Props) {
-  const themedStyles = useThemedStyles(({ colors }) => ({
-    input: {
-      backgroundColor: colors.background.primary,
-      height: 300,
-    },
-  }))
+  const theme = useTheme()
+
   return (
     <View>
       <TextInput
@@ -38,7 +33,7 @@ export function FormInputArea({
         outlineColor={outlineColor}
         activeOutlineColor={activeOutlineColor}
         multiline
-        style={[themedStyles.input, style]}
+        style={[{ backgroundColor: theme.colors.background }, style]}
         {...props}
       />
     </View>

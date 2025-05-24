@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
 
 import { H6 } from '@/components/shared'
 
@@ -11,20 +11,16 @@ interface Props {
 function _GardenMonthUnits({ month }: Props) {
   const { t } = useTranslation()
   return (
-    <ViewContainer>
-      <MonthText>{t(`calendar.months.${month}`)}</MonthText>
-    </ViewContainer>
+    <View style={styles.container}>
+      <H6>{t(`calendar.months.${month}`)}</H6>
+    </View>
   )
 }
 
-const ViewContainer = styled(View, {
-  height: '$2',
-})
-
-const MonthText = styled(H6, {
-  fontSize: '$4',
-  fontWeight: '500',
-  color: '$color10',
+const styles = StyleSheet.create({
+  container: {
+    height: 4,
+  },
 })
 
 export const GardenMonthUnits = memo(_GardenMonthUnits)

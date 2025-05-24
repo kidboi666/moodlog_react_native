@@ -1,33 +1,27 @@
-import { useRouter } from 'expo-router'
+import { useFocusEffect, useRouter } from 'expo-router'
+import { useCallback } from 'react'
 import { StyleSheet, View } from 'react-native'
+import { IconButton, useTheme } from 'react-native-paper'
 
 import { Delay, H1, H3, H5, ScreenView, ShakeEmoji } from '@/components/shared'
 import { DelayMS } from '@/constants'
-import { useColors, useThemedStyles } from '@/hooks'
 import { useStepProgress } from '@/store'
-import { Button } from 'react-native-paper'
 
 export default function IntroScreen() {
+  const theme = useTheme()
   const router = useRouter()
-  const { colors } = useColors()
-  const {
-    state: { currentStep },
-    goToNextStep,
-  } = useStepProgress()
-  const isCurrentPage = currentStep === 0
+  const { setStep } = useStepProgress()
 
   const handleNextButton = () => {
-    if (isCurrentPage) {
-      goToNextStep()
-      router.push('/features')
-    }
+    setStep(1)
+    router.push('/nickname')
   }
 
-  const themedStyles = useThemedStyles(({ colors }) => ({
-    description: {
-      color: colors.text.secondary,
-    },
-  }))
+  useFocusEffect(
+    useCallback(() => {
+      setStep(0)
+    }, []),
+  )
 
   return (
     <ScreenView edges={['bottom']}>
@@ -37,11 +31,11 @@ export default function IntroScreen() {
           <H1>무드로그에 오신 것을 환영합니다!</H1>
         </Delay>
         <Delay delay={DelayMS.ANIMATION.LONG[1]} style={styles.descriptionBox}>
-          <H5 style={themedStyles.description}>
+          <H5 style={{ color: theme.colors.secondary }}>
             무드로그는 당신의 일상 감정을 기록하고 분석하는 감정 일기장
             앱입니다.
           </H5>
-          <H5 style={themedStyles.description}>
+          <H5 style={{ color: theme.colors.secondary }}>
             매일 감정을 기록하고 시간이 지남에 따라 감정 패턴을 발견해보세요.
           </H5>
         </Delay>
@@ -50,17 +44,12 @@ export default function IntroScreen() {
         </Delay>
       </View>
       <Delay delay={DelayMS.ANIMATION.LONG[3]}>
-        <Button
+        <IconButton
           icon='arrow-right'
           mode='contained'
-          buttonColor={colors.action.primary}
-          textColor={colors.text.inverse}
           onPress={handleNextButton}
           style={styles.button}
-          contentStyle={styles.flexReverse}
-        >
-          다음
-        </Button>
+        />
       </Delay>
     </ScreenView>
   )
@@ -76,14 +65,9 @@ const styles = StyleSheet.create({
     gap: 24,
   },
   letsGo: {
-    flex: 1,
-    justifyContent: 'flex-end',
+    marginTop: 80,
   },
   button: {
-    alignSelf: 'flex-end',
-    justifyContent: 'flex-end',
-  },
-  flexReverse: {
-    flexDirection: 'row-reverse',
+    alignSelf: 'center',
   },
 })

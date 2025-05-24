@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { YStack } from 'tamagui'
+import { View } from 'react-native'
 
 import type { ISOMonthString, Journal, MonthKey } from '@/types'
 import { GardenContent } from './GardenContent'
@@ -23,7 +23,7 @@ function _MonthItemContent({
   lastDate,
 }: Props) {
   return (
-    <YStack>
+    <View>
       <GardenMonthUnits month={monthKey} />
       <GardenContent
         journals={journals}
@@ -32,7 +32,7 @@ function _MonthItemContent({
         monthDate={monthDate}
         lastDate={lastDate}
       />
-    </YStack>
+    </View>
   )
 }
 

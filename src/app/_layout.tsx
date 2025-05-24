@@ -1,4 +1,6 @@
 import * as SplashScreen from 'expo-splash-screen'
+import React from 'react'
+import { ActivityIndicator, StyleSheet, View } from 'react-native'
 import '@/lib/i18n'
 
 import { AppNavigator } from '@/components/features/home'
@@ -13,7 +15,11 @@ export default function RootLayout() {
   useAuthListener()
 
   if (!fontLoaded && !fontError) {
-    return null
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size='large' />
+      </View>
+    )
   }
 
   return (
@@ -22,3 +28,11 @@ export default function RootLayout() {
     </RootProvider>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+})

@@ -1,46 +1,44 @@
 import { Stack, useRouter } from 'expo-router'
-import { StyleSheet } from 'react-native'
-import { IconButton } from 'react-native-paper'
+import { useLayoutEffect } from 'react'
+import { IconButton, useTheme } from 'react-native-paper'
 
 import { H3 } from '@/components/shared'
-import { Layout } from '@/constants'
-import { useCalendar, useColors } from '@/hooks'
+import { useCalendar } from '@/hooks'
 import { convertMonthString } from '@/utils'
 
 export default function EntriesLayout() {
   const router = useRouter()
-  const { colors } = useColors()
-  const { selectedMonth, onSelectedMonthChange, selectedYear } = useCalendar()
+  const theme = useTheme()
+  const { selectedMonth, onSelectedMonthChange } = useCalendar()
 
   const handlePress = (prevOrNext: 'prev' | 'next') => {
     const monthString = convertMonthString(selectedMonth, prevOrNext)
     onSelectedMonthChange(monthString)
-    router.setParams({ selectedYear, selectedMonth: monthString })
+    router.setParams({ selectedMonth: monthString })
   }
 
   const selectedMonthToRender = selectedMonth.replace('-', '.')
+
+  useLayoutEffect(() => {
+    router.setParams({ selectedMonth })
+  }, [])
 
   return (
     <Stack
       screenOptions={{
         headerTitle: () => <H3>{selectedMonthToRender}</H3>,
-        headerTitleAlign: 'center',
         headerLeft: () => (
-          <IconButton
-            mode='contained'
-            icon='arrow-left'
-            onPress={() => handlePress('prev')}
-          />
+          <IconButton icon='arrow-left' onPress={() => handlePress('prev')} />
         ),
         headerRight: () => (
-          <IconButton
-            mode='contained'
-            icon='arrow-right'
-            onPress={() => handlePress('next')}
-          />
+          <IconButton icon='arrow-right' onPress={() => handlePress('next')} />
         ),
+        headerStyle: {
+          backgroundColor: theme.colors.background,
+        },
+        headerTitleAlign: 'center',
         contentStyle: {
-          backgroundColor: colors.background.pure,
+          backgroundColor: theme.colors.background,
         },
         gestureEnabled: true,
       }}

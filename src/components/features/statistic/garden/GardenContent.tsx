@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react'
-import { XStack, YStack, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
 
 import { ISOMonthString, Journal } from '@/types'
 import { getGardenMoodData } from '@/utils'
@@ -33,24 +33,26 @@ function _GardenContent({
   )
 
   return (
-    <GardenContainer>
+    <View style={styles.container}>
       {garden.map((week, weekIndex) => (
-        <YStackContainer key={`${weekIndex}-${week}`}>
+        <View style={styles.grassBox} key={`${weekIndex}-${week}`}>
           {week.map((moodColor, dayIndex) => (
             <Grass key={`${dayIndex}-${moodColor}`} moodColor={moodColor} />
           ))}
-        </YStackContainer>
+        </View>
       ))}
-    </GardenContainer>
+    </View>
   )
 }
 
-const GardenContainer = styled(XStack, {
-  gap: '$2',
-})
-
-const YStackContainer = styled(YStack, {
-  gap: '$2',
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    gap: 4,
+  },
+  grassBox: {
+    gap: 4,
+  },
 })
 
 export const GardenContent = memo(_GardenContent)

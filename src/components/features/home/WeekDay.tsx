@@ -1,35 +1,38 @@
-import { memo } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { memo, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
-import { Text } from 'react-native-paper'
+import { useTheme } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
-import { H1 } from '@/components/shared'
-import { GradientBox } from '@/components/shared/GradientBox'
+import { GradientBox, H1 } from '@/components/shared'
 import { DelayMS } from '@/constants'
-import { useThemedStyles } from '@/hooks'
-import { DateCount, ISODateString, Maybe } from '@/types'
-import { getMonthKey } from '@/utils'
+import { JournalQueries } from '@/queries'
+import { ISODateString } from '@/types'
+import { getCountForDate, getISOMonthString, getMonthKey } from '@/utils'
 import { HorizontalCalendar } from './calendar/HorizontalCalendar'
 
 interface Props {
-  selectedDate: Maybe<ISODateString>
+  selectedDate: ISODateString
   onSelectedDateChange: (date: ISODateString) => void
-  dateCount?: DateCount
 }
 
-function _WeekDay({ selectedDate, onSelectedDateChange, dateCount }: Props) {
+function _WeekDay({ selectedDate, onSelectedDateChange }: Props) {
+  const theme = useTheme()
   const { t } = useTranslation()
-  const themedStyles = useThemedStyles(({ colors }) => ({
-    innerText: {
-      color: colors.text.inverse,
-    },
-  }))
+  const { data: monthlyJournals } = useQuery(
+    JournalQueries.getJournalsByMonth(getISOMonthString(selectedDate)),
+  )
+  const dateCount = useMemo(
+    () => monthlyJournals && getCountForDate(monthlyJournals),
+    [monthlyJournals],
+  )
+
   return (
     <Animated.View entering={FadeIn.delay(DelayMS.ANIMATION.MEDIUM[1])}>
       <GradientBox>
         <View style={styles.monthBox}>
-          <H1 style={[themedStyles.innerText, styles.month]}>
+          <H1 style={{ color: theme.colors.surface }}>
             {t(`calendar.months.${getMonthKey(new Date().getMonth())}`)}.
           </H1>
         </View>
@@ -46,9 +49,6 @@ function _WeekDay({ selectedDate, onSelectedDateChange, dateCount }: Props) {
 const styles = StyleSheet.create({
   monthBox: {
     justifyContent: 'center',
-  },
-  month: {
-    fontWeight: 800,
   },
 })
 

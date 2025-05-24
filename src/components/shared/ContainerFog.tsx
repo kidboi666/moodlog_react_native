@@ -1,33 +1,17 @@
-import { useColors } from '@/hooks'
 import { LinearGradient } from 'expo-linear-gradient'
 import { memo } from 'react'
 import { StyleSheet } from 'react-native'
+import { useTheme } from 'react-native-paper'
 
 export const ContainerFog = memo(() => {
-  const { colors } = useColors()
-  const hexToRgb = (hex: string) => {
-    const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i
-    const formattedHex = hex.replace(
-      shorthandRegex,
-      (_, r, g, b) => r + r + g + g + b + b,
-    )
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(
-      formattedHex,
-    )
-
-    return result
-      ? `${Number.parseInt(result[1], 16)}, ${Number.parseInt(result[2], 16)}, ${Number.parseInt(result[3], 16)}`
-      : '255, 255, 255'
-  }
-
-  const bgRgb = hexToRgb(colors.background.pure)
-
+  const theme = useTheme()
+  const bgRgb = hexToRgb(theme.colors.background)
   const transparentBg = `rgba(${bgRgb}, 0)`
 
   return (
     <LinearGradient
       colors={[
-        colors.background.pure,
+        theme.colors.background,
         `rgba(${bgRgb}, 0.9)`,
         `rgba(${bgRgb}, 0.7)`,
         `rgba(${bgRgb}, 0.3)`,
@@ -37,6 +21,17 @@ export const ContainerFog = memo(() => {
     />
   )
 })
+
+function hexToRgb(hex: string) {
+  const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i
+  const formattedHex = hex.replace(
+    shorthandRegex,
+    (_, r, g, b) => r + r + g + g + b + b,
+  )
+  const result =
+    /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(formattedHex) || []
+  return `${Number.parseInt(result?.[1], 16)}, ${Number.parseInt(result[2], 16)}, ${Number.parseInt(result[3], 16)}`
+}
 
 const styles = StyleSheet.create({
   background: {
@@ -50,5 +45,4 @@ const styles = StyleSheet.create({
     pointerEvents: 'none',
   },
 })
-
 ContainerFog.displayName = 'ContainerFog'

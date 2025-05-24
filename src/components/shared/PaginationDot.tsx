@@ -1,5 +1,5 @@
-import { useColors } from '@/hooks'
 import { StyleSheet, View } from 'react-native'
+import { useTheme } from 'react-native-paper'
 
 interface Props {
   page: number
@@ -8,10 +8,10 @@ interface Props {
 }
 
 export function PaginationDot({ show, page, totalPage }: Props) {
+  const theme = useTheme()
   if (!show) {
     return null
   }
-  const { colors } = useColors()
 
   return (
     <View style={styles.box}>
@@ -21,7 +21,9 @@ export function PaginationDot({ show, page, totalPage }: Props) {
             styles.dot,
             {
               backgroundColor:
-                i === page ? colors.surface.primary : colors.surface.inverse,
+                i === page
+                  ? theme.colors.surface
+                  : theme.colors.surfaceDisabled,
             },
           ]}
           key={i}

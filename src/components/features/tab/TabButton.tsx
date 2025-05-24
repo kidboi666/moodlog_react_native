@@ -1,16 +1,16 @@
 import { TabTriggerSlotProps } from 'expo-router/ui'
-import React, { forwardRef, Ref } from 'react'
+import React, { forwardRef } from 'react'
 import { View } from 'react-native'
-import { IconButton } from 'react-native-paper'
-import { IconSource } from 'react-native-paper/lib/typescript/components/Icon'
+import { IconButton, IconButtonProps } from 'react-native-paper'
 
-export type TabButtonProps = TabTriggerSlotProps & {
-  icon: IconSource
-}
+export type TabButtonProps = TabTriggerSlotProps & IconButtonProps
 
-export const TabButton = forwardRef<Ref<View>, TabButtonProps>(
+export const TabButton = forwardRef<View, TabButtonProps>(
   ({ icon, isFocused, ...props }, ref) => {
-    // @ts-ignore
-    return <IconButton ref={ref} {...props} icon={icon} selected={isFocused} />
+    return (
+      <View ref={ref}>
+        <IconButton {...props} icon={icon} selected={isFocused} />
+      </View>
+    )
   },
 )

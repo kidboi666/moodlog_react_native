@@ -1,14 +1,13 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
-import { Text } from 'react-native-paper'
+import { Text, useTheme } from 'react-native-paper'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
 
-import { useThemedStyles } from '@/hooks'
 import { MoodLevel } from '@/types'
 
 interface Props {
@@ -19,6 +18,7 @@ interface Props {
 }
 
 export function ChartItem({ name, level, color, percentage }: Props) {
+  const theme = useTheme()
   const { t } = useTranslation()
   const widthValue = useSharedValue(0)
   const animatedStyles = useAnimatedStyle(() => ({
@@ -37,14 +37,17 @@ export function ChartItem({ name, level, color, percentage }: Props) {
 
   if (!name || !level || !color) return null
 
-  const themedStyles = useThemedStyles(({ tokens }) => ({
-    item: {
-      backgroundColor: color,
-    },
-    percentage: {
-      color: tokens.neutral['900'],
-    },
-  }))
+  const themedStyles = useMemo(
+    () => ({
+      item: {
+        backgroundColor: color,
+      },
+      percentage: {
+        color: theme.colors.onSurface,
+      },
+    }),
+    [],
+  )
 
   return (
     <View style={styles.container}>

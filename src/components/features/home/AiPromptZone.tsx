@@ -1,6 +1,9 @@
-import { getGemini } from '@/lib/gemini'
 import { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
+import { ActivityIndicator, Text } from 'react-native-paper'
+
+import { Button, FormInput } from '@/components/shared'
+import { getGemini } from '@/lib/gemini'
 
 export function AiPromptZone() {
   const [text, setText] = useState('')
@@ -26,18 +29,14 @@ export function AiPromptZone() {
 
   return (
     <View style={styles.container}>
-      <Form onSubmit={handleSubmit} gap='$4'>
-        <Input value={text} onChangeText={setText} />
-        {isLoading && <Spinner />}
-        {aiResponse && (
-          <View>
-            <Paragraph>{aiResponse}</Paragraph>
-          </View>
-        )}
-        <Form.Trigger asChild>
-          <Button themeInverse>AI에게 보내기</Button>
-        </Form.Trigger>
-      </Form>
+      <FormInput value={text} onChangeText={setText} />
+      {isLoading && <ActivityIndicator />}
+      {aiResponse && (
+        <View>
+          <Text>{aiResponse}</Text>
+        </View>
+      )}
+      <Button>AI에게 보내기</Button>
     </View>
   )
 }

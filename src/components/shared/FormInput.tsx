@@ -1,10 +1,15 @@
-import { useThemedStyles } from '@/hooks'
-import { TextInput, TextInputProps } from 'react-native-paper'
+import {
+  HelperText,
+  TextInput,
+  TextInputProps,
+  useTheme,
+} from 'react-native-paper'
 
 interface Props extends TextInputProps {
   value: string
   onChangeText: (text: string) => void
   placeholder?: string
+  errorMessage?: string
 }
 
 export function FormInput({
@@ -14,28 +19,31 @@ export function FormInput({
   placeholder = '',
   label,
   error,
+  errorMessage,
   outlineColor,
   activeOutlineColor,
   style,
   ...props
 }: Props) {
-  const themedStyles = useThemedStyles(({ colors }) => ({
-    input: {
-      backgroundColor: colors.background.primary,
-    },
-  }))
+  const theme = useTheme()
+
   return (
-    <TextInput
-      mode={mode}
-      label={label}
-      value={value}
-      onChangeText={onChangeText}
-      error={!!error}
-      placeholder={placeholder}
-      outlineColor={outlineColor}
-      activeOutlineColor={activeOutlineColor}
-      style={[themedStyles.input, style]}
-      {...props}
-    />
+    <>
+      <TextInput
+        mode={mode}
+        label={label}
+        value={value}
+        onChangeText={onChangeText}
+        error={!!error}
+        placeholder={placeholder}
+        outlineColor={outlineColor}
+        activeOutlineColor={activeOutlineColor}
+        style={[{ backgroundColor: theme.colors.background }, style]}
+        {...props}
+      />
+      <HelperText type='error' visible={error}>
+        {errorMessage}
+      </HelperText>
+    </>
   )
 }

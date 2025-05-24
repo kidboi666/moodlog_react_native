@@ -16,11 +16,11 @@ export const RootProvider = ({ children }: PropsWithChildren) => {
     seedDatabase()
   }, [])
   return (
-    <QueryClientProvider client={queryClient}>
-      <UnifiedThemeProvider>
+    <UnifiedThemeProvider>
+      <QueryClientProvider client={queryClient}>
         {children}
         <Toast />
-      </UnifiedThemeProvider>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </UnifiedThemeProvider>
   )
 }

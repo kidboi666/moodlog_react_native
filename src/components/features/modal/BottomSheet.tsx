@@ -1,5 +1,8 @@
-import { Sheet } from '@tamagui/sheet'
-import { memo } from 'react'
+import GorhomBottomSheet, {
+  BottomSheetBackdrop,
+  BottomSheetView,
+} from '@gorhom/bottom-sheet'
+import { memo, useEffect, useRef } from 'react'
 
 import { useBottomSheet } from '@/store'
 import { type BottomSheetProps, BottomSheetType } from '@/types'
@@ -18,7 +21,15 @@ const SheetContentComponents = {
 }
 
 export const BottomSheet = memo(() => {
-  const { isOpen, type, snapPoint, props, hideBottomSheet } = useBottomSheet()
+  const bottomSheetRef = useRef<GorhomBottomSheet>(null)
+  const {
+    isOpen,
+    type,
+    snapPoints,
+    props,
+    hideBottomSheet,
+    enablePanDownToClose,
+  } = useBottomSheet()
 
   const renderContent = () => {
     if (!type) return null
@@ -29,24 +40,24 @@ export const BottomSheet = memo(() => {
     return <ContentComponent {...props} />
   }
 
-  return (
-    <Sheet
-      forceRemoveScrollEnabled={isOpen}
-      modal
-      open={isOpen}
-      onOpenChange={hideBottomSheet}
-      snapPoints={snapPoint}
-      dismissOnSnapToBottom
-      zIndex={100_000}
-    >
-      <Sheet.Overlay
-        animation='quick'
-        enterStyle={{ opacity: 0 }}
-        exitStyle={{ opacity: 0 }}
-      />
+  useEffect(() => {
+    if (isOpen) {
+      bottomSheetRef.current?.expand()
+    } else {
+      bottomSheetRef.current?.close()
+    }
+  }, [isOpen])
 
-      <Sheet.Handle scale={0.5} />
-      <Sheet.Frame>{renderContent()}</Sheet.Frame>
-    </Sheet>
+  return (
+    <GorhomBottomSheet
+      ref={bottomSheetRef}
+      onChange={hideBottomSheet}
+      snapPoints={snapPoints}
+      index={-1}
+      enablePanDownToClose={enablePanDownToClose}
+      backdropComponent={BottomSheetBackdrop}
+    >
+      <BottomSheetView>{renderContent()}</BottomSheetView>
+    </GorhomBottomSheet>
   )
 })

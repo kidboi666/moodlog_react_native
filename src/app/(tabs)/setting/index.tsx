@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native'
 import { Divider, List, Text } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
-import { ScreenView } from '@/components/shared'
+import { H1, ScreenView } from '@/components/shared'
 
 const devSection = __DEV__
   ? {
@@ -32,16 +32,6 @@ const configSection = {
       label: 'settings.language.title',
       icon: 'earth',
       route: '/setting/language',
-    },
-    {
-      label: 'settings.font.title',
-      icon: 'format-font',
-      route: '/setting/font',
-    },
-    {
-      label: 'settings.fontSize.title',
-      icon: 'format-size',
-      route: '/setting/font_size',
     },
     {
       label: 'settings.timeFormat.title',
@@ -116,7 +106,6 @@ export default function SettingsScreen() {
       padded
       style={styles.container}
     >
-      <Text variant='titleLarge'>{t('settings.title')}</Text>
       <View style={styles.contentBox}>
         {sections.map(({ title, items }) => (
           <List.Section key={title}>
@@ -127,10 +116,9 @@ export default function SettingsScreen() {
                   key={menu.label}
                   title={t(menu.label)}
                   style={styles.item}
-                  left={() => <List.Icon icon={menu.icon} color='black' />}
+                  left={() => <List.Icon icon={menu.icon} />}
                   onPress={() => handleRouteChange(menu.route)}
                 />
-                {i + 1 < items.length && <Divider />}
               </Fragment>
             ))}
           </List.Section>
@@ -151,7 +139,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   contentBox: {
-    gap: 20,
+    gap: 16,
   },
   copyrightBox: {
     alignItems: 'center',

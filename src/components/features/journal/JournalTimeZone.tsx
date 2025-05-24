@@ -1,7 +1,8 @@
-import { BaseText } from '@/components/shared'
+import { StyleSheet, View } from 'react-native'
+import { Text } from 'react-native-paper'
+
 import { useApp } from '@/store'
 import { Journal, TimeFormat } from '@/types'
-import { StyleSheet, View } from 'react-native'
 
 interface Props {
   journal?: Journal
@@ -35,8 +36,8 @@ export function JournalTimeZone({ journal }: Props) {
 
   return (
     <View style={styles.timezoneBox}>
-      <BaseText>{renderDate()}</BaseText>
-      <BaseText>{renderTime()}</BaseText>
+      <Text style={styles.text}>{renderDate()}</Text>
+      <Text style={styles.text}>{renderTime()}</Text>
     </View>
   )
 }
@@ -45,5 +46,8 @@ const styles = StyleSheet.create({
   timezoneBox: {
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  text: {
+    fontWeight: 800,
   },
 })

@@ -1,6 +1,5 @@
 export * from './ChartItem'
 export * from './EmptyContent'
-export * from './mood-average'
 export * from './total-count'
 export * from './log-streak'
 export * from './start-day'

@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
+import { useTheme } from 'react-native-paper'
 
 import { DelayMS, Layout } from '@/constants'
-import { useColors } from '@/hooks'
 import { DateCount, ISODateString, Maybe } from '@/types'
 import {
   getDateFromISODate,
@@ -24,7 +24,7 @@ export function HorizontalCalendar({
   dateCount,
 }: Props) {
   const now = new Date()
-  const { colors } = useColors()
+  const theme = useTheme()
   const currentYear = now.getFullYear()
   const currentMonth = now.getMonth() + 1
   const currentDay = now.getDate()
@@ -78,7 +78,6 @@ export function HorizontalCalendar({
     <View style={styles.calendarContainer}>
       <ScrollView
         ref={scrollViewRef}
-        style={styles.scrollView}
         horizontal
         showsHorizontalScrollIndicator={false}
         decelerationRate='normal'
@@ -91,10 +90,10 @@ export function HorizontalCalendar({
           const isFuture = currentISODate < renderDate
           const isSelected = selectedDate === renderDate
           const dateColor = isFuture
-            ? colors.text.secondary
+            ? theme.colors.onSurface
             : isSelected
-              ? colors.text.primary
-              : colors.text.tertiary
+              ? theme.colors.primary
+              : theme.colors.surface
           return (
             <HorizontalCalendarContent
               key={renderDate}
@@ -114,12 +113,8 @@ export function HorizontalCalendar({
 
 const styles = StyleSheet.create({
   calendarContainer: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 8,
-  },
-  scrollView: {
-    flex: 1,
   },
 })

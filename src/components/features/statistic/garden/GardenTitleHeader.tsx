@@ -1,29 +1,24 @@
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { YStack, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
+import { Text } from 'react-native-paper'
 
-import { BaseText, H3 } from '@/components/shared'
+import { H3 } from '@/components/shared'
 
 function _GardenTitleHeader() {
   const { t } = useTranslation()
   return (
-    <GardenTitleHeaderContainer>
-      <GardenTitle>{t('entries.garden.title')}</GardenTitle>
-      <GardenDescription>{t('entries.garden.description')}</GardenDescription>
-    </GardenTitleHeaderContainer>
+    <View style={styles.container}>
+      <H3>{t('entries.garden.title')}</H3>
+      <Text>{t('entries.garden.description')}</Text>
+    </View>
   )
 }
 
-const GardenTitleHeaderContainer = styled(YStack, {
-  gap: '$2',
-})
-
-const GardenTitle = styled(H3, {
-  color: '$color12',
-})
-
-const GardenDescription = styled(BaseText, {
-  color: '$color12',
+const styles = StyleSheet.create({
+  container: {
+    gap: 4,
+  },
 })
 
 export const GardenTitleHeader = memo(_GardenTitleHeader)

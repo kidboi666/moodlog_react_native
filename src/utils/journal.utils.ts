@@ -15,13 +15,6 @@ export function getCountForDate(journals: Journal[]) {
   }, {} as DateCount)
 }
 
-export function filterJournalsByMonth(
-  journals: Journal[],
-  month: ISOMonthString,
-) {
-  return journals.filter(journal => journal.localDate.startsWith(month))
-}
-
 export function groupJournalsByDate(journals: Journal[]) {
   const groupedJournals: DateJournals = {}
   journals.forEach(journal => {

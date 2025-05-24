@@ -13,10 +13,7 @@ interface StepProgressState {
   progress: number
 }
 
-type StepProgressAction =
-  | { type: 'NEXT_STEP' }
-  | { type: 'PREV_STEP' }
-  | { type: 'SET_STEP'; payload: number }
+type StepProgressAction = { type: 'SET_STEP'; payload: number }
 
 const initialState: StepProgressState = {
   currentStep: 0,
@@ -30,22 +27,6 @@ function stepProgressReducer(
   action: StepProgressAction,
 ): StepProgressState {
   switch (action.type) {
-    case 'NEXT_STEP': {
-      const nextStep = Math.min(state.currentStep + 1, state.totalSteps - 1)
-      const isLastStep = nextStep === state.totalSteps - 1
-      const progress =
-        state.totalSteps > 1 ? (nextStep / state.totalSteps) * 100 : 100
-
-      return { ...state, currentStep: nextStep, isLastStep, progress }
-    }
-    case 'PREV_STEP': {
-      const prevStep = Math.max(state.currentStep - 1, 0)
-      const isLastStep = prevStep === state.totalSteps - 1
-      const progress =
-        state.totalSteps > 1 ? (prevStep / state.totalSteps) * 100 : 100
-
-      return { ...state, currentStep: prevStep, isLastStep, progress }
-    }
     case 'SET_STEP': {
       const safeStep = Math.max(
         0,
@@ -64,8 +45,6 @@ function stepProgressReducer(
 
 interface StepProgressContextType {
   state: StepProgressState
-  goToNextStep: () => void
-  goToPrevStep: () => void
   setStep: (step: number) => void
 }
 
@@ -85,22 +64,12 @@ export const StepProgressProvider = ({
     progress: 0,
   })
 
-  const goToNextStep = () => {
-    dispatch({ type: 'NEXT_STEP' })
-  }
-
-  const goToPrevStep = () => {
-    dispatch({ type: 'PREV_STEP' })
-  }
-
   const setStep = (step: number) => {
     dispatch({ type: 'SET_STEP', payload: step })
   }
 
   const value = {
     state,
-    goToNextStep,
-    goToPrevStep,
     setStep,
   }
 

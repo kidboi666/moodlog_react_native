@@ -1,90 +1,85 @@
-import { useLocalSearchParams, useRouter } from 'expo-router'
+import { useFocusEffect, useLocalSearchParams } from 'expo-router'
+import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
-import { Button, Text } from 'react-native-paper'
+import { Button, Text, useTheme } from 'react-native-paper'
 
 import { Delay, GoogleIcon, H1, H3, ScreenView } from '@/components/shared'
 import { DelayMS } from '@/constants'
-import { useColors, useThemedStyles } from '@/hooks'
-import { useSignInGoogle, useUpdateUserInfo } from '@/queries'
+import {
+  useSignInAnonymously,
+  useSignInGoogle,
+  useUpdateUserInfo,
+} from '@/queries'
 import { useStepProgress } from '@/store'
 import { toSingle } from '@/utils'
 
 export default function LoginScreen() {
   const { draftUserName } = useLocalSearchParams()
-  const router = useRouter()
-  const { colors, tokens } = useColors()
+  const theme = useTheme()
   const { t } = useTranslation()
+  const { setStep } = useStepProgress()
   const {
-    state: { currentStep },
-    goToPrevStep,
-  } = useStepProgress()
-  const isCurrentPage = currentStep === 4
-  const { mutateAsync: signInGoogle, isPending, error } = useSignInGoogle()
+    mutateAsync: signInGoogle,
+    isPending: isPendingGoogle,
+    error: googleError,
+  } = useSignInGoogle()
+  const {
+    mutate: signInAnonymously,
+    isPending: isPendingAnon,
+    error: anonError,
+  } = useSignInAnonymously()
   const { mutate: updateUserInfo } = useUpdateUserInfo()
-
-  const handlePrevStep = () => {
-    if (isCurrentPage) {
-      goToPrevStep()
-      router.push('/nickname')
-    }
-  }
 
   const handleGoogleLogin = async () => {
     const data = await signInGoogle()
     updateUserInfo({ userId: data.user.id, userName: toSingle(draftUserName) })
   }
 
-  const themedStyles = useThemedStyles(({ colors }) => ({
-    description: {
-      color: colors.text.secondary,
-    },
-    error: {
-      color: tokens.semantic.error.main,
-    },
-  }))
+  const handleAnonLogin = () => {
+    signInAnonymously(toSingle(draftUserName))
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      setStep(2)
+    }, []),
+  )
+  const isPending = isPendingGoogle || isPendingAnon
+  const error = googleError || anonError
 
   return (
     <ScreenView edges={['bottom']}>
       <View style={styles.container}>
         <Delay delay={DelayMS.ANIMATION.MEDIUM[0]} style={styles.header}>
           <H1>시작할 준비가 되었어요!</H1>
-          <H3 style={themedStyles.description}>
+          <H3 style={{ color: theme.colors.secondary }}>
             무드로그를 사용하기 위한 계정을 선택해주세요.
           </H3>
         </Delay>
-
-        <Delay delay={DelayMS.ANIMATION.MEDIUM[1]}>
-          <View style={styles.submitBox}>
-            <Button
-              mode='contained'
-              onPress={handleGoogleLogin}
-              disabled={isPending}
-              loading={isPending}
-              icon={GoogleIcon}
-              buttonColor={colors.action.primary}
-              textColor={colors.text.inverse}
-            >
-              {t('auth.signInWithGoogle')}
-            </Button>
-
-            {error && <Text style={[styles.error]}>{error.message}</Text>}
-          </View>
-        </Delay>
       </View>
 
-      <Delay delay={DelayMS.ANIMATION.MEDIUM[2]}>
-        <Button
-          icon='arrow-left'
-          mode='contained'
-          buttonColor={colors.action.primary}
-          textColor={colors.text.inverse}
-          style={styles.button}
-          onPress={handlePrevStep}
-          disabled={isPending}
-        >
-          {t('common.prev')}
-        </Button>
+      <Delay delay={DelayMS.ANIMATION.MEDIUM[1]}>
+        <View style={styles.submitBox}>
+          <Button
+            mode='contained'
+            onPress={handleGoogleLogin}
+            disabled={isPending}
+            loading={isPending}
+            icon={GoogleIcon}
+          >
+            {t('auth.signInWithGoogle')}
+          </Button>
+          {error && <Text style={[styles.error]}>{error.message}</Text>}
+          <Button
+            mode='text'
+            onPress={handleAnonLogin}
+            disabled={isPending}
+            loading={isPending}
+          >
+            가입없이 시작하기
+          </Button>
+        </View>
       </Delay>
     </ScreenView>
   )

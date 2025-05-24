@@ -1,17 +1,15 @@
+import { LinearGradient } from 'expo-linear-gradient'
 import { StyleSheet, View } from 'react-native'
-import { Text } from 'react-native-paper'
+import { MD3Colors } from 'react-native-paper'
 
 import { H3 } from '@/components/shared'
 import { WEEK_DAY } from '@/constants'
-import { useColors } from '@/hooks'
-import { LinearGradient } from 'expo-linear-gradient'
 
 const mockData = [true, true, false, false, false, false, false]
 
 export function DayBox() {
-  const { tokens } = useColors()
-  const fillDay = [tokens.primary['900'], tokens.primary['400']]
-  const emptyDay = [tokens.neutral['900'], tokens.neutral['400']]
+  const fillDay = [MD3Colors.primary90, MD3Colors.primary40]
+  const emptyDay = [MD3Colors.neutral90, MD3Colors.neutral40]
   return (
     <View style={styles.container}>
       {Object.values(WEEK_DAY).map((day, i) => (

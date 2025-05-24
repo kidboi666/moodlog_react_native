@@ -12,7 +12,7 @@ export function useExceptionHandle() {
   )
 
   const handleSuccess = useCallback(
-    (title: string, message?: string, callback?: () => void) => {
+    (title: string, callback?: () => void, message?: string) => {
       Toast.show({ text1: title, text2: message, type: 'success' })
       callback?.()
     },

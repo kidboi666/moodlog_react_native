@@ -7,6 +7,7 @@ import {
   Skia,
 } from '@shopify/react-native-skia'
 import { useEffect } from 'react'
+import { StyleSheet, View, ViewProps } from 'react-native'
 import {
   Easing,
   SharedValue,
@@ -16,7 +17,6 @@ import {
   withSequence,
   withTiming,
 } from 'react-native-reanimated'
-import { View, ViewProps, styled } from 'tamagui'
 
 import { useSkiaParagraph } from '@/hooks'
 import { useStepProgress } from '@/store'
@@ -74,7 +74,7 @@ export function MoodPreviewItem({ name, color, ...props }: Props) {
   }, [currentStep])
 
   return (
-    <Container {...props}>
+    <View style={styles.container} {...props}>
       <Canvas
         style={{
           width: canvasSize,
@@ -113,11 +113,13 @@ export function MoodPreviewItem({ name, color, ...props }: Props) {
           width={r * 2}
         />
       </Canvas>
-    </Container>
+    </View>
   )
 }
 
-const Container = styled(View, {
-  items: 'center',
-  justify: 'center',
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 })

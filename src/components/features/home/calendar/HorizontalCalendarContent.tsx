@@ -1,8 +1,7 @@
-import { StyleSheet } from 'react-native'
-import { Button } from 'react-native-paper'
+import { Pressable, StyleSheet } from 'react-native'
 
 import { Layout } from '@/constants'
-import { useThemedStyles } from '@/hooks'
+import { useTheme } from 'react-native-paper'
 import { DateCountDot } from './DateCountDot'
 import { DayAndDate } from './DayAndDate'
 
@@ -23,17 +22,13 @@ export function HorizontalCalendarContent({
   date,
   journalCount,
 }: Props) {
-  const themedStyles = useThemedStyles(({ colors }) => ({
-    selected: {
-      backgroundColor: colors.background.inverse,
-    },
-  }))
+  const theme = useTheme()
   return (
-    <Button
+    <Pressable
       style={[
         styles.container,
-        selected ? themedStyles.selected : undefined,
-        today ? styles.today : undefined,
+        selected ? { backgroundColor: theme.colors.surfaceVariant } : undefined,
+        today ? { borderWidth: 1 } : undefined,
       ]}
       onPress={onPress}
     >
@@ -43,7 +38,7 @@ export function HorizontalCalendarContent({
         journalCount={journalCount}
         isSelected={selected}
       />
-    </Button>
+    </Pressable>
   )
 }
 
@@ -52,8 +47,5 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     width: Layout.SPACE.CALENDAR_SCROLL_SIZE,
     borderRadius: 16,
-  },
-  today: {
-    borderWidth: 1,
   },
 })

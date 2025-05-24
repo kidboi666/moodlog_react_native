@@ -1,21 +1,23 @@
 import { StyleSheet, View } from 'react-native'
+import { useTheme } from 'react-native-paper'
 
-import { useThemedStyles } from '@/hooks'
 import { useStepProgress } from '@/store'
 
 export function StepDot() {
+  const theme = useTheme()
   const {
     state: { currentStep, totalSteps },
   } = useStepProgress()
 
-  const themedStyles = useThemedStyles(({ colors }) => ({
+  const themedStyles = {
     isCurrentStep: {
-      backgroundColor: colors.surface.primary,
+      backgroundColor: theme.colors.onSurface,
     },
     dot: {
-      backgroundColor: colors.surface.inverse,
+      backgroundColor: theme.colors.surfaceDisabled,
     },
-  }))
+  }
+
   return (
     <View style={styles.container}>
       {Array.from({ length: totalSteps }, (_, i) => (
@@ -33,7 +35,9 @@ export function StepDot() {
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     flex: 1,
     marginVertical: 4,
     gap: 4,

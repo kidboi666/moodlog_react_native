@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { Button, styled } from 'tamagui'
+import { Pressable, StyleSheet } from 'react-native'
 
 import type { ISOMonthString, Journal, MonthKey } from '@/types'
 import { MonthItemContent } from './MonthItemContent'
@@ -26,9 +26,14 @@ function _MonthItem({
   onMonthPress,
 }: Props) {
   return (
-    <MonthItemButton
+    <Pressable
       key={monthKey}
-      isSelected={isSelected}
+      style={[
+        styles.container,
+        {
+          opacity: isSelected ? 1 : 0.4,
+        },
+      ]}
       onPress={() => onMonthPress(monthDate)}
     >
       <MonthItemContent
@@ -39,27 +44,16 @@ function _MonthItem({
         monthDate={monthDate}
         lastDate={lastDate}
       />
-    </MonthItemButton>
+    </Pressable>
   )
 }
 
-const MonthItemButton = styled(Button, {
-  unstyled: true,
-  rounded: '$8',
-  py: '$4',
-  scale: 1,
-  opacity: 0.4,
-  position: 'relative',
-  animation: 'quick',
-  animateOnly: ['opacity'],
-
-  variants: {
-    isSelected: {
-      true: {
-        opacity: 1,
-      },
-    },
-  } as const,
+const styles = StyleSheet.create({
+  container: {
+    borderRadius: 24,
+    paddingVertical: 16,
+    position: 'relative',
+  },
 })
 
 export const MonthItem = memo(_MonthItem)

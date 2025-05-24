@@ -1,4 +1,3 @@
-import { useThemedStyles } from '@/hooks'
 import { useRouter } from 'expo-router'
 import { StyleSheet } from 'react-native'
 import {
@@ -8,10 +7,10 @@ import {
   IconButton as RNPIconButton,
 } from 'react-native-paper'
 
-type RNPButtonProps = ButtonProps & {
-  variant?: 'danger' | 'warning' | 'normal' | 'inverse'
-}
-type RNPIconButtonProps = IconButtonProps
+type Variant = 'danger' | 'warning' | 'normal' | 'inverse'
+type Size = 'sm' | 'md' | 'lg'
+type RNPButtonProps = ButtonProps & { variant?: Variant; size?: Size }
+type RNPIconButtonProps = IconButtonProps & { variant?: Variant }
 type RNPBackButtonProps = Omit<IconButtonProps, 'icon'> & {
   onPress?: () => void
 }
@@ -19,31 +18,16 @@ type RNPBackButtonProps = Omit<IconButtonProps, 'icon'> & {
 export function Button({
   variant = 'normal',
   children,
-  mode,
+  mode = 'contained',
   style,
   ...props
 }: RNPButtonProps) {
-  const themedStyles = useThemedStyles(({ tokens, colors }) => ({
-    danger: {
-      backgroundColor: tokens.semantic.error.main,
-    },
-    warning: {
-      backgroundColor: tokens.semantic.warning.main,
-    },
-    inverse: {
-      backgroundColor: colors.action.pressed,
-    },
-    normal: {},
-  }))
   return (
     <RNPButton
-      style={[
-        styles.base,
-        variant === 'normal' ? themedStyles.normal : undefined,
-        variant === 'danger' ? themedStyles.danger : undefined,
-        variant === 'warning' ? themedStyles.warning : undefined,
-        style,
-      ]}
+      mode={mode}
+      size={40}
+      style={[baseStyles.frame, style]}
+      labelStyle={baseStyles.label}
       {...props}
     >
       {children}
@@ -51,8 +35,13 @@ export function Button({
   )
 }
 
-export function IconButton({ style, ...props }: RNPIconButtonProps) {
-  return <RNPIconButton style={[styles.base, style]} {...props} />
+export function IconButton({
+  style,
+  mode,
+  size = 40,
+  ...props
+}: RNPIconButtonProps) {
+  return <RNPIconButton mode={mode} size={size} style={[style]} {...props} />
 }
 
 export function BackButton({ onPress, style, ...props }: RNPBackButtonProps) {
@@ -62,14 +51,17 @@ export function BackButton({ onPress, style, ...props }: RNPBackButtonProps) {
     <RNPIconButton
       icon='arrow-left'
       onPress={handlePress}
-      style={[styles.base, style]}
+      style={[baseStyles.frame, style]}
       {...props}
     />
   )
 }
 
-const styles = StyleSheet.create({
-  base: {
+const baseStyles = StyleSheet.create({
+  frame: {
     borderRadius: 8,
+  },
+  label: {
+    fontWeight: 'semibold',
   },
 })

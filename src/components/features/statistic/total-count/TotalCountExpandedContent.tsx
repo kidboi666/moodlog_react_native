@@ -1,13 +1,12 @@
-import { Minimize2 } from '@tamagui/lucide-icons'
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View, YStack, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
+import { Text } from 'react-native-paper'
 
-import { BaseText, H5 } from '@/components/shared'
+import { H5, IconButton } from '@/components/shared'
 import { useAuth } from '@/store'
 import type { ExpressiveMonthStats } from '@/types'
 import { getDaysSinceSignup, getMonthKey } from '@/utils'
-import { EmptyContent } from '../EmptyContent'
 
 interface Props {
   frequency: number
@@ -30,62 +29,55 @@ function _TotalCountExpandedContent({
   }
 
   return (
-    <ViewContainer>
-      <GapBox>
+    <View style={styles.container}>
+      <View style={styles.gapBox}>
         <H5>{t('statistics.totalCount.daysSinceSignup.title')}</H5>
-        <DescriptionText>
+        <Text>
           {t('statistics.totalCount.daysSinceSignup.description', {
             date: getDaysSinceSignup(session.user.created_at),
           })}
-        </DescriptionText>
-      </GapBox>
-      <GapBox>
+        </Text>
+      </View>
+      <View style={styles.gapBox}>
         <H5>{t('statistics.totalCount.frequency.title')}</H5>
-        <DescriptionText>
+        <Text>
           {frequency === 0
             ? t('statistics.totalCount.frequency.everyDay')
             : t('statistics.totalCount.frequency.description', {
                 date: frequency,
               })}
-        </DescriptionText>
-      </GapBox>
-      <GapBox>
+        </Text>
+      </View>
+      <View style={styles.gapBox}>
         <H5>{t('statistics.totalCount.mostDay.title')}</H5>
-        <DescriptionText>
+        <Text>
           {t('statistics.totalCount.mostDay.description', {
             day: t(`calendar.days.${activeDay}`),
           })}
-        </DescriptionText>
-      </GapBox>
-      <GapBox>
+        </Text>
+      </View>
+      <View style={styles.gapBox}>
         <H5>{t('statistics.totalCount.expressiveMonth.title')}</H5>
-        <DescriptionText>
+        <Text>
           {t('statistics.totalCount.expressiveMonth.description', {
             month: t(`calendar.months.${getMonthKey(expressiveMonth.month)}`),
             count: expressiveMonth.count,
           })}
-        </DescriptionText>
-      </GapBox>
-      <Minimize2 self='flex-end' color='$color8' />
-    </ViewContainer>
+        </Text>
+      </View>
+      <IconButton icon='minimize-2' disabled />
+    </View>
   )
 }
 
-const ViewContainer = styled(View, {
-  animation: 'quick',
-  animateOnly: ['opacity'],
-  flex: 1,
-  justify: 'space-between',
-  enterStyle: { opacity: 0 },
-  exitStyle: { opacity: 0 },
-})
-
-const GapBox = styled(YStack, {
-  gap: '$2',
-})
-
-const DescriptionText = styled(BaseText, {
-  color: '$color11',
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  gapBox: {
+    gap: 4,
+  },
 })
 
 export const TotalCountExpandedContent = memo(_TotalCountExpandedContent)

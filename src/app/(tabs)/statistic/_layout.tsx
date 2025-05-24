@@ -1,15 +1,15 @@
 import { Stack } from 'expo-router'
-
-import { useColors } from '@/hooks'
+import { useTheme } from 'react-native-paper'
 
 export default function StatisticsLayout() {
-  const { colors } = useColors()
+  const theme = useTheme()
+
   return (
     <Stack
       screenOptions={{
         headerShown: false,
         contentStyle: {
-          backgroundColor: colors.background.pure,
+          backgroundColor: theme.colors.background,
         },
       }}
     >

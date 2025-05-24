@@ -1,33 +1,25 @@
 import { useRouter } from 'expo-router'
-import React, { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet } from 'react-native'
 import { Card, IconButton } from 'react-native-paper'
 
 import { H4 } from '@/components/shared'
-import { useThemedStyles } from '@/hooks'
 
-function _EmptyJournal() {
+export function EmptyJournal() {
   const { t } = useTranslation()
   const router = useRouter()
 
   const handleRoute = () => {
-    router.push('/(write)/journal')
+    router.push('/write')
   }
 
-  const themedStyles = useThemedStyles(({ colors }) => ({
-    container: {
-      backgroundColor: colors.background.primary,
-    },
-  }))
-
   return (
-    <Card mode='elevated' style={[styles.container, themedStyles.container]}>
+    <Card style={styles.container}>
       <H4 style={styles.title}>{t('common.fallback.today')}</H4>
       <IconButton
         icon='plus'
-        style={styles.plusButton}
         mode='contained'
+        style={styles.plusButton}
         onPress={handleRoute}
       />
     </Card>
@@ -48,6 +40,3 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 })
-
-export const EmptyJournal = memo(_EmptyJournal)
-EmptyJournal.displayName = 'EmptyJournal'

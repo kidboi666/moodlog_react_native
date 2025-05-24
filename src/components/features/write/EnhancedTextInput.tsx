@@ -1,4 +1,3 @@
-import { useToastController } from '@tamagui/toast'
 import { Image } from 'expo-image'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -9,11 +8,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import Toast from 'react-native-toast-message'
 
 import { FormInputArea } from '@/components/shared'
 import { IconButton } from '@/components/shared/Button'
 import { DelayMS, Layout } from '@/constants'
-import { useCustomFont } from '@/hooks'
 import { useStepProgress } from '@/store'
 
 interface Props {
@@ -35,8 +34,6 @@ export function EnhancedTextInput({
   onImageUriRemove,
 }: Props) {
   const { t } = useTranslation()
-  const toast = useToastController()
-  const { fontNameWithTokenPrefix } = useCustomFont()
   const {
     state: { currentStep },
   } = useStepProgress()
@@ -61,9 +58,10 @@ export function EnhancedTextInput({
             style: 'destructive',
             onPress: () => {
               onImageUriRemove(imageUri, index)
-              toast.show('이미지 삭제', {
-                message: '이미지가 삭제되었습니다.',
-                preset: 'success',
+              Toast.show({
+                text1: '이미지 삭제',
+                text2: '이미지가 삭제되었습니다.',
+                type: 'success',
               })
             },
           },
@@ -71,7 +69,7 @@ export function EnhancedTextInput({
         { cancelable: true },
       )
     },
-    [imageUri, onImageUriChange, toast],
+    [imageUri, onImageUriChange],
   )
 
   useEffect(() => {

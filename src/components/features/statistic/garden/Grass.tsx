@@ -1,26 +1,34 @@
-import { Maybe } from '@/types'
 import { memo } from 'react'
-import { View, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
+
+import { Maybe } from '@/types'
+import { useTheme } from 'react-native-paper'
 
 interface Props {
   moodColor: Maybe<string>
 }
 
 function _Grass({ moodColor }: Props) {
-  if (!moodColor) return <StyledGrass />
+  const theme = useTheme()
+  if (!moodColor) return <View style={styles.container} />
   return (
-    <StyledGrass moodColor={moodColor === 'isEmpty' ? '$color9' : moodColor} />
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor:
+            moodColor === 'isEmpty' ? theme.colors.background : moodColor,
+        },
+      ]}
+    />
   )
 }
 
-const StyledGrass = styled(View, {
-  width: 16,
-  height: 16,
-  rounded: '$1',
-  variants: {
-    moodColor: {
-      ':string': bg => ({ bg }),
-    },
+const styles = StyleSheet.create({
+  container: {
+    width: 16,
+    height: 16,
+    borderRadius: 4,
   },
 })
 

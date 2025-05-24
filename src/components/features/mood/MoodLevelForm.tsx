@@ -1,15 +1,9 @@
-import { Check } from '@tamagui/lucide-icons'
 import { useTranslation } from 'react-i18next'
-import { Button, GetThemeValueForKey, XStack, YStack, styled } from 'tamagui'
+import { StyleSheet, View } from 'react-native'
+import { Text } from 'react-native-paper'
 
-import { BaseText } from '@/components/shared'
-import {
-  Layout,
-  MOUNT_STYLE,
-  MOUNT_STYLE_KEY,
-  PRESS_STYLE,
-  PRESS_STYLE_KEY,
-} from '@/constants'
+import { IconButton } from '@/components/shared'
+import { Layout } from '@/constants'
 import { useStepProgress } from '@/store'
 import { MoodLevel } from '@/types'
 
@@ -34,38 +28,35 @@ export function MoodLevelForm({
   }
 
   return (
-    <Container>
+    <View style={styles.container}>
       {Object.values(MoodLevel).map((level, i) => (
-        <FormItem key={level}>
-          <Button
-            size='$4'
-            animation='quick'
-            pressStyle={PRESS_STYLE}
-            animateOnly={PRESS_STYLE_KEY}
-            bg={moodColor as GetThemeValueForKey<'backgroundColor'>}
-            opacity={(i + 1) / Object.values(MoodLevel).length}
+        <View style={styles.formItem} key={level}>
+          <IconButton
+            style={{
+              backgroundColor: moodColor,
+              opacity: (i + 1) / Object.values(MoodLevel).length,
+            }}
             onPress={() => onMoodLevelChange(level)}
-          >
-            <Check opacity={moodLevel === level ? 1 : 0} color='$color1' />
-          </Button>
-          <BaseText>{t(`moods.levels.${level}`)}</BaseText>
-        </FormItem>
+            icon='check'
+          />
+          <Text>{t(`moods.levels.${level}`)}</Text>
+        </View>
       ))}
-    </Container>
+    </View>
   )
 }
 
-const Container = styled(XStack, {
-  gap: '$4',
-  animation: 'lazy',
-  enterStyle: MOUNT_STYLE,
-  animateOnly: MOUNT_STYLE_KEY,
-  justify: 'space-between',
-  px: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
-  height: Layout.HEIGHT.WRITE_PROGRESS_BAR_HEIGHT,
-})
-
-const FormItem = styled(YStack, {
-  items: 'center',
-  gap: '$2',
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    gap: 16,
+    justifyContent: 'space-between',
+    paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
+    height: Layout.HEIGHT.WRITE_PROGRESS_BAR_HEIGHT,
+  },
+  formItem: {
+    alignItems: 'center',
+    gap: 4,
+  },
 })

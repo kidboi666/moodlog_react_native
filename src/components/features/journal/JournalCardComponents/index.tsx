@@ -1,12 +1,12 @@
 import { useRouter } from 'expo-router'
 import { useCallback, useMemo, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Card, IconButton, Text } from 'react-native-paper'
+import { Card, IconButton, useTheme } from 'react-native-paper'
 import Animated from 'react-native-reanimated'
 
 import { FullScreenImageModal } from '@/components/features/modal/contents'
 import { DelayMS, Layout } from '@/constants'
-import { useCardGesture, useThemedStyles } from '@/hooks'
+import { useCardGesture } from '@/hooks'
 import { useBottomSheet } from '@/store'
 import { BottomSheetType, ISOString, Maybe, Mood } from '@/types'
 import { ActionButton } from './ActionButton'
@@ -30,6 +30,7 @@ export function JournalCard({
   imageUri,
   mood,
 }: Props) {
+  const theme = useTheme()
   const router = useRouter()
   const {
     gesture,
@@ -39,7 +40,6 @@ export function JournalCard({
     toggleState,
   } = useCardGesture()
   const [modalVisible, setModalVisible] = useState(false)
-  const [isPressed, setIsPressed] = useState(false)
   const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
   const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
 
@@ -55,22 +55,14 @@ export function JournalCard({
     if (showActionButton) {
       toggleState()
     } else {
-      setIsPressed(true)
       setTimeout(() => {
-        setTimeout(() => setIsPressed(false), 0)
         router.push({
-          pathname: '/journal/[journalId]',
+          pathname: '/(journal)/[journalId]',
           params: { journalId: journalId, isNewJournal: 'false' },
         })
       }, DelayMS.ROUTE)
     }
   }, [showActionButton, toggleState, router, journalId, localDate])
-
-  const handleImageLongPress = useCallback(() => {
-    if (imageUri && imageUri.length > 0) {
-      setModalVisible(true)
-    }
-  }, [imageUri])
 
   const handleCloseModal = useCallback(() => {
     setModalVisible(false)
@@ -85,12 +77,6 @@ export function JournalCard({
     [mood?.color],
   )
 
-  const themedStyles = useThemedStyles(({ colors }) => ({
-    container: {
-      backgroundColor: colors.background.primary,
-    },
-  }))
-
   return (
     <View style={styles.container}>
       <ActionButton
@@ -101,7 +87,7 @@ export function JournalCard({
       <GestureWrapper gesture={gesture}>
         <AnimatedCard
           onPress={handlePress}
-          style={[styles.card, animatedStyle, themedStyles.container]}
+          style={[styles.card, animatedStyle]}
         >
           <Card.Title
             title={createdAt}

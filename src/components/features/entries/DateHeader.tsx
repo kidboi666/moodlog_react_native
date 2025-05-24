@@ -1,16 +1,17 @@
-import { useThemedStyles } from '@/hooks'
-import type { ISODateString } from '@/types'
-import { getDateFromISODate, getDayFromISODate, getMonthKey } from '@/utils'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
-import { Divider, Text } from 'react-native-paper'
+import { Divider, Text, useTheme } from 'react-native-paper'
+
+import type { ISODateString } from '@/types'
+import { getDateFromISODate, getDayFromISODate, getMonthKey } from '@/utils'
 
 interface DateHeaderProps {
   date: string
 }
 
 export function DateHeader({ date }: DateHeaderProps) {
+  const theme = useTheme()
   const { t, i18n } = useTranslation()
   const dateInfo = useMemo(() => {
     const dateObj = new Date(date)
@@ -30,11 +31,14 @@ export function DateHeader({ date }: DateHeaderProps) {
     }
   }, [date, i18n.language])
 
-  const themedStyles = useThemedStyles(({ colors }) => ({
-    dateCircle: {
-      backgroundColor: colors.background.primary,
-    },
-  }))
+  const themedStyles = useMemo(
+    () => ({
+      dateCircle: {
+        backgroundColor: theme.colors.primary,
+      },
+    }),
+    [theme],
+  )
   return (
     <View style={styles.container}>
       <View style={[styles.dateCircle, themedStyles.dateCircle]}>

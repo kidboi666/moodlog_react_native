@@ -1,61 +1,37 @@
-import { Redirect } from 'expo-router'
 import { TabList, TabSlot, TabTrigger, Tabs } from 'expo-router/ui'
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { useTheme } from 'react-native-paper'
 
-import { TabButton, WriteButton } from '@/components/features/tab'
-import { ContainerFog } from '@/components/shared'
-import { useThemedStyles } from '@/hooks'
-import { useAuth } from '@/store'
+import { SurfaceTabList, TabButton } from '@/components/features/tab'
 
 export default function TabsLayout() {
-  const session = useAuth(state => state.session)
-
-  if (!session) {
-    return <Redirect href='/(onboarding)/intro' />
-  }
-
-  const themedStyles = useThemedStyles(({ colors }) => ({
-    list: {
-      backgroundColor: colors.background.primary,
-    },
-  }))
-
+  const theme = useTheme()
   return (
-    <>
-      <Tabs>
-        <TabSlot />
-        <TabList style={[styles.list, themedStyles.list]}>
-          <TabTrigger name='home' href='/' asChild>
+    <Tabs>
+      <TabSlot />
+      <TabList asChild>
+        <SurfaceTabList>
+          <TabTrigger name='main' href='/' style={{ display: 'none' }} />
+          <TabTrigger name='home' href='/home' asChild>
             <TabButton icon='home' />
           </TabTrigger>
           <TabTrigger name='entries' href='/entries' asChild>
             <TabButton icon='book' />
           </TabTrigger>
-
-          <WriteButton />
+          <TabTrigger name='write' href='/write' asChild>
+            <TabButton
+              icon='plus'
+              containerColor={theme.colors.primaryContainer}
+            />
+          </TabTrigger>
           <TabTrigger name='statistic' href='/statistic' asChild>
             <TabButton icon='chart-bar' />
           </TabTrigger>
           <TabTrigger name='setting' href='/setting' asChild>
             <TabButton icon='cog' />
           </TabTrigger>
-        </TabList>
-      </Tabs>
-      <ContainerFog />
-    </>
+        </SurfaceTabList>
+      </TabList>
+    </Tabs>
   )
 }
-
-const styles = StyleSheet.create({
-  list: {
-    position: 'absolute',
-    bottom: 14,
-    borderRadius: 40,
-    width: '100%',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingVertical: 14,
-    paddingHorizontal: 14,
-  },
-})

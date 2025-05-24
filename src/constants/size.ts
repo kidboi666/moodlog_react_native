@@ -19,10 +19,10 @@ export const Layout = {
     WRITE_PROGRESS_BAR_HEIGHT: 120,
   },
   SNAP_POINTS: {
-    DELETE: Platform.OS === 'ios' ? [35] : [30],
-    JOURNAL_WRITE: Platform.OS === 'ios' ? [80] : [60],
-    LOGOUT: Platform.OS === 'ios' ? [40] : [30],
-    AUTH: [70],
+    DELETE: ['25%'],
+    JOURNAL_WRITE: ['70%', '90%'],
+    LOGOUT: ['30%'],
+    AUTH: ['60%', '85%'],
   },
 }
 

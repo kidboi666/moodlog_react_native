@@ -1,5 +1,6 @@
-import { useThemedStyles } from '@/hooks'
+import { useMemo } from 'react'
 import { StyleSheet, View } from 'react-native'
+import { useTheme } from 'react-native-paper'
 
 interface Props {
   journalCount?: number
@@ -12,19 +13,23 @@ export function DateCountDot({
   isSelected,
   variant = 'default',
 }: Props) {
+  const theme = useTheme()
+  const themedStyles = useMemo(
+    () => ({
+      contained: {
+        backgroundColor:
+          variant === 'contained'
+            ? isSelected
+              ? theme.colors.onSurface
+              : theme.colors.surface
+            : isSelected
+              ? theme.colors.surface
+              : theme.colors.onSurface,
+      },
+    }),
+    [theme, isSelected, variant],
+  )
   if (!journalCount) return null
-  const themedStyles = useThemedStyles(({ tokens }) => ({
-    contained: {
-      backgroundColor:
-        variant === 'contained'
-          ? isSelected
-            ? tokens.neutral['950']
-            : tokens.neutral['100']
-          : isSelected
-            ? tokens.neutral['950']
-            : tokens.neutral['100'],
-    },
-  }))
   return (
     <View style={styles.container}>
       {Array.from({ length: journalCount }, (_, i) => {

@@ -1,8 +1,6 @@
 import { StyleSheet } from 'react-native'
+import { IconButton, MD3Colors } from 'react-native-paper'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
-
-import { IconButton } from '@/components/shared'
-import { useThemedStyles } from '@/hooks'
 
 interface ActionButtonProps {
   showActionButton: boolean
@@ -10,11 +8,6 @@ interface ActionButtonProps {
 }
 
 export function ActionButton({ showActionButton, onPress }: ActionButtonProps) {
-  const themedStyles = useThemedStyles(({ tokens }) => ({
-    deleteButton: {
-      backgroundColor: tokens.semantic.error.main,
-    },
-  }))
   return (
     showActionButton && (
       <Animated.View
@@ -23,8 +16,8 @@ export function ActionButton({ showActionButton, onPress }: ActionButtonProps) {
         exiting={FadeOut.duration(300)}
       >
         <IconButton
-          style={themedStyles.deleteButton}
           icon='delete'
+          containerColor={MD3Colors.error40}
           onPress={onPress}
         />
       </Animated.View>

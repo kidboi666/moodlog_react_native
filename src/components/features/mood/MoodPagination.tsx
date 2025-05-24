@@ -1,8 +1,7 @@
-import { ChevronLeft, ChevronRight } from '@tamagui/lucide-icons'
 import { Dispatch, SetStateAction, useCallback } from 'react'
-import { Dimensions } from 'react-native'
-import { Button, XStack, styled } from 'tamagui'
+import { Dimensions, StyleSheet, View } from 'react-native'
 
+import { IconButton } from '@/components/shared'
 import { Layout } from '@/constants'
 
 const { height } = Dimensions.get('window')
@@ -29,35 +28,32 @@ export function MoodPagination({ page, setPage, totalPage, show }: Props) {
   if (!show) return null
 
   return (
-    <Container>
-      <Button
-        chromeless
-        color='$color11'
-        icon={ChevronLeft}
-        scaleIcon={1.5}
+    <View style={styles.container}>
+      <IconButton
+        icon='chevron-left'
         onPress={handleLeftPress}
         disabled={page === 0}
-        opacity={page !== 0 ? 1 : 0}
       />
 
-      <Button
-        chromeless
-        color='$color11'
-        icon={ChevronRight}
-        scaleIcon={1.5}
+      <IconButton
+        icon='chevron-right'
         onPress={handleRightPress}
         disabled={page === totalPage - 1}
-        opacity={page !== totalPage - 1 ? 1 : 0}
       />
-    </Container>
+    </View>
   )
 }
 
-const Container = styled(XStack, {
-  justify: 'space-between',
-  position: 'absolute',
-  width: '100%',
-  l: 2,
-  b: height / 3,
-  px: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
+    position: 'absolute',
+    bottom: height / 3,
+    left: 2,
+    right: 0,
+    zIndex: 100,
+  },
 })
