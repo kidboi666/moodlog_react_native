@@ -25,6 +25,7 @@ export const ko = {
     prev: '이전',
     login: '로그인하러 가기',
     join: '가입하러 가기',
+    anon: '가입없이 시작하기',
     submit: '제출',
     addCover: '커버 추가',
     timeStamp: '타임 스탬프',

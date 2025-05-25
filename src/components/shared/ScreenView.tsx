@@ -40,11 +40,11 @@ export const ScreenView = forwardRef<ScrollView | View, ScreenViewProps>(
 
     const marginTop = edges?.includes('top')
       ? insets.top + Layout.SPACE.CONTAINER_MARGIN_TOP
-      : Layout.SPACE.CONTAINER_MARGIN_TOP
+      : 0
 
     const marginBottom = edges?.includes('bottom')
       ? insets.bottom + Layout.SPACE.CONTAINER_VERTICAL_PADDING
-      : Layout.SPACE.CONTAINER_VERTICAL_PADDING
+      : 0
 
     const paddingBottom = padded ? Layout.SPACE.CONTAINER_PADDING_BOTTOM : 0
 

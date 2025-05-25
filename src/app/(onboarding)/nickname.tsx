@@ -16,6 +16,7 @@ import {
 } from '@/components/shared'
 import { DelayMS } from '@/constants'
 import { useStepProgress } from '@/store'
+import Animated, { FadeIn } from 'react-native-reanimated'
 
 export default function NickNameScreen() {
   const theme = useTheme()
@@ -53,7 +54,7 @@ export default function NickNameScreen() {
   return (
     <ScreenView edges={['bottom']}>
       <View style={styles.container}>
-        <Delay delay={DelayMS.ANIMATION.MEDIUM[0]}>
+        <Animated.View entering={FadeIn.delay(DelayMS.ANIMATION.LONG[0])}>
           <View style={styles.column}>
             <View style={styles.row}>
               <H1>닉네임 설정</H1>
@@ -63,9 +64,9 @@ export default function NickNameScreen() {
               무드로그에서 사용할 닉네임을 입력해주세요.
             </H3>
           </View>
-        </Delay>
+        </Animated.View>
 
-        <Delay delay={DelayMS.ANIMATION.MEDIUM[1]}>
+        <Animated.View entering={FadeIn.delay(DelayMS.ANIMATION.LONG[1])}>
           <View style={styles.column}>
             <FormInput
               label={t('onboarding.nickname.label')}
@@ -79,19 +80,20 @@ export default function NickNameScreen() {
               닉네임은 언제든지 설정 메뉴에서 변경할 수 있어요.
             </H5>
           </View>
-        </Delay>
+        </Animated.View>
       </View>
 
-      <Delay delay={DelayMS.ANIMATION.MEDIUM[2]}>
-        <View style={styles.buttonBox}>
-          <IconButton
-            icon='arrow-right'
-            mode='contained'
-            onPress={handleNextStep}
-            disabled={!draftUserName}
-          />
-        </View>
-      </Delay>
+      <Animated.View
+        entering={FadeIn.delay(DelayMS.ANIMATION.LONG[2])}
+        style={styles.buttonBox}
+      >
+        <IconButton
+          icon='arrow-right'
+          mode='contained'
+          onPress={handleNextStep}
+          disabled={!draftUserName}
+        />
+      </Animated.View>
     </ScreenView>
   )
 }

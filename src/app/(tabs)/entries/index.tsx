@@ -6,12 +6,15 @@ import Animated, { FadeIn } from 'react-native-reanimated'
 
 import { EntriesJournalDisplay } from '@/components/features/entries'
 import { EmptyJournal } from '@/components/features/journal'
+import { ScreenView } from '@/components/shared'
 import { Layout } from '@/constants'
 import { JournalQueries } from '@/queries'
 import { ISOMonthString, Journal } from '@/types'
 import { groupJournalsByDate, groupJournalsByMonth } from '@/utils'
 
 type GroupedJournalItem = [string, Journal[]]
+
+const AnimatedScreenView = Animated.createAnimatedComponent(ScreenView)
 
 export default function EntriesScreen() {
   const { selectedMonth: monthString } = useGlobalSearchParams()
@@ -31,7 +34,7 @@ export default function EntriesScreen() {
     )
   }
   return (
-    <Animated.View entering={FadeIn.duration(800)} style={styles.animatedView}>
+    <AnimatedScreenView entering={FadeIn.duration(800)}>
       <FlatList
         data={groupedJournalsByDate}
         keyExtractor={(item: GroupedJournalItem) => item[0]}
@@ -49,24 +52,20 @@ export default function EntriesScreen() {
             />
           )
         }}
-        contentContainerStyle={styles.container}
+        contentContainerStyle={styles.contentContainer}
       />
-    </Animated.View>
+    </AnimatedScreenView>
   )
 }
 
 const styles = StyleSheet.create({
-  animatedView: {
-    flex: 1,
-  },
-  container: {
-    paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
-    paddingTop: Layout.SPACE.CONTAINER_PADDING_TOP / 4,
-    paddingBottom: Layout.SPACE.CONTAINER_PADDING_BOTTOM,
-  },
   emptyContainer: {
+    marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  contentContainer: {
+    paddingBottom: Layout.SPACE.CONTAINER_PADDING_BOTTOM,
   },
   spinnerContainer: {
     flex: 1,

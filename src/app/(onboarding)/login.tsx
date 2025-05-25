@@ -1,7 +1,13 @@
 import { useFocusEffect, useLocalSearchParams } from 'expo-router'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, View } from 'react-native'
+import {
+  ActivityIndicator,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import { Button, Text, useTheme } from 'react-native-paper'
 
 import { Delay, GoogleIcon, H1, H3, ScreenView } from '@/components/shared'
@@ -13,6 +19,8 @@ import {
 } from '@/queries'
 import { useStepProgress } from '@/store'
 import { toSingle } from '@/utils'
+import { TFunction } from 'i18next'
+import Animated, { FadeIn } from 'react-native-reanimated'
 
 export default function LoginScreen() {
   const { draftUserName } = useLocalSearchParams()
@@ -45,59 +53,54 @@ export default function LoginScreen() {
       setStep(2)
     }, []),
   )
-  const isPending = isPendingGoogle || isPendingAnon
   const error = googleError || anonError
 
   return (
     <ScreenView edges={['bottom']}>
-      <View style={styles.container}>
-        <Delay delay={DelayMS.ANIMATION.MEDIUM[0]} style={styles.header}>
-          <H1>시작할 준비가 되었어요!</H1>
-          <H3 style={{ color: theme.colors.secondary }}>
-            무드로그를 사용하기 위한 계정을 선택해주세요.
-          </H3>
-        </Delay>
-      </View>
-
-      <Delay delay={DelayMS.ANIMATION.MEDIUM[1]} style={styles.submitBox}>
+      <Animated.View
+        entering={FadeIn.delay(DelayMS.ANIMATION.LONG[0])}
+        style={styles.header}
+      >
+        <H1>시작할 준비가 되었어요!</H1>
+        <H3 style={{ color: theme.colors.secondary }}>
+          무드로그를 사용하기 위한 계정을 선택해주세요.
+        </H3>
+      </Animated.View>
+      <Animated.View
+        entering={FadeIn.delay(DelayMS.ANIMATION.LONG[1])}
+        style={styles.submitBox}
+      >
         {error && (
           <Text style={[styles.error, { color: theme.colors.error }]}>
             {error.message}
           </Text>
         )}
         <Button
+          onPress={handleAnonLogin}
+          disabled={isPendingGoogle || isPendingAnon}
+          loading={isPendingAnon}
+        >
+          {t('common.anon')}
+        </Button>
+        <Button
           mode='contained'
           onPress={handleGoogleLogin}
-          disabled={isPending}
-          loading={isPending}
+          disabled={isPendingGoogle || isPendingAnon}
+          loading={isPendingGoogle}
           icon={GoogleIcon}
         >
           {t('auth.signInWithGoogle')}
         </Button>
-        <Button
-          mode='text'
-          onPress={handleAnonLogin}
-          disabled={isPending}
-          loading={isPending}
-        >
-          가입없이 시작하기
-        </Button>
-      </Delay>
+      </Animated.View>
     </ScreenView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    gap: 20,
-  },
   header: {
     gap: 24,
   },
   googleButtonInner: {
-    flexDirection: 'row',
-    justifyContent: 'center',
     gap: 12,
   },
   error: {
@@ -105,6 +108,8 @@ const styles = StyleSheet.create({
   },
   submitBox: {
     gap: 12,
+    flex: 1,
+    justifyContent: 'flex-end',
   },
   button: {
     alignSelf: 'flex-start',

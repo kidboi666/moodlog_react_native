@@ -2,7 +2,6 @@ import { Stack, useRouter } from 'expo-router'
 import { IconButton, useTheme } from 'react-native-paper'
 
 import { StepDot } from '@/components/shared'
-import { Layout } from '@/constants'
 import { StepProgressProvider } from '@/providers'
 
 export default function WriteLayout() {
@@ -14,7 +13,6 @@ export default function WriteLayout() {
         screenOptions={{
           contentStyle: {
             backgroundColor: theme.colors.background,
-            paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
           },
           gestureEnabled: false,
           animation: 'fade',

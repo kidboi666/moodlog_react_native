@@ -1,7 +1,7 @@
 import { usePathname } from 'expo-router'
 import { TabListProps } from 'expo-router/ui'
 import { PropsWithChildren, forwardRef, useEffect } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Platform, StyleSheet, View } from 'react-native'
 import { Surface } from 'react-native-paper'
 import Animated, {
   useAnimatedStyle,
@@ -19,7 +19,7 @@ export const SurfaceTabList = forwardRef<View, PropsWithChildren<TabListProps>>(
     }))
 
     useEffect(() => {
-      y.value = withTiming(shouldHide ? 80 : 0)
+      y.value = withTiming(shouldHide ? 120 : 0)
     }, [shouldHide])
 
     return (
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'space-around',
-    paddingVertical: 12,
+    paddingTop: 12,
+    paddingBottom: Platform.OS === 'ios' ? 28 : 12,
   },
 })

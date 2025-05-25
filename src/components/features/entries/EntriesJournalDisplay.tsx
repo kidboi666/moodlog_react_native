@@ -16,7 +16,7 @@ function _EntriesJournalDisplay({ journals, date, selectedMonth }: Props) {
     <View key={date} style={styles.container}>
       <DateHeader date={date} />
       {journals.map(journal => {
-        const { content, imageUri, id, createdAt, mood } = journal
+        const { content, imageUri, id, createdAt, moodName } = journal
         return (
           <JournalCard
             key={id}
@@ -24,7 +24,7 @@ function _EntriesJournalDisplay({ journals, date, selectedMonth }: Props) {
             content={content}
             imageUri={imageUri}
             createdAt={createdAt}
-            mood={mood}
+            moodName={moodName}
             localDate={selectedMonth}
           />
         )

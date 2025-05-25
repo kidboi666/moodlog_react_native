@@ -2,7 +2,7 @@ import { Stack, useRouter } from 'expo-router'
 import { useLayoutEffect } from 'react'
 import { IconButton, useTheme } from 'react-native-paper'
 
-import { H3 } from '@/components/shared'
+import { H4 } from '@/components/shared'
 import { useCalendar } from '@/hooks'
 import { convertMonthString } from '@/utils'
 
@@ -24,7 +24,7 @@ export default function EntriesLayout() {
   return (
     <Stack
       screenOptions={{
-        headerTitle: () => <H3>{selectedMonthToRender}</H3>,
+        headerTitle: () => <H4>{selectedMonthToRender}</H4>,
         headerLeft: () => (
           <IconButton icon='arrow-left' onPress={() => handlePress('prev')} />
         ),
@@ -34,6 +34,7 @@ export default function EntriesLayout() {
         headerStyle: {
           backgroundColor: theme.colors.background,
         },
+        headerShadowVisible: false,
         headerTitleAlign: 'center',
         contentStyle: {
           backgroundColor: theme.colors.background,

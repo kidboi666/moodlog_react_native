@@ -1,7 +1,8 @@
-import { H1, H2 } from '@/components/shared'
 import { Stack, useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { IconButton, useTheme } from 'react-native-paper'
+
+import { H2 } from '@/components/shared'
 
 const screens = [
   { name: 'index', title: 'settings.title' },

@@ -1,12 +1,11 @@
 import { type Href, useRouter } from 'expo-router'
 import { Fragment, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, StyleSheet, View } from 'react-native'
-import { Divider, List, Text, useTheme } from 'react-native-paper'
+import { StyleSheet, View } from 'react-native'
+import { List, Text, useTheme } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
-import { H1, ScreenView } from '@/components/shared'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { ScreenView } from '@/components/shared'
 
 const devSection = __DEV__
   ? {
@@ -103,8 +102,8 @@ export default function SettingsScreen() {
   return (
     <AnimatedScreenView
       entering={FadeIn.duration(800)}
-      padded
       withScroll
+      padded
       style={styles.container}
     >
       <View style={styles.contentBox}>
@@ -116,7 +115,6 @@ export default function SettingsScreen() {
                 <List.Item
                   key={menu.label}
                   title={t(menu.label)}
-                  style={styles.item}
                   left={() => <List.Icon icon={menu.icon} />}
                   onPress={() => handleRouteChange(menu.route)}
                 />
@@ -142,8 +140,5 @@ const styles = StyleSheet.create({
   copyrightBox: {
     alignItems: 'center',
     marginTop: 12,
-  },
-  item: {
-    marginLeft: 8,
   },
 })

@@ -124,8 +124,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   inner: {
-    paddingVertical: 16,
-    paddingHorizontal: 8,
+    padding: 8,
   },
   moodBar: {
     width: 8,
@@ -140,7 +139,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   image: {
-    marginTop: 20,
     borderRadius: 0,
   },
 })
