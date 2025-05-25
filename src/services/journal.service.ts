@@ -15,8 +15,7 @@ export async function addJournal(draft: JournalDraft) {
     .insert(journals)
     .values({
       content: draft.content,
-      moodId: draft.moodId,
-      moodLevel: draft.moodLevel,
+      moodName: draft.moodName,
       imageUri: JSON.stringify(draft.imageUri),
     })
     .returning({ id: journals.id, localDate: journals.localDate })
@@ -27,8 +26,7 @@ export async function updateJournal(id: number, draft: JournalDraft) {
     .update(journals)
     .set({
       content: draft.content,
-      moodId: draft.moodId,
-      moodLevel: draft.moodLevel,
+      moodName: draft.moodName,
       imageUri: JSON.stringify(draft.imageUri),
     })
     .where(eq(journals.id, id))
@@ -37,18 +35,12 @@ export async function updateJournal(id: number, draft: JournalDraft) {
 export async function getJournalById(journalId: number) {
   return sqliteDb.query.journals.findFirst({
     where: eq(journals.id, journalId),
-    with: {
-      mood: true,
-    },
   })
 }
 
 export async function getJournalsByDate(date: ISODateString) {
   return sqliteDb.query.journals.findMany({
     where: eq(journals.localDate, date as ISODateString),
-    with: {
-      mood: true,
-    },
   })
 }
 
@@ -60,9 +52,6 @@ export async function getJournalsByMonth(month: ISOMonthString) {
       gte(journals.localDate, firstDate),
       lte(journals.localDate, lastDate),
     ),
-    with: {
-      mood: true,
-    },
   })
 }
 
@@ -74,9 +63,6 @@ export async function getJournalsByYear(year: number) {
       gte(journals.localDate, firstDate),
       lte(journals.localDate, lastDate),
     ),
-    with: {
-      mood: true,
-    },
   })
 }
 

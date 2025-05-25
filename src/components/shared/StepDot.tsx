@@ -32,10 +32,6 @@ export function StepDot() {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    marginVertical: 4,
     gap: 4,
   },
   dot: {

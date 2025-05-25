@@ -8,6 +8,17 @@ export enum MoodLevel {
   FULL = 'full',
 }
 
+export enum MoodName {
+  HAPPY = 'happy',
+  SAD = 'sad',
+  ANGRY = 'angry',
+  EXCITED = 'excited',
+  CALM = 'calm',
+  TIRED = 'tired',
+  ANXIOUS = 'anxious',
+  GRATEFUL = 'grateful',
+}
+
 export type Mood = InferSelectModel<typeof moods>
 export type JournalMood = Prettify<
   Mood & {

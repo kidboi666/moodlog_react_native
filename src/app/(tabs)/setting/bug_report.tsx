@@ -67,6 +67,7 @@ export default function BugReportScreen() {
           onChangeText={setBugDescription}
           placeholder={t('settings.bugReport.descriptionPlaceholder')}
           autoCapitalize='none'
+          style={{ height: 200 }}
         />
       </View>
 

@@ -19,8 +19,7 @@ export type Journal = Prettify<
 export type JournalDraft = {
   content: string
   imageUri: string[]
-  moodId: number
-  moodLevel: MoodLevel
+  moodName: string
 }
 export type DateJournals = Record<ISODateString, Journal[]>
 export type MonthJournals = Record<ISOMonthString, Journal[]>

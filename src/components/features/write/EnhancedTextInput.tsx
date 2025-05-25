@@ -1,5 +1,5 @@
 import { Image } from 'expo-image'
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Alert,
@@ -8,36 +8,28 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import { IconButton, TextInput } from 'react-native-paper'
 import Toast from 'react-native-toast-message'
 
-import { FormInputArea } from '@/components/shared'
-import { IconButton } from '@/components/shared/Button'
-import { DelayMS, Layout } from '@/constants'
-import { useStepProgress } from '@/store'
-
 interface Props {
-  show: boolean
   imageUri: string[]
   contentValue: string
   onContentChange: (content: string) => void
   autoFocus?: boolean
+  onSubmit: () => void
   onImageUriChange: () => void
   onImageUriRemove: (imageUri: string[], index: number) => void
 }
 
 export function EnhancedTextInput({
-  show,
   contentValue,
   onContentChange,
+  onSubmit,
   imageUri,
   onImageUriChange,
   onImageUriRemove,
 }: Props) {
   const { t } = useTranslation()
-  const {
-    state: { currentStep },
-  } = useStepProgress()
-  const inputRef = useRef<any>(null)
 
   const handleContentChange = useCallback((text: string) => {
     onContentChange(text)
@@ -72,27 +64,6 @@ export function EnhancedTextInput({
     [imageUri, onImageUriChange],
   )
 
-  useEffect(() => {
-    if (!show) {
-      return
-    }
-    let focusTimer: NodeJS.Timeout
-
-    if (currentStep === 2) {
-      focusTimer = setTimeout(() => {
-        requestAnimationFrame(() => {
-          inputRef.current?.focus()
-        })
-      }, DelayMS.ROUTE)
-    }
-
-    return () => clearTimeout(focusTimer)
-  }, [])
-
-  if (!show) {
-    return null
-  }
-
   return (
     <View style={styles.container}>
       {imageUri.length !== 0 && (
@@ -109,24 +80,26 @@ export function EnhancedTextInput({
           </ScrollView>
         </View>
       )}
-      <IconButton onPress={onImageUriChange} icon='image-plus' />
-
-      <FormInputArea
-        ref={inputRef}
+      <TextInput
+        multiline
+        label={t('common.content')}
+        textAlignVertical='top'
         value={contentValue}
         onChangeText={handleContentChange}
         placeholder={t('placeholders.journal.content')}
+        style={styles.textarea}
       />
+      <View style={styles.buttonBox}>
+        <IconButton onPress={onImageUriChange} icon='image-plus' />
+        <IconButton onPress={onSubmit} icon='send' />
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
-    width: '100%',
-    gap: 8,
+    gap: 16,
   },
   button: {
     alignSelf: 'flex-end',
@@ -143,5 +116,12 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowOpacity: 0.5,
     shadowRadius: 10,
+  },
+  textarea: {
+    height: 200,
+  },
+  buttonBox: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
 })

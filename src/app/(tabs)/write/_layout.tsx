@@ -1,12 +1,10 @@
 import { Stack, useRouter } from 'expo-router'
-import { useTranslation } from 'react-i18next'
 import { IconButton, useTheme } from 'react-native-paper'
 
 import { StepDot } from '@/components/shared'
 import { StepProgressProvider } from '@/providers'
 
 export default function WriteLayout() {
-  const { t } = useTranslation()
   const router = useRouter()
   const theme = useTheme()
   return (
@@ -15,8 +13,10 @@ export default function WriteLayout() {
         screenOptions={{
           contentStyle: { backgroundColor: theme.colors.background },
           gestureEnabled: false,
+          animation: 'fade',
           headerShadowVisible: false,
           headerStyle: { backgroundColor: theme.colors.background },
+          headerTitleAlign: 'center',
           headerTitle: () => <StepDot />,
           headerLeft: () => (
             <IconButton icon='arrow-left' onPress={() => router.back()} />

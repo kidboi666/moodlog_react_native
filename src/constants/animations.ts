@@ -62,6 +62,6 @@ export const DelayMS = {
   },
   ROUTE: 300,
   WAIT: {
-    WRITE_MOOD: 3500,
+    SELECT_MOOD: 300,
   },
 } as const

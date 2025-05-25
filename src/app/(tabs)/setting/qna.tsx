@@ -8,6 +8,7 @@ import {
   FormInput,
   FormInputArea,
   H1,
+  H5,
   H6,
   ScreenView,
 } from '@/components/shared'
@@ -60,9 +61,8 @@ export default function QnA() {
 
   return (
     <ScreenView withScroll edges={['bottom']} padded style={styles.container}>
-      <H1>{t('settings.qna.title')}</H1>
       <View style={styles.contentBox}>
-        <H6>{t('settings.qna.categoryLabel')}</H6>
+        <H5>{t('settings.qna.categoryLabel')}</H5>
         <RadioButton.Group value={category} onValueChange={setCategory}>
           {useMemo(
             () =>
@@ -79,13 +79,13 @@ export default function QnA() {
       </View>
 
       <View style={styles.menu}>
-        <H6>{t('settings.qna.questionLabel')}</H6>
+        <H5>{t('settings.qna.questionLabel')}</H5>
         <FormInputArea
-          height={200}
           placeholder={t('settings.qna.questionPlaceholder')}
           value={question}
           onChangeText={setQuestion}
           autoCapitalize='none'
+          style={{ height: 200 }}
         />
       </View>
       <View style={styles.menu}>

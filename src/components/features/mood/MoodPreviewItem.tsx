@@ -7,119 +7,87 @@ import {
   Skia,
 } from '@shopify/react-native-skia'
 import { useEffect } from 'react'
-import { StyleSheet, View, ViewProps } from 'react-native'
-import {
+import { ViewProps, useWindowDimensions } from 'react-native'
+import Animated, {
   Easing,
   SharedValue,
+  useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
-  withRepeat,
   withSequence,
   withTiming,
 } from 'react-native-reanimated'
 
 import { useSkiaParagraph } from '@/hooks'
-import { useStepProgress } from '@/store'
 
 interface Props extends ViewProps {
   name: string
   color: SharedValue<string> | string
+  x: number
+  y: number
+  size: number
+  duration: number
 }
 
-export function MoodPreviewItem({ name, color, ...props }: Props) {
-  const {
-    state: { currentStep },
-  } = useStepProgress()
+export function MoodPreviewItem({ name, color, x, y, size, duration }: Props) {
+  const { width, height } = useWindowDimensions()
   const { paragraph } = useSkiaParagraph(name)
   const skiaColor = Skia.Color(color as unknown as Color)
-  const r = 100
-  const p = 80
-  const canvasSize = r * 2 + p
-  const center = r + p / 2
-  const fullMoodPath = useSharedValue(center)
-  const halfMoodPath = useSharedValue(center)
-  const zeroMoodPath = useSharedValue(center)
-  const blur = useSharedValue(10)
-  const textX = useDerivedValue(() => fullMoodPath.value - r)
-  const textY = useDerivedValue(() => fullMoodPath.value - 12)
+
+  const centerX = width / 2
+  const startX = x + size / 2
+  const targetY = height / 6
+  const r = size / 2
+
+  const progress = useSharedValue(0)
+  const canvasHeight = useSharedValue(height)
+  const cy = useSharedValue(y)
+  const cx = useSharedValue(startX)
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    width,
+    height: canvasHeight.value,
+    opacity: progress.value,
+  }))
+
+  const leftX = useDerivedValue(() => {
+    if (progress.value <= 1) return cx.value
+    return cx.value - r
+  })
+  const rightX = useDerivedValue(() => {
+    if (progress.value <= 1) return cx.value
+    return cx.value + r
+  })
+
+  const textX = useDerivedValue(() => rightX.value - r, [])
+  const textY = useDerivedValue(() => cy.value - 14, [])
+  const textWidth = useDerivedValue(() => r * 2, [])
 
   useEffect(() => {
-    fullMoodPath.value = withSequence(
-      withTiming(currentStep === 1 ? r : center, {
-        duration: 1200,
-        easing: Easing.inOut(Easing.quad),
-      }),
-      withRepeat(
-        withTiming(currentStep === 1 ? r + 8 : center + 8, {
-          duration: 3000,
-        }),
-        -1,
-        true,
-      ),
+    progress.value = withTiming(1, { duration })
+    cx.value = withTiming(centerX, { duration })
+    cy.value = withTiming(targetY, { duration })
+    canvasHeight.value = withSequence(
+      withTiming(height / 2, { duration: duration / 1.4 }),
     )
-    blur.value = withRepeat(withTiming(20, { duration: 2000 }), -1, true)
-    zeroMoodPath.value = withSequence(
-      withTiming(currentStep === 1 ? r + p : center, {
-        duration: 1200,
-        easing: Easing.inOut(Easing.quad),
-      }),
-      withRepeat(
-        withTiming(currentStep === 1 ? r + p - 8 : center + 8, {
-          duration: 4000,
-        }),
-        -1,
-        true,
-      ),
-    )
-  }, [currentStep])
+  }, [])
 
   return (
-    <View style={styles.container} {...props}>
-      <Canvas
-        style={{
-          width: canvasSize,
-          height: canvasSize,
-        }}
-      >
-        <Circle cx={fullMoodPath} cy={fullMoodPath} r={r} color={skiaColor} />
-        <Circle
-          cx={halfMoodPath}
-          cy={halfMoodPath}
-          r={r}
-          color={skiaColor}
-          opacity={0.4}
-        >
-          <Blur blur={blur} />
+    <Animated.View style={animatedStyle}>
+      <Canvas style={{ width, height }}>
+        <Circle cx={leftX} cy={cy} r={r} color={skiaColor} opacity={0.4} />
+        <Circle cx={cx} cy={cy} r={r} color={skiaColor} opacity={0.4}>
+          <Blur blur={20} />
         </Circle>
-        <Circle
-          cx={halfMoodPath}
-          cy={halfMoodPath}
-          r={r}
-          color={skiaColor}
-          opacity={0.4}
-        />
-        <Circle
-          cx={zeroMoodPath}
-          cy={zeroMoodPath}
-          r={r}
-          color={skiaColor}
-          opacity={0.4}
-        />
+        <Circle cx={cx} cy={cy} r={r} color={skiaColor} opacity={0.4} />
+        <Circle cx={rightX} cy={cy} r={r} color={skiaColor} />
         <Paragraph
           paragraph={paragraph}
           x={textX}
           y={textY}
-          color='white'
-          width={r * 2}
+          width={textWidth}
         />
       </Canvas>
-    </View>
+    </Animated.View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-})

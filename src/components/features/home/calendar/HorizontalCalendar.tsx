@@ -90,7 +90,7 @@ export function HorizontalCalendar({
           const isFuture = currentISODate < renderDate
           const isSelected = selectedDate === renderDate
           const dateColor = isFuture
-            ? theme.colors.onSurface
+            ? theme.colors.onSurfaceVariant
             : isSelected
               ? theme.colors.primary
               : theme.colors.surface

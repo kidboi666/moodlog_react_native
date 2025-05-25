@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import { useLocalSearchParams } from 'expo-router'
-import { useMemo } from 'react'
+import { useGlobalSearchParams } from 'expo-router'
 import { FlatList, StyleSheet, View } from 'react-native'
+import { ActivityIndicator } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
 import { EntriesJournalDisplay } from '@/components/features/entries'
@@ -10,22 +10,17 @@ import { Layout } from '@/constants'
 import { JournalQueries } from '@/queries'
 import { ISOMonthString, Journal } from '@/types'
 import { groupJournalsByDate, groupJournalsByMonth } from '@/utils'
-import { ActivityIndicator } from 'react-native-paper'
 
 type GroupedJournalItem = [string, Journal[]]
 
 export default function EntriesScreen() {
-  const { selectedMonth: monthString } = useLocalSearchParams()
+  const { selectedMonth: monthString } = useGlobalSearchParams()
   const selectedMonth = monthString as ISOMonthString
   const { data: journals, isFetching } = useQuery(
     JournalQueries.getJournalsByMonth(selectedMonth),
   )
-
-  const groupedJournalsByMonth = useMemo(() => {
-    if (!Array.isArray(journals) || journals.length === 0) return {}
-    return groupJournalsByMonth(journals)
-  }, [journals])
-  const monthlyJournals = groupedJournalsByMonth[selectedMonth] || []
+  const groupedJournalsByMonth = journals && groupJournalsByMonth(journals)
+  const monthlyJournals = groupedJournalsByMonth?.[selectedMonth] || []
   const groupedJournalsByDate = groupJournalsByDate(monthlyJournals)
 
   if (isFetching) {
@@ -35,28 +30,27 @@ export default function EntriesScreen() {
       </View>
     )
   }
-
   return (
     <Animated.View entering={FadeIn.duration(800)} style={styles.animatedView}>
-      {Array.isArray(journals) && journals.length > 0 ? (
-        <FlatList
-          data={groupedJournalsByDate}
-          keyExtractor={(item: GroupedJournalItem) => item[0]}
-          ListEmptyComponent={<EmptyJournal />}
-          renderItem={({ item }: { item: GroupedJournalItem }) => {
-            return (
-              <EntriesJournalDisplay
-                date={item[0]}
-                journals={item[1]}
-                selectedMonth={selectedMonth}
-              />
-            )
-          }}
-          contentContainerStyle={styles.container}
-        />
-      ) : (
-        <EmptyJournal />
-      )}
+      <FlatList
+        data={groupedJournalsByDate}
+        keyExtractor={(item: GroupedJournalItem) => item[0]}
+        ListEmptyComponent={
+          <View style={styles.emptyContainer}>
+            <EmptyJournal variant='entries' />
+          </View>
+        }
+        renderItem={({ item }: { item: GroupedJournalItem }) => {
+          return (
+            <EntriesJournalDisplay
+              date={item[0]}
+              journals={item[1]}
+              selectedMonth={selectedMonth}
+            />
+          )
+        }}
+        contentContainerStyle={styles.container}
+      />
     </Animated.View>
   )
 }
@@ -71,8 +65,6 @@ const styles = StyleSheet.create({
     paddingBottom: Layout.SPACE.CONTAINER_PADDING_BOTTOM,
   },
   emptyContainer: {
-    padding: 60,
-    backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
   },

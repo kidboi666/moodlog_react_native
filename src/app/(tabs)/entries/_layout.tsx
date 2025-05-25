@@ -14,14 +14,12 @@ export default function EntriesLayout() {
   const handlePress = (prevOrNext: 'prev' | 'next') => {
     const monthString = convertMonthString(selectedMonth, prevOrNext)
     onSelectedMonthChange(monthString)
-    router.setParams({ selectedMonth: monthString })
   }
-
   const selectedMonthToRender = selectedMonth.replace('-', '.')
 
   useLayoutEffect(() => {
-    router.setParams({ selectedMonth })
-  }, [])
+    router.setParams({ selectedMonth: selectedMonth })
+  }, [selectedMonth])
 
   return (
     <Stack

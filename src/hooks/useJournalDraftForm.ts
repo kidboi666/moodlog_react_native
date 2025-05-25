@@ -3,11 +3,10 @@ import { useState } from 'react'
 import { JournalDraft, MoodLevel } from '@/types'
 import { createNewFileName } from '@/utils'
 
-export const useJournalDraftForm = (initialMoodId?: number) => {
+export const useJournalDraftForm = (initialMood: string) => {
   const [draft, setDraft] = useState<JournalDraft>({
     content: '',
-    moodId: initialMoodId ?? 0,
-    moodLevel: MoodLevel.HALF,
+    moodName: initialMood,
     imageUri: [],
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -47,15 +46,6 @@ export const useJournalDraftForm = (initialMoodId?: number) => {
     }))
   }
 
-  const resetForm = () => {
-    setDraft({
-      content: '',
-      moodId: initialMoodId ?? 0,
-      moodLevel: MoodLevel.HALF,
-      imageUri: [],
-    })
-  }
-
   return {
     draft,
     isSubmitting,
@@ -65,6 +55,5 @@ export const useJournalDraftForm = (initialMoodId?: number) => {
     onMoodLevelChange: handleMoodLevelChange,
     onImageUriChange: handleAddImage,
     onImageUriRemove: handleRemoveImage,
-    resetForm,
   }
 }

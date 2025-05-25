@@ -22,7 +22,6 @@ import {
   JournalDraft,
   Maybe,
   SelectJournal,
-  TimeRange,
 } from '@/types'
 
 const mappingType = (journal: SelectJournal) => {
@@ -93,7 +92,7 @@ export function useAddJournal() {
     },
     onSuccess: data => {
       router.replace({
-        pathname: '/journal/[journalId]',
+        pathname: '/(journal)/[journalId]',
         params: { journalId: data[0].id, isNewJournal: 'true' },
       })
     },

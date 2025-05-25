@@ -16,6 +16,7 @@ export const ko = {
     ok: '확인',
     cancel: '취소',
     confirm: '확인',
+    content: '내용',
     delete: '삭제',
     edit: '수정',
     save: '저장',
@@ -41,6 +42,7 @@ export const ko = {
     },
     add: '추가',
   },
+
   validation: {
     allFieldsRequired: '모든 필드를 입력해주세요.',
     passwordMustBeAtLeast8Characters: '비밀번호는 8자 이상이어야 합니다.',
