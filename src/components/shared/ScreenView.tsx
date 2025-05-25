@@ -26,46 +26,68 @@ interface NonScrollableProps extends BaseProps {
 
 type ScreenViewProps =
   | (ScrollableProps &
-      Omit<ScrollViewProps, 'style'> & { style?: ScrollViewProps['style'] })
+      Omit<ScrollViewProps, 'style' | 'contentContainerStyle'> & {
+        style?: ScrollViewProps['style']
+        contentContainerStyle?: ScrollViewProps['contentContainerStyle']
+      })
   | (NonScrollableProps &
       Omit<ViewProps, 'style'> & { style?: ViewProps['style'] })
 
 export const ScreenView = forwardRef<ScrollView | View, ScreenViewProps>(
-  ({ edges, padded, Header, style, withScroll, ...props }, ref) => {
+  (props, ref) => {
+    const { edges, padded, Header, withScroll, style, ...restProps } = props
     const insets = useSafeAreaInsets()
-    const containerStyles = {
-      marginTop: insets.top + Layout.SPACE.CONTAINER_MARGIN_TOP,
-      marginBottom: insets.bottom + Layout.SPACE.CONTAINER_VERTICAL_PADDING,
-      paddingBottom: padded ? Layout.SPACE.CONTAINER_PADDING_BOTTOM : 0,
+
+    const marginTop = edges?.includes('top')
+      ? insets.top + Layout.SPACE.CONTAINER_MARGIN_TOP
+      : Layout.SPACE.CONTAINER_MARGIN_TOP
+
+    const marginBottom = edges?.includes('bottom')
+      ? insets.bottom + Layout.SPACE.CONTAINER_VERTICAL_PADDING
+      : Layout.SPACE.CONTAINER_VERTICAL_PADDING
+
+    const paddingBottom = padded ? Layout.SPACE.CONTAINER_PADDING_BOTTOM : 0
+
+    if (withScroll) {
+      const { contentContainerStyle, ...scrollProps } =
+        restProps as ScrollViewProps
+
+      return (
+        <ScrollView
+          ref={ref as Ref<ScrollView>}
+          style={[{ marginTop, marginBottom }, style]}
+          contentContainerStyle={[
+            styles.scrollView,
+            { paddingBottom },
+            contentContainerStyle,
+          ]}
+          {...scrollProps}
+        >
+          {Header}
+          {restProps.children}
+        </ScrollView>
+      )
     }
 
-    return withScroll ? (
-      <ScrollView
-        ref={ref as Ref<ScrollView>}
-        contentContainerStyle={[styles.container, containerStyles, style]}
-        {...(props as ScrollViewProps)}
-      >
-        {Header}
-        {props.children}
-      </ScrollView>
-    ) : (
+    return (
       <View
         ref={ref as Ref<View>}
-        style={[styles.container, containerStyles, style]}
-        {...(props as ViewProps)}
+        style={[styles.view, { marginTop, marginBottom, paddingBottom }, style]}
+        {...(restProps as ViewProps)}
       >
         {Header}
-        {props.children}
+        {restProps.children}
       </View>
     )
   },
 )
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
+  scrollView: {
+    paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
   },
-  container: {
+  view: {
+    flex: 1,
     paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
   },
 })

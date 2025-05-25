@@ -1,24 +1,24 @@
 import { useQuery } from '@tanstack/react-query'
 import { Image } from 'expo-image'
 import { useLocalSearchParams } from 'expo-router'
-import { useMemo, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useState } from 'react'
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Text, useTheme } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { FullScreenImageModal } from '@/components/features/modal'
 import { H3 } from '@/components/shared'
+import { Colors } from '@/constants'
 import { JournalQueries } from '@/queries'
+import { MoodName } from '@/types'
 import { toSingle } from '@/utils'
-import { SafeAreaView } from 'react-native-safe-area-context'
 
 const AnimatedScreenView = Animated.createAnimatedComponent(SafeAreaView)
 
 export default function JournalScreen() {
   const theme = useTheme()
   const { journalId } = useLocalSearchParams()
-  const { t } = useTranslation()
   const { data: journal } = useQuery(
     JournalQueries.getJournalById(Number(toSingle(journalId))),
   )
@@ -43,15 +43,15 @@ export default function JournalScreen() {
     >
       <View style={styles.rowBox}>
         <View
-          style={[styles.moodBar, { backgroundColor: journal?.mood?.color }]}
+          style={[
+            styles.moodBar,
+            { backgroundColor: Colors.mood[journal?.moodName as MoodName] },
+          ]}
         />
         <View style={styles.contentBox}>
           <View style={styles.moodBox}>
-            <H3 style={{ color: theme.colors.onSurface }}>
-              {t(`moods.levels.${journal.moodLevel}`)}
-            </H3>
-            <H3 style={{ color: journal?.mood?.color }}>
-              {journal.mood?.name}
+            <H3 style={{ color: Colors.mood[journal?.moodName as MoodName] }}>
+              {journal.moodName}
             </H3>
           </View>
           {Array.isArray(journal.imageUri) && (

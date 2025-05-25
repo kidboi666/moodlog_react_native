@@ -24,7 +24,7 @@ export default function IntroScreen() {
   )
 
   return (
-    <ScreenView edges={['bottom']}>
+    <ScreenView>
       <View style={styles.content}>
         <Delay delay={DelayMS.ANIMATION.LONG[0]}>
           <ShakeEmoji emoji='👋' />

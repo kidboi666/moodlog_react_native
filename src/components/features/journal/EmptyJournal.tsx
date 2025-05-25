@@ -1,15 +1,15 @@
 import { useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
-import { Card, IconButton, Surface, useTheme } from 'react-native-paper'
+import { Card, IconButton, useTheme } from 'react-native-paper'
 
 import { H4, H6 } from '@/components/shared'
 
 interface Props {
-  variant: 'home' | 'entries'
+  source: 'home' | 'entries'
 }
 
-export function EmptyJournal({ variant }: Props) {
+export function EmptyJournal({ source }: Props) {
   const { t } = useTranslation()
   const theme = useTheme()
   const router = useRouter()
@@ -18,7 +18,7 @@ export function EmptyJournal({ variant }: Props) {
     router.push('/write')
   }
 
-  if (variant === 'entries') {
+  if (source === 'entries') {
     return (
       <View style={styles.entriesContainer}>
         <H4 style={styles.title}>{t('common.fallback.empty.title')}</H4>

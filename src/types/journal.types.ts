@@ -7,11 +7,9 @@ import { Maybe, Prettify } from './util.types'
 
 // db schema
 export type JournalModel = InferSelectModel<typeof journals>
-// joined schema
-export type SelectJournal = Prettify<JournalModel & { mood: Mood }>
 // prettified schema
 export type Journal = Prettify<
-  Omit<SelectJournal, 'imageUri'> & {
+  Omit<JournalModel, 'imageUri'> & {
     localDate: ISODateString
     imageUri: Maybe<string[]>
   }

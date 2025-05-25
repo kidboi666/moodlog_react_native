@@ -20,11 +20,11 @@ import {
   ISOMonthString,
   ISOString,
   JournalDraft,
+  JournalModel,
   Maybe,
-  SelectJournal,
 } from '@/types'
 
-const mappingType = (journal: SelectJournal) => {
+const mappingType = (journal: JournalModel) => {
   return {
     ...journal,
     localDate: journal?.localDate as ISODateString,
@@ -93,7 +93,7 @@ export function useAddJournal() {
     onSuccess: data => {
       router.replace({
         pathname: '/(journal)/[journalId]',
-        params: { journalId: data[0].id, isNewJournal: 'true' },
+        params: { journalId: data[0].id, source: 'create' },
       })
     },
     onSettled: data => {

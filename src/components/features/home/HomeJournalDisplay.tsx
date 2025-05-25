@@ -27,7 +27,7 @@ export function HomeJournalDisplay({
         id,
         content = '',
         createdAt,
-        mood,
+        moodName,
         imageUri = [],
         localDate,
       } = journal
@@ -36,7 +36,7 @@ export function HomeJournalDisplay({
           <JournalCard
             journalId={id}
             content={content}
-            mood={mood}
+            moodName={moodName}
             imageUri={imageUri}
             createdAt={createdAt}
             localDate={localDate}
@@ -46,7 +46,7 @@ export function HomeJournalDisplay({
     })
   ) : (
     <Delay delay={delay}>
-      <EmptyJournal />
+      <EmptyJournal source='home' />
     </Delay>
   )
 }

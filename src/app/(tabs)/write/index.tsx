@@ -4,12 +4,13 @@ import { StyleSheet } from 'react-native'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 
 import { MoodList } from '@/components/features/mood'
-import { ScreenView } from '@/components/shared'
-import { DelayMS } from '@/constants'
+import { DelayMS, Layout } from '@/constants'
 import { useStepProgress } from '@/store'
+import { ScrollView } from 'react-native-gesture-handler'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const duration = 600
-const AnimatedView = Animated.createAnimatedComponent(ScreenView)
+const AnimatedView = Animated.createAnimatedComponent(SafeAreaView)
 
 export default function MoodScreen() {
   const router = useRouter()
@@ -39,7 +40,9 @@ export default function MoodScreen() {
       exiting={FadeOut.duration(duration)}
       style={styles.container}
     >
-      <MoodList onMoodChange={handleNextButton} duration={duration} />
+      <ScrollView>
+        <MoodList onMoodChange={handleNextButton} duration={duration} />
+      </ScrollView>
     </AnimatedView>
   )
 }

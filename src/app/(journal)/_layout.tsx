@@ -1,9 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
-import { Stack, useLocalSearchParams, useRouter } from 'expo-router'
+import {
+  Stack,
+  useGlobalSearchParams,
+  useLocalSearchParams,
+  useRouter,
+} from 'expo-router'
 import { useMemo } from 'react'
 import { IconButton, useTheme } from 'react-native-paper'
 
-import { JournalTimeZone } from '@/components/features/journal/JournalTimeZone'
+import { JournalTimeZone } from '@/components/features/journal'
 import { Layout } from '@/constants'
 import { JournalQueries } from '@/queries'
 import { useBottomSheet } from '@/store'
@@ -12,7 +17,7 @@ import { toSingle } from '@/utils'
 
 export default function JournalLayout() {
   const theme = useTheme()
-  const { journalId, isNewJournal } = useLocalSearchParams()
+  const { journalId, source } = useGlobalSearchParams()
   const router = useRouter()
   const showBottomSheet = useBottomSheet(state => state.showBottomSheet)
   const hideBottomSheet = useBottomSheet(state => state.hideBottomSheet)
@@ -28,10 +33,6 @@ export default function JournalLayout() {
       hideBottomSheet,
       localDate: journal.localDate,
     })
-  }
-
-  const handleGoBack = () => {
-    isNewJournal === 'true' ? router.dismiss(2) : router.back()
   }
 
   const memoizedStyles = useMemo(
@@ -51,7 +52,12 @@ export default function JournalLayout() {
           <IconButton icon='delete' onPress={handleDeleteSheetOpen} />
         ),
         headerLeft: () => (
-          <IconButton icon='arrow-left' onPress={handleGoBack} />
+          <IconButton
+            icon='arrow-left'
+            onPress={() =>
+              source === 'create' ? router.replace('/home') : router.back()
+            }
+          />
         ),
         headerShadowVisible: false,
         headerStyle: memoizedStyles.container,

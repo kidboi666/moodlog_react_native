@@ -5,10 +5,10 @@ import { Card, IconButton, useTheme } from 'react-native-paper'
 import Animated from 'react-native-reanimated'
 
 import { FullScreenImageModal } from '@/components/features/modal/contents'
-import { DelayMS, Layout } from '@/constants'
+import { Colors, DelayMS, Layout } from '@/constants'
 import { useCardGesture } from '@/hooks'
 import { useBottomSheet } from '@/store'
-import { BottomSheetType, ISOString, Maybe, Mood } from '@/types'
+import { BottomSheetType, ISOString, Maybe, MoodName } from '@/types'
 import { ActionButton } from './ActionButton'
 
 const AnimatedCard = Animated.createAnimatedComponent(Card)
@@ -19,7 +19,7 @@ interface Props {
   localDate: ISOString
   createdAt: string
   imageUri: Maybe<string[]>
-  mood: Mood
+  moodName: string
 }
 
 export function JournalCard({
@@ -28,7 +28,7 @@ export function JournalCard({
   localDate,
   createdAt,
   imageUri,
-  mood,
+  moodName,
 }: Props) {
   const theme = useTheme()
   const router = useRouter()
@@ -87,7 +87,10 @@ export function JournalCard({
               subtitleNumberOfLines={4}
               left={() => (
                 <View
-                  style={[styles.moodBar, { backgroundColor: mood?.color }]}
+                  style={[
+                    styles.moodBar,
+                    { backgroundColor: Colors.mood[moodName as MoodName] },
+                  ]}
                 />
               )}
               right={() => (

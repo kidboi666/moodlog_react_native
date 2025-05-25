@@ -1,11 +1,11 @@
 import { useLocalSearchParams } from 'expo-router'
-import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 import { EnhancedTextInput } from '@/components/features/write'
-import { ScreenView } from '@/components/shared'
 import { useJournalDraftForm } from '@/hooks'
 import { useAddJournal } from '@/queries'
 import { toSingle } from '@/utils'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function WriteJournalScreen() {
   const { moodName } = useLocalSearchParams()
@@ -18,7 +18,7 @@ export default function WriteJournalScreen() {
   }
 
   return (
-    <ScreenView style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <EnhancedTextInput
         onSubmit={handleSubmit}
         imageUri={draft.imageUri}
@@ -27,7 +27,7 @@ export default function WriteJournalScreen() {
         onImageUriRemove={onImageUriRemove}
         onImageUriChange={onImageUriChange}
       />
-    </ScreenView>
+    </SafeAreaView>
   )
 }
 

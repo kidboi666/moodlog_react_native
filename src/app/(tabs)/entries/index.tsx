@@ -37,7 +37,7 @@ export default function EntriesScreen() {
         keyExtractor={(item: GroupedJournalItem) => item[0]}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
-            <EmptyJournal variant='entries' />
+            <EmptyJournal source='entries' />
           </View>
         }
         renderItem={({ item }: { item: GroupedJournalItem }) => {
