@@ -29,7 +29,11 @@ export default function EntriesScreen() {
   const groupedJournalsByDate = groupJournalsByDate(monthlyJournals)
 
   if (isFetching) {
-    return <ActivityIndicator size='large' />
+    return (
+      <View style={styles.spinnerContainer}>
+        <ActivityIndicator size='large' />
+      </View>
+    )
   }
 
   return (
@@ -38,11 +42,7 @@ export default function EntriesScreen() {
         <FlatList
           data={groupedJournalsByDate}
           keyExtractor={(item: GroupedJournalItem) => item[0]}
-          ListEmptyComponent={
-            <View style={styles.emptyContainer}>
-              <EmptyJournal />
-            </View>
-          }
+          ListEmptyComponent={<EmptyJournal />}
           renderItem={({ item }: { item: GroupedJournalItem }) => {
             return (
               <EntriesJournalDisplay
@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    flex: 1,
     paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
     paddingTop: Layout.SPACE.CONTAINER_PADDING_TOP / 4,
     paddingBottom: Layout.SPACE.CONTAINER_PADDING_BOTTOM,
@@ -74,6 +73,11 @@ const styles = StyleSheet.create({
   emptyContainer: {
     padding: 60,
     backgroundColor: 'red',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  spinnerContainer: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },

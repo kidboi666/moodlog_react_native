@@ -29,12 +29,7 @@ export default function HomeScreen() {
   }, [])
 
   return (
-    <ScreenView
-      withScroll
-      edges={['top', 'bottom']}
-      padded
-      style={styles.container}
-    >
+    <ScreenView withScroll padded style={styles.container}>
       <WelcomeZone />
       <WeekDay
         selectedDate={selectedDate}

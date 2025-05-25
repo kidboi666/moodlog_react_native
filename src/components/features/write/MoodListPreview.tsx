@@ -2,10 +2,10 @@ import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { FlatList, StyleSheet, View, useWindowDimensions } from 'react-native'
 
 import { MoodPreviewItem } from '@/components/features/mood'
-import { IconButton } from '@/components/shared'
 import { Layout } from '@/constants'
 import { useDeleteMood } from '@/queries'
 import { Moods } from '@/types'
+import { IconButton } from 'react-native-paper'
 
 interface Props {
   moods: Moods

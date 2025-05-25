@@ -1,5 +1,3 @@
-import { baseVariants, customVariants } from '@/configs'
-import { useAppTheme } from '@/store'
 import {
   DarkTheme,
   DefaultTheme,
@@ -15,6 +13,9 @@ import {
   configureFonts,
 } from 'react-native-paper'
 
+import { baseVariants, customVariants } from '@/configs'
+import { useAppTheme } from '@/store'
+
 export function UnifiedThemeProvider({ children }: PropsWithChildren) {
   const colorScheme = useColorScheme()
   const { initialize, updateSystemTheme, isInitialized, resolvedTheme } =
@@ -25,13 +26,19 @@ export function UnifiedThemeProvider({ children }: PropsWithChildren) {
       ...customVariants,
     },
   })
-
   const themeConfig = resolvedTheme === 'dark' ? MD3DarkTheme : MD3LightTheme
   const paperTheme = {
     ...themeConfig,
     fonts: fontConfig,
     roundness: 16,
   }
+  const navigationTheme = resolvedTheme === 'dark' ? DarkTheme : DefaultTheme
+  const statusBarStyle =
+    resolvedTheme === 'dark' ? 'light-content' : 'dark-content'
+  const statusBarColor =
+    resolvedTheme === 'dark'
+      ? MD3DarkTheme.colors.background
+      : MD3LightTheme.colors.background
 
   useEffect(() => {
     const systemTheme = colorScheme === 'dark' ? 'dark' : 'light'
@@ -48,15 +55,8 @@ export function UnifiedThemeProvider({ children }: PropsWithChildren) {
 
   return (
     <PaperProvider theme={paperTheme}>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <StatusBar
-          barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
-          backgroundColor={
-            colorScheme === 'dark'
-              ? MD3DarkTheme.colors.background
-              : MD3LightTheme.colors.background
-          }
-        />
+      <ThemeProvider value={navigationTheme}>
+        <StatusBar barStyle={statusBarStyle} backgroundColor={statusBarColor} />
         {children}
       </ThemeProvider>
     </PaperProvider>

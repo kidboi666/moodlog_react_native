@@ -1,7 +1,6 @@
 import { supabaseConfig } from '@/configs'
 import { Database } from '@/types'
 import { createClient } from '@supabase/supabase-js'
-import { AppState } from 'react-native'
 import 'react-native-url-polyfill/auto'
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL || ''
@@ -12,11 +11,3 @@ export const supabase = createClient<Database>(
   supabaseAnonKey,
   supabaseConfig,
 )
-
-AppState.addEventListener('change', state => {
-  if (state === 'active') {
-    supabase.auth.startAutoRefresh()
-  } else {
-    supabase.auth.stopAutoRefresh()
-  }
-})

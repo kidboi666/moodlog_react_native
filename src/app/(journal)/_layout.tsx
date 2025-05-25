@@ -4,7 +4,6 @@ import { useMemo } from 'react'
 import { IconButton, useTheme } from 'react-native-paper'
 
 import { JournalTimeZone } from '@/components/features/journal/JournalTimeZone'
-import { BackButton } from '@/components/shared'
 import { Layout } from '@/constants'
 import { JournalQueries } from '@/queries'
 import { useBottomSheet } from '@/store'

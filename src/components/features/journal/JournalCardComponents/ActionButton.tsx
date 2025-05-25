@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { IconButton, MD3Colors } from 'react-native-paper'
+import { IconButton } from 'react-native-paper'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 
 interface ActionButtonProps {
@@ -15,11 +15,7 @@ export function ActionButton({ showActionButton, onPress }: ActionButtonProps) {
         entering={FadeIn.duration(800)}
         exiting={FadeOut.duration(300)}
       >
-        <IconButton
-          icon='delete'
-          containerColor={MD3Colors.error40}
-          onPress={onPress}
-        />
+        <IconButton icon='delete' mode='contained' onPress={onPress} />
       </Animated.View>
     )
   )

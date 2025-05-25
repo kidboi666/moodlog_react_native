@@ -1,12 +1,13 @@
 import { useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet } from 'react-native'
-import { Card, IconButton } from 'react-native-paper'
+import { Card, IconButton, useTheme } from 'react-native-paper'
 
 import { H4 } from '@/components/shared'
 
 export function EmptyJournal() {
   const { t } = useTranslation()
+  const theme = useTheme()
   const router = useRouter()
 
   const handleRoute = () => {
@@ -19,6 +20,7 @@ export function EmptyJournal() {
       <IconButton
         icon='plus'
         mode='contained'
+        containerColor={theme.colors.primaryContainer}
         style={styles.plusButton}
         onPress={handleRoute}
       />

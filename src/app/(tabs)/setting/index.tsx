@@ -1,11 +1,12 @@
 import { type Href, useRouter } from 'expo-router'
 import { Fragment, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, View } from 'react-native'
-import { Divider, List, Text } from 'react-native-paper'
+import { ScrollView, StyleSheet, View } from 'react-native'
+import { Divider, List, Text, useTheme } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
 import { H1, ScreenView } from '@/components/shared'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const devSection = __DEV__
   ? {
@@ -82,6 +83,7 @@ interface SettingSection {
 
 export default function SettingsScreen() {
   const { t } = useTranslation()
+  const theme = useTheme()
   const router = useRouter()
 
   const handleRouteChange = useCallback(
@@ -101,16 +103,15 @@ export default function SettingsScreen() {
   return (
     <AnimatedScreenView
       entering={FadeIn.duration(800)}
-      withScroll
-      edges={['top']}
       padded
+      withScroll
       style={styles.container}
     >
       <View style={styles.contentBox}>
         {sections.map(({ title, items }) => (
           <List.Section key={title}>
             <List.Subheader>{t(title)}</List.Subheader>
-            {items.map((menu, i) => (
+            {items.map(menu => (
               <Fragment key={menu.label}>
                 <List.Item
                   key={menu.label}
@@ -132,14 +133,11 @@ export default function SettingsScreen() {
 }
 
 const styles = StyleSheet.create({
-  animatedContainer: {
-    flex: 1,
-  },
   container: {
     gap: 12,
   },
   contentBox: {
-    gap: 16,
+    gap: 12,
   },
   copyrightBox: {
     alignItems: 'center',

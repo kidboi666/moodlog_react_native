@@ -1,8 +1,9 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
-import { Divider, Text, useTheme } from 'react-native-paper'
+import { Divider, Surface, Text, useTheme } from 'react-native-paper'
 
+import { H3, H4, H5, H6 } from '@/components/shared'
 import type { ISODateString } from '@/types'
 import { getDateFromISODate, getDayFromISODate, getMonthKey } from '@/utils'
 
@@ -31,24 +32,13 @@ export function DateHeader({ date }: DateHeaderProps) {
     }
   }, [date, i18n.language])
 
-  const themedStyles = useMemo(
-    () => ({
-      dateCircle: {
-        backgroundColor: theme.colors.primary,
-      },
-    }),
-    [theme],
-  )
   return (
     <View style={styles.container}>
-      <View style={[styles.dateCircle, themedStyles.dateCircle]}>
-        <View style={styles.circleInner}>
-          <Text variant='titleMedium'>{dateInfo.day}</Text>
-          <Text variant='titleSmall'>{dateInfo.weekday}</Text>
-        </View>
-      </View>
-      <Text variant='titleLarge'>{dateInfo.month}</Text>
-      <Divider bold style={styles.divider} />
+      <H4 style={{ color: theme.colors.onPrimaryContainer }}>
+        {dateInfo.day}.
+      </H4>
+      <Text style={{ color: theme.colors.onSurface }}>{dateInfo.weekday}</Text>
+      <Divider style={styles.divider} />
     </View>
   )
 }
@@ -64,18 +54,14 @@ const styles = StyleSheet.create({
   },
   divider: { flex: 1 },
   dateCircle: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 4,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
-  },
-  circleInner: {
-    flexDirection: 'column',
-    alignItems: 'center',
   },
 })

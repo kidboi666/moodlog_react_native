@@ -14,6 +14,7 @@ import { useCalendar } from '@/hooks'
 import { JournalQueries } from '@/queries'
 import { ISOMonthString } from '@/types'
 
+const AnimatedScreenView = Animated.createAnimatedComponent(ScreenView)
 export default function StatisticScreen() {
   const {
     selectedYear,
@@ -31,26 +32,30 @@ export default function StatisticScreen() {
     : (todayString.substring(0, 7) as ISOMonthString)
 
   return (
-    <Animated.ScrollView entering={FadeIn.duration(800)}>
-      <ScreenView edges={['top', 'bottom']} padded style={styles.container}>
-        <View style={styles.titleBox}>
-          <H1>{t('statistics.title')}</H1>
+    <AnimatedScreenView
+      entering={FadeIn.duration(800)}
+      edges={['top', 'bottom']}
+      padded
+      withScroll
+      style={styles.container}
+    >
+      <View style={styles.titleBox}>
+        <H1>{t('statistics.title')}</H1>
+      </View>
+      <View style={styles.contentBox}>
+        <View style={styles.chartBox}>
+          <TotalCount />
+          <StartDay />
         </View>
-        <View style={styles.contentBox}>
-          <View style={styles.chartBox}>
-            <TotalCount />
-            <StartDay />
-          </View>
-          <LogStreak />
-          <Garden
-            journals={journals}
-            selectedYear={selectedYear}
-            isSelectedMonth={isSelectedMonth}
-            onSelectedMonthChange={onSelectedMonthChange}
-          />
-        </View>
-      </ScreenView>
-    </Animated.ScrollView>
+        <LogStreak />
+        <Garden
+          journals={journals}
+          selectedYear={selectedYear}
+          isSelectedMonth={isSelectedMonth}
+          onSelectedMonthChange={onSelectedMonthChange}
+        />
+      </View>
+    </AnimatedScreenView>
   )
 }
 

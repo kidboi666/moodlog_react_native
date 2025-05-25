@@ -1,4 +1,4 @@
-import { ReactNode, Ref, forwardRef, useMemo } from 'react'
+import { ReactNode, Ref, forwardRef } from 'react'
 import {
   ScrollView,
   ScrollViewProps,
@@ -33,24 +33,16 @@ type ScreenViewProps =
 export const ScreenView = forwardRef<ScrollView | View, ScreenViewProps>(
   ({ edges, padded, Header, style, withScroll, ...props }, ref) => {
     const insets = useSafeAreaInsets()
-    const containerStyles = useMemo(
-      () => ({
-        marginTop: edges?.includes('top')
-          ? insets.top + Layout.SPACE.CONTAINER_MARGIN_TOP
-          : 0,
-        marginBottom: edges?.includes('bottom')
-          ? insets.bottom + Layout.SPACE.CONTAINER_VERTICAL_PADDING
-          : 0,
-        paddingBottom: padded ? Layout.SPACE.CONTAINER_PADDING_BOTTOM : 0,
-      }),
-      [padded, edges, insets.top, insets.bottom],
-    )
+    const containerStyles = {
+      marginTop: insets.top + Layout.SPACE.CONTAINER_MARGIN_TOP,
+      marginBottom: insets.bottom + Layout.SPACE.CONTAINER_VERTICAL_PADDING,
+      paddingBottom: padded ? Layout.SPACE.CONTAINER_PADDING_BOTTOM : 0,
+    }
 
     return withScroll ? (
       <ScrollView
         ref={ref as Ref<ScrollView>}
-        style={[styles.container]}
-        contentContainerStyle={[containerStyles, style]}
+        contentContainerStyle={[styles.container, containerStyles, style]}
         {...(props as ScrollViewProps)}
       >
         {Header}
@@ -70,8 +62,10 @@ export const ScreenView = forwardRef<ScrollView | View, ScreenViewProps>(
 )
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
+  },
+  container: {
     paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
   },
 })

@@ -1,23 +1,30 @@
-import { Stack } from 'expo-router'
+import { Stack, useRouter } from 'expo-router'
+import { useTranslation } from 'react-i18next'
+import { IconButton, useTheme } from 'react-native-paper'
 
-import { BackButton } from '@/components/shared'
+import { StepDot } from '@/components/shared'
 import { StepProgressProvider } from '@/providers'
-import { useTheme } from 'react-native-paper'
 
-export default function WriteJournalLayout() {
+export default function WriteLayout() {
+  const { t } = useTranslation()
+  const router = useRouter()
   const theme = useTheme()
-
   return (
-    <StepProgressProvider totalSteps={3}>
+    <StepProgressProvider totalSteps={2}>
       <Stack
         screenOptions={{
-          headerLeft: () => <BackButton />,
-          contentStyle: {
-            backgroundColor: theme.colors.background,
-          },
+          contentStyle: { backgroundColor: theme.colors.background },
+          gestureEnabled: false,
+          headerShadowVisible: false,
+          headerStyle: { backgroundColor: theme.colors.background },
+          headerTitle: () => <StepDot />,
+          headerLeft: () => (
+            <IconButton icon='arrow-left' onPress={() => router.back()} />
+          ),
         }}
       >
         <Stack.Screen name='index' />
+        <Stack.Screen name='journal' />
       </Stack>
     </StepProgressProvider>
   )

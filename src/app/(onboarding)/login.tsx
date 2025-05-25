@@ -59,27 +59,29 @@ export default function LoginScreen() {
         </Delay>
       </View>
 
-      <Delay delay={DelayMS.ANIMATION.MEDIUM[1]}>
-        <View style={styles.submitBox}>
-          <Button
-            mode='contained'
-            onPress={handleGoogleLogin}
-            disabled={isPending}
-            loading={isPending}
-            icon={GoogleIcon}
-          >
-            {t('auth.signInWithGoogle')}
-          </Button>
-          {error && <Text style={[styles.error]}>{error.message}</Text>}
-          <Button
-            mode='text'
-            onPress={handleAnonLogin}
-            disabled={isPending}
-            loading={isPending}
-          >
-            가입없이 시작하기
-          </Button>
-        </View>
+      <Delay delay={DelayMS.ANIMATION.MEDIUM[1]} style={styles.submitBox}>
+        {error && (
+          <Text style={[styles.error, { color: theme.colors.error }]}>
+            {error.message}
+          </Text>
+        )}
+        <Button
+          mode='contained'
+          onPress={handleGoogleLogin}
+          disabled={isPending}
+          loading={isPending}
+          icon={GoogleIcon}
+        >
+          {t('auth.signInWithGoogle')}
+        </Button>
+        <Button
+          mode='text'
+          onPress={handleAnonLogin}
+          disabled={isPending}
+          loading={isPending}
+        >
+          가입없이 시작하기
+        </Button>
       </Delay>
     </ScreenView>
   )

@@ -1,19 +1,20 @@
 import { LinearGradient } from 'expo-linear-gradient'
 import { PropsWithChildren } from 'react'
 import { StyleSheet } from 'react-native'
-import { MD3Colors, Surface } from 'react-native-paper'
+import { MD3Colors, Surface, useTheme } from 'react-native-paper'
 
 export function GradientBox({ children }: PropsWithChildren) {
+  const theme = useTheme()
   return (
     <LinearGradient
-      colors={[MD3Colors.neutral100, MD3Colors.neutral90]}
+      colors={[theme.colors.onSurface, theme.colors.onSurfaceVariant]}
       style={styles.outer}
       start={{ x: 0, y: -0.8 }}
       end={{ x: 0.8, y: 1 }}
       locations={[0, 1]}
     >
       <LinearGradient
-        colors={[MD3Colors.neutral90, MD3Colors.neutral100]}
+        colors={[theme.colors.onSurfaceVariant, theme.colors.onSurface]}
         style={styles.inner}
         start={{ x: 0, y: -0.8 }}
         end={{ x: 0.8, y: 1 }}

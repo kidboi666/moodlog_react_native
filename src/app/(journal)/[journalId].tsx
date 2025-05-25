@@ -4,15 +4,16 @@ import { useLocalSearchParams } from 'expo-router'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { useTheme } from 'react-native-paper'
+import { Text, useTheme } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
 import { FullScreenImageModal } from '@/components/features/modal'
-import { BaseText, H3, ScreenView } from '@/components/shared'
+import { H3 } from '@/components/shared'
 import { JournalQueries } from '@/queries'
 import { toSingle } from '@/utils'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-const AnimatedScreenView = Animated.createAnimatedComponent(ScreenView)
+const AnimatedScreenView = Animated.createAnimatedComponent(SafeAreaView)
 
 export default function JournalScreen() {
   const theme = useTheme()
@@ -33,38 +34,25 @@ export default function JournalScreen() {
     setModalVisible(false)
   }
 
-  const themedStyles = useMemo(
-    () => ({
-      moodBar: {
-        backgroundColor: journal?.mood?.color,
-      },
-      moodName: {
-        color: journal?.mood?.color,
-      },
-      moodLevel: {
-        color: theme.colors.onSurface,
-      },
-    }),
-    [],
-  )
-
   if (!journal) return null
 
   return (
     <AnimatedScreenView
       entering={FadeIn.duration(800)}
-      edges={['bottom']}
-      withScroll
       style={styles.container}
     >
       <View style={styles.rowBox}>
-        <View style={[styles.moodBar, themedStyles.moodBar]} />
+        <View
+          style={[styles.moodBar, { backgroundColor: journal?.mood?.color }]}
+        />
         <View style={styles.contentBox}>
           <View style={styles.moodBox}>
-            <H3 style={themedStyles.moodLevel}>
+            <H3 style={{ color: theme.colors.onSurface }}>
               {t(`moods.levels.${journal.moodLevel}`)}
             </H3>
-            <H3 style={themedStyles.moodName}>{journal.mood?.name}</H3>
+            <H3 style={{ color: journal?.mood?.color }}>
+              {journal.mood?.name}
+            </H3>
           </View>
           {Array.isArray(journal.imageUri) && (
             <ScrollView horizontal>
@@ -81,7 +69,7 @@ export default function JournalScreen() {
             </ScrollView>
           )}
 
-          <BaseText style={styles.content}>{journal.content}</BaseText>
+          <Text style={styles.content}>{journal.content}</Text>
         </View>
       </View>
 

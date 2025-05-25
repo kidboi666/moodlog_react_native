@@ -1,25 +1,29 @@
 import { H1, H2 } from '@/components/shared'
-import { Stack } from 'expo-router'
+import { Stack, useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
-import { useTheme } from 'react-native-paper'
+import { IconButton, useTheme } from 'react-native-paper'
 
 const screens = [
   { name: 'index', title: 'settings.title' },
   { name: 'theme', title: 'settings.theme.title' },
   { name: 'language', title: 'settings.language.title' },
-  { name: 'time_format', title: 'settings.time_format.title' },
+  { name: 'time_format', title: 'settings.timeFormat.title' },
   { name: 'profile', title: 'settings.profile.title' },
-  { name: 'bug_report', title: 'settings.bug_report.title' },
+  { name: 'bug_report', title: 'settings.bugReport.title' },
   { name: 'qna', title: 'settings.qna.title' },
 ]
 
 export default function SettingsLayout() {
   const theme = useTheme()
+  const router = useRouter()
   const { t } = useTranslation()
 
   return (
     <Stack
       screenOptions={{
+        headerLeft: () => (
+          <IconButton icon='arrow-left' onPress={() => router.back()} />
+        ),
         headerStyle: { backgroundColor: theme.colors.background },
         contentStyle: { backgroundColor: theme.colors.background },
       }}
@@ -30,7 +34,6 @@ export default function SettingsLayout() {
           name={name}
           options={{
             headerShadowVisible: false,
-            headerLeft: () => null,
             headerTitle: () => <H2>{t(title)}</H2>,
           }}
         />

@@ -9,22 +9,18 @@ export function StepDot() {
     state: { currentStep, totalSteps },
   } = useStepProgress()
 
-  const themedStyles = {
-    isCurrentStep: {
-      backgroundColor: theme.colors.onSurface,
-    },
-    dot: {
-      backgroundColor: theme.colors.surfaceDisabled,
-    },
-  }
-
   return (
     <View style={styles.container}>
       {Array.from({ length: totalSteps }, (_, i) => (
         <View
           style={[
             styles.dot,
-            i === currentStep ? themedStyles.isCurrentStep : themedStyles.dot,
+            {
+              backgroundColor:
+                i === currentStep
+                  ? theme.colors.onSurface
+                  : theme.colors.surfaceDisabled,
+            },
           ]}
           key={i}
         />
