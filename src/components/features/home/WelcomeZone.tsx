@@ -18,8 +18,11 @@ function _WelcomeZone() {
   )
 
   return (
-    <Animated.View entering={FadeIn.delay(DelayMS.ANIMATION.MEDIUM[0])}>
-      <View style={styles.container}>
+    <Animated.View
+      entering={FadeIn.delay(DelayMS.ANIMATION.MEDIUM[0])}
+      style={styles.container}
+    >
+      <View style={styles.emoji}>
         <H1>{t('common.greeting.hello')}</H1>
         <ShakeEmoji emoji='👋' />
       </View>
@@ -36,6 +39,9 @@ function _WelcomeZone() {
 const styles = StyleSheet.create({
   container: {
     gap: 4,
+  },
+  emoji: {
+    gap: 8,
     flexDirection: 'row',
   },
 })

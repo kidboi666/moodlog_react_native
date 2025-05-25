@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native'
 import { Card, IconButton, useTheme } from 'react-native-paper'
 import Animated from 'react-native-reanimated'
 
-import { FullScreenImageModal } from '@/components/features/modal/contents'
+import { FullScreenImageModal } from '@/components/shared'
 import { Colors, DelayMS, Layout } from '@/constants'
 import { useCardGesture } from '@/hooks'
 import { useBottomSheet } from '@/store'

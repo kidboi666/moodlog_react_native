@@ -38,13 +38,9 @@ export const ScreenView = forwardRef<ScrollView | View, ScreenViewProps>(
     const { edges, padded, Header, withScroll, style, ...restProps } = props
     const insets = useSafeAreaInsets()
 
-    const marginTop = edges?.includes('top')
-      ? insets.top + Layout.SPACE.CONTAINER_MARGIN_TOP
-      : 0
+    const marginTop = edges?.includes('top') ? insets.top : 0
 
-    const marginBottom = edges?.includes('bottom')
-      ? insets.bottom + Layout.SPACE.CONTAINER_VERTICAL_PADDING
-      : 0
+    const marginBottom = edges?.includes('bottom') ? insets.bottom : 0
 
     const paddingBottom = padded ? Layout.SPACE.CONTAINER_PADDING_BOTTOM : 0
 
@@ -88,6 +84,7 @@ const styles = StyleSheet.create({
   },
   view: {
     flex: 1,
+    paddingTop: Layout.SPACE.HEADER_VERTICAL_PADDING,
     paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
   },
 })

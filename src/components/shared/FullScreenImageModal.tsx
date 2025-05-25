@@ -11,8 +11,9 @@ import {
 } from 'react-native'
 import { PinchGestureHandler, State } from 'react-native-gesture-handler'
 
-import { IconButton } from '@/components/shared'
+import { IconButton } from '@/components/shared/index'
 import { Maybe } from '@/types'
+import { Feather, MaterialIcons } from '@expo/vector-icons'
 
 interface Props {
   visible: boolean
@@ -70,7 +71,11 @@ function _FullScreenImageModal({ visible, imageUri, onClose }: Props) {
     >
       <View style={styles.container}>
         <StatusBar hidden={Platform.OS === 'ios'} />
-        <IconButton icon='x' style={styles.xButton} onPress={onClose} />
+        <IconButton
+          icon={() => <Feather name='x' color='white' size={24} />}
+          style={styles.xButton}
+          onPress={onClose}
+        />
         <PinchGestureHandler
           ref={pinchRef}
           onGestureEvent={onPinchGestureEvent}
@@ -118,7 +123,7 @@ const styles = StyleSheet.create({
   },
   xButton: {
     position: 'absolute',
-    top: Platform.OS === 'ios' ? 50 : 20,
+    top: Platform.OS === 'ios' ? 60 : 40,
     right: 20,
     zIndex: 10,
     padding: 5,

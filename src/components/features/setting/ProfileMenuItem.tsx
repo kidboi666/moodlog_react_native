@@ -1,8 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, View } from 'react-native'
-import { Text } from 'react-native-paper'
-
-import { H3 } from '@/components/shared'
+import { List } from 'react-native-paper'
 
 interface Props {
   title: string
@@ -13,14 +10,9 @@ export function ProfileMenuItem({ title, value }: Props) {
   const { t } = useTranslation()
 
   return (
-    <View style={styles.container}>
-      <H3>{t(title)}</H3>
-      <Text>{value ?? '-'}</Text>
-    </View>
+    <List.Section>
+      <List.Subheader>{t(title)}</List.Subheader>
+      <List.Item title={value || '-'} />
+    </List.Section>
   )
 }
-const styles = StyleSheet.create({
-  container: {
-    gap: 4,
-  },
-})

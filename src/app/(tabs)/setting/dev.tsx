@@ -1,66 +1,76 @@
+import { ScreenView } from '@/components/shared'
+import { useDev } from '@/hooks'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
-import { Button } from 'react-native-paper'
-
-import { SettingsContainer } from '@/components/features/setting'
-import { H1, ScreenView } from '@/components/shared'
-import { useDev } from '@/hooks'
+import { List } from 'react-native-paper'
 
 export default function DevScreen() {
   const { t } = useTranslation()
   const { resetStores, resetDatabase, signOut } = useDev()
 
   return (
-    <ScreenView withScroll padded style={styles.container}>
-      <H1>{t('settings.dev.title')}</H1>
+    <ScreenView withScroll padded>
       <View style={styles.contentBox}>
-        <SettingsContainer title={t('settings.dev.store')}>
-          <View style={styles.column}>
-            <Button onPress={resetStores} icon='refresh-cw' mode='contained'>
-              {t('settings.dev.resetStore')}
-            </Button>
-          </View>
-          <View style={styles.column}>
-            <Button onPress={resetDatabase} icon='refresh-cw' mode='contained'>
-              {t('settings.dev.resetDatabase')}
-            </Button>
-          </View>
-          <View style={styles.column}>
-            <Button onPress={signOut} icon='logout'>
-              로그아웃
-            </Button>
-          </View>
-        </SettingsContainer>
+        <List.Section>
+          <List.Subheader>{t('settings.dev.store')}</List.Subheader>
+          <List.Item
+            title={t('settings.dev.resetStore')}
+            onPress={resetStores}
+            left={() => <List.Icon icon='refresh' />}
+          />
+          <List.Item
+            title={t('settings.dev.resetDatabase')}
+            onPress={resetDatabase}
+            left={() => <List.Icon icon='refresh' />}
+          />
+          <List.Item
+            title={t('auth.logout')}
+            onPress={signOut}
+            left={() => <List.Icon icon='logout' />}
+          />
+        </List.Section>
 
-        <SettingsContainer title={t('settings.dev.network')}>
-          <View style={styles.column}>
-            <Button icon='api'>{t('settings.dev.apiCalls')}</Button>
-            <Button icon='server-network'>
-              {t('settings.dev.serverStatus')}
-            </Button>
-          </View>
-        </SettingsContainer>
+        <List.Section>
+          <List.Subheader>{t('settings.dev.network')}</List.Subheader>
+          <List.Item
+            title={t('settings.dev.apiCalls')}
+            onPress={() => null}
+            left={() => <List.Icon icon='api' />}
+          />
+          <List.Item
+            title={t('settings.dev.serverStatus')}
+            onPress={() => null}
+            left={() => <List.Icon icon='server-network' />}
+          />
+        </List.Section>
 
-        <SettingsContainer title={t('settings.dev.appStatus')}>
-          <View style={styles.column}>
-            <Button icon='database'>{t('settings.dev.appVersion')}</Button>
-            <Button icon='log'>{t('settings.dev.logs')}</Button>
-          </View>
-        </SettingsContainer>
+        <List.Section>
+          <List.Subheader>{t('settings.dev.appStatus')}</List.Subheader>
+          <List.Item
+            onPress={() => null}
+            title={t('settings.dev.appVersion')}
+            left={() => <List.Icon icon='database' />}
+          />
+          <List.Item
+            onPress={() => null}
+            title={t('settings.dev.logs')}
+            left={() => <List.Icon icon='server-network' />}
+          />
+        </List.Section>
 
-        <SettingsContainer title={t('settings.dev.memberInfo')}>
-          <View style={styles.column}>
-            <Button icon='account'>{t('settings.dev.loadMemberInfo')}</Button>
-          </View>
-        </SettingsContainer>
+        <List.Section>
+          <List.Subheader>{t('settings.dev.memberInfo')}</List.Subheader>
+          <List.Item
+            onPress={() => null}
+            title={t('settings.dev.loadMemberInfo')}
+            left={() => <List.Icon icon='account' />}
+          />
+        </List.Section>
       </View>
     </ScreenView>
   )
 }
 const styles = StyleSheet.create({
-  container: {
-    gap: 16,
-  },
   contentBox: {
     gap: 16,
   },

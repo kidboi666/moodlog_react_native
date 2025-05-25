@@ -6,12 +6,11 @@ import { useTranslation } from 'react-i18next'
 import { Alert, StyleSheet, View } from 'react-native'
 import { Text } from 'react-native-paper'
 
-import { Button, FormInput, GoogleIcon, H1, H3 } from '@/components/shared'
+import { Button, GoogleIcon, H1, H3 } from '@/components/shared'
 import { Layout } from '@/constants'
 import { useAuth, useBottomSheet } from '@/store'
 import { BottomSheetType } from '@/types'
 import { isValidEmail } from '@/utils'
-import { GoogleSigninButton } from '@react-native-google-signin/google-signin'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 
 interface LoginFormState {
@@ -25,7 +24,7 @@ interface LoginStatus {
   isAuthenticated: boolean
 }
 
-function _SignInModal() {
+function _SignInSheet() {
   const { t } = useTranslation()
   const router = useRouter()
   const { showBottomSheet, hideBottomSheet } = useBottomSheet()
@@ -97,7 +96,7 @@ function _SignInModal() {
   }
 
   const navigateToRegister = () => {
-    showBottomSheet(BottomSheetType.SIGN_UP, Layout.SNAP_POINTS.AUTH)
+    showBottomSheet(BottomSheetType.SIGN_IN, Layout.SNAP_POINTS.AUTH)
   }
 
   useEffect(() => {
@@ -147,6 +146,6 @@ const styles = StyleSheet.create({
   },
 })
 
-export const SignInModal = memo(_SignInModal)
+export const SignInSheet = memo(_SignInSheet)
 
-SignInModal.displayName = 'SignInModal'
+SignInSheet.displayName = 'SignInSheet'

@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
-import { Avatar, Text, useTheme } from 'react-native-paper'
+import { Avatar, useTheme } from 'react-native-paper'
 
 import { ProfileMenuItem } from '@/components/features/setting'
-import { BaseText, H1, ScreenView } from '@/components/shared'
+import { BaseText, ScreenView } from '@/components/shared'
 import { UserQueries } from '@/queries'
 import { useAuth } from '@/store'
 import type { NewUserInfo } from '@/types'
@@ -44,30 +44,21 @@ export default function ProfileScreen() {
     )
   }
 
-  const themedStyles = useMemo(
-    () => ({
-      title: {
-        color: theme.colors.onSurface,
-      },
-    }),
-    [],
-  )
   return (
-    <ScreenView>
+    <ScreenView edges={['top']}>
       <View style={styles.container}>
-        <Avatar.Image size={24} source={{ uri: form.avatar_url || '' }} />
-        {/* User ID */}
+        <Avatar.Image
+          size={120}
+          source={{ uri: form.avatar_url || '' }}
+          style={styles.image}
+        />
         <ProfileMenuItem title='settings.profile.id' value={session?.user.id} />
-        {/* Username */}
         <ProfileMenuItem
           title='settings.profile.username'
           value={form.user_name}
         />
-        {/* Email */}
         <ProfileMenuItem title='settings.profile.email' value={form.email} />
-        {/* Age */}
         <ProfileMenuItem title='settings.profile.age' value={form.age} />
-        {/* Days Since Signup */}
         <ProfileMenuItem
           title='settings.profile.daysSinceSignup'
           value={getDaysSinceSignup(session.user.created_at)}
@@ -80,6 +71,9 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     gap: 24,
+  },
+  image: {
+    alignSelf: 'center',
   },
   menuSpacing: {
     gap: 4,

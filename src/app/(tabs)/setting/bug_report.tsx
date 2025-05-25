@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, StyleSheet, View } from 'react-native'
-import { Button } from 'react-native-paper'
+import { Button, List, TextInput } from 'react-native-paper'
 
 import {
   FormInput,
@@ -59,20 +59,23 @@ export default function BugReportScreen() {
   }
 
   return (
-    <ScreenView withScroll edges={['bottom']} padded style={styles.container}>
-      <View style={styles.column}>
-        <H4>{t('settings.bugReport.descriptionLabel')}</H4>
-        <FormInputArea
+    <ScreenView style={styles.container}>
+      <List.Section style={styles.column}>
+        <List.Subheader>
+          {t('settings.bugReport.descriptionLabel')}
+        </List.Subheader>
+        <TextInput
+          mode='outlined'
           value={bugDescription}
           onChangeText={setBugDescription}
           placeholder={t('settings.bugReport.descriptionPlaceholder')}
-          autoCapitalize='none'
+          multiline
           style={{ height: 200 }}
         />
-      </View>
+      </List.Section>
 
-      <View style={styles.column}>
-        <H4>{t('settings.bugReport.emailLabel')}</H4>
+      <List.Section>
+        <List.Subheader>{t('settings.bugReport.emailLabel')}</List.Subheader>
         <FormInput
           value={email}
           onChangeText={setEmail}
@@ -80,22 +83,24 @@ export default function BugReportScreen() {
           autoCapitalize='none'
           keyboardType='email-address'
         />
-      </View>
+      </List.Section>
 
-      <View style={styles.column}>
-        <H4>{t('settings.bugReport.screenshotLabel')}</H4>
+      <List.Section>
+        <List.Subheader>
+          {t('settings.bugReport.screenshotLabel')}
+        </List.Subheader>
         <Button onPress={pickImage}>
           {t('settings.bugReport.attachScreenshot')}
         </Button>
         {image && (
           <View style={styles.imageBox}>
-            <Image source={image} />
+            <Image source={{ uri: image }} />
             <Button onPress={() => setImage(null)}>
               {t('settings.bugReport.deleteImage')}
             </Button>
           </View>
         )}
-      </View>
+      </List.Section>
 
       <Button onPress={handleSubmit} disabled={isSubmitting}>
         {isSubmitting

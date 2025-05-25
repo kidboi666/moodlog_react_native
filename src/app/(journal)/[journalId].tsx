@@ -3,12 +3,11 @@ import { Image } from 'expo-image'
 import { useLocalSearchParams } from 'expo-router'
 import { useState } from 'react'
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { Text, useTheme } from 'react-native-paper'
+import { Text } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { FullScreenImageModal } from '@/components/features/modal'
-import { H3 } from '@/components/shared'
+import { FullScreenImageModal, H3 } from '@/components/shared'
 import { Colors } from '@/constants'
 import { JournalQueries } from '@/queries'
 import { MoodName } from '@/types'
@@ -17,7 +16,6 @@ import { toSingle } from '@/utils'
 const AnimatedScreenView = Animated.createAnimatedComponent(SafeAreaView)
 
 export default function JournalScreen() {
-  const theme = useTheme()
   const { journalId } = useLocalSearchParams()
   const { data: journal } = useQuery(
     JournalQueries.getJournalById(Number(toSingle(journalId))),

@@ -21,12 +21,13 @@ export default function TabsLayout() {
           <TabTrigger name='write' href='/write' asChild>
             <TabButton
               icon='plus'
-              containerColor={theme.colors.primaryContainer}
+              containerColor={theme.colors.primary}
+              iconColor={theme.colors.surface}
             />
           </TabTrigger>
-          <TabTrigger name='statistic' href='/statistic' asChild>
-            <TabButton icon='chart-bar' />
-          </TabTrigger>
+          {/*<TabTrigger name='statistic' href='/statistic' asChild>*/}
+          {/*  <TabButton icon='chart-bar' />*/}
+          {/*</TabTrigger>*/}
           <TabTrigger name='setting' href='/setting' asChild>
             <TabButton icon='cog' />
           </TabTrigger>

@@ -6,7 +6,6 @@ import Animated, { FadeIn } from 'react-native-reanimated'
 
 import { EntriesJournalDisplay } from '@/components/features/entries'
 import { EmptyJournal } from '@/components/features/journal'
-import { ScreenView } from '@/components/shared'
 import { Layout } from '@/constants'
 import { JournalQueries } from '@/queries'
 import { ISOMonthString, Journal } from '@/types'
@@ -14,7 +13,7 @@ import { groupJournalsByDate, groupJournalsByMonth } from '@/utils'
 
 type GroupedJournalItem = [string, Journal[]]
 
-const AnimatedScreenView = Animated.createAnimatedComponent(ScreenView)
+const AnimatedScreenView = Animated.createAnimatedComponent(View)
 
 export default function EntriesScreen() {
   const { selectedMonth: monthString } = useGlobalSearchParams()
@@ -66,6 +65,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingBottom: Layout.SPACE.CONTAINER_PADDING_BOTTOM,
+    paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
   },
   spinnerContainer: {
     flex: 1,

@@ -1,17 +1,10 @@
 import { useRouter } from 'expo-router'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, StyleSheet, View } from 'react-native'
-import { Button, RadioButton } from 'react-native-paper'
+import { Alert, StyleSheet } from 'react-native'
+import { Button, List, RadioButton, TextInput } from 'react-native-paper'
 
-import {
-  FormInput,
-  FormInputArea,
-  H1,
-  H5,
-  H6,
-  ScreenView,
-} from '@/components/shared'
+import { ScreenView } from '@/components/shared'
 
 const categories = [
   { name: 'settings.qna.categoryFeature', value: 'feature' },
@@ -61,44 +54,46 @@ export default function QnA() {
 
   return (
     <ScreenView withScroll edges={['bottom']} padded style={styles.container}>
-      <View style={styles.contentBox}>
-        <H5>{t('settings.qna.categoryLabel')}</H5>
+      <List.Section>
+        <List.Subheader>{t('settings.qna.categoryLabel')}</List.Subheader>
         <RadioButton.Group value={category} onValueChange={setCategory}>
-          {useMemo(
-            () =>
-              categories.map(item => (
-                <RadioButton.Item
-                  key={item.value}
-                  label={t(item.name)}
-                  value={item.value}
-                />
-              )),
-            [],
-          )}
+          {categories.map(item => (
+            <RadioButton.Item
+              key={item.value}
+              label={t(item.name)}
+              value={item.value}
+            />
+          ))}
         </RadioButton.Group>
-      </View>
+      </List.Section>
 
-      <View style={styles.menu}>
-        <H5>{t('settings.qna.questionLabel')}</H5>
-        <FormInputArea
-          placeholder={t('settings.qna.questionPlaceholder')}
+      <List.Section>
+        <List.Subheader>{t('settings.qna.questionLabel')}</List.Subheader>
+        <TextInput
+          mode='outlined'
           value={question}
           onChangeText={setQuestion}
-          autoCapitalize='none'
-          style={{ height: 200 }}
+          placeholder={t('settings.qna.questionPlaceholder')}
+          multiline
+          style={{ height: 120 }}
         />
-      </View>
-      <View style={styles.menu}>
-        <H6>{t('settings.qna.emailLabel')}</H6>
-        <FormInput
-          placeholder={t('settings.qna.emailPlaceholder')}
+      </List.Section>
+      <List.Section>
+        <List.Subheader>{t('settings.qna.emailLabel')}</List.Subheader>
+        <TextInput
+          mode='outlined'
           value={email}
           onChangeText={setEmail}
-          autoCapitalize='none'
           keyboardType='email-address'
+          placeholder={t('settings.qna.emailPlaceholder')}
         />
-      </View>
-      <Button mode='elevated' onPress={handleSubmit} disabled={isSubmitting}>
+      </List.Section>
+      <Button
+        mode='contained'
+        onPress={handleSubmit}
+        disabled={isSubmitting}
+        style={styles.button}
+      >
         {isSubmitting
           ? t('settings.qna.submitting')
           : t('settings.qna.submitButton')}
@@ -115,6 +110,9 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   menu: {
-    gap: 4,
+    gap: 8,
+  },
+  button: {
+    marginTop: 40,
   },
 })

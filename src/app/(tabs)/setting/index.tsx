@@ -41,21 +41,23 @@ const configSection = {
   ],
 }
 
-const supportSection = {
-  title: 'settings.menuTitle.report',
-  items: [
-    {
-      label: 'settings.bugReport.title',
-      icon: 'bug',
-      route: '/setting/bug_report',
-    },
-    {
-      label: 'settings.qna.title',
-      icon: 'help-circle',
-      route: '/setting/qna',
-    },
-  ],
-}
+const supportSection = __DEV__
+  ? {
+      title: 'settings.menuTitle.report',
+      items: [
+        {
+          label: 'settings.bugReport.title',
+          icon: 'bug',
+          route: '/setting/bug_report',
+        },
+        {
+          label: 'settings.qna.title',
+          icon: 'help-circle',
+          route: '/setting/qna',
+        },
+      ],
+    }
+  : null
 
 const loginSection = {
   title: 'settings.menuTitle.login',
@@ -115,6 +117,7 @@ export default function SettingsScreen() {
                 <List.Item
                   key={menu.label}
                   title={t(menu.label)}
+                  style={styles.item}
                   left={() => <List.Icon icon={menu.icon} />}
                   onPress={() => handleRouteChange(menu.route)}
                 />
@@ -124,7 +127,9 @@ export default function SettingsScreen() {
         ))}
       </View>
       <View style={styles.copyrightBox}>
-        <Text>© 2025 Moodlog. All rights reserved.</Text>
+        <Text style={{ color: theme.colors.onSurfaceDisabled }}>
+          © 2025 Moodlog. All rights reserved.
+        </Text>
       </View>
     </AnimatedScreenView>
   )
@@ -140,5 +145,8 @@ const styles = StyleSheet.create({
   copyrightBox: {
     alignItems: 'center',
     marginTop: 12,
+  },
+  item: {
+    paddingHorizontal: 8,
   },
 })

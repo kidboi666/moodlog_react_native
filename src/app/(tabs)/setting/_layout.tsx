@@ -6,6 +6,7 @@ import { H2 } from '@/components/shared'
 
 const screens = [
   { name: 'index', title: 'settings.title' },
+  { name: 'dev', title: 'settings.dev.title' },
   { name: 'theme', title: 'settings.theme.title' },
   { name: 'language', title: 'settings.language.title' },
   { name: 'time_format', title: 'settings.timeFormat.title' },
@@ -25,6 +26,8 @@ export default function SettingsLayout() {
         headerLeft: () => (
           <IconButton icon='arrow-left' onPress={() => router.back()} />
         ),
+        headerShadowVisible: false,
+        headerTitleAlign: 'center',
         headerStyle: { backgroundColor: theme.colors.background },
         contentStyle: { backgroundColor: theme.colors.background },
       }}
@@ -34,7 +37,6 @@ export default function SettingsLayout() {
           key={name}
           name={name}
           options={{
-            headerShadowVisible: false,
             headerTitle: () => <H2>{t(title)}</H2>,
           }}
         />

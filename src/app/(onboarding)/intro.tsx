@@ -2,11 +2,11 @@ import { useFocusEffect, useRouter } from 'expo-router'
 import { useCallback } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { IconButton, useTheme } from 'react-native-paper'
+import Animated, { FadeIn } from 'react-native-reanimated'
 
-import { Delay, H1, H3, H5, ScreenView, ShakeEmoji } from '@/components/shared'
+import { H1, H3, H5, ScreenView, ShakeEmoji } from '@/components/shared'
 import { DelayMS } from '@/constants'
 import { useStepProgress } from '@/store'
-import Animated, { FadeIn } from 'react-native-reanimated'
 
 export default function IntroScreen() {
   const theme = useTheme()

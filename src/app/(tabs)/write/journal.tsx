@@ -1,5 +1,4 @@
 import { useLocalSearchParams } from 'expo-router'
-import { StyleSheet } from 'react-native'
 
 import { EnhancedTextInput } from '@/components/features/write'
 import { ScreenView } from '@/components/shared'
@@ -18,7 +17,7 @@ export default function WriteJournalScreen() {
   }
 
   return (
-    <ScreenView style={styles.container}>
+    <ScreenView>
       <EnhancedTextInput
         onSubmit={handleSubmit}
         imageUri={draft.imageUri}
@@ -30,10 +29,3 @@ export default function WriteJournalScreen() {
     </ScreenView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    gap: 16,
-    flex: 1,
-  },
-})

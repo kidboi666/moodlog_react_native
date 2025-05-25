@@ -35,7 +35,7 @@ export async function signInAnonymously(nickname: string) {
   const { data, error } = await supabase.auth.signInAnonymously({
     options: {
       data: {
-        nickname,
+        full_name: nickname,
       },
     },
   })

@@ -34,7 +34,8 @@ export function EmptyJournal({ source }: Props) {
       <IconButton
         icon='plus'
         mode='contained'
-        containerColor={theme.colors.primaryContainer}
+        containerColor={theme.colors.primary}
+        iconColor={theme.colors.surface}
         style={styles.plusButton}
         onPress={handleRoute}
       />

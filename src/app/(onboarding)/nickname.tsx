@@ -73,6 +73,7 @@ export default function NickNameScreen() {
               value={draftUserName}
               onChangeText={handleDraftUserNameChange}
               error={!!error}
+              maxLength={10}
               errorMessage={error?.message}
               placeholder='닉네임을 입력하세요 (2-10자)'
             />

@@ -19,7 +19,7 @@ export const Layout = {
     WRITE_PROGRESS_BAR_HEIGHT: 120,
   },
   SNAP_POINTS: {
-    DELETE: ['25%'],
+    DELETE: ['30%'],
     JOURNAL_WRITE: ['70%', '90%'],
     LOGOUT: ['30%'],
     AUTH: ['60%', '85%'],

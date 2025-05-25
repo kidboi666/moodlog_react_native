@@ -8,7 +8,7 @@ import { Button, H3 } from '@/components/shared'
 import type { BottomSheetProps, BottomSheetType } from '@/types'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 
-function _LogoutModal({
+function _LogoutSheet({
   hideBottomSheet,
 }: BottomSheetProps[BottomSheetType.LOGOUT]) {
   const theme = useTheme()
@@ -51,6 +51,6 @@ const styles = StyleSheet.create({
   },
 })
 
-export const LogoutModal = memo(_LogoutModal)
+export const LogoutSheet = memo(_LogoutSheet)
 
-LogoutModal.displayName = 'LogoutModal'
+LogoutSheet.displayName = 'LogoutSheet'

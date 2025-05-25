@@ -1,18 +1,19 @@
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
-import { MD3Colors, Text } from 'react-native-paper'
+import { Button, MD3Colors, Text, useTheme } from 'react-native-paper'
 
-import { Button, H3 } from '@/components/shared'
+import { H3 } from '@/components/shared'
 import { useDeleteJournal } from '@/queries'
 import type { BottomSheetProps, BottomSheetType } from '@/types'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 
-function _DeleteJournalModal({
+function _DeleteJournalSheet({
   journalId,
   localDate,
   hideBottomSheet,
 }: BottomSheetProps[BottomSheetType.DELETE_JOURNAL]) {
+  const theme = useTheme()
   const { t } = useTranslation()
   const { mutate: onDelete, isPending } = useDeleteJournal(
     hideBottomSheet,
@@ -25,6 +26,7 @@ function _DeleteJournalModal({
       <Text>{t('modals.deleteJournal.description')}</Text>
       <View style={styles.contentBox}>
         <Button
+          mode='contained'
           buttonColor={MD3Colors.error40}
           onPress={() => onDelete(journalId)}
           disabled={isPending}
@@ -32,7 +34,7 @@ function _DeleteJournalModal({
         >
           {t('common.delete')}
         </Button>
-        <Button onPress={hideBottomSheet} disabled={isPending}>
+        <Button mode='text' onPress={hideBottomSheet} disabled={isPending}>
           {t('common.cancel')}
         </Button>
       </View>
@@ -50,5 +52,5 @@ const styles = StyleSheet.create({
   },
 })
 
-export const DeleteJournalModal = memo(_DeleteJournalModal)
-DeleteJournalModal.displayName = 'DeleteJournalModal'
+export const DeleteJournalSheet = memo(_DeleteJournalSheet)
+DeleteJournalSheet.displayName = 'DeleteJournalSheet'

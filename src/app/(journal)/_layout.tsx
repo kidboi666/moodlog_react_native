@@ -1,10 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import {
-  Stack,
-  useGlobalSearchParams,
-  useLocalSearchParams,
-  useRouter,
-} from 'expo-router'
+import { Stack, useGlobalSearchParams, useRouter } from 'expo-router'
 import { useMemo } from 'react'
 import { IconButton, useTheme } from 'react-native-paper'
 
