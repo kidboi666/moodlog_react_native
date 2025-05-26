@@ -13,7 +13,6 @@ function _DeleteJournalSheet({
   localDate,
   hideBottomSheet,
 }: BottomSheetProps[BottomSheetType.DELETE_JOURNAL]) {
-  const theme = useTheme()
   const { t } = useTranslation()
   const { mutate: onDelete, isPending } = useDeleteJournal(
     hideBottomSheet,

@@ -97,7 +97,6 @@ export function EnhancedTextInput({
         style={styles.textarea}
       />
       <View style={styles.buttonBox}>
-        <IconButton onPress={onImageUriChange} icon='image-plus' />
         <IconButton onPress={onSubmit} icon='send' />
       </View>
     </View>

@@ -6,7 +6,6 @@ import { StyleSheet, View } from 'react-native'
 import { IconButton, useTheme } from 'react-native-paper'
 
 import {
-  Delay,
   FormInput,
   H1,
   H3,

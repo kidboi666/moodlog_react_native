@@ -15,7 +15,7 @@ export default function WriteLayout() {
             backgroundColor: theme.colors.background,
           },
           gestureEnabled: false,
-          animation: 'fade',
+          animation: 'flip',
           headerShadowVisible: false,
           headerStyle: { backgroundColor: theme.colors.background },
           headerTitleAlign: 'center',
