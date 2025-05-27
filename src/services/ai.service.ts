@@ -5,6 +5,7 @@ import {
   AI_SYSTEM_CONTEXT,
   generateComfortPrompt,
 } from '@/constants'
+import { MoodName } from '@/types'
 
 export class GeminiService {
   private gemini: GoogleGenAI
@@ -29,18 +30,20 @@ export class GeminiService {
     }
   }
 
-  public async getComfortPrompt(content: string) {
-    const prompt = generateComfortPrompt(content)
-    return await this.gemini.models.generateContent({
-      model: this.model,
-      contents: prompt,
-    })
-  }
-
   public async getDailyPrompt() {
     return await this.gemini.models.generateContent({
       model: this.model,
       contents: AI_DAILY_PROMPT,
+    })
+  }
+
+  public async generateJournalResponse(content: string, moodName: MoodName) {
+    return await this.gemini.models.generateContent({
+      model: this.model,
+      contents: generateComfortPrompt(content, moodName),
+      config: {
+        systemInstruction: AI_SYSTEM_CONTEXT,
+      },
     })
   }
 }

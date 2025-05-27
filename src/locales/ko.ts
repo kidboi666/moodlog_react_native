@@ -228,6 +228,17 @@ export const ko = {
   write: {
     title: '감정 일기 작성',
     description: '짧은 나의 감정을 기록하세요.',
+    aiResponse: {
+      title: 'AI 위로 메시지',
+      description: '일기 작성 후 AI가 위로와 격려의 메시지를 보내드려요.',
+      alreadyReceived: '오늘은 이미 AI 답변을 받으셨어요.',
+    },
+  },
+  journal: {
+    aiResponse: {
+      title: 'AI 위로 메시지',
+      from: 'AI 친구로부터',
+    },
   },
   calendar: {
     days: {

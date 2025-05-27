@@ -2,7 +2,8 @@ import { and, eq, gte, lte } from 'drizzle-orm'
 import { sqliteDb } from '../../db/sqlite'
 import { journals } from '../../db/sqlite/schema'
 
-import { ISODateString, ISOMonthString, JournalDraft } from '@/types'
+import { getGemini } from '@/lib'
+import { ISODateString, ISOMonthString, JournalDraft, MoodName } from '@/types'
 import {
   getFirstISODateFromYear,
   getISODateFromMonthString,
@@ -11,14 +12,53 @@ import {
 } from '@/utils'
 
 export async function addJournal(draft: JournalDraft) {
-  return sqliteDb
+  const result = await sqliteDb
     .insert(journals)
     .values({
       content: draft.content,
       moodName: draft.moodName,
       imageUri: JSON.stringify(draft.imageUri),
+      aiResponseEnabled: draft.aiResponseEnabled,
     })
     .returning({ id: journals.id, localDate: journals.localDate })
+
+  if (draft.aiResponseEnabled && draft.content && result[0]) {
+    await generateAiResponse(
+      result[0].id,
+      result[0].localDate as ISODateString,
+      draft.content,
+      draft.moodName as MoodName,
+    )
+  }
+
+  return result
+}
+
+export async function generateAiResponse(
+  journalId: number,
+  localDate: ISODateString,
+  content: string,
+  moodName: MoodName,
+) {
+  const today = new Date().toISOString().split('T')[0]
+  const { canGenerateResponse } = await getTodayAiResponseStatus(localDate)
+
+  if (!canGenerateResponse) {
+    return
+  }
+
+  const gemini = getGemini()
+  const response = await gemini.generateJournalResponse(content, moodName)
+  console.log(response.text)
+  if (response.text) {
+    await sqliteDb
+      .update(journals)
+      .set({
+        aiResponse: response.text,
+        aiResponseAt: new Date().toISOString(),
+      })
+      .where(eq(journals.id, journalId))
+  }
 }
 
 export async function updateJournal(id: number, draft: JournalDraft) {
@@ -71,4 +111,25 @@ export async function deleteJournal(journalId: number) {
     .delete(journals)
     .where(eq(journals.id, journalId))
     .returning({ id: journals.id, localDate: journals.localDate })
+}
+
+export async function getTodayAiResponseStatus(date: ISODateString) {
+  const todayJournals = await sqliteDb.query.journals.findMany({
+    where: eq(journals.localDate, date),
+    columns: {
+      aiResponse: true,
+      aiResponseEnabled: true,
+    },
+  })
+
+  const hasAiResponse = todayJournals.some(journal => journal.aiResponse)
+  const hasAiEnabledJournal = todayJournals.some(
+    journal => journal.aiResponseEnabled,
+  )
+
+  return {
+    hasAiResponse,
+    hasAiEnabledJournal,
+    canGenerateResponse: !hasAiResponse && hasAiEnabledJournal,
+  }
 }

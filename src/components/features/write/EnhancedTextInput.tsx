@@ -1,4 +1,4 @@
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { Image } from 'expo-image'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -12,12 +12,16 @@ import {
 import { IconButton, TextInput, useTheme } from 'react-native-paper'
 import Toast from 'react-native-toast-message'
 
+import { AiResponseToggle } from './AiResponseToggle'
+
 interface Props {
   imageUri: string[]
   contentValue: string
   onContentChange: (content: string) => void
   autoFocus?: boolean
   onSubmit: () => void
+  onAiResponseChange: (aiResponseEnabled: boolean) => void
+  aiResponseEnabled: boolean
   onImageUriChange: () => void
   onImageUriRemove: (imageUri: string[], index: number) => void
 }
@@ -27,6 +31,8 @@ export function EnhancedTextInput({
   onContentChange,
   onSubmit,
   imageUri,
+  aiResponseEnabled,
+  onAiResponseChange,
   onImageUriChange,
   onImageUriRemove,
 }: Props) {
@@ -95,6 +101,10 @@ export function EnhancedTextInput({
         onChangeText={handleContentChange}
         placeholder={t('placeholders.journal.content')}
         style={styles.textarea}
+      />
+      <AiResponseToggle
+        enabled={aiResponseEnabled}
+        onToggle={onAiResponseChange}
       />
       <View style={styles.buttonBox}>
         <IconButton onPress={onSubmit} icon='send' />

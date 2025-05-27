@@ -11,6 +11,11 @@ export const journals = sqliteTable('journals', {
   moodName: text('mood_level').notNull(),
   imageUri: text('image_uri'),
   localDate: text('local_date').default(sql`(CURRENT_DATE)`),
+  aiResponseEnabled: int('ai_response_enabled', { mode: 'boolean' }).default(
+    false,
+  ),
+  aiResponse: text('ai_response'),
+  aiResponseAt: text('ai_response_at'),
   ...timestamp,
 })
 

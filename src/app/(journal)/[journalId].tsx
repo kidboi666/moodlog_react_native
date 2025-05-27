@@ -7,6 +7,7 @@ import { Text } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
+import { AiResponseCard } from '@/components/features/journal/AiResponseCard'
 import { FullScreenImageModal, H3 } from '@/components/shared'
 import { Colors } from '@/constants'
 import { JournalQueries } from '@/queries'
@@ -31,7 +32,7 @@ export default function JournalScreen() {
   const handleCloseModal = () => {
     setModalVisible(false)
   }
-
+  console.log(JSON.stringify(journal, null, 2))
   if (!journal) return null
 
   return (
@@ -71,6 +72,10 @@ export default function JournalScreen() {
         </View>
       </View>
 
+      <AiResponseCard
+        aiResponse={journal.aiResponse}
+        aiResponseAt={journal.aiResponseAt}
+      />
       <FullScreenImageModal
         visible={modalVisible}
         imageUri={selectedImage}

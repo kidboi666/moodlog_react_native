@@ -8,6 +8,7 @@ export const useJournalDraftForm = (initialMood: string) => {
     content: '',
     moodName: initialMood,
     imageUri: [],
+    aiResponseEnabled: false,
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -21,6 +22,10 @@ export const useJournalDraftForm = (initialMood: string) => {
 
   const handleMoodLevelChange = (moodLevel: MoodLevel) => {
     setDraft(prev => ({ ...prev, moodLevel }))
+  }
+
+  const handleAiResponseChange = (aiResponseEnabled: boolean) => {
+    setDraft(prev => ({ ...prev, aiResponseEnabled }))
   }
 
   const handleAddImage = async () => {
@@ -55,5 +60,6 @@ export const useJournalDraftForm = (initialMood: string) => {
     onMoodLevelChange: handleMoodLevelChange,
     onImageUriChange: handleAddImage,
     onImageUriRemove: handleRemoveImage,
+    onAiResponseChange: handleAiResponseChange,
   }
 }
