@@ -18,6 +18,7 @@ expo-env.d.ts
 *.mobileprovision
 android/
 ios/
+credentials.json
 
 # Metro
 .metro-health-check*

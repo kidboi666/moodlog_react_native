@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
-import { Divider, Surface, Text, useTheme } from 'react-native-paper'
+import { Divider, Text, useTheme } from 'react-native-paper'
 
-import { H3, H4, H5, H6 } from '@/components/shared'
+import { H4 } from '@/components/shared'
 import type { ISODateString } from '@/types'
 import { getDateFromISODate, getDayFromISODate, getMonthKey } from '@/utils'
 
