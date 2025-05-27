@@ -3,7 +3,7 @@ import { Image } from 'expo-image'
 import { useLocalSearchParams } from 'expo-router'
 import { useState } from 'react'
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { Text } from 'react-native-paper'
+import { Divider, Text } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -72,10 +72,13 @@ export default function JournalScreen() {
         </View>
       </View>
       {journal.aiResponseEnabled && (
-        <AiResponseCard
-          aiResponse={journal.aiResponse}
-          aiResponseAt={journal.aiResponseAt}
-        />
+        <View style={styles.responseBox}>
+          <Divider />
+          <AiResponseCard
+            aiResponse={journal.aiResponse}
+            aiResponseAt={journal.aiResponseAt}
+          />
+        </View>
       )}
 
       <FullScreenImageModal
@@ -90,7 +93,8 @@ export default function JournalScreen() {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 0,
-    gap: 12,
+    flex: 1,
+    justifyContent: 'space-between',
   },
   rowBox: {
     flexDirection: 'row',
@@ -125,5 +129,8 @@ const styles = StyleSheet.create({
     height: 300,
     borderRadius: 12,
     marginLeft: 16,
+  },
+  responseBox: {
+    gap: 16,
   },
 })
