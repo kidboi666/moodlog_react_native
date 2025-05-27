@@ -32,16 +32,16 @@ export function HomeJournalDisplay({
         localDate,
       } = journal
       return (
-        <Delay key={journal.id} delay={delay}>
-          <JournalCard
-            journalId={id}
-            content={content}
-            moodName={moodName}
-            imageUri={imageUri}
-            createdAt={createdAt}
-            localDate={localDate}
-          />
-        </Delay>
+        <JournalCard
+          key={journal.id}
+          delay={delay}
+          journalId={id}
+          content={content}
+          moodName={moodName}
+          imageUri={imageUri}
+          createdAt={createdAt}
+          localDate={localDate}
+        />
       )
     })
   ) : (

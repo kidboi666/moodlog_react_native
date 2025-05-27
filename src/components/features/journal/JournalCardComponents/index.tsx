@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router'
 import { useCallback, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Card, IconButton, useTheme } from 'react-native-paper'
-import Animated from 'react-native-reanimated'
+import Animated, { FadeIn } from 'react-native-reanimated'
 
 import { FullScreenImageModal } from '@/components/shared'
 import { Colors, DelayMS, Layout } from '@/constants'
@@ -20,6 +20,7 @@ interface Props {
   createdAt: string
   imageUri: Maybe<string[]>
   moodName: string
+  delay?: number
 }
 
 export function JournalCard({
@@ -29,6 +30,7 @@ export function JournalCard({
   createdAt,
   imageUri,
   moodName,
+  delay,
 }: Props) {
   const theme = useTheme()
   const router = useRouter()
@@ -69,7 +71,10 @@ export function JournalCard({
   }, [])
 
   return (
-    <View style={styles.container}>
+    <Animated.View
+      entering={FadeIn.delay(delay || 0).duration(DelayMS.ANIMATION.LONG)}
+      style={styles.container}
+    >
       <ActionButton
         showActionButton={showActionButton}
         onPress={handleDeleteSheetOpen}
@@ -111,7 +116,7 @@ export function JournalCard({
         imageUri={imageUri?.[0]}
         onClose={handleCloseModal}
       />
-    </View>
+    </Animated.View>
   )
 }
 

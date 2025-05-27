@@ -4,10 +4,13 @@ import { PropsWithChildren, forwardRef, useEffect } from 'react'
 import { Platform, StyleSheet, View } from 'react-native'
 import { Surface } from 'react-native-paper'
 import Animated, {
+  FadeInDown,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
+
+import { DelayMS } from '@/constants'
 
 export const SurfaceTabList = forwardRef<View, PropsWithChildren<TabListProps>>(
   ({ children, ...props }, ref) => {
@@ -23,7 +26,11 @@ export const SurfaceTabList = forwardRef<View, PropsWithChildren<TabListProps>>(
     }, [shouldHide])
 
     return (
-      <Animated.View ref={ref} style={[animatedStyles, styles.container]}>
+      <Animated.View
+        ref={ref}
+        entering={FadeInDown.duration(DelayMS.ANIMATION.LONG)}
+        style={[animatedStyles, styles.container]}
+      >
         <Surface {...props} style={styles.list} elevation={2}>
           {children}
         </Surface>
