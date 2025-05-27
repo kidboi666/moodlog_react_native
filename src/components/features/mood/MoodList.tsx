@@ -1,8 +1,8 @@
 import { StyleSheet, View } from 'react-native'
 import Animated, { FadeInDown } from 'react-native-reanimated'
 
-import { MoodCircle } from '@/components/features/mood'
 import { MoodName } from '@/types'
+import { MoodCircle } from './MoodCircle'
 
 interface Props {
   onMoodChange: (moodName: string) => void

@@ -19,7 +19,7 @@ function _WelcomeZone() {
 
   return (
     <Animated.View
-      entering={FadeIn.delay(DelayMS.ANIMATION.MEDIUM[0])}
+      entering={FadeIn.delay(DelayMS.ANIMATION.MEDIUM)}
       style={styles.container}
     >
       <View style={styles.emoji}>

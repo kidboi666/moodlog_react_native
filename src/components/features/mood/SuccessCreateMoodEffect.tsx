@@ -72,7 +72,7 @@ export function SuccessCreateMoodEffect({ active, color }: Props) {
           duration,
           easing: Easing.bezier(0.25, 0.1, 0.25, 1),
         })
-      }, DelayMS.ANIMATION.LONG[0])
+      }, DelayMS.ANIMATION.LONG)
     } else {
       progress.value = withTiming(0, {
         duration: duration / 3,

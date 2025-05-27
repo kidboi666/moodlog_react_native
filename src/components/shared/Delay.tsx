@@ -12,7 +12,7 @@ interface Props extends ViewProps {
 }
 
 export const Delay = ({
-  delay = DelayMS.ANIMATION.MEDIUM[0],
+  delay = DelayMS.ANIMATION.MEDIUM,
   variant = 'fade',
   duration = 800,
   style,

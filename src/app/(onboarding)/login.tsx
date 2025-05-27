@@ -58,7 +58,7 @@ export default function LoginScreen() {
   return (
     <ScreenView edges={['bottom']}>
       <Animated.View
-        entering={FadeIn.delay(DelayMS.ANIMATION.LONG[0])}
+        entering={FadeIn.delay(DelayMS.ANIMATION.LONG)}
         style={styles.header}
       >
         <H1>시작할 준비가 되었어요!</H1>
@@ -67,7 +67,7 @@ export default function LoginScreen() {
         </H3>
       </Animated.View>
       <Animated.View
-        entering={FadeIn.delay(DelayMS.ANIMATION.LONG[1])}
+        entering={FadeIn.delay(DelayMS.ANIMATION.LONG * 2)}
         style={styles.submitBox}
       >
         {error && (

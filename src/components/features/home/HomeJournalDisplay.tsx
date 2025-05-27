@@ -16,7 +16,7 @@ export function HomeJournalDisplay({
   journals,
   isLoading,
 }: Props) {
-  const delay = firstRender ? DelayMS.ANIMATION.MEDIUM[3] : undefined
+  const delay = firstRender ? DelayMS.ANIMATION.MEDIUM * 4 : undefined
   if (isLoading) {
     return <ActivityIndicator size='large' />
   }

@@ -29,7 +29,7 @@ function _WeekDay({ selectedDate, onSelectedDateChange }: Props) {
   )
 
   return (
-    <Animated.View entering={FadeIn.delay(DelayMS.ANIMATION.MEDIUM[1])}>
+    <Animated.View entering={FadeIn.delay(DelayMS.ANIMATION.MEDIUM * 2)}>
       <GradientBox>
         <View style={styles.monthBox}>
           <H1 style={{ color: theme.colors.surface }}>

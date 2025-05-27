@@ -1,5 +1,4 @@
 export * from './supabase'
-export * from './gemini'
 export * from './i18n'
 export * from './tanstack'
-export * from './theme'
+export * from './gemini'

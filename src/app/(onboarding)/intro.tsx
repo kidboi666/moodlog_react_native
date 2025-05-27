@@ -27,12 +27,12 @@ export default function IntroScreen() {
   return (
     <ScreenView edges={['bottom']}>
       <View style={styles.content}>
-        <Animated.View entering={FadeIn.delay(DelayMS.ANIMATION.LONG[0])}>
+        <Animated.View entering={FadeIn.delay(DelayMS.ANIMATION.LONG)}>
           <ShakeEmoji emoji='👋' />
           <H1>무드로그에 오신 것을 환영합니다!</H1>
         </Animated.View>
         <Animated.View
-          entering={FadeIn.delay(DelayMS.ANIMATION.LONG[1])}
+          entering={FadeIn.delay(DelayMS.ANIMATION.LONG * 2)}
           style={styles.descriptionBox}
         >
           <H5 style={{ color: theme.colors.secondary }}>
@@ -44,13 +44,13 @@ export default function IntroScreen() {
           </H5>
         </Animated.View>
         <Animated.View
-          entering={FadeIn.delay(DelayMS.ANIMATION.LONG[2])}
+          entering={FadeIn.delay(DelayMS.ANIMATION.LONG * 3)}
           style={styles.letsGo}
         >
           <H3>함께 무드로그를 시작해볼까요?</H3>
         </Animated.View>
       </View>
-      <Animated.View entering={FadeIn.delay(DelayMS.ANIMATION.LONG[3])}>
+      <Animated.View entering={FadeIn.delay(DelayMS.ANIMATION.LONG * 4)}>
         <IconButton
           icon='arrow-right'
           mode='contained'

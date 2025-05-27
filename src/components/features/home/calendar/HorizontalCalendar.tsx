@@ -62,7 +62,7 @@ export function HorizontalCalendar({
             animated: true,
           })
         }
-      }, DelayMS.ANIMATION.LONG[0])
+      }, DelayMS.ANIMATION.LONG)
     }
 
     return () => clearTimeout(timeout)

@@ -1,3 +1,4 @@
+import { Feather } from '@expo/vector-icons'
 import { memo, useRef, useState } from 'react'
 import {
   Animated,
@@ -10,10 +11,9 @@ import {
   View,
 } from 'react-native'
 import { PinchGestureHandler, State } from 'react-native-gesture-handler'
+import { IconButton } from 'react-native-paper'
 
-import { IconButton } from '@/components/shared/index'
 import { Maybe } from '@/types'
-import { Feather, MaterialIcons } from '@expo/vector-icons'
 
 interface Props {
   visible: boolean

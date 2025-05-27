@@ -6,6 +6,7 @@ import { StyleSheet, View } from 'react-native'
 import { Card, Switch, Text, useTheme } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
+import { queryKeys } from '@/constants'
 import { useCalendar } from '@/hooks'
 import { getTodayAiResponseStatus } from '@/services'
 
@@ -20,7 +21,7 @@ function _AiResponseToggle({ enabled, onToggle }: Props) {
   const theme = useTheme()
 
   const { data: aiStatus } = useQuery({
-    queryKey: ['ai-response-status', todayString],
+    queryKey: queryKeys.get.aiResponseStatus(todayString),
     queryFn: () => getTodayAiResponseStatus(todayString),
   })
 

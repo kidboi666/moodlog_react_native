@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useMemo, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Avatar, useTheme } from 'react-native-paper'
+import { Avatar } from 'react-native-paper'
 
 import { ProfileMenuItem } from '@/components/features/setting'
 import { BaseText, ScreenView } from '@/components/shared'
@@ -12,8 +11,6 @@ import type { NewUserInfo } from '@/types'
 import { getDaysSinceSignup } from '@/utils'
 
 export default function ProfileScreen() {
-  const theme = useTheme()
-  const { t } = useTranslation()
   const session = useAuth(state => state.session)
   const { data: userInfo } = useQuery(
     UserQueries.getUserInfo(session?.user.id ?? ''),
