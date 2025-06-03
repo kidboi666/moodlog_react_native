@@ -1,4 +1,3 @@
-export * from './AiPromptZone'
 export * from './calendar/DateCountDot'
 export * from './calendar/HorizontalCalendar'
 export * from './calendar/HorizontalCalendarContent'

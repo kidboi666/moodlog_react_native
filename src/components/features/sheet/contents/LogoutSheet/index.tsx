@@ -2,9 +2,9 @@ import { supabase } from '@/lib/supabase'
 import { memo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, StyleSheet, View } from 'react-native'
-import { Text, useTheme } from 'react-native-paper'
+import { Button, Text, useTheme } from 'react-native-paper'
 
-import { Button, H3 } from '@/components/shared'
+import { H3 } from '@/components/shared'
 import type { BottomSheetProps, BottomSheetType } from '@/types'
 import { BottomSheetContainer } from '../../BottomSheetContainer'
 
@@ -30,7 +30,7 @@ function _LogoutSheet({
         {t('settings.logout.confirmMessage')}
       </Text>
       <View style={styles.contentBox}>
-        <Button variant='warning' onPress={handleLogout}>
+        <Button buttonColor={theme.colors.error} onPress={handleLogout}>
           {t('auth.logout')}
         </Button>
         <Button onPress={hideBottomSheet}>{t('common.cancel')}</Button>
@@ -38,6 +38,7 @@ function _LogoutSheet({
     </BottomSheetContainer>
   )
 }
+
 const styles = StyleSheet.create({
   title: {
     textAlign: 'center',

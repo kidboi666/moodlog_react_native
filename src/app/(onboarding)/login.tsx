@@ -1,16 +1,11 @@
 import { useFocusEffect, useLocalSearchParams } from 'expo-router'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  ActivityIndicator,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Button, Text, useTheme } from 'react-native-paper'
+import Animated, { FadeIn } from 'react-native-reanimated'
 
-import { Delay, GoogleIcon, H1, H3, ScreenView } from '@/components/shared'
+import { GoogleIcon, H1, H3, ScreenView } from '@/components/shared'
 import { DelayMS } from '@/constants'
 import {
   useSignInAnonymously,
@@ -19,8 +14,6 @@ import {
 } from '@/queries'
 import { useStepProgress } from '@/store'
 import { toSingle } from '@/utils'
-import { TFunction } from 'i18next'
-import Animated, { FadeIn } from 'react-native-reanimated'
 
 export default function LoginScreen() {
   const { draftUserName } = useLocalSearchParams()

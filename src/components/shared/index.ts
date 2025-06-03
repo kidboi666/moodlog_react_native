@@ -1,4 +1,3 @@
-export * from './BaseText'
 export * from './ContainerFog'
 export * from './Delay'
 export * from './FormInput'

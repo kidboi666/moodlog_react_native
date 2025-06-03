@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { Text } from 'react-native-paper'
 
-import { BaseText, H2, H3 } from '@/components/shared'
+import { H2, H3 } from '@/components/shared'
 import { Layout } from '@/constants'
 import { DayBox } from './DayBox'
 

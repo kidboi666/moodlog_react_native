@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Avatar } from 'react-native-paper'
+import { Avatar, Text } from 'react-native-paper'
 
 import { ProfileMenuItem } from '@/components/features/setting'
-import { BaseText, ScreenView } from '@/components/shared'
+import { ScreenView } from '@/components/shared'
 import { UserQueries } from '@/queries'
 import { useAuth } from '@/store'
 import type { NewUserInfo } from '@/types'
@@ -36,7 +36,7 @@ export default function ProfileScreen() {
   if (!session) {
     return (
       <ScreenView>
-        <BaseText>사용자 정보를 불러오지 못했습니다.</BaseText>
+        <Text>사용자 정보를 불러오지 못했습니다.</Text>
       </ScreenView>
     )
   }
