@@ -15,22 +15,27 @@ import {
 
 import { baseVariants, customVariants } from '@/configs'
 import { useAppTheme } from '@/store'
+import { useMaterial3Theme } from '@pchmn/expo-material3-theme'
 
 export function UnifiedThemeProvider({ children }: PropsWithChildren) {
   const colorScheme = useColorScheme()
   const { initialize, updateSystemTheme, isInitialized, resolvedTheme } =
     useAppTheme()
+  const { theme } = useMaterial3Theme({ sourceColor: '#ff4940' })
   const fontConfig = configureFonts({
     config: {
       ...baseVariants,
       ...customVariants,
     },
   })
-  const themeConfig = resolvedTheme === 'dark' ? MD3DarkTheme : MD3LightTheme
+  const themeConfig =
+    resolvedTheme === 'dark'
+      ? { ...MD3DarkTheme, colors: theme.dark }
+      : { ...MD3LightTheme, colors: theme.light }
   const paperTheme = {
     ...themeConfig,
     fonts: fontConfig,
-    roundness: 16,
+    roundness: 8,
   }
   const navigationTheme = resolvedTheme === 'dark' ? DarkTheme : DefaultTheme
   const statusBarStyle =

@@ -3,9 +3,8 @@ import i18n from 'i18next'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
-import { APP_VERSION, FONT_SIZE, STORAGE_KEY } from '@/constants'
+import { APP_VERSION, STORAGE_KEY } from '@/constants'
 import {
-  FontSize,
   FontTheme,
   Languages,
   Settings,
@@ -28,7 +27,6 @@ const initialSettings: Settings = {
   language: Languages.KO,
   timeFormat: TimeFormat.HOUR_12,
   fontTheme: FontTheme.LEE_SEOYUN,
-  fontSize: FONT_SIZE.$5,
 }
 
 export const useApp = create<StoreState>()(

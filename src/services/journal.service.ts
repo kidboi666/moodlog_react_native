@@ -40,7 +40,6 @@ export async function generateAiResponse(
   content: string,
   moodName: MoodName,
 ) {
-  const today = new Date().toISOString().split('T')[0]
   const { canGenerateResponse } = await getTodayAiResponseStatus(localDate)
 
   if (!canGenerateResponse) {
@@ -49,7 +48,7 @@ export async function generateAiResponse(
 
   const gemini = getGemini()
   const response = await gemini.generateJournalResponse(content, moodName)
-  console.log(response.text)
+
   if (response.text) {
     await sqliteDb
       .update(journals)

@@ -21,6 +21,7 @@ export default function HomeScreen() {
   const selectedDateJournals = data?.filter(
     journal => journal.localDate === selectedDate,
   )
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       setFirstRender(false)

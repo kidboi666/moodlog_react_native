@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 import { Stack, useGlobalSearchParams, useRouter } from 'expo-router'
-import { useMemo } from 'react'
 import { IconButton, useTheme } from 'react-native-paper'
 
 import { JournalTimeZone } from '@/components/features/journal'
@@ -30,15 +29,6 @@ export default function JournalLayout() {
     })
   }
 
-  const memoizedStyles = useMemo(
-    () => ({
-      container: {
-        backgroundColor: theme.colors.background,
-      },
-    }),
-    [theme],
-  )
-
   return (
     <Stack
       screenOptions={{
@@ -55,8 +45,8 @@ export default function JournalLayout() {
           />
         ),
         headerShadowVisible: false,
-        headerStyle: memoizedStyles.container,
-        contentStyle: memoizedStyles.container,
+        headerStyle: { backgroundColor: theme.colors.background },
+        contentStyle: { backgroundColor: theme.colors.background },
         gestureEnabled: true,
       }}
     >

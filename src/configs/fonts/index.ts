@@ -17,7 +17,7 @@ export const fontsToLoad = {
 }
 
 const baseFont = {
-  fontFamily: 'Pretendard-Regular',
+  fontFamily: 'LeeSeoyun-Regular',
 } as const
 
 export const baseVariants = configureFonts({ config: baseFont })
@@ -25,26 +25,32 @@ export const baseVariants = configureFonts({ config: baseFont })
 export const customVariants = {
   h1: {
     fontWeight: 'bold',
+    fontFamily: 'LeeSeoyun-Regular',
     fontSize: 36,
   },
   h2: {
     fontWeight: 'bold',
+    fontFamily: 'LeeSeoyun-Regular',
     fontSize: 30,
   },
   h3: {
     fontWeight: 'bold',
+    fontFamily: 'LeeSeoyun-Regular',
     fontSize: 24,
   },
   h4: {
     fontWeight: 'bold',
+    fontFamily: 'LeeSeoyun-Regular',
     fontSize: 20,
   },
   h5: {
     fontWeight: 'bold',
+    fontFamily: 'LeeSeoyun-Regular',
     fontSize: 16,
   },
   h6: {
     fontWeight: 'bold',
+    fontFamily: 'LeeSeoyun-Regular',
     fontSize: 14,
   },
 } as const

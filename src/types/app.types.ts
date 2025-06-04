@@ -1,7 +1,5 @@
 import { FONT_SIZE } from '@/constants'
 
-export type FontSize = keyof typeof FONT_SIZE
-
 export enum Languages {
   EN = 'en',
   KO = 'ko',
@@ -46,7 +44,6 @@ export enum MoodLimits {
 }
 
 export type Settings = {
-  fontSize: FontSize
   fontTheme: FontTheme
   language: Languages
   timeFormat: TimeFormat
