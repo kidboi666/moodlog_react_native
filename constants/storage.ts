@@ -1,0 +1,15 @@
+export const STORAGE_KEY = {
+  AUTH: 'auth-storage',
+  THEME: 'theme-storage',
+  JOURNAL: 'journals-storage',
+  USER_INFO: 'user-info-storage',
+  SETTINGS: 'settings-storage',
+  BACKUP: 'journals-storage-backup-storage',
+  JOURNALS_STATS: 'journals-statistics-storage',
+  MOOD_STATS: 'mood-statistics-storage',
+  FIRST_LAUNCH: 'first-launch-date-storage',
+  TOKEN: 'auth-token',
+  APP: 'app-storage',
+  DRAFT: 'draft-storage',
+  MOOD: 'mood-storage',
+} as const

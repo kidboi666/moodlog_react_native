@@ -1,45 +1,71 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import { Tabs } from 'expo-router'
+import { View } from 'react-native'
+import { IconButton, useTheme } from 'react-native-paper'
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function TabsLayout() {
+  const { colors } = useTheme()
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
+        sceneStyle: { backgroundColor: colors.background },
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          borderTopWidth: 0,
+          paddingTop: 14,
+          height: 80,
+          borderTopLeftRadius: 40,
+          borderTopRightRadius: 40,
+          backgroundColor: colors.elevation.level2,
+        },
+      }}
+    >
       <Tabs.Screen
-        name="index"
+        name='index'
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          href: '/',
+          tabBarIcon: ({ focused }) => (
+            <IconButton icon='home' selected={focused} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name='entries'
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          href: '/entries',
+          tabBarIcon: ({ focused }) => (
+            <IconButton icon='book' selected={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name='write'
+        options={{
+          href: '/write',
+          tabBarIcon: ({ focused }) => (
+            <IconButton icon='plus' mode='contained' selected={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name='statistic'
+        options={{
+          href: null,
+          tabBarIcon: ({ focused }) => (
+            <IconButton icon='plus' mode='contained' selected={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name='setting'
+        options={{
+          href: '/setting',
+          tabBarIcon: ({ focused }) => (
+            <IconButton icon='cog' selected={focused} />
+          ),
         }}
       />
     </Tabs>
-  );
+  )
 }
