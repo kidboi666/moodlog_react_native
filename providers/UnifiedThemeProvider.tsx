@@ -24,7 +24,7 @@ export function UnifiedThemeProvider({ children }: PropsWithChildren) {
   const colorScheme = useColorScheme()
   const { initialize, updateSystemTheme, isInitialized, resolvedTheme } =
     useAppTheme()
-  const { theme } = useMaterial3Theme({ sourceColor: Colors.mood.calm })
+  const { theme } = useMaterial3Theme({ sourceColor: Colors.mood.angry })
 
   const fontConfig = configureFonts({
     config: {

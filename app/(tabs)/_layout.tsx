@@ -1,5 +1,4 @@
 import { Tabs } from 'expo-router'
-import { View } from 'react-native'
 import { IconButton, useTheme } from 'react-native-paper'
 
 export default function TabsLayout() {
@@ -11,10 +10,12 @@ export default function TabsLayout() {
         headerShown: false,
         sceneStyle: { backgroundColor: colors.background },
         tabBarShowLabel: false,
+        animation: 'fade',
         tabBarStyle: {
           borderTopWidth: 0,
+          position: 'absolute',
           paddingTop: 14,
-          height: 80,
+          height: 100,
           borderTopLeftRadius: 40,
           borderTopRightRadius: 40,
           backgroundColor: colors.elevation.level2,
