@@ -18,7 +18,7 @@ const SheetContentComponents = {
 }
 
 export const BottomSheet = memo(() => {
-  const theme = useTheme()
+  const { colors } = useTheme()
   const bottomSheetRef = useRef<GorhomBottomSheet>(null)
   const {
     isOpen,
@@ -78,11 +78,15 @@ export const BottomSheet = memo(() => {
       enableDynamicSizing={false}
       onChange={handleSheetChange}
       backdropComponent={renderBackdrop}
+      handleIndicatorStyle={{ backgroundColor: colors.onBackground }}
+      handleStyle={{ backgroundColor: colors.background }}
+      backgroundStyle={{ backgroundColor: colors.background }}
+      style={{ backgroundColor: colors.background }}
       keyboardBehavior='interactive'
       keyboardBlurBehavior='restore'
     >
       <BottomSheetView
-        style={[styles.container, { backgroundColor: theme.colors.background }]}
+        style={[styles.container, { backgroundColor: colors.background }]}
       >
         {renderContent()}
       </BottomSheetView>

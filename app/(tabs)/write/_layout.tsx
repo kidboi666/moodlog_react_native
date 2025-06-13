@@ -26,7 +26,12 @@ export default function WriteLayout() {
         }}
       >
         <Stack.Screen name='index' />
-        <Stack.Screen name='journal' />
+        <Stack.Screen
+          name='journal'
+          options={{
+            headerRight: () => <IconButton icon='send' onPress={() => null} />,
+          }}
+        />
       </Stack>
     </StepProgressProvider>
   )

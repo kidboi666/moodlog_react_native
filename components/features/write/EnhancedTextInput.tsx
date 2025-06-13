@@ -106,9 +106,6 @@ export function EnhancedTextInput({
         enabled={aiResponseEnabled}
         onToggle={onAiResponseChange}
       />
-      <View style={styles.buttonBox}>
-        <IconButton onPress={onSubmit} icon='send' />
-      </View>
     </View>
   )
 }

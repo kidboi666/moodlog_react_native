@@ -1,5 +1,5 @@
 export * from './app.store'
 export * from './bottom-sheet.store'
 export * from './draft.store'
-export * from './step-progress.store'
+export * from '../context/step-progress.context'
 export * from './theme.store'

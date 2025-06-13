@@ -44,6 +44,7 @@ export default function TabsLayout() {
         name='write'
         options={{
           href: '/write',
+          tabBarStyle: { display: 'none' },
           tabBarIcon: ({ focused }) => (
             <IconButton icon='plus' mode='contained' selected={focused} />
           ),
