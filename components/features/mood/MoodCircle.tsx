@@ -7,7 +7,7 @@ import { Colors } from '@/constants'
 import { MoodName } from '@/types'
 
 interface Props {
-  onPress: (moodName: string) => void
+  onPress: (moodName: MoodName) => void
   name: MoodName
   duration: number
 }

@@ -6,7 +6,8 @@ import Animated, { FadeIn } from 'react-native-reanimated'
 
 import { ScreenView } from '@/components/shared'
 import { DelayMS } from '@/constants'
-import { useApp, useStepProgress } from '@/store'
+import { useStepProgress } from '@/context'
+import { useApp } from '@/store'
 import { AIPersonalityType } from '@/types'
 
 export default function PersonalityScreen() {

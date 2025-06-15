@@ -1,4 +1,4 @@
-import { Redirect, Stack } from 'expo-router'
+import { Stack } from 'expo-router'
 import { useTheme } from 'react-native-paper'
 
 import { StepDot } from '@/components/shared'

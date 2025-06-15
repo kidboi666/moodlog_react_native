@@ -3,11 +3,12 @@ import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { HelperText, IconButton, Text } from 'react-native-paper'
+import Animated, { FadeIn } from 'react-native-reanimated'
 
 import { FormInput, ScreenView, ShakeEmoji } from '@/components/shared'
 import { DelayMS } from '@/constants'
-import { useApp, useStepProgress } from '@/store'
-import Animated, { FadeIn } from 'react-native-reanimated'
+import { useStepProgress } from '@/context'
+import { useApp } from '@/store'
 
 export default function NickNameScreen() {
   const router = useRouter()

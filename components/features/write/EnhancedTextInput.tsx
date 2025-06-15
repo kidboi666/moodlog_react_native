@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import { IconButton, TextInput, useTheme } from 'react-native-paper'
+import { TextInput, useTheme } from 'react-native-paper'
 import Toast from 'react-native-toast-message'
 
 import { AiResponseToggle } from './AiResponseToggle'
@@ -19,7 +19,6 @@ interface Props {
   contentValue: string
   onContentChange: (content: string) => void
   autoFocus?: boolean
-  onSubmit: () => void
   onAiResponseChange: (aiResponseEnabled: boolean) => void
   aiResponseEnabled: boolean
   onImageUriChange: () => void
@@ -29,7 +28,6 @@ interface Props {
 export function EnhancedTextInput({
   contentValue,
   onContentChange,
-  onSubmit,
   imageUri,
   aiResponseEnabled,
   onAiResponseChange,

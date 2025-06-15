@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native'
 import { useTheme } from 'react-native-paper'
 
-import { useStepProgress } from '@/store'
+import { useStepProgress } from '@/context'
 
 export function StepDot() {
   const theme = useTheme()

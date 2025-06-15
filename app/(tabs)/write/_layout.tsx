@@ -3,10 +3,21 @@ import { IconButton, useTheme } from 'react-native-paper'
 
 import { StepDot } from '@/components/shared'
 import { StepProgressProvider } from '@/providers'
+import { useAddJournal } from '@/queries'
+import { useDraft } from '@/store'
 
 export default function WriteLayout() {
   const router = useRouter()
   const theme = useTheme()
+  const { draft, resetDraft } = useDraft()
+
+  const { mutate: onSubmit } = useAddJournal()
+
+  const handleSubmit = () => {
+    onSubmit(draft)
+    resetDraft()
+  }
+
   return (
     <StepProgressProvider totalSteps={2}>
       <Stack
@@ -29,7 +40,9 @@ export default function WriteLayout() {
         <Stack.Screen
           name='journal'
           options={{
-            headerRight: () => <IconButton icon='send' onPress={() => null} />,
+            headerRight: () => (
+              <IconButton icon='send' onPress={handleSubmit} />
+            ),
           }}
         />
       </Stack>

@@ -5,7 +5,7 @@ import { MoodName } from '@/types'
 import { MoodCircle } from './MoodCircle'
 
 interface Props {
-  onMoodChange: (moodName: string) => void
+  onMoodChange: (moodName: MoodName) => void
   duration: number
 }
 

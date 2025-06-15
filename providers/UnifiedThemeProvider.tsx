@@ -4,6 +4,8 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from '@react-navigation/native'
+import * as NavigationBar from 'expo-navigation-bar'
+import { StatusBar } from 'expo-status-bar'
 import React, { PropsWithChildren, useEffect } from 'react'
 import { Platform, useColorScheme } from 'react-native'
 import {
@@ -17,8 +19,6 @@ import {
 import { baseFontVariants, customFontVariants } from '@/configs'
 import { Colors } from '@/constants'
 import { useAppTheme } from '@/store'
-import * as NavigationBar from 'expo-navigation-bar'
-import { StatusBar } from 'expo-status-bar'
 
 export function UnifiedThemeProvider({ children }: PropsWithChildren) {
   const colorScheme = useColorScheme()

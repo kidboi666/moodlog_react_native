@@ -90,6 +90,7 @@ export default function SettingsScreen() {
   return (
     <AnimatedScreenView
       entering={FadeIn.duration(800)}
+      edges={['bottom']}
       withScroll
       padded
       style={styles.container}

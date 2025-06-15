@@ -1,8 +1,9 @@
-import { ScreenView } from '@/components/shared'
-import { useDev } from '@/hooks'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { List } from 'react-native-paper'
+
+import { ScreenView } from '@/components/shared'
+import { useDev } from '@/hooks'
 
 export default function DevScreen() {
   const { t } = useTranslation()

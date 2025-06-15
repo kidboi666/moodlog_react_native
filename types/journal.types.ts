@@ -1,6 +1,7 @@
 import { InferSelectModel } from 'drizzle-orm'
 
 import { journals } from '@/db/sqlite/schema'
+import { MoodName } from '@/types/mood.types'
 import type { ISODateString, ISOMonthString } from './date.types'
 import { Maybe, Prettify } from './util.types'
 
@@ -15,8 +16,8 @@ export type Journal = Prettify<
 >
 export type JournalDraft = {
   content: string
+  moodName: MoodName
   imageUri: string[]
-  moodName: string
   aiResponseEnabled: boolean
 }
 export type DateJournals = Record<ISODateString, Journal[]>

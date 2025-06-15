@@ -6,7 +6,7 @@ import Animated, { FadeIn } from 'react-native-reanimated'
 
 import { ScreenView, ShakeEmoji } from '@/components/shared'
 import { DelayMS } from '@/constants'
-import { useStepProgress } from '@/store'
+import { useStepProgress } from '@/context'
 
 export default function IntroScreen() {
   const router = useRouter()

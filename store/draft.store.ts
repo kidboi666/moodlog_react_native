@@ -1,27 +1,71 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
 
-import { STORAGE_KEY } from '@/constants'
-import type { JournalDraft } from '@/types'
+import { JournalDraft, MoodLevel, MoodName } from '@/types'
+import { createNewFileName } from '@/utils'
 
 interface StoreState {
-  draft: JournalDraft | null
-  setDraft: (draft: JournalDraft) => void
+  draft: JournalDraft
+  onContentChange: (content: string) => void
+  onMoodNameChange: (moodName: MoodName) => void
+  onMoodLevelChange: (moodLevel: MoodLevel) => void
+  onAiResponseChange: (aiResponseEnabled: boolean) => void
+  onAddImage: () => void
+  resetDraft: () => void
+  onRemoveImage: (imageUris: string[], index: number) => void
 }
 
-export const useDraft = create<StoreState>()(
-  persist(
-    set => ({
-      draft: null,
-      setDraft: draft => set({ draft }),
-    }),
-    {
-      name: STORAGE_KEY.DRAFT,
-      storage: createJSONStorage(() => AsyncStorage),
-      partialize: state => ({
-        draft: state.draft,
-      }),
-    },
-  ),
-)
+const initialDraft = {
+  content: '',
+  moodName: MoodName.HAPPY,
+  imageUri: [],
+  aiResponseEnabled: false,
+}
+
+export const useDraft = create<StoreState>(set => ({
+  draft: initialDraft,
+  resetDraft: () => set({ draft: initialDraft }),
+  onContentChange: (content: string) =>
+    set(state => ({
+      ...state,
+      draft: { ...state.draft, content },
+    })),
+  onMoodNameChange: (moodName: MoodName) =>
+    set(state => ({
+      ...state,
+      draft: { ...state.draft, moodName },
+    })),
+  onMoodLevelChange: (moodLevel: MoodLevel) =>
+    set(state => ({
+      ...state,
+      draft: { ...state.draft, moodLevel },
+    })),
+  onAiResponseChange: (aiResponseEnabled: boolean) =>
+    set(state => ({
+      ...state,
+      draft: { ...state.draft, aiResponseEnabled },
+    })),
+  onAddImage: async () => {
+    try {
+      const newFilePath = await createNewFileName()
+      if (newFilePath) {
+        set(state => ({
+          ...state,
+          draft: {
+            ...state.draft,
+            imageUri: [...state.draft.imageUri, newFilePath],
+          },
+        }))
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  },
+  onRemoveImage: (imageUris: string[], index: number) => {
+    const newImageUris = [...imageUris]
+    newImageUris.splice(index, 1)
+    set(state => ({
+      ...state,
+      draft: { ...state.draft, imageUri: newImageUris },
+    }))
+  },
+}))

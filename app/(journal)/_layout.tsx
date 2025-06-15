@@ -40,7 +40,7 @@ export default function JournalLayout() {
           <IconButton
             icon='arrow-left'
             onPress={() =>
-              source === 'create' ? router.replace('/home') : router.back()
+              source === 'create' ? router.replace('/(tabs)') : router.back()
             }
           />
         ),
