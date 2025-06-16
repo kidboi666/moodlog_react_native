@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
-import { Button, MD3Colors, Text } from 'react-native-paper'
+import { Button, Text, useTheme } from 'react-native-paper'
 
 import { H3 } from '@/components/shared'
 import { useDeleteJournal } from '@/queries'
@@ -13,6 +13,7 @@ function _DeleteJournalSheet({
   localDate,
   hideBottomSheet,
 }: BottomSheetProps[BottomSheetType.DELETE_JOURNAL]) {
+  const { colors } = useTheme()
   const { t } = useTranslation()
   const { mutate: onDelete, isPending } = useDeleteJournal(
     hideBottomSheet,
@@ -26,7 +27,8 @@ function _DeleteJournalSheet({
       <View style={styles.contentBox}>
         <Button
           mode='contained'
-          buttonColor={MD3Colors.error40}
+          buttonColor={colors.error}
+          textColor={colors.surface}
           onPress={() => onDelete(journalId)}
           disabled={isPending}
           loading={isPending}

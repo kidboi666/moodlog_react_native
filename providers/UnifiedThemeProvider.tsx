@@ -56,7 +56,6 @@ export function UnifiedThemeProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     if (Platform.OS === 'android') {
       NavigationBar.setStyle(resolvedTheme === 'dark' ? 'light' : 'dark')
-      NavigationBar.setVisibilityAsync('hidden')
     }
   }, [resolvedTheme])
 
