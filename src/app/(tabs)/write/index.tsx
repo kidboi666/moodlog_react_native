@@ -4,11 +4,11 @@ import { StyleSheet } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 
-import { MoodList } from '@/src/components/features/mood'
-import { ScreenView } from '@/src/components/shared'
-import { useStepProgress } from '@/src/context'
-import { useDraft } from '@/src/store'
-import { MoodName } from '@/src/types'
+import { useDraft } from '@/src/data/store'
+import { MoodList } from '@/src/features/mood'
+import { ScreenView } from '@/src/shared/components'
+import { useStepProgress } from '@/src/shared/context'
+import { MoodName } from '@/src/shared/types'
 
 const duration = 600
 const AnimatedView = Animated.createAnimatedComponent(ScreenView)

@@ -75,22 +75,54 @@ Zustand Store ← React Query ← Drizzle ORM
 - [ ] 글로벌 에러 경계 구현
 - [ ] Repository 패턴 적용
 
-### Phase 2: 기능별 모듈화
+### Phase 2: 폴더 구조 재구성 (Shared-Features-Data)
+
+현재 폴더들을 다음과 같이 재구성할 예정:
+
+#### **shared** (공통/재사용 가능한 코드)
 ```
-src/
-├── shared/           # 공통 레이어
-│   ├── components/  # 재사용 UI 컴포넌트
-│   ├── hooks/       # 공통 커스텀 훅
-│   └── utils/       # 유틸리티
-├── features/        # 기능별 모듈
-│   ├── journal/     # 일기 기능
-│   ├── statistics/  # 통계 기능
-│   ├── settings/    # 설정 기능
-│   └── onboarding/  # 온보딩 기능
-└── data/           # 데이터 레이어
-    ├── database/   # 데이터베이스
-    ├── api/        # 외부 API
-    └── repositories/ # Repository 패턴
+src/shared/
+├── components/        # src/components/shared + 공통 UI
+├── hooks/            # src/hooks + src/shared/hooks 병합
+├── utils/            # src/utils + src/shared/utils 병합
+├── constants/        # src/constants 이동
+├── types/            # src/types 이동
+├── configs/          # src/configs 이동
+├── lib/              # src/lib 이동
+└── locales/          # src/locales 이동
+```
+
+#### **features** (기능별 모듈)
+```
+src/features/
+├── screens/          # src/app 이동 (라우팅)
+├── journal/
+│   └── components/   # src/components/features/journal 이동
+├── mood/
+│   └── components/   # src/components/features/mood 이동
+├── entries/
+│   └── components/   # src/components/features/entries 이동
+├── write/
+│   └── components/   # src/components/features/write 이동
+├── setting/
+│   └── components/   # src/components/features/setting 이동
+├── home/
+│   └── components/   # src/components/features/home 이동
+├── sheet/
+│   └── components/   # src/components/features/sheet 이동
+└── tab/
+    └── components/   # src/components/features/tab 이동
+```
+
+#### **data** (데이터 관리 계층)
+```
+src/data/
+├── services/         # src/services 이동
+├── queries/          # src/queries 이동
+├── store/            # src/store 이동
+├── context/          # src/context 이동
+├── providers/        # src/providers 이동
+└── db/               # src/db 이동
 ```
 
 ### Phase 3: 고급 패턴 적용

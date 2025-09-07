@@ -2,9 +2,9 @@ import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RadioButton } from 'react-native-paper'
 
-import { ScreenView } from '@/src/components/shared'
-import { useApp } from '@/src/store'
-import { TimeFormat } from '@/src/types'
+import { useApp } from '@/src/data/store'
+import { ScreenView } from '@/src/shared/components'
+import { TimeFormat } from '@/src/shared/types'
 
 export default function Screen() {
   const timeFormat = useApp(state => state.settings.timeFormat)

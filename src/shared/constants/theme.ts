@@ -1,0 +1,51 @@
+export const COLORS = {
+  neutral: {
+    50: '#fafafa',
+    100: '#f5f5f5',
+    200: '#e5e5e5',
+    300: '#d4d4d4',
+    400: '#a3a3a3',
+    500: '#737373',
+    600: '#525252',
+    700: '#404040',
+    800: '#262626',
+    900: '#171717',
+    950: '#0a0a0a',
+  },
+  semantic: {
+    success: {
+      light: '#22c55e',
+      main: '#16a34a',
+      dark: '#15803d',
+      surface: '#f0fdf4',
+    },
+    error: {
+      light: '#ef4444',
+      main: '#dc2626',
+      dark: '#b91c1c',
+      surface: '#fef2f2',
+    },
+    warning: {
+      light: '#f59e0b',
+      main: '#d97706',
+      dark: '#b45309',
+      surface: '#fffbeb',
+    },
+    info: {
+      light: '#3b82f6',
+      main: '#2563eb',
+      dark: '#1d4ed8',
+      surface: '#eff6ff',
+    },
+  },
+  mood: {
+    happy: '#FFD700',
+    sad: '#4682B4',
+    angry: '#FF4500',
+    excited: '#FF69B4',
+    calm: '#20B2AA',
+    tired: '#708090',
+    anxious: '#9932CC',
+    grateful: '#32CD32',
+  },
+} as const

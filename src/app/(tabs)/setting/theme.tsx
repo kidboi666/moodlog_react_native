@@ -2,9 +2,9 @@ import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RadioButton } from 'react-native-paper'
 
-import { ScreenView } from '@/src/components/shared'
-import { useAppTheme } from '@/src/store'
-import type { Theme } from '@/src/types'
+import { useAppTheme } from '@/src/data/store'
+import { ScreenView } from '@/src/shared/components'
+import type { Theme } from '@/src/shared/types'
 
 export default function Screen() {
   const currentTheme = useAppTheme(state => state.currentTheme)

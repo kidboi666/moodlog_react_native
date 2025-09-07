@@ -1,6 +1,6 @@
-import { EnhancedTextInput } from '@/src/components/features/write'
-import { ScreenView } from '@/src/components/shared'
-import { useDraft } from '@/src/store'
+import { useDraft } from '@/src/data/store'
+import { EnhancedTextInput } from '@/src/features/write'
+import { ScreenView } from '@/src/shared/components'
 
 export default function WriteJournalScreen() {
   const {

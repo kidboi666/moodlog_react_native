@@ -1,10 +1,10 @@
 import { Stack, useRouter } from 'expo-router'
 import { IconButton, useTheme } from 'react-native-paper'
 
-import { StepDot } from '@/src/components/shared'
-import { StepProgressProvider } from '@/src/providers'
-import { useAddJournal } from '@/src/queries'
-import { useDraft } from '@/src/store'
+import { StepProgressProvider } from '@/src/data/providers'
+import { useAddJournal } from '@/src/data/queries'
+import { useDraft } from '@/src/data/store'
+import { StepDot } from '@/src/shared/components'
 
 export default function WriteLayout() {
   const router = useRouter()

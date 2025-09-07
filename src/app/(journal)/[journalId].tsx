@@ -7,12 +7,12 @@ import { Divider, Text } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { AiResponseCard } from '@/src/components/features/journal'
-import { FullScreenImageModal, H3 } from '@/src/components/shared'
-import { Colors, DelayMS } from '@/src/constants'
-import { JournalQueries } from '@/src/queries'
-import { MoodName } from '@/src/types'
-import { toSingle } from '@/src/utils'
+import { JournalQueries } from '@/src/data/queries'
+import { AiResponseCard } from '@/src/features/journal'
+import { FullScreenImageModal, H3 } from '@/src/shared/components'
+import { COLORS, DELAY_MS } from '@/src/shared/constants'
+import { MoodName } from '@/src/shared/types'
+import { toSingle } from '@/src/shared/utils'
 
 const AnimatedScreenView = Animated.createAnimatedComponent(SafeAreaView)
 
@@ -37,19 +37,19 @@ export default function JournalScreen() {
 
   return (
     <AnimatedScreenView
-      entering={FadeIn.duration(DelayMS.ANIMATION.LONG)}
+      entering={FadeIn.duration(DELAY_MS.ANIMATION.LONG)}
       style={styles.container}
     >
       <View style={styles.rowBox}>
         <View
           style={[
             styles.moodBar,
-            { backgroundColor: Colors.mood[journal?.moodName as MoodName] },
+            { backgroundColor: COLORS.mood[journal?.moodName as MoodName] },
           ]}
         />
         <View style={styles.contentBox}>
           <View style={styles.moodBox}>
-            <H3 style={{ color: Colors.mood[journal?.moodName as MoodName] }}>
+            <H3 style={{ color: COLORS.mood[journal?.moodName as MoodName] }}>
               {journal.moodName}
             </H3>
           </View>

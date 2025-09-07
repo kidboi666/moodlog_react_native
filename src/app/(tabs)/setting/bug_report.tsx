@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { Alert, StyleSheet, View } from 'react-native'
 import { Button, List, TextInput } from 'react-native-paper'
 
-import { FormInput, ScreenView } from '@/src/components/shared'
+import { FormInput, ScreenView } from '@/src/shared/components'
 
 export default function BugReportScreen() {
   const router = useRouter()

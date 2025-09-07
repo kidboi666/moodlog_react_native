@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { List } from 'react-native-paper'
 
-import { ScreenView } from '@/src/components/shared'
-import { useDev } from '@/src/hooks'
+import { ScreenView } from '@/src/shared/components'
+import { useDev } from '@/src/shared/hooks'
 
 export default function DevScreen() {
   const { t } = useTranslation()

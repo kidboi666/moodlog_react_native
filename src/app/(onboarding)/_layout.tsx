@@ -1,8 +1,8 @@
 import { Stack } from 'expo-router'
 import { useTheme } from 'react-native-paper'
 
-import { StepDot } from '@/src/components/shared'
-import { StepProgressProvider } from '@/src/providers'
+import { StepProgressProvider } from '@/src/data/providers'
+import { StepDot } from '@/src/shared/components'
 
 export default function OnboardingLayout() {
   const { colors } = useTheme()

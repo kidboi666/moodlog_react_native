@@ -51,15 +51,6 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name='statistic'
-        options={{
-          href: null,
-          tabBarIcon: ({ focused }) => (
-            <IconButton icon='plus' mode='contained' selected={focused} />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name='setting'
         options={{
           href: '/setting',

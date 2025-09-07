@@ -1,9 +1,9 @@
 import { useCallback } from 'react'
 import { RadioButton } from 'react-native-paper'
 
-import { ScreenView } from '@/src/components/shared'
-import { useApp } from '@/src/store'
-import type { Languages } from '@/src/types'
+import { useApp } from '@/src/data/store'
+import { ScreenView } from '@/src/shared/components'
+import type { Languages } from '@/src/shared/types'
 
 const languages = [
   { value: 'en', label: 'English' },

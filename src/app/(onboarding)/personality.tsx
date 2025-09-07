@@ -4,15 +4,18 @@ import { StyleSheet, View } from 'react-native'
 import { Button, Card, RadioButton, Text, useTheme } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
-import { ScreenView } from '@/src/components/shared'
-import { DelayMS } from '@/src/constants'
-import { useStepProgress } from '@/src/context'
-import { useApp } from '@/src/store'
-import { AIPersonalityType } from '@/src/types'
+import { useApp } from '@/src/data/store'
+import { ScreenView } from '@/src/shared/components'
+import { DELAY_MS } from '@/src/shared/constants'
+import { AI_PERSONALITIES } from '@/src/shared/constants/common'
+import { useStepProgress } from '@/src/shared/context'
+import { AIPersonalityType } from '@/src/shared/types'
+import { useTranslation } from 'react-i18next'
 
 export default function PersonalityScreen() {
   const theme = useTheme()
   const router = useRouter()
+  const { t } = useTranslation()
   const { setStep } = useStepProgress()
   const { onSettingChange, setOnboardingCompleted } = useApp()
   const [selectedPersonality, setSelectedPersonality] =
@@ -33,16 +36,16 @@ export default function PersonalityScreen() {
   return (
     <ScreenView edges={['bottom']}>
       <Animated.View
-        entering={FadeIn.delay(DelayMS.ANIMATION.LONG)}
+        entering={FadeIn.delay(DELAY_MS.ANIMATION.LONG)}
         style={styles.header}
       >
-        <Text variant='displayMedium'>시작할 준비가 되었어요!</Text>
+        <Text variant='displaySmall'>{t('onboarding.personality.title')}</Text>
         <Text variant='titleMedium'>
-          당신의 일기에 답장해줄 AI의 친절도를 선택하세요.
+          {t('onboarding.personality.description')}
         </Text>
       </Animated.View>
       <Animated.View
-        entering={FadeIn.delay(DelayMS.ANIMATION.LONG * 2)}
+        entering={FadeIn.delay(DELAY_MS.ANIMATION.LONG * 2)}
         style={styles.personalitySection}
       >
         <RadioButton.Group
@@ -71,13 +74,13 @@ export default function PersonalityScreen() {
                         variant='titleMedium'
                         style={styles.personalityTitle}
                       >
-                        {personality.title}
+                        {t(personality.title)}
                       </Text>
                       <Text
                         variant='bodyMedium'
                         style={{ color: theme.colors.onSurfaceVariant }}
                       >
-                        {personality.description}
+                        {t(personality.description)}
                       </Text>
                     </View>
                     <RadioButton value={personality.type} />
@@ -90,15 +93,11 @@ export default function PersonalityScreen() {
       </Animated.View>
 
       <Animated.View
-        entering={FadeIn.delay(DelayMS.ANIMATION.LONG * 3)}
+        entering={FadeIn.delay(DELAY_MS.ANIMATION.LONG * 3)}
         style={styles.submitBox}
       >
-        <Button
-          mode='contained'
-          onPress={handleStartJourney}
-          style={styles.button}
-        >
-          시작하기
+        <Button mode='contained' onPress={handleStartJourney}>
+          {t('common.start')}
         </Button>
       </Animated.View>
     </ScreenView>
@@ -142,26 +141,4 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
   },
-  button: {},
 })
-
-const AI_PERSONALITIES = [
-  {
-    type: AIPersonalityType.RATIONAL,
-    title: '냉철한 분석가',
-    description: '객관적이고 실용적인 조언을 제공합니다',
-    emoji: '🧠',
-  },
-  {
-    type: AIPersonalityType.BALANCED,
-    title: '균형잡힌 조언자',
-    description: '공감과 현실적 조언의 균형을 맞춥니다',
-    emoji: '⚖️',
-  },
-  {
-    type: AIPersonalityType.COMPASSIONATE,
-    title: '다정한 치유자',
-    description: '따뜻한 위로와 깊은 공감을 전합니다',
-    emoji: '💝',
-  },
-]

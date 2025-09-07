@@ -4,12 +4,12 @@ import { FlatList, StyleSheet, View } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
-import { EntriesJournalDisplay } from '@/src/components/features/entries'
-import { EmptyJournal } from '@/src/components/features/journal'
-import { Layout } from '@/src/constants'
-import { JournalQueries } from '@/src/queries'
-import { ISOMonthString, Journal } from '@/src/types'
-import { groupJournalsByDate, groupJournalsByMonth } from '@/src/utils'
+import { JournalQueries } from '@/src/data/queries'
+import { EntriesJournalDisplay } from '@/src/features/entries'
+import { EmptyJournal } from '@/src/features/journal'
+import { LAYOUT } from '@/src/shared/constants'
+import { ISOMonthString, Journal } from '@/src/shared/types'
+import { groupJournalsByDate, groupJournalsByMonth } from '@/src/shared/utils'
 
 type GroupedJournalItem = [string, Journal[]]
 
@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   contentContainer: {
-    paddingBottom: Layout.SPACE.CONTAINER_PADDING_BOTTOM,
-    paddingHorizontal: Layout.SPACE.CONTAINER_HORIZONTAL_PADDING,
+    paddingBottom: LAYOUT.SPACE.CONTAINER_PADDING_BOTTOM,
+    paddingHorizontal: LAYOUT.SPACE.CONTAINER_HORIZONTAL_PADDING,
   },
   spinnerContainer: {
     flex: 1,

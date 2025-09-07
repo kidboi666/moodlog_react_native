@@ -4,9 +4,9 @@ import { StyleSheet, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { ActivityIndicator, useTheme } from 'react-native-paper'
 
-import { BottomSheet } from '@/src/components/features/sheet'
-import { RootProvider } from '@/src/providers'
-import { useApp } from '@/src/store'
+import { RootProvider } from '@/src/data/providers'
+import { useApp } from '@/src/data/store'
+import { BottomSheet } from '@/src/features/sheet'
 
 export default function RootLayout() {
   const [loaded] = useFonts({

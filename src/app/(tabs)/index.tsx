@@ -1,34 +1,19 @@
-import { useQuery } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 
 import {
+  CurrentMonthCalendar,
   HomeJournalDisplay,
-  WeekDay,
   WelcomeZone,
-} from '@/src/components/features/home'
-import { ScreenView } from '@/src/components/shared'
-import { DelayMS } from '@/src/constants'
-import { useCalendar } from '@/src/hooks'
-import { JournalQueries } from '@/src/queries'
+} from '@/src/features/home/components'
+import { useFirstRender, useJournalsByDate } from '@/src/features/home/hooks'
+import { ScreenView } from '@/src/shared/components'
+import { DELAY_MS } from '@/src/shared/constants'
+import { useCalendar } from '@/src/shared/hooks'
 
 export default function HomeScreen() {
   const { selectedDate, onSelectedDateChange } = useCalendar()
-  const [firstRender, setFirstRender] = useState(true)
-  const { data, isLoading } = useQuery(
-    JournalQueries.getJournalsByDate(selectedDate),
-  )
-  const selectedDateJournals = data?.filter(
-    journal => journal.localDate === selectedDate,
-  )
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setFirstRender(false)
-    }, DelayMS.ANIMATION.MEDIUM * 4)
-
-    return () => clearTimeout(timeout)
-  }, [])
+  const { journals, isLoading } = useJournalsByDate(selectedDate)
+  const { firstRender } = useFirstRender()
 
   return (
     <ScreenView
@@ -38,13 +23,13 @@ export default function HomeScreen() {
       contentContainerStyle={styles.container}
     >
       <WelcomeZone />
-      <WeekDay
+      <CurrentMonthCalendar
         selectedDate={selectedDate}
         onSelectedDateChange={onSelectedDateChange}
       />
       <HomeJournalDisplay
-        firstRender={firstRender}
-        journals={selectedDateJournals}
+        delay={firstRender ? DELAY_MS.ANIMATION.MEDIUM * 4 : undefined}
+        journals={journals}
         isLoading={isLoading}
       />
     </ScreenView>

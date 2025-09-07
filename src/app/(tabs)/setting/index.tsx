@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native'
 import { List, Text, useTheme } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
-import { ScreenView } from '@/src/components/shared'
+import { ScreenView } from '@/src/shared/components'
 
 const devSection = __DEV__
   ? {

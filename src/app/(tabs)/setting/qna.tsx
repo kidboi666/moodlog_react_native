@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Alert, StyleSheet } from 'react-native'
 import { Button, List, RadioButton, TextInput } from 'react-native-paper'
 
-import { ScreenView } from '@/src/components/shared'
+import { ScreenView } from '@/src/shared/components'
 
 const categories = [
   { name: 'settings.qna.categoryFeature', value: 'feature' },

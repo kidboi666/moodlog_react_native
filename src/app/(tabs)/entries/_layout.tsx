@@ -2,9 +2,9 @@ import { Stack, useRouter } from 'expo-router'
 import { useLayoutEffect } from 'react'
 import { IconButton, useTheme } from 'react-native-paper'
 
-import { H4 } from '@/src/components/shared'
-import { useCalendar } from '@/src/hooks'
-import { convertMonthString } from '@/src/utils'
+import { H4 } from '@/src/shared/components'
+import { useCalendar } from '@/src/shared/hooks'
+import { convertMonthString } from '@/src/shared/utils'
 
 export default function EntriesLayout() {
   const router = useRouter()
