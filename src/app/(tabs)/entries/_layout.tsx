@@ -15,6 +15,7 @@ export default function EntriesLayout() {
     const monthString = convertMonthString(selectedMonth, prevOrNext)
     onSelectedMonthChange(monthString)
   }
+
   const selectedMonthToRender = selectedMonth.replace('-', '.')
 
   useLayoutEffect(() => {

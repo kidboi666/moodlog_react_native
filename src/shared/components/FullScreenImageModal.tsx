@@ -1,5 +1,5 @@
 import { Feather } from '@expo/vector-icons'
-import { memo, useRef, useState } from 'react'
+import { memo } from 'react'
 import {
   Animated,
   Dimensions,
@@ -10,9 +10,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import { PinchGestureHandler, State } from 'react-native-gesture-handler'
+import { PinchGestureHandler } from 'react-native-gesture-handler'
 import { IconButton } from 'react-native-paper'
 
+import { useImageZoom } from '@/src/features/journal/hooks/useImageZoom'
 import { Maybe } from '@/src/shared/types'
 
 interface Props {
@@ -22,45 +23,14 @@ interface Props {
 }
 
 function _FullScreenImageModal({ visible, imageUri, onClose }: Props) {
-  const [currentScale, setCurrentScale] = useState(1)
-  const scale = useRef(new Animated.Value(1)).current
-  const pinchRef = useRef(null)
-  const resetScale = () => {
-    Animated.timing(scale, {
-      toValue: 1,
-      duration: 200,
-      useNativeDriver: true,
-    }).start(() => setCurrentScale(1))
-  }
-  const zoomIn = () => {
-    Animated.timing(scale, {
-      toValue: 2,
-      duration: 200,
-      useNativeDriver: true,
-    }).start(() => setCurrentScale(2))
-  }
-  const onPinchGestureEvent = Animated.event(
-    [{ nativeEvent: { scale: scale } }],
-    { useNativeDriver: true },
-  )
+  const {
+    scale,
+    pinchRef,
+    onLongPress,
+    onPinchGestureEvent,
+    onPinchHandlerStateChange,
+  } = useImageZoom()
 
-  const onPinchHandlerStateChange = (event: any) => {
-    if (event.nativeEvent.oldState === State.ACTIVE) {
-      const newScale = currentScale * (event.nativeEvent.scale || 1)
-      setCurrentScale(newScale)
-      scale.setValue(newScale)
-      if (newScale < 0.9) {
-        resetScale()
-      }
-    }
-  }
-  const handleLongPress = () => {
-    if (currentScale !== 1) {
-      resetScale()
-    } else {
-      zoomIn()
-    }
-  }
   return (
     <Modal
       visible={visible}
@@ -85,7 +55,7 @@ function _FullScreenImageModal({ visible, imageUri, onClose }: Props) {
             <TouchableOpacity
               activeOpacity={1}
               onPress={onClose}
-              onLongPress={handleLongPress}
+              onLongPress={onLongPress}
               delayLongPress={200}
             >
               <Animated.Image
