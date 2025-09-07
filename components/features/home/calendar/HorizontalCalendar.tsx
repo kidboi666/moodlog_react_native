@@ -50,7 +50,7 @@ export function HorizontalCalendar({
   }, [currentYear, currentMonth, dateCount])
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout
+    let timeout: number
 
     if (selectedDate) {
       const selectedIndex = getDateFromISODate(selectedDate)

@@ -10,6 +10,7 @@ import { useApp } from '@/store'
 
 export default function RootLayout() {
   const [loaded] = useFonts({
+    'Pretendard-Regular': require('../assets/fonts/Pretendard-Regular.ttf'),
     'LeeSeoyun-Regular': require('../assets/fonts/LeeSeoyun-Regular.ttf'),
   })
 

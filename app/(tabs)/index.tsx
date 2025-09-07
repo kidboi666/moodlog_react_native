@@ -26,6 +26,7 @@ export default function HomeScreen() {
     const timeout = setTimeout(() => {
       setFirstRender(false)
     }, DelayMS.ANIMATION.MEDIUM * 4)
+
     return () => clearTimeout(timeout)
   }, [])
 
