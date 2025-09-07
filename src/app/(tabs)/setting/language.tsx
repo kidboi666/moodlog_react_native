@@ -15,8 +15,8 @@ export default function Screen() {
   const onSettingChange = useApp(state => state.onSettingChange)
 
   const handleValueChange = useCallback(
-    (language: string) => {
-      onSettingChange('language', language as Languages)
+    async (language: string) => {
+      await onSettingChange('language', language as Languages)
     },
     [onSettingChange],
   )

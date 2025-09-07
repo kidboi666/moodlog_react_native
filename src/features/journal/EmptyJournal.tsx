@@ -23,6 +23,7 @@ export function EmptyJournal({ source }: Props) {
       </View>
     )
   }
+
   return (
     <Card style={styles.homeContainer}>
       <H4 style={styles.title}>{t('common.fallback.today')}</H4>

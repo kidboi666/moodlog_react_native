@@ -15,8 +15,8 @@ export const useDev = () => {
     useApp.persist.clearStorage()
   }
 
-  const resetDatabase = () => {
-    deleteDatabaseAsync('moodlog.db')
+  const resetDatabase = async () => {
+    await deleteDatabaseAsync('moodlog.db')
   }
 
   return {

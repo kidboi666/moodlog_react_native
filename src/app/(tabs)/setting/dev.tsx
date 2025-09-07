@@ -66,6 +66,7 @@ export default function DevScreen() {
     </ScreenView>
   )
 }
+
 const styles = StyleSheet.create({
   contentBox: {
     gap: 16,

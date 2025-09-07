@@ -233,6 +233,12 @@ export const ko = {
       description: '일기 작성 후 AI가 위로와 격려의 메시지를 보내드려요.',
       alreadyReceived: '오늘은 이미 AI 답변을 받으셨어요.',
     },
+    dialog: {
+      deleteImage: {
+        title: '이미지 삭제',
+        description: '이 이미지를 커버 이미지에서 삭제하시겠습니까?',
+      },
+    },
   },
   journal: {
     aiResponse: {

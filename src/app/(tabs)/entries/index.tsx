@@ -1,15 +1,13 @@
-import { useQuery } from '@tanstack/react-query'
 import { useGlobalSearchParams } from 'expo-router'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
-import { JournalQueries } from '@/src/data/queries'
-import { EntriesJournalDisplay } from '@/src/features/entries'
+import { EntriesJournalDisplay } from '@/src/features/entries/components'
+import { useMonthlyEntries } from '@/src/features/entries/hooks'
 import { EmptyJournal } from '@/src/features/journal'
 import { LAYOUT } from '@/src/shared/constants'
 import { ISOMonthString, Journal } from '@/src/shared/types'
-import { groupJournalsByDate, groupJournalsByMonth } from '@/src/shared/utils'
 
 type GroupedJournalItem = [string, Journal[]]
 
@@ -18,24 +16,20 @@ const AnimatedScreenView = Animated.createAnimatedComponent(View)
 export default function EntriesScreen() {
   const { selectedMonth: monthString } = useGlobalSearchParams()
   const selectedMonth = monthString as ISOMonthString
-  const { data: journals, isFetching } = useQuery(
-    JournalQueries.getJournalsByMonth(selectedMonth),
-  )
-  const groupedJournalsByMonth = journals && groupJournalsByMonth(journals)
-  const monthlyJournals = groupedJournalsByMonth?.[selectedMonth] || []
-  const groupedJournalsByDate = groupJournalsByDate(monthlyJournals)
+  const { isLoading, journals } = useMonthlyEntries(selectedMonth)
 
-  if (isFetching) {
+  if (isLoading) {
     return (
       <View style={styles.spinnerContainer}>
         <ActivityIndicator size='large' />
       </View>
     )
   }
+
   return (
     <AnimatedScreenView entering={FadeIn.duration(800)}>
       <FlatList
-        data={groupedJournalsByDate}
+        data={journals}
         keyExtractor={(item: GroupedJournalItem) => item[0]}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>

@@ -1,13 +1,11 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { useQuery } from '@tanstack/react-query'
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { Card, Switch, Text, useTheme } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
-import { getTodayAiResponseStatus } from '@/src/data/services'
-import { QueryKeys } from '@/src/shared/constants'
+import { useAiUsageCheck } from '@/src/features/write/hooks'
 import { useCalendar } from '@/src/shared/hooks'
 
 interface Props {
@@ -19,13 +17,7 @@ function _AiResponseToggle({ enabled, onToggle }: Props) {
   const { t } = useTranslation()
   const { todayString } = useCalendar()
   const theme = useTheme()
-
-  const { data: aiStatus } = useQuery({
-    queryKey: QueryKeys.get.aiResponseStatus(todayString),
-    queryFn: () => getTodayAiResponseStatus(todayString),
-  })
-
-  const isDisabled = aiStatus?.hasAiResponse || false
+  const isAiUsageExceeded = useAiUsageCheck(todayString)
 
   return (
     <Animated.View entering={FadeIn.duration(400)}>
@@ -44,7 +36,7 @@ function _AiResponseToggle({ enabled, onToggle }: Props) {
                 {t('write.aiResponse.title')}
               </Text>
               <Text variant='bodySmall' style={styles.description}>
-                {isDisabled
+                {isAiUsageExceeded
                   ? t('write.aiResponse.alreadyReceived')
                   : t('write.aiResponse.description')}
               </Text>
@@ -53,7 +45,7 @@ function _AiResponseToggle({ enabled, onToggle }: Props) {
           <Switch
             value={enabled}
             onValueChange={onToggle}
-            disabled={isDisabled}
+            disabled={isAiUsageExceeded}
           />
         </Card.Content>
       </Card>

@@ -1,5 +1,6 @@
 import { useDraft } from '@/src/data/store'
 import { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
 
 export function useDiaryEditor() {
@@ -10,19 +11,20 @@ export function useDiaryEditor() {
     onAiResponseChange,
     onRemoveImage,
   } = useDraft()
+  const { t } = useTranslation()
 
   const handleImagePress = useCallback(
     (index: number) => {
       Alert.alert(
-        '이미지 삭제',
-        '이 이미지를 삭제하시겠습니까?',
+        t('write.dialog.deleteImage.title'),
+        t('write.dialog.deleteImage.description'),
         [
           {
-            text: '취소',
+            text: t('common.cancel'),
             style: 'cancel',
           },
           {
-            text: '삭제',
+            text: t('common.delete'),
             style: 'destructive',
             onPress: () => onRemoveImage(draft.imageUri, index),
           },

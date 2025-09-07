@@ -1,15 +1,12 @@
-import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { TextInput } from 'react-native-paper'
-import Toast from 'react-native-toast-message'
 
-import { useDraft } from '@/src/data/store'
 import {
   AiResponseToggle,
   CoverImagePicker,
 } from '@/src/features/write/components'
-import { useDiaryEditor } from '@/src/features/write/hooks/useDiaryEditor'
+import { useDiaryEditor } from '@/src/features/write/hooks'
 import { ScreenView } from '@/src/shared/components'
 
 export default function WriteJournalScreen() {
