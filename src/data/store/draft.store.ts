@@ -23,27 +23,33 @@ const initialDraft = {
 
 export const useDraft = create<StoreState>(set => ({
   draft: initialDraft,
+
   resetDraft: () => set({ draft: initialDraft }),
+
   onContentChange: (content: string) =>
     set(state => ({
       ...state,
       draft: { ...state.draft, content },
     })),
+
   onMoodNameChange: (moodName: MoodName) =>
     set(state => ({
       ...state,
       draft: { ...state.draft, moodName },
     })),
+
   onMoodLevelChange: (moodLevel: MoodLevel) =>
     set(state => ({
       ...state,
       draft: { ...state.draft, moodLevel },
     })),
+
   onAiResponseChange: (aiResponseEnabled: boolean) =>
     set(state => ({
       ...state,
       draft: { ...state.draft, aiResponseEnabled },
     })),
+
   onAddImage: async () => {
     try {
       const newFilePath = await createNewFileName()
@@ -60,6 +66,7 @@ export const useDraft = create<StoreState>(set => ({
       console.error(e)
     }
   },
+
   onRemoveImage: (imageUris: string[], index: number) => {
     const newImageUris = [...imageUris]
     newImageUris.splice(index, 1)
