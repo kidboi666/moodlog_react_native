@@ -1,37 +1,31 @@
-import { useFocusEffect, useRouter } from 'expo-router'
-import { useCallback, useState } from 'react'
+import { useRouter } from 'expo-router'
+import { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { Button, Card, RadioButton, Text, useTheme } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
-import { useApp } from '@/src/data/store'
+import {
+  useOnboardingStep,
+  usePersonalityOnboarding,
+} from '@/src/features/onboarding/hooks'
 import { ScreenView } from '@/src/shared/components'
 import { DELAY_MS } from '@/src/shared/constants'
 import { AI_PERSONALITIES } from '@/src/shared/constants/common'
-import { useStepProgress } from '@/src/shared/context'
 import { AIPersonalityType } from '@/src/shared/types'
-import { useTranslation } from 'react-i18next'
 
 export default function PersonalityScreen() {
-  const theme = useTheme()
   const router = useRouter()
+  const theme = useTheme()
   const { t } = useTranslation()
-  const { setStep } = useStepProgress()
-  const { onSettingChange, setOnboardingCompleted } = useApp()
-  const [selectedPersonality, setSelectedPersonality] =
-    useState<AIPersonalityType>(AIPersonalityType.BALANCED)
+  const { selectedPersonality, selectPersonality, onCompleteJourney } =
+    usePersonalityOnboarding()
+  useOnboardingStep(2)
 
-  const handleStartJourney = async () => {
-    await onSettingChange('aiPersonalityType', selectedPersonality)
-    setOnboardingCompleted()
+  const handleStartJourney = useCallback(async () => {
+    await onCompleteJourney()
     router.replace('/(tabs)')
-  }
-
-  useFocusEffect(
-    useCallback(() => {
-      setStep(2)
-    }, []),
-  )
+  }, [selectedPersonality, onCompleteJourney, router])
 
   return (
     <ScreenView edges={['bottom']}>
@@ -50,9 +44,7 @@ export default function PersonalityScreen() {
       >
         <RadioButton.Group
           value={selectedPersonality}
-          onValueChange={value =>
-            setSelectedPersonality(value as AIPersonalityType)
-          }
+          onValueChange={value => selectPersonality(value as AIPersonalityType)}
         >
           <View style={styles.cardContainer}>
             {AI_PERSONALITIES.map(personality => (
@@ -64,7 +56,7 @@ export default function PersonalityScreen() {
                     borderColor: theme.colors.primary,
                   },
                 ]}
-                onPress={() => setSelectedPersonality(personality.type)}
+                onPress={() => selectPersonality(personality.type)}
               >
                 <Card.Content style={styles.cardContent}>
                   <View style={styles.personalityHeader}>
@@ -91,7 +83,6 @@ export default function PersonalityScreen() {
           </View>
         </RadioButton.Group>
       </Animated.View>
-
       <Animated.View
         entering={FadeIn.delay(DELAY_MS.ANIMATION.LONG * 3)}
         style={styles.submitBox}

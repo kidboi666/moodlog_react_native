@@ -10,15 +10,11 @@ import type { BottomSheetProps, BottomSheetType } from '@/src/shared/types'
 
 function _DeleteJournalSheet({
   journalId,
-  localDate,
   hideBottomSheet,
 }: BottomSheetProps[BottomSheetType.DELETE_JOURNAL]) {
   const { colors } = useTheme()
   const { t } = useTranslation()
-  const { mutate: onDelete, isPending } = useDeleteJournal(
-    hideBottomSheet,
-    localDate,
-  )
+  const { mutate: onDelete, isPending } = useDeleteJournal(hideBottomSheet)
 
   return (
     <BottomSheetContainer>

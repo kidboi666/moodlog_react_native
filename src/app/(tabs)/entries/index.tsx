@@ -5,7 +5,7 @@ import Animated, { FadeIn } from 'react-native-reanimated'
 
 import { EntriesJournalDisplay } from '@/src/features/entries/components'
 import { useMonthlyEntries } from '@/src/features/entries/hooks'
-import { EmptyJournal } from '@/src/features/journal'
+import { EmptyJournal } from '@/src/features/journal/components'
 import { LAYOUT } from '@/src/shared/constants'
 import { ISOMonthString, Journal } from '@/src/shared/types'
 

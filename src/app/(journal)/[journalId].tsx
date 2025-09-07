@@ -1,14 +1,15 @@
-import { useQuery } from '@tanstack/react-query'
 import { Image } from 'expo-image'
 import { useLocalSearchParams } from 'expo-router'
-import { useState } from 'react'
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { Divider, Text } from 'react-native-paper'
+import { ActivityIndicator, Divider, Text } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { JournalQueries } from '@/src/data/queries'
-import { AiResponseCard } from '@/src/features/journal'
+import { AiResponseCard } from '@/src/features/journal/components'
+import {
+  useCoverImageModal,
+  useJournalDetail,
+} from '@/src/features/journal/hooks'
 import { FullScreenImageModal, H3 } from '@/src/shared/components'
 import { COLORS, DELAY_MS } from '@/src/shared/constants'
 import { MoodName } from '@/src/shared/types'
@@ -18,22 +19,19 @@ const AnimatedScreenView = Animated.createAnimatedComponent(SafeAreaView)
 
 export default function JournalScreen() {
   const { journalId } = useLocalSearchParams()
-  const { data: journal } = useQuery(
-    JournalQueries.getJournalById(Number(toSingle(journalId))),
+  const { journal, isLoading, error } = useJournalDetail(
+    Number(toSingle(journalId)),
   )
-  const [modalVisible, setModalVisible] = useState(false)
-  const [selectedImage, setSelectedImage] = useState<string>('')
+  const { modalVisible, selectedImage, onImagePress, onCloseModal } =
+    useCoverImageModal()
 
-  const handleImagePress = (uri: string) => {
-    setSelectedImage(uri)
-    setModalVisible(true)
+  if (!journal || error) {
+    return null
   }
 
-  const handleCloseModal = () => {
-    setModalVisible(false)
+  if (isLoading) {
+    return <ActivityIndicator size='large' />
   }
-
-  if (!journal) return null
 
   return (
     <AnimatedScreenView
@@ -57,10 +55,7 @@ export default function JournalScreen() {
             <ScrollView horizontal>
               <View style={styles.imageBox}>
                 {journal.imageUri.map(uri => (
-                  <TouchableOpacity
-                    key={uri}
-                    onPress={() => handleImagePress(uri)}
-                  >
+                  <TouchableOpacity key={uri} onPress={() => onImagePress(uri)}>
                     <Image style={styles.image} source={uri} />
                   </TouchableOpacity>
                 ))}
@@ -80,11 +75,10 @@ export default function JournalScreen() {
           />
         </View>
       )}
-
       <FullScreenImageModal
         visible={modalVisible}
         imageUri={selectedImage}
-        onClose={handleCloseModal}
+        onClose={onCloseModal}
       />
     </AnimatedScreenView>
   )
@@ -99,7 +93,6 @@ const styles = StyleSheet.create({
   rowBox: {
     flexDirection: 'row',
   },
-
   moodBar: {
     width: '3%',
     borderTopRightRadius: 12,

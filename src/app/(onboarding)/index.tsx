@@ -1,29 +1,22 @@
-import { useFocusEffect, useRouter } from 'expo-router'
-import { useCallback } from 'react'
+import { useRouter } from 'expo-router'
 import { StyleSheet, View } from 'react-native'
 import { IconButton, Text } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
+import { useOnboardingStep } from '@/src/features/onboarding/hooks'
 import { ScreenView, ShakeEmoji } from '@/src/shared/components'
 import { DELAY_MS } from '@/src/shared/constants'
-import { useStepProgress } from '@/src/shared/context'
 import { useTranslation } from 'react-i18next'
 
 export default function IntroScreen() {
   const router = useRouter()
   const { t } = useTranslation()
-  const { setStep } = useStepProgress()
+  const { onNextStep } = useOnboardingStep(0)
 
   const handleNextButton = () => {
-    setStep(1)
+    onNextStep()
     router.push('/nickname')
   }
-
-  useFocusEffect(
-    useCallback(() => {
-      setStep(0)
-    }, []),
-  )
 
   return (
     <ScreenView edges={['bottom']}>

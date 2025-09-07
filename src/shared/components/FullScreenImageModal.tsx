@@ -131,5 +131,4 @@ const styles = StyleSheet.create({
 })
 
 export const FullScreenImageModal = memo(_FullScreenImageModal)
-
 FullScreenImageModal.displayName = 'FullScreenImageModal'

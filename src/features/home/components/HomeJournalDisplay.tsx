@@ -1,6 +1,6 @@
 import { ActivityIndicator } from 'react-native-paper'
 
-import { EmptyJournal, JournalCard } from '@/src/features/journal'
+import { EmptyJournal, JournalCard } from '@/src/features/journal/components'
 import { Delay } from '@/src/shared/components'
 import { Journal, Maybe } from '@/src/shared/types'
 

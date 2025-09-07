@@ -1,20 +1,21 @@
-import { useFocusEffect, useRouter } from 'expo-router'
-import { useCallback } from 'react'
+import { useRouter } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { HelperText, IconButton, Text, useTheme } from 'react-native-paper'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
-import { useValidationNickname } from '@/src/features/onboarding/hooks'
+import {
+  useOnboardingStep,
+  useValidationNickname,
+} from '@/src/features/onboarding/hooks'
 import { FormInput, ScreenView, ShakeEmoji } from '@/src/shared/components'
 import { DELAY_MS } from '@/src/shared/constants'
-import { useStepProgress } from '@/src/shared/context'
 
 export default function NickNameScreen() {
   const router = useRouter()
   const { t } = useTranslation()
-  const { setStep } = useStepProgress()
-  const { colors } = useTheme()
+  const { onNextStep } = useOnboardingStep(1)
+  const theme = useTheme()
   const {
     userName,
     error,
@@ -24,20 +25,16 @@ export default function NickNameScreen() {
   } = useValidationNickname()
 
   const handleNextStep = () => {
-    setStep(2)
+    onNextStep()
     router.push('/personality')
   }
 
-  useFocusEffect(
-    useCallback(() => {
-      setStep(1)
-    }, [setStep]),
-  )
-
   const iconButtonBackgroundColor = isDisabled
-    ? colors.surfaceDisabled
-    : colors.primary
-  const iconColor = isDisabled ? colors.onSurfaceDisabled : colors.onPrimary
+    ? theme.colors.surfaceDisabled
+    : theme.colors.primary
+  const iconColor = isDisabled
+    ? theme.colors.onSurfaceDisabled
+    : theme.colors.onPrimary
 
   return (
     <ScreenView edges={['bottom']}>

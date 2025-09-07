@@ -2,7 +2,7 @@ import { memo } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import { DateHeader } from '@/src/features/entries/components/DateHeader'
-import { JournalCard } from '@/src/features/journal'
+import { JournalCard } from '@/src/features/journal/components'
 import type { ISOMonthString, Journal } from '@/src/shared/types'
 
 interface Props {

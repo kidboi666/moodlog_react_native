@@ -109,7 +109,10 @@ export function useAddJournal() {
   })
 }
 
-export function useDeleteJournal(hideBottomSheet: () => void, date: ISOString) {
+export function useDeleteJournal(
+  hideBottomSheet: () => void,
+  date?: ISOString,
+) {
   const queryClient = useQueryClient()
   const router = useRouter()
   return useMutation({

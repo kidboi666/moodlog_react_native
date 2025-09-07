@@ -1,9 +1,10 @@
 import { MONTHS, WEEK_DAY } from '@/src/shared/constants'
-import type {
+import {
   ISODateString,
   ISOMonthString,
   ISOString,
   MonthKey,
+  TimeFormat,
   WeekDayValue,
 } from '@/src/shared/types'
 import { removeLeadingZero } from './common.utils'
@@ -247,4 +248,22 @@ export function convertMonthString(
   }
   const date = new Date(Number(year), Number(month), 1)
   return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}` as ISOMonthString
+}
+
+/**
+ * Date 객체와 TimeFormat 을 받아 시간 문자열을 반환
+ */
+export function convertTimeToFormat(time: Date, timeFormat: TimeFormat) {
+  if (timeFormat === TimeFormat.HOUR_12) {
+    // 12시간제 형식 (AM/PM)
+    const hours = time.getHours()
+    const ampm = hours >= 12 ? 'PM' : 'AM'
+    const hour12 = hours % 12 || 12 // 0시는 12시로 표시
+    const minutes = String(time.getMinutes()).padStart(2, '0')
+    return `${hour12}:${minutes} ${ampm}`
+  }
+  // 24시간제 형식 (기본값)
+  const hours = String(time.getHours()).padStart(2, '0')
+  const minutes = String(time.getMinutes()).padStart(2, '0')
+  return `${hours}:${minutes}`
 }
