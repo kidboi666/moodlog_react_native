@@ -4,10 +4,6 @@
 
 MoodLog는 일상의 감정을 기록하고 분석하여 더 나은 자신을 만들어가는 여정을 돕는 React Native 기반 크로스플랫폼 앱입니다.
 
-<a href="https://play.google.com/store/apps/details?id=com.kidboi666.moodlog">
-  <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" width="150">
-</a>
-
 [![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactnative.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Expo](https://img.shields.io/badge/Expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37)](https://expo.dev)
