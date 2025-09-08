@@ -4,6 +4,15 @@
 
 ## 📱 프로젝트 개요
 
+<table>
+  <tr>
+    <td><img width="295" height="639" alt="Simulator Screenshot - iPhone 16 - 2025-09-08 at 11 38 31" src="https://github.com/user-attachments/assets/1d766f3c-9bfb-4987-aba7-e4df3724c3e2" /></td>
+    <td><img width="295" height="639" alt="Simulator Screenshot - iPhone 16 - 2025-09-08 at 11 38 36" src="https://github.com/user-attachments/assets/cfce0cd3-9af5-45cb-9f0a-0c9aa87985b0" /></td>
+    <td><img width="295" height="639" alt="Simulator Screenshot - iPhone 16 - 2025-09-08 at 11 47 32" src="https://github.com/user-attachments/assets/ba3f6aa5-df9b-412c-93ea-bc4a6d3d29ae" /></td>
+    <td><img width="295" height="639" alt="Simulator Screenshot - iPhone 16 - 2025-09-08 at 11 52 05" src="https://github.com/user-attachments/assets/1ef6308b-e7cc-4627-ba55-d96a71b90d99" /></td>
+  </tr>
+</table>
+
 Moodlog는 사용자의 감정과 일상을 기록하고, AI가 개인화된 피드백을 제공하는 모바일 애플리케이션입니다. 현재 React Native와 Expo를 기반으로 구축된 초기 MVP 버전으로, iOS, Android, Web 플랫폼을 모두 지원합니다.
 
 **🚀 향후 계획**: 추후 Flutter 및 네이티브 Android 앱으로 마이그레이션을 통한 성능 최적화 및 플랫폼별 특화 기능 구현 예정
